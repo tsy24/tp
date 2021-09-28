@@ -308,6 +308,29 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
+**Use case: Update Elderly’s Details**
+
+**MSS**
+
+1.  User requests to list elderly (that the user is in-charge of)
+2.  NurseyBook shows a list of elderly
+3.  User requests to update the details of a specific elderly in the list
+4.  NurseyBook updates the details for the elderly
+
+    Use case ends.
+
+**Extensions**
+
+ * 2a. The list is empty.
+
+    Use case ends.
+    
+ * 3a. The given index is invalid.
+ 
+     * 3a1. NurseyBook shows an error message.
+
+       Use case resumes at step 2.
+
 *{More to be added}*
 
 ### Non-Functional Requirements
@@ -315,6 +338,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 1.  Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
 2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+4.  Data should be stored locally and without any DBMS.
+5.  Should be for a single user, not multiple users.
+6.  The system should respond within 2 seconds per search query.
+
 
 *{More to be added}*
 
