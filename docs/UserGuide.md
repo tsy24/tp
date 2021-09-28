@@ -127,6 +127,19 @@ Examples:
 * `find John` returns `john` and `John Doe`
 * `find alex david` returns `Alex Yeoh`, `David Li`<br>
   ![result for 'find alex david'](images/findAlexDavidResult.png)
+  
+### Update and elderly's details: `updateElderly`
+
+Update the details of a specific elderly.
+
+Format: `updateElderly INDEX [en/ELDERLY_NAME] [p/PHONE_NUMBER] [a/AGE][r/ROOMNO] [s/SEX] [t/TAG]…​`
+
+* Any number of tags is acceptable (including 0).
+
+### View details of an elderly: `viewDetails`
+
+View details of a specific elderly
+Format: `viewDetails en/ELDERLY_NAME`
 
 ### Deleting a person : `delete`
 
@@ -190,3 +203,5 @@ Action | Format, Examples
 **Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
 **List** | `list`
 **Help** | `help`
+**Update Elderly** | `updateElderly INDEX [en/ELDERLY_NAME] [p/PHONE_NUMBER] [a/AGE][r/ROOMNO] [s/SEX] [t/TAG]…​` <br> e.g., `updateElderly en/John p/92345678 a/77 r/420 s/M t/diabetes`
+**View Elderly Details** | `viewDetails en/ELDERLY_NAME`<br> e.g., `viewDetails en/James`
