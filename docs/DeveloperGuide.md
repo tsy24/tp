@@ -257,13 +257,13 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Target user profile**:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
+* has a need to take care of many elderly with various medical needs
+* has access to a desktop (at work)
 * can type fast
 * prefers typing to mouse interactions
 * is reasonably comfortable using CLI apps
 
-**Value proposition**: manage contacts faster than a typical mouse/GUI driven app
+**Value proposition**: manage elderly details and tasks faster than a typical mouse/GUI driven application
 
 
 ### User stories
@@ -284,12 +284,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* *`    | nurse                       | color-code my tasks                                           | differentiate between the tasks more easily                                   |
 | `* *`    | nurse with a new assignment | view the picture of my new assignment                         | know who I am taking care of                                                  |
 | `* *`    | nurse                       | add additional notes about an elderly                         | understand this person who is under my care better                            |
+|`* * *`   | nurse	                     | add tags of conditions of elderly                             | identify the conditions of elderly easily at a glance                   |
+|`* * *`   | nurse	                     | delete tags of conditions of elderly                          | remove tags that are no longer relevant                                 |
+|`* * *`   | nurse	                     | filter the elderly by their tags                              | filter elderly more easily, and plan group activities efficiently, such as ordering food for patients with diabetes |
 | `* *`    | nurse                       | add a nurse (contact)                                         | reach out to a coworker if I am in need of assistance                         |
 | `* *`    | nurse                       | view nurses and elderly in separate sections                  | have better compartmentalization of information                               |
 | `* *`    | nurse                       | edit the details of a nurse                                   | update the information relevant to the nurse                                  |
 | `* *`    | nurse                       | delete a nurse                                                | remove records of nurses who are no longer relevant to me                     |
 | `* `     | user                        | alternate between light/dark mode                             | have an aesthetically pleasing UI                                             |
-
 *{More to be added}*
 
 ### Use cases
@@ -319,6 +321,35 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
+**Use case: Delete a tag from an elderly**
+
+**MSS**
+
+1.  User requests to list elderly (that the user is in-charge of)
+2.  NurseyBook shows a list of elderly
+3.  User requests to delete tag from a specific elderly in the list
+4.  NurseyBook deletes the tag from the elderly
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+
+  Use case ends.
+
+* 3a. The given index is invalid.
+
+    * 3a1. NurseyBook shows an error message.
+
+      Use case resumes at step 2.
+
+* 3a. Tag to delete from elderly does not exist.
+
+    * 3a1. NurseyBook shows an error message.
+
+      Use case resumes at step 2.
+
 *{More to be added}*
 
 ### Non-Functional Requirements
@@ -333,6 +364,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * **Mainstream OS**: Windows, Linux, Unix, OS-X
 * **Private contact detail**: A contact detail that is not meant to be shared with others
+* **CLI**: Command line interface where users interact with the system by typing in commands
+* **GUI driven application**: Graphical user interface where users interact with the system through visual representations such as buttons and icons
 
 --------------------------------------------------------------------------------------------------------------------
 
