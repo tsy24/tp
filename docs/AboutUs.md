@@ -53,7 +53,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 <img src="images/Superbestron.png" width="200px">
 
 [[github](http://github.com/Superbestron)]
-[[portfolio](team/johndoe.md)]
+[[portfolio](team/superbestron.md)]
 
 * Role: Developer
 * Responsibilities: Integration, Scheduling and Tracking
