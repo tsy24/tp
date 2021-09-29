@@ -274,6 +274,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | -------- | ----------------------------| ------------------------------------------------------------- | ------------------------------------------------------------------------------|
 | `* * *`  | forgetful/busy nurse        | get reminders of medical needs of those under my care         | be reminded of my duties that I may otherwise forget                          |
 | `* * *`  | nurse                       | view all the elderly I am in charge of/added into NurseyBook  | have a full list of elderly for easy reference                                |
+| `* * *`  | nurse                       | view all tasks                                                | I can have an overview of all my tasks                                        |
+| `* * *`  | nurse                       | add a one-off task                                            | I can keep track of what I have to do                                         |
+| `* * *`  | nurse                       | delete a task                                                 | I can have a cleaner workspace                                                |
+| `* * *`  | nurse                       | mark a task as completed                                      | I will not receive reminders that are no longer relevant                      |
 | `* * *`  | nurse                       | view urgent tasks                                             | know what I have to do ASAP and take extra note of                            |
 | `* * *`  | nurse                       | add a recurring task                                          | receive reminders for tasks regularly without having to re-add them each time |
 | `* * *`  | nurse                       | archive the details of patients                               | the details of patients who have left the nursing home will not clutter the system, but there are still records of their stay for legal purposes |
@@ -294,16 +298,16 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Use cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `NurseyBook` and the **Actor** is the `user`, unless specified otherwise)
 
-**Use case: Delete a person**
+**Use case: Delete a task**
 
 **MSS**
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to list tasks
+2.  NurseyBook shows a list of tasks
+3.  User requests to delete a specific task in the list
+4.  NurseyBook deletes the person
 
     Use case ends.
 
@@ -315,9 +319,33 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 3a. The given index is invalid.
 
-    * 3a1. AddressBook shows an error message.
+    * 3a1. NurseyBook shows an error message.
 
       Use case resumes at step 2.
+
+**Use case: Mark a task as complete**
+
+**MSS**
+
+1.  User requests to list tasks
+2.  NurseyBook shows a list of tasks
+3.  User requests to mark a specific task in the list as complete
+4.  NurseyBook marks task as complete
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+
+  Use case ends.
+
+* 3a. The given index is invalid.
+
+    * 3a1. NurseyBook shows an error message.
+
+      Use case resumes at step 2.
+
 
 *{More to be added}*
 
