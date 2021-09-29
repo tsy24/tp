@@ -142,6 +142,43 @@ Examples:
 * `list` followed by `delete 2` deletes the 2nd person in the address book.
 * `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
 
+### Add tags to elderly: `addTag`
+
+Add one or more tags to a specific elderly.
+
+Format: `addTag INDEX t/TAG [t/TAG]…​`
+
+* There should be at least one tag.
+* The index refers to the index number shown in the displayed person list.
+* The index **must be a positive integer** 1, 2, 3, …​
+
+Example:
+* `addTag 1 t/covid`
+
+### Delete tags of elderly: `deleteTag`
+
+Delete one or more tags of a specific elderly.
+
+Format: `deleteTag INDEX t/TAG [t/TAG]…​`
+
+* There should be at least one tag.
+* The index refers to the index number shown in the displayed person list.
+* The index **must be a positive integer** 1, 2, 3, …​
+
+Example:
+* `deleteTag 1 t/covid`
+
+### Filter elderly: `filter`
+
+Filter elderly based on one or more tags.
+
+Format: `filter t/TAG [t/TAG]…​`
+
+* There should be at least one tag.
+
+Example:
+* `filter t/covid t/diabetes`
+
 ### View all elderly assigned to staff: `viewElderly`
 
 Shows the list of all elderly assigned under a staff (the user).
@@ -202,6 +239,9 @@ Action | Format, Examples
 **Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
 **Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
 **List** | `list`
+**Add Tag** | `addTag INDEX t/TAG [t/TAG]…​`
+**Delete Tag** | `deleteTag INDEX t/TAG [t/TAG]…​`
+**Filter** | `filter t/TAG [t/TAG]…​`
 **Help** | `help`
 **Remind** | `remind`
 **View All Elderly** | `viewElderly`
