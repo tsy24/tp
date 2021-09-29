@@ -270,14 +270,25 @@ _{Explain here how the data archiving feature will be implemented}_
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                    | I want to …​                     | So that I can…​                                                        |
-| -------- | ------------------------------------------ | ------------------------------ | ---------------------------------------------------------------------- |
-| `* * *`  | new user                                   | see usage instructions         | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                       | add a new person               |                                                                        |
-| `* * *`  | user                                       | delete a person                | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | find a person by name          | locate details of persons without having to go through the entire list |
-| `* *`    | user                                       | hide private contact details   | minimize chance of someone else seeing them by accident                |
-| `*`      | user with many persons in the address book | sort persons by name           | locate a person easily                                                 |
+| Priority | As a …​                  | I want to …​                                               | So that I can…​                                                            |
+| -------- | ----------------------------| ------------------------------------------------------------- | ------------------------------------------------------------------------------|
+| `* * *`  | forgetful/busy nurse        | get reminders of medical needs of those under my care         | be reminded of my duties that I may otherwise forget                          |
+| `* * *`  | nurse                       | view all the elderly I am in charge of/added into NurseyBook  | have a full list of elderly for easy reference                                |
+| `* * *`  | nurse                       | view urgent tasks                                             | know what I have to do ASAP and take extra note of                            |
+| `* * *`  | nurse                       | add a recurring task                                          | receive reminders for tasks regularly without having to re-add them each time |
+| `* * *`  | nurse                       | archive the details of patients                               | the details of patients who have left the nursing home will not clutter the system, but there are still records of their stay for legal purposes |
+| `* * *`  | new user                    | easily view the help guide                                    | know more about the product as and when I need to                             |
+| `* * *`  | nurse                       | easily search for the personal information of an elderly      | contact their guardian quickly during emergencies                             |
+| `* * *`  | careless nurse              | undo my recent actions                                        | revert the database to previous changes in case I make a mistake              |
+| `* *`    | new nurse                   | easily understand how to view necessary information           | not feel overwhelmed and confused                                             |
+| `* *`    | nurse                       | color-code my tasks                                           | differentiate between the tasks more easily                                   |
+| `* *`    | nurse with a new assignment | view the picture of my new assignment                         | know who I am taking care of                                                  |
+| `* *`    | nurse                       | add additional notes about an elderly                         | understand this person who is under my care better                            |
+| `* *`    | nurse                       | add a nurse (contact)                                         | reach out to a coworker if I am in need of assistance                         |
+| `* *`    | nurse                       | view nurses and elderly in separate sections                  | have better compartmentalization of information                               |
+| `* *`    | nurse                       | edit the details of a nurse                                   | update the information relevant to the nurse                                  |
+| `* *`    | nurse                       | delete a nurse                                                | remove records of nurses who are no longer relevant to me                     |
+| `* `     | user                        | alternate between light/dark mode                             | have an aesthetically pleasing UI                                             |
 
 *{More to be added}*
 
