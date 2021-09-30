@@ -74,19 +74,19 @@ Shows a message explaning how to access the help page.
 Format: `help`
 
 
-### Adding a person: `add`
+### Adding an elderly: `addElderly`
 
-Adds a person to the address book.
+Adds an elderly to NurseyBook.
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
+Format: `addElderly en/ELDERLY_NAME p/PHONE_NUMBER a/AGE r/ROOMNO s/SEX [t/TAG]…​`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 A person can have any number of tags (including 0)
 </div>
 
 Examples:
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `addElderly en/Khong Guan p/91234567 a/80 r/201 s/M`
+* `addElderly en/John p/92345678 a/77 r/420 s/M t/diabetes`
 
 ### Listing all persons : `list`
 
@@ -142,19 +142,18 @@ Format: `updateElderly INDEX [en/ELDERLY_NAME] [p/PHONE_NUMBER] [a/AGE][r/ROOMNO
 View details of a specific elderly
 Format: `viewDetails en/ELDERLY_NAME`
 
-### Deleting a person : `delete`
+### Deleting an elderly : `deleteElderly`
 
-Deletes the specified person from the address book.
+Deletes an elderly from NurseyBook.
 
-Format: `delete INDEX`
+Format: `deleteElderly INDEX`
 
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* Deletes the elderly at the specified `INDEX`.
+* The index refers to the index number shown in the displayed elderly list.
 * The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
-* `list` followed by `delete 2` deletes the 2nd person in the address book.
-* `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
+* `list` followed by `delete 2` deletes the 2nd elderly in NurseyBook.
 
 ### Add tags to elderly: `addTag`
 
@@ -278,9 +277,9 @@ _Details coming soon ..._
 
 Action | Format, Examples
 --------|------------------
-**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+**Add Elderly** | `addElderly en/ELDERLY_NAME p/PHONE_NUMBER a/AGE r/ROOMNO s/SEX [t/TAG]…​` <br> e.g., `addElderly en/Khong Guan p/92345678 a/77 r/420 s/M t/diabetes`
 **Clear** | `clear`
-**Delete** | `delete INDEX`<br> e.g., `delete 3`
+**Delete Elderly** | `deleteElderly INDEX`<br> e.g., `deleteElderly 3`
 **Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
 **Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
 **List** | `list`
