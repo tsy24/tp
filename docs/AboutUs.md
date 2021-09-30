@@ -48,7 +48,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Role: Developer
 * Responsibilities: Deliverables and deadlines, Testing
 
-### James Doe
+### Ng Tze Henn
 
 <img src="images/Superbestron.png" width="200px">
 
