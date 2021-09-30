@@ -60,7 +60,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ### Luo Siyi
 
-<img src="images/luo.png" width="200px">
+<img src="tp/docs/images/nicole-luo-exe.png" width="200px">
 
 [[github](http://github.com/nicole-luo-exe)]
 [[portfolio](team/nicole-luo-exe.md)]
