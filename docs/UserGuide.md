@@ -132,7 +132,7 @@ Examples:
 
 Deletes an elderly from NurseyBook.
 
-Format: `/deleteElderly INDEX`
+Format: `deleteElderly INDEX`
 
 * Deletes the elderly at the specified `INDEX`.
 * The index refers to the index number shown in the displayed elderly list.
@@ -195,9 +195,9 @@ _Details coming soon ..._
 
 Action | Format, Examples
 --------|------------------
-**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+**Add Elderly** | `addElderly en/ELDERLY_NAME p/PHONE_NUMBER a/AGE r/ROOMNO s/SEX [t/TAG]…​` <br> e.g., `addElderly en/Khong Guan p/92345678 a/77 r/420 s/M t/diabetes`
 **Clear** | `clear`
-**Delete** | `delete INDEX`<br> e.g., `delete 3`
+**Delete Elderly** | `deleteElderly INDEX`<br> e.g., `deleteElderly 3`
 **Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
 **Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
 **List** | `list`
