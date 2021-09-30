@@ -19,41 +19,41 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 * Role: Project Advisor
 
-### Jane Doe
+### CraveToCode
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/cravetocode.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
-
-* Role: Team Lead
-* Responsibilities: UI
-
-### Johnny Doe
-
-<img src="images/johndoe.png" width="200px">
-
-[[github](http://github.com/johndoe)] [[portfolio](team/johndoe.md)]
+[[github](http://github.com/CraveToCode)]
+[[portfolio](team/cravetocode.md)]
 
 * Role: Developer
-* Responsibilities: Data
+* Responsibilities: Code Quality, Integration, Scheduling and Tracking
 
-### Jean Doe
+### Xiong Jingya
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/xiongjya.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](http://github.com/xiongjya)] [[portfolio](team/xiongjya.md)]
 
 * Role: Developer
-* Responsibilities: Dev Ops + Threading
+* Responsibilities: Code quality, Documentation, UI
+
+### Tan Sze Ying
+
+<img src="images/tsy24.png" width="200px">
+
+[[github](http://github.com/tsy24)]
+[[portfolio](team/tsy24.md)]
+
+* Role: Developer
+* Responsibilities: Deliverables and deadlines, Testing
 
 ### James Doe
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/Superbestron.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](http://github.com/Superbestron)]
+[[portfolio](team/superbestron.md)]
 
 * Role: Developer
-* Responsibilities: UI
+* Responsibilities: Integration, Scheduling and Tracking

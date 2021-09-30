@@ -155,6 +155,19 @@ Examples:
 * `list` followed by `delete 2` deletes the 2nd person in the address book.
 * `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
 
+### View all elderly assigned to staff: `viewElderly`
+
+Shows the list of all elderly assigned under a staff (the user).
+
+Format: `viewElderly`
+
+### View reminders: `remind`
+
+Shows the list of upcoming tasks (that are coming up in the next three days), such as the required 
+medical needs for those under the user's care.
+
+Format: `remind`
+
 ### Clearing all entries : `clear`
 
 Clears all entries from the address book.
@@ -205,3 +218,5 @@ Action | Format, Examples
 **Help** | `help`
 **Update Elderly** | `updateElderly INDEX [en/ELDERLY_NAME] [p/PHONE_NUMBER] [a/AGE][r/ROOMNO] [s/SEX] [t/TAG]…​` <br> e.g., `updateElderly en/John p/92345678 a/77 r/420 s/M t/diabetes`
 **View Elderly Details** | `viewDetails en/ELDERLY_NAME`<br> e.g., `viewDetails en/James`
+**Remind** | `remind`
+**View All Elderly** | `viewElderly`
