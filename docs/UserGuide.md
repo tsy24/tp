@@ -33,6 +33,7 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
    * **`clear`** : Deletes all contacts.
 
    * **`exit`** : Exits the app.
+   
 
 1. Refer to the [Features](#features) below for details of each command.
 
@@ -148,12 +149,43 @@ Shows the list of all elderly assigned under a staff (the user).
 
 Format: `viewElderly`
 
+### Add a task: `addTask`
+
+Adds a task to the task list.
+
+Format: `addTask [en/ELDERLY_NAME] desc/DESCRIPTION date/DATE time/TIME`  
+
+Example:
+`addTask en/John desc/check insulin level date/2021-09-25 time/10.00am`
+
+###Mark a task as completed: `doneTask`
+
+Marks a particular task in the task list as completed.
+
+Format: `doneTask INDEX`
+
+Edits the person at the specified INDEX. The index refers to the index number shown in the displayed task list. The index must be a positive integer 1, 2, 3, …​
+
+###Delete task: `deleteTask`
+
+Deletes a particular task for a staff user in the task list from NurseyBook
+
+Format: `deleteTask INDEX`
+
+###View all tasks: `viewTasks`
+
+Shows a list of all tasks for a nurse in the NurseyBook.
+
+Format: `viewTasks`
+
+
 ### View reminders: `remind`
 
 Shows the list of upcoming tasks (that are coming up in the next three days), such as the required 
 medical needs for those under the user's care.
 
 Format: `remind`
+
 
 ### Clearing all entries : `clear`
 
@@ -204,4 +236,8 @@ Action | Format, Examples
 **List** | `list`
 **Help** | `help`
 **Remind** | `remind`
-**View All Elderly** | `viewElderly`
+**Add task** | `addTask [en/ELDERLY_NAME] desc/DESCRIPTION date/DATE time/TIME`
+**Delete task** | `deleteTask INDEX`
+**Mark task as complete** | `doneTask INDEX`
+**View all tasks** | `viewTasks`
+**View all elderly** | `viewElderly`
