@@ -57,3 +57,13 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 * Role: Developer
 * Responsibilities: Integration, Scheduling and Tracking
+
+### Luo Siyi
+
+<img src="tp/docs/images/nicole-luo-exe.png" width="200px">
+
+[[github](http://github.com/nicole-luo-exe)]
+[[portfolio](team/nicole-luo-exe.md)]
+
+* Role: Developer
+* Responsibilities:  Code Quality, Documentation, Integration, Testing
