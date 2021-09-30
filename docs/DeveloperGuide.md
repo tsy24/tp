@@ -272,6 +272,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 | Priority | As a …​                  | I want to …​                                               | So that I can…​                                                            |
 | -------- | ----------------------------| ------------------------------------------------------------- | ------------------------------------------------------------------------------|
+| `* * *`  | nurse                       | add a new elderly to the app                                  | be reminded of my duties that I may otherwise forget                          |
+| `* * *`  | nurse                       | delete details/records of an elderly                          | remove incorrect entries                                                      |
 | `* * *`  | forgetful/busy nurse        | get reminders of medical needs of those under my care         | be reminded of my duties that I may otherwise forget                          |
 | `* * *`  | nurse                       | view all the elderly I am in charge of/added into NurseyBook  | have a full list of elderly for easy reference                                |
 | `* * *`  | nurse                       | view urgent tasks                                             | know what I have to do ASAP and take extra note of                            |
@@ -296,16 +298,17 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Use cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `NurseyBook` the **Actor** is the `User`, and the **Person** is the 
+`Nurse` unless specified otherwise)
 
 **Use case: Delete a person**
 
 **MSS**
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to list elderly (that the user is in-charge of)
+2.  NurseyBook shows a list of elderly
+3.  User requests to delete a specific elderly in the list
+4.  NurseyBook deletes the specified elderly.
 
     Use case ends.
 
@@ -317,7 +320,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 3a. The given index is invalid.
 
-    * 3a1. AddressBook shows an error message.
+    * 3a1. NurseyBook shows an error message.
 
       Use case resumes at step 2.
 
