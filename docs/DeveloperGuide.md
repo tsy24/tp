@@ -274,10 +274,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | -------- | ----------------------------| ------------------------------------------------------------- | ------------------------------------------------------------------------------|
 | `* * *`  | forgetful/busy nurse        | get reminders of medical needs of those under my care         | be reminded of my duties that I may otherwise forget                          |
 | `* * *`  | nurse                       | view all the elderly I am in charge of/added into NurseyBook  | have a full list of elderly for easy reference                                |
-| `* * *`  | nurse                       | view all tasks                                                | I can have an overview of all my tasks                                        |
-| `* * *`  | nurse                       | add a one-off task                                            | I can keep track of what I have to do                                         |
-| `* * *`  | nurse                       | delete a task                                                 | I can have a cleaner workspace                                                |
-| `* * *`  | nurse                       | mark a task as completed                                      | I will not receive reminders that are no longer relevant                      |
+| `* * *`  | nurse                       | view all tasks                                                | have an overview of all my tasks                                        |
+| `* * *`  | nurse                       | add a one-off task                                            | keep track of what I have to do                                         |
+| `* * *`  | nurse                       | delete a task                                                 | have a cleaner workspace                                                |
+| `* * *`  | nurse                       | mark a task as completed                                      | stop receiving reminders that are no longer relevant                      |
 | `* * *`  | nurse                       | view urgent tasks                                             | know what I have to do ASAP and take extra note of                            |
 | `* * *`  | nurse                       | add a recurring task                                          | receive reminders for tasks regularly without having to re-add them each time |
 | `* * *`  | nurse                       | archive the details of patients                               | the details of patients who have left the nursing home will not clutter the system, but there are still records of their stay for legal purposes |
@@ -307,7 +307,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 1.  User requests to list tasks
 2.  NurseyBook shows a list of tasks
 3.  User requests to delete a specific task in the list
-4.  NurseyBook deletes the person
+4.  NurseyBook deletes the task
 
     Use case ends.
 
