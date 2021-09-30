@@ -236,4 +236,7 @@ Action | Format, Examples
 **List** | `list`
 **Help** | `help`
 **Remind** | `remind`
-**View All Elderly** | `viewElderly`
+**Add task** | `addTask [en/ELDERLY_NAME] desc/DESCRIPTION date/DATE time/TIME`
+**Delete task** | `deleteTask INDEX`
+**Mark task as complete** | `doneTask INDEX`
+**View all elderly** | `viewElderly`
