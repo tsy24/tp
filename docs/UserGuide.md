@@ -158,19 +158,31 @@ Format: `addTask [en/ELDERLY_NAME] desc/DESCRIPTION date/DATE time/TIME`
 Example:
 `addTask en/John desc/check insulin level date/2021-09-25 time/10.00am`
 
+###Delete task: `deleteTask`
+
+Deletes a particular task for a staff user in the task list from NurseyBook
+
+Format: `deleteTask INDEX`
+
+* Deletes the task at the specified `INDEX`.
+* The index refers to the index number shown in the displayed task list.
+* The index **must be a positive integer** 1, 2, 3, …​
+
+Examples:
+* `list` followed by `delete 2` deletes the 2nd task shown by NurseyBook.
+
 ###Mark a task as completed: `doneTask`
 
 Marks a particular task in the task list as completed.
 
 Format: `doneTask INDEX`
 
-Edits the person at the specified INDEX. The index refers to the index number shown in the displayed task list. The index must be a positive integer 1, 2, 3, …​
+* Marks the task at the specified `INDEX` as done.
+* The index refers to the index number shown in the displayed task list.
+* The index **must be a positive integer** 1, 2, 3, …​
 
-###Delete task: `deleteTask`
-
-Deletes a particular task for a staff user in the task list from NurseyBook
-
-Format: `deleteTask INDEX`
+Examples:
+* `list` followed by `done 2` marks the 2nd task shown by NurseyBook as completed.
 
 ###View all tasks: `viewTasks`
 
@@ -236,8 +248,8 @@ Action | Format, Examples
 **List** | `list`
 **Help** | `help`
 **Remind** | `remind`
-**Add task** | `addTask [en/ELDERLY_NAME] desc/DESCRIPTION date/DATE time/TIME`
-**Delete task** | `deleteTask INDEX`
-**Mark task as complete** | `doneTask INDEX`
+**Add task** | `addTask [en/ELDERLY_NAME] desc/DESCRIPTION date/DATE time/TIME` <br> e.g., `addTask en/John desc/check insulin level date/2021-09-25 time/10.00am`
+**Delete task** | `deleteTask INDEX`<br> e.g., `delete 3`
+**Mark task as complete** | `doneTask INDEX`<br> e.g., `done 3`
 **View all tasks** | `viewTasks`
 **View all elderly** | `viewElderly`
