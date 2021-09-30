@@ -149,7 +149,7 @@ Add one or more tags to a specific elderly.
 Format: `addTag INDEX t/TAG [t/TAG]…​`
 
 * There should be at least one tag.
-* The index refers to the index number shown in the displayed person list.
+* The index refers to the index number shown in the displayed elderly list.
 * The index **must be a positive integer** 1, 2, 3, …​
 
 Example:
@@ -162,7 +162,7 @@ Delete one or more tags of a specific elderly.
 Format: `deleteTag INDEX t/TAG [t/TAG]…​`
 
 * There should be at least one tag.
-* The index refers to the index number shown in the displayed person list.
+* The index refers to the index number shown in the displayed elderly list.
 * The index **must be a positive integer** 1, 2, 3, …​
 
 Example:
