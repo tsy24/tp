@@ -57,7 +57,7 @@ NurseyBook is a **desktop app made for nurses in nursing homes to aid them in ma
   e.g. if you specify `p/12341234 p/56785678`, only `p/56785678` will be taken.
 
 * Extraneous parameters for commands that do not take in parameters (such as `viewElderly`, `viewTasks`, `exit` and `clear`) will be ignored.<br>
-  e.g. if the command specifies `help 123`, it will be interpreted as `help`.
+  e.g. if the command specifies `viewTasks 123`, it will be interpreted as `viewTasks`.
 
 </div>
 
