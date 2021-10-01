@@ -5,7 +5,7 @@ title: User Guide
 
 NurseyBook is a **desktop app made for nurses in nursing homes to aid them in managing contacts and tasks in their busy lives. It is optimized for use via a Command Line Interface** (CLI) while still **having the benefits of a Graphical User Interface** (GUI). If you can type fast, NurseyBook can manage your contacts & tasks done faster than traditional GUI apps! :smile:
 
-* Table of Contents
+## Table of Contents
 {:toc}
 
 --------------------------------------------------------------------------------------------------------------------
@@ -21,7 +21,7 @@ NurseyBook is a **desktop app made for nurses in nursing homes to aid them in ma
 4. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
 
-5.Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
+5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
    * **`viewElderly`** : Lists all elderly contacts.
@@ -56,10 +56,17 @@ NurseyBook is a **desktop app made for nurses in nursing homes to aid them in ma
 * If a parameter is expected only once in the command but you specified it multiple times, only the last occurrence of the parameter will be taken.<br>
   e.g. if you specify `p/12341234 p/56785678`, only `p/56785678` will be taken.
 
-* Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
+* Extraneous parameters for commands that do not take in parameters (such as `viewElderly`, `viewTasks`, `exit` and `clear`) will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
 </div>
+
+
+### View all elderly assigned to staff: `viewElderly`
+
+Shows the list of all elderly assigned under a staff (the user).
+
+Format: `viewElderly`
 
 ### Adding an elderly: `addElderly`
 
@@ -67,9 +74,8 @@ Adds an elderly to NurseyBook.
 
 Format: `addElderly en/ELDERLY_NAME p/PHONE_NUMBER a/AGE r/ROOMNO s/SEX [t/TAG]…​`
 
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+:bulb: **Tip:**
 A person can have any number of tags (including 0)
-</div>
 
 Examples:
 * `addElderly en/Khong Guan p/91234567 a/80 r/201 s/M`
@@ -100,7 +106,7 @@ Format: `deleteElderly INDEX`
 * The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
-* `list` followed by `delete 2` deletes the 2nd elderly in NurseyBook.
+* `viewElderly` followed by `delete 2` deletes the 2nd elderly in NurseyBook.
 
 ### Add tags to elderly: `addTag`
 
@@ -139,11 +145,11 @@ Format: `filter t/TAG [t/TAG]…​`
 Example:
 * `filter t/covid t/diabetes`
 
-### View all elderly assigned to staff: `viewElderly`
+### View all tasks: `viewTasks`
 
-Shows the list of all elderly assigned under a staff (the user).
+Shows a list of all tasks for a nurse in the NurseyBook.
 
-Format: `viewElderly`
+Format: `viewTasks`
 
 ### Add a task: `addTask`
 
@@ -154,7 +160,7 @@ Format: `addTask [en/ELDERLY_NAME] desc/DESCRIPTION date/DATE time/TIME`
 Example:
 `addTask en/John desc/check insulin level date/2021-09-25 time/10.00am`
 
-###Delete task: `deleteTask`
+### Delete task: `deleteTask`
 
 Deletes a particular task for a staff user in the task list from NurseyBook
 
@@ -165,9 +171,9 @@ Format: `deleteTask INDEX`
 * The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
-* `list` followed by `delete 2` deletes the 2nd task shown by NurseyBook.
+* `viewTasks` followed by `delete 2` deletes the 2nd task shown by NurseyBook.
 
-###Mark a task as completed: `doneTask`
+### Mark a task as completed: `doneTask`
 
 Marks a particular task in the task list as completed.
 
@@ -178,13 +184,7 @@ Format: `doneTask INDEX`
 * The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
-* `list` followed by `done 2` marks the 2nd task shown by NurseyBook as completed.
-
-###View all tasks: `viewTasks`
-
-Shows a list of all tasks for a nurse in the NurseyBook.
-
-Format: `viewTasks`
+* `viewTasks` followed by `done 2` marks the 2nd task shown by NurseyBook as completed.
 
 
 ### View reminders: `remind`
