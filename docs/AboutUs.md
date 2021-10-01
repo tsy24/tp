@@ -9,16 +9,6 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ## Project team
 
-### John Doe
-
-<img src="images/johndoe.png" width="200px">
-
-[[homepage](http://www.comp.nus.edu.sg/~damithch)]
-[[github](https://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
-
-* Role: Project Advisor
-
 ### CraveToCode
 
 <img src="images/cravetocode.png" width="200px">
@@ -60,7 +50,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ### Luo Siyi
 
-<img src="tp/docs/images/nicole-luo-exe.png" width="200px">
+<img src="images/nicole-luo-exe.png" width="200px">
 
 [[github](http://github.com/nicole-luo-exe)]
 [[portfolio](team/nicole-luo-exe.md)]
