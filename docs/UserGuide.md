@@ -33,6 +33,7 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
    * **`clear`** : Deletes all contacts.
 
    * **`exit`** : Exits the app.
+   
 
 1. Refer to the [Features](#features) below for details of each command.
 
@@ -73,19 +74,19 @@ Shows a message explaning how to access the help page.
 Format: `help`
 
 
-### Adding a person: `add`
+### Adding an elderly: `addElderly`
 
-Adds a person to the address book.
+Adds an elderly to NurseyBook.
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
+Format: `addElderly en/ELDERLY_NAME p/PHONE_NUMBER a/AGE r/ROOMNO s/SEX [t/TAG]…​`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 A person can have any number of tags (including 0)
 </div>
 
 Examples:
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `addElderly en/Khong Guan p/91234567 a/80 r/201 s/M`
+* `addElderly en/John p/92345678 a/77 r/420 s/M t/diabetes`
 
 ### Listing all persons : `list`
 
@@ -127,20 +128,69 @@ Examples:
 * `find John` returns `john` and `John Doe`
 * `find alex david` returns `Alex Yeoh`, `David Li`<br>
   ![result for 'find alex david'](images/findAlexDavidResult.png)
+  
+### Update and elderly's details: `updateElderly`
 
-### Deleting a person : `delete`
+Update the details of a specific elderly.
 
-Deletes the specified person from the address book.
+Format: `updateElderly INDEX [en/ELDERLY_NAME] [p/PHONE_NUMBER] [a/AGE][r/ROOMNO] [s/SEX] [t/TAG]…​`
 
-Format: `delete INDEX`
+* Any number of tags is acceptable (including 0).
 
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+### View details of an elderly: `viewDetails`
+
+View details of a specific elderly
+Format: `viewDetails en/ELDERLY_NAME`
+
+### Deleting an elderly : `deleteElderly`
+
+Deletes an elderly from NurseyBook.
+
+Format: `deleteElderly INDEX`
+
+* Deletes the elderly at the specified `INDEX`.
+* The index refers to the index number shown in the displayed elderly list.
 * The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
-* `list` followed by `delete 2` deletes the 2nd person in the address book.
-* `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
+* `list` followed by `delete 2` deletes the 2nd elderly in NurseyBook.
+
+### Add tags to elderly: `addTag`
+
+Add one or more tags to a specific elderly.
+
+Format: `addTag INDEX t/TAG [t/TAG]…​`
+
+* There should be at least one tag.
+* The index refers to the index number shown in the displayed elderly list.
+* The index **must be a positive integer** 1, 2, 3, …​
+
+Example:
+* `addTag 1 t/covid`
+
+### Delete tags of elderly: `deleteTag`
+
+Delete one or more tags of a specific elderly.
+
+Format: `deleteTag INDEX t/TAG [t/TAG]…​`
+
+* There should be at least one tag.
+* The index refers to the index number shown in the displayed elderly list.
+* The index **must be a positive integer** 1, 2, 3, …​
+
+Example:
+* `deleteTag 1 t/covid`
+
+### Filter elderly: `filter`
+
+Filter elderly based on one or more tags.
+
+Format: `filter t/TAG [t/TAG]…​`
+
+* There should be at least one tag.
+
+Example:
+* `filter t/covid t/diabetes`
 
 ### View all elderly assigned to staff: `viewElderly`
 
@@ -148,12 +198,43 @@ Shows the list of all elderly assigned under a staff (the user).
 
 Format: `viewElderly`
 
+### Add a task: `addTask`
+
+Adds a task to the task list.
+
+Format: `addTask [en/ELDERLY_NAME] desc/DESCRIPTION date/DATE time/TIME`  
+
+Example:
+`addTask en/John desc/check insulin level date/2021-09-25 time/10.00am`
+
+###Mark a task as completed: `doneTask`
+
+Marks a particular task in the task list as completed.
+
+Format: `doneTask INDEX`
+
+Edits the person at the specified INDEX. The index refers to the index number shown in the displayed task list. The index must be a positive integer 1, 2, 3, …​
+
+###Delete task: `deleteTask`
+
+Deletes a particular task for a staff user in the task list from NurseyBook
+
+Format: `deleteTask INDEX`
+
+###View all tasks: `viewTasks`
+
+Shows a list of all tasks for a nurse in the NurseyBook.
+
+Format: `viewTasks`
+
+
 ### View reminders: `remind`
 
 Shows the list of upcoming tasks (that are coming up in the next three days), such as the required 
 medical needs for those under the user's care.
 
 Format: `remind`
+
 
 ### Clearing all entries : `clear`
 
@@ -196,12 +277,21 @@ _Details coming soon ..._
 
 Action | Format, Examples
 --------|------------------
-**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+**Add Elderly** | `addElderly en/ELDERLY_NAME p/PHONE_NUMBER a/AGE r/ROOMNO s/SEX [t/TAG]…​` <br> e.g., `addElderly en/Khong Guan p/92345678 a/77 r/420 s/M t/diabetes`
 **Clear** | `clear`
-**Delete** | `delete INDEX`<br> e.g., `delete 3`
+**Delete Elderly** | `deleteElderly INDEX`<br> e.g., `deleteElderly 3`
 **Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
 **Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
 **List** | `list`
+**Add Tag** | `addTag INDEX t/TAG [t/TAG]…​` e.g., `addTag 1 t/diabetes`
+**Delete Tag** | `deleteTag INDEX t/TAG [t/TAG]…​`
+**Filter** | `filter t/TAG [t/TAG]…​`
 **Help** | `help`
+**Update Elderly** | `updateElderly INDEX [en/ELDERLY_NAME] [p/PHONE_NUMBER] [a/AGE][r/ROOMNO] [s/SEX] [t/TAG]…​` <br> e.g., `updateElderly en/John p/92345678 a/77 r/420 s/M t/diabetes`
+**View Elderly Details** | `viewDetails en/ELDERLY_NAME`<br> e.g., `viewDetails en/James`
 **Remind** | `remind`
-**View All Elderly** | `viewElderly`
+**Add task** | `addTask [en/ELDERLY_NAME] desc/DESCRIPTION date/DATE time/TIME`
+**Delete task** | `deleteTask INDEX`
+**Mark task as complete** | `doneTask INDEX`
+**View all tasks** | `viewTasks`
+**View all elderly** | `viewElderly`
