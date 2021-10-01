@@ -28,6 +28,12 @@ NurseyBook is a **desktop app made for nurses in nursing homes to aid them in ma
 
    * **`viewTasks`** : Lists all tasks.
 
+   * **`addElderly`**`addElderly en/John p/92345678 a/77 r/420 s/M t/diabetes` : Adds a contact named `John` to NurseyBook.
+
+   * **`deleteElderly`**`3` : Deletes the records of the 3rd elderly shown in the current list.
+
+   * **`clear`** : Deletes all contacts.
+
    * **`exit`** : Exits the app.
    
 
@@ -82,7 +88,7 @@ Examples:
 * `addElderly en/John p/92345678 a/77 r/420 s/M t/diabetes`
 
   
-### Update and elderly's details: `updateElderly`
+### Update an elderly's details: `updateElderly`
 
 Update the details of a specific elderly.
 
