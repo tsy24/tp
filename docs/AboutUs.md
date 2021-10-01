@@ -38,7 +38,7 @@ We are a team based in the [School of Computing, National University of Singapor
 
 ### Ng Tze Henn
 
-<img src="images/Superbestron.png" width="200px">
+<img src="images/superbestron.png" width="200px">
 
 [[github](http://github.com/Superbestron)]
 [[portfolio](team/superbestron.md)]
