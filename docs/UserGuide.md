@@ -26,9 +26,9 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 
    * **`list`** : Lists all contacts.
 
-   * **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
+   * **`addElderly`**`addElderly en/John p/92345678 a/77 r/420 s/M t/diabetes` : Adds a contact named `John` to NurseyBook.
 
-   * **`delete`**`3` : Deletes the 3rd contact shown in the current list.
+   * **`deleteElderly`**`3` : Deletes the records of the 3rd elderly shown in the current list.
 
    * **`clear`** : Deletes all contacts.
 
@@ -129,7 +129,7 @@ Examples:
 * `find alex david` returns `Alex Yeoh`, `David Li`<br>
   ![result for 'find alex david'](images/findAlexDavidResult.png)
   
-### Update and elderly's details: `updateElderly`
+### Update an elderly's details: `updateElderly`
 
 Update the details of a specific elderly.
 
