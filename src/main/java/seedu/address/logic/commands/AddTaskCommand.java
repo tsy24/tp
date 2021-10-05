@@ -19,12 +19,12 @@ public class AddTaskCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the address book. "
             + "Parameters: "
             + "[" + PREFIX_NAME + "NAME]...\n"
-            + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "Khong Guan "
-            + PREFIX_NAME + "Swee Choon"
-            + PREFIX_TASK_DESC + "scheduled 3rd Pfizer shot"
-            + PREFIX_TASK_DATE + "2021-10-10"
-            + PREFIX_TASK_TIME + "14:30";
+            + "Example: " + COMMAND_WORD
+            + " " + PREFIX_NAME + "Khong Guan "
+            + " " + PREFIX_NAME + "Swee Choon"
+            + " " + PREFIX_TASK_DESC + "scheduled 3rd Pfizer shot"
+            + " " + PREFIX_TASK_DATE + "2021-10-10"
+            + " " + PREFIX_TASK_TIME + "14:30";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
 

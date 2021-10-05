@@ -85,7 +85,7 @@ public class Task {
                 .append(getDateTime());
         if (!relatedNames.isEmpty()) {
             builder.append("; People: ");
-            relatedNames.forEach(builder::append);
+            relatedNames.forEach(name -> { builder.append(name + " "); });
         }
         return builder.toString();
     }
