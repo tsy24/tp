@@ -49,5 +49,7 @@
     "address" : "4th street",
     "remark" : "",
     "tagged" : [ ]
-  } ]
+  } ],
+  "tasks": [
+  ]
 }
