@@ -18,6 +18,7 @@ public class Person {
     // Identity fields
     private final Name name;
     private final Phone phone;
+    private final Age age;
     private final Email email;
 
     // Data fields
@@ -28,10 +29,11 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Remark remark, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Person(Name name, Phone phone, Age age, Email email, Address address, Remark remark, Set<Tag> tags) {
+        requireAllNonNull(name, phone, age, email, address, tags);
         this.name = name;
         this.phone = phone;
+        this.age = age;
         this.email = email;
         this.address = address;
         this.remark = remark;
@@ -44,6 +46,10 @@ public class Person {
 
     public Phone getPhone() {
         return phone;
+    }
+
+    public Age getAge() {
+        return age;
     }
 
     public Email getEmail() {
@@ -96,6 +102,7 @@ public class Person {
         Person otherPerson = (Person) other;
         return otherPerson.getName().equals(getName())
                 && otherPerson.getPhone().equals(getPhone())
+                && otherPerson.getAge().equals(getAge())
                 && otherPerson.getEmail().equals(getEmail())
                 && otherPerson.getAddress().equals(getAddress())
                 && otherPerson.getTags().equals(getTags());
@@ -104,7 +111,7 @@ public class Person {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, age, email, address, tags);
     }
 
     @Override
@@ -113,6 +120,8 @@ public class Person {
         builder.append(getName())
                 .append("; Phone: ")
                 .append(getPhone())
+                .append("; Age: ")
+                .append(getAge())
                 .append("; Email: ")
                 .append(getEmail())
                 .append("; Address: ")
