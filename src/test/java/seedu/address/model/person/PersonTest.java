@@ -51,6 +51,15 @@ public class PersonTest {
     }
 
     @Test
+    public void hasName() {
+        assertTrue(ALICE.hasName(new Name("Alice Pauline")));
+        assertTrue(BOB.hasName(new Name("Bob Choo")));
+
+        assertFalse(ALICE.hasName(new Name("Ronald Wes")));
+        assertFalse(ALICE.hasName(new Name("Alice Paltrow")));
+    }
+
+    @Test
     public void equals() {
         // same values -> returns true
         Person aliceCopy = new PersonBuilder(ALICE).build();

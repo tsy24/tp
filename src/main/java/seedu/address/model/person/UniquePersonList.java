@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -34,6 +35,22 @@ public class UniquePersonList implements Iterable<Person> {
     public boolean contains(Person toCheck) {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(toCheck::isSamePerson);
+    }
+
+    /**
+     * Returns person with {@code name}
+     * Person with {@code name} must exist in list.
+     */
+    public Person getPerson(Name name) {
+        requireNonNull(name);
+        try {
+            return internalList.stream()
+                    .filter(p -> p.hasName(name))
+                    .findFirst()
+                    .orElseThrow();
+        } catch (NoSuchElementException e) {
+            throw new PersonNotFoundException();
+        }
     }
 
     /**
