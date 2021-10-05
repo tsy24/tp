@@ -9,6 +9,11 @@ import static seedu.address.logic.commands.TaskCommandTestUtil.VALID_NAME_KEITH;
 import static seedu.address.logic.commands.TaskCommandTestUtil.VALID_TIME_SEVENPM;
 import static seedu.address.logic.commands.TaskCommandTestUtil.VALID_TIME_TENAM;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import seedu.address.model.AddressBook;
 import seedu.address.model.task.Task;
 
 public class TypicalTasks {
@@ -31,4 +36,19 @@ public class TypicalTasks {
     public static final Task KG_SC_VACCINE = new TaskBuilder().withDesc("3rd shot for Pfizer")
             .withDateTime("2021-10-30", "18:00").withNames("Khong Guan", "Swee Choon").build();
 
+    /**
+     * Returns an {@code AddressBook} with all the typical tasks.
+     */
+    public static AddressBook getTypicalAddressBook() {
+        AddressBook ab = new AddressBook();
+        for (Task t : getTypicalTasks()) {
+            ab.addTask(t);
+        }
+        return ab;
+    }
+
+    public static List<Task> getTypicalTasks() {
+        return new ArrayList<>(Arrays.asList(KEITH_INSULIN, ALEX_INSULIN, DO_PAPERWORK,
+                YASMINE_PHYSIO, APPLY_LEAVE, KG_SC_VACCINE));
+    }
 }
