@@ -1,13 +1,5 @@
 package seedu.address.logic.parser;
 
-import org.junit.jupiter.api.Test;
-import seedu.address.logic.commands.AddTaskCommand;
-import seedu.address.model.person.Name;
-import seedu.address.model.task.DateTime;
-import seedu.address.model.task.Description;
-import seedu.address.model.task.Task;
-import seedu.address.testutil.TaskBuilder;
-
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
@@ -32,6 +24,15 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailur
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalTasks.DO_PAPERWORK;
 import static seedu.address.testutil.TypicalTasks.KEITH_INSULIN;
+
+import org.junit.jupiter.api.Test;
+
+import seedu.address.logic.commands.AddTaskCommand;
+import seedu.address.model.person.Name;
+import seedu.address.model.task.DateTime;
+import seedu.address.model.task.Description;
+import seedu.address.model.task.Task;
+import seedu.address.testutil.TaskBuilder;
 
 public class AddTaskComParserTest {
     private AddTaskComParser parser = new AddTaskComParser();
@@ -67,7 +68,7 @@ public class AddTaskComParserTest {
     public void parse_optionalFieldsMissing_success() {
         // zero tags
         Task expectedTask = new TaskBuilder(DO_PAPERWORK).build();
-        assertParseSuccess(parser, DESC_PAPERWORK + DATE_DESC_JAN +TIME_DESC_TENAM,
+        assertParseSuccess(parser, DESC_PAPERWORK + DATE_DESC_JAN + TIME_DESC_TENAM,
                 new AddTaskCommand(expectedTask));
     }
 
@@ -84,11 +85,11 @@ public class AddTaskComParserTest {
                 expectedMessage);
 
         // missing date prefix
-        assertParseFailure(parser, NAME_DESC_ALEX + DESC_MEDICINE + VALID_DATE_NOV + TIME_DESC_SEVENPM ,
+        assertParseFailure(parser, NAME_DESC_ALEX + DESC_MEDICINE + VALID_DATE_NOV + TIME_DESC_SEVENPM,
                 expectedMessage);
 
         // missing time prefix
-        assertParseFailure(parser, NAME_DESC_ALEX +  DESC_MEDICINE + DATE_DESC_NOV + VALID_TIME_TENAM,
+        assertParseFailure(parser, NAME_DESC_ALEX + DESC_MEDICINE + DATE_DESC_NOV + VALID_TIME_TENAM,
                 expectedMessage);
 
         // all prefixes missing
@@ -125,5 +126,4 @@ public class AddTaskComParserTest {
                         + DATE_DESC_NOV + TIME_DESC_TENAM,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTaskCommand.MESSAGE_USAGE));
     }
-    
 }

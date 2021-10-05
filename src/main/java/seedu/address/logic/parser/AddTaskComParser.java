@@ -1,25 +1,25 @@
 package seedu.address.logic.parser;
 
-import seedu.address.logic.commands.AddTaskCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Name;
-import seedu.address.model.task.Task;
-import seedu.address.model.task.Description;
-import seedu.address.model.task.DateTime;
-
-import java.util.Set;
-import java.util.stream.Stream;
-
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_DESC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_TIME;
 
+import java.util.Set;
+import java.util.stream.Stream;
+
+import seedu.address.logic.commands.AddTaskCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.person.Name;
+import seedu.address.model.task.DateTime;
+import seedu.address.model.task.Description;
+import seedu.address.model.task.Task;
+
 /**
  * Parses input arguments and creates a new AddTaskCommand object
  */
-public class AddTaskComParser implements Parser<AddTaskCommand>{
+public class AddTaskComParser implements Parser<AddTaskCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand

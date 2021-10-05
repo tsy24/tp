@@ -1,6 +1,10 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.logic.parser.CliSyntax.*;
+
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_DESC;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_TIME;
 
 public class TaskCommandTestUtil extends CommandTestUtil {
     public static final String VALID_DESC_PAPERWORK = "Do paperwork";
@@ -24,5 +28,4 @@ public class TaskCommandTestUtil extends CommandTestUtil {
     public static final String INVALID_DESC = " " + PREFIX_TASK_DESC;
     public static final String INVALID_DATE = " " + PREFIX_TASK_DATE + "07-10-2009"; //should be yyyy-mm-dd
     public static final String INVALID_TIME = " " + PREFIX_TASK_TIME + "1900"; //should be 19:00
-
 }

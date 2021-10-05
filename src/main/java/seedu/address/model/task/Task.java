@@ -1,12 +1,11 @@
 package seedu.address.model.task;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import seedu.address.model.AddressBook;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
-import seedu.address.model.tag.Tag;
-
-import java.util.HashSet;
-import java.util.Set;
 
 public class Task {
     private final Description desc;
@@ -52,19 +51,19 @@ public class Task {
         return relatedNames;
     }
 
-//    /**
-//     * Returns set of person objects related to this task.
-//     *
-//     * @param book                      address book that stores this task
-//     * @return                          task description
-//     */
-//    public Set<Person> getRelatedPeople(AddressBook book) {
-//        Set<Person> relatedPeople = new HashSet<>();
-//        for (Name name: relatedNames) {
-//            relatedPeople.add(book.getPerson(name));
-//        }
-//        return relatedPeople;
-//    }
+    /**
+     * Returns set of person objects related to this task.
+     *
+     * @param book                      address book that stores this task
+     * @return                          task description
+     */
+    public Set<Person> getRelatedPeople(AddressBook book) {
+        Set<Person> relatedPeople = new HashSet<>();
+        for (Name name: relatedNames) {
+            relatedPeople.add(book.getPerson(name));
+        }
+        return relatedPeople;
+    }
 
     @Override
     public boolean equals(Object obj) {

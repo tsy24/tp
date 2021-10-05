@@ -1,10 +1,10 @@
 package seedu.address.model.task;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
+
+import org.junit.jupiter.api.Test;
 
 class DateTimeTest {
     @Test
@@ -26,14 +26,14 @@ class DateTimeTest {
         assertThrows(NullPointerException.class, () -> DateTime.isValidTime(null));
 
         // invalid dates
-        assertFalse(DateTime.isValidDate( "bamboo")); // nonsense
-        assertFalse(DateTime.isValidDate( "8 july")); // wrong format
-        assertFalse(DateTime.isValidDate( "2010-02-31")); // invalid date
+        assertFalse(DateTime.isValidDate("bamboo")); // nonsense
+        assertFalse(DateTime.isValidDate("8 july")); // wrong format
+        assertFalse(DateTime.isValidDate("2010-02-31")); // invalid value
 
         //invalid times
-        assertFalse(DateTime.isValidTime(  "edward cullen"));
-        assertFalse(DateTime.isValidTime(  "12.12am")); // wrong format
-        assertFalse(DateTime.isValidTime("70:99")); // correct format, invalid values
+        assertFalse(DateTime.isValidTime("edward cullen"));
+        assertFalse(DateTime.isValidTime("12.12am")); // wrong format
+        assertFalse(DateTime.isValidTime("70:99")); // correct format, invalid value
 
         // valid dates
         assertTrue(DateTime.isValidDate("2021-12-11"));

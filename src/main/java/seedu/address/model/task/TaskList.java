@@ -9,8 +9,6 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import seedu.address.model.task.exceptions.TaskNotFoundException;
-
 /**
  * A list of tasks that does not allow nulls.
  *

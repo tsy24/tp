@@ -1,20 +1,21 @@
 package seedu.address.logic.commands;
 
-import org.junit.jupiter.api.Test;
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.task.Task;
-import seedu.address.testutil.ModelStub;
-import seedu.address.testutil.TaskBuilder;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import org.junit.jupiter.api.Test;
+
+import seedu.address.model.AddressBook;
+import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.task.Task;
+import seedu.address.testutil.ModelStub;
+import seedu.address.testutil.TaskBuilder;
 
 public class AddTaskCommandTest {
     @Test

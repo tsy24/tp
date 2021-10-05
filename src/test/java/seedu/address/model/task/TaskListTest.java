@@ -1,16 +1,16 @@
 package seedu.address.model.task;
 
-import org.junit.jupiter.api.Test;
-
-import java.util.Collections;
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalTasks.APPLY_LEAVE;
 import static seedu.address.testutil.TypicalTasks.DO_PAPERWORK;
+
+import java.util.Collections;
+import java.util.List;
+
+import org.junit.jupiter.api.Test;
 
 public class TaskListTest {
     private final TaskList taskList = new TaskList();
@@ -65,5 +65,4 @@ public class TaskListTest {
         expectedTaskList.add(DO_PAPERWORK);
         assertEquals(expectedTaskList, taskList);
     }
-
 }
