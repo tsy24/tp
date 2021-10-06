@@ -45,8 +45,8 @@ public class Description {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof seedu.address.model.task.Description // instanceof handles nulls
-                && value.equals(((seedu.address.model.task.Description) other).value)); // state check
+                || (other instanceof Description // instanceof handles nulls
+                && value.equals(((Description) other).value)); // state check
     }
 
     @Override

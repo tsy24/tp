@@ -32,7 +32,7 @@ public class TaskList implements Iterable<Task> {
     /**
      * Replaces this list with the list from {@code replacement}.
      */
-    public void setTasks(seedu.address.model.task.TaskList replacement) {
+    public void setTasks(TaskList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
@@ -60,8 +60,8 @@ public class TaskList implements Iterable<Task> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof seedu.address.model.task.TaskList // instanceof handles nulls
-                && internalList.equals(((seedu.address.model.task.TaskList) other).internalList));
+                || (other instanceof TaskList // instanceof handles nulls
+                && internalList.equals(((TaskList) other).internalList));
     }
 
     @Override
