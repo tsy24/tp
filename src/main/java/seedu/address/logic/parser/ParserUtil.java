@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -11,6 +12,8 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.*;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.task.DateTime;
+import seedu.address.model.task.Description;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -45,6 +48,18 @@ public class ParserUtil {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
         return new Name(trimmedName);
+    }
+
+    /**
+     * Parses {@code Collection<String> names} into a {@code Set<People>}.
+     */
+    public static Set<Name> parseNames(Collection<String> names) throws ParseException {
+        requireNonNull(names);
+        final Set<Name> nameSet = new HashSet<>();
+        for (String name : names) {
+            nameSet.add(parseName(name));
+        }
+        return nameSet;
     }
 
     /**
@@ -132,5 +147,39 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses a {@code String description} into an {@code Description}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code description} is invalid.
+     */
+    public static Description parseDesc(String description) throws ParseException {
+        requireNonNull(description);
+        String trimmedDesc = description.trim();
+        if (!Description.isValidDescription(trimmedDesc)) {
+            throw new ParseException(Description.MESSAGE_CONSTRAINTS);
+        }
+        return new Description(trimmedDesc);
+    }
+
+    /**
+     * Parses a {@code String description} into an {@code Description}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code description} is invalid.
+     */
+    public static DateTime parseDateTime(String date, String time) throws ParseException {
+        requireAllNonNull(date, time);
+        String trimmedDate = date.trim();
+        String trimmedTime = time.trim();
+        if (!DateTime.isValidDate(trimmedDate)) {
+            throw new ParseException(DateTime.MESSAGE_DATE_CONSTRAINTS);
+        }
+        if (!DateTime.isValidTime(trimmedTime)) {
+            throw new ParseException(DateTime.MESSAGE_TIME_CONSTRAINTS);
+        }
+        return new DateTime(trimmedDate, trimmedTime);
     }
 }

@@ -86,6 +86,13 @@ public class Person {
     }
 
     /**
+     * Returns true if person has this name.
+     */
+    public boolean hasName(Name name) {
+        return this.name.equals(name);
+    }
+
+    /**
      * Returns true if both persons have the same identity and data fields.
      * This defines a stronger notion of equality between two persons.
      */
@@ -136,5 +143,4 @@ public class Person {
         }
         return builder.toString();
     }
-
 }
