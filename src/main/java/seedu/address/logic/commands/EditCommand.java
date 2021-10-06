@@ -1,11 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.*;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.Collections;
@@ -35,6 +31,8 @@ public class EditCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
+            + "[" + PREFIX_AGE + "AGE] "
+            + "[" + PREFIX_GENDER + "GENDER] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_TAG + "TAG]...\n"
@@ -92,12 +90,13 @@ public class EditCommand extends Command {
         Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
         Age updatedAge = editPersonDescriptor.getAge().orElse(personToEdit.getAge());
+        Gender updatedGender = editPersonDescriptor.getGender().orElse(personToEdit.getGender());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
         Remark updatedRemark = personToEdit.getRemark(); // edit command does not allow editing remarks
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
-        return new Person(updatedName, updatedPhone, updatedAge,
+        return new Person(updatedName, updatedPhone, updatedAge, updatedGender,
                 updatedEmail, updatedAddress, updatedRemark, updatedTags);
     }
 
@@ -127,6 +126,7 @@ public class EditCommand extends Command {
         private Name name;
         private Phone phone;
         private Age age;
+        private Gender gender;
         private Email email;
         private Address address;
         private Set<Tag> tags;
@@ -141,6 +141,7 @@ public class EditCommand extends Command {
             setName(toCopy.name);
             setPhone(toCopy.phone);
             setAge(toCopy.age);
+            setGender(toCopy.gender);
             setEmail(toCopy.email);
             setAddress(toCopy.address);
             setTags(toCopy.tags);
@@ -150,7 +151,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags);
+            return CollectionUtil.isAnyNonNull(name, phone, email, age, gender, address, tags);
         }
 
         public void setName(Name name) {
@@ -175,6 +176,14 @@ public class EditCommand extends Command {
 
         public Optional<Age> getAge() {
             return Optional.ofNullable(age);
+        }
+
+        public void setGender(Gender gender) {
+            this.gender = gender;
+        }
+
+        public Optional<Gender> getGender() {
+            return Optional.ofNullable(gender);
         }
 
         public void setEmail(Email email) {
@@ -228,6 +237,7 @@ public class EditCommand extends Command {
             return getName().equals(e.getName())
                     && getPhone().equals(e.getPhone())
                     && getAge().equals(e.getAge())
+                    && getGender().equals(e.getGender())
                     && getEmail().equals(e.getEmail())
                     && getAddress().equals(e.getAddress())
                     && getTags().equals(e.getTags());

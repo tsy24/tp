@@ -48,10 +48,11 @@ public class EditCommandTest {
 
         PersonBuilder personInList = new PersonBuilder(lastPerson);
         Person editedPerson = personInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
-                .withAge(VALID_AGE_BOB).withTags(VALID_TAG_HUSBAND).build();
+                .withAge(VALID_AGE_BOB).withGender(VALID_GENDER_BOB).withTags(VALID_TAG_HUSBAND).build();
 
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withPhone(VALID_PHONE_BOB).withAge(VALID_AGE_BOB).withTags(VALID_TAG_HUSBAND).build();
+                .withPhone(VALID_PHONE_BOB).withAge(VALID_AGE_BOB).withGender(VALID_GENDER_BOB)
+                .withTags(VALID_TAG_HUSBAND).build();
         EditCommand editCommand = new EditCommand(indexLastPerson, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);

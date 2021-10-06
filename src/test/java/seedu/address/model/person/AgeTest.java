@@ -14,27 +14,26 @@ public class AgeTest {
     }
 
     @Test
-    public void constructor_invalidPhone_throwsIllegalArgumentException() {
+    public void constructor_invalidAge_throwsIllegalArgumentException() {
         String invalidAge = "";
-        assertThrows(IllegalArgumentException.class, () -> new Phone(invalidAge));
+        assertThrows(IllegalArgumentException.class, () -> new Age(invalidAge));
     }
 
     @Test
-    public void isValidPhone() {
+    public void isValidAge() {
         // null age
         assertThrows(NullPointerException.class, () -> Age.isValidAge(null));
 
-        // invalid ages
-        assertFalse(Phone.isValidPhone("")); // empty string
-        assertFalse(Phone.isValidPhone(" ")); // spaces only
-        assertFalse(Phone.isValidPhone("-5")); // negative numbers
-        assertFalse(Phone.isValidPhone("phone")); // non-numeric
-        assertFalse(Phone.isValidPhone("9011p041")); // alphabets within digits
-        assertFalse(Phone.isValidPhone("9312 1534")); // spaces within digits
+        // invalid phones
+        assertFalse(Age.isValidAge("")); // empty string
+        assertFalse(Age.isValidAge(" ")); // spaces only
+        assertFalse(Age.isValidAge("-5")); // negative numbers
+        assertFalse(Age.isValidAge("phone")); // non-numeric
+        assertFalse(Age.isValidAge("9011p041")); // alphabets within digits
+        assertFalse(Age.isValidAge("9312 1534")); // spaces within digits
 
-        // valid ages
-        assertTrue(Phone.isValidPhone("911")); // exactly 3 numbers
-        assertTrue(Phone.isValidPhone("93121534"));
-        assertTrue(Phone.isValidPhone("124293842033123")); // long phone numbers
+        // valid phones
+        assertTrue(Age.isValidAge("911")); // exactly 3 numbers
+        assertTrue(Age.isValidAge("93121534")); // although ridiculous but legit ages
     }
 }

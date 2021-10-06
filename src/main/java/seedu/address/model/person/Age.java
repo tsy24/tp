@@ -9,10 +9,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Age {
 
-
     public static final String MESSAGE_CONSTRAINTS =
             "Age should only contain numbers, and it should be non-negative";
-    public static final String VALIDATION_REGEX = "^[0-9]*$";
+    public static final String VALIDATION_REGEX = "\\d+";
     public final String value;
 
     /**

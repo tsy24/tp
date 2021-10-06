@@ -28,7 +28,8 @@ public class EditCommandParser implements Parser<EditCommand> {
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_AGE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_AGE, PREFIX_GENDER,
+                        PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
 
         Index index;
 
@@ -47,6 +48,9 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
         if (argMultimap.getValue(PREFIX_AGE).isPresent()) {
             editPersonDescriptor.setAge(ParserUtil.parseAge(argMultimap.getValue(PREFIX_AGE).get()));
+        }
+        if (argMultimap.getValue(PREFIX_GENDER).isPresent()) {
+            editPersonDescriptor.setGender(ParserUtil.parseGender(argMultimap.getValue(PREFIX_GENDER).get()));
         }
         if (argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
             editPersonDescriptor.setEmail(ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get()));

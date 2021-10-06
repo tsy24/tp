@@ -15,6 +15,7 @@ public class PersonBuilder {
     public static final String DEFAULT_NAME = "Amy Bee";
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_AGE = "50";
+    public static final String DEFAULT_GENDER = "F";
     public static final String DEFAULT_EMAIL = "amy@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
     public static final String DEFAULT_REMARK = "She likes aardvarks.";
@@ -22,6 +23,7 @@ public class PersonBuilder {
     private Name name;
     private Phone phone;
     private Age age;
+    private Gender gender;
     private Email email;
     private Address address;
     private Remark remark;
@@ -34,6 +36,7 @@ public class PersonBuilder {
         name = new Name(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE);
         age = new Age(DEFAULT_AGE);
+        gender = new Gender(DEFAULT_GENDER);
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
         remark = new Remark(DEFAULT_REMARK);
@@ -47,6 +50,7 @@ public class PersonBuilder {
         name = personToCopy.getName();
         phone = personToCopy.getPhone();
         age = personToCopy.getAge();
+        gender = personToCopy.getGender();
         email = personToCopy.getEmail();
         address = personToCopy.getAddress();
         remark = personToCopy.getRemark();
@@ -94,6 +98,14 @@ public class PersonBuilder {
     }
 
     /**
+     * Sets the {@code Gender} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withGender(String gender) {
+        this.gender = new Gender(gender);
+        return this;
+    }
+
+    /**
      * Sets the {@code Email} of the {@code Person} that we are building.
      */
     public PersonBuilder withEmail(String email) {
@@ -110,7 +122,7 @@ public class PersonBuilder {
     }
 
     public Person build() {
-        return new Person(name, phone, age, email, address, remark, tags);
+        return new Person(name, phone, age, gender, email, address, remark, tags);
     }
 
 }

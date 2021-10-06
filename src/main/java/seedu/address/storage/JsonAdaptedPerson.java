@@ -23,6 +23,7 @@ class JsonAdaptedPerson {
     private final String name;
     private final String phone;
     private final String age;
+    private final String gender;
     private final String email;
     private final String address;
     private final String remark;
@@ -33,12 +34,13 @@ class JsonAdaptedPerson {
      */
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
-                             @JsonProperty("age") String age, @JsonProperty("email") String email,
-                             @JsonProperty("address") String address, @JsonProperty("remard") String remark,
-                             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+                             @JsonProperty("age") String age, @JsonProperty("gender") String gender,
+                             @JsonProperty("email") String email, @JsonProperty("address") String address,
+                             @JsonProperty("remark") String remark, @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.phone = phone;
         this.age = age;
+        this.gender = gender;
         this.email = email;
         this.address = address;
         this.remark = remark;
@@ -54,6 +56,7 @@ class JsonAdaptedPerson {
         name = source.getName().fullName;
         phone = source.getPhone().value;
         age = source.getAge().value;
+        gender = source.getGender().value;
         email = source.getEmail().value;
         address = source.getAddress().value;
         remark = source.getRemark().value;
@@ -97,6 +100,14 @@ class JsonAdaptedPerson {
         }
         final Age modelAge = new Age(age);
 
+        if (gender == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Gender.class.getSimpleName()));
+        }
+        if (!Gender.isValidGender(gender)) {
+            throw new IllegalValueException(Gender.MESSAGE_CONSTRAINTS);
+        }
+        final Gender modelGender = new Gender(gender);
+
         if (email == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
         }
@@ -119,7 +130,7 @@ class JsonAdaptedPerson {
         final Remark modelRemark = new Remark(remark);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelName, modelPhone, modelAge, modelEmail, modelAddress, modelRemark, modelTags);
+        return new Person(modelName, modelPhone, modelAge, modelGender, modelEmail, modelAddress, modelRemark, modelTags);
     }
 
 }
