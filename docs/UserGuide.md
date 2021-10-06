@@ -161,10 +161,10 @@ Format: `viewTasks`
 
 Adds a task to the task list.
 
-Format: `addTask [en/ELDERLY_NAME] desc/DESCRIPTION date/DATE time/TIME`  
+Format: `addTask [en/ELDERLY_NAME]... desc/DESCRIPTION date/DATE time/TIME`  
 
 Example:
-`addTask en/John desc/check insulin level date/2021-09-25 time/10.00am`
+`addTask en/John desc/check insulin level date/2021-09-25 time/19:22`
 
 ### Delete task: `deleteTask`
 
