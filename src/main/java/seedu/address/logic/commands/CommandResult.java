@@ -9,7 +9,12 @@ import java.util.Objects;
  */
 public class CommandResult {
 
+    /** State list display changes to */
+    public enum ListDisplayChange { PERSON, TASK, NONE };
+
     private final String feedbackToUser;
+
+    private final ListDisplayChange displayChange;
 
     /** Help information should be shown to the user. */
     private final boolean showHelp;
@@ -24,6 +29,17 @@ public class CommandResult {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
+        this.displayChange = ListDisplayChange.NONE;
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with the specified fields.
+     */
+    public CommandResult(String feedbackToUser, ListDisplayChange change) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showHelp = false;
+        this.exit = false;
+        this.displayChange = change;
     }
 
     /**
@@ -38,11 +54,24 @@ public class CommandResult {
         return feedbackToUser;
     }
 
+    public boolean isChangeList() {
+        return displayChange != ListDisplayChange.NONE;
+    }
+
+    public boolean shouldChangeToPerson() {
+        assert(displayChange != ListDisplayChange.NONE);
+        return displayChange == ListDisplayChange.PERSON;
+    }
+
     public boolean isShowHelp() {
         return showHelp;
     }
 
     public boolean isExit() {
+        return exit;
+    }
+
+    public boolean isShowTasks() {
         return exit;
     }
 
