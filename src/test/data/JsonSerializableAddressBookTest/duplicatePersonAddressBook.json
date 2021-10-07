@@ -2,6 +2,9 @@
   "persons": [ {
     "name": "Alice Pauline",
     "phone": "94351253",
+    "age": "40",
+    "gender" : "F",
+    "roomNumber": "52",
     "email": "alice@example.com",
     "address": "123, Jurong West Ave 6, #08-111",
     "remark" : "",
@@ -9,8 +12,12 @@
   }, {
     "name": "Alice Pauline",
     "phone": "94351253",
+    "age": "40",
+    "gender" : "F",
+    "roomNumber": "52",
     "email": "pauline@example.com",
     "address": "4th street",
     "remark" : ""
-  } ]
+  } ],
+  "tasks": []
 }

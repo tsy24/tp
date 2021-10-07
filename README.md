@@ -9,6 +9,6 @@
   * Add contact details of other nurses
   * Track tasks related to taking care of elderly with varying health conditions
 
-* This is a desktop app ptimized for use via a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI).
+* This is a desktop app optimized for use via a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI).
 
 * This project is based on the AddressBook-Level3 project created by the [SE-EDU initiative](https://se-education.org).

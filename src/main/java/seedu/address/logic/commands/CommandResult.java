@@ -9,7 +9,12 @@ import java.util.Objects;
  */
 public class CommandResult {
 
+    /** State list display changes to */
+    public enum ListDisplayChange { PERSON, TASK, NONE };
+
     private final String feedbackToUser;
+
+    private final ListDisplayChange displayChange;
 
     /** Help information should be shown to the user. */
     private final boolean showHelp;
@@ -24,6 +29,17 @@ public class CommandResult {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
+        this.displayChange = ListDisplayChange.NONE;
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with the specified fields.
+     */
+    public CommandResult(String feedbackToUser, ListDisplayChange change) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showHelp = false;
+        this.exit = false;
+        this.displayChange = change;
     }
 
     /**
@@ -36,6 +52,22 @@ public class CommandResult {
 
     public String getFeedbackToUser() {
         return feedbackToUser;
+    }
+
+    /**
+     * Returns true if command result requires a change in list displayed by UI.
+     */
+    public boolean isChangeList() {
+        return displayChange != ListDisplayChange.NONE;
+    }
+
+    /**
+     * Returns true if command result indicates list display should change to show tasks,
+     * else to show elderly.
+     */
+    public boolean shouldChangeToTask() {
+        assert(displayChange != ListDisplayChange.NONE);
+        return displayChange == ListDisplayChange.TASK;
     }
 
     public boolean isShowHelp() {
@@ -60,12 +92,13 @@ public class CommandResult {
         CommandResult otherCommandResult = (CommandResult) other;
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
                 && showHelp == otherCommandResult.showHelp
-                && exit == otherCommandResult.exit;
+                && exit == otherCommandResult.exit
+                && displayChange.equals(otherCommandResult.displayChange);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit);
+        return Objects.hash(feedbackToUser, showHelp, exit, displayChange);
     }
 
 }

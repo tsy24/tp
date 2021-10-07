@@ -3,6 +3,9 @@
   "persons" : [ {
     "name" : "Alice Pauline",
     "phone" : "94351253",
+    "age" : "40",
+    "gender" : "F",
+    "roomNumber": "15",
     "email" : "alice@example.com",
     "address" : "123, Jurong West Ave 6, #08-111",
     "remark" : "",
@@ -10,6 +13,9 @@
   }, {
     "name" : "Benson Meier",
     "phone" : "98765432",
+    "age" : "40",
+    "gender" : "M",
+    "roomNumber": "21",
     "email" : "johnd@example.com",
     "address" : "311, Clementi Ave 2, #02-25",
     "remark" : "",
@@ -17,6 +23,9 @@
   }, {
     "name" : "Carl Kurz",
     "phone" : "95352563",
+    "age" : "40",
+    "gender" : "M",
+    "roomNumber": "9",
     "email" : "heinz@example.com",
     "address" : "wall street",
     "remark" : "",
@@ -24,6 +33,9 @@
   }, {
     "name" : "Daniel Meier",
     "phone" : "87652533",
+    "age" : "40",
+    "gender" : "M",
+    "roomNumber": "27",
     "email" : "cornelia@example.com",
     "address" : "10th street",
     "remark" : "",
@@ -31,6 +43,9 @@
   }, {
     "name" : "Elle Meyer",
     "phone" : "9482224",
+    "age" : "40",
+    "gender" : "F",
+    "roomNumber": "11",
     "email" : "werner@example.com",
     "address" : "michegan ave",
     "remark" : "",
@@ -38,6 +53,9 @@
   }, {
     "name" : "Fiona Kunz",
     "phone" : "9482427",
+    "age" : "40",
+    "gender" : "F",
+    "roomNumber": "6",
     "email" : "lydia@example.com",
     "address" : "little tokyo",
     "remark" : "",
@@ -45,9 +63,13 @@
   }, {
     "name" : "George Best",
     "phone" : "9482442",
+    "age" : "40",
+    "gender" : "M",
+    "roomNumber": "299",
     "email" : "anna@example.com",
     "address" : "4th street",
     "remark" : "",
     "tagged" : [ ]
-  } ]
+  } ],
+  "tasks": []
 }

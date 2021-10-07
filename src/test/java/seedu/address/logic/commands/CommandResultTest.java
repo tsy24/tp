@@ -15,6 +15,8 @@ public class CommandResultTest {
         // same values -> returns true
         assertTrue(commandResult.equals(new CommandResult("feedback")));
         assertTrue(commandResult.equals(new CommandResult("feedback", false, false)));
+        assertTrue(commandResult.equals(new CommandResult("feedback",
+                CommandResult.ListDisplayChange.NONE)));
 
         // same object -> returns true
         assertTrue(commandResult.equals(commandResult));
@@ -33,6 +35,19 @@ public class CommandResultTest {
 
         // different exit value -> returns false
         assertFalse(commandResult.equals(new CommandResult("feedback", false, true)));
+
+        // different displayChange value -> returns false
+        assertFalse(commandResult.equals(new CommandResult("feedback",
+                CommandResult.ListDisplayChange.TASK)));
+
+        // displayChange value of NONE -> returns false
+        assertFalse(commandResult.isChangeList());
+
+        // displayChange value of PERSON -> returns false
+        assertFalse(new CommandResult("feedback", CommandResult.ListDisplayChange.PERSON).shouldChangeToTask());
+
+        // displayChange value of TASK -> returns true
+        assertTrue(new CommandResult("feedback", CommandResult.ListDisplayChange.TASK).shouldChangeToTask());
     }
 
     @Test
@@ -50,5 +65,9 @@ public class CommandResultTest {
 
         // different exit value -> returns different hashcode
         assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", false, true).hashCode());
+
+        // different displayChange value -> returns different hashcode
+        assertNotEquals(commandResult.hashCode(), new CommandResult("feedback",
+                CommandResult.ListDisplayChange.TASK).hashCode());
     }
 }
