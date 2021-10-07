@@ -19,6 +19,7 @@ public class Person {
     private final Name name;
     private final Phone phone;
     private final Email email;
+    private final RoomNumber roomNumber;
 
     // Data fields
     private final Address address;
@@ -28,10 +29,12 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Remark remark, Set<Tag> tags) {
+    public Person(Name name, Phone phone, RoomNumber roomNumber, Email email, Address address,
+                  Remark remark, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
+        this.roomNumber = roomNumber;
         this.email = email;
         this.address = address;
         this.remark = remark;
@@ -44,6 +47,10 @@ public class Person {
 
     public Phone getPhone() {
         return phone;
+    }
+
+    public RoomNumber getRoomNumber() {
+        return roomNumber;
     }
 
     public Email getEmail() {
@@ -103,6 +110,7 @@ public class Person {
         Person otherPerson = (Person) other;
         return otherPerson.getName().equals(getName())
                 && otherPerson.getPhone().equals(getPhone())
+                && otherPerson.getRoomNumber().equals(getRoomNumber())
                 && otherPerson.getEmail().equals(getEmail())
                 && otherPerson.getAddress().equals(getAddress())
                 && otherPerson.getTags().equals(getTags());
@@ -111,7 +119,7 @@ public class Person {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, roomNumber, email, address, tags);
     }
 
     @Override
@@ -120,6 +128,8 @@ public class Person {
         builder.append(getName())
                 .append("; Phone: ")
                 .append(getPhone())
+                .append("; RoomNumber: ")
+                .append(getRoomNumber())
                 .append("; Email: ")
                 .append(getEmail())
                 .append("; Address: ")
