@@ -4,11 +4,14 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.model.person.Address;
+import seedu.address.model.person.Age;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.Gender;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Remark;
+import seedu.address.model.person.RoomNumber;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -19,12 +22,18 @@ public class PersonBuilder {
 
     public static final String DEFAULT_NAME = "Amy Bee";
     public static final String DEFAULT_PHONE = "85355255";
+    public static final String DEFAULT_AGE = "50";
+    public static final String DEFAULT_GENDER = "F";
+    public static final String DEFAULT_ROOM_NUMBER = "16";
     public static final String DEFAULT_EMAIL = "amy@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
     public static final String DEFAULT_REMARK = "She likes aardvarks.";
 
     private Name name;
     private Phone phone;
+    private Age age;
+    private Gender gender;
+    private RoomNumber roomNumber;
     private Email email;
     private Address address;
     private Remark remark;
@@ -36,6 +45,9 @@ public class PersonBuilder {
     public PersonBuilder() {
         name = new Name(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE);
+        age = new Age(DEFAULT_AGE);
+        gender = new Gender(DEFAULT_GENDER);
+        roomNumber = new RoomNumber(DEFAULT_ROOM_NUMBER);
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
         remark = new Remark(DEFAULT_REMARK);
@@ -48,6 +60,9 @@ public class PersonBuilder {
     public PersonBuilder(Person personToCopy) {
         name = personToCopy.getName();
         phone = personToCopy.getPhone();
+        age = personToCopy.getAge();
+        gender = personToCopy.getGender();
+        roomNumber = personToCopy.getRoomNumber();
         email = personToCopy.getEmail();
         address = personToCopy.getAddress();
         remark = personToCopy.getRemark();
@@ -87,6 +102,31 @@ public class PersonBuilder {
     }
 
     /**
+<<<<<<< HEAD
+     * Sets the {@code Age} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withAge(String age) {
+        this.age = new Age(age);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Gender} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withGender(String gender) {
+        this.gender = new Gender(gender);
+        return this;
+    }
+
+    /**
+     * Sets the {@code RoomNumber} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withRoomNumber(String roomNumber) {
+        this.roomNumber = new RoomNumber(roomNumber);
+        return this;
+    }
+
+    /**
      * Sets the {@code Email} of the {@code Person} that we are building.
      */
     public PersonBuilder withEmail(String email) {
@@ -103,7 +143,7 @@ public class PersonBuilder {
     }
 
     public Person build() {
-        return new Person(name, phone, email, address, remark, tags);
+        return new Person(name, phone, age, gender, roomNumber, email, address, remark, tags);
     }
 
 }
