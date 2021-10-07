@@ -78,21 +78,21 @@ Format: `viewElderly`
 
 Adds an elderly to NurseyBook.
 
-Format: `addElderly en/ELDERLY_NAME p/PHONE_NUMBER a/AGE r/ROOMNO s/SEX [t/TAG]…​`
+Format: `addElderly en/ELDERLY_NAME p/PHONE_NUMBER a/AGE r/ROOMNO g/GENDER [t/TAG]…​`
 
 :bulb: **Tip:**
 A person can have any number of tags (including 0)
 
 Examples:
-* `addElderly en/Khong Guan p/91234567 a/80 r/201 s/M`
-* `addElderly en/John p/92345678 a/77 r/420 s/M t/diabetes`
+* `addElderly en/Khong Guan p/91234567 a/80 r/201 g/M`
+* `addElderly en/John p/92345678 a/77 r/420 g/M t/diabetes`
 
   
-### Update an elderly's details: `updateElderly`
+### Edit an elderly's details: `updateElderly`
 
-Update the details of a specific elderly.
+Edit the details of a specific elderly.
 
-Format: `updateElderly INDEX [en/ELDERLY_NAME] [p/PHONE_NUMBER] [a/AGE][r/ROOMNO] [s/SEX] [t/TAG]…​`
+Format: `editElderly INDEX [en/ELDERLY_NAME] [p/PHONE_NUMBER] [a/AGE][r/ROOMNO] [g/GENDER] [t/TAG]…​`
 
 * Any number of tags is acceptable (including 0).
 
@@ -242,13 +242,13 @@ _Details coming soon ..._
 
 Action | Format, Examples
 --------|------------------
-**Add Elderly** | `addElderly en/ELDERLY_NAME p/PHONE_NUMBER a/AGE r/ROOMNO s/SEX [t/TAG]…​` <br> e.g., `addElderly en/Khong Guan p/92345678 a/77 r/420 s/M t/diabetes`
+**Add Elderly** | `addElderly en/ELDERLY_NAME p/PHONE_NUMBER a/AGE r/ROOMNO g/GENDER [t/TAG]…​` <br> e.g., `addElderly en/Khong Guan p/92345678 a/77 r/420 g/M t/diabetes`
 **Clear** | `clear`
 **Delete Elderly** | `deleteElderly INDEX`<br> e.g., `deleteElderly 3`
 **Add Tag** | `addTag INDEX t/TAG [t/TAG]…​` e.g., `addTag 1 t/diabetes`
 **Delete Tag** | `deleteTag INDEX t/TAG [t/TAG]…​`
 **Filter** | `filter t/TAG [t/TAG]…​`
-**Update Elderly** | `updateElderly INDEX [en/ELDERLY_NAME] [p/PHONE_NUMBER] [a/AGE][r/ROOMNO] [s/SEX] [t/TAG]…​` <br> e.g., `updateElderly en/John p/92345678 a/77 r/420 s/M t/diabetes`
+**Edit Elderly** | `editElderly INDEX [en/ELDERLY_NAME] [p/PHONE_NUMBER] [a/AGE][r/ROOMNO] [g/GENDER] [t/TAG]…​` <br> e.g., `updateElderly en/John p/92345678 a/77 r/420 g/M t/diabetes`
 **View Elderly Details** | `viewDetails en/ELDERLY_NAME`<br> e.g., `viewDetails en/James`
 **Remind** | `remind`
 **Add task** | `addTask [en/ELDERLY_NAME] desc/DESCRIPTION date/DATE time/TIME` <br> e.g., `addTask en/John desc/check insulin level date/2021-09-25 time/10.00am`
