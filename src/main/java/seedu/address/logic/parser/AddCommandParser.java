@@ -38,18 +38,11 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-<<<<<<< HEAD
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_AGE, PREFIX_GENDER, PREFIX_EMAIL,
-                        PREFIX_ADDRESS, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_AGE, PREFIX_GENDER, PREFIX_ROOM_NUM,
+                        PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_AGE, PREFIX_GENDER, PREFIX_ADDRESS, PREFIX_PHONE,
-                PREFIX_EMAIL)
-=======
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_ROOM_NUM, PREFIX_EMAIL,
-                        PREFIX_ADDRESS, PREFIX_TAG);
-
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_ROOM_NUM, PREFIX_EMAIL)
->>>>>>> e85edc4f27bb1149b97fa5d341030c3e32ffa222
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_AGE, PREFIX_GENDER, PREFIX_ROOM_NUM, PREFIX_ADDRESS,
+                PREFIX_PHONE, PREFIX_EMAIL)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
@@ -64,11 +57,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         RoomNumber roomNumber = ParserUtil.parseRoomNumber(argMultimap.getValue(PREFIX_ROOM_NUM).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-<<<<<<< HEAD
-        Person person = new Person(name, phone, age, gender, email, address, remark, tagList);
-=======
-        Person person = new Person(name, phone, roomNumber, email, address, remark, tagList);
->>>>>>> e85edc4f27bb1149b97fa5d341030c3e32ffa222
+        Person person = new Person(name, phone, age, gender, roomNumber, email, address, remark, tagList);
 
         return new AddCommand(person);
     }

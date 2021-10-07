@@ -116,7 +116,6 @@ public class AddCommandParserTest {
         Person expectedPerson = new PersonBuilder(AMY).withTags().build();
         assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + AGE_DESC_AMY + GENDER_DESC_AMY
                 + ROOM_NUMBER_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY, new AddCommand(expectedPerson));
-                new AddCommand(expectedPerson);
     }
 
     @Test
@@ -179,7 +178,8 @@ public class AddCommandParserTest {
                 Gender.MESSAGE_CONSTRAINTS);
 
         // invalid roomNumber
-        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + INVALID_ROOM_NUMBER_DESC + EMAIL_DESC_BOB
+        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + AGE_DESC_BOB + GENDER_DESC_BOB
+                + INVALID_ROOM_NUMBER_DESC + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, RoomNumber.MESSAGE_CONSTRAINTS);
 
         // invalid email

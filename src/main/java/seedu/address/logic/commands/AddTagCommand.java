@@ -57,7 +57,8 @@ public class AddTagCommand extends Command {
         Person personToAddTag = lastShownList.get(index.getZeroBased());
         Set<Tag> currentTags = personToAddTag.getTags();
         Person addedPerson = new Person(
-                personToAddTag.getName(), personToAddTag.getPhone(), personToAddTag.getRoomNumber(),
+                personToAddTag.getName(), personToAddTag.getPhone(), personToAddTag.getAge(),
+                personToAddTag.getGender(), personToAddTag.getRoomNumber(),
                 personToAddTag.getEmail(), personToAddTag.getAddress(), personToAddTag.getRemark(),
                 addTagsToSet(currentTags, tags));
 
