@@ -18,6 +18,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Remark;
+import seedu.address.model.person.RoomNumber;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -31,6 +32,7 @@ class JsonAdaptedPerson {
     private final String phone;
     private final String age;
     private final String gender;
+    private final String roomNumber;
     private final String email;
     private final String address;
     private final String remark;
@@ -42,6 +44,7 @@ class JsonAdaptedPerson {
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
                              @JsonProperty("age") String age, @JsonProperty("gender") String gender,
+                             @JsonProperty("roomNumber") String roomNumber,
                              @JsonProperty("email") String email, @JsonProperty("address") String address,
                              @JsonProperty("remark") String remark,
                              @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
@@ -49,6 +52,7 @@ class JsonAdaptedPerson {
         this.phone = phone;
         this.age = age;
         this.gender = gender;
+        this.roomNumber = roomNumber;
         this.email = email;
         this.address = address;
         this.remark = remark;
@@ -65,6 +69,7 @@ class JsonAdaptedPerson {
         phone = source.getPhone().value;
         age = source.getAge().value;
         gender = source.getGender().value;
+        roomNumber = source.getRoomNumber().value;
         email = source.getEmail().value;
         address = source.getAddress().value;
         remark = source.getRemark().value;
@@ -116,6 +121,15 @@ class JsonAdaptedPerson {
         }
         final Gender modelGender = new Gender(gender);
 
+        if (roomNumber == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    RoomNumber.class.getSimpleName()));
+        }
+        if (!RoomNumber.isValidRoomNumber(roomNumber)) {
+            throw new IllegalValueException(RoomNumber.MESSAGE_CONSTRAINTS);
+        }
+        final RoomNumber modelRoomNumber = new RoomNumber(roomNumber);
+
         if (email == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
         }
@@ -138,8 +152,8 @@ class JsonAdaptedPerson {
         final Remark modelRemark = new Remark(remark);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelName, modelPhone, modelAge, modelGender, modelEmail, modelAddress, modelRemark,
-                modelTags);
+        return new Person(modelName, modelPhone, modelAge, modelGender, modelRoomNumber, modelEmail, modelAddress,
+                modelRemark, modelTags);
     }
 
 }

@@ -4,6 +4,7 @@
     "phone": "94351253",
     "age": "40",
     "gender" : "F",
+    "roomNumber": "52",
     "email": "alice@example.com",
     "address": "123, Jurong West Ave 6, #08-111",
     "remark" : "",
@@ -13,6 +14,7 @@
     "phone": "94351253",
     "age": "40",
     "gender" : "F",
+    "roomNumber": "52",
     "email": "pauline@example.com",
     "address": "4th street",
     "remark" : ""

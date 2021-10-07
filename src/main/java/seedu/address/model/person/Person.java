@@ -21,6 +21,7 @@ public class Person {
     private final Age age;
     private final Gender gender;
     private final Email email;
+    private final RoomNumber roomNumber;
 
     // Data fields
     private final Address address;
@@ -30,13 +31,14 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Age age, Gender gender, Email email, Address address, Remark remark,
-                  Set<Tag> tags) {
+    public Person(Name name, Phone phone, Age age, Gender gender, RoomNumber roomNumber, Email email, Address address,
+                  Remark remark, Set<Tag> tags) {
         requireAllNonNull(name, phone, age, gender, email, address, tags);
         this.name = name;
         this.phone = phone;
         this.age = age;
         this.gender = gender;
+        this.roomNumber = roomNumber;
         this.email = email;
         this.address = address;
         this.remark = remark;
@@ -57,6 +59,10 @@ public class Person {
 
     public Gender getGender() {
         return gender;
+    }
+
+    public RoomNumber getRoomNumber() {
+        return roomNumber;
     }
 
     public Email getEmail() {
@@ -118,6 +124,7 @@ public class Person {
                 && otherPerson.getPhone().equals(getPhone())
                 && otherPerson.getAge().equals(getAge())
                 && otherPerson.getGender().equals(getGender())
+                && otherPerson.getRoomNumber().equals(getRoomNumber())
                 && otherPerson.getEmail().equals(getEmail())
                 && otherPerson.getAddress().equals(getAddress())
                 && otherPerson.getTags().equals(getTags());
@@ -126,7 +133,7 @@ public class Person {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, age, gender, email, address, tags);
+        return Objects.hash(name, phone, age, gender, roomNumber, email, address, tags);
     }
 
     @Override
@@ -139,6 +146,8 @@ public class Person {
                 .append(getAge())
                 .append("; Gender: ")
                 .append(getAge())
+                .append("; RoomNumber: ")
+                .append(getRoomNumber())
                 .append("; Email: ")
                 .append(getEmail())
                 .append("; Address: ")

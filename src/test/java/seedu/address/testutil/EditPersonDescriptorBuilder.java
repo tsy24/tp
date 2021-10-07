@@ -12,6 +12,7 @@ import seedu.address.model.person.Gender;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.RoomNumber;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -38,6 +39,7 @@ public class EditPersonDescriptorBuilder {
         descriptor.setPhone(person.getPhone());
         descriptor.setAge(person.getAge());
         descriptor.setGender(person.getGender());
+        descriptor.setRoomNumber(person.getRoomNumber());
         descriptor.setEmail(person.getEmail());
         descriptor.setAddress(person.getAddress());
         descriptor.setTags(person.getTags());
@@ -60,6 +62,7 @@ public class EditPersonDescriptorBuilder {
     }
 
     /**
+<<<<<<< HEAD
      * Sets the {@code Age} of the {@code EditPersonDescriptor} that we are building.
      */
     public EditPersonDescriptorBuilder withAge(String age) {
@@ -72,6 +75,14 @@ public class EditPersonDescriptorBuilder {
      */
     public EditPersonDescriptorBuilder withGender(String gender) {
         descriptor.setGender(new Gender(gender));
+        return this;
+    }
+
+    /**
+     * Sets the {@code RoomNumber} of the {@code EditPersonDescriptor} that we are building.
+     */
+    public EditPersonDescriptorBuilder withRoomNumber(String roomNumber) {
+        descriptor.setRoomNumber(new RoomNumber(roomNumber));
         return this;
     }
 
