@@ -10,7 +10,7 @@ import java.util.Objects;
 public class CommandResult {
 
     /** State list display changes to */
-    public enum ListDisplayChange { TASK, NONE };
+    public enum ListDisplayChange { PERSON, TASK, NONE };
 
     private final String feedbackToUser;
 
@@ -55,14 +55,15 @@ public class CommandResult {
     }
 
     /**
-     * Returns true if command result requires a change in list displayed by UI
+     * Returns true if command result requires a change in list displayed by UI.
      */
     public boolean isChangeList() {
         return displayChange != ListDisplayChange.NONE;
     }
 
     /**
-     * Returns true if command result indicates list display should change to show tasks
+     * Returns true if command result indicates list display should change to show tasks,
+     * else to show elderly.
      */
     public boolean shouldChangeToTask() {
         assert(displayChange != ListDisplayChange.NONE);
@@ -74,10 +75,6 @@ public class CommandResult {
     }
 
     public boolean isExit() {
-        return exit;
-    }
-
-    public boolean isShowTasks() {
         return exit;
     }
 
