@@ -16,12 +16,12 @@ public class Gender {
     /**
      * Constructs a {@code Gender}.
      *
-     * @param Gender A valid Gender
+     * @param gender A valid Gender
      */
-    public Gender(String Gender) {
-        requireNonNull(Gender);
-        checkArgument(isValidGender(Gender), MESSAGE_CONSTRAINTS);
-        value = Gender;
+    public Gender(String gender) {
+        requireNonNull(gender);
+        checkArgument(isValidGender(gender), MESSAGE_CONSTRAINTS);
+        value = gender;
     }
 
     /**
