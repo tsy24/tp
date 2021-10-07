@@ -39,6 +39,15 @@ public class CommandResultTest {
         // different displayChange value -> returns false
         assertFalse(commandResult.equals(new CommandResult("feedback",
                 CommandResult.ListDisplayChange.TASK)));
+
+        // displayChange value of NONE -> returns false
+        assertFalse(commandResult.isChangeList());
+
+        // displayChange value of PERSON -> returns false
+        assertFalse(new CommandResult("feedback", CommandResult.ListDisplayChange.PERSON).shouldChangeToTask());
+
+        // displayChange value of TASK -> returns true
+        assertTrue(new CommandResult("feedback", CommandResult.ListDisplayChange.TASK).shouldChangeToTask());
     }
 
     @Test
