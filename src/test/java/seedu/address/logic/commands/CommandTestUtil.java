@@ -3,7 +3,9 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_AGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROOM_NUM;
@@ -33,6 +35,10 @@ public class CommandTestUtil {
     public static final String VALID_NAME_BOB = "Bob Choo";
     public static final String VALID_PHONE_AMY = "11111111";
     public static final String VALID_PHONE_BOB = "22222222";
+    public static final String VALID_AGE_AMY = "67";
+    public static final String VALID_AGE_BOB = "54";
+    public static final String VALID_GENDER_AMY = "F";
+    public static final String VALID_GENDER_BOB = "M";
     public static final String VALID_ROOM_NUMBER_AMY = "21";
     public static final String VALID_ROOM_NUMBER_BOB = "32";
     public static final String VALID_EMAIL_AMY = "amy@example.com";
@@ -49,6 +55,10 @@ public class CommandTestUtil {
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
     public static final String PHONE_DESC_AMY = " " + PREFIX_PHONE + VALID_PHONE_AMY;
     public static final String PHONE_DESC_BOB = " " + PREFIX_PHONE + VALID_PHONE_BOB;
+    public static final String AGE_DESC_AMY = " " + PREFIX_AGE + VALID_AGE_AMY;
+    public static final String AGE_DESC_BOB = " " + PREFIX_AGE + VALID_AGE_BOB;
+    public static final String GENDER_DESC_AMY = " " + PREFIX_GENDER + VALID_GENDER_AMY;
+    public static final String GENDER_DESC_BOB = " " + PREFIX_GENDER + VALID_GENDER_BOB;
     public static final String ROOM_NUMBER_DESC_AMY = " " + PREFIX_ROOM_NUM + VALID_ROOM_NUMBER_AMY;
     public static final String ROOM_NUMBER_DESC_BOB = " " + PREFIX_ROOM_NUM + VALID_ROOM_NUMBER_BOB;
     public static final String EMAIL_DESC_AMY = " " + PREFIX_EMAIL + VALID_EMAIL_AMY;
@@ -62,6 +72,8 @@ public class CommandTestUtil {
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
+    public static final String INVALID_AGE_DESC = " " + PREFIX_AGE + "2d7"; // 'd' not allowed in age
+    public static final String INVALID_GENDER_DESC = " " + PREFIX_GENDER + "a"; // other than 'M' or 'F' not allowed
     public static final String INVALID_ROOM_NUMBER_DESC = " "
             + PREFIX_ROOM_NUM + "18a"; // '18a' not allowed in room numbers
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
@@ -78,11 +90,13 @@ public class CommandTestUtil {
 
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withPhone(VALID_PHONE_AMY).withRoomNumber(VALID_ROOM_NUMBER_AMY).withEmail(VALID_EMAIL_AMY)
-                .withAddress(VALID_ADDRESS_AMY).withTags(VALID_TAG_FRIEND).build();
+                .withPhone(VALID_PHONE_AMY).withAge(VALID_AGE_AMY).withGender(VALID_GENDER_AMY)
+                .withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY).withTags(VALID_TAG_FRIEND).build();
         DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withPhone(VALID_PHONE_BOB).withRoomNumber(VALID_ROOM_NUMBER_BOB).withEmail(VALID_EMAIL_BOB)
-                .withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+                .withPhone(VALID_PHONE_BOB).withAge(VALID_AGE_BOB).withGender(VALID_GENDER_BOB)
+                .withRoomNumber(VALID_ROOM_NUMBER_AMY).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
+                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+
         SET_ONE_TAG = Set.of(new Tag(VALID_TAG_DIABETES));
         SET_TWO_TAGS = Set.of(new Tag(VALID_TAG_DIABETES), new Tag(VALID_TAG_FRIEND));
     }
