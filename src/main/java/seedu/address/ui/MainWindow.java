@@ -112,9 +112,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        logger.info("here");
         taskListPanel = new TaskListPanel(logic.getFilteredTaskList());
-        logger.info("here 2");
 
         listPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
@@ -131,13 +129,13 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Fill list panel with correct items (persons/tasks)
      */
-    private void handleChange(boolean isShowPersons) {
-        if (isShowPersons) {
-            listPanelPlaceholder.getChildren().clear();
-            listPanelPlaceholder.getChildren().add(personListPanel.getRoot());
-        } else {
+    private void handleChange(boolean isShowTasks) {
+        if (isShowTasks) {
             listPanelPlaceholder.getChildren().clear();
             listPanelPlaceholder.getChildren().add(taskListPanel.getRoot());
+        } else {
+            listPanelPlaceholder.getChildren().clear();
+            listPanelPlaceholder.getChildren().add(personListPanel.getRoot());
         }
     }
 
@@ -206,7 +204,7 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.isChangeList()) {
-                handleChange(commandResult.shouldChangeToPerson());
+                handleChange(commandResult.shouldChangeToTask());
             }
 
             return commandResult;
