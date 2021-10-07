@@ -18,17 +18,20 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.RoomNumber;
 import seedu.address.model.tag.Tag;
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_PHONE = "+651234";
+    private static final String INVALID_ROOM_NUMBER = "18a";
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PHONE = "123456";
+    private static final String VALID_ROOM_NUMBER = "67";
     private static final String VALID_ADDRESS = "123 Main Street #0505";
     private static final String VALID_EMAIL = "rachel@example.com";
     private static final String VALID_TAG_1 = "friend";
@@ -100,6 +103,29 @@ public class ParserUtilTest {
         String phoneWithWhitespace = WHITESPACE + VALID_PHONE + WHITESPACE;
         Phone expectedPhone = new Phone(VALID_PHONE);
         assertEquals(expectedPhone, ParserUtil.parsePhone(phoneWithWhitespace));
+    }
+
+    @Test
+    public void parseRoomNumber_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseRoomNumber((String) null));
+    }
+
+    @Test
+    public void parseRoomNumber_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseRoomNumber(INVALID_ROOM_NUMBER));
+    }
+
+    @Test
+    public void parseRoomNumber_validValueWithoutWhitespace_returnsRoomNumber() throws Exception {
+        RoomNumber expectedRoomNumber = new RoomNumber(VALID_ROOM_NUMBER);
+        assertEquals(expectedRoomNumber, ParserUtil.parseRoomNumber(VALID_ROOM_NUMBER));
+    }
+
+    @Test
+    public void parseRoomNumber_validValueWithWhitespace_returnsTrimmedRoomNumber() throws Exception {
+        String roomNumberWithWhitespace = WHITESPACE + VALID_ROOM_NUMBER + WHITESPACE;
+        RoomNumber expectedRoomNumber = new RoomNumber(VALID_ROOM_NUMBER);
+        assertEquals(expectedRoomNumber, ParserUtil.parseRoomNumber(roomNumberWithWhitespace));
     }
 
     @Test
