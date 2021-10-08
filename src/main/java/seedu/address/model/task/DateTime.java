@@ -9,7 +9,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Objects;
 
-public class DateTime {
+public class DateTime implements Comparable<DateTime> {
 
     public static final String MESSAGE_DATE_CONSTRAINTS = "Date must be in the form yyyy-mm-dd";
     public static final String MESSAGE_TIME_CONSTRAINTS = "Time must be in the form HH:mm";
@@ -96,5 +96,16 @@ public class DateTime {
      */
     public String getStringTime() {
         return time.format(DateTimeFormatter.ISO_LOCAL_TIME);
+    }
+
+    @Override
+    public int compareTo(DateTime o) {
+        int dateComparison = this.date.compareTo(o.date);
+
+        if (dateComparison == 0) {
+            return this.time.compareTo(o.time);
+        }
+
+        return dateComparison;
     }
 }
