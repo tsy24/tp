@@ -9,8 +9,7 @@ import static seedu.address.logic.commands.TaskCommandTestUtil.VALID_NAME_ALEX;
 import static seedu.address.logic.commands.TaskCommandTestUtil.VALID_NAME_KEITH;
 import static seedu.address.logic.commands.TaskCommandTestUtil.VALID_TIME_SEVENPM;
 import static seedu.address.logic.commands.TaskCommandTestUtil.VALID_TIME_TENAM;
-import static seedu.address.testutil.TypicalTasks.ALEX_INSULIN;
-import static seedu.address.testutil.TypicalTasks.KEITH_INSULIN;
+import static seedu.address.testutil.TypicalTasks.*;
 
 import org.junit.jupiter.api.Test;
 
@@ -56,5 +55,21 @@ public class TaskTest {
         // different address -> returns false
         editedTask = new TaskBuilder(keithInsulin).withDesc(VALID_DESC_PAPERWORK).build();
         assertFalse(keithInsulin.equals(editedTask));
+    }
+
+    @Test
+    void compareTo() {
+        Task keithInsulin = new TaskBuilder(KEITH_INSULIN).build(); // date = "2020-11-01"
+        Task alexInsulin = new TaskBuilder(ALEX_INSULIN).build(); // date = "2022-01-31", time: "19:45" in 24 hrs time
+        Task doPaperwork = new TaskBuilder(DO_PAPERWORK).build(); // date: "2022-01-31", time: "10:20" in 24 hrs time
+
+        // keithInsulin before alexInsulin -> returns negative value
+        assertTrue(keithInsulin.compareTo(alexInsulin) < 0);
+
+        // alexInsulin after doPaperwork -> returns positive value
+        assertTrue(alexInsulin.compareTo(doPaperwork) > 0);
+
+        // doPaperwork before alexInsulin -> returns negative value
+        assertFalse(doPaperwork.compareTo(keithInsulin) == 0);
     }
 }
