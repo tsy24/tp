@@ -9,7 +9,9 @@ import static seedu.address.logic.commands.TaskCommandTestUtil.VALID_NAME_ALEX;
 import static seedu.address.logic.commands.TaskCommandTestUtil.VALID_NAME_KEITH;
 import static seedu.address.logic.commands.TaskCommandTestUtil.VALID_TIME_SEVENPM;
 import static seedu.address.logic.commands.TaskCommandTestUtil.VALID_TIME_TENAM;
-import static seedu.address.testutil.TypicalTasks.*;
+import static seedu.address.testutil.TypicalTasks.ALEX_INSULIN;
+import static seedu.address.testutil.TypicalTasks.DO_PAPERWORK;
+import static seedu.address.testutil.TypicalTasks.KEITH_INSULIN;
 
 import org.junit.jupiter.api.Test;
 
