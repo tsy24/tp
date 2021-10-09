@@ -56,14 +56,14 @@ public class PersonCard extends UiPart<Region> {
         super(FXML);
         this.person = person;
         id.setText(displayedIndex + ". ");
-        name.setText(person.getName().fullName);
-        phone.setText(person.getPhone().value);
-        age.setText(person.getAge().value + " years old");
-        gender.setText(person.getGender().value);
-        roomNumber.setText(person.getRoomNumber().value);
-        address.setText(person.getAddress().value);
-        remark.setText(person.getRemark().value);
-        email.setText(person.getEmail().value);
+        name.setText("Name: " + person.getName().fullName);
+        phone.setText("Phone No.: " + person.getPhone().value);
+        age.setText("Age: " + person.getAge().value + " years old");
+        gender.setText("Gender: " + person.getGender().value);
+        roomNumber.setText("Room No.: " + person.getRoomNumber().value);
+        address.setText("Address: " + person.getAddress().value);
+        remark.setText("Remarks: " + person.getRemark().value);
+        email.setText("Email: " + person.getEmail().value);
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
