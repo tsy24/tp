@@ -7,33 +7,39 @@
     ],
     "description": "Bring insulin shots",
     "date": "2020-11-01",
-    "time": "19:45"
+    "time": "19:45",
+    "status": "false"
   }, {
     "names": [
       "Alex Andre"
     ],
     "description": "Bring insulin shots",
     "date": "2022-01-31",
-    "time": "19:45"
+    "time": "19:45",
+    "status": "false"
   }, {
     "names": [],
     "description": "Do paperwork",
     "date": "2022-01-31",
-    "time": "10:20"
+    "time": "10:20",
+    "status": "false"
   }, {
     "names": ["Yasmine George"],
     "description": "Physiotherapy with yoga ball",
     "date": "2021-09-13",
-    "time": "15:30"
+    "time": "15:30",
+    "status": "true"
   }, {
     "names": [],
     "description": "Apply leave with HR",
     "date": "2021-10-01",
-    "time": "00:00"
+    "time": "00:00",
+    "status": "true"
   }, {
     "names": ["Khong Guan", "Swee Choon"],
     "description": "3rd shot for Pfizer",
     "date": "2021-10-30",
-    "time": "18:00"
+    "time": "18:00",
+    "status": "false"
   } ]
 }

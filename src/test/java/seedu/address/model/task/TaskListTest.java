@@ -13,6 +13,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.task.exceptions.TaskNotFoundException;
+
 public class TaskListTest {
     private final TaskList taskList = new TaskList();
 
@@ -37,14 +39,24 @@ public class TaskListTest {
         assertThrows(NullPointerException.class, () -> taskList.add(null));
     }
 
+    @Test
+    public void mark_nullTask_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> taskList.markTaskAsDone(null));
+    }
 
     @Test
-    public void setPersons_nullUniquePersonList_throwsNullPointerException() {
+    public void mark_taskDoesNotExist_throwsTaskNotFoundException() {
+        assertThrows(TaskNotFoundException.class, () -> taskList.markTaskAsDone(DO_PAPERWORK));
+    }
+
+
+    @Test
+    public void setTasks_nullTaskList_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> taskList.setTasks((TaskList) null));
     }
 
     @Test
-    public void setPersons_uniquePersonList_replacesOwnListWithProvidedUniquePersonList() {
+    public void setTasks_taskList_replacesOwnListWithProvidedTaskList() {
         taskList.add(APPLY_LEAVE);
         TaskList expectedTaskList = new TaskList();
         expectedTaskList.add(DO_PAPERWORK);
