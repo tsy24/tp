@@ -7,7 +7,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 
-public class Task {
+public class Task implements Comparable<Task> {
     private final Description desc;
     private final DateTime dateTime;
     private final boolean isDone;
@@ -90,5 +90,10 @@ public class Task {
             });
         }
         return builder.toString();
+    }
+
+    @Override
+    public int compareTo(Task o) {
+        return this.dateTime.compareTo(o.dateTime);
     }
 }
