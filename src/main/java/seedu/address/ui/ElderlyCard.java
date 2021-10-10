@@ -56,7 +56,7 @@ public class ElderlyCard extends UiPart<Region> {
         super(FXML);
         this.elderly = elderly;
         id.setText(displayedIndex + ". ");
-        name.setText("Name: " + elderly.getName().fullName);
+        name.setText(elderly.getName().fullName);
         phone.setText("Phone No.: " + elderly.getPhone().value);
         age.setText("Age: " + elderly.getAge().value + " years old");
         gender.setText("Gender: " + elderly.getGender().value);
