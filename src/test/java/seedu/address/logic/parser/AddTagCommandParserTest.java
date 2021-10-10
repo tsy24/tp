@@ -10,7 +10,7 @@ import static seedu.address.logic.commands.CommandTestUtil.TAG_EMPTY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_DIABETES;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 
 import org.junit.jupiter.api.Test;
 
@@ -24,9 +24,9 @@ public class AddTagCommandParserTest {
 
     @Test
     public void parse_allFieldsSpecified_success() {
-        Index targetIndex = INDEX_FIRST_PERSON;
+        Index targetIndex = INDEX_FIRST;
         String userInput = targetIndex.getOneBased() + TAG_DESC_DIABETES;
-        AddTagCommand expectedCommand = new AddTagCommand(INDEX_FIRST_PERSON, SET_ONE_TAG);
+        AddTagCommand expectedCommand = new AddTagCommand(INDEX_FIRST, SET_ONE_TAG);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 
@@ -41,7 +41,7 @@ public class AddTagCommandParserTest {
         assertParseFailure(parser, TAG_DESC_DIABETES, expectedMessage);
 
         // no tag
-        assertParseFailure(parser, "" + INDEX_FIRST_PERSON, expectedMessage);
+        assertParseFailure(parser, "" + INDEX_FIRST, expectedMessage);
 
     }
 
