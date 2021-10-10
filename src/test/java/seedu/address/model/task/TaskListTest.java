@@ -39,12 +39,12 @@ public class TaskListTest {
 
 
     @Test
-    public void setPersons_nullUniquePersonList_throwsNullPointerException() {
+    public void setElderlies_nullUniqueElderlyList_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> taskList.setTasks((TaskList) null));
     }
 
     @Test
-    public void setPersons_uniquePersonList_replacesOwnListWithProvidedUniquePersonList() {
+    public void setElderlies_uniqueElderlyList_replacesOwnListWithProvidedUniqueElderlyList() {
         taskList.add(APPLY_LEAVE);
         TaskList expectedTaskList = new TaskList();
         expectedTaskList.add(DO_PAPERWORK);

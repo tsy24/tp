@@ -31,7 +31,7 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private PersonListPanel personListPanel;
+    private ElderlyListPanel elderlyListPanel;
     private TaskListPanel taskListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
@@ -111,10 +111,10 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+        elderlyListPanel = new ElderlyListPanel(logic.getFilteredElderlyList());
         taskListPanel = new TaskListPanel(logic.getFilteredTaskList());
 
-        listPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        listPanelPlaceholder.getChildren().add(elderlyListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -127,7 +127,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Fill list panel with correct items (persons/tasks)
+     * Fill list panel with correct items (elderlies/tasks)
      */
     private void handleChange(boolean isShowTasks) {
         if (isShowTasks) {
@@ -135,7 +135,7 @@ public class MainWindow extends UiPart<Stage> {
             listPanelPlaceholder.getChildren().add(taskListPanel.getRoot());
         } else {
             listPanelPlaceholder.getChildren().clear();
-            listPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+            listPanelPlaceholder.getChildren().add(elderlyListPanel.getRoot());
         }
     }
 

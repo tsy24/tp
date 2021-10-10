@@ -4,8 +4,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.model.AddressBook;
+import seedu.address.model.person.Elderly;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
 
 public class Task implements Comparable<Task> {
     private final Description desc;
@@ -52,15 +52,15 @@ public class Task implements Comparable<Task> {
     }
 
     /**
-     * Returns set of person objects related to this task.
+     * Returns set of elderly objects related to this task.
      *
      * @param book                      address book that stores this task
      * @return                          task description
      */
-    public Set<Person> getRelatedPeople(AddressBook book) {
-        Set<Person> relatedPeople = new HashSet<>();
+    public Set<Elderly> getRelatedPeople(AddressBook book) {
+        Set<Elderly> relatedPeople = new HashSet<>();
         for (Name name: relatedNames) {
-            relatedPeople.add(book.getPerson(name));
+            relatedPeople.add(book.getElderly(name));
         }
         return relatedPeople;
     }

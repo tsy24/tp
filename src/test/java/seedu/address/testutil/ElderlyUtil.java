@@ -12,44 +12,44 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import java.util.Set;
 
 import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.address.model.person.Person;
+import seedu.address.logic.commands.EditCommand.EditElderlyDescriptor;
+import seedu.address.model.person.Elderly;
 import seedu.address.model.tag.Tag;
 
 /**
- * A utility class for Person.
+ * A utility class for Elderly.
  */
-public class PersonUtil {
+public class ElderlyUtil {
 
     /**
-     * Returns an add command string for adding the {@code person}.
+     * Returns an add command string for adding the {@code elderly}.
      */
-    public static String getAddCommand(Person person) {
-        return AddCommand.COMMAND_WORD + " " + getPersonDetails(person);
+    public static String getAddCommand(Elderly elderly) {
+        return AddCommand.COMMAND_WORD + " " + getElderlyDetails(elderly);
     }
 
     /**
-     * Returns the part of command string for the given {@code person}'s details.
+     * Returns the part of command string for the given {@code elderly}'s details.
      */
-    public static String getPersonDetails(Person person) {
+    public static String getElderlyDetails(Elderly elderly) {
         StringBuilder sb = new StringBuilder();
-        sb.append(PREFIX_NAME + person.getName().fullName + " ");
-        sb.append(PREFIX_PHONE + person.getPhone().value + " ");
-        sb.append(PREFIX_AGE + person.getAge().value + " ");
-        sb.append(PREFIX_GENDER + person.getGender().value + " ");
-        sb.append(PREFIX_ROOM_NUM + person.getRoomNumber().value + " ");
-        sb.append(PREFIX_EMAIL + person.getEmail().value + " ");
-        sb.append(PREFIX_ADDRESS + person.getAddress().value + " ");
-        person.getTags().stream().forEach(
+        sb.append(PREFIX_NAME + elderly.getName().fullName + " ");
+        sb.append(PREFIX_PHONE + elderly.getPhone().value + " ");
+        sb.append(PREFIX_AGE + elderly.getAge().value + " ");
+        sb.append(PREFIX_GENDER + elderly.getGender().value + " ");
+        sb.append(PREFIX_ROOM_NUM + elderly.getRoomNumber().value + " ");
+        sb.append(PREFIX_EMAIL + elderly.getEmail().value + " ");
+        sb.append(PREFIX_ADDRESS + elderly.getAddress().value + " ");
+        elderly.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.tagName + " ")
         );
         return sb.toString();
     }
 
     /**
-     * Returns the part of command string for the given {@code EditPersonDescriptor}'s details.
+     * Returns the part of command string for the given {@code EditElderlyDescriptor}'s details.
      */
-    public static String getEditPersonDescriptorDetails(EditPersonDescriptor descriptor) {
+    public static String getEditElderlyDescriptorDetails(EditElderlyDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
         descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));
