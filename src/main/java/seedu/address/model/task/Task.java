@@ -18,9 +18,8 @@ public class Task implements Comparable<Task> {
      * Creates a Task object.
      *
      * @param desc                      the description of the task
-     * @param dt                        the date & time of the task
+     * @param dt                        the date and time of the task
      * @param names                     the names of people associated with the task
-     * @return                          task created
      */
     public Task(Description desc, DateTime dt, Set<Name> names) {
         this.desc = desc;
@@ -33,10 +32,9 @@ public class Task implements Comparable<Task> {
      * Creates a Task object.
      *
      * @param desc                      the description of the task
-     * @param dt                        the date & time of the task
+     * @param dt                        the date and time of the task
      * @param names                     the names of people associated with the task
      * @param status                    the completion status of the task
-     * @return                          task created
      */
     public Task(Description desc, DateTime dt, Set<Name> names, Status status) {
         this.desc = desc;
