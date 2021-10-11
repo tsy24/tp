@@ -9,8 +9,8 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.DeleteTaskCommand;
 
-class DeleteTaskComParserTest {
-    private DeleteTaskComParser parser = new DeleteTaskComParser();
+class DeleteTaskCommandParserTest {
+    private DeleteTaskCommandParser parser = new DeleteTaskCommandParser();
 
     @Test
     public void parse_validArgs_returnsDeleteTaskCommand() {
