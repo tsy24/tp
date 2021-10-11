@@ -1,10 +1,10 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
+import static seedu.address.logic.commands.CommandTestUtil.showElderlyAtIndex;
 import static seedu.address.logic.commands.ViewElderlyCommand.MESSAGE_SUCCESS;
+import static seedu.address.testutil.TypicalElderlies.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -36,7 +36,7 @@ public class ViewElderlyCommandTest {
 
     @Test
     public void execute_elderlyAreFiltered_showsEverything() {
-        showPersonAtIndex(model, INDEX_FIRST);
+        showElderlyAtIndex(model, INDEX_FIRST);
         CommandResult expectedCommandResult = new CommandResult(MESSAGE_SUCCESS,
                 CommandResult.ListDisplayChange.PERSON);
         assertCommandSuccess(new ViewElderlyCommand(), model, expectedCommandResult, expectedModel);

@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ELDERLIES;
 
 import java.util.HashSet;
 import java.util.List;
@@ -12,7 +12,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.Elderly;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -22,22 +22,22 @@ public class AddTagCommand extends Command {
 
     public static final String COMMAND_WORD = "addTag";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds tag(s) to the person identified "
-            + "by the index number used in the last person listing. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds tag(s) to the elderly identified "
+            + "by the index number used in the last elderly listing. "
             + "Must contain one or more tags\n"
             + "Parameters: INDEX (must be a positive integer) "
             + PREFIX_TAG + "[TAG]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_TAG + "Diabetes";
 
-    public static final String MESSAGE_ADD_TAG_SUCCESS = "Added tag(s) to Person: %1$s";
+    public static final String MESSAGE_ADD_TAG_SUCCESS = "Added tag(s) to Elderly: %1$s";
 
     private final Index index;
     private final Set<Tag> tags;
 
     /**
-     * @param index of the person in the filtered person list to add the tag
-     * @param tags of the person to be added
+     * @param index of the elderly in the filtered elderly list to add the tag
+     * @param tags of the elderly to be added
      */
     public AddTagCommand(Index index, Set<Tag> tags) {
         requireAllNonNull(index, tags);
@@ -48,24 +48,24 @@ public class AddTagCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        List<Person> lastShownList = model.getFilteredPersonList();
+        List<Elderly> lastShownList = model.getFilteredElderlyList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_ELDERLY_DISPLAYED_INDEX);
         }
 
-        Person personToAddTag = lastShownList.get(index.getZeroBased());
-        Set<Tag> currentTags = personToAddTag.getTags();
-        Person addedPerson = new Person(
-                personToAddTag.getName(), personToAddTag.getPhone(), personToAddTag.getAge(),
-                personToAddTag.getGender(), personToAddTag.getRoomNumber(),
-                personToAddTag.getEmail(), personToAddTag.getAddress(), personToAddTag.getRemark(),
+        Elderly elderlyToAddTag = lastShownList.get(index.getZeroBased());
+        Set<Tag> currentTags = elderlyToAddTag.getTags();
+        Elderly addedElderly = new Elderly(
+                elderlyToAddTag.getName(), elderlyToAddTag.getPhone(), elderlyToAddTag.getAge(),
+                elderlyToAddTag.getGender(), elderlyToAddTag.getRoomNumber(),
+                elderlyToAddTag.getEmail(), elderlyToAddTag.getAddress(), elderlyToAddTag.getRemark(),
                 addTagsToSet(currentTags, tags));
 
-        model.setPerson(personToAddTag, addedPerson);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        model.setElderly(elderlyToAddTag, addedElderly);
+        model.updateFilteredElderlyList(PREDICATE_SHOW_ALL_ELDERLIES);
 
-        return new CommandResult(String.format(MESSAGE_ADD_TAG_SUCCESS, addedPerson));
+        return new CommandResult(String.format(MESSAGE_ADD_TAG_SUCCESS, addedElderly));
     }
 
     @Override

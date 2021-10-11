@@ -19,8 +19,9 @@ import seedu.address.logic.commands.AddTaskCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DeleteTaskCommand;
+import seedu.address.logic.commands.DoneTaskCommand;
 import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.EditCommand.EditElderlyDescriptor;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
@@ -28,13 +29,13 @@ import seedu.address.logic.commands.RemarkCommand;
 import seedu.address.logic.commands.ViewElderlyCommand;
 import seedu.address.logic.commands.ViewTasksCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.person.Elderly;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
-import seedu.address.model.person.Person;
 import seedu.address.model.person.Remark;
 import seedu.address.model.task.Task;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
-import seedu.address.testutil.PersonBuilder;
-import seedu.address.testutil.PersonUtil;
+import seedu.address.testutil.EditElderlyDescriptorBuilder;
+import seedu.address.testutil.ElderlyBuilder;
+import seedu.address.testutil.ElderlyUtil;
 import seedu.address.testutil.TaskBuilder;
 import seedu.address.testutil.TaskUtil;
 
@@ -44,9 +45,9 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_add() throws Exception {
-        Person person = new PersonBuilder().build();
-        AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddCommand(person));
-        assertEquals(new AddCommand(person), command);
+        Elderly elderly = new ElderlyBuilder().build();
+        AddCommand command = (AddCommand) parser.parseCommand(ElderlyUtil.getAddCommand(elderly));
+        assertEquals(new AddCommand(elderly), command);
     }
 
     @Test
@@ -74,14 +75,20 @@ public class AddressBookParserTest {
         DeleteTaskCommand command = (DeleteTaskCommand) parser.parseCommand(
                 DeleteTaskCommand.COMMAND_WORD + " " + INDEX_FIRST.getOneBased());
         assertEquals(new DeleteTaskCommand(INDEX_FIRST), command);
+
+    @Test
+    public void parseCommand_doneTask() throws Exception {
+        DoneTaskCommand command = (DoneTaskCommand) parser.parseCommand(
+                DoneTaskCommand.COMMAND_WORD + " " + INDEX_FIRST.getOneBased());
+        assertEquals(new DoneTaskCommand(INDEX_FIRST), command);
     }
 
     @Test
     public void parseCommand_edit() throws Exception {
-        Person person = new PersonBuilder().build();
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(person).build();
+        Elderly elderly = new ElderlyBuilder().build();
+        EditElderlyDescriptor descriptor = new EditElderlyDescriptorBuilder(elderly).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-                + INDEX_FIRST.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
+                + INDEX_FIRST.getOneBased() + " " + ElderlyUtil.getEditElderlyDescriptorDetails(descriptor));
         assertEquals(new EditCommand(INDEX_FIRST, descriptor), command);
     }
 
