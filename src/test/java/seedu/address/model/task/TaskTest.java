@@ -15,9 +15,6 @@ import static seedu.address.testutil.TypicalTasks.APPLY_LEAVE;
 import static seedu.address.testutil.TypicalTasks.DO_PAPERWORK;
 import static seedu.address.testutil.TypicalTasks.KEITH_INSULIN;
 
-import java.time.Clock;
-import java.time.LocalDate;
-
 import org.junit.jupiter.api.Test;
 
 import seedu.address.testutil.TaskBuilder;
@@ -25,6 +22,7 @@ import seedu.address.testutil.TaskBuilder;
 public class TaskTest {
 
     private Task keithInsulin = new TaskBuilder(KEITH_INSULIN).build();
+    private Task alexInsulin = new TaskBuilder(ALEX_INSULIN).build();
 
     @Test
     public void equals() {
@@ -70,6 +68,38 @@ public class TaskTest {
     }
 
     @Test
+    public void isAfter() {
+        DateTime october = new DateTime("2020-10-31", "23:59");
+        DateTime november = new DateTime("2020-11-01", "19:45");
+        DateTime december = new DateTime("2021-12-25", "12:00");
+
+        // keithInsulin on 2021-11-01, after 2021 October -> returns true
+        assertTrue(keithInsulin.isAfter(october));
+
+        // keithInsulin on 2021-11-01, before 2021 December -> returns false
+        assertFalse(keithInsulin.isAfter(december));
+
+        // keithInsulin on 2021-11-01, same time as november -> returns false
+        assertFalse(keithInsulin.isAfter(november));
+    }
+
+    @Test
+    public void isBefore() {
+        DateTime october = new DateTime("2020-10-31", "23:59");
+        DateTime november = new DateTime("2020-11-01", "19:45");
+        DateTime december = new DateTime("2021-12-25", "12:00");
+
+        // keithInsulin on 2021-11-01, after 2021 October -> returns false
+        assertFalse(keithInsulin.isBefore(october));
+
+        // keithInsulin on 2021-11-01, before 2021 December -> returns true
+        assertTrue(keithInsulin.isBefore(december));
+
+        // keithInsulin on 2021-11-01, same time as november -> returns false
+        assertFalse(keithInsulin.isBefore(november));
+    }
+
+    @Test
     void isTaskDone() {
         assertFalse(keithInsulin.isTaskDone()); //status: isDone = "false"
 
@@ -97,30 +127,6 @@ public class TaskTest {
 
         // doPaperwork before alexInsulin -> returns negative value
         assertFalse(doPaperwork.compareTo(keithInsulin) == 0);
-    }
-
-    @Test
-    public void execute_isReminder_success() {
-        Clock cl = Clock.systemUTC();
-        LocalDate currentDate = LocalDate.now(cl);
-
-        // coming up in the next two days -> returns true
-        Task keithInsulin = new TaskBuilder(KEITH_INSULIN).build();
-        Task editedKeith = new TaskBuilder(keithInsulin).
-                withDateTime(currentDate.plusDays(2).toString(), "10:30").build();
-        assertTrue(editedKeith.isReminder());
-
-        // coming up six days later -> returns false
-        Task alexInsulin = new TaskBuilder(ALEX_INSULIN).build();
-        Task editedAlex = new TaskBuilder(alexInsulin).
-                withDateTime(currentDate.plusDays(6).toString(), "18:55").build();
-        assertFalse(editedAlex.isReminder());
-
-        // coming up on the current date -> returns true
-        Task doPaperwork = new TaskBuilder(DO_PAPERWORK).build();
-        Task editedPaperwork = new TaskBuilder(doPaperwork).
-                withDateTime(currentDate.toString(), "23:10").build();
-        assertTrue(editedPaperwork.isReminder());
     }
 
 }

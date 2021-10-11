@@ -1,7 +1,5 @@
 package seedu.address.model.task;
 
-import java.time.Clock;
-import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -10,6 +8,7 @@ import seedu.address.model.person.Elderly;
 import seedu.address.model.person.Name;
 
 public class Task implements Comparable<Task> {
+
     private final Description desc;
     private final DateTime dateTime;
     private final Status status;
@@ -57,7 +56,6 @@ public class Task implements Comparable<Task> {
         }
         return new Task(desc, dateTime, relatedNames, new Status("true"));
     }
-
 
     /**
      * Returns task description of this task.

@@ -45,24 +45,7 @@ class DateTimeTest {
     }
 
     @Test
-    public void execute_isBefore_success() {
-        DateTime now = new DateTime("2021-10-31", "10:25");
-
-        // before the DateTime to test against -> returns false
-        DateTime beforeDate = new DateTime("2021-09-15", "13:00"); // different date
-        DateTime beforeTime = new DateTime("2021-10-31", "09:40"); // different time
-        assertFalse(now.isBefore(beforeDate));
-        assertFalse(now.isBefore(beforeTime));
-
-        // after the DateTime to test against -> returns true
-        DateTime afterDate = new DateTime("2021-11-19", "13:20"); // different date
-        DateTime afterTime = new DateTime("2021-10-31", "18:25"); // different time
-        assertTrue(now.isBefore(afterDate));
-        assertTrue(now.isBefore(afterTime));
-    }
-
-    @Test
-    public void execute_isAfter_success() {
+    public void isAfter() {
         DateTime now = new DateTime("2021-10-31", "10:25");
 
         // before the DateTime to test against -> returns true
@@ -76,6 +59,23 @@ class DateTimeTest {
         DateTime afterTime = new DateTime("2021-10-31", "18:25"); // different time
         assertFalse(now.isAfter(afterDate));
         assertFalse(now.isAfter(afterTime));
+    }
+
+    @Test
+    public void isBefore() {
+        DateTime now = new DateTime("2021-10-31", "10:25");
+
+        // before the DateTime to test against -> returns false
+        DateTime beforeDate = new DateTime("2021-09-15", "13:00"); // different date
+        DateTime beforeTime = new DateTime("2021-10-31", "09:40"); // different time
+        assertFalse(now.isBefore(beforeDate));
+        assertFalse(now.isBefore(beforeTime));
+
+        // after the DateTime to test against -> returns true
+        DateTime afterDate = new DateTime("2021-11-19", "13:20"); // different date
+        DateTime afterTime = new DateTime("2021-10-31", "18:25"); // different time
+        assertTrue(now.isBefore(afterDate));
+        assertTrue(now.isBefore(afterTime));
     }
 
     @Test
