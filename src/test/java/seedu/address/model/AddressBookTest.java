@@ -8,6 +8,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalElderlies.ALICE;
 import static seedu.address.testutil.TypicalElderlies.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalTasks.DO_PAPERWORK;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -77,6 +78,22 @@ public class AddressBookTest {
         Elderly editedAlice = new ElderlyBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         assertTrue(addressBook.hasElderly(editedAlice));
+    }
+
+    @Test
+    public void hasTask_nullTask_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> addressBook.hasTask(null));
+    }
+
+    @Test
+    public void hasTask_taskNotInAddressBook_returnsFalse() {
+        assertFalse(addressBook.hasTask(DO_PAPERWORK));
+    }
+
+    @Test
+    public void hasTask_taskInAddressBook_returnsTrue() {
+        addressBook.addTask(DO_PAPERWORK);
+        assertTrue(addressBook.hasTask(DO_PAPERWORK));
     }
 
     @Test

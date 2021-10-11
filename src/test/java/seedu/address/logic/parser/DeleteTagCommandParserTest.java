@@ -15,24 +15,24 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.AddTagCommand;
+import seedu.address.logic.commands.DeleteTagCommand;
 import seedu.address.model.tag.Tag;
 
-public class AddTagCommandParserTest {
+public class DeleteTagCommandParserTest {
 
-    private AddTagCommandParser parser = new AddTagCommandParser();
+    private DeleteTagCommandParser parser = new DeleteTagCommandParser();
 
     @Test
     public void parse_allFieldsSpecified_success() {
         Index targetIndex = INDEX_FIRST;
         String userInput = targetIndex.getOneBased() + TAG_DESC_DIABETES;
-        AddTagCommand expectedCommand = new AddTagCommand(INDEX_FIRST, SET_ONE_TAG);
+        DeleteTagCommand expectedCommand = new DeleteTagCommand(INDEX_FIRST, SET_ONE_TAG);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 
     @Test
     public void parse_missingCompulsoryField_failure() {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTagCommand.MESSAGE_USAGE);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteTagCommand.MESSAGE_USAGE);
 
         // no parameters
         assertParseFailure(parser, "", expectedMessage);
@@ -47,7 +47,7 @@ public class AddTagCommandParserTest {
 
     @Test
     public void parse_invalidPreamble_failure() {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTagCommand.MESSAGE_USAGE);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteTagCommand.MESSAGE_USAGE);
 
         // negative index
         assertParseFailure(parser, "-5" + VALID_TAG_DIABETES, expectedMessage);

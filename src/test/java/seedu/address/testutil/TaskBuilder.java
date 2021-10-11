@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import seedu.address.model.person.Name;
 import seedu.address.model.task.DateTime;
 import seedu.address.model.task.Description;
+import seedu.address.model.task.Status;
 import seedu.address.model.task.Task;
 
 public class TaskBuilder {
@@ -15,10 +16,12 @@ public class TaskBuilder {
     public static final String DEFAULT_DESC = "inject 5000 mg tylenol";
     public static final String DEFAULT_DATE = "2069-06-09";
     public static final String DEFAULT_TIME = "18:09";
+    public static final String DEFAULT_STATUS = "false";
 
     private Description desc;
     private DateTime dateTime;
     private Set<Name> names;
+    private Status status;
 
     /**
      * Creates a {@code TaskBuilder} with the default details.
@@ -27,6 +30,7 @@ public class TaskBuilder {
         desc = new Description(DEFAULT_DESC);
         dateTime = new DateTime(DEFAULT_DATE, DEFAULT_TIME);
         names = new HashSet<>();
+        status = new Status(DEFAULT_STATUS);
     }
 
     /**
@@ -36,6 +40,7 @@ public class TaskBuilder {
         desc = taskToCopy.getDesc();
         dateTime = taskToCopy.getDateTime();
         names = new HashSet<>(taskToCopy.getRelatedNames());
+        status = taskToCopy.getStatus();
     }
 
     /**
@@ -65,9 +70,17 @@ public class TaskBuilder {
     }
 
     /**
+     * Sets the {@code DateTime} of the {@code Task} that we are building.
+     */
+    public TaskBuilder withStatus(String status) {
+        this.status = new Status(status);
+        return this;
+    }
+
+    /**
      * Returns task object created with fields of the taskBuilder
      */
     public Task build() {
-        return new Task(desc, dateTime, names);
+        return new Task(desc, dateTime, names, status);
     }
 }

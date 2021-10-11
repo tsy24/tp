@@ -13,8 +13,8 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showElderlyAtIndex;
 import static seedu.address.testutil.TypicalElderlies.getTypicalAddressBook;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ELDERLY;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_ELDERLY;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND;
 
 import org.junit.jupiter.api.Test;
 
@@ -40,7 +40,7 @@ public class EditCommandTest {
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
         Elderly editedElderly = new ElderlyBuilder().build();
         EditElderlyDescriptor descriptor = new EditElderlyDescriptorBuilder(editedElderly).build();
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_ELDERLY, descriptor);
+        EditCommand editCommand = new EditCommand(INDEX_FIRST, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ELDERLY_SUCCESS, editedElderly);
 
@@ -74,8 +74,8 @@ public class EditCommandTest {
 
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_ELDERLY, new EditCommand.EditElderlyDescriptor());
-        Elderly editedElderly = model.getFilteredElderlyList().get(INDEX_FIRST_ELDERLY.getZeroBased());
+        EditCommand editCommand = new EditCommand(INDEX_FIRST, new EditCommand.EditElderlyDescriptor());
+        Elderly editedElderly = model.getFilteredElderlyList().get(INDEX_FIRST.getZeroBased());
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ELDERLY_SUCCESS, editedElderly);
 
@@ -86,13 +86,12 @@ public class EditCommandTest {
 
     @Test
     public void execute_filteredList_success() {
-        showElderlyAtIndex(model, INDEX_FIRST_ELDERLY);
+        showElderlyAtIndex(model, INDEX_FIRST);
 
-        Elderly elderlyInFilteredList = model.getFilteredElderlyList().get(INDEX_FIRST_ELDERLY.getZeroBased());
+        Elderly elderlyInFilteredList = model.getFilteredElderlyList().get(INDEX_FIRST.getZeroBased());
         Elderly editedElderly = new ElderlyBuilder(elderlyInFilteredList).withName(VALID_NAME_BOB).build();
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_ELDERLY,
+        EditCommand editCommand = new EditCommand(INDEX_FIRST,
                 new EditElderlyDescriptorBuilder().withName(VALID_NAME_BOB).build());
-
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ELDERLY_SUCCESS, editedElderly);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
@@ -103,22 +102,21 @@ public class EditCommandTest {
 
     @Test
     public void execute_duplicateElderlyUnfilteredList_failure() {
-        Elderly firstElderly = model.getFilteredElderlyList().get(INDEX_FIRST_ELDERLY.getZeroBased());
+        Elderly firstElderly = model.getFilteredElderlyList().get(INDEX_FIRST.getZeroBased());
         EditElderlyDescriptor descriptor = new EditElderlyDescriptorBuilder(firstElderly).build();
-        EditCommand editCommand = new EditCommand(INDEX_SECOND_ELDERLY, descriptor);
+        EditCommand editCommand = new EditCommand(INDEX_SECOND, descriptor);
 
         assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_ELDERLY);
     }
 
     @Test
     public void execute_duplicateElderlyFilteredList_failure() {
-        showElderlyAtIndex(model, INDEX_FIRST_ELDERLY);
+        showElderlyAtIndex(model, INDEX_FIRST);
 
         // edit elderly in filtered list into a duplicate in address book
-        Elderly elderlyInList = model.getAddressBook().getElderlyList().get(INDEX_SECOND_ELDERLY.getZeroBased());
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_ELDERLY,
+        Elderly elderlyInList = model.getAddressBook().getElderlyList().get(INDEX_SECOND.getZeroBased());
+        EditCommand editCommand = new EditCommand(INDEX_FIRST,
                 new EditElderlyDescriptorBuilder(elderlyInList).build());
-
         assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_ELDERLY);
     }
 
@@ -137,8 +135,8 @@ public class EditCommandTest {
      */
     @Test
     public void execute_invalidElderlyIndexFilteredList_failure() {
-        showElderlyAtIndex(model, INDEX_FIRST_ELDERLY);
-        Index outOfBoundIndex = INDEX_SECOND_ELDERLY;
+        showElderlyAtIndex(model, INDEX_FIRST);
+        Index outOfBoundIndex = INDEX_SECOND;
         // ensures that outOfBoundIndex is still in bounds of address book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getElderlyList().size());
 
@@ -150,11 +148,11 @@ public class EditCommandTest {
 
     @Test
     public void equals() {
-        final EditCommand standardCommand = new EditCommand(INDEX_FIRST_ELDERLY, DESC_AMY);
+        final EditCommand standardCommand = new EditCommand(INDEX_FIRST, DESC_AMY);
 
         // same values -> returns true
         EditElderlyDescriptor copyDescriptor = new EditElderlyDescriptor(DESC_AMY);
-        EditCommand commandWithSameValues = new EditCommand(INDEX_FIRST_ELDERLY, copyDescriptor);
+        EditCommand commandWithSameValues = new EditCommand(INDEX_FIRST, copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true
@@ -167,10 +165,10 @@ public class EditCommandTest {
         assertFalse(standardCommand.equals(new ClearCommand()));
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(new EditCommand(INDEX_SECOND_ELDERLY, DESC_AMY)));
+        assertFalse(standardCommand.equals(new EditCommand(INDEX_SECOND, DESC_AMY)));
 
         // different descriptor -> returns false
-        assertFalse(standardCommand.equals(new EditCommand(INDEX_FIRST_ELDERLY, DESC_BOB)));
+        assertFalse(standardCommand.equals(new EditCommand(INDEX_FIRST, DESC_BOB)));
     }
 
 }
