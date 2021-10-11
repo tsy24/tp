@@ -30,15 +30,15 @@ public class DeleteTagCommandTest {
 
     @Test
     public void execute_deleteTagUnfilteredList_success() {
-        Elderly secondPerson = model.getFilteredElderlyList().get(INDEX_SECOND_ELDERLY.getZeroBased());
-        Elderly tagDeletedPerson = new ElderlyBuilder(secondPerson).withTags(VALID_TAG_FRIEND).build();
+        Elderly secondElderly = model.getFilteredElderlyList().get(INDEX_SECOND_ELDERLY.getZeroBased());
+        Elderly tagDeletedElderly = new ElderlyBuilder(secondElderly).withTags(VALID_TAG_FRIEND).build();
 
         DeleteTagCommand deleteTagCommand = new DeleteTagCommand(INDEX_SECOND_ELDERLY, SET_ONE_TAG);
 
-        String expectedMessage = String.format(DeleteTagCommand.MESSAGE_DELETE_TAG_SUCCESS, tagDeletedPerson);
+        String expectedMessage = String.format(DeleteTagCommand.MESSAGE_DELETE_TAG_SUCCESS, tagDeletedElderly);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.setElderly(secondPerson, tagDeletedPerson);
+        expectedModel.setElderly(secondElderly, tagDeletedElderly);
 
         assertCommandSuccess(deleteTagCommand, model, expectedMessage, expectedModel);
     }
@@ -91,7 +91,7 @@ public class DeleteTagCommandTest {
     }
 
     @Test
-    public void execute_invalidPersonIndexUnfilteredList_failure() {
+    public void execute_invalidElderlyIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredElderlyList().size() + 1);
         DeleteTagCommand deleteTagCommand = new DeleteTagCommand(outOfBoundIndex, SET_ONE_TAG);
 

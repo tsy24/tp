@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ELDERLIES;
 
 import java.util.HashSet;
 import java.util.List;
@@ -12,33 +12,33 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.Elderly;
 import seedu.address.model.tag.Tag;
 
 /**
- * Adds at least one tag to an existing elderly in the NurseyBook.
+ * Deletes at least one tag from an existing elderly in the NurseyBook.
  */
 public class DeleteTagCommand extends Command {
 
     public static final String COMMAND_WORD = "deleteTag";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Delete tag(s) from the person identified "
-            + "by the index number used in the last person listing. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Delete tag(s) from the elderly identified "
+            + "by the index number used in the last elderly listing. "
             + "Must contain one or more tags\n"
             + "Parameters: INDEX (must be a positive integer) "
             + PREFIX_TAG + "[TAG]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_TAG + "Diabetes";
 
-    public static final String MESSAGE_DELETE_TAG_SUCCESS = "Deleted tag(s) from Person: %1$s";
+    public static final String MESSAGE_DELETE_TAG_SUCCESS = "Deleted tag(s) from Elderly: %1$s";
     public static final String MESSAGE_NO_SUCH_TAG = "'%1$s' tag does not exist for elderly";
 
     private final Index index;
     private final Set<Tag> tags;
 
     /**
-     * @param index of the person in the filtered person list to add the tag
-     * @param tags of the person to be added
+     * @param index of the elderly in the filtered elderly list to add the tag
+     * @param tags of the elderly to be added
      */
     public DeleteTagCommand(Index index, Set<Tag> tags) {
         requireAllNonNull(index, tags);
@@ -49,29 +49,29 @@ public class DeleteTagCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        List<Person> lastShownList = model.getFilteredPersonList();
+        List<Elderly> lastShownList = model.getFilteredElderlyList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_ELDERLY_DISPLAYED_INDEX);
         }
 
-        Person personToDeleteTag = lastShownList.get(index.getZeroBased());
-        Set<Tag> updatedTags = new HashSet<>(personToDeleteTag.getTags());
+        Elderly elderlyToDeleteTag = lastShownList.get(index.getZeroBased());
+        Set<Tag> updatedTags = new HashSet<>(elderlyToDeleteTag.getTags());
         for (Tag tagToDelete: tags) {
             if (!updatedTags.contains(tagToDelete)) {
                 throw new CommandException(String.format(MESSAGE_NO_SUCH_TAG, tagToDelete.tagName));
             }
             updatedTags.remove(tagToDelete);
         }
-        Person updatedPerson = new Person(
-                personToDeleteTag.getName(), personToDeleteTag.getPhone(), personToDeleteTag.getAge(),
-                personToDeleteTag.getGender(), personToDeleteTag.getRoomNumber(), personToDeleteTag.getEmail(),
-                personToDeleteTag.getAddress(), personToDeleteTag.getRemark(), updatedTags);
+        Elderly updatedElderly = new Elderly(
+                elderlyToDeleteTag.getName(), elderlyToDeleteTag.getPhone(), elderlyToDeleteTag.getAge(),
+                elderlyToDeleteTag.getGender(), elderlyToDeleteTag.getRoomNumber(), elderlyToDeleteTag.getEmail(),
+                elderlyToDeleteTag.getAddress(), elderlyToDeleteTag.getRemark(), updatedTags);
 
-        model.setPerson(personToDeleteTag, updatedPerson);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        model.setElderly(elderlyToDeleteTag, updatedElderly);
+        model.updateFilteredElderlyList(PREDICATE_SHOW_ALL_ELDERLIES);
 
-        return new CommandResult(String.format(MESSAGE_DELETE_TAG_SUCCESS, updatedPerson));
+        return new CommandResult(String.format(MESSAGE_DELETE_TAG_SUCCESS, updatedElderly));
     }
 
     @Override
