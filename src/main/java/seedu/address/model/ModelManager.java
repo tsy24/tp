@@ -114,6 +114,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void deleteTask(Task target) {
+        addressBook.removeTask(target);
+    }
+
+    @Override
     public void addElderly(Elderly elderly) {
         addressBook.addElderly(elderly);
         updateFilteredElderlyList(PREDICATE_SHOW_ALL_ELDERLIES);

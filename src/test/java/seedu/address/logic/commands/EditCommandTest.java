@@ -148,7 +148,6 @@ public class EditCommandTest {
 
     @Test
     public void equals() {
-
         final EditCommand standardCommand = new EditCommand(INDEX_FIRST, DESC_AMY);
 
         // same values -> returns true

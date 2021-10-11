@@ -40,6 +40,24 @@ public class TaskListTest {
     }
 
     @Test
+    public void remove_nullTask_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> taskList.remove(null));
+    }
+
+    @Test
+    public void remove_taskDoesNotExist_throwsTaskNotFoundException() {
+        assertThrows(TaskNotFoundException.class, () -> taskList.remove(DO_PAPERWORK));
+    }
+
+    @Test
+    public void remove_existingTask_removesTask() {
+        taskList.add(DO_PAPERWORK);
+        taskList.remove(DO_PAPERWORK);
+        TaskList expectedTaskList = new TaskList();
+        assertEquals(expectedTaskList, taskList);
+    }
+
+    @Test
     public void mark_nullTask_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> taskList.markTaskAsDone(null));
     }
@@ -48,7 +66,6 @@ public class TaskListTest {
     public void mark_taskDoesNotExist_throwsTaskNotFoundException() {
         assertThrows(TaskNotFoundException.class, () -> taskList.markTaskAsDone(DO_PAPERWORK));
     }
-
 
     @Test
     public void setTasks_nullTaskList_throwsNullPointerException() {

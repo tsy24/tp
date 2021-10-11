@@ -120,6 +120,14 @@ public class AddressBook implements ReadOnlyAddressBook {
         elderlies.remove(key);
     }
 
+    /**
+     * Removes {@code key} task from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeTask(Task key) {
+        tasks.remove(key);
+    }
+
     //// util methods
 
     @Override
