@@ -13,6 +13,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Name;
 import seedu.address.model.task.DateTime;
 import seedu.address.model.task.Description;
+import seedu.address.model.task.Status;
 import seedu.address.model.task.Task;
 
 public class JsonAdaptedTask {
@@ -22,19 +23,22 @@ public class JsonAdaptedTask {
     private final List<String> names = new ArrayList<>();
     private final String date;
     private final String time;
+    private final String status;
 
     /**
      * Constructs a {@code JsonAdaptedTask} with the given task details.
      */
     @JsonCreator
     public JsonAdaptedTask(@JsonProperty("names") List<String> names, @JsonProperty("description") String description,
-                             @JsonProperty("date") String date, @JsonProperty("time") String time) {
+                             @JsonProperty("date") String date, @JsonProperty("time") String time,
+                           @JsonProperty("status") String status) {
         if (names != null) {
             this.names.addAll(names);
         }
         this.description = description;
         this.date = date;
         this.time = time;
+        this.status = status;
     }
 
     /**
@@ -47,6 +51,7 @@ public class JsonAdaptedTask {
         names.addAll(source.getRelatedNames().stream()
                 .map(name -> name.fullName)
                 .collect(Collectors.toList()));
+        status = source.getStatus().toString();
     }
 
     /**
@@ -81,8 +86,19 @@ public class JsonAdaptedTask {
         }
         final DateTime modelDt = new DateTime(date, time);
 
+        if (status == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Status.class.getSimpleName()));
+        }
+
+        if (!Status.isValidStatus(status)) {
+            throw new IllegalValueException(Status.MESSAGE_CONSTRAINTS);
+        }
+
+        final Status modelStatus = new Status(status);
+
         final Set<Name> modelNames = new HashSet<>(relatedNames);
 
-        return new Task(modelDesc, modelDt, modelNames);
+        return new Task(modelDesc, modelDt, modelNames, modelStatus);
     }
 }

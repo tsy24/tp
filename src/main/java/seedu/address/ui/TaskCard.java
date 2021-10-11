@@ -1,6 +1,7 @@
 package seedu.address.ui;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
@@ -28,9 +29,11 @@ public class TaskCard extends UiPart<Region> {
     private Label time;
     @FXML
     private FlowPane names;
+    @FXML
+    private CheckBox status;
 
     /**
-     * Creates a {@code PersonCode} with the given {@code Person} and index to display.
+     * Creates a {@code ElderlyCode} with the given {@code Elderly} and index to display.
      */
     public TaskCard(Task task, int displayedIndex) {
         super(FXML);
@@ -41,6 +44,8 @@ public class TaskCard extends UiPart<Region> {
         time.setText(task.getDateTime().getStringTime());
         task.getRelatedNames().stream()
                 .forEach(name -> names.getChildren().add(new Label(name.fullName)));
+        status.setSelected(task.isTaskDone());
+        status.setDisable(true);
     }
 
     @Override

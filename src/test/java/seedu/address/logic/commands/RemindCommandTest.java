@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.RemindCommand.MESSAGE_SUCCESS;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalElderlies.getTypicalAddressBook;
 
 import java.time.Clock;
 import java.time.LocalDate;

@@ -28,10 +28,10 @@ public class TypicalTasks {
             .withDateTime(VALID_DATE_JAN, VALID_TIME_TENAM).build();
 
     public static final Task YASMINE_PHYSIO = new TaskBuilder().withDesc("Physiotherapy with yoga ball")
-            .withDateTime("2021-09-13", "15:30").withNames("Yasmine George").build();
+            .withDateTime("2021-09-13", "15:30").withNames("Yasmine George").withStatus("true").build();
 
     public static final Task APPLY_LEAVE = new TaskBuilder().withDesc("Apply leave with HR")
-            .withDateTime("2021-10-01", "00:00").build();
+            .withDateTime("2021-10-01", "00:00").withStatus("true").build();
 
     public static final Task KG_SC_VACCINE = new TaskBuilder().withDesc("3rd shot for Pfizer")
             .withDateTime("2021-10-30", "18:00").withNames("Khong Guan", "Swee Choon").build();
