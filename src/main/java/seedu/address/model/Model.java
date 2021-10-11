@@ -67,6 +67,12 @@ public interface Model {
     boolean hasTask(Task t);
 
     /**
+     * Mark the given task {@code target} as done.
+     * {@code target} must exist in the address book.
+     */
+    void markTaskAsDone(Task target);
+
+    /**
      * Deletes the given elderly.
      * The elderly must exist in the address book.
      */

@@ -9,6 +9,7 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.task.exceptions.TaskNotFoundException;
 
 /**
  * A list of tasks that does not allow nulls.
@@ -30,6 +31,29 @@ public class TaskList implements Iterable<Task> {
         requireNonNull(toAdd);
         internalList.add(toAdd);
         internalList.sort(Comparator.naturalOrder());
+    }
+
+    /**
+     * Replaces the task {@code target} in the list with {@code editedTask}.
+     * {@code target} must exist in the list.
+     */
+    private void setTask(Task target, Task editedTask) {
+        requireAllNonNull(target, editedTask);
+
+        int index = internalList.indexOf(target);
+        if (index == -1) {
+            throw new TaskNotFoundException();
+        }
+        internalList.set(index, editedTask);
+    }
+
+
+    /**
+     * Mark the task {@code target} in the list as done.
+     * {@code target} must exist in the list.
+     */
+    public void markTaskAsDone(Task toMark) {
+        setTask(toMark, toMark.markAsDone());
     }
 
     /**

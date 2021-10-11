@@ -155,4 +155,12 @@ public class AddressBook implements ReadOnlyAddressBook {
     public boolean hasTask(Task t) {
         return tasks.contains(t);
     }
+
+    /**
+     * Mark the given task {@code target} as done.
+     * {@code target} must exist in the address book.
+     */
+    public void markTaskAsDone(Task target) {
+        tasks.markTaskAsDone(target);
+    }
 }

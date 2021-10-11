@@ -34,8 +34,8 @@ import seedu.address.model.task.Description;
 import seedu.address.model.task.Task;
 import seedu.address.testutil.TaskBuilder;
 
-public class AddTaskComParserTest {
-    private AddTaskComParser parser = new AddTaskComParser();
+public class AddTaskCommandParserTest {
+    private AddTaskCommandParser parser = new AddTaskCommandParser();
 
     @Test
     public void parse_allFieldsPresent_success() {
