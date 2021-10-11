@@ -57,8 +57,8 @@ public class Nok extends Person {
     }
 
     /**
-     * Returns true if both elderlies have the same identity and data fields.
-     * This defines a stronger notion of equality between two elderlies.
+     * Returns true if both NoKs have the same identity and data fields.
+     * This defines a stronger notion of equality between two NoK.
      */
     @Override
     public boolean equals(Object other) {
@@ -66,7 +66,7 @@ public class Nok extends Person {
             return true;
         }
 
-        if (!(other instanceof Elderly)) {
+        if (!(other instanceof Nok)) {
             return false;
         }
 
