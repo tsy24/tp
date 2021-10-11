@@ -49,7 +49,7 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_validIndexFilteredList_success() {
-        showElderlyAtIndex(model, INDEX_FIRST_ELDERLY);
+        showElderlyAtIndex(model, INDEX_FIRST);
 
         Elderly elderlyToDelete = model.getFilteredElderlyList().get(INDEX_FIRST.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST);

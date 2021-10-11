@@ -35,7 +35,7 @@ public class ViewElderlyCommandTest {
     }
 
     @Test
-    public void execute_elderlyAreFiltered_showsEverything() 
+    public void execute_elderlyAreFiltered_showsEverything() {
         showElderlyAtIndex(model, INDEX_FIRST);
         CommandResult expectedCommandResult = new CommandResult(MESSAGE_SUCCESS,
                 CommandResult.ListDisplayChange.PERSON);
