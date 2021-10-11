@@ -13,6 +13,9 @@ import static seedu.address.testutil.TypicalTasks.ALEX_INSULIN;
 import static seedu.address.testutil.TypicalTasks.DO_PAPERWORK;
 import static seedu.address.testutil.TypicalTasks.KEITH_INSULIN;
 
+import java.time.Clock;
+import java.time.LocalDate;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.address.testutil.TaskBuilder;
@@ -60,7 +63,7 @@ public class TaskTest {
     }
 
     @Test
-    void compareTo() {
+    public void compareTo() {
         Task keithInsulin = new TaskBuilder(KEITH_INSULIN).build(); // date = "2020-11-01"
         Task alexInsulin = new TaskBuilder(ALEX_INSULIN).build(); // date = "2022-01-31", time: "19:45" in 24 hrs time
         Task doPaperwork = new TaskBuilder(DO_PAPERWORK).build(); // date: "2022-01-31", time: "10:20" in 24 hrs time
@@ -74,4 +77,29 @@ public class TaskTest {
         // doPaperwork before alexInsulin -> returns negative value
         assertFalse(doPaperwork.compareTo(keithInsulin) == 0);
     }
+
+    @Test
+    public void execute_isReminder_success() {
+        Clock cl = Clock.systemUTC();
+        LocalDate currentDate = LocalDate.now(cl);
+
+        // coming up in the next two days -> returns true
+        Task keithInsulin = new TaskBuilder(KEITH_INSULIN).build();
+        Task editedKeith = new TaskBuilder(keithInsulin).
+                withDateTime(currentDate.plusDays(2).toString(), "10:30").build();
+        assertTrue(editedKeith.isReminder());
+
+        // coming up six days later -> returns false
+        Task alexInsulin = new TaskBuilder(ALEX_INSULIN).build();
+        Task editedAlex = new TaskBuilder(alexInsulin).
+                withDateTime(currentDate.plusDays(6).toString(), "18:55").build();
+        assertFalse(editedAlex.isReminder());
+
+        // coming up on the current date -> returns true
+        Task doPaperwork = new TaskBuilder(DO_PAPERWORK).build();
+        Task editedPaperwork = new TaskBuilder(doPaperwork).
+                withDateTime(currentDate.toString(), "23:10").build();
+        assertTrue(editedPaperwork.isReminder());
+    }
+
 }

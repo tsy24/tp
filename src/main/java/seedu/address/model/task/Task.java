@@ -1,5 +1,7 @@
 package seedu.address.model.task;
 
+import java.time.Clock;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -27,7 +29,6 @@ public class Task implements Comparable<Task> {
         this.isDone = false;
         this.relatedNames.addAll(names);
     }
-
 
     /**
      * Returns task description of this task.
@@ -63,6 +64,23 @@ public class Task implements Comparable<Task> {
             relatedPeople.add(book.getPerson(name));
         }
         return relatedPeople;
+    }
+
+    /**
+     * Returns whether the task falls under the 'reminder' category:
+     * Task is not yet completed, or
+     * task will happen within three days of the command being executed.
+     *
+     * @return                          true if it is a reminder, false otherwise
+     */
+    public boolean isReminder() {
+        Clock cl = Clock.systemUTC();
+
+        LocalDate currentDate = LocalDate.now(cl);
+        DateTime now = new DateTime(currentDate.toString(), "00:00");
+        DateTime limit = new DateTime(currentDate.plusDays(4).toString(), "00:00");
+
+        return dateTime.isAfter(now) && dateTime.isBefore(limit);
     }
 
     @Override
