@@ -40,7 +40,7 @@ public class TaskTest {
         // different type -> returns false
         assertFalse(keithInsulin.equals(5));
 
-        // different person -> returns false
+        // different elderly -> returns false
         assertFalse(keithInsulin.equals(ALEX_INSULIN));
 
         // different name -> returns false

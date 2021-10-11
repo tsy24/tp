@@ -11,7 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.Elderly;
 import seedu.address.model.task.Task;
 
 /**
@@ -22,7 +22,7 @@ public class ModelManager implements Model {
 
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
-    private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Elderly> filteredElderlies;
     private final FilteredList<Task> filteredTasks;
 
     /**
@@ -36,7 +36,7 @@ public class ModelManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        filteredElderlies = new FilteredList<>(this.addressBook.getElderlyList());
         filteredTasks = new FilteredList<>(this.addressBook.getTaskList());
     }
 
@@ -92,9 +92,9 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return addressBook.hasPerson(person);
+    public boolean hasElderly(Elderly elderly) {
+        requireNonNull(elderly);
+        return addressBook.hasElderly(elderly);
     }
 
     @Override
@@ -109,14 +109,14 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void deletePerson(Person target) {
-        addressBook.removePerson(target);
+    public void deleteElderly(Elderly target) {
+        addressBook.removeElderly(target);
     }
 
     @Override
-    public void addPerson(Person person) {
-        addressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    public void addElderly(Elderly elderly) {
+        addressBook.addElderly(elderly);
+        updateFilteredElderlyList(PREDICATE_SHOW_ALL_ELDERLIES);
     }
 
     @Override
@@ -126,22 +126,22 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setPerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
+    public void setElderly(Elderly target, Elderly editedElderly) {
+        requireAllNonNull(target, editedElderly);
 
-        addressBook.setPerson(target, editedPerson);
+        addressBook.setElderly(target, editedElderly);
     }
 
 
     //=========== Filtered Lists Accessors =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * Returns an unmodifiable view of the list of {@code Elderly} backed by the internal list of
      * {@code versionedAddressBook}
      */
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return filteredPersons;
+    public ObservableList<Elderly> getFilteredElderlyList() {
+        return filteredElderlies;
     }
 
     @Override
@@ -150,9 +150,9 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
+    public void updateFilteredElderlyList(Predicate<Elderly> predicate) {
         requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
+        filteredElderlies.setPredicate(predicate);
     }
 
     @Override
@@ -177,7 +177,7 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return addressBook.equals(other.addressBook)
                 && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons);
+                && filteredElderlies.equals(other.filteredElderlies);
     }
 
 }

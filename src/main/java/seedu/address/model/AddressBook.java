@@ -6,19 +6,19 @@ import java.util.List;
 import java.util.Objects;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.person.Elderly;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.person.UniqueElderlyList;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskList;
 
 /**
  * Wraps all data at the address-book level
- * Duplicates are not allowed (by .isSamePerson comparison)
+ * Duplicates are not allowed (by .isSameElderly comparison)
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
-    private final UniquePersonList persons;
+    private final UniqueElderlyList elderlies;
     private final TaskList tasks;
 
     /*
@@ -29,14 +29,14 @@ public class AddressBook implements ReadOnlyAddressBook {
      *   among constructors.
      */
     {
-        persons = new UniquePersonList();
+        elderlies = new UniqueElderlyList();
         tasks = new TaskList();
     }
 
     public AddressBook() {}
 
     /**
-     * Creates an AddressBook using the Persons in the {@code toBeCopied}
+     * Creates an AddressBook using the Elderlies in the {@code toBeCopied}
      */
     public AddressBook(ReadOnlyAddressBook toBeCopied) {
         this();
@@ -46,11 +46,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// list overwrite operations
 
     /**
-     * Replaces the contents of the person list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of the elderly list with {@code elderlies}.
+     * {@code elderlies} must not contain duplicate elderlies.
      */
-    public void setPersons(List<Person> persons) {
-        this.persons.setPersons(persons);
+    public void setElderlies(List<Elderly> elderlies) {
+        this.elderlies.setElderlies(elderlies);
     }
 
     /**
@@ -66,31 +66,31 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
 
-        setPersons(newData.getPersonList());
+        setElderlies(newData.getElderlyList());
         setTasks(newData.getTaskList());
     }
 
-    //// person-level operations
+    //// elderly-level operations
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a elderly with the same identity as {@code elderly} exists in the address book.
      */
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return persons.contains(person);
+    public boolean hasElderly(Elderly elderly) {
+        requireNonNull(elderly);
+        return elderlies.contains(elderly);
     }
 
-    public Person getPerson(Name name) {
+    public Elderly getElderly(Name name) {
         requireNonNull(name);
-        return persons.getPerson(name);
+        return elderlies.getElderly(name);
     }
 
     /**
-     * Adds a person to the address book.
-     * The person must not already exist in the address book.
+     * Adds a elderly to the address book.
+     * The elderly must not already exist in the address book.
      */
-    public void addPerson(Person p) {
-        persons.add(p);
+    public void addElderly(Elderly p) {
+        elderlies.add(p);
     }
 
     /**
@@ -101,36 +101,37 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}.
+     * Replaces the given elderly {@code target} in the list with {@code editedElderly}.
      * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * The elderly identity of {@code editedElderly} must not be the same as another existing elderly in the address
+     * book.
      */
-    public void setPerson(Person target, Person editedPerson) {
-        requireNonNull(editedPerson);
+    public void setElderly(Elderly target, Elderly editedElderly) {
+        requireNonNull(editedElderly);
 
-        persons.setPerson(target, editedPerson);
+        elderlies.setElderly(target, editedElderly);
     }
 
     /**
-     * Removes {@code key} person from this {@code AddressBook}.
+     * Removes {@code key} elderly from this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
-    public void removePerson(Person key) {
-        persons.remove(key);
+    public void removeElderly(Elderly key) {
+        elderlies.remove(key);
     }
 
     //// util methods
 
     @Override
     public String toString() {
-        return persons.asUnmodifiableObservableList().size() + " persons\n"
+        return elderlies.asUnmodifiableObservableList().size() + " elderlies\n"
                 + tasks.asUnmodifiableObservableList().size() + " tasks";
         // TODO: refine later
     }
 
     @Override
-    public ObservableList<Person> getPersonList() {
-        return persons.asUnmodifiableObservableList();
+    public ObservableList<Elderly> getElderlyList() {
+        return elderlies.asUnmodifiableObservableList();
     }
 
     @Override
@@ -142,13 +143,13 @@ public class AddressBook implements ReadOnlyAddressBook {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
-                && persons.equals(((AddressBook) other).persons)
+                && elderlies.equals(((AddressBook) other).elderlies)
                 && tasks.equals(((AddressBook) other).tasks));
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(persons, tasks);
+        return Objects.hash(elderlies, tasks);
     }
 
     public boolean hasTask(Task t) {

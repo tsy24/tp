@@ -33,7 +33,7 @@ public class TaskCard extends UiPart<Region> {
     private CheckBox status;
 
     /**
-     * Creates a {@code PersonCode} with the given {@code Person} and index to display.
+     * Creates a {@code ElderlyCode} with the given {@code Elderly} and index to display.
      */
     public TaskCard(Task task, int displayedIndex) {
         super(FXML);

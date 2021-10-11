@@ -8,7 +8,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.Elderly;
 import seedu.address.model.task.Task;
 
 /**
@@ -46,7 +46,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void addPerson(Person person) {
+    public void addElderly(Elderly elderly) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -66,17 +66,17 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public boolean hasPerson(Person person) {
+    public boolean hasElderly(Elderly elderly) {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void deletePerson(Person target) {
+    public void deleteElderly(Elderly target) {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void setPerson(Person target, Person editedPerson) {
+    public void setElderly(Elderly target, Elderly editedElderly) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -91,7 +91,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
+    public ObservableList<Elderly> getFilteredElderlyList() {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -101,7 +101,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
+    public void updateFilteredElderlyList(Predicate<Elderly> predicate) {
         throw new AssertionError("This method should not be called.");
     }
 

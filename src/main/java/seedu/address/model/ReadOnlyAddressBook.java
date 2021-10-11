@@ -1,7 +1,7 @@
 package seedu.address.model;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.Elderly;
 import seedu.address.model.task.Task;
 
 /**
@@ -10,10 +10,10 @@ import seedu.address.model.task.Task;
 public interface ReadOnlyAddressBook {
 
     /**
-     * Returns an unmodifiable view of the persons list.
-     * This list will not contain any duplicate persons.
+     * Returns an unmodifiable view of the elderlies list.
+     * This list will not contain any duplicate elderlies.
      */
-    ObservableList<Person> getPersonList();
+    ObservableList<Elderly> getElderlyList();
 
     /**
      * Returns an unmodifiable view of the task list.
