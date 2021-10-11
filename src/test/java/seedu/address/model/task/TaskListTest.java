@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalTasks.ALEX_INSULIN;
 import static seedu.address.testutil.TypicalTasks.APPLY_LEAVE;
 import static seedu.address.testutil.TypicalTasks.DO_PAPERWORK;
 
@@ -38,12 +39,12 @@ public class TaskListTest {
 
 
     @Test
-    public void setPersons_nullUniquePersonList_throwsNullPointerException() {
+    public void setElderlies_nullUniqueElderlyList_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> taskList.setTasks((TaskList) null));
     }
 
     @Test
-    public void setPersons_uniquePersonList_replacesOwnListWithProvidedUniquePersonList() {
+    public void setElderlies_uniqueElderlyList_replacesOwnListWithProvidedUniqueElderlyList() {
         taskList.add(APPLY_LEAVE);
         TaskList expectedTaskList = new TaskList();
         expectedTaskList.add(DO_PAPERWORK);
@@ -63,6 +64,18 @@ public class TaskListTest {
         taskList.setTasks(tList);
         TaskList expectedTaskList = new TaskList();
         expectedTaskList.add(DO_PAPERWORK);
+        assertEquals(expectedTaskList, taskList);
+    }
+
+    @Test
+    public void sortsAddedTasks_byDateTime() {
+        taskList.add(ALEX_INSULIN); // date: "2022-01-31", time: "19:45"
+        taskList.add(DO_PAPERWORK); // date: "2022-01-31", time: "10:20"
+        taskList.add(APPLY_LEAVE); // date: "2021-10-01", time: "00:00"
+        TaskList expectedTaskList = new TaskList();
+        expectedTaskList.add(APPLY_LEAVE);
+        expectedTaskList.add(DO_PAPERWORK);
+        expectedTaskList.add(ALEX_INSULIN);
         assertEquals(expectedTaskList, taskList);
     }
 }

@@ -1,6 +1,6 @@
 {
   "_comment": "AddressBook save file which contains the same Tasks values as in TypicalTasks#getTypicalAddressBook()",
-  "persons": [],
+  "elderlies": [],
   "tasks": [ {
     "names": [
       "Keith Goh"

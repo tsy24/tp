@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ELDERLIES;
 
 import seedu.address.model.Model;
 
@@ -18,7 +18,7 @@ public class ViewElderlyCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS); // to change
+        model.updateFilteredElderlyList(PREDICATE_SHOW_ALL_ELDERLIES); // to change
         return new CommandResult(MESSAGE_SUCCESS, CommandResult.ListDisplayChange.PERSON);
     }
 }

@@ -3,6 +3,7 @@ package seedu.address.model.task;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -22,11 +23,13 @@ public class TaskList implements Iterable<Task> {
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
-     * Adds a task to the list.
+     * Adds a task to the list and sorts the list after each addition by the DateTime
+     * field of each Task instance.
      */
     public void add(Task toAdd) {
         requireNonNull(toAdd);
         internalList.add(toAdd);
+        internalList.sort(Comparator.naturalOrder());
     }
 
     /**
