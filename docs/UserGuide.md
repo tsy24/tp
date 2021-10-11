@@ -81,7 +81,7 @@ Adds an elderly to NurseyBook.
 Format: `addElderly en/ELDERLY_NAME p/PHONE_NUMBER a/AGE g/GENDER r/ROOMNO [t/TAG]…​`
 
 :bulb: **Tip:**
-A person can have any number of tags (including 0)
+A elderly can have any number of tags (including 0)
 
 Examples:
 * `addElderly en/Khong Guan p/91234567 a/80 g/M r/201`
