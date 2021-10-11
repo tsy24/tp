@@ -104,8 +104,18 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void markTaskAsDone(Task target) {
+        addressBook.markTaskAsDone(target);
+    }
+
+    @Override
     public void deleteElderly(Elderly target) {
         addressBook.removeElderly(target);
+    }
+
+    @Override
+    public void deleteTask(Task target) {
+        addressBook.removeTask(target);
     }
 
     @Override

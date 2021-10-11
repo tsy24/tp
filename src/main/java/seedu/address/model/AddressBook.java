@@ -120,6 +120,14 @@ public class AddressBook implements ReadOnlyAddressBook {
         elderlies.remove(key);
     }
 
+    /**
+     * Removes {@code key} task from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeTask(Task key) {
+        tasks.remove(key);
+    }
+
     //// util methods
 
     @Override
@@ -154,5 +162,13 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     public boolean hasTask(Task t) {
         return tasks.contains(t);
+    }
+
+    /**
+     * Mark the given task {@code target} as done.
+     * {@code target} must exist in the address book.
+     */
+    public void markTaskAsDone(Task target) {
+        tasks.markTaskAsDone(target);
     }
 }

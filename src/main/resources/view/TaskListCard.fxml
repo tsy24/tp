@@ -11,7 +11,7 @@
     </columnConstraints>
     <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0">
         <padding>
-            <Insets top="5" right="5" bottom="5" left="15" />
+            <Insets top="5" right="15" bottom="5" left="15" />
         </padding>
         <HBox spacing="5" alignment="CENTER_LEFT">
             <Label fx:id="id" styleClass="cell_big_label">
@@ -20,7 +20,9 @@
                     <Region fx:constant="USE_PREF_SIZE" />
                 </minWidth>
             </Label>
-            <Label fx:id="description" text="\$description" styleClass="cell_big_label" />
+            <Label fx:id="description" text="\$description" styleClass="cell_big_label_multiline" />
+            <Pane HBox.hgrow="ALWAYS" />
+            <CheckBox fx:id="status" />
         </HBox>
         <FlowPane fx:id="names" />
         <Label fx:id="date" styleClass="cell_small_label" text="\$date" />

@@ -4,7 +4,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showElderlyAtIndex;
 import static seedu.address.logic.commands.ViewElderlyCommand.MESSAGE_SUCCESS;
 import static seedu.address.testutil.TypicalElderlies.getTypicalAddressBook;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ELDERLY;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -36,7 +36,7 @@ public class ViewElderlyCommandTest {
 
     @Test
     public void execute_elderlyAreFiltered_showsEverything() {
-        showElderlyAtIndex(model, INDEX_FIRST_ELDERLY);
+        showElderlyAtIndex(model, INDEX_FIRST);
         CommandResult expectedCommandResult = new CommandResult(MESSAGE_SUCCESS,
                 CommandResult.ListDisplayChange.PERSON);
         assertCommandSuccess(new ViewElderlyCommand(), model, expectedCommandResult, expectedModel);

@@ -67,6 +67,12 @@ public interface Model {
     boolean hasTask(Task t);
 
     /**
+     * Mark the given task {@code target} as done.
+     * {@code target} must exist in the address book.
+     */
+    void markTaskAsDone(Task target);
+
+    /**
      * Deletes the given elderly.
      * The elderly must exist in the address book.
      */
@@ -108,4 +114,10 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredTaskList(Predicate<Task> predicate);
+
+    /**
+     * Deletes the given task.
+     * The task must exist in the address book.
+     */
+    void deleteTask(Task taskToDelete);
 }

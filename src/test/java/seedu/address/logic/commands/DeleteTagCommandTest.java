@@ -10,8 +10,8 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showElderlyAtIndex;
 import static seedu.address.testutil.TypicalElderlies.getTypicalAddressBook;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ELDERLY;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_ELDERLY;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND;
 
 import org.junit.jupiter.api.Test;
 
@@ -30,10 +30,10 @@ public class DeleteTagCommandTest {
 
     @Test
     public void execute_deleteTagUnfilteredList_success() {
-        Elderly secondElderly = model.getFilteredElderlyList().get(INDEX_SECOND_ELDERLY.getZeroBased());
+        Elderly secondElderly = model.getFilteredElderlyList().get(INDEX_SECOND.getZeroBased());
         Elderly tagDeletedElderly = new ElderlyBuilder(secondElderly).withTags(VALID_TAG_FRIEND).build();
 
-        DeleteTagCommand deleteTagCommand = new DeleteTagCommand(INDEX_SECOND_ELDERLY, SET_ONE_TAG);
+        DeleteTagCommand deleteTagCommand = new DeleteTagCommand(INDEX_SECOND, SET_ONE_TAG);
 
         String expectedMessage = String.format(DeleteTagCommand.MESSAGE_DELETE_TAG_SUCCESS, tagDeletedElderly);
 
@@ -45,10 +45,10 @@ public class DeleteTagCommandTest {
 
     @Test
     public void execute_deleteTagsUnfilteredList_success() {
-        Elderly secondElderly = model.getFilteredElderlyList().get(INDEX_SECOND_ELDERLY.getZeroBased());
+        Elderly secondElderly = model.getFilteredElderlyList().get(INDEX_SECOND.getZeroBased());
         Elderly tagDeletedElderly = new ElderlyBuilder(secondElderly).withoutTags().build();
 
-        DeleteTagCommand deleteTagCommand = new DeleteTagCommand(INDEX_SECOND_ELDERLY, SET_TWO_TAGS);
+        DeleteTagCommand deleteTagCommand = new DeleteTagCommand(INDEX_SECOND, SET_TWO_TAGS);
 
         String expectedMessage = String.format(DeleteTagCommand.MESSAGE_DELETE_TAG_SUCCESS, tagDeletedElderly);
 
@@ -62,25 +62,25 @@ public class DeleteTagCommandTest {
     public void execute_deleteNewTagUnfilteredList_failure() {
 
         // Only one new tag
-        DeleteTagCommand addTagCommand = new DeleteTagCommand(INDEX_FIRST_ELDERLY, SET_ONE_TAG);
+        DeleteTagCommand addTagCommand = new DeleteTagCommand(INDEX_FIRST, SET_ONE_TAG);
         String expectedMessage = String.format(DeleteTagCommand.MESSAGE_NO_SUCH_TAG, VALID_TAG_DIABETES);
         assertCommandFailure(addTagCommand, model, expectedMessage);
 
         // Mix of new and existing tags
-        addTagCommand = new DeleteTagCommand(INDEX_FIRST_ELDERLY, SET_TWO_TAGS);
+        addTagCommand = new DeleteTagCommand(INDEX_FIRST, SET_TWO_TAGS);
         expectedMessage = String.format(DeleteTagCommand.MESSAGE_NO_SUCH_TAG, VALID_TAG_DIABETES);
         assertCommandFailure(addTagCommand, model, expectedMessage);
     }
 
     @Test
     public void execute_deleteTagFilteredList_success() {
-        showElderlyAtIndex(model, INDEX_SECOND_ELDERLY);
+        showElderlyAtIndex(model, INDEX_SECOND);
 
-        Elderly firstElderly = model.getFilteredElderlyList().get(INDEX_FIRST_ELDERLY.getZeroBased());
+        Elderly firstElderly = model.getFilteredElderlyList().get(INDEX_FIRST.getZeroBased());
         Elderly tagDeletedElderly = new ElderlyBuilder(model.getFilteredElderlyList()
-                .get(INDEX_FIRST_ELDERLY.getZeroBased())).withTags(VALID_TAG_FRIEND).build();
+                .get(INDEX_FIRST.getZeroBased())).withTags(VALID_TAG_FRIEND).build();
 
-        DeleteTagCommand deleteTagCommand = new DeleteTagCommand(INDEX_FIRST_ELDERLY, SET_ONE_TAG);
+        DeleteTagCommand deleteTagCommand = new DeleteTagCommand(INDEX_FIRST, SET_ONE_TAG);
 
         String expectedMessage = String.format(DeleteTagCommand.MESSAGE_DELETE_TAG_SUCCESS, tagDeletedElderly);
 
@@ -104,8 +104,8 @@ public class DeleteTagCommandTest {
      */
     @Test
     public void execute_invalidElderlyIndexFilteredList_failure() {
-        showElderlyAtIndex(model, INDEX_FIRST_ELDERLY);
-        Index outOfBoundIndex = INDEX_SECOND_ELDERLY;
+        showElderlyAtIndex(model, INDEX_FIRST);
+        Index outOfBoundIndex = INDEX_SECOND;
         // ensures that outOfBoundIndex is still in bounds of address book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getElderlyList().size());
 
@@ -116,10 +116,10 @@ public class DeleteTagCommandTest {
 
     @Test
     public void equals() {
-        final DeleteTagCommand standardCommand = new DeleteTagCommand(INDEX_FIRST_ELDERLY,
+        final DeleteTagCommand standardCommand = new DeleteTagCommand(INDEX_FIRST,
                 SET_ONE_TAG);
         // same values -> returns true
-        DeleteTagCommand commandWithSameValues = new DeleteTagCommand(INDEX_FIRST_ELDERLY,
+        DeleteTagCommand commandWithSameValues = new DeleteTagCommand(INDEX_FIRST,
                 SET_ONE_TAG);
         assertTrue(standardCommand.equals(commandWithSameValues));
         // same object -> returns true
@@ -129,10 +129,10 @@ public class DeleteTagCommandTest {
         // different types -> returns false
         assertFalse(standardCommand.equals(new ClearCommand()));
         // different index -> returns false
-        assertFalse(standardCommand.equals(new DeleteTagCommand(INDEX_SECOND_ELDERLY,
+        assertFalse(standardCommand.equals(new DeleteTagCommand(INDEX_SECOND,
                 SET_ONE_TAG)));
         // different set of tags -> returns false
-        assertFalse(standardCommand.equals(new DeleteTagCommand(INDEX_FIRST_ELDERLY,
+        assertFalse(standardCommand.equals(new DeleteTagCommand(INDEX_FIRST,
                 SET_TWO_TAGS)));
     }
 }
