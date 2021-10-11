@@ -77,8 +77,8 @@ public class DeleteTagCommandTest {
         showPersonAtIndex(model, INDEX_SECOND_PERSON);
 
         Person firstPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        Person tagDeletedPerson = new PersonBuilder(model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()))
-                .withTags(VALID_TAG_FRIEND).build();
+        Person tagDeletedPerson = new PersonBuilder(model.getFilteredPersonList()
+                .get(INDEX_FIRST_PERSON.getZeroBased())).withTags(VALID_TAG_FRIEND).build();
 
         DeleteTagCommand deleteTagCommand = new DeleteTagCommand(INDEX_FIRST_PERSON, SET_ONE_TAG);
 

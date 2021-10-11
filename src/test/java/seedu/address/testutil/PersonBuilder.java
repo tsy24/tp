@@ -86,7 +86,7 @@ public class PersonBuilder {
     }
 
     /**
-     * Sets an empty Set<Tag> to the {@code Person} that we are building.
+     * Sets an empty {@code Set<Tag>} to the {@code Person} that we are building.
      */
     public PersonBuilder withoutTags() {
         this.tags = new HashSet<>();
