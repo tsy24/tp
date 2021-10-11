@@ -9,7 +9,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 /**
  * Parses input arguments and creates a new DoneTaskCommand object
  */
-public class DoneTaskComParser implements Parser<DoneTaskCommand> {
+public class DoneTaskCommandParser implements Parser<DoneTaskCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the DoneTaskCommand

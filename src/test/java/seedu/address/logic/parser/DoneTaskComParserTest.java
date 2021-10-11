@@ -11,7 +11,7 @@ import seedu.address.logic.commands.DoneTaskCommand;
 
 public class DoneTaskComParserTest {
 
-    private DoneTaskComParser parser = new DoneTaskComParser();
+    private DoneTaskCommandParser parser = new DoneTaskCommandParser();
 
     @Test
     public void parse_validArgs_returnsDoneCommand() {
