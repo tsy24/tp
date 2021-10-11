@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.DoneTaskCommand;
 
-public class DoneTaskComParserTest {
+public class DoneTaskCommandParserTest {
 
     private DoneTaskCommandParser parser = new DoneTaskCommandParser();
 

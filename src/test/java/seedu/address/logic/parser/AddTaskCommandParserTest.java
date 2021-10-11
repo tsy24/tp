@@ -34,7 +34,7 @@ import seedu.address.model.task.Description;
 import seedu.address.model.task.Task;
 import seedu.address.testutil.TaskBuilder;
 
-public class AddTaskComParserTest {
+public class AddTaskCommandParserTest {
     private AddTaskCommandParser parser = new AddTaskCommandParser();
 
     @Test
