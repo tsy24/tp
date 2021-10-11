@@ -17,10 +17,10 @@ import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Age;
+import seedu.address.model.person.Elderly;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Gender;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Remark;
 import seedu.address.model.person.RoomNumber;
@@ -57,9 +57,9 @@ public class AddCommandParser implements Parser<AddCommand> {
         RoomNumber roomNumber = ParserUtil.parseRoomNumber(argMultimap.getValue(PREFIX_ROOM_NUM).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Person person = new Person(name, phone, age, gender, roomNumber, email, address, remark, tagList);
+        Elderly elderly = new Elderly(name, phone, age, gender, roomNumber, email, address, remark, tagList);
 
-        return new AddCommand(person);
+        return new AddCommand(elderly);
     }
 
     /**
