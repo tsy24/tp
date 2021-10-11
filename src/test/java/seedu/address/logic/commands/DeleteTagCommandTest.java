@@ -8,10 +8,10 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_DIABETES;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.logic.commands.CommandTestUtil.showElderlyAtIndex;
+import static seedu.address.testutil.TypicalElderlies.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ELDERLY;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_ELDERLY;
 
 import org.junit.jupiter.api.Test;
 
@@ -21,8 +21,8 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.person.Person;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.model.person.Elderly;
+import seedu.address.testutil.ElderlyBuilder;
 
 public class DeleteTagCommandTest {
 
@@ -30,30 +30,30 @@ public class DeleteTagCommandTest {
 
     @Test
     public void execute_deleteTagUnfilteredList_success() {
-        Person secondPerson = model.getFilteredPersonList().get(INDEX_SECOND_PERSON.getZeroBased());
-        Person tagDeletedPerson = new PersonBuilder(secondPerson).withTags(VALID_TAG_FRIEND).build();
+        Elderly secondPerson = model.getFilteredElderlyList().get(INDEX_SECOND_ELDERLY.getZeroBased());
+        Elderly tagDeletedPerson = new ElderlyBuilder(secondPerson).withTags(VALID_TAG_FRIEND).build();
 
-        DeleteTagCommand deleteTagCommand = new DeleteTagCommand(INDEX_SECOND_PERSON, SET_ONE_TAG);
+        DeleteTagCommand deleteTagCommand = new DeleteTagCommand(INDEX_SECOND_ELDERLY, SET_ONE_TAG);
 
         String expectedMessage = String.format(DeleteTagCommand.MESSAGE_DELETE_TAG_SUCCESS, tagDeletedPerson);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.setPerson(secondPerson, tagDeletedPerson);
+        expectedModel.setElderly(secondPerson, tagDeletedPerson);
 
         assertCommandSuccess(deleteTagCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_deleteTagsUnfilteredList_success() {
-        Person secondPerson = model.getFilteredPersonList().get(INDEX_SECOND_PERSON.getZeroBased());
-        Person tagDeletedPerson = new PersonBuilder(secondPerson).withoutTags().build();
+        Elderly secondElderly = model.getFilteredElderlyList().get(INDEX_SECOND_ELDERLY.getZeroBased());
+        Elderly tagDeletedElderly = new ElderlyBuilder(secondElderly).withoutTags().build();
 
-        DeleteTagCommand deleteTagCommand = new DeleteTagCommand(INDEX_SECOND_PERSON, SET_TWO_TAGS);
+        DeleteTagCommand deleteTagCommand = new DeleteTagCommand(INDEX_SECOND_ELDERLY, SET_TWO_TAGS);
 
-        String expectedMessage = String.format(DeleteTagCommand.MESSAGE_DELETE_TAG_SUCCESS, tagDeletedPerson);
+        String expectedMessage = String.format(DeleteTagCommand.MESSAGE_DELETE_TAG_SUCCESS, tagDeletedElderly);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.setPerson(secondPerson, tagDeletedPerson);
+        expectedModel.setElderly(secondElderly, tagDeletedElderly);
 
         assertCommandSuccess(deleteTagCommand, model, expectedMessage, expectedModel);
     }
@@ -62,40 +62,40 @@ public class DeleteTagCommandTest {
     public void execute_deleteNewTagUnfilteredList_failure() {
 
         // Only one new tag
-        DeleteTagCommand addTagCommand = new DeleteTagCommand(INDEX_FIRST_PERSON, SET_ONE_TAG);
+        DeleteTagCommand addTagCommand = new DeleteTagCommand(INDEX_FIRST_ELDERLY, SET_ONE_TAG);
         String expectedMessage = String.format(DeleteTagCommand.MESSAGE_NO_SUCH_TAG, VALID_TAG_DIABETES);
         assertCommandFailure(addTagCommand, model, expectedMessage);
 
         // Mix of new and existing tags
-        addTagCommand = new DeleteTagCommand(INDEX_FIRST_PERSON, SET_TWO_TAGS);
+        addTagCommand = new DeleteTagCommand(INDEX_FIRST_ELDERLY, SET_TWO_TAGS);
         expectedMessage = String.format(DeleteTagCommand.MESSAGE_NO_SUCH_TAG, VALID_TAG_DIABETES);
         assertCommandFailure(addTagCommand, model, expectedMessage);
     }
 
     @Test
     public void execute_deleteTagFilteredList_success() {
-        showPersonAtIndex(model, INDEX_SECOND_PERSON);
+        showElderlyAtIndex(model, INDEX_SECOND_ELDERLY);
 
-        Person firstPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        Person tagDeletedPerson = new PersonBuilder(model.getFilteredPersonList()
-                .get(INDEX_FIRST_PERSON.getZeroBased())).withTags(VALID_TAG_FRIEND).build();
+        Elderly firstElderly = model.getFilteredElderlyList().get(INDEX_FIRST_ELDERLY.getZeroBased());
+        Elderly tagDeletedElderly = new ElderlyBuilder(model.getFilteredElderlyList()
+                .get(INDEX_FIRST_ELDERLY.getZeroBased())).withTags(VALID_TAG_FRIEND).build();
 
-        DeleteTagCommand deleteTagCommand = new DeleteTagCommand(INDEX_FIRST_PERSON, SET_ONE_TAG);
+        DeleteTagCommand deleteTagCommand = new DeleteTagCommand(INDEX_FIRST_ELDERLY, SET_ONE_TAG);
 
-        String expectedMessage = String.format(DeleteTagCommand.MESSAGE_DELETE_TAG_SUCCESS, tagDeletedPerson);
+        String expectedMessage = String.format(DeleteTagCommand.MESSAGE_DELETE_TAG_SUCCESS, tagDeletedElderly);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.setPerson(firstPerson, tagDeletedPerson);
+        expectedModel.setElderly(firstElderly, tagDeletedElderly);
 
         assertCommandSuccess(deleteTagCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_invalidPersonIndexUnfilteredList_failure() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredElderlyList().size() + 1);
         DeleteTagCommand deleteTagCommand = new DeleteTagCommand(outOfBoundIndex, SET_ONE_TAG);
 
-        assertCommandFailure(deleteTagCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(deleteTagCommand, model, Messages.MESSAGE_INVALID_ELDERLY_DISPLAYED_INDEX);
     }
 
     /**
@@ -103,23 +103,23 @@ public class DeleteTagCommandTest {
      * but smaller than size of address book
      */
     @Test
-    public void execute_invalidPersonIndexFilteredList_failure() {
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
-        Index outOfBoundIndex = INDEX_SECOND_PERSON;
+    public void execute_invalidElderlyIndexFilteredList_failure() {
+        showElderlyAtIndex(model, INDEX_FIRST_ELDERLY);
+        Index outOfBoundIndex = INDEX_SECOND_ELDERLY;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getElderlyList().size());
 
         DeleteTagCommand deleteTagCommand = new DeleteTagCommand(outOfBoundIndex, SET_ONE_TAG);
 
-        assertCommandFailure(deleteTagCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(deleteTagCommand, model, Messages.MESSAGE_INVALID_ELDERLY_DISPLAYED_INDEX);
     }
 
     @Test
     public void equals() {
-        final DeleteTagCommand standardCommand = new DeleteTagCommand(INDEX_FIRST_PERSON,
+        final DeleteTagCommand standardCommand = new DeleteTagCommand(INDEX_FIRST_ELDERLY,
                 SET_ONE_TAG);
         // same values -> returns true
-        DeleteTagCommand commandWithSameValues = new DeleteTagCommand(INDEX_FIRST_PERSON,
+        DeleteTagCommand commandWithSameValues = new DeleteTagCommand(INDEX_FIRST_ELDERLY,
                 SET_ONE_TAG);
         assertTrue(standardCommand.equals(commandWithSameValues));
         // same object -> returns true
@@ -129,10 +129,10 @@ public class DeleteTagCommandTest {
         // different types -> returns false
         assertFalse(standardCommand.equals(new ClearCommand()));
         // different index -> returns false
-        assertFalse(standardCommand.equals(new DeleteTagCommand(INDEX_SECOND_PERSON,
+        assertFalse(standardCommand.equals(new DeleteTagCommand(INDEX_SECOND_ELDERLY,
                 SET_ONE_TAG)));
         // different set of tags -> returns false
-        assertFalse(standardCommand.equals(new DeleteTagCommand(INDEX_FIRST_PERSON,
+        assertFalse(standardCommand.equals(new DeleteTagCommand(INDEX_FIRST_ELDERLY,
                 SET_TWO_TAGS)));
     }
 }

@@ -5,10 +5,10 @@ import java.util.Set;
 
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Age;
+import seedu.address.model.person.Elderly;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Gender;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Remark;
 import seedu.address.model.person.RoomNumber;
@@ -16,9 +16,9 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
 /**
- * A utility class to help with building Person objects.
+ * A utility class to help with building Elderly objects.
  */
-public class PersonBuilder {
+public class ElderlyBuilder {
 
     public static final String DEFAULT_NAME = "Amy Bee";
     public static final String DEFAULT_PHONE = "85355255";
@@ -40,9 +40,9 @@ public class PersonBuilder {
     private Set<Tag> tags;
 
     /**
-     * Creates a {@code PersonBuilder} with the default details.
+     * Creates a {@code ElderlyBuilder} with the default details.
      */
-    public PersonBuilder() {
+    public ElderlyBuilder() {
         name = new Name(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE);
         age = new Age(DEFAULT_AGE);
@@ -55,102 +55,102 @@ public class PersonBuilder {
     }
 
     /**
-     * Initializes the PersonBuilder with the data of {@code personToCopy}.
+     * Initializes the ElderlyBuilder with the data of {@code elderlyToCopy}.
      */
-    public PersonBuilder(Person personToCopy) {
-        name = personToCopy.getName();
-        phone = personToCopy.getPhone();
-        age = personToCopy.getAge();
-        gender = personToCopy.getGender();
-        roomNumber = personToCopy.getRoomNumber();
-        email = personToCopy.getEmail();
-        address = personToCopy.getAddress();
-        remark = personToCopy.getRemark();
-        tags = new HashSet<>(personToCopy.getTags());
+    public ElderlyBuilder(Elderly elderlyToCopy) {
+        name = elderlyToCopy.getName();
+        phone = elderlyToCopy.getPhone();
+        age = elderlyToCopy.getAge();
+        gender = elderlyToCopy.getGender();
+        roomNumber = elderlyToCopy.getRoomNumber();
+        email = elderlyToCopy.getEmail();
+        address = elderlyToCopy.getAddress();
+        remark = elderlyToCopy.getRemark();
+        tags = new HashSet<>(elderlyToCopy.getTags());
     }
 
     /**
-     * Sets the {@code Name} of the {@code Person} that we are building.
+     * Sets the {@code Name} of the {@code Elderly} that we are building.
      */
-    public PersonBuilder withName(String name) {
+    public ElderlyBuilder withName(String name) {
         this.name = new Name(name);
         return this;
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Person} that we are building.
+     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Elderly} that we are building.
      */
-    public PersonBuilder withTags(String ... tags) {
+    public ElderlyBuilder withTags(String ... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
         return this;
     }
 
     /**
-     * Sets an empty {@code Set<Tag>} to the {@code Person} that we are building.
+     * Sets an empty {@code Set<Tag>} to the {@code Elderly} that we are building.
      */
-    public PersonBuilder withoutTags() {
+    public ElderlyBuilder withoutTags() {
         this.tags = new HashSet<>();
         return this;
     }
 
     /**
-     * Sets the {@code Address} of the {@code Person} that we are building.
+     * Sets the {@code Address} of the {@code Elderly} that we are building.
      */
-    public PersonBuilder withAddress(String address) {
+    public ElderlyBuilder withAddress(String address) {
         this.address = new Address(address);
         return this;
     }
 
     /**
-     * Sets the {@code Phone} of the {@code Person} that we are building.
+     * Sets the {@code Phone} of the {@code Elderly} that we are building.
      */
-    public PersonBuilder withPhone(String phone) {
+    public ElderlyBuilder withPhone(String phone) {
         this.phone = new Phone(phone);
         return this;
     }
 
     /**
-     * Sets the {@code Age} of the {@code Person} that we are building.
+     * Sets the {@code Age} of the {@code Elderly} that we are building.
      */
-    public PersonBuilder withAge(String age) {
+    public ElderlyBuilder withAge(String age) {
         this.age = new Age(age);
         return this;
     }
 
     /**
-     * Sets the {@code Gender} of the {@code Person} that we are building.
+     * Sets the {@code Gender} of the {@code Elderly} that we are building.
      */
-    public PersonBuilder withGender(String gender) {
+    public ElderlyBuilder withGender(String gender) {
         this.gender = new Gender(gender);
         return this;
     }
 
     /**
-     * Sets the {@code RoomNumber} of the {@code Person} that we are building.
+     * Sets the {@code RoomNumber} of the {@code Elderly} that we are building.
      */
-    public PersonBuilder withRoomNumber(String roomNumber) {
+    public ElderlyBuilder withRoomNumber(String roomNumber) {
         this.roomNumber = new RoomNumber(roomNumber);
         return this;
     }
 
     /**
-     * Sets the {@code Email} of the {@code Person} that we are building.
+     * Sets the {@code Email} of the {@code Elderly} that we are building.
      */
-    public PersonBuilder withEmail(String email) {
+    public ElderlyBuilder withEmail(String email) {
         this.email = new Email(email);
         return this;
     }
 
     /**
-     * Sets the {@code Remark} of the {@code Person} that we are building.
+     * Sets the {@code Remark} of the {@code Elderly} that we are building.
      */
-    public PersonBuilder withRemark(String remark) {
+    public ElderlyBuilder withRemark(String remark) {
         this.remark = new Remark(remark);
         return this;
     }
 
-    public Person build() {
-        return new Person(name, phone, age, gender, roomNumber, email, address, remark, tags);
+    public Elderly build() {
+        return new Elderly(name, phone, age, gender, roomNumber, email, address, remark, tags);
     }
 
 }

@@ -43,4 +43,20 @@ class DateTimeTest {
         assertTrue(DateTime.isValidTime("23:00")); // 24 hours time
         assertTrue(DateTime.isValidTime("08:32:30")); // with seconds
     }
+
+    @Test
+    public void compareTo() {
+        DateTime dt0 = new DateTime("2021-12-25", "12:30"); // main DateTest item
+        DateTime dt1 = new DateTime("2021-12-31", "23:59"); // compare with dt0 by time
+        DateTime dt2 = new DateTime("2021-12-25", "12:00"); // compare with dt1 by date
+
+        // dt0 is before dt1 -> returns negative value
+        assertTrue(dt0.compareTo(dt1) < 0);
+
+        // dt0 is after dt2 -> returns positive value
+        assertTrue(dt0.compareTo(dt2) > 0);
+
+        // happens at the same time -> returns 0
+        assertFalse(dt0.compareTo(dt0) == -1);
+    }
 }

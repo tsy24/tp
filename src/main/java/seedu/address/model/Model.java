@@ -5,15 +5,15 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.Elderly;
 import seedu.address.model.task.Task;
 
 /**
  * The API of the Model component.
  */
 public interface Model {
-    /** {@code Predicate} for person lists that always evaluate to true */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    /** {@code Predicate} for elderly lists that always evaluate to true */
+    Predicate<Elderly> PREDICATE_SHOW_ALL_ELDERLIES = unused -> true;
 
     /** {@code Predicate} for task lists that always evaluate to true */
     Predicate<Task> PREDICATE_SHOW_ALL_TASKS = unused -> true;
@@ -57,9 +57,9 @@ public interface Model {
     ReadOnlyAddressBook getAddressBook();
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a elderly with the same identity as {@code elderly} exists in the address book.
      */
-    boolean hasPerson(Person person);
+    boolean hasElderly(Elderly elderly);
 
     /**
      * Returns true if a task {@code task} exists in the address book.
@@ -67,16 +67,16 @@ public interface Model {
     boolean hasTask(Task t);
 
     /**
-     * Deletes the given person.
-     * The person must exist in the address book.
+     * Deletes the given elderly.
+     * The elderly must exist in the address book.
      */
-    void deletePerson(Person target);
+    void deleteElderly(Elderly target);
 
     /**
-     * Adds the given person.
-     * {@code person} must not already exist in the address book.
+     * Adds the given elderly.
+     * {@code elderly} must not already exist in the address book.
      */
-    void addPerson(Person person);
+    void addElderly(Elderly elderly);
 
     /**
      * Adds the given task.
@@ -84,23 +84,24 @@ public interface Model {
     void addTask(Task task);
 
     /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
+     * Replaces the given elderly {@code target} with {@code editedElderly}.
      * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * The elderly identity of {@code editedElderly} must not be the same as another existing elderly
+     * in the address book.
      */
-    void setPerson(Person target, Person editedPerson);
+    void setElderly(Elderly target, Elderly editedElderly);
 
-    /** Returns an unmodifiable view of the filtered person list */
-    ObservableList<Person> getFilteredPersonList();
+    /** Returns an unmodifiable view of the filtered elderly list */
+    ObservableList<Elderly> getFilteredElderlyList();
 
     /** Returns an unmodifiable view of the filtered task list */
     ObservableList<Task> getFilteredTaskList();
 
     /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered elderly list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<Person> predicate);
+    void updateFilteredElderlyList(Predicate<Elderly> predicate);
 
     /**
      * Updates the filter of the filtered task list to filter by the given {@code predicate}.

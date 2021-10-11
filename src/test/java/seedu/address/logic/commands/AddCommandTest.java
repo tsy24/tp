@@ -14,41 +14,41 @@ import org.junit.jupiter.api.Test;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.Elderly;
+import seedu.address.testutil.ElderlyBuilder;
 import seedu.address.testutil.ModelStub;
-import seedu.address.testutil.PersonBuilder;
 
 public class AddCommandTest {
 
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
+    public void constructor_nullElderly_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new AddCommand(null));
     }
 
     @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Person validPerson = new PersonBuilder().build();
+    public void execute_elderlyAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingElderlyAdded modelStub = new ModelStubAcceptingElderlyAdded();
+        Elderly validElderly = new ElderlyBuilder().build();
 
-        CommandResult commandResult = new AddCommand(validPerson).execute(modelStub);
+        CommandResult commandResult = new AddCommand(validElderly).execute(modelStub);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
+        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validElderly), commandResult.getFeedbackToUser());
+        assertEquals(Arrays.asList(validElderly), modelStub.elderliesAdded);
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() {
-        Person validPerson = new PersonBuilder().build();
-        AddCommand addCommand = new AddCommand(validPerson);
-        ModelStub modelStub = new ModelStubWithPerson(validPerson);
+    public void execute_duplicateElderly_throwsCommandException() {
+        Elderly validElderly = new ElderlyBuilder().build();
+        AddCommand addCommand = new AddCommand(validElderly);
+        ModelStub modelStub = new ModelStubWithElderly(validElderly);
 
-        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_PERSON, () -> addCommand.execute(modelStub));
+        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_ELDERLY, () -> addCommand.execute(modelStub));
     }
 
     @Test
     public void equals() {
-        Person alice = new PersonBuilder().withName("Alice").build();
-        Person bob = new PersonBuilder().withName("Bob").build();
+        Elderly alice = new ElderlyBuilder().withName("Alice").build();
+        Elderly bob = new ElderlyBuilder().withName("Bob").build();
         AddCommand addAliceCommand = new AddCommand(alice);
         AddCommand addBobCommand = new AddCommand(bob);
 
@@ -65,44 +65,44 @@ public class AddCommandTest {
         // null -> returns false
         assertFalse(addAliceCommand.equals(null));
 
-        // different person -> returns false
+        // different elderly -> returns false
         assertFalse(addAliceCommand.equals(addBobCommand));
     }
 
     /**
-     * A Model stub that contains a single person.
+     * A Model stub that contains a single elderly.
      */
-    private class ModelStubWithPerson extends ModelStub {
-        private final Person person;
+    private class ModelStubWithElderly extends ModelStub {
+        private final Elderly elderly;
 
-        ModelStubWithPerson(Person person) {
-            requireNonNull(person);
-            this.person = person;
+        ModelStubWithElderly(Elderly elderly) {
+            requireNonNull(elderly);
+            this.elderly = elderly;
         }
 
         @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return this.person.isSamePerson(person);
+        public boolean hasElderly(Elderly elderly) {
+            requireNonNull(elderly);
+            return this.elderly.isSameElderly(elderly);
         }
     }
 
     /**
-     * A Model stub that always accept the person being added.
+     * A Model stub that always accept the elderly being added.
      */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Person> personsAdded = new ArrayList<>();
+    private class ModelStubAcceptingElderlyAdded extends ModelStub {
+        final ArrayList<Elderly> elderliesAdded = new ArrayList<>();
 
         @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return personsAdded.stream().anyMatch(person::isSamePerson);
+        public boolean hasElderly(Elderly elderly) {
+            requireNonNull(elderly);
+            return elderliesAdded.stream().anyMatch(elderly::isSameElderly);
         }
 
         @Override
-        public void addPerson(Person person) {
-            requireNonNull(person);
-            personsAdded.add(person);
+        public void addElderly(Elderly elderly) {
+            requireNonNull(elderly);
+            elderliesAdded.add(elderly);
         }
 
         @Override
