@@ -64,7 +64,8 @@ public class AddCommandParserTest {
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + AGE_DESC_BOB
-                + GENDER_DESC_BOB + ROOM_NUMBER_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND,
+                + GENDER_DESC_BOB + ROOM_NUMBER_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
+                + TAG_DESC_FRIEND,
                 new AddCommand(expectedElderly));
 
         // multiple names - last name accepted
@@ -114,7 +115,7 @@ public class AddCommandParserTest {
     public void parse_optionalFieldsMissing_success() {
         // zero tags
         Elderly expectedElderly = new ElderlyBuilder(AMY).withTags().build();
-        assertParseSuccess(parser, NAME_DESC_AMY  + AGE_DESC_AMY + GENDER_DESC_AMY + ROOM_NUMBER_DESC_AMY,
+        assertParseSuccess(parser, NAME_DESC_AMY + AGE_DESC_AMY + GENDER_DESC_AMY + ROOM_NUMBER_DESC_AMY,
                 new AddCommand(expectedElderly));
     }
 

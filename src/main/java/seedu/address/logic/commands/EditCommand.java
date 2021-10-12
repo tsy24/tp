@@ -37,8 +37,6 @@ import seedu.address.model.person.Remark;
 import seedu.address.model.person.RoomNumber;
 import seedu.address.model.tag.Tag;
 
-import javax.management.relation.InvalidRelationIdException;
-
 /**
  * Edits the details of an existing elderly in the address book.
  */

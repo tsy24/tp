@@ -175,6 +175,9 @@ public class ElderlyBuilder {
         return this;
     }
 
+    /**
+     * Build an {@code Elderly}.
+     */
     public Elderly build() {
         return new Elderly(name, age, gender, roomNumber, new Nok(nokName, relationship, phone, email, address),
                 remark, tags);

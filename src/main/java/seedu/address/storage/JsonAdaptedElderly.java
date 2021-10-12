@@ -49,7 +49,8 @@ class JsonAdaptedElderly {
     public JsonAdaptedElderly(@JsonProperty("name") String name,
                               @JsonProperty("age") String age, @JsonProperty("gender") String gender,
                               @JsonProperty("roomNumber") String roomNumber,
-                              @JsonProperty("nokName") String nokName, @JsonProperty("relationship") String relationship,
+                              @JsonProperty("nokName") String nokName,
+                              @JsonProperty("relationship") String relationship,
                               @JsonProperty("phone") String phone, @JsonProperty("email") String email,
                               @JsonProperty("address") String address,
                               @JsonProperty("remark") String remark,
@@ -134,7 +135,8 @@ class JsonAdaptedElderly {
         final RoomNumber modelRoomNumber = new RoomNumber(roomNumber);
 
         if (relationship == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Relationship.class.getSimpleName()));
+            throw new IllegalValueException(
+                    String.format(MISSING_FIELD_MESSAGE_FORMAT, Relationship.class.getSimpleName()));
         }
         if (!Relationship.isValidRelationship(relationship)) {
             throw new IllegalValueException(Relationship.MESSAGE_CONSTRAINTS);
