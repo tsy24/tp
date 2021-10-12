@@ -95,7 +95,7 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ELDERLY_SUCCESS, editedElderly);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.setElderly(model.getFilteredElderlyList().get(0), editedElderly);
+        expectedModel.setElderly(model.getFilteredElderlyList().get(INDEX_FIRST.getZeroBased()), editedElderly);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }

@@ -11,7 +11,7 @@ public abstract class Person {
     private final Name name;
 
     /**
-     * Every field must be present and not null.
+     * If Person is an Elderly, every field must be present and not null.
      */
     public Person(Name name) {
         requireAllNonNull(name);

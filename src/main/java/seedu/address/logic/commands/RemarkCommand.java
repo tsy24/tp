@@ -55,9 +55,8 @@ public class RemarkCommand extends Command {
 
         Elderly elderlyToEdit = lastShownList.get(index.getZeroBased());
         Elderly editedElderly = new Elderly(
-                elderlyToEdit.getName(), elderlyToEdit.getPhone(), elderlyToEdit.getAge(), elderlyToEdit.getGender(),
-                elderlyToEdit.getRoomNumber(), elderlyToEdit.getEmail(), elderlyToEdit.getAddress(),
-                remark, elderlyToEdit.getTags());
+                elderlyToEdit.getName(), elderlyToEdit.getAge(), elderlyToEdit.getGender(),
+                elderlyToEdit.getRoomNumber(), elderlyToEdit.getNok(), remark, elderlyToEdit.getTags());
 
         model.setElderly(elderlyToEdit, editedElderly);
         model.updateFilteredElderlyList(PREDICATE_SHOW_ALL_ELDERLIES);
