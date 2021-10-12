@@ -6,7 +6,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_AGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NOK_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_RELATIONSHIP;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROOM_NUM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
@@ -24,20 +26,24 @@ public class AddCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a elderly to the address book. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
-            + PREFIX_PHONE + "PHONE "
             + PREFIX_AGE + "AGE "
             + PREFIX_GENDER + "GENDER "
             + PREFIX_ROOM_NUM + "ROOM_NUMBER "
-            + PREFIX_EMAIL + "EMAIL "
-            + PREFIX_ADDRESS + "ADDRESS "
+            + "[" + PREFIX_NOK_NAME + "NOK_NAME] "
+            + "[" + PREFIX_RELATIONSHIP + "RELATIONSHIP] "
+            + "[" + PREFIX_PHONE + "NOK_PHONE] "
+            + "[" + PREFIX_EMAIL + "NOK_EMAIL] "
+            + "[" + PREFIX_ADDRESS + "NOK_ADDRESS] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
-            + PREFIX_PHONE + "98765432 "
             + PREFIX_AGE + "40 "
             + PREFIX_GENDER + "M "
             + PREFIX_ROOM_NUM + "53 "
-            + PREFIX_EMAIL + "johnd@example.com "
+            + PREFIX_NOK_NAME + "John Beckham "
+            + PREFIX_RELATIONSHIP + "Father "
+            + PREFIX_PHONE + "98765432 "
+            + PREFIX_EMAIL + "mary@example.com "
             + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
             + PREFIX_TAG + "friends "
             + PREFIX_TAG + "owesMoney";

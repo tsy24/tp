@@ -10,6 +10,7 @@ import java.util.Objects;
  */
 public class Nok extends Person {
     //Identity fields
+    private final Relationship relationship;
     private final Phone phone;
     private final Email email;
 
@@ -19,9 +20,10 @@ public class Nok extends Person {
     /**
      * Every field must be present and not null.
      */
-    public Nok(Name name, Phone phone, Address address, Email email) {
+    public Nok(Name name, Relationship relationship, Phone phone, Email email, Address address) {
         super(name);
-        requireAllNonNull(phone, email, address);
+        requireAllNonNull(relationship, phone, email, address);
+        this.relationship = relationship;
         this.phone = phone;
         this.email = email;
         this.address = address;
@@ -29,6 +31,10 @@ public class Nok extends Person {
 
     public Name getName() {
         return super.getName();
+    }
+
+    public Relationship getRelationship() {
+        return relationship;
     }
 
     public Phone getPhone() {
@@ -72,6 +78,7 @@ public class Nok extends Person {
 
         Nok otherNok = (Nok) other;
         return otherNok.getName().equals(getName())
+                && otherNok.getRelationship().equals(getRelationship())
                 && otherNok.getPhone().equals(getPhone())
                 && otherNok.getEmail().equals(getEmail())
                 && otherNok.getAddress().equals(getAddress());
@@ -80,7 +87,7 @@ public class Nok extends Person {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(this.getName(), phone, email, address);
+        return Objects.hash(this.getName(), relationship, phone, email, address);
     }
 
     @Override
@@ -88,6 +95,8 @@ public class Nok extends Person {
         final StringBuilder builder = new StringBuilder();
         builder.append("; nokName: ")
                 .append(getName())
+                .append("; Relationship: ")
+                .append(getRelationship())
                 .append("; nokPhone: ")
                 .append(getPhone())
                 .append("; nokEmail: ")

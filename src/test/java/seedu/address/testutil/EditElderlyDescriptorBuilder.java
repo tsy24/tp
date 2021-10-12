@@ -12,6 +12,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Gender;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Relationship;
 import seedu.address.model.person.RoomNumber;
 import seedu.address.model.tag.Tag;
 
@@ -36,12 +37,14 @@ public class EditElderlyDescriptorBuilder {
     public EditElderlyDescriptorBuilder(Elderly elderly) {
         descriptor = new EditCommand.EditElderlyDescriptor();
         descriptor.setName(elderly.getName());
-        descriptor.setPhone(elderly.getPhone());
         descriptor.setAge(elderly.getAge());
         descriptor.setGender(elderly.getGender());
+        descriptor.setNokName(elderly.getNok().getName());
+        descriptor.setRelationship(elderly.getNok().getRelationship());
         descriptor.setRoomNumber(elderly.getRoomNumber());
-        descriptor.setEmail(elderly.getEmail());
-        descriptor.setAddress(elderly.getAddress());
+        descriptor.setNokPhone(elderly.getNok().getPhone());
+        descriptor.setNokEmail(elderly.getNok().getEmail());
+        descriptor.setNokAddress(elderly.getNok().getAddress());
         descriptor.setTags(elderly.getTags());
     }
 
@@ -54,10 +57,18 @@ public class EditElderlyDescriptorBuilder {
     }
 
     /**
+     * Sets the {@code Nok Name} of the {@code EditElderlyDescriptor} that we are building.
+     */
+    public EditElderlyDescriptorBuilder withNokName(String nokName) {
+        descriptor.setNokName(new Name(nokName));
+        return this;
+    }
+
+    /**
      * Sets the {@code Phone} of the {@code EditElderlyDescriptor} that we are building.
      */
     public EditElderlyDescriptorBuilder withPhone(String phone) {
-        descriptor.setPhone(new Phone(phone));
+        descriptor.setNokPhone(new Phone(phone));
         return this;
     }
 
@@ -87,10 +98,18 @@ public class EditElderlyDescriptorBuilder {
     }
 
     /**
+     * Sets the {@code Relationship} of the {@code EditElderlyDescriptor} that we are building.
+     */
+    public EditElderlyDescriptorBuilder withRelationship(String relationship) {
+        descriptor.setRelationship(new Relationship(relationship));
+        return this;
+    }
+
+    /**
      * Sets the {@code Email} of the {@code EditElderlyDescriptor} that we are building.
      */
     public EditElderlyDescriptorBuilder withEmail(String email) {
-        descriptor.setEmail(new Email(email));
+        descriptor.setNokEmail(new Email(email));
         return this;
     }
 
@@ -98,7 +117,7 @@ public class EditElderlyDescriptorBuilder {
      * Sets the {@code Address} of the {@code EditElderlyDescriptor} that we are building.
      */
     public EditElderlyDescriptorBuilder withAddress(String address) {
-        descriptor.setAddress(new Address(address));
+        descriptor.setNokAddress(new Address(address));
         return this;
     }
 

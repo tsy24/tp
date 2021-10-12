@@ -9,7 +9,9 @@ import seedu.address.model.person.Elderly;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Gender;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Nok;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Relationship;
 import seedu.address.model.person.Remark;
 import seedu.address.model.person.RoomNumber;
 import seedu.address.model.tag.Tag;
@@ -21,19 +23,23 @@ import seedu.address.model.util.SampleDataUtil;
 public class ElderlyBuilder {
 
     public static final String DEFAULT_NAME = "Amy Bee";
-    public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_AGE = "50";
     public static final String DEFAULT_GENDER = "F";
     public static final String DEFAULT_ROOM_NUMBER = "16";
+    public static final String DEFAULT_NOK_NAME = "Amy Cee";
+    public static final String DEFAULT_RELATIONSHIP = "Mother";
+    public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "amy@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
     public static final String DEFAULT_REMARK = "She likes aardvarks.";
 
     private Name name;
-    private Phone phone;
     private Age age;
     private Gender gender;
     private RoomNumber roomNumber;
+    private Name nokName;
+    private Relationship relationship;
+    private Phone phone;
     private Email email;
     private Address address;
     private Remark remark;
@@ -44,10 +50,12 @@ public class ElderlyBuilder {
      */
     public ElderlyBuilder() {
         name = new Name(DEFAULT_NAME);
-        phone = new Phone(DEFAULT_PHONE);
         age = new Age(DEFAULT_AGE);
         gender = new Gender(DEFAULT_GENDER);
         roomNumber = new RoomNumber(DEFAULT_ROOM_NUMBER);
+        nokName = new Name(DEFAULT_NOK_NAME);
+        relationship = new Relationship(DEFAULT_RELATIONSHIP);
+        phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
         remark = new Remark(DEFAULT_REMARK);
@@ -59,12 +67,14 @@ public class ElderlyBuilder {
      */
     public ElderlyBuilder(Elderly elderlyToCopy) {
         name = elderlyToCopy.getName();
-        phone = elderlyToCopy.getPhone();
         age = elderlyToCopy.getAge();
         gender = elderlyToCopy.getGender();
         roomNumber = elderlyToCopy.getRoomNumber();
-        email = elderlyToCopy.getEmail();
-        address = elderlyToCopy.getAddress();
+        nokName = elderlyToCopy.getNok().getName();
+        relationship = elderlyToCopy.getNok().getRelationship();
+        phone = elderlyToCopy.getNok().getPhone();
+        email = elderlyToCopy.getNok().getEmail();
+        address = elderlyToCopy.getNok().getAddress();
         remark = elderlyToCopy.getRemark();
         tags = new HashSet<>(elderlyToCopy.getTags());
     }
@@ -74,6 +84,22 @@ public class ElderlyBuilder {
      */
     public ElderlyBuilder withName(String name) {
         this.name = new Name(name);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Nok Name} of the {@code Elderly's Nok} that we are building.
+     */
+    public ElderlyBuilder withNokName(String nokName) {
+        this.nokName = new Name(nokName);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Relationship} of the {@code Elderly's Nok} that we are building.
+     */
+    public ElderlyBuilder withRelationship(String relationship) {
+        this.relationship = new Relationship(relationship);
         return this;
     }
 
@@ -102,7 +128,7 @@ public class ElderlyBuilder {
     }
 
     /**
-     * Sets the {@code Phone} of the {@code Elderly} that we are building.
+     * Sets the {@code Phone} of the {@code Elderly's Nok} that we are building.
      */
     public ElderlyBuilder withPhone(String phone) {
         this.phone = new Phone(phone);
@@ -134,7 +160,7 @@ public class ElderlyBuilder {
     }
 
     /**
-     * Sets the {@code Email} of the {@code Elderly} that we are building.
+     * Sets the {@code Email} of the {@code Elderly's nok} that we are building.
      */
     public ElderlyBuilder withEmail(String email) {
         this.email = new Email(email);
@@ -149,8 +175,12 @@ public class ElderlyBuilder {
         return this;
     }
 
+    /**
+     * Build an {@code Elderly}.
+     */
     public Elderly build() {
-        return new Elderly(name, phone, age, gender, roomNumber, email, address, remark, tags);
+        return new Elderly(name, age, gender, roomNumber, new Nok(nokName, relationship, phone, email, address),
+                remark, tags);
     }
 
 }

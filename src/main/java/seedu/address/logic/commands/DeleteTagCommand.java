@@ -64,9 +64,9 @@ public class DeleteTagCommand extends Command {
             updatedTags.remove(tagToDelete);
         }
         Elderly updatedElderly = new Elderly(
-                elderlyToDeleteTag.getName(), elderlyToDeleteTag.getPhone(), elderlyToDeleteTag.getAge(),
-                elderlyToDeleteTag.getGender(), elderlyToDeleteTag.getRoomNumber(), elderlyToDeleteTag.getEmail(),
-                elderlyToDeleteTag.getAddress(), elderlyToDeleteTag.getRemark(), updatedTags);
+                elderlyToDeleteTag.getName(), elderlyToDeleteTag.getAge(),
+                elderlyToDeleteTag.getGender(), elderlyToDeleteTag.getRoomNumber(), elderlyToDeleteTag.getNok(),
+                elderlyToDeleteTag.getRemark(), updatedTags);
 
         model.setElderly(elderlyToDeleteTag, updatedElderly);
         model.updateFilteredElderlyList(PREDICATE_SHOW_ALL_ELDERLIES);
