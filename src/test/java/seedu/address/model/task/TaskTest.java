@@ -22,6 +22,7 @@ import seedu.address.testutil.TaskBuilder;
 public class TaskTest {
 
     private Task keithInsulin = new TaskBuilder(KEITH_INSULIN).build();
+    private Task alexInsulin = new TaskBuilder(ALEX_INSULIN).build();
 
     @Test
     public void equals() {
@@ -67,6 +68,38 @@ public class TaskTest {
     }
 
     @Test
+    public void isAfter() {
+        DateTime october = new DateTime("2020-10-31", "23:59");
+        DateTime november = new DateTime("2020-11-01", "19:45");
+        DateTime december = new DateTime("2021-12-25", "12:00");
+
+        // keithInsulin on 2021-11-01, after 2021 October -> returns true
+        assertTrue(keithInsulin.isAfter(october));
+
+        // keithInsulin on 2021-11-01, before 2021 December -> returns false
+        assertFalse(keithInsulin.isAfter(december));
+
+        // keithInsulin on 2021-11-01, same time as november -> returns false
+        assertFalse(keithInsulin.isAfter(november));
+    }
+
+    @Test
+    public void isBefore() {
+        DateTime october = new DateTime("2020-10-31", "23:59");
+        DateTime november = new DateTime("2020-11-01", "19:45");
+        DateTime december = new DateTime("2021-12-25", "12:00");
+
+        // keithInsulin on 2021-11-01, after 2021 October -> returns false
+        assertFalse(keithInsulin.isBefore(october));
+
+        // keithInsulin on 2021-11-01, before 2021 December -> returns true
+        assertTrue(keithInsulin.isBefore(december));
+
+        // keithInsulin on 2021-11-01, same time as november -> returns false
+        assertFalse(keithInsulin.isBefore(november));
+    }
+
+    @Test
     void isTaskDone() {
         assertFalse(keithInsulin.isTaskDone()); //status: isDone = "false"
 
@@ -81,7 +114,8 @@ public class TaskTest {
     }
 
     @Test
-    void compareTo() {
+    public void compareTo() {
+        Task keithInsulin = new TaskBuilder(KEITH_INSULIN).build(); // date = "2020-11-01"
         Task alexInsulin = new TaskBuilder(ALEX_INSULIN).build(); // date = "2022-01-31", time: "19:45" in 24 hrs time
         Task doPaperwork = new TaskBuilder(DO_PAPERWORK).build(); // date: "2022-01-31", time: "10:20" in 24 hrs time
 
@@ -94,4 +128,5 @@ public class TaskTest {
         // doPaperwork before alexInsulin -> returns negative value
         assertFalse(doPaperwork.compareTo(keithInsulin) == 0);
     }
+
 }

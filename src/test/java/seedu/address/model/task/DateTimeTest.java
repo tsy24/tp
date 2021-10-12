@@ -30,7 +30,7 @@ class DateTimeTest {
         assertFalse(DateTime.isValidDate("8 july")); // wrong format
         assertFalse(DateTime.isValidDate("2010-02-31")); // invalid value
 
-        //invalid times
+        // invalid times
         assertFalse(DateTime.isValidTime("edward cullen"));
         assertFalse(DateTime.isValidTime("12.12am")); // wrong format
         assertFalse(DateTime.isValidTime("70:99")); // correct format, invalid value
@@ -42,6 +42,40 @@ class DateTimeTest {
         // valid time
         assertTrue(DateTime.isValidTime("23:00")); // 24 hours time
         assertTrue(DateTime.isValidTime("08:32:30")); // with seconds
+    }
+
+    @Test
+    public void isAfter() {
+        DateTime now = new DateTime("2021-10-31", "10:25");
+
+        // before the DateTime to test against -> returns true
+        DateTime beforeDate = new DateTime("2021-09-15", "13:00"); // different date
+        DateTime beforeTime = new DateTime("2021-10-31", "09:40"); // different time
+        assertTrue(now.isAfter(beforeDate));
+        assertTrue(now.isAfter(beforeTime));
+
+        // after the DateTime to test against -> returns false
+        DateTime afterDate = new DateTime("2021-11-19", "13:20"); // different date
+        DateTime afterTime = new DateTime("2021-10-31", "18:25"); // different time
+        assertFalse(now.isAfter(afterDate));
+        assertFalse(now.isAfter(afterTime));
+    }
+
+    @Test
+    public void isBefore() {
+        DateTime now = new DateTime("2021-10-31", "10:25");
+
+        // before the DateTime to test against -> returns false
+        DateTime beforeDate = new DateTime("2021-09-15", "13:00"); // different date
+        DateTime beforeTime = new DateTime("2021-10-31", "09:40"); // different time
+        assertFalse(now.isBefore(beforeDate));
+        assertFalse(now.isBefore(beforeTime));
+
+        // after the DateTime to test against -> returns true
+        DateTime afterDate = new DateTime("2021-11-19", "13:20"); // different date
+        DateTime afterTime = new DateTime("2021-10-31", "18:25"); // different time
+        assertTrue(now.isBefore(afterDate));
+        assertTrue(now.isBefore(afterTime));
     }
 
     @Test
