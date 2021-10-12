@@ -16,40 +16,32 @@ import seedu.address.model.tag.Tag;
 public class Elderly extends Person {
 
     // Identity fields
-    private final Phone phone;
     private final Age age;
     private final Gender gender;
-    private final Email email;
     private final RoomNumber roomNumber;
 
     // Data fields
-    private final Address address;
+    private final Nok nok;
     private final Remark remark;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Elderly(Name name, Phone phone, Age age, Gender gender, RoomNumber roomNumber, Email email, Address address,
+    public Elderly(Name name, Age age, Gender gender, RoomNumber roomNumber, Nok nok,
                    Remark remark, Set<Tag> tags) {
         super(name);
-        requireAllNonNull(phone, age, gender, email, address, tags);
-        this.phone = phone;
+        requireAllNonNull(age, gender, tags);
         this.age = age;
         this.gender = gender;
         this.roomNumber = roomNumber;
-        this.email = email;
-        this.address = address;
+        this.nok = nok;
         this.remark = remark;
         this.tags.addAll(tags);
     }
 
     public Name getName() {
         return super.getName();
-    }
-
-    public Phone getPhone() {
-        return phone;
     }
 
     public Age getAge() {
@@ -64,12 +56,8 @@ public class Elderly extends Person {
         return roomNumber;
     }
 
-    public Email getEmail() {
-        return email;
-    }
-
-    public Address getAddress() {
-        return address;
+    public Nok getNok() {
+        return nok;
     }
 
     public Remark getRemark() {
@@ -120,37 +108,30 @@ public class Elderly extends Person {
 
         Elderly otherElderly = (Elderly) other;
         return otherElderly.getName().equals(getName())
-                && otherElderly.getPhone().equals(getPhone())
                 && otherElderly.getAge().equals(getAge())
                 && otherElderly.getGender().equals(getGender())
                 && otherElderly.getRoomNumber().equals(getRoomNumber())
-                && otherElderly.getEmail().equals(getEmail())
-                && otherElderly.getAddress().equals(getAddress())
                 && otherElderly.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(this.getName(), phone, age, gender, roomNumber, email, address, tags);
+        return Objects.hash(this.getName(), age, gender, roomNumber, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append("; Phone: ")
-                .append(getPhone())
                 .append("; Age: ")
                 .append(getAge())
                 .append("; Gender: ")
                 .append(getAge())
                 .append("; RoomNumber: ")
                 .append(getRoomNumber())
-                .append("; Email: ")
-                .append(getEmail())
-                .append("; Address: ")
-                .append(getAddress())
+                .append("; Nok: ")
+                .append(getNok().getName())
                 .append("; Remark: ")
                 .append(getRemark());
 

@@ -5,7 +5,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_AGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NOK_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_RELATIONSHIP;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROOM_NUM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
@@ -34,12 +36,14 @@ public class ElderlyUtil {
     public static String getElderlyDetails(Elderly elderly) {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_NAME + elderly.getName().fullName + " ");
-        sb.append(PREFIX_PHONE + elderly.getPhone().value + " ");
         sb.append(PREFIX_AGE + elderly.getAge().value + " ");
         sb.append(PREFIX_GENDER + elderly.getGender().value + " ");
+        sb.append(PREFIX_NOK_NAME + elderly.getNok().getName().fullName + " ");
+        sb.append(PREFIX_RELATIONSHIP + elderly.getNok().getRelationship().value + " ");
         sb.append(PREFIX_ROOM_NUM + elderly.getRoomNumber().value + " ");
-        sb.append(PREFIX_EMAIL + elderly.getEmail().value + " ");
-        sb.append(PREFIX_ADDRESS + elderly.getAddress().value + " ");
+        sb.append(PREFIX_PHONE + elderly.getNok().getPhone().value + " ");
+        sb.append(PREFIX_EMAIL + elderly.getNok().getEmail().value + " ");
+        sb.append(PREFIX_ADDRESS + elderly.getNok().getAddress().value + " ");
         elderly.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.tagName + " ")
         );
@@ -52,13 +56,16 @@ public class ElderlyUtil {
     public static String getEditElderlyDescriptorDetails(EditElderlyDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
-        descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));
         descriptor.getAge().ifPresent(age -> sb.append(PREFIX_AGE).append(age.value).append(" "));
         descriptor.getGender().ifPresent(gender -> sb.append(PREFIX_GENDER).append(gender.value).append(" "));
         descriptor.getRoomNumber().ifPresent(roomNumber ->
                 sb.append(PREFIX_ROOM_NUM).append(roomNumber.value).append(" "));
-        descriptor.getEmail().ifPresent(email -> sb.append(PREFIX_EMAIL).append(email.value).append(" "));
-        descriptor.getAddress().ifPresent(address -> sb.append(PREFIX_ADDRESS).append(address.value).append(" "));
+        descriptor.getNokName().ifPresent(nokName -> sb.append(PREFIX_NOK_NAME).append(nokName.fullName).append(" "));
+        descriptor.getRelationship().ifPresent(relationship ->
+                sb.append(PREFIX_RELATIONSHIP).append(relationship.value).append(" "));
+        descriptor.getNokPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));
+        descriptor.getNokEmail().ifPresent(email -> sb.append(PREFIX_EMAIL).append(email.value).append(" "));
+        descriptor.getNokAddress().ifPresent(address -> sb.append(PREFIX_ADDRESS).append(address.value).append(" "));
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();
             if (tags.isEmpty()) {

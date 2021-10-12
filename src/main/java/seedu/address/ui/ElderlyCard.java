@@ -33,19 +33,23 @@ public class ElderlyCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
-    private Label phone;
-    @FXML
     private Label age;
     @FXML
     private Label gender;
     @FXML
     private Label roomNumber;
     @FXML
+    private Label nokName;
+    @FXML
+    private Label relationship;
+    @FXML
+    private Label phone;
+    @FXML
+    private Label email;
+    @FXML
     private Label address;
     @FXML
     private Label remark;
-    @FXML
-    private Label email;
     @FXML
     private FlowPane tags;
 
@@ -57,13 +61,16 @@ public class ElderlyCard extends UiPart<Region> {
         this.elderly = elderly;
         id.setText(displayedIndex + ". ");
         name.setText(elderly.getName().fullName);
-        phone.setText("Phone No.: " + elderly.getPhone().value);
         age.setText("Age: " + elderly.getAge().value + " years old");
         gender.setText("Gender: " + elderly.getGender().value);
         roomNumber.setText("Room No.: " + elderly.getRoomNumber().value);
-        address.setText("Address: " + elderly.getAddress().value);
+        nokName.setText("Nok Name: " + elderly.getNok().getName().fullName);
+        relationship.setText("Relationship: " + elderly.getNok().getRelationship().value);
+        phone.setText("Nok Phone No.: " + elderly.getNok().getPhone().value);
+        email.setText("Nok Email: " + elderly.getNok().getEmail().value);
+        address.setText("Nok Address: " + elderly.getNok().getAddress().value);
         remark.setText("Remarks: " + elderly.getRemark().value);
-        email.setText("Email: " + elderly.getEmail().value);
+
         elderly.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

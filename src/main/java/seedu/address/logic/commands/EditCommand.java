@@ -6,7 +6,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_AGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NOK_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_RELATIONSHIP;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROOM_NUM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ELDERLIES;
@@ -28,10 +30,14 @@ import seedu.address.model.person.Elderly;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Gender;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Nok;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Relationship;
 import seedu.address.model.person.Remark;
 import seedu.address.model.person.RoomNumber;
 import seedu.address.model.tag.Tag;
+
+import javax.management.relation.InvalidRelationIdException;
 
 /**
  * Edits the details of an existing elderly in the address book.
@@ -45,12 +51,14 @@ public class EditCommand extends Command {
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
-            + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_AGE + "AGE] "
             + "[" + PREFIX_GENDER + "GENDER] "
             + "[" + PREFIX_ROOM_NUM + "ROOM_NUMBER] "
-            + "[" + PREFIX_EMAIL + "EMAIL] "
-            + "[" + PREFIX_ADDRESS + "ADDRESS] "
+            + "[" + PREFIX_NOK_NAME + "NOK NAME] "
+            + "[" + PREFIX_RELATIONSHIP + "RELATIONSHIP] "
+            + "[" + PREFIX_PHONE + "NOK PHONE] "
+            + "[" + PREFIX_EMAIL + "NOK EMAIL] "
+            + "[" + PREFIX_ADDRESS + "NOK ADDRESS] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
@@ -104,17 +112,21 @@ public class EditCommand extends Command {
         assert elderlyToEdit != null;
 
         Name updatedName = editElderlyDescriptor.getName().orElse(elderlyToEdit.getName());
-        Phone updatedPhone = editElderlyDescriptor.getPhone().orElse(elderlyToEdit.getPhone());
         Age updatedAge = editElderlyDescriptor.getAge().orElse(elderlyToEdit.getAge());
         Gender updatedGender = editElderlyDescriptor.getGender().orElse(elderlyToEdit.getGender());
         RoomNumber updatedRoomNumber = editElderlyDescriptor.getRoomNumber().orElse(elderlyToEdit.getRoomNumber());
-        Email updatedEmail = editElderlyDescriptor.getEmail().orElse(elderlyToEdit.getEmail());
-        Address updatedAddress = editElderlyDescriptor.getAddress().orElse(elderlyToEdit.getAddress());
+        Name updatedNokName = editElderlyDescriptor.getNokName().orElse(elderlyToEdit.getNok().getName());
+        Relationship updatedRelationship = editElderlyDescriptor.getRelationship()
+                .orElse(elderlyToEdit.getNok().getRelationship());
+        Phone updatedNokPhone = editElderlyDescriptor.getNokPhone().orElse(elderlyToEdit.getNok().getPhone());
+        Email updatedNokEmail = editElderlyDescriptor.getNokEmail().orElse(elderlyToEdit.getNok().getEmail());
+        Address updatedNokAddress = editElderlyDescriptor.getNokAddress().orElse(elderlyToEdit.getNok().getAddress());
         Remark updatedRemark = elderlyToEdit.getRemark(); // edit command does not allow editing remarks
         Set<Tag> updatedTags = editElderlyDescriptor.getTags().orElse(elderlyToEdit.getTags());
 
-        return new Elderly(updatedName, updatedPhone, updatedAge, updatedGender, updatedRoomNumber,
-                updatedEmail, updatedAddress, updatedRemark, updatedTags);
+        return new Elderly(updatedName, updatedAge, updatedGender, updatedRoomNumber,
+                new Nok(updatedNokName, updatedRelationship, updatedNokPhone, updatedNokEmail, updatedNokAddress),
+                updatedRemark, updatedTags);
     }
 
     @Override
@@ -141,12 +153,14 @@ public class EditCommand extends Command {
      */
     public static class EditElderlyDescriptor {
         private Name name;
-        private Phone phone;
         private Age age;
         private Gender gender;
         private RoomNumber roomNumber;
-        private Email email;
-        private Address address;
+        private Name nokName;
+        private Relationship relationship;
+        private Phone nokPhone;
+        private Email nokEmail;
+        private Address nokAddress;
         private Set<Tag> tags;
 
         public EditElderlyDescriptor() {}
@@ -157,12 +171,14 @@ public class EditCommand extends Command {
          */
         public EditElderlyDescriptor(EditElderlyDescriptor toCopy) {
             setName(toCopy.name);
-            setPhone(toCopy.phone);
             setAge(toCopy.age);
             setGender(toCopy.gender);
             setRoomNumber(toCopy.roomNumber);
-            setEmail(toCopy.email);
-            setAddress(toCopy.address);
+            setNokName(toCopy.nokName);
+            setRelationship(toCopy.relationship);
+            setNokPhone(toCopy.nokPhone);
+            setNokEmail(toCopy.nokEmail);
+            setNokAddress(toCopy.nokAddress);
             setTags(toCopy.tags);
         }
 
@@ -170,7 +186,8 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, age, gender, roomNumber, address, tags);
+            return CollectionUtil.isAnyNonNull(name, age, gender, roomNumber, nokName, relationship, nokPhone,
+                    nokEmail, nokAddress, tags);
         }
 
         public void setName(Name name) {
@@ -179,14 +196,6 @@ public class EditCommand extends Command {
 
         public Optional<Name> getName() {
             return Optional.ofNullable(name);
-        }
-
-        public void setPhone(Phone phone) {
-            this.phone = phone;
-        }
-
-        public Optional<Phone> getPhone() {
-            return Optional.ofNullable(phone);
         }
 
         public void setAge(Age age) {
@@ -213,20 +222,44 @@ public class EditCommand extends Command {
             return Optional.ofNullable(roomNumber);
         }
 
-        public void setEmail(Email email) {
-            this.email = email;
+        public void setNokName(Name nokName) {
+            this.nokName = nokName;
         }
 
-        public Optional<Email> getEmail() {
-            return Optional.ofNullable(email);
+        public Optional<Name> getNokName() {
+            return Optional.ofNullable(nokName);
         }
 
-        public void setAddress(Address address) {
-            this.address = address;
+        public void setRelationship(Relationship relationship) {
+            this.relationship = relationship;
         }
 
-        public Optional<Address> getAddress() {
-            return Optional.ofNullable(address);
+        public Optional<Relationship> getRelationship() {
+            return Optional.ofNullable(relationship);
+        }
+
+        public void setNokPhone(Phone nokPhone) {
+            this.nokPhone = nokPhone;
+        }
+
+        public Optional<Phone> getNokPhone() {
+            return Optional.ofNullable(nokPhone);
+        }
+
+        public void setNokEmail(Email nokEmail) {
+            this.nokEmail = nokEmail;
+        }
+
+        public Optional<Email> getNokEmail() {
+            return Optional.ofNullable(nokEmail);
+        }
+
+        public void setNokAddress(Address nokAddress) {
+            this.nokAddress = nokAddress;
+        }
+
+        public Optional<Address> getNokAddress() {
+            return Optional.ofNullable(nokAddress);
         }
 
         /**
@@ -262,12 +295,14 @@ public class EditCommand extends Command {
             EditElderlyDescriptor e = (EditElderlyDescriptor) other;
 
             return getName().equals(e.getName())
-                    && getPhone().equals(e.getPhone())
                     && getAge().equals(e.getAge())
                     && getGender().equals(e.getGender())
                     && getRoomNumber().equals(e.getRoomNumber())
-                    && getEmail().equals(e.getEmail())
-                    && getAddress().equals(e.getAddress())
+                    && getNokName().equals(e.getNokName())
+                    && getRelationship().equals(e.getRelationship())
+                    && getNokPhone().equals(e.getNokPhone())
+                    && getNokEmail().equals(e.getNokEmail())
+                    && getNokAddress().equals(e.getNokAddress())
                     && getTags().equals(e.getTags());
         }
     }

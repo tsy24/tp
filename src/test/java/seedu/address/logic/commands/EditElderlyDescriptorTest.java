@@ -43,10 +43,6 @@ public class EditElderlyDescriptorTest {
                 .withName(VALID_NAME_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
-        // different phone -> returns false
-        editedAmy = new EditElderlyDescriptorBuilder(DESC_AMY).withPhone(VALID_PHONE_BOB).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
-
         // different age -> returns false
         editedAmy = new EditElderlyDescriptorBuilder(DESC_AMY).withAge(VALID_AGE_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
@@ -57,6 +53,10 @@ public class EditElderlyDescriptorTest {
 
         // different roomNumber -> returns false
         editedAmy = new EditElderlyDescriptorBuilder(DESC_AMY).withRoomNumber(VALID_ROOM_NUMBER_BOB).build();
+        assertFalse(DESC_AMY.equals(editedAmy));
+
+        // different phone -> returns false
+        editedAmy = new EditElderlyDescriptorBuilder(DESC_AMY).withPhone(VALID_PHONE_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different email -> returns false

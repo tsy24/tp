@@ -16,7 +16,9 @@ import seedu.address.model.person.Elderly;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Gender;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Nok;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Relationship;
 import seedu.address.model.person.Remark;
 import seedu.address.model.person.RoomNumber;
 import seedu.address.model.tag.Tag;
@@ -29,12 +31,14 @@ class JsonAdaptedElderly {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Elderly's %s field is missing!";
 
     private final String name;
-    private final String phone;
     private final String age;
     private final String gender;
     private final String roomNumber;
-    private final String email;
+    private final String nokName;
+    private final String relationship;
+    private final String phone;
     private final String address;
+    private final String email;
     private final String remark;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
@@ -42,19 +46,23 @@ class JsonAdaptedElderly {
      * Constructs a {@code JsonAdaptedElderly} with the given elderly details.
      */
     @JsonCreator
-    public JsonAdaptedElderly(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
+    public JsonAdaptedElderly(@JsonProperty("name") String name,
                               @JsonProperty("age") String age, @JsonProperty("gender") String gender,
                               @JsonProperty("roomNumber") String roomNumber,
-                              @JsonProperty("email") String email, @JsonProperty("address") String address,
+                              @JsonProperty("nokName") String nokName, @JsonProperty("relationship") String relationship,
+                              @JsonProperty("phone") String phone, @JsonProperty("email") String email,
+                              @JsonProperty("address") String address,
                               @JsonProperty("remark") String remark,
                               @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
-        this.phone = phone;
         this.age = age;
         this.gender = gender;
         this.roomNumber = roomNumber;
-        this.email = email;
+        this.nokName = nokName;
+        this.relationship = relationship;
+        this.phone = phone;
         this.address = address;
+        this.email = email;
         this.remark = remark;
         if (tagged != null) {
             this.tagged.addAll(tagged);
@@ -66,12 +74,14 @@ class JsonAdaptedElderly {
      */
     public JsonAdaptedElderly(Elderly source) {
         name = source.getName().fullName;
-        phone = source.getPhone().value;
         age = source.getAge().value;
         gender = source.getGender().value;
         roomNumber = source.getRoomNumber().value;
-        email = source.getEmail().value;
-        address = source.getAddress().value;
+        nokName = source.getNok().getName().fullName;
+        relationship = source.getNok().getRelationship().value;
+        phone = source.getNok().getPhone().value;
+        email = source.getNok().getEmail().value;
+        address = source.getNok().getAddress().value;
         remark = source.getRemark().value;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
@@ -89,21 +99,14 @@ class JsonAdaptedElderly {
             elderlyTags.add(tag.toModelType());
         }
 
-        if (name == null) {
+        if (name == null || nokName == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
         }
-        if (!Name.isValidName(name)) {
+        if (!Name.isValidName(name) || !Name.isValidName(nokName)) {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
         }
         final Name modelName = new Name(name);
-
-        if (phone == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
-        }
-        if (!Phone.isValidPhone(phone)) {
-            throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
-        }
-        final Phone modelPhone = new Phone(phone);
+        final Name modelNokName = new Name(nokName);
 
         if (age == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Age.class.getSimpleName()));
@@ -130,6 +133,22 @@ class JsonAdaptedElderly {
         }
         final RoomNumber modelRoomNumber = new RoomNumber(roomNumber);
 
+        if (relationship == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Relationship.class.getSimpleName()));
+        }
+        if (!Relationship.isValidRelationship(relationship)) {
+            throw new IllegalValueException(Relationship.MESSAGE_CONSTRAINTS);
+        }
+        final Relationship modelRelationship = new Relationship(relationship);
+
+        if (phone == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
+        }
+        if (!Phone.isValidPhone(phone)) {
+            throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
+        }
+        final Phone modelPhone = new Phone(phone);
+
         if (email == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
         }
@@ -152,8 +171,7 @@ class JsonAdaptedElderly {
         final Remark modelRemark = new Remark(remark);
 
         final Set<Tag> modelTags = new HashSet<>(elderlyTags);
-        return new Elderly(modelName, modelPhone, modelAge, modelGender, modelRoomNumber, modelEmail, modelAddress,
-                modelRemark, modelTags);
+        return new Elderly(modelName, modelAge, modelGender, modelRoomNumber,
+                new Nok(modelNokName, modelRelationship, modelPhone, modelEmail, modelAddress), modelRemark, modelTags);
     }
-
 }

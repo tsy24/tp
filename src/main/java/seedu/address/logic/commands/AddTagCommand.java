@@ -57,9 +57,9 @@ public class AddTagCommand extends Command {
         Elderly elderlyToAddTag = lastShownList.get(index.getZeroBased());
         Set<Tag> currentTags = elderlyToAddTag.getTags();
         Elderly addedElderly = new Elderly(
-                elderlyToAddTag.getName(), elderlyToAddTag.getPhone(), elderlyToAddTag.getAge(),
+                elderlyToAddTag.getName(), elderlyToAddTag.getAge(),
                 elderlyToAddTag.getGender(), elderlyToAddTag.getRoomNumber(),
-                elderlyToAddTag.getEmail(), elderlyToAddTag.getAddress(), elderlyToAddTag.getRemark(),
+                elderlyToAddTag.getNok(), elderlyToAddTag.getRemark(),
                 addTagsToSet(currentTags, tags));
 
         model.setElderly(elderlyToAddTag, addedElderly);

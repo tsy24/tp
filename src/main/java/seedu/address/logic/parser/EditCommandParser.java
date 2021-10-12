@@ -7,7 +7,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_AGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NOK_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_RELATIONSHIP;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROOM_NUM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
@@ -35,8 +37,9 @@ public class EditCommandParser implements Parser<EditCommand> {
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_AGE, PREFIX_GENDER,
-                        PREFIX_ROOM_NUM, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_AGE, PREFIX_GENDER,
+                        PREFIX_ROOM_NUM, PREFIX_NOK_NAME, PREFIX_RELATIONSHIP, PREFIX_PHONE, PREFIX_EMAIL,
+                        PREFIX_ADDRESS, PREFIX_TAG);
 
         Index index;
 
@@ -50,13 +53,11 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
             editElderlyDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
         }
-        if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
-            editElderlyDescriptor.setPhone(ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get()));
-        }
 
         if (argMultimap.getValue(PREFIX_AGE).isPresent()) {
             editElderlyDescriptor.setAge(ParserUtil.parseAge(argMultimap.getValue(PREFIX_AGE).get()));
         }
+
         if (argMultimap.getValue(PREFIX_GENDER).isPresent()) {
             editElderlyDescriptor.setGender(ParserUtil.parseGender(argMultimap.getValue(PREFIX_GENDER).get()));
         }
@@ -65,12 +66,28 @@ public class EditCommandParser implements Parser<EditCommand> {
             editElderlyDescriptor.setRoomNumber(
                     ParserUtil.parseRoomNumber(argMultimap.getValue(PREFIX_ROOM_NUM).get()));
         }
+
+        if (argMultimap.getValue(PREFIX_NOK_NAME).isPresent()) {
+            editElderlyDescriptor.setNokName(ParserUtil.parseNokName(argMultimap.getValue(PREFIX_NOK_NAME).get()));
+        }
+
+        if (argMultimap.getValue(PREFIX_RELATIONSHIP).isPresent()) {
+            editElderlyDescriptor.setRelationship(
+                    ParserUtil.parseRelationship(argMultimap.getValue(PREFIX_RELATIONSHIP).get()));
+        }
+
+        if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
+            editElderlyDescriptor.setNokPhone(ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get()));
+        }
+
         if (argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
-            editElderlyDescriptor.setEmail(ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get()));
+            editElderlyDescriptor.setNokEmail(ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get()));
         }
+
         if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
-            editElderlyDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
+            editElderlyDescriptor.setNokAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
         }
+
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editElderlyDescriptor::setTags);
 
         if (!editElderlyDescriptor.isAnyFieldEdited()) {
