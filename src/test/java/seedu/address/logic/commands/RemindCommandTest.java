@@ -57,7 +57,7 @@ public class RemindCommandTest {
         // null -> returns false
         assertFalse(remindFirstCommand.equals(null));
 
-        // different elderly -> returns false
+        // different reminder -> returns false
         assertFalse(remindFirstCommand.equals(remindSecondCommand));
     }
 
