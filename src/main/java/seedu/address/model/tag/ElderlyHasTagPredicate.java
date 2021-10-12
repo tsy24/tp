@@ -6,6 +6,9 @@ import java.util.function.Predicate;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.model.person.Elderly;
 
+/**
+ * Tests that a {@code Elderly}'s {@code Set<Tag>} contains all the tags given.
+ */
 public class ElderlyHasTagPredicate implements Predicate<Elderly> {
 
     private final Set<Tag> keyTags;

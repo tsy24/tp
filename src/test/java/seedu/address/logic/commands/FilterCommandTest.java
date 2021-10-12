@@ -45,7 +45,7 @@ public class FilterCommandTest {
         // same object -> returns true
         assertTrue(filterFirstCommand.equals(filterFirstCommand));
 
-        // same values -> returns true
+        // same predicate -> returns true
         FilterCommand filterFirstCommandCopy = new FilterCommand(firstPredicate);
         assertTrue(filterFirstCommand.equals(filterFirstCommandCopy));
 
@@ -55,7 +55,7 @@ public class FilterCommandTest {
         // null -> returns false
         assertFalse(filterFirstCommand.equals(null));
 
-        // different person -> returns false
+        // different set of tags -> returns false
         assertFalse(filterFirstCommand.equals(filterSecondCommand));
     }
 

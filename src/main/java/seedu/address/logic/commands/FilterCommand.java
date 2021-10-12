@@ -7,6 +7,10 @@ import seedu.address.commons.core.Messages;
 import seedu.address.model.Model;
 import seedu.address.model.tag.ElderlyHasTagPredicate;
 
+/**
+ * Finds and lists all elderlies in NurseyBook who has all the argument tags.
+ * Tag matching is case insensitive.
+ */
 public class FilterCommand extends Command {
 
     public static final String COMMAND_WORD = "filter";
