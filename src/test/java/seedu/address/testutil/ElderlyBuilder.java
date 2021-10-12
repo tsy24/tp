@@ -86,6 +86,14 @@ public class ElderlyBuilder {
     }
 
     /**
+     * Sets an empty {@code Set<Tag>} to the {@code Elderly} that we are building.
+     */
+    public ElderlyBuilder withoutTags() {
+        this.tags = new HashSet<>();
+        return this;
+    }
+
+    /**
      * Sets the {@code Address} of the {@code Elderly} that we are building.
      */
     public ElderlyBuilder withAddress(String address) {
