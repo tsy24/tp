@@ -58,10 +58,10 @@ public class Nok extends Person {
      *
      * @return Nok with all fields set to default values.
      */
-    public static Nok freshNok() {
-        Nok fresh = new Nok(new Name(defaultNameField), new Relationship(defaultNonNameField),
+    public static Nok createDefaultNok() {
+        Nok blankNok = new Nok(new Name(defaultNameField), new Relationship(defaultNonNameField),
                 new Phone(defaultNonNameField), new Email(defaultNonNameField), new Address(defaultNonNameField));
-        return fresh;
+        return blankNok;
     }
 
     /**

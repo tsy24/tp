@@ -45,7 +45,7 @@ public class DeleteNokCommand extends Command {
         Elderly elderlyToDeleteNokFrom = lastShownList.get(targetIndex.getZeroBased());
         Elderly updatedElderly = new Elderly(
                 elderlyToDeleteNokFrom.getName(), elderlyToDeleteNokFrom.getAge(),
-                elderlyToDeleteNokFrom.getGender(), elderlyToDeleteNokFrom.getRoomNumber(), Nok.freshNok(),
+                elderlyToDeleteNokFrom.getGender(), elderlyToDeleteNokFrom.getRoomNumber(), Nok.createDefaultNok(),
                 elderlyToDeleteNokFrom.getRemark(), elderlyToDeleteNokFrom.getTags());
 
         model.setElderly(elderlyToDeleteNokFrom, updatedElderly);
