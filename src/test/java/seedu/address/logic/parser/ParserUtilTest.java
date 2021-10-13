@@ -183,10 +183,8 @@ public class ParserUtilTest {
         assertThrows(NullPointerException.class, () -> ParserUtil.parseAddress((String) null));
     }
 
-    @Test
-    public void parseAddress_invalidValue_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseAddress(INVALID_ADDRESS));
-    }
+    //No test for parseAddress_invalidValue_throwsParseException since there is no invalid address input
+    //at this point.
 
     @Test
     public void parseAddress_validValueWithoutWhitespace_returnsAddress() throws Exception {

@@ -28,7 +28,7 @@ public class JsonAdaptedElderlyTest {
     private static final String INVALID_GENDER = "9";
     private static final String INVALID_ROOM_NUMBER = "52q";
     private static final String INVALID_NOK_NAME = "B@chel";
-    private static final String INVALID_RELATIONSHIP = "39#";
+    private static final String INVALID_RELATIONSHIP = "34#";
     private static final String INVALID_PHONE = "+651234";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_ADDRESS = " ";

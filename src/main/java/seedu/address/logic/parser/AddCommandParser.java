@@ -58,7 +58,7 @@ public class AddCommandParser implements Parser<AddCommand> {
                 .orElse(""));
         Phone nokPhone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).orElse(""));
         Email nokEmail = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).orElse(""));
-        Address nokAddress = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).orElse("NIL"));
+        Address nokAddress = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).orElse(""));
         Remark remark = new Remark(""); // add command does not allow adding remarks straight away
         RoomNumber roomNumber = ParserUtil.parseRoomNumber(argMultimap.getValue(PREFIX_ROOM_NUM).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));

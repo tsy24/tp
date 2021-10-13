@@ -7,7 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_AGE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_GENDER_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NOK_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
@@ -56,11 +56,11 @@ public class EditCommandTest {
         Elderly lastElderly = model.getFilteredElderlyList().get(indexLastElderly.getZeroBased());
 
         ElderlyBuilder elderlyInList = new ElderlyBuilder(lastElderly);
-        Elderly editedElderly = elderlyInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
+        Elderly editedElderly = elderlyInList.withName(VALID_NAME_BOB).withPhone(VALID_NOK_PHONE_BOB)
                 .withAge(VALID_AGE_BOB).withGender(VALID_GENDER_BOB).withTags(VALID_TAG_HUSBAND).build();
 
         EditElderlyDescriptor descriptor = new EditElderlyDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withPhone(VALID_PHONE_BOB).withAge(VALID_AGE_BOB).withGender(VALID_GENDER_BOB)
+                .withPhone(VALID_NOK_PHONE_BOB).withAge(VALID_AGE_BOB).withGender(VALID_GENDER_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
         EditCommand editCommand = new EditCommand(indexLastElderly, descriptor);
 
