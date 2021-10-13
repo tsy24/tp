@@ -3,12 +3,14 @@ package seedu.address.logic;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_ELDERLY_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.NOK_ADDRESS_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.AGE_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.NOK_EMAIL_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.GENDER_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.NOK_NAME_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.NOK_PHONE_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.NOK_RELATIONSHIP_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.ROOM_NUMBER_DESC_AMY;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalElderlies.AMY;
@@ -82,8 +84,9 @@ public class LogicManagerTest {
         logic = new LogicManager(model, storage);
 
         // Execute add command
-        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + AGE_DESC_AMY + GENDER_DESC_AMY
-                + ROOM_NUMBER_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
+        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + AGE_DESC_AMY + GENDER_DESC_AMY
+                + ROOM_NUMBER_DESC_AMY + NOK_NAME_DESC_AMY + NOK_RELATIONSHIP_DESC_AMY + NOK_PHONE_DESC_AMY
+                + NOK_EMAIL_DESC_AMY + NOK_ADDRESS_DESC_AMY;
         Elderly expectedElderly = new ElderlyBuilder(AMY).withTags().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addElderly(expectedElderly);

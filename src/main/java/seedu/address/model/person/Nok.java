@@ -17,6 +17,10 @@ public class Nok extends Person {
     // Data fields
     private final Address address;
 
+    //Default values
+    private static final String defaultNameField = "NIL";
+    private static final String defaultNonNameField = "";
+
     /**
      * Every field must be present and not null.
      */
@@ -47,6 +51,17 @@ public class Nok extends Person {
 
     public Address getAddress() {
         return address;
+    }
+
+    /**
+     * Creates and returns a Nok with all fields set to default values. Equivalent to not specifying any fields in Nok.
+     *
+     * @return Nok with all fields set to default values.
+     */
+    public static Nok freshNok() {
+        Nok fresh = new Nok(new Name(defaultNameField), new Relationship(defaultNonNameField),
+                new Phone(defaultNonNameField), new Email(defaultNonNameField), new Address(defaultNonNameField));
+        return fresh;
     }
 
     /**

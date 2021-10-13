@@ -111,6 +111,7 @@ public class Elderly extends Person {
                 && otherElderly.getAge().equals(getAge())
                 && otherElderly.getGender().equals(getGender())
                 && otherElderly.getRoomNumber().equals(getRoomNumber())
+//                && otherElderly.getNok().equals(getNok())
                 && otherElderly.getTags().equals(getTags());
     }
 
@@ -130,8 +131,7 @@ public class Elderly extends Person {
                 .append(getAge())
                 .append("; RoomNumber: ")
                 .append(getRoomNumber())
-                .append("; Nok: ")
-                .append(getNok().getName())
+                .append(getNok().toString())
                 .append("; Remark: ")
                 .append(getRemark());
 

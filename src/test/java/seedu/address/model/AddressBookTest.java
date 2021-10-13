@@ -3,7 +3,7 @@ package seedu.address.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NOK_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalElderlies.ALICE;
@@ -48,7 +48,7 @@ public class AddressBookTest {
     @Test
     public void resetData_withDuplicateElderlies_throwsDuplicateElderlyException() {
         // Two elderlies with the same identity fields
-        Elderly editedAlice = new ElderlyBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Elderly editedAlice = new ElderlyBuilder(ALICE).withAddress(VALID_NOK_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         List<Elderly> newElderlies = Arrays.asList(ALICE, editedAlice);
         AddressBookStub newData = new AddressBookStub(newElderlies);
@@ -75,7 +75,7 @@ public class AddressBookTest {
     @Test
     public void hasElderly_elderlyWithSameIdentityFieldsInAddressBook_returnsTrue() {
         addressBook.addElderly(ALICE);
-        Elderly editedAlice = new ElderlyBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Elderly editedAlice = new ElderlyBuilder(ALICE).withAddress(VALID_NOK_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         assertTrue(addressBook.hasElderly(editedAlice));
     }

@@ -7,13 +7,15 @@ import static java.util.Objects.requireNonNull;
  * Guarantees: immutable; is always valid
  */
 public class Relationship {
-    public static final String MESSAGE_CONSTRAINTS = "Relationships can take any values";
+    public static final String MESSAGE_CONSTRAINTS = "Relationships cannot contain numbers, or can be left blank.";
 
     /*
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
+     * Relationship does not accept numerical characters.
      */
-    public static final String VALIDATION_REGEX = "^$|[\\p{Alnum}][\\p{Alnum} ]*";
+    public static final String VALIDATION_REGEX = "^$|[^\\s\\d][^\\s\\d]*";
+//    public static final String VALIDATION_REGEX = "^$|[^\\s&&[^0-9]][^\\s&&[^0-9]]*";
 
     public final String value;
 
