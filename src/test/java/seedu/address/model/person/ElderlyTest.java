@@ -2,10 +2,14 @@ package seedu.address.model.person;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_AGE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_GENDER_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NOK_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NOK_EMAIL_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NOK_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NOK_PHONE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NOK_RELATIONSHIP_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ROOM_NUMBER_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -33,9 +37,11 @@ public class ElderlyTest {
         assertFalse(ALICE.isSameElderly(null));
 
         // same name, all other attributes different -> returns true
-        Elderly editedAlice = new ElderlyBuilder(ALICE).withPhone(VALID_NOK_PHONE_BOB)
-                .withRoomNumber(VALID_ROOM_NUMBER_BOB)
-                .withEmail(VALID_NOK_EMAIL_BOB).withAddress(VALID_NOK_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
+        Elderly editedAlice = new ElderlyBuilder(ALICE).withAge(VALID_AGE_BOB).withGender(VALID_GENDER_BOB)
+                .withRoomNumber(VALID_ROOM_NUMBER_BOB).withNokName(VALID_NOK_NAME_BOB)
+                .withRelationship(VALID_NOK_RELATIONSHIP_BOB).withPhone(VALID_NOK_PHONE_BOB)
+                .withEmail(VALID_NOK_EMAIL_BOB).withAddress(VALID_NOK_ADDRESS_BOB)
+                .withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSameElderly(editedAlice));
 
         // different name, all other attributes same -> returns false
