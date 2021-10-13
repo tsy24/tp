@@ -26,7 +26,7 @@ public class AddTagCommand extends Command {
             + "by the index number used in the last elderly listing. "
             + "Must contain one or more tags\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + PREFIX_TAG + "[TAG]\n"
+            + PREFIX_TAG + "TAG " + "[" + PREFIX_TAG + "MORE_TAGS]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_TAG + "Diabetes";
 
@@ -57,9 +57,9 @@ public class AddTagCommand extends Command {
         Elderly elderlyToAddTag = lastShownList.get(index.getZeroBased());
         Set<Tag> currentTags = elderlyToAddTag.getTags();
         Elderly addedElderly = new Elderly(
-                elderlyToAddTag.getName(), elderlyToAddTag.getPhone(), elderlyToAddTag.getAge(),
+                elderlyToAddTag.getName(), elderlyToAddTag.getAge(),
                 elderlyToAddTag.getGender(), elderlyToAddTag.getRoomNumber(),
-                elderlyToAddTag.getEmail(), elderlyToAddTag.getAddress(), elderlyToAddTag.getRemark(),
+                elderlyToAddTag.getNok(), elderlyToAddTag.getRemark(),
                 addTagsToSet(currentTags, tags));
 
         model.setElderly(elderlyToAddTag, addedElderly);

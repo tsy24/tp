@@ -16,6 +16,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Gender;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Relationship;
 import seedu.address.model.person.RoomNumber;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.task.DateTime;
@@ -57,6 +58,21 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String name} into a {@code Name}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code name} is invalid.
+     */
+    public static Name parseNokName(String nokName) throws ParseException {
+        requireNonNull(nokName);
+        String trimmedNokName = nokName.trim();
+        if (!Name.isValidName(trimmedNokName)) {
+            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+        }
+        return new Name(trimmedNokName);
+    }
+
+    /**
      * Parses {@code Collection<String> names} into a {@code Set<People>}.
      */
     public static Set<Name> parseNames(Collection<String> names) throws ParseException {
@@ -84,7 +100,6 @@ public class ParserUtil {
     }
 
     /**
-<<<<<<< HEAD
      * Parses a {@code String age} into a {@code Age}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -127,6 +142,21 @@ public class ParserUtil {
             throw new ParseException(RoomNumber.MESSAGE_CONSTRAINTS);
         }
         return new RoomNumber(trimmedRoomNumber);
+    }
+
+    /**
+     * Parses a {@code String relationship} into a {@code Relationship}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code relationship} is invalid.
+     */
+    public static Relationship parseRelationship(String relationship) throws ParseException {
+        requireNonNull(relationship);
+        String trimmedRelationship = relationship.trim();
+        if (!Relationship.isValidRelationship(trimmedRelationship)) {
+            throw new ParseException(Relationship.MESSAGE_CONSTRAINTS);
+        }
+        return new Relationship(trimmedRelationship);
     }
 
     /**

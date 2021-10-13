@@ -68,6 +68,19 @@ public class DateTime implements Comparable<DateTime> {
         }
     }
 
+    /**
+     * Returns true if this instance is before the given date and time.
+     */
+    public boolean isBefore(DateTime dt) {
+        return this.compareTo(dt) < 0;
+    }
+
+    /**
+     * Returns true if this instance is after the given date and time.
+     */
+    public boolean isAfter(DateTime dt) {
+        return this.compareTo(dt) > 0;
+    }
 
     @Override
     public String toString() {

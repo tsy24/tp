@@ -47,7 +47,6 @@ public class TaskList implements Iterable<Task> {
         internalList.set(index, editedTask);
     }
 
-
     /**
      * Mark the task {@code target} in the list as done.
      * {@code target} must exist in the list.

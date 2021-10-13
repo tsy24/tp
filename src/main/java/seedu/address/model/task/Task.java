@@ -8,6 +8,7 @@ import seedu.address.model.person.Elderly;
 import seedu.address.model.person.Name;
 
 public class Task implements Comparable<Task> {
+
     private final Description desc;
     private final DateTime dateTime;
     private final Status status;
@@ -17,25 +18,23 @@ public class Task implements Comparable<Task> {
      * Creates a Task object.
      *
      * @param desc                      the description of the task
-     * @param dt                        the date & time of the task
+     * @param dt                        the date and time of the task
      * @param names                     the names of people associated with the task
-     * @return                          task created
      */
     public Task(Description desc, DateTime dt, Set<Name> names) {
         this.desc = desc;
         this.dateTime = dt;
-        this.status = new Status("false");
         this.relatedNames.addAll(names);
+        this.status = new Status("false");
     }
 
     /**
      * Creates a Task object.
      *
      * @param desc                      the description of the task
-     * @param dt                        the date & time of the task
+     * @param dt                        the date and time of the task
      * @param names                     the names of people associated with the task
      * @param status                    the completion status of the task
-     * @return                          task created
      */
     public Task(Description desc, DateTime dt, Set<Name> names, Status status) {
         this.desc = desc;
@@ -56,7 +55,6 @@ public class Task implements Comparable<Task> {
         return new Task(desc, dateTime, relatedNames, new Status("true"));
     }
 
-
     /**
      * Returns task description of this task.
      *
@@ -75,7 +73,6 @@ public class Task implements Comparable<Task> {
         return dateTime;
     }
 
-
     /**
      * Returns names of elderly related to this task.
      *
@@ -85,7 +82,6 @@ public class Task implements Comparable<Task> {
         return relatedNames;
     }
 
-
     /**
      * Returns completion status of this task.
      *
@@ -93,6 +89,26 @@ public class Task implements Comparable<Task> {
      */
     public Status getStatus() {
         return status;
+    }
+
+    /**
+     * Returns true if task dateTime is after the date given in the argument.
+     *
+     * @param date                      date to be compared to
+     * @return                          true if is after, false otherwise
+     */
+    public boolean isAfter(DateTime date) {
+        return dateTime.isAfter(date);
+    }
+
+    /**
+     * Returns true if task dateTime is before the date given in the argument.
+     *
+     * @param date                      date to be compared to
+     * @return                          true if is before, false otherwise
+     */
+    public boolean isBefore(DateTime date) {
+        return dateTime.isBefore(date);
     }
 
     /**

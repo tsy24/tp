@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.commands.CommandTestUtil.SET_ONE_TAG;
+import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_DIABETES;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
@@ -15,23 +17,28 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddTagCommand;
 import seedu.address.logic.commands.AddTaskCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DeleteTagCommand;
 import seedu.address.logic.commands.DeleteTaskCommand;
 import seedu.address.logic.commands.DoneTaskCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditElderlyDescriptor;
 import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.FilterCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.RemarkCommand;
+import seedu.address.logic.commands.RemindCommand;
 import seedu.address.logic.commands.ViewElderlyCommand;
 import seedu.address.logic.commands.ViewTasksCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Elderly;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Remark;
+import seedu.address.model.tag.ElderlyHasTagPredicate;
 import seedu.address.model.task.Task;
 import seedu.address.testutil.EditElderlyDescriptorBuilder;
 import seedu.address.testutil.ElderlyBuilder;
@@ -131,6 +138,33 @@ public class AddressBookParserTest {
         RemarkCommand command = (RemarkCommand) parser.parseCommand(RemarkCommand.COMMAND_WORD + " "
                 + INDEX_FIRST.getOneBased() + " " + PREFIX_REMARK + remark.value);
         assertEquals(new RemarkCommand(INDEX_FIRST, remark), command);
+    }
+
+    @Test
+    public void parseCommand_remind() throws Exception {
+        assertTrue(parser.parseCommand(RemindCommand.COMMAND_WORD) instanceof RemindCommand);
+        assertTrue(parser.parseCommand(RemindCommand.COMMAND_WORD + " 3") instanceof RemindCommand);
+    }
+
+    @Test
+    public void parseCommand_addTag() throws Exception {
+        AddTagCommand addTagCommand = (AddTagCommand) parser.parseCommand(AddTagCommand.COMMAND_WORD + " "
+            + INDEX_FIRST.getOneBased() + " " + TAG_DESC_DIABETES);
+        assertEquals(new AddTagCommand(INDEX_FIRST, SET_ONE_TAG), addTagCommand);
+    }
+
+    @Test
+    public void parseCommand_deleteTag() throws Exception {
+        DeleteTagCommand deleteTagCommand = (DeleteTagCommand) parser.parseCommand(DeleteTagCommand.COMMAND_WORD + " "
+                + INDEX_FIRST.getOneBased() + " " + TAG_DESC_DIABETES);
+        assertEquals(new DeleteTagCommand(INDEX_FIRST, SET_ONE_TAG), deleteTagCommand);
+    }
+
+    @Test
+    public void parseCommand_filter() throws Exception {
+        FilterCommand filterCommand = (FilterCommand) parser.parseCommand(FilterCommand.COMMAND_WORD + " "
+                + TAG_DESC_DIABETES);
+        assertEquals(new FilterCommand(new ElderlyHasTagPredicate(SET_ONE_TAG)), filterCommand);
     }
 
     @Test
