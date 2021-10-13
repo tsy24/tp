@@ -1,14 +1,21 @@
 package seedu.address.testutil;
 
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_AGE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_AGE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_GENDER_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_GENDER_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NOK_ADDRESS_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NOK_ADDRESS_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NOK_EMAIL_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NOK_EMAIL_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NOK_NAME_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NOK_NAME_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NOK_PHONE_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NOK_PHONE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NOK_RELATIONSHIP_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NOK_RELATIONSHIP_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ROOM_NUMBER_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ROOM_NUMBER_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
@@ -55,18 +62,24 @@ public class TypicalElderlies {
             .withAddress("4th street").build();
 
     // Manually added
-    public static final Elderly HOON = new ElderlyBuilder().withName("Hoon Meier").withPhone("8482424")
-            .withRoomNumber("77").withEmail("stefan@example.com").withAddress("little india").build();
-    public static final Elderly IDA = new ElderlyBuilder().withName("Ida Mueller").withPhone("8482131")
-            .withRoomNumber("82").withEmail("hans@example.com").withAddress("chicago ave").build();
+    public static final Elderly HOON = new ElderlyBuilder().withName("Hoon Meier").withRoomNumber("77")
+            .withNokName("Chara Meier").withRelationship("Daughter").withPhone("8482424")
+            .withEmail("stefan@example.com").withAddress("little india").build();
+    public static final Elderly IDA = new ElderlyBuilder().withName("Ida Mueller").withRoomNumber("82")
+            .withNokName("Dina Mueller").withRelationship("Mother").withPhone("8482131")
+            .withEmail("hans@example.com").withAddress("chicago ave").build();
 
     // Manually added - Elderly's details found in {@code CommandTestUtil}
     public static final Elderly AMY = new ElderlyBuilder().withName(VALID_NAME_AMY)
-            .withAge(VALID_AGE_AMY).withGender(VALID_GENDER_AMY).withRoomNumber(VALID_ROOM_NUMBER_AMY).build();
-    public static final Elderly BOB = new ElderlyBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
+            .withAge(VALID_AGE_AMY).withGender(VALID_GENDER_AMY).withRoomNumber(VALID_ROOM_NUMBER_AMY)
+            .withNokName(VALID_NOK_NAME_AMY).withPhone(VALID_NOK_PHONE_AMY).withAddress(VALID_NOK_ADDRESS_AMY)
+            .withEmail(VALID_NOK_EMAIL_AMY).withRelationship(VALID_NOK_RELATIONSHIP_AMY)
+            .withTags(VALID_TAG_FRIEND).build();
+    public static final Elderly BOB = new ElderlyBuilder().withName(VALID_NAME_BOB)
             .withAge(VALID_AGE_BOB).withGender(VALID_GENDER_BOB).withRoomNumber(VALID_ROOM_NUMBER_BOB)
-            .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
-            .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+            .withNokName(VALID_NOK_NAME_BOB).withPhone(VALID_NOK_PHONE_BOB).withAddress(VALID_NOK_ADDRESS_BOB)
+            .withEmail(VALID_NOK_EMAIL_BOB).withRelationship(VALID_NOK_RELATIONSHIP_BOB)
+            .withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND).build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 

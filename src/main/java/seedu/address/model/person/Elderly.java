@@ -127,11 +127,10 @@ public class Elderly extends Person {
                 .append("; Age: ")
                 .append(getAge())
                 .append("; Gender: ")
-                .append(getAge())
+                .append(getGender())
                 .append("; RoomNumber: ")
                 .append(getRoomNumber())
-                .append("; Nok: ")
-                .append(getNok().getName())
+                .append(getNok().toString())
                 .append("; Remark: ")
                 .append(getRemark());
 

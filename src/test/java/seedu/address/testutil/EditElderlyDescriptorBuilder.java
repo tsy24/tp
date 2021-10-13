@@ -73,7 +73,6 @@ public class EditElderlyDescriptorBuilder {
     }
 
     /**
-<<<<<<< HEAD
      * Sets the {@code Age} of the {@code EditElderlyDescriptor} that we are building.
      */
     public EditElderlyDescriptorBuilder withAge(String age) {
