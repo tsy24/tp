@@ -2,9 +2,9 @@ package seedu.address.model.person;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NOK_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NOK_EMAIL_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NOK_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ROOM_NUMBER_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
@@ -33,7 +33,8 @@ public class ElderlyTest {
         assertFalse(ALICE.isSameElderly(null));
 
         // same name, all other attributes different -> returns true
-        Elderly editedAlice = new ElderlyBuilder(ALICE).withPhone(VALID_NOK_PHONE_BOB).withRoomNumber(VALID_ROOM_NUMBER_BOB)
+        Elderly editedAlice = new ElderlyBuilder(ALICE).withPhone(VALID_NOK_PHONE_BOB)
+                .withRoomNumber(VALID_ROOM_NUMBER_BOB)
                 .withEmail(VALID_NOK_EMAIL_BOB).withAddress(VALID_NOK_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSameElderly(editedAlice));
 

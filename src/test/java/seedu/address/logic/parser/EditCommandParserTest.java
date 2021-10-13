@@ -111,7 +111,7 @@ public class EditCommandParserTest {
         assertParseFailure(parser, "1" + INVALID_AGE_DESC, Age.MESSAGE_CONSTRAINTS); // invalid age
         assertParseFailure(parser, "1" + INVALID_GENDER_DESC, Gender.MESSAGE_CONSTRAINTS); // invalid gender
         assertParseFailure(parser, "1" + INVALID_ROOM_NUMBER_DESC,
-                RoomNumber.MESSAGE_CONSTRAINTS);// invalid room number
+                RoomNumber.MESSAGE_CONSTRAINTS); // invalid room number
         assertParseFailure(parser, "1" + INVALID_NOK_NAME_DESC, Name.MESSAGE_CONSTRAINTS); // invalid nokName
         assertParseFailure(parser, "1" + INVALID_NOK_RELATIONSHIP_DESC,
                 Relationship.MESSAGE_CONSTRAINTS); // invalid relationship

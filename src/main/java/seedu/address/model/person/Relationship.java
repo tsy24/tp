@@ -15,7 +15,6 @@ public class Relationship {
      * Relationship does not accept numerical characters.
      */
     public static final String VALIDATION_REGEX = "^$|[^\\s\\d][^\\s\\d]*";
-//    public static final String VALIDATION_REGEX = "^$|[^\\s&&[^0-9]][^\\s&&[^0-9]]*";
 
     public final String value;
 

@@ -15,10 +15,7 @@ public class Address {
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-//    public static final String VALIDATION_REGEX = "^$|[^\\s\\p{Sc}][.&&[^\\p{Sc}]]*";
-//    public static final String VALIDATION_REGEX = "^$|[^\\s].*"; //works except for ParserUtil.parseAddress
-    public static final String VALIDATION_REGEX = "^$|[^\\s].*";//normal working
-
+    public static final String VALIDATION_REGEX = "^$|[^\\s].*";
 
     public final String value;
 

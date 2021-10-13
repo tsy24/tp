@@ -4,11 +4,11 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NOK_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_AGE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NOK_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_GENDER_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NOK_ADDRESS_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NOK_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NOK_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NOK_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NOK_RELATIONSHIP_BOB;
@@ -57,6 +57,10 @@ public class EditElderlyDescriptorTest {
         editedAmy = new EditElderlyDescriptorBuilder(DESC_AMY).withRoomNumber(VALID_ROOM_NUMBER_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
+        // different nokName -> returns false
+        editedAmy = new EditElderlyDescriptorBuilder(DESC_AMY).withAddress(VALID_NOK_NAME_BOB).build();
+        assertFalse(DESC_AMY.equals(editedAmy));
+
         // different phone -> returns false
         editedAmy = new EditElderlyDescriptorBuilder(DESC_AMY).withPhone(VALID_NOK_PHONE_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
@@ -71,10 +75,6 @@ public class EditElderlyDescriptorTest {
 
         // different relationship -> returns false
         editedAmy = new EditElderlyDescriptorBuilder(DESC_AMY).withAddress(VALID_NOK_RELATIONSHIP_BOB).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
-
-        // different nokName -> returns false
-        editedAmy = new EditElderlyDescriptorBuilder(DESC_AMY).withAddress(VALID_NOK_NAME_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different tags -> returns false

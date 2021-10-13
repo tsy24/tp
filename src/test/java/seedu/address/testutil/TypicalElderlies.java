@@ -18,7 +18,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_NOK_RELATIONSHI
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NOK_RELATIONSHIP_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ROOM_NUMBER_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ROOM_NUMBER_BOB;
-
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 

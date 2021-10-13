@@ -9,6 +9,10 @@ import java.util.Objects;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Nok extends Person {
+    //Default values
+    private static final String defaultNameField = "NIL";
+    private static final String defaultNonNameField = "";
+
     //Identity fields
     private final Relationship relationship;
     private final Phone phone;
@@ -16,10 +20,6 @@ public class Nok extends Person {
 
     // Data fields
     private final Address address;
-
-    //Default values
-    private static final String defaultNameField = "NIL";
-    private static final String defaultNonNameField = "";
 
     /**
      * Every field must be present and not null.
