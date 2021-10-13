@@ -78,21 +78,22 @@ Format: `viewElderly`
 
 Adds an elderly to NurseyBook.
 
-Format: `addElderly en/ELDERLY_NAME p/PHONE_NUMBER a/AGE g/GENDER r/ROOMNO [t/TAG]…​`
+Format: `addElderly en/ELDERLY_NAME a/AGE g/GENDER r/ROOMNO [t/TAG]…​ [nn/NOK_NAME] [rs/NOK_RELATIONSHIP] [p/NOK_PHONE_NUMBER] [e/NOK_EMAIL] [addr/NOK_ADDRESS]`
 
 :bulb: **Tip:**
 A elderly can have any number of tags (including 0)
 
 Examples:
-* `addElderly en/Khong Guan p/91234567 a/80 g/M r/201`
-* `addElderly en/John p/92345678 a/77 g/M r/420 t/diabetes`
+* `addElderly en/Khong Guan a/80 g/M r/201 nn/Gong Kuan rs/Brother p/91234567 e/guanbro@gmail.com addr/London Street 11`
+* `addElderly en/John a/77 g/M r/420 t/diabetes`
+* `addElderly en/John a/77 g/M r/420 t/diabetes nn/Timothy rs/Son`
 
   
 ### Edit an elderly's details: `editElderly`
 
 Edit the details of a specific elderly.
 
-Format: `editElderly INDEX [en/ELDERLY_NAME] [p/PHONE_NUMBER] [a/AGE] [g/GENDER] [r/ROOMNO] [t/TAG]…​`
+Format: `editElderly INDEX [en/ELDERLY_NAME] [a/AGE] [g/GENDER] [r/ROOMNO] [t/TAG]…​ [nn/NOK_NAME] [rs/NOK_RELATIONSHIP] [p/NOK_PHONE_NUMBER] [e/NOK_EMAIL] [addr/NOK_ADDRESS]`
 
 * Any number of tags is acceptable (including 0).
 
@@ -113,6 +114,19 @@ Format: `deleteElderly INDEX`
 
 Examples:
 * `viewElderly` followed by `delete 2` deletes the 2nd elderly in NurseyBook.
+
+### Deleting an elderly's NoK details : `deleteNok`
+
+Deletes an elderly's Next-of-Kin details from NurseyBook.
+
+Format: `deleteNok INDEX`
+
+* Deletes the NoK details of the elderly at the specified `INDEX`.
+* The index refers to the index number shown in the displayed elderly list.
+* The index **must be a positive integer** 1, 2, 3, …​
+
+Examples:
+* `viewElderly` followed by `deleteNok 2` deletes the NoK details of the 2nd elderly in NurseyBook.
 
 ### Add tags to elderly: `addTag`
 
@@ -245,6 +259,7 @@ Action | Format, Examples
 **Add Elderly** | `addElderly en/ELDERLY_NAME p/PHONE_NUMBER a/AGE r/ROOMNO g/GENDER [t/TAG]…​` <br> e.g., `addElderly en/Khong Guan p/92345678 a/77 r/420 g/M t/diabetes`
 **Clear** | `clear`
 **Delete Elderly** | `deleteElderly INDEX`<br> e.g., `deleteElderly 3`
+**Delete NoK of Elderly** | `deleteNok INDEX`<br> e.g., `deleteNok 3`
 **Add Tag** | `addTag INDEX t/TAG [t/TAG]…​` e.g., `addTag 1 t/diabetes`
 **Delete Tag** | `deleteTag INDEX t/TAG [t/TAG]…​`
 **Filter** | `filter t/TAG [t/TAG]…​`
