@@ -18,7 +18,7 @@ public class PhoneTest {
         // null phone number
         assertThrows(NullPointerException.class, () -> Phone.isValidPhone(null));
 
-        // invalid phone numbers// empty string
+        // invalid phone numbers
         assertFalse(Phone.isValidPhone(" ")); // spaces only
         assertFalse(Phone.isValidPhone("91")); // less than 3 numbers
         assertFalse(Phone.isValidPhone("phone")); // non-numeric

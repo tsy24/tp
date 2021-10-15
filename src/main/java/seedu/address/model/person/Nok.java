@@ -9,6 +9,10 @@ import java.util.Objects;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Nok extends Person {
+    //Default values
+    private static final String defaultNameField = "NIL";
+    private static final String defaultNonNameField = "";
+
     //Identity fields
     private final Relationship relationship;
     private final Phone phone;
@@ -47,6 +51,17 @@ public class Nok extends Person {
 
     public Address getAddress() {
         return address;
+    }
+
+    /**
+     * Creates and returns a Nok with all fields set to default values. Equivalent to not specifying any fields in Nok.
+     *
+     * @return Nok with all fields set to default values.
+     */
+    public static Nok createDefaultNok() {
+        Nok blankNok = new Nok(new Name(defaultNameField), new Relationship(defaultNonNameField),
+                new Phone(defaultNonNameField), new Email(defaultNonNameField), new Address(defaultNonNameField));
+        return blankNok;
     }
 
     /**
