@@ -29,8 +29,10 @@ public class AddTaskCommandTest {
         Task validTask = new TaskBuilder().build();
 
         CommandResult commandResult = new AddTaskCommand(validTask).execute(modelStub);
+        CommandResult expectedCommand = new CommandResult(String.format(AddTaskCommand.MESSAGE_SUCCESS, validTask),
+                CommandResult.ListDisplayChange.TASK);
 
-        assertEquals(String.format(AddTaskCommand.MESSAGE_SUCCESS, validTask), commandResult.getFeedbackToUser());
+        assertEquals(expectedCommand, commandResult);
         assertEquals(Arrays.asList(validTask), modelStub.tasksAdded);
     }
 
