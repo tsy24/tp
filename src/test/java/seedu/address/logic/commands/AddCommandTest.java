@@ -31,8 +31,10 @@ public class AddCommandTest {
         Elderly validElderly = new ElderlyBuilder().build();
 
         CommandResult commandResult = new AddCommand(validElderly).execute(modelStub);
+        CommandResult expectedCommand = new CommandResult(String.format(AddCommand.MESSAGE_SUCCESS, validElderly),
+                CommandResult.ListDisplayChange.PERSON);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validElderly), commandResult.getFeedbackToUser());
+        assertEquals(expectedCommand, commandResult);
         assertEquals(Arrays.asList(validElderly), modelStub.elderliesAdded);
     }
 
