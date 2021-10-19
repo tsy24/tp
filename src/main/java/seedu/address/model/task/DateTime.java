@@ -42,6 +42,11 @@ public class DateTime implements Comparable<DateTime> {
         }
     }
 
+    public DateTime(LocalDate date, LocalTime time) {
+        this.date = date;
+        this.time = time;
+    }
+
     /**
      * Returns true if a given string is a valid date.
      */

@@ -21,6 +21,7 @@ import seedu.address.model.person.RoomNumber;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.task.DateTime;
 import seedu.address.model.task.Description;
+import seedu.address.model.task.Recurrence;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -248,5 +249,14 @@ public class ParserUtil {
             throw new ParseException(DateTime.MESSAGE_TIME_CONSTRAINTS);
         }
         return new DateTime(trimmedDate, trimmedTime);
+    }
+
+    public static Recurrence parseRecurrence(String recurrenceType) throws ParseException {
+        requireNonNull(recurrenceType);
+        String trimmedRecurrenceType = recurrenceType.trim().toUpperCase();
+        if (!Recurrence.isValidRecurrence(trimmedRecurrenceType)) {
+            throw new ParseException(Recurrence.MESSAGE_CONSTRAINTS);
+        }
+        return new Recurrence(trimmedRecurrenceType);
     }
 }

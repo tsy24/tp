@@ -13,7 +13,10 @@ import static seedu.address.testutil.TypicalTasks.getTypicalAddressBook;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
+import javafx.beans.Observable;
+import javafx.collections.ObservableList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -96,6 +99,8 @@ public class RemindCommandTest {
         CommandResult expectedCommandResult = new CommandResult(MESSAGE_SUCCESS, CommandResult.ListDisplayChange.TASK);
         expectedModel.updateFilteredTaskList(predicate);
         assertCommandSuccess(command, model, expectedCommandResult, expectedModel);
+        ObservableList<Task> temp = model.getFilteredTaskList();
+        List<Task> list = Arrays.asList(DO_PAPERWORK, ALEX_INSULIN);
         assertEquals(Arrays.asList(DO_PAPERWORK, ALEX_INSULIN), model.getFilteredTaskList());
     }
 

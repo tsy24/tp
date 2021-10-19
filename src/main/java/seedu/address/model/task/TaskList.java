@@ -3,6 +3,11 @@ package seedu.address.model.task;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
@@ -10,6 +15,7 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.task.exceptions.TaskNotFoundException;
+import seedu.address.model.task.Recurrence.RecurrenceType;
 
 /**
  * A list of tasks that does not allow nulls.
@@ -56,6 +62,14 @@ public class TaskList implements Iterable<Task> {
     }
 
     /**
+     * Mark the task {@code target} in the list as undone.
+     * {@code target} must exist in the list.
+     */
+    public void markTaskAsUndone(Task toMark) {
+        setTask(toMark, toMark.markAsUndone());
+    }
+
+    /**
      * Replaces this list with the list from {@code replacement}.
      */
     public void setTasks(TaskList replacement) {
@@ -80,6 +94,48 @@ public class TaskList implements Iterable<Task> {
         if (!internalList.remove(toRemove)) {
             throw new TaskNotFoundException();
         }
+    }
+
+    public void changeDateOfPastRecurringTasks() {
+        LocalDateTime currentDateTime = LocalDateTime.now();
+
+        for (Task t : this.internalList) {
+            Recurrence recurrence = t.getRecurrence();
+            if (recurrence.isRecurring()) {
+                RecurrenceType recurrenceType = recurrence.getRecurrenceType();
+                assert(recurrenceType != RecurrenceType.NONE);
+                DateTime taskDateTime = t.getDateTime();
+                LocalDate taskDate = taskDateTime.date;
+                LocalTime taskTime = taskDateTime.time;
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd MM yyyy HH mm");
+                String inputString = String.format("%02d", taskDate.getDayOfMonth()) + " "
+                        + String.format("%02d", taskDate.getMonthValue()) + " "
+                        + String.format("%02d", taskDate.getYear()) + " "
+                        + String.format("%02d", taskTime.getHour()) + " "
+                        + String.format("%02d", taskTime.getMinute());
+                LocalDateTime taskLocalDateTime = LocalDateTime.parse(inputString, dtf);
+                long daysBetween = Duration.between(taskLocalDateTime, currentDateTime).toDays();
+                // if task dateTime is before current dateTime
+                if (daysBetween > 0)  {
+                    LocalDateTime taskNewLocalDateTime;
+                    if (recurrenceType == RecurrenceType.DAY) {
+                        taskNewLocalDateTime = taskLocalDateTime.plusDays(daysBetween + 1);
+                    } else if (recurrenceType == RecurrenceType.WEEK) {
+                        int daysToAdd = (int) (daysBetween / 7) * 7 + 7;
+                        taskNewLocalDateTime = taskLocalDateTime.plusDays(daysToAdd);
+                    } else {
+                        // assume its + 4 weeks
+                        int daysToAdd = (int) (daysBetween / 28) * 28 + 28;
+                        taskNewLocalDateTime = taskLocalDateTime.plusDays(daysToAdd);
+                    }
+                    // time is fixed
+                    t.setDateTime(
+                            new DateTime(taskNewLocalDateTime.toLocalDate(), taskLocalDateTime.toLocalTime()));
+                }
+                this.markTaskAsUndone(t);
+            }
+        }
+        internalList.sort(Comparator.naturalOrder());
     }
 
     /**

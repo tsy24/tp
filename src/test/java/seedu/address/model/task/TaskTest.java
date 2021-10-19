@@ -18,6 +18,7 @@ import static seedu.address.testutil.TypicalTasks.KEITH_INSULIN;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.testutil.TaskBuilder;
+import seedu.address.model.task.Recurrence.RecurrenceType;
 
 public class TaskTest {
 
@@ -29,7 +30,8 @@ public class TaskTest {
         // same values -> returns true
         assertTrue(keithInsulin.equals(KEITH_INSULIN));
         Task alexToKeith = new TaskBuilder(ALEX_INSULIN).withNames(VALID_NAME_KEITH)
-                .withDateTime(VALID_DATE_NOV, VALID_TIME_SEVENPM).withStatus("false").build();
+                .withDateTime(VALID_DATE_NOV, VALID_TIME_SEVENPM).withStatus("false")
+                .withRecurrence(RecurrenceType.NONE.name()).build();
         assertTrue(keithInsulin.equals(alexToKeith));
 
         // same object -> returns true
@@ -64,6 +66,10 @@ public class TaskTest {
 
         // different status -> returns false
         editedTask = new TaskBuilder(keithInsulin).withStatus("true").build();
+        assertFalse(keithInsulin.equals(editedTask));
+
+        // different recurrence -> returns false
+        editedTask = new TaskBuilder(keithInsulin).withRecurrence(RecurrenceType.MONTH.name()).build();
         assertFalse(keithInsulin.equals(editedTask));
     }
 

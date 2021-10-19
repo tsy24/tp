@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_DESC;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_RECURRING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_TIME;
 
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -22,9 +23,10 @@ public class AddTaskCommand extends Command {
             + "Example: " + COMMAND_WORD
             + " " + PREFIX_NAME + "Khong Guan "
             + " " + PREFIX_NAME + "Swee Choon"
-            + " " + PREFIX_TASK_DESC + "Scheduled 3rd Pfizer shot"
+            + " " + PREFIX_TASK_DESC + "Weekly Taiji"
             + " " + PREFIX_TASK_DATE + "2021-10-10"
-            + " " + PREFIX_TASK_TIME + "14:30";
+            + " " + PREFIX_TASK_TIME + "14:30"
+            + " " + PREFIX_TASK_RECURRING + "week";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
 
