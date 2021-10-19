@@ -1,11 +1,9 @@
 package seedu.address.model.task;
 
-import seedu.address.model.person.Age;
-
-import java.util.Objects;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
+
+import java.util.Objects;
 
 /**
  * Represents if a task is a recurring task in NurseyBook.
@@ -29,6 +27,11 @@ public class Recurrence {
         NONE, DAY, WEEK, MONTH
     }
 
+    /**
+     * Constructs an {@code Recurrence}.
+     *
+     * @param recurrenceTypeStr A valid recurrence type.
+     */
     public Recurrence(String recurrenceTypeStr) {
         requireNonNull(recurrenceTypeStr);
         recurrenceTypeStr = recurrenceTypeStr.toUpperCase();
@@ -47,10 +50,6 @@ public class Recurrence {
     public boolean isRecurring() {
         return isRecurring;
     }
-
-//    public void setRecurring(boolean recurring) {
-//        isRecurring = recurring;
-//    }
 
     public RecurrenceType getRecurrenceType() {
         return recurrenceType;

@@ -15,11 +15,10 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import javafx.beans.Observable;
-import javafx.collections.ObservableList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import javafx.collections.ObservableList;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;

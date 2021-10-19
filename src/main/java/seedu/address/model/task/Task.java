@@ -36,6 +36,7 @@ public class Task implements Comparable<Task> {
      * @param desc                      the description of the task
      * @param dt                        the date and time of the task
      * @param names                     the names of people associated with the task
+     * @param recurrence                the recurrence type of the task
      */
     public Task(Description desc, DateTime dt, Set<Name> names, Recurrence recurrence) {
         this.desc = desc;
@@ -61,6 +62,15 @@ public class Task implements Comparable<Task> {
         this.recurrence = new Recurrence(Recurrence.RecurrenceType.NONE.name());
     }
 
+    /**
+     * Creates a Task object.
+     *
+     * @param desc                      the description of the task
+     * @param dt                        the date and time of the task
+     * @param names                     the names of people associated with the task
+     * @param status                    the completion status of the task
+     * @param recurrence                the recurrence type of the task
+     */
     public Task(Description desc, DateTime dt, Set<Name> names, Status status, Recurrence recurrence) {
         this.desc = desc;
         this.dateTime = dt;

@@ -14,8 +14,8 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.task.exceptions.TaskNotFoundException;
 import seedu.address.model.task.Recurrence.RecurrenceType;
+import seedu.address.model.task.exceptions.TaskNotFoundException;
 
 /**
  * A list of tasks that does not allow nulls.
@@ -96,6 +96,14 @@ public class TaskList implements Iterable<Task> {
         }
     }
 
+    /**
+     * If a recurring task's original DateTime is before the current {@code DateTime},
+     * changes the task's {@code DateTime} to the next earliest {@code DateTime},
+     * according to whether is it a {@code DAY}, {@code WEEK} or {@code MONTH} recurrence type.
+     * At the same time, after changing the {@code DateTime},
+     * it also maintains the sorted order of tasks according to {@code DateTime}.
+     * All tasks which had their {@code DateTime} changed will also have their status's {@code isDone} as false.
+     */
     public void changeDateOfPastRecurringTasks() {
         LocalDateTime currentDateTime = LocalDateTime.now();
 
@@ -116,7 +124,7 @@ public class TaskList implements Iterable<Task> {
                 LocalDateTime taskLocalDateTime = LocalDateTime.parse(inputString, dtf);
                 long daysBetween = Duration.between(taskLocalDateTime, currentDateTime).toDays();
                 // if task dateTime is before current dateTime
-                if (daysBetween > 0)  {
+                if (daysBetween > 0) {
                     LocalDateTime taskNewLocalDateTime;
                     if (recurrenceType == RecurrenceType.DAY) {
                         taskNewLocalDateTime = taskLocalDateTime.plusDays(daysBetween + 1);

@@ -17,8 +17,8 @@ import static seedu.address.testutil.TypicalTasks.KEITH_INSULIN;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.testutil.TaskBuilder;
 import seedu.address.model.task.Recurrence.RecurrenceType;
+import seedu.address.testutil.TaskBuilder;
 
 public class TaskTest {
 

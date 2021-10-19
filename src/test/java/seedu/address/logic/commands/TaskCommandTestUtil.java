@@ -1,13 +1,12 @@
 package seedu.address.logic.commands;
 
-
-import seedu.address.model.task.Recurrence.RecurrenceType;
-
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_DESC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_RECURRING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_TIME;
+
+import seedu.address.model.task.Recurrence.RecurrenceType;
 
 public class TaskCommandTestUtil extends CommandTestUtil {
     public static final String VALID_DESC_PAPERWORK = "Do paperwork";

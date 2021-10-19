@@ -32,9 +32,7 @@ import seedu.address.logic.commands.AddTaskCommand;
 import seedu.address.model.person.Name;
 import seedu.address.model.task.DateTime;
 import seedu.address.model.task.Description;
-import seedu.address.model.task.Recurrence;
 import seedu.address.model.task.Task;
-import seedu.address.model.task.Recurrence.RecurrenceType;
 import seedu.address.testutil.TaskBuilder;
 
 public class AddTaskCommandParserTest {
