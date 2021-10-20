@@ -16,7 +16,7 @@ public class RemindCommandParserTest {
     @Test
     public void returnsRemindCommand() {
         LocalDateTime currentDateTime = LocalDateTime.now()
-                .withSecond(0).withNano(0);
+                .withMinute(0).withSecond(0).withNano(0);
 
         RemindCommand expectedRemindCommand =
                 new RemindCommand(new TaskIsReminderPredicate(currentDateTime));

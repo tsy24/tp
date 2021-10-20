@@ -16,7 +16,7 @@ public class RemindCommandParser implements Parser<RemindCommand> {
     @Override
     public RemindCommand parse(String userInput) {
         LocalDateTime now = LocalDateTime.now()
-                .withSecond(0).withNano(0);
+                .withMinute(0).withSecond(0).withNano(0);
 
         return new RemindCommand(new TaskIsReminderPredicate(now));
     }

@@ -22,7 +22,7 @@ public class TaskIsReminderPredicate implements Predicate<Task> {
         DateTime now = new DateTime(currentDate, currentTime);
 
         String[] limitDateTime = currentDateTime.plusDays(4)
-                .withHour(0).withMinute(0)
+                .withHour(0)
                 .toString().split("T");
         String limitDate = limitDateTime[0];
         String limitTime = limitDateTime[1].substring(0, 5);
