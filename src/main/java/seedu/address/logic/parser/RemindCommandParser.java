@@ -1,7 +1,6 @@
 package seedu.address.logic.parser;
 
-import java.time.Clock;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import seedu.address.logic.commands.RemindCommand;
 import seedu.address.model.task.TaskIsReminderPredicate;
@@ -16,10 +15,10 @@ public class RemindCommandParser implements Parser<RemindCommand> {
      */
     @Override
     public RemindCommand parse(String userInput) {
-        Clock cl = Clock.systemUTC();
-        LocalDate currentDate = LocalDate.now(cl);
+        LocalDateTime now = LocalDateTime.now()
+                .withSecond(0).withNano(0);
 
-        return new RemindCommand(new TaskIsReminderPredicate(currentDate));
+        return new RemindCommand(new TaskIsReminderPredicate(now));
     }
 
 }

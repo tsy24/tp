@@ -2,8 +2,7 @@ package seedu.address.logic.parser;
 
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
-import java.time.Clock;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import org.junit.jupiter.api.Test;
 
@@ -16,11 +15,11 @@ public class RemindCommandParserTest {
 
     @Test
     public void returnsRemindCommand() {
-        Clock cl = Clock.systemUTC();
-        LocalDate currentDate = LocalDate.now(cl);
+        LocalDateTime currentDateTime = LocalDateTime.now()
+                .withSecond(0).withNano(0);
 
         RemindCommand expectedRemindCommand =
-                new RemindCommand(new TaskIsReminderPredicate(currentDate));
+                new RemindCommand(new TaskIsReminderPredicate(currentDateTime));
         assertParseSuccess(parser, " ", expectedRemindCommand);
 
         // user input after the `remind` keyword does not affect parser result
