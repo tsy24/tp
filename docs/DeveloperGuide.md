@@ -280,7 +280,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* * *`  | nurse	                     | add tags of conditions of elderly                             | identify the conditions of elderly easily at a glance                         |
 | `* * *`  | nurse	                     | delete tags of conditions of elderly                          | remove tags that are no longer relevant                                       |
 | `* * *`  | nurse	                     | filter the elderly by their tags                              | filter elderly more easily, and plan group activities efficiently, such as ordering food for patients with diabetes |
-| `* * *`  | forgetful/busy nurse        | get reminders of medical needs of those under my care         | be reminded of my duties that I may otherwise forget                          |
 | `* * *`  | nurse                       | view all the elderly I am in charge of/added into NurseyBook  | have a full list of elderly for easy reference                                |
 | `* * *`  | nurse                       | view the details of each elderly individually                 | find the relevant information of a particular elderly without being cluttered by the details |
 | `* *`    | nurse with a new assignment | view the picture of my new assignment                         | know who I am taking care of                                                  |
@@ -290,6 +289,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* * *`  | nurse                       | delete a task                                                 | have a cleaner workspace                                                      |
 | `* * *`  | nurse                       | edit a task                                                   | receive reminders for tasks that are up-to-date                               |
 | `* * *`  | nurse                       | mark a task as completed                                      | stop receiving reminders that are no longer relevant                          |
+| `* * *`  | forgetful/busy nurse        | get reminders of medical needs of those under my care         | ensure the tasks that I am keeping track of are up-to-date                    |
 | `* * *`  | nurse                       | view overdue tasks                                            | take note of the tasks that are overdue and try to complete them as soon as possible |
 | `* * *`  | nurse                       | view all tasks                                                | have an overview of all my tasks                                              |
 | `* * *`  | nurse                       | view tasks based on chronological order                       | know which tasks are my priority (have to be completed sooner)                |
@@ -302,7 +302,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* *`    | nurse                       | view nurses and elderly in separate sections                  | have better compartmentalization of information                               |
 | `* * *`  | new user                    | easily view the help guide                                    | know more about the product as and when I need to                             |
 | `* *`    | new nurse                   | easily understand how to view necessary information           | not feel overwhelmed and confused                                             |
-| `* *`    | nurse                       | color-code my tasks                                           | differentiate between the tasks more easily                                   |
+| `* `     | nurse                       | color-code my tasks                                           | differentiate between the tasks more easily                                   |
 | `* `     | user                        | alternate between light/dark mode                             | have an aesthetically pleasing UI                                             |
 *{More to be added}*
 
@@ -548,7 +548,7 @@ testers are expected to do more *exploratory* testing.
 
 1. Deleting a elderly while all elderlies are being shown
 
-   1. Prerequisites: List all elderlies using the `list` command. Multiple elderlies in the list.
+   1. Prerequisites: List all elderlies using the `viewElderly` command. Multiple elderlies in the list.
 
    2. Test case: `deleteElderly 1`<br>
       Expected: First elderly is deleted from the list. Details of the deleted elderly shown in the status message. Timestamp in the status bar is updated.
