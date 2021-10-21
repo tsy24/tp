@@ -39,10 +39,11 @@ public class TypicalTasks {
             .withDateTime("2021-10-30", "18:00").withNames("Khong Guan", "Swee Choon").withStatus("false")
             .withRecurrence(RecurrenceType.NONE.name()).build();
 
-    // Extra test cases
     public static final Task APPLY_LEAVE = new TaskBuilder().withDesc("Apply leave with HR")
             .withDateTime("2021-10-01", "00:00").withStatus("true")
             .withRecurrence(RecurrenceType.DAY.name()).build();
+
+    // Extra test cases
 
     public static final Task APPLY_LEAVE_LATE_TIME = new TaskBuilder().withDesc("Apply leave with HR")
             .withDateTime("2021-10-01", "23:50").withStatus("true")
