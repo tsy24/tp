@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_DESC;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_RECURRING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_TIME;
 
 import seedu.address.logic.commands.CommandResult.ListDisplayChange;
@@ -19,13 +20,18 @@ public class AddTaskCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the address book. "
             + "Parameters: "
-            + "[" + PREFIX_NAME + "NAME]...\n"
-            + "Example: " + COMMAND_WORD
-            + " " + PREFIX_NAME + "Khong Guan "
-            + " " + PREFIX_NAME + "Swee Choon"
-            + " " + PREFIX_TASK_DESC + "Scheduled 3rd Pfizer shot"
-            + " " + PREFIX_TASK_DATE + "2021-10-10"
-            + " " + PREFIX_TASK_TIME + "14:30";
+            + "[" + PREFIX_NAME + "NAME]..."
+            + PREFIX_TASK_DESC + "DESCRIPTION "
+            + PREFIX_TASK_DATE + "DATE "
+            + PREFIX_TASK_TIME + "TIME "
+            + "[" + PREFIX_TASK_RECURRING + "RECURRENCE_TYPE]\n"
+            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_NAME + "Khong Guan "
+            + PREFIX_NAME + "Swee Choon "
+            + PREFIX_TASK_DESC + "Weekly Taiji "
+            + PREFIX_TASK_DATE + "2021-10-10 "
+            + PREFIX_TASK_TIME + "14:30 "
+            + PREFIX_TASK_RECURRING + "week";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
 
@@ -42,7 +48,6 @@ public class AddTaskCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-
         model.addTask(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), ListDisplayChange.TASK);
     }

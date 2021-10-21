@@ -10,9 +10,10 @@ import seedu.address.model.person.Name;
 public class Task implements Comparable<Task> {
 
     private final Description desc;
-    private final DateTime dateTime;
+    private DateTime dateTime;
     private final Status status;
     private final Set<Name> relatedNames = new HashSet<>();
+    private final Recurrence recurrence;
 
     /**
      * Creates a Task object.
@@ -26,6 +27,23 @@ public class Task implements Comparable<Task> {
         this.dateTime = dt;
         this.relatedNames.addAll(names);
         this.status = new Status("false");
+        this.recurrence = new Recurrence(Recurrence.RecurrenceType.NONE.name());
+    }
+
+    /**
+     * Creates a Task object.
+     *
+     * @param desc                      the description of the task
+     * @param dt                        the date and time of the task
+     * @param names                     the names of people associated with the task
+     * @param recurrence                the recurrence type of the task
+     */
+    public Task(Description desc, DateTime dt, Set<Name> names, Recurrence recurrence) {
+        this.desc = desc;
+        this.dateTime = dt;
+        this.relatedNames.addAll(names);
+        this.status = new Status("false");
+        this.recurrence = recurrence;
     }
 
     /**
@@ -41,6 +59,24 @@ public class Task implements Comparable<Task> {
         this.dateTime = dt;
         this.relatedNames.addAll(names);
         this.status = status;
+        this.recurrence = new Recurrence(Recurrence.RecurrenceType.NONE.name());
+    }
+
+    /**
+     * Creates a Task object.
+     *
+     * @param desc                      the description of the task
+     * @param dt                        the date and time of the task
+     * @param names                     the names of people associated with the task
+     * @param status                    the completion status of the task
+     * @param recurrence                the recurrence type of the task
+     */
+    public Task(Description desc, DateTime dt, Set<Name> names, Status status, Recurrence recurrence) {
+        this.desc = desc;
+        this.dateTime = dt;
+        this.relatedNames.addAll(names);
+        this.status = status;
+        this.recurrence = recurrence;
     }
 
     /**
@@ -49,11 +85,13 @@ public class Task implements Comparable<Task> {
      * @return same task object that has been marked as done
      */
     public Task markAsDone() {
-        if (isTaskDone()) {
-
-        }
-        return new Task(desc, dateTime, relatedNames, new Status("true"));
+        return new Task(desc, dateTime, relatedNames, new Status("true"), recurrence);
     }
+
+    public Task markAsUndone() {
+        return new Task(desc, dateTime, relatedNames, new Status("false"), recurrence);
+    }
+
 
     /**
      * Returns task description of this task.
@@ -89,6 +127,19 @@ public class Task implements Comparable<Task> {
      */
     public Status getStatus() {
         return status;
+    }
+
+    /**
+     * Returns the recurrence type of this task.
+     *
+     * @return task recurrence type
+     */
+    public Recurrence getRecurrence() {
+        return recurrence;
+    }
+
+    public void setDateTime(DateTime dt) {
+        this.dateTime = dt;
     }
 
     /**
@@ -139,7 +190,8 @@ public class Task implements Comparable<Task> {
             return other.getDesc().equals(this.desc)
                     && other.getDateTime().equals(this.dateTime)
                     && other.getRelatedNames().equals(this.relatedNames)
-                    && other.getStatus().equals(this.status);
+                    && other.getStatus().equals(this.status)
+                    && other.getRecurrence().equals(this.recurrence);
         }
         return false;
     }

@@ -43,6 +43,17 @@ public class DateTime implements Comparable<DateTime> {
     }
 
     /**
+     * Constructs an {@code DateTime}.
+     *
+     * @param date A valid date.
+     * @param time A valid time.
+     */
+    public DateTime(LocalDate date, LocalTime time) {
+        this.date = date;
+        this.time = time;
+    }
+
+    /**
      * Returns true if a given string is a valid date.
      */
     public static boolean isValidDate(String test) {

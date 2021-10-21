@@ -35,7 +35,7 @@ NurseyBook is a **desktop app made for nurses in nursing homes to aid them in ma
    * **`clear`** : Deletes all contacts.
 
    * **`exit`** : Exits the app.
-   
+
 
 1. Refer to the [Features](#features) below for details of each command.
 
@@ -88,7 +88,7 @@ Examples:
 * `addElderly en/John a/77 g/M r/420 t/diabetes`
 * `addElderly en/John a/77 g/M r/420 t/diabetes nn/Timothy rs/Son`
 
-  
+
 ### Edit an elderly's details: `editElderly`
 
 Edit the details of a specific elderly.
@@ -175,10 +175,14 @@ Format: `viewTasks`
 
 Adds a task to the task list.
 
-Format: `addTask [en/ELDERLY_NAME]... desc/DESCRIPTION date/DATE time/TIME`  
+:bulb: **Tip:**
+You can add a recurring task to the list! <br>
+There are a few recurring options available namely: `DAY`, `WEEK` and `MONTH` (4 weeks later from the previous date). Tasks that have passed their original date will have their date automatically changed to the new date based on the recurrence type of the task.
+
+Format: `addTask [en/ELDERLY_NAME]... desc/DESCRIPTION date/DATE time/TIME [recur/RECURRENCE_TYPE]`  
 
 Example:
-`addTask en/John desc/check insulin level date/2021-09-25 time/19:22`
+`addTask en/John desc/check insulin level date/2021-09-25 time/19:22 recur/week`
 
 ### Delete task: `deleteTask`
 
@@ -209,7 +213,7 @@ Examples:
 
 ### View reminders: `remind`
 
-Shows the list of upcoming tasks (that are coming up in the next three days), such as the required 
+Shows the list of upcoming tasks (that are coming up in the next three days), such as the required
 medical needs for those under the user's care.
 
 Format: `remind`
