@@ -311,7 +311,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 (For all use cases below, the **System** is the `NurseyBook` the **Actor** is the `User`, and the **Person** is the 
 `Nurse` unless specified otherwise)
 
-**Use case: Delete an elderly**
+**Use cases of elderly commands**
+
+**UC1: Delete an elderly**
 
 **MSS**
 
@@ -324,7 +326,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions**
 
-* 2a. The list is empty.
+* 2a. The list of elderly is empty.
 
   Use case ends.
 
@@ -334,31 +336,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
-**Use case: Delete a tag from an elderly**
 
-**MSS**
-
-1.  User requests to list elderly (that the user is in-charge of)
-2.  NurseyBook shows a list of elderly
-3.  User requests to delete tag from a specific elderly in the list
-4.  NurseyBook deletes the tag from the elderly
-
-    Use case ends.
-    
-**Extensions**
-
-* 2a. The list is empty.
-
-  Use case ends.
-
-* 3a. Tag to delete from elderly does not exist.
-
-    * 3a1. NurseyBook shows an error message.
-
-      Use case resumes at step 2.
-
-
-**Use case: Update an elderly’s details**
+**UC2: Update an elderly’s details**
 
 **MSS**
 
@@ -371,17 +350,86 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions**
 
- * 2a. The list is empty.
+* 2a. The list of elderly is empty.
+
+  Use case ends.
+
+* 3a. The given index is invalid.
+
+    * 3a1. NurseyBook shows an error message.
+
+      Use case resumes at step 2.
+
+
+**UC3: Add additional notes about an elderly**
+
+**MSS**
+
+1. User requests to list elderly (that the user is in-charge of)
+2. NurseyBook shows a list of elderly
+3. User requests to add a remark/additional notes to a specific elderly in the list
+4. NurseyBook adds the remark to the elderly
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. The list of elderly is empty.
+
+  Use case ends.
+
+* 3a. The given index is invalid.
+
+    * 3a1. NurseyBook shows an error message.
+
+      Use case resumes at step 2.
+
+
+**UC4: Delete a tag from an elderly**
+
+**MSS**
+
+1.  User requests to list elderly (that the user is in-charge of)
+2.  NurseyBook shows a list of elderly
+3.  User requests to delete tag from a specific elderly in the list
+4.  NurseyBook deletes the tag from the elderly
 
     Use case ends.
     
- * 3a. The given index is invalid.
- 
-     * 3a1. NurseyBook shows an error message.
+**Extensions**
 
-       Use case resumes at step 2.
+* 2a. The list of elderly is empty.
 
-**Use case: Delete a task**
+  Use case ends.
+
+* 3a. Tag to delete from elderly does not exist.
+
+    * 3a1. NurseyBook shows an error message.
+
+      Use case resumes at step 2.
+
+
+**UC5: Find an elderly**
+
+**MSS**
+
+1. User requests to find an elderly
+2. NurseyBook shows a list of elderly that matches the user's query (by name)
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. The list of elderly is empty.
+
+  Use case ends.
+
+* *a. At any time, the user requests to view help.
+
+
+**Use cases of task commands**
+
+**UC6: Delete a task**
 
 **MSS**
 
@@ -394,7 +442,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions**
 
-* 2a. The list is empty.
+* 2a. The list of tasks is empty.
 
   Use case ends.
 
@@ -405,7 +453,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
       Use case resumes at step 2.
       
 
-**Use case: Mark a task as complete**
+**UC7: Mark a task as complete**
 
 **MSS**
 
@@ -418,7 +466,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions**
 
-* 2a. The list is empty.
+* 2a. The list of tasks is empty.
 
   Use case ends.
 
@@ -429,7 +477,25 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
       Use case resumes at step 2.
 
 
-*{More to be added}*
+**UC8: Find a task**
+
+**MSS**
+
+1. User requests to find a task
+2. NurseyBook shows a list of tasks that matches the user's query (by name)
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. The list of tasks is empty. 
+
+  Use case ends.
+
+* *a. At any time, the user requests to view help.
+
+
+   *{More to be added}*
 
 ### Non-Functional Requirements
 
@@ -484,16 +550,20 @@ testers are expected to do more *exploratory* testing.
 
    1. Prerequisites: List all elderlies using the `list` command. Multiple elderlies in the list.
 
-   1. Test case: `deleteElderly 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   2. Test case: `deleteElderly 1`<br>
+      Expected: First elderly is deleted from the list. Details of the deleted elderly shown in the status message. Timestamp in the status bar is updated.
 
-   1. Test case: `deleteElderly 0`<br>
+   3. Test case: `deleteElderly 0`<br>
       Expected: No elderly is deleted. Error details shown in the status message. Status bar remains the same.
 
-   1. Other incorrect delete commands to try: `deleteElderly`, `deleteElderly x`, `...` (where x is larger than the list size)<br>
+   4. Other incorrect delete commands to try: `deleteElderly`, `deleteElderly x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
 
-1. _{ more test cases …​ }_
+### Adding a task
+
+1. Test case: ``
+
+2. _{ more test cases …​ }_
 
 ### Saving data
 
