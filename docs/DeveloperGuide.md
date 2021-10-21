@@ -272,31 +272,37 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 | Priority | As a …​                  | I want to …​                                               | So that I can…​                                                            |
 | -------- | ----------------------------| ------------------------------------------------------------- | ------------------------------------------------------------------------------|
-| `* * *`  | nurse                       | add a new elderly to the app                                  | be reminded of my duties that I may otherwise forget                          |
+| `* * *`  | nurse                       | add a new elderly to the app                                  | search for his records in the future                                          |
 | `* * *`  | nurse                       | delete details/records of an elderly                          | remove incorrect entries                                                      |
+| `* * *`  | nurse                       | update the records of an elderly                              | the records are up to date without the need to delete and re-add the details  |
+| `* * *`  | nurse                       | add additional notes about an elderly                         | I can understand the elderly under my care better                             |
+| `* * *`  | nurse                       | archive the details of elderlies                              | not clutter the system with the details of elderlies who have left the nursing home, but still keep the records of their stay for legal purposes |
+| `* * *`  | nurse	                     | add tags of conditions of elderly                             | identify the conditions of elderly easily at a glance                         |
+| `* * *`  | nurse	                     | delete tags of conditions of elderly                          | remove tags that are no longer relevant                                       |
+| `* * *`  | nurse	                     | filter the elderly by their tags                              | filter elderly more easily, and plan group activities efficiently, such as ordering food for patients with diabetes |
 | `* * *`  | forgetful/busy nurse        | get reminders of medical needs of those under my care         | be reminded of my duties that I may otherwise forget                          |
 | `* * *`  | nurse                       | view all the elderly I am in charge of/added into NurseyBook  | have a full list of elderly for easy reference                                |
-| `* * *`  | nurse                       | view all tasks                                                | have an overview of all my tasks                                        |
-| `* * *`  | nurse                       | add a one-off task                                            | keep track of what I have to do                                         |
-| `* * *`  | nurse                       | delete a task                                                 | have a cleaner workspace                                                |
-| `* * *`  | nurse                       | mark a task as completed                                      | stop receiving reminders that are no longer relevant                      |
-| `* * *`  | nurse                       | view urgent tasks                                             | know what I have to do ASAP and take extra note of                            |
-| `* * *`  | nurse                       | add a recurring task                                          | receive reminders for tasks regularly without having to re-add them each time |
-| `* * *`  | nurse                       | archive the details of patients                               | the details of patients who have left the nursing home will not clutter the system, but there are still records of their stay for legal purposes |
-| `* * *`  | new user                    | easily view the help guide                                    | know more about the product as and when I need to                             |
-| `* * *`  | nurse                       | easily search for the personal information of an elderly      | contact their guardian quickly during emergencies                             |
-| `* * *`  | careless nurse              | undo my recent actions                                        | revert the database to previous changes in case I make a mistake              |
-| `* *`    | new nurse                   | easily understand how to view necessary information           | not feel overwhelmed and confused                                             |
-| `* *`    | nurse                       | color-code my tasks                                           | differentiate between the tasks more easily                                   |
+| `* * *`  | nurse                       | view the details of each elderly individually                 | find the relevant information of a particular elderly without being cluttered by the details |
 | `* *`    | nurse with a new assignment | view the picture of my new assignment                         | know who I am taking care of                                                  |
-| `* *`    | nurse                       | add additional notes about an elderly                         | understand this elderly who is under my care better                            |
-|`* * *`   | nurse	                     | add tags of conditions of elderly                             | identify the conditions of elderly easily at a glance                   |
-|`* * *`   | nurse	                     | delete tags of conditions of elderly                          | remove tags that are no longer relevant                                 |
-|`* * *`   | nurse	                     | filter the elderly by their tags                              | filter elderly more easily, and plan group activities efficiently, such as ordering food for patients with diabetes |
+| `* *`    | nurse                       | easily search for an elderly by his/her name                  | get their details and contact their guardian quickly during emergencies       |
+| `* * *`  | nurse                       | add a one-off task                                            | keep track of what I have to do                                               |
+| `* * *`  | nurse                       | add a recurring task                                          | receive reminders for tasks regularly without having to re-add them each time |
+| `* * *`  | nurse                       | delete a task                                                 | have a cleaner workspace                                                      |
+| `* * *`  | nurse                       | edit a task                                                   | receive reminders for tasks that are up-to-date                               |
+| `* * *`  | nurse                       | mark a task as completed                                      | stop receiving reminders that are no longer relevant                          |
+| `* * *`  | nurse                       | view overdue tasks                                            | take note of the tasks that are overdue and try to complete them as soon as possible |
+| `* * *`  | nurse                       | view all tasks                                                | have an overview of all my tasks                                              |
+| `* * *`  | nurse                       | view tasks based on chronological order                       | know which tasks are my priority (have to be completed sooner)                |
+| `* * *`  | nurse                       | view my schedule on a particular day                          | make plans for that day in advance                                            |
+| `* * *`  | nurse                       | search a task up by its name                                  | quickly get the details of a task                                             |
+| `* * *`  | careless nurse              | undo my recent actions                                        | revert the database to previous changes in case I make a mistake              |
 | `* *`    | nurse                       | add a nurse (contact)                                         | reach out to a coworker if I am in need of assistance                         |
-| `* *`    | nurse                       | view nurses and elderly in separate sections                  | have better compartmentalization of information                               |
 | `* *`    | nurse                       | edit the details of a nurse                                   | update the information relevant to the nurse                                  |
 | `* *`    | nurse                       | delete a nurse                                                | remove records of nurses who are no longer relevant to me                     |
+| `* *`    | nurse                       | view nurses and elderly in separate sections                  | have better compartmentalization of information                               |
+| `* * *`  | new user                    | easily view the help guide                                    | know more about the product as and when I need to                             |
+| `* *`    | new nurse                   | easily understand how to view necessary information           | not feel overwhelmed and confused                                             |
+| `* *`    | nurse                       | color-code my tasks                                           | differentiate between the tasks more easily                                   |
 | `* `     | user                        | alternate between light/dark mode                             | have an aesthetically pleasing UI                                             |
 *{More to be added}*
 
