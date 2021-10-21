@@ -154,6 +154,26 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+### Mark task as done feature
+
+#### How task status is changed
+`Task` now contains `Status`, which stores the completion status of the task. `Task` now implements the following operations:
+
+* `Task#markAsDone()` — Sets the task status as done
+
+`TaskList` uses the method above to mark the specified task as done in `TaskList#markTaskAsDone(Task toMark)`. This operation is exposed in the `Model` interface as `Model#markTaskAsDone(Task target)`.
+
+#### How the target task is identified
+First, the `DoneTaskCommandParser` parses the `Index` which is passed to the `DoneTaskCommand`.  The `Index` identifies the task to be marked as done.
+
+The following sequence diagram shows how this operation works:
+
+![DoneTaskSequenceDiagram](images/DoneTaskSequenceDiagram.png)
+
+The following activity diagram summarizes what happens when a user enters the command for this feature:
+
+![DoneTaskActivityDiagram](images/DoneTaskActivityDiagram.png)
+
 ### \[Proposed\] Undo/redo feature
 
 #### Proposed Implementation
