@@ -24,6 +24,11 @@ Class Name
 Class Phone
 Class Tag
 
+Class TaskList
+Class Task
+Class Description
+Class DateTime
+Class Status
 }
 
 Class HiddenOutside #FFFFFF
@@ -46,9 +51,17 @@ Person *--> Email
 Person *--> Address
 Person *--> "*" Tag
 
+AddressBook *--> "1" TaskList
+TaskList --> "~* all" Task
+Task *--> Description
+Task *--> DateTime
+Task *--> Status
+Task *--> "*" Name
+
 Name -[hidden]right-> Phone
 Phone -[hidden]right-> Address
 Address -[hidden]right-> Email
 
 ModelManager -->"~* filtered" Person
+ModelManager -->"~* filtered" Task
 @enduml

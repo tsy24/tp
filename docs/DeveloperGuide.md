@@ -192,6 +192,26 @@ Decision: Alternative 2 was chosen as the tags are simply kept as a collection.
 Only the simple operations such as checking whether a Tag is in the Set and changing the Tags in the set are needed.
 Thus, the methods provided in Java Util Set are sufficient and there is no need to implement custom methods.
 
+### Mark task as done feature
+
+#### How task status is changed
+`Task` now contains `Status`, which stores the completion status of the task. `Task` now implements the following operations:
+
+* `Task#markAsDone()` — Sets the task status as done
+
+`TaskList` uses the method above to mark the specified task as done in `TaskList#markTaskAsDone(Task toMark)`. This operation is exposed in the `Model` interface as `Model#markTaskAsDone(Task target)`.
+
+#### How the target task is identified
+First, the `DoneTaskCommandParser` parses the `Index` which is passed to the `DoneTaskCommand`.  The `Index` identifies the task to be marked as done.
+
+The following sequence diagram shows how this operation works:
+
+![DoneTaskSequenceDiagram](images/DoneTaskSequenceDiagram.png)
+
+The following activity diagram summarizes what happens when a user enters the command for this feature:
+
+![DoneTaskActivityDiagram](images/DoneTaskActivityDiagram.png)
+
 ### \[Proposed\] Undo/redo feature
 
 #### Proposed Implementation
@@ -272,9 +292,31 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 _{more aspects and alternatives to be added}_
 
-### \[Proposed\] Data archiving
+### Find task feature
 
-_{Explain here how the data archiving feature will be implemented}_
+#### Implementation
+
+These operations are exposed in the `Model` interface as `Model#updateFilteredTaskList(predicate)`.
+
+Given below is an example usage scenario and how the find task mechanism behaves at each step. The example command is `findTask Pfizer`.
+
+Step 1. The user launches the application and executes `findTask Pfizer` command to search for a list of tasks whose `Description` contains the keyword `Pfizer`. This prompts the `LogicManager` to start its execution by calling its `execute()` command.
+
+Step 2. `LogicManager` calls the `AddressBookParser` to parse the command.
+
+Step 3. The `AddressBookParser` creates a new `FindCommandParser` which will `parse()` the arguments. This creates a new `DescriptionContainsKeywordPredicate` that checks if a `Task`'s `Description` contains the keyword(s) - `Pfizer` in this case. A new `FindTaskCommand` which is ready to be executed is returned, containing the predicate as one of its fields.
+
+Step 4. The `FindTaskCommand` is executed by calling its `execute()` method. This calls the `Model#updateFilteredTaskList()` and updates the filtered task list by checking the tasks with `DescriptionContainsKeywordPredicate`.
+
+Step 5. A new `CommandResult` is returned which switches the display to the filtered task list. The result is returned to `LogicManager`.
+
+The following sequence diagram shows how the find task operation works:
+
+![FindTaskSequenceDiagram](images/FindTaskSequenceDiagram.png)
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `FindTaskCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
 
 
 --------------------------------------------------------------------------------------------------------------------
