@@ -1,0 +1,18 @@
+@startuml
+start
+:User enters "doneTask 1";
+
+:Parse the index;
+if () then ([index is invalid format])
+    :Throw ParseException;
+else([index is valid format])
+    :Compare index with size of list;
+    if () then ([index is within range])
+        :Mark task as done;
+    else ([else])
+        :Throw CommandException;
+
+    endif
+endif
+stop
+@enduml
