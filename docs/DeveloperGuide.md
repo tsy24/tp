@@ -234,9 +234,32 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 _{more aspects and alternatives to be added}_
 
-### \[Proposed\] Data archiving
+### Find task feature
 
-_{Explain here how the data archiving feature will be implemented}_
+#### Implementation
+
+The find task mechanism is facilitated by AddressBook.
+
+These operations are exposed in the `Model` interface as `Model#updateFilteredTaskList(predicate)`.
+
+Given below is an example usage scenario and how the find task mechanism behaves at each step. The example command is `findTask Pfizer`. The following sequence diagram shows how the find task operation works:
+
+Step 1. The user launches the application and executes `findTask Pfizer` command to search for a list of tasks whose `Description` contains the keyword `Pfizer`. This prompts the `LogicManager` to start its execution by calling its `execute()` command.
+
+Step 2. `LogicManager` calls the `AddressBookParser` to parse the command.
+
+Step 3. The `AddressBookParser` creates a new `FindCommandParser` which will `parse()` the arguments. This creates a new `DescriptionContainsKeywordPredicate` that checks if a `Task`'s `Description` contains the keyword(s) - `Pfizer` in this case. A new `FindTaskCommand` which is ready to be executed is returned, containing the predicate as one of its fields. 
+
+Step 4. The `FindTaskCommand` is executed by calling its `execute()` method. This calls the `Model#updateFilteredTaskList()` and updates the filtered task list by checking the tasks with `DescriptionContainsKeywordPredicate`.
+
+Step 5. A new `CommandResult` is returned which switches the display to the filtered task list. The result is returned to `LogicManager`.
+
+![FindTaskSequenceDiagram](images/FindTaskSequenceDiagram.png)
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `FindTaskCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
+
 
 
 --------------------------------------------------------------------------------------------------------------------
