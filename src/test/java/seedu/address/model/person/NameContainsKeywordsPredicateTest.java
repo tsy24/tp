@@ -34,7 +34,7 @@ public class NameContainsKeywordsPredicateTest {
         // null -> returns false
         assertFalse(firstPredicate.equals(null));
 
-        // different elderly -> returns false
+        // different keywords -> returns false
         assertFalse(firstPredicate.equals(secondPredicate));
     }
 

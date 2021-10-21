@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a task's description in NurseyBook.
+ * Represents a task's description in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidDescription(String)}
  */
 public class Description {
