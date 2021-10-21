@@ -10,7 +10,7 @@ import static seedu.address.testutil.TypicalTasks.ALEX_INSULIN;
 import static seedu.address.testutil.TypicalTasks.DO_PAPERWORK;
 import static seedu.address.testutil.TypicalTasks.getTypicalAddressBook;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collections;
 
@@ -37,9 +37,9 @@ public class RemindCommandTest {
     @Test
     public void equals() {
         TaskIsReminderPredicate firstPredicate =
-                new TaskIsReminderPredicate(LocalDate.of(2021, 10, 31));
+                new TaskIsReminderPredicate(LocalDateTime.of(2021, 10, 31, 10, 30));
         TaskIsReminderPredicate secondPredicate =
-                new TaskIsReminderPredicate(LocalDate.of(2021, 12, 25));
+                new TaskIsReminderPredicate(LocalDateTime.of(2021, 12, 25, 11, 45));
 
         RemindCommand remindFirstCommand = new RemindCommand(firstPredicate);
         RemindCommand remindSecondCommand = new RemindCommand(secondPredicate);
@@ -63,7 +63,7 @@ public class RemindCommandTest {
 
     @Test
     public void execute_remind_success() {
-        TaskIsReminderPredicate predicate = preparePredicate(2021, 10, 31);
+        TaskIsReminderPredicate predicate = preparePredicate(2021, 10, 31, 10, 0);
         RemindCommand command = new RemindCommand(predicate);
         CommandResult expectedCommandResult = new CommandResult(MESSAGE_SUCCESS, CommandResult.ListDisplayChange.TASK);
         assertCommandSuccess(command, model, expectedCommandResult, expectedModel);
@@ -71,7 +71,7 @@ public class RemindCommandTest {
 
     @Test
     public void execute_pastDate_noTasksFound() {
-        TaskIsReminderPredicate predicate = preparePredicate(2020, 1, 20);
+        TaskIsReminderPredicate predicate = preparePredicate(2020, 1, 20, 11, 45);
         RemindCommand command = new RemindCommand(predicate);
         CommandResult expectedCommandResult = new CommandResult(MESSAGE_SUCCESS, CommandResult.ListDisplayChange.TASK);
         expectedModel.updateFilteredTaskList(predicate);
@@ -81,7 +81,7 @@ public class RemindCommandTest {
 
     @Test
     public void execute_futureDate_noTasksFound() {
-        TaskIsReminderPredicate predicate = preparePredicate(2022, 4, 1);
+        TaskIsReminderPredicate predicate = preparePredicate(2022, 4, 1, 14, 10);
         RemindCommand command = new RemindCommand(predicate);
         CommandResult expectedCommandResult = new CommandResult(MESSAGE_SUCCESS, CommandResult.ListDisplayChange.TASK);
         expectedModel.updateFilteredTaskList(predicate);
@@ -91,7 +91,7 @@ public class RemindCommandTest {
 
     @Test
     public void execute_validDate_tasksFound() {
-        TaskIsReminderPredicate predicate = preparePredicate(2022, 1, 30);
+        TaskIsReminderPredicate predicate = preparePredicate(2022, 1, 30, 16, 25);
         RemindCommand command = new RemindCommand(predicate);
         CommandResult expectedCommandResult = new CommandResult(MESSAGE_SUCCESS, CommandResult.ListDisplayChange.TASK);
         expectedModel.updateFilteredTaskList(predicate);
@@ -101,7 +101,7 @@ public class RemindCommandTest {
 
     @Test
     public void execute_validDate_noTaskFound() {
-        TaskIsReminderPredicate predicate = preparePredicate(2020, 11, 1);
+        TaskIsReminderPredicate predicate = preparePredicate(2020, 11, 1, 18, 50);
         RemindCommand command = new RemindCommand(predicate);
         CommandResult expectedCommandResult = new CommandResult(MESSAGE_SUCCESS, CommandResult.ListDisplayChange.TASK);
         expectedModel.updateFilteredTaskList(predicate);
@@ -115,7 +115,7 @@ public class RemindCommandTest {
     /**
      * Parses a given date into a {@code TaskIsReminderPredicate}.
      */
-    private TaskIsReminderPredicate preparePredicate(int year, int month, int day) {
-        return new TaskIsReminderPredicate(LocalDate.of(year, month, day));
+    private TaskIsReminderPredicate preparePredicate(int year, int month, int day, int hour, int minute) {
+        return new TaskIsReminderPredicate(LocalDateTime.of(year, month, day, hour, minute));
     }
 }
