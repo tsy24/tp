@@ -113,7 +113,7 @@ public class EditCommandTest {
     public void execute_duplicateElderlyFilteredList_failure() {
         showElderlyAtIndex(model, INDEX_FIRST);
 
-        // edit elderly in filtered list into a duplicate in address book
+        // edit elderly in filtered list into a duplicate in the address book
         Elderly elderlyInList = model.getAddressBook().getElderlyList().get(INDEX_SECOND.getZeroBased());
         EditCommand editCommand = new EditCommand(INDEX_FIRST,
                 new EditElderlyDescriptorBuilder(elderlyInList).build());

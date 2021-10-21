@@ -29,6 +29,7 @@ import seedu.address.logic.commands.EditCommand.EditElderlyDescriptor;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FilterCommand;
 import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.FindTaskCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.RemarkCommand;
 import seedu.address.logic.commands.RemindCommand;
@@ -39,6 +40,7 @@ import seedu.address.model.person.Elderly;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Remark;
 import seedu.address.model.tag.ElderlyHasTagPredicate;
+import seedu.address.model.task.DescriptionContainsKeywordPredicate;
 import seedu.address.model.task.Task;
 import seedu.address.testutil.EditElderlyDescriptorBuilder;
 import seedu.address.testutil.ElderlyBuilder;
@@ -124,6 +126,15 @@ public class AddressBookParserTest {
         FindCommand command = (FindCommand) parser.parseCommand(
                 FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
         assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
+    }
+
+    @Test
+    public void parseCommand_findTask() throws Exception {
+        List<String> keywords = Arrays.asList("foo", "bar", "baz");
+        FindTaskCommand command = (FindTaskCommand) parser.parseCommand(
+                FindTaskCommand.COMMAND_WORD + " "
+                        + keywords.stream().collect(Collectors.joining(" ")));
+        assertEquals(new FindTaskCommand(new DescriptionContainsKeywordPredicate(keywords)), command);
     }
 
     @Test
