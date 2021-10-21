@@ -4,6 +4,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_DESC;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_RECURRING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_TIME;
 
 import java.util.Set;
@@ -14,6 +15,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Name;
 import seedu.address.model.task.DateTime;
 import seedu.address.model.task.Description;
+import seedu.address.model.task.Recurrence;
+import seedu.address.model.task.Recurrence.RecurrenceType;
 import seedu.address.model.task.Task;
 
 /**
@@ -28,7 +31,8 @@ public class AddTaskCommandParser implements Parser<AddTaskCommand> {
      */
     public AddTaskCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_TASK_DESC, PREFIX_TASK_DATE, PREFIX_TASK_TIME);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_TASK_DESC, PREFIX_TASK_DATE, PREFIX_TASK_TIME,
+                        PREFIX_TASK_RECURRING);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_TASK_DESC, PREFIX_TASK_DATE, PREFIX_TASK_TIME)
                 || !argMultimap.getPreamble().isEmpty()) {
@@ -40,8 +44,10 @@ public class AddTaskCommandParser implements Parser<AddTaskCommand> {
         DateTime dateTime = ParserUtil.parseDateTime(
                 argMultimap.getValue(PREFIX_TASK_DATE).get(),
                 argMultimap.getValue(PREFIX_TASK_TIME).get());
+        Recurrence recurrence = ParserUtil.parseRecurrence(
+                argMultimap.getValue(PREFIX_TASK_RECURRING).orElse(RecurrenceType.NONE.name()));
 
-        Task task = new Task(description, dateTime, relatedNames);
+        Task task = new Task(description, dateTime, relatedNames, recurrence);
 
         return new AddTaskCommand(task);
     }

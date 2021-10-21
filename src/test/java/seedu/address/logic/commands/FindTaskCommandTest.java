@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_TASKS_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalTasks.APPLY_LEAVE;
 import static seedu.address.testutil.TypicalTasks.KG_SC_VACCINE;
 import static seedu.address.testutil.TypicalTasks.YASMINE_PHYSIO;
 import static seedu.address.testutil.TypicalTasks.getTypicalAddressBook;
@@ -69,7 +68,7 @@ public class FindTaskCommandTest {
 
     @Test
     public void execute_multipleKeywords_multipleTasksFound() {
-        String expectedMessage = String.format(MESSAGE_TASKS_LISTED_OVERVIEW, 3);
+        String expectedMessage = String.format(MESSAGE_TASKS_LISTED_OVERVIEW, 2);
         CommandResult expectedCommandResult = new CommandResult(expectedMessage, CommandResult.ListDisplayChange.TASK);
 
         DescriptionContainsKeywordPredicate predicate = preparePredicate("Yoga Leave Pfizer");
@@ -77,7 +76,7 @@ public class FindTaskCommandTest {
         expectedModel.updateFilteredTaskList(predicate);
 
         assertCommandSuccess(command, model, expectedCommandResult, expectedModel);
-        assertEquals(Arrays.asList(YASMINE_PHYSIO, APPLY_LEAVE, KG_SC_VACCINE), model.getFilteredTaskList());
+        assertEquals(Arrays.asList(YASMINE_PHYSIO, KG_SC_VACCINE), model.getFilteredTaskList());
     }
 
     /**
