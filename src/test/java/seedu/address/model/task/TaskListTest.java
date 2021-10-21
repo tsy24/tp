@@ -144,7 +144,7 @@ public class TaskListTest {
         Task task1 = taskList.asUnmodifiableObservableList().get(0);
         LocalDateTime currentDateTime1 = LocalDateTime.now();
         int daysDiff = currentDateTime1.getDayOfYear() - date.getDayOfYear();
-        int daysToAdd = 7 - daysDiff % 7;
+        int daysToAdd = daysDiff % 7 == 0 ? 0 : 7 - daysDiff % 7;
         taskList.changeDateOfPastRecurringTasks();
         assertEquals(new DateTime(currentDateTime1.toLocalDate().plusDays(daysToAdd), time),
                 task1.getDateTime());
@@ -160,7 +160,7 @@ public class TaskListTest {
         Task task1 = taskList.asUnmodifiableObservableList().get(0);
         LocalDateTime currentDateTime1 = LocalDateTime.now();
         int daysDiff = currentDateTime1.getDayOfYear() - date.getDayOfYear();
-        int daysToAdd = 28 - daysDiff % 28;
+        int daysToAdd = daysDiff % 28 == 0 ? 0 : 28 - daysDiff % 28;
         taskList.changeDateOfPastRecurringTasks();
         assertEquals(new DateTime(currentDateTime1.toLocalDate().plusDays(daysToAdd), time),
                 task1.getDateTime());

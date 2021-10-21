@@ -112,38 +112,51 @@ public class TaskList implements Iterable<Task> {
             if (recurrence.isRecurring()) {
                 RecurrenceType recurrenceType = recurrence.getRecurrenceType();
                 assert(recurrenceType != RecurrenceType.NONE);
-                DateTime taskDateTime = t.getDateTime();
-                LocalDate taskDate = taskDateTime.date;
-                LocalTime taskTime = taskDateTime.time;
-                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd MM yyyy HH mm");
-                String inputString = String.format("%02d", taskDate.getDayOfMonth()) + " "
-                        + String.format("%02d", taskDate.getMonthValue()) + " "
-                        + String.format("%02d", taskDate.getYear()) + " "
-                        + String.format("%02d", taskTime.getHour()) + " "
-                        + String.format("%02d", taskTime.getMinute());
-                LocalDateTime taskLocalDateTime = LocalDateTime.parse(inputString, dtf);
-                long daysBetween = Duration.between(taskLocalDateTime, currentDateTime).toDays();
-                // if task dateTime is before current dateTime
-                if (daysBetween > 0) {
-                    LocalDateTime taskNewLocalDateTime;
-                    if (recurrenceType == RecurrenceType.DAY) {
-                        taskNewLocalDateTime = taskLocalDateTime.plusDays(daysBetween + 1);
-                    } else if (recurrenceType == RecurrenceType.WEEK) {
-                        int daysToAdd = (int) (daysBetween / 7) * 7 + 7;
-                        taskNewLocalDateTime = taskLocalDateTime.plusDays(daysToAdd);
-                    } else {
-                        // assume its + 4 weeks
-                        int daysToAdd = (int) (daysBetween / 28) * 28 + 28;
-                        taskNewLocalDateTime = taskLocalDateTime.plusDays(daysToAdd);
-                    }
-                    // time is fixed
-                    t.setDateTime(
-                            new DateTime(taskNewLocalDateTime.toLocalDate(), taskLocalDateTime.toLocalTime()));
-                }
+
+                changeTaskDate(currentDateTime, t, recurrenceType);
                 this.markTaskAsUndone(t);
             }
         }
+        // Re-sorts task list when task date is changed
         internalList.sort(Comparator.naturalOrder());
+    }
+
+    private void changeTaskDate(LocalDateTime currentDateTime, Task t,
+                                                 RecurrenceType recurrenceType) {
+        DateTime taskDateTime = t.getDateTime();
+        LocalDate taskDate = taskDateTime.date;
+        LocalTime taskTime = taskDateTime.time;
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd MM yyyy HH mm");
+        String inputString = String.format("%02d", taskDate.getDayOfMonth()) + " "
+                + String.format("%02d", taskDate.getMonthValue()) + " "
+                + String.format("%02d", taskDate.getYear()) + " "
+                + String.format("%02d", taskTime.getHour()) + " "
+                + String.format("%02d", taskTime.getMinute());
+        LocalDateTime taskLocalDateTime = LocalDateTime.parse(inputString, dtf);
+        long daysBetween = Duration.between(taskLocalDateTime, currentDateTime).toDays();
+
+        // if task dateTime is before current dateTime
+        if (daysBetween > 0) {
+            changeTaskDateBasedOnRecurrence(t, recurrenceType, taskLocalDateTime, daysBetween);
+        }
+    }
+
+    private void changeTaskDateBasedOnRecurrence(Task t, RecurrenceType recurrenceType,
+                                                 LocalDateTime taskLocalDateTime, long daysBetween) {
+        LocalDateTime taskNewLocalDateTime;
+        if (recurrenceType == RecurrenceType.DAY) {
+            taskNewLocalDateTime = taskLocalDateTime.plusDays(daysBetween + 1);
+        } else if (recurrenceType == RecurrenceType.WEEK) {
+            int daysToAdd = (int) (daysBetween / 7) * 7 + 7;
+            taskNewLocalDateTime = taskLocalDateTime.plusDays(daysToAdd);
+        } else {
+            // assume its + 4 weeks
+            int daysToAdd = (int) (daysBetween / 28) * 28 + 28;
+            taskNewLocalDateTime = taskLocalDateTime.plusDays(daysToAdd);
+        }
+        // time is fixed
+        t.setDateTime(
+                new DateTime(taskNewLocalDateTime.toLocalDate(), taskLocalDateTime.toLocalTime()));
     }
 
     /**

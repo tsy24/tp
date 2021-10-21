@@ -1,7 +1,16 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_AGE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NOK_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_RELATIONSHIP;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ROOM_NUM;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_DESC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_RECURRING;
@@ -20,14 +29,18 @@ public class AddTaskCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the address book. "
             + "Parameters: "
-            + "[" + PREFIX_NAME + "NAME]...\n"
-            + "Example: " + COMMAND_WORD
-            + " " + PREFIX_NAME + "Khong Guan "
-            + " " + PREFIX_NAME + "Swee Choon"
-            + " " + PREFIX_TASK_DESC + "Weekly Taiji"
-            + " " + PREFIX_TASK_DATE + "2021-10-10"
-            + " " + PREFIX_TASK_TIME + "14:30"
-            + " " + PREFIX_TASK_RECURRING + "week";
+            + "[" + PREFIX_NAME + "NAME]..."
+            + PREFIX_TASK_DESC + "DESCRIPTION "
+            + PREFIX_TASK_DATE + "DATE "
+            + PREFIX_TASK_TIME + "TIME "
+            + "[" + PREFIX_TASK_RECURRING + "RECURRENCE_TYPE]\n"
+            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_NAME + "Khong Guan "
+            + PREFIX_NAME + "Swee Choon "
+            + PREFIX_TASK_DESC + "Weekly Taiji "
+            + PREFIX_TASK_DATE + "2021-10-10 "
+            + PREFIX_TASK_TIME + "14:30 "
+            + PREFIX_TASK_RECURRING + "week";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
 
