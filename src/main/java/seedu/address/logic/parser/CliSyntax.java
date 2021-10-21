@@ -20,5 +20,6 @@ public class CliSyntax {
     public static final Prefix PREFIX_TASK_DESC = new Prefix("desc/");
     public static final Prefix PREFIX_TASK_DATE = new Prefix("date/");
     public static final Prefix PREFIX_TASK_TIME = new Prefix("time/");
+    public static final Prefix PREFIX_TASK_RECURRING = new Prefix("recur/");
 
 }
