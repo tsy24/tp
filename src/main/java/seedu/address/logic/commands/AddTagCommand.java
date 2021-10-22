@@ -16,7 +16,7 @@ import seedu.address.model.person.Elderly;
 import seedu.address.model.tag.Tag;
 
 /**
- * Adds at least one tag to an existing elderly in the NurseyBook.
+ * Adds at least one tag to an existing elderly in the address book.
  */
 public class AddTagCommand extends Command {
 

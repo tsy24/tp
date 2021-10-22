@@ -10,7 +10,7 @@ import java.time.format.DateTimeParseException;
 import java.util.Objects;
 
 /**
- * Represents a task's date and time in NurseyBook.
+ * Represents a task's date and time in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidDate(String)} and {@link #isValidTime(String)}
  */
 public class DateTime implements Comparable<DateTime> {
@@ -40,6 +40,17 @@ public class DateTime implements Comparable<DateTime> {
         } catch (DateTimeParseException e) {
             throw new IllegalArgumentException(MESSAGE_TIME_CONSTRAINTS);
         }
+    }
+
+    /**
+     * Constructs an {@code DateTime}.
+     *
+     * @param date A valid date.
+     * @param time A valid time.
+     */
+    public DateTime(LocalDate date, LocalTime time) {
+        this.date = date;
+        this.time = time;
     }
 
     /**

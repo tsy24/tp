@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import seedu.address.model.person.Name;
 import seedu.address.model.task.DateTime;
 import seedu.address.model.task.Description;
+import seedu.address.model.task.Recurrence;
 import seedu.address.model.task.Status;
 import seedu.address.model.task.Task;
 
@@ -17,11 +18,13 @@ public class TaskBuilder {
     public static final String DEFAULT_DATE = "2069-06-09";
     public static final String DEFAULT_TIME = "18:09";
     public static final String DEFAULT_STATUS = "false";
+    public static final String DEFAULT_RECURRENCE = Recurrence.RecurrenceType.NONE.name();
 
     private Description desc;
     private DateTime dateTime;
     private Set<Name> names;
     private Status status;
+    private Recurrence recurrence;
 
     /**
      * Creates a {@code TaskBuilder} with the default details.
@@ -31,6 +34,7 @@ public class TaskBuilder {
         dateTime = new DateTime(DEFAULT_DATE, DEFAULT_TIME);
         names = new HashSet<>();
         status = new Status(DEFAULT_STATUS);
+        recurrence = new Recurrence(DEFAULT_RECURRENCE);
     }
 
     /**
@@ -41,6 +45,7 @@ public class TaskBuilder {
         dateTime = taskToCopy.getDateTime();
         names = new HashSet<>(taskToCopy.getRelatedNames());
         status = taskToCopy.getStatus();
+        recurrence = taskToCopy.getRecurrence();
     }
 
     /**
@@ -78,9 +83,17 @@ public class TaskBuilder {
     }
 
     /**
+     * Sets the {@code DateTime} of the {@code Task} that we are building.
+     */
+    public TaskBuilder withRecurrence(String recurrence) {
+        this.recurrence = new Recurrence(recurrence);
+        return this;
+    }
+
+    /**
      * Returns task object created with fields of the taskBuilder
      */
     public Task build() {
-        return new Task(desc, dateTime, names, status);
+        return new Task(desc, dateTime, names, status, recurrence);
     }
 }

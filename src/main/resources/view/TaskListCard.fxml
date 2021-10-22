@@ -27,6 +27,7 @@
         <FlowPane fx:id="names" />
         <Label fx:id="date" styleClass="cell_small_label" text="\$date" />
         <Label fx:id="time" styleClass="cell_small_label" text="\$time" />
+        <Label fx:id="recurring" styleClass="cell_small_label" text="\$recurring" />
     </VBox>
 </GridPane>
 </HBox>

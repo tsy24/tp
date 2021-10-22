@@ -21,6 +21,7 @@ import seedu.address.model.person.RoomNumber;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.task.DateTime;
 import seedu.address.model.task.Description;
+import seedu.address.model.task.Recurrence;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -232,10 +233,10 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String description} into an {@code Description}.
+     * Parses a {@code String date} and {@code String time} into an {@code DateTime}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code description} is invalid.
+     * @throws ParseException if the given {@code date} and {@code time} is invalid.
      */
     public static DateTime parseDateTime(String date, String time) throws ParseException {
         requireAllNonNull(date, time);
@@ -248,5 +249,20 @@ public class ParserUtil {
             throw new ParseException(DateTime.MESSAGE_TIME_CONSTRAINTS);
         }
         return new DateTime(trimmedDate, trimmedTime);
+    }
+
+    /**
+     * Parses a {@code String recurrenceType} into an {@code Recurrence}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code recurrenceType} is invalid.
+     */
+    public static Recurrence parseRecurrence(String recurrenceType) throws ParseException {
+        requireNonNull(recurrenceType);
+        String trimmedRecurrenceType = recurrenceType.trim().toUpperCase();
+        if (!Recurrence.isValidRecurrence(trimmedRecurrenceType)) {
+            throw new ParseException(Recurrence.MESSAGE_CONSTRAINTS);
+        }
+        return new Recurrence(trimmedRecurrenceType);
     }
 }

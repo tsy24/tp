@@ -28,12 +28,14 @@ public class TaskCard extends UiPart<Region> {
     @FXML
     private Label time;
     @FXML
+    private Label recurring;
+    @FXML
     private FlowPane names;
     @FXML
     private CheckBox status;
 
     /**
-     * Creates a {@code ElderlyCode} with the given {@code Elderly} and index to display.
+     * Creates a {@code TaskCard} with the given {@code Task} and index to display.
      */
     public TaskCard(Task task, int displayedIndex) {
         super(FXML);
@@ -46,6 +48,7 @@ public class TaskCard extends UiPart<Region> {
                 .forEach(name -> names.getChildren().add(new Label(name.fullName)));
         status.setSelected(task.isTaskDone());
         status.setDisable(true);
+        recurring.setText("Recurring: " + task.getRecurrence());
     }
 
     @Override
