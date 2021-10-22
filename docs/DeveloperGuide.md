@@ -122,9 +122,13 @@ How the parsing works:
 The `Model` component,
 
 * stores the address book data i.e., all `Elderly` objects (which are contained in a `UniqueElderlyList` object).
+* implicitly also stores `Nok` objects which is contained in `Elderly` objects
 * stores the currently 'selected' `Elderly` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Elderly>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the currently 'selected' `Task` objects in a similar way to `Elderly` objects
+which is also exposed to outsiders as an unmodifiable `ObservableList<Task>`.
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
+
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Elderly` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Elderly` needing their own `Tag` objects.<br>
 
@@ -350,7 +354,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Use cases
 
-(For all use cases below, the **System** is the `NurseyBook` the **Actor** is the `User`, and the **Person** is the 
+(For all use cases below, the **System** is the `NurseyBook` the **Actor** is the `User`, and the **Person** is the
 `Nurse` unless specified otherwise)
 
 **Use cases of elderly commands**
@@ -437,7 +441,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 4.  NurseyBook deletes the tag from the elderly
 
     Use case ends.
-    
+
 **Extensions**
 
 * 2a. The list of elderly is empty.
@@ -493,7 +497,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 3a1. NurseyBook shows an error message.
 
       Use case resumes at step 2.
-      
+
 
 **UC7: Mark a task as complete**
 
@@ -530,7 +534,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions**
 
-* 2a. The list of tasks is empty. 
+* 2a. The list of tasks is empty.
 
   Use case ends.
 
