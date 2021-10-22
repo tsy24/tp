@@ -19,6 +19,6 @@ public class ViewElderlyCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredElderlyList(PREDICATE_SHOW_ALL_ELDERLIES); // to change
-        return new CommandResult(MESSAGE_SUCCESS, CommandResult.ListDisplayChange.PERSON);
+        return new CommandResult(MESSAGE_SUCCESS, CommandResult.ListDisplayChange.ELDERLY);
     }
 }
