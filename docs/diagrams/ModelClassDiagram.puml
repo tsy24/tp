@@ -16,12 +16,19 @@ Class UserPrefs
 Class ReadOnlyUserPrefs
 
 
-Class UniquePersonList
+Class UniqueElderlyList
 Class Person
-Class Address
-Class Email
-Class Name
+Class Elderly
+Class Nok
 Class Phone
+
+Class Age
+Class Gender
+Class Remark
+Class RoomNumber
+Class Email
+Class Address
+Class Name
 Class Tag
 
 Class TaskList
@@ -29,6 +36,7 @@ Class Task
 Class Description
 Class DateTime
 Class Status
+Class Recurrence
 }
 
 Class HiddenOutside #FFFFFF
@@ -43,24 +51,33 @@ ModelManager -left-> "1" AddressBook
 ModelManager -right-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
-AddressBook *--> "1" UniquePersonList
-UniquePersonList --> "~* all" Person
+AddressBook *--> "1" UniqueElderlyList
+UniqueElderlyList --> "~* all" Person
 Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
-Person *--> "*" Tag
+Elderly -up-|> Person
+Nok --|> Person
+Elderly *---> "*" Tag
+Elderly *---> Age
+Elderly *---> Gender
+Elderly *---> RoomNumber
+Elderly *---> Remark
+Elderly --> Nok
+Nok *--> Phone
+Nok *--> Email
+Nok *--> Address
+Nok *--> Relationship
 
 AddressBook *--> "1" TaskList
 TaskList --> "~* all" Task
 Task *--> Description
 Task *--> DateTime
 Task *--> Status
+Task *--> Recurrence
 Task *--> "*" Name
 
-Name -[hidden]right-> Phone
 Phone -[hidden]right-> Address
-Address -[hidden]right-> Email
+Address -[hidden]left-> Email
+Relationship -[hidden]right-> Phone
 
 ModelManager -->"~* filtered" Person
 ModelManager -->"~* filtered" Task
