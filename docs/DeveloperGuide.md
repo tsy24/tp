@@ -264,6 +264,38 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 _{more aspects and alternatives to be added}_
 
+### Delete Nok feature
+
+#### Implementation
+
+The implementation of `DeleteNokCommand` is highly similar to that of `DeleteCommand`. Major differences are in how the steps 5 and 6 below are handled.
+
+Given below is an example usage scenario and how the delete Nok mechanism behaves at each step. The example command is `deleteNok 1`.
+
+Step 1. The user and executes `deleteNok 1` command to delete the NoK details of the first elderly in the elderly list. This prompts the `LogicManager` to start its execution by calling its `execute()` command.
+
+Step 2. `LogicManager` calls the `AddressBookParser` to parse the command.
+
+Step 3. The `AddressBookParser` creates a new `DeleteNokCommandParser` which will `parse()` the arguments. This creates and returns a new `DeleteNokCommand` which is ready to be executed, containing the index of the targetted elderly as one of its fields.
+
+Step 4. The `DeleteNokCommand` is executed by calling its `execute()` method. This calls the `Model#getFilteredElderlyList()` and retrieves the filtered elderly list, which should contain all elderlies.
+
+Step 5. A new updated Elderly object is created with all fields equivalent to the targeted Elderly object, apart from the Nok fields which are wiped. This process has been omitted from the sequence diagram below. 
+
+Step 6. The `Model#setElderly()` method is then called to replace the targeted Elderly with the updated Elderly object.
+
+Step 7. A new `CommandResult` is returned which contains the details of the new Elderly object. The result is returned to `LogicManager`.
+
+The following sequence diagram shows how the find task operation works:
+
+![DeleteNokSequenceDiagram](images/DeleteNokSequenceDiagram.png)
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `DeleteNokCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
+
+
+
 ### Find task feature
 
 #### Implementation
