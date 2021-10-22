@@ -164,6 +164,44 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+### Filter command
+
+#### Implementation
+The implementation of the filter command is facilitated by the FilterCommand class and ElderlyHasTagPredicate class.
+ElderlyHasTagPredicate contains a set of tags that was queried in the filter command and has a method `test`
+to test whether an Elderly has all the tags in the set.
+
+Given below is the class diagram of the FilterCommand and the ElderlyHasTagPredicate.
+
+![](images/FilterClassDiagram.png)
+
+The following sequence diagram shows how the filter command works:
+
+![FilterSequenceDiagram](images/FilterSequenceDiagram.png)
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `FilterCommand` and `ElderlyHasTagPredicate` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
+
+As tags can only be alphanumeric, the `parse` method in FilterCommandParser checks that the all the tags queried are valid first before creating the FilterCommand and ElderlyHasTagPredicate objects. 
+If there is a tag that is invalid, an exception will be thrown. 
+
+When executing the filter command, the `updateFilteredElderlyList` method of Model calls other methods that are omitted from the diagram.
+One of the methods then calls the `test` method of the ElderlyHasTagPredicate object with every Elderly saved in NurseyBook.
+The list of Elderly that return true for `test` is then assigned to `filteredElderlies` in ModelManager and displayed in the GUI.
+
+#### Design Considerations
+##### Aspect: How to store tags
+* Alternative 1: Create a new class TagSet to store tags
+    * Pros: Can add custom methods
+    * Cons: More code needs to be written and more room for bugs
+* Alternative 2: Use Java Util Set to store tags
+    * Pros: Easy to import and use
+    * Cons: Methods that can be used are limited to the methods in Set
+
+Decision: Alternative 2 was chosen as the tags are simply kept as a collection.
+Only the simple operations such as checking whether a Tag is in the Set and changing the Tags in the set are needed.
+Thus, the methods provided in Java Util Set are sufficient and there is no need to implement custom methods.
+
 ### Mark task as done feature
 
 #### How task status is changed

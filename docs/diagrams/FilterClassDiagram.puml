@@ -1,0 +1,18 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+show members
+hide empty members
+
+class ElderlyHasTagPredicate MODEL_COLOR {
+    <color:White>test(Elderly)
+}
+class FilterCommand LOGIC_COLOR {
+    <color:White>execute(Model)
+}
+class Tag MODEL_COLOR
+
+ElderlyHasTagPredicate -> "*" Tag
+FilterCommand -up[#blue]-> "1" ElderlyHasTagPredicate : predicate
+
+@enduml
