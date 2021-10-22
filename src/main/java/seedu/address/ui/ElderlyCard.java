@@ -4,6 +4,7 @@ import java.util.Comparator;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.TitledPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
@@ -27,53 +28,16 @@ public class ElderlyCard extends UiPart<Region> {
     public final Elderly elderly;
 
     @FXML
-    private HBox cardPane;
-    @FXML
-    private Label name;
-    @FXML
-    private Label id;
-    @FXML
-    private Label age;
-    @FXML
-    private Label gender;
-    @FXML
-    private Label roomNumber;
-    @FXML
-    private Label nokName;
-    @FXML
-    private Label relationship;
-    @FXML
-    private Label phone;
-    @FXML
-    private Label email;
-    @FXML
-    private Label address;
-    @FXML
-    private Label remark;
-    @FXML
-    private FlowPane tags;
-
+    private TitledPane titledPane;
     /**
      * Creates a {@code ElderlyCode} with the given {@code Elderly} and index to display.
      */
     public ElderlyCard(Elderly elderly, int displayedIndex) {
         super(FXML);
-        this.elderly = elderly;
-        id.setText(displayedIndex + ". ");
-        name.setText(elderly.getName().fullName);
-        age.setText("Age: " + elderly.getAge().value + " years old");
-        gender.setText("Gender: " + elderly.getGender().value);
-        roomNumber.setText("Room No.: " + elderly.getRoomNumber().value);
-        nokName.setText("Nok Name: " + elderly.getNok().getName().fullName);
-        relationship.setText("Relationship: " + elderly.getNok().getRelationship().value);
-        phone.setText("Nok Phone No.: " + elderly.getNok().getPhone().value);
-        email.setText("Nok Email: " + elderly.getNok().getEmail().value);
-        address.setText("Nok Address: " + elderly.getNok().getAddress().value);
-        remark.setText("Remarks: " + elderly.getRemark().value);
 
-        elderly.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        this.elderly = elderly;
+        titledPane.setGraphic(new ElderlyPartialCard(displayedIndex).getRoot());
+        titledPane.setContent(new ElderlyFullCard().getRoot());
     }
 
     @Override
@@ -90,7 +54,76 @@ public class ElderlyCard extends UiPart<Region> {
 
         // state check
         ElderlyCard card = (ElderlyCard) other;
-        return id.getText().equals(card.id.getText())
-                && elderly.equals(card.elderly);
+        return elderly.equals(card.elderly);
+    }
+
+    class ElderlyPartialCard extends UiPart<Region> {
+
+        private static final String FXML = "ElderlyPartialCard.fxml";
+
+        @FXML
+        private HBox partialCard;
+        @FXML
+        private Label name;
+        @FXML
+        private Label id;
+        @FXML
+        private Label roomNumber;
+        @FXML
+        private FlowPane tags;
+
+        /**
+         * Creates a {@code StatusBarFooter} with the given {@code Path}.
+         */
+        public ElderlyPartialCard(int displayedIndex) {
+            super(FXML);
+            id.setText(displayedIndex + ". ");
+            name.setText(elderly.getName().fullName);
+            roomNumber.setText("Room No.: " + elderly.getRoomNumber().value);
+            elderly.getTags().stream()
+                    .sorted(Comparator.comparing(tag -> tag.tagName))
+                    .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        }
+    }
+
+
+    class ElderlyFullCard extends UiPart<Region> {
+
+        private static final String FXML = "ElderlyFullCard.fxml";
+
+        @FXML
+        private HBox fullCard;
+        @FXML
+        private Label age;
+        @FXML
+        private Label gender;
+        @FXML
+        private Label nokName;
+        @FXML
+        private Label relationship;
+        @FXML
+        private Label phone;
+        @FXML
+        private Label email;
+        @FXML
+        private Label address;
+        @FXML
+        private Label remark;
+
+        /**
+         * Creates a {@code StatusBarFooter} with the given {@code Path}.
+         */
+        public ElderlyFullCard() {
+            super(FXML);
+            age.setText(elderly.getAge().value + " years old");
+            gender.setText(elderly.getGender().value);
+            nokName.setText(elderly.getNok().getName().fullName);
+            relationship.setText(elderly.getNok().getRelationship().value);
+            phone.setText(elderly.getNok().getPhone().value);
+            email.setText(elderly.getNok().getEmail().value);
+            address.setText(elderly.getNok().getAddress().value);
+            remark.setText(elderly.getRemark().value);
+            remark.setMaxWidth(Double.MAX_VALUE);
+        }
     }
 }
