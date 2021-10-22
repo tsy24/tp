@@ -4,17 +4,15 @@ skinparam arrowThickness 1.1
 show members
 hide empty members
 
-abstract class Command LOGIC_COLOR
 class ElderlyHasTagPredicate MODEL_COLOR {
-    test(Elderly)
+    <color:White>test(Elderly)
 }
 class FilterCommand LOGIC_COLOR {
-    execute(Model)
+    <color:White>execute(Model)
 }
 class Tag MODEL_COLOR
 
-Command <|-[#blue] FilterCommand
-ElderlyHasTagPredicate *-> "*" Tag
-FilterCommand *-up[#blue]-> "1" ElderlyHasTagPredicate
+ElderlyHasTagPredicate -> "*" Tag
+FilterCommand -up[#blue]-> "1" ElderlyHasTagPredicate : predicate
 
 @enduml
