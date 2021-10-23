@@ -282,11 +282,9 @@ The following sequence diagram shows how the find task operation works:
 
 ### ViewElderly and ViewTasks feature
 
-#### Implementation
-
 #### How `CommandResult` is changed
 
-As the NurseyBook has to support the display of two different lists (contacts vs task), each `CommandResult` instance has to store the information which list should be displayed to the user.
+As NurseyBook has to support the display of two different lists (contacts vs task), each `CommandResult` object will now store the information which list should be displayed to the user.
 
 The following class diagram shows the changes made to the `CommandResult` class. Each `CommandResult` has an enum that specifies the type of display. 
 
@@ -298,11 +296,11 @@ The following class diagram shows the changes made to the `CommandResult` class.
 
 #### How `MainWindow` processes `CommandResult`
 
-`MainWindow#handleChange()` is a new method that handles the switch the list display. It checks if a `CommandResult` instance specifies the change of display list, and changes the UI accordingly.
+`MainWindow#handleChange()` is a new method that handles the switch the list display. It checks if a `CommandResult` object specifies the change of list display, and changes the UI accordingly.
 
 #### Execution
 
-Given below is an example usage scenario and how the display of contact/task list mechanism behaves at each step. An example command is `viewElderly`, and the mechanism of `viewTasks` is similar.
+Given below is an example usage scenario and how the display of elderly/task list mechanism behaves at each step. An example command is `viewElderly`, and the mechanism of `viewTasks` is similar.
 
 Step 1. The user launches the application for the first time. The default display of NurseyBook shows the list of all elderly contacts that were added in.
 
@@ -312,7 +310,7 @@ Step 3. `MainWindow#executeCommand("viewElderly")` is called. Within the method 
 
 Step 4. `MainWindow#executeCommand()` processes the `CommandResult`. It calls `MainWindow#handleChange()` to change the display of the list, to show all elderly contacts.
 
-The following activity diagram shows the interaction between the `MainWindow` and `CommandResult` class as a result of either `viewElderly` or `viewTasks` being executed.
+The following activity diagram summarizes what happens in the `MainWindow` class when the user enters either the `viewElderly` or `viewTasks` command.
 
 ![ViewElderlyActivityDiagram](./images/ViewElderlyActivityDiagram.png)
 
