@@ -35,7 +35,7 @@ NurseyBook is a **desktop app made for nurses in nursing homes to aid them in ma
    * **`clear`** : Deletes all contacts.
 
    * **`exit`** : Exits the app.
-   
+
 
 1. Refer to the [Features](#features) below for details of each command.
 
@@ -88,7 +88,7 @@ Examples:
 * `addElderly en/John a/77 g/M r/420 t/diabetes`
 * `addElderly en/John a/77 g/M r/420 t/diabetes nn/Timothy rs/Son`
 
-  
+
 ### Edit an elderly's details: `editElderly`
 
 Edit the details of a specific elderly.
@@ -154,6 +154,22 @@ Format: `deleteTag INDEX t/TAG [t/TAG]…​`
 Example:
 * `deleteTag 1 t/covid`
 
+### Find elderly: `findElderly`
+
+Finds elderlies whose names contain any of the given keywords.
+
+Format: `findElderly KEYWORD [MORE_KEYWORDS]`
+
+* The search is case-insensitive. e.g `elena` will match `Elena`
+* The order of the keywords does not matter. e.g. `Elena Kro` will match `Kro Elena`
+* Only the name is searched.
+* Only full words will be matched. e.g. `Ele` will not match `Elena`
+* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Elena Kro` will return `Elena Grob`, `Kro Stanly`
+
+Examples:
+* `findElderly Elena` returns `elena` and `Elena Kro`
+* `findElderly Elena Jav` returns `Elena Kro`, `Jav Marsh`
+
 ### Filter elderly: `filter`
 
 Filter elderly based on one or more tags.
@@ -175,10 +191,14 @@ Format: `viewTasks`
 
 Adds a task to the task list.
 
-Format: `addTask [en/ELDERLY_NAME]... desc/DESCRIPTION date/DATE time/TIME`  
+:bulb: **Tip:**
+You can add a recurring task to the list! <br>
+There are a few recurring options available namely: `DAY`, `WEEK` and `MONTH` (4 weeks later from the previous date). Tasks that have passed their original date will have their date automatically changed to the new date based on the recurrence type of the task.
+
+Format: `addTask [en/ELDERLY_NAME]... desc/DESCRIPTION date/DATE time/TIME [recur/RECURRENCE_TYPE]`  
 
 Example:
-`addTask en/John desc/check insulin level date/2021-09-25 time/19:22`
+`addTask en/John desc/check insulin level date/2021-09-25 time/19:22 recur/week`
 
 ### Delete task: `deleteTask`
 
@@ -209,7 +229,7 @@ Examples:
 
 ### View reminders: `remind`
 
-Shows the list of upcoming tasks (that are coming up in the next three days), such as the required 
+Shows the list of upcoming tasks (that are coming up in the next three days), such as the required
 medical needs for those under the user's care.
 
 Format: `remind`
@@ -262,6 +282,7 @@ Action | Format, Examples
 **Delete NoK of Elderly** | `deleteNok INDEX`<br> e.g., `deleteNok 3`
 **Add Tag** | `addTag INDEX t/TAG [t/TAG]…​` e.g., `addTag 1 t/diabetes`
 **Delete Tag** | `deleteTag INDEX t/TAG [t/TAG]…​`
+**Find Elderly** | `findElderly KEYWORD [MORE_KEYWORDS]`
 **Filter** | `filter t/TAG [t/TAG]…​`
 **Edit Elderly** | `editElderly INDEX [en/ELDERLY_NAME] [a/AGE] [g/GENDER] [r/ROOMNO] [t/TAG]…​ [nn/NOK_NAME] [rs/NOK_RELATIONSHIP] [p/NOK_PHONE_NUMBER] [e/NOK_EMAIL] [addr/NOK_ADDRESS]`
 **View Elderly Details** | `viewDetails en/ELDERLY_NAME`<br> e.g., `viewDetails en/James`
