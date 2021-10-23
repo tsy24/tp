@@ -24,6 +24,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Elderly> filteredElderlies;
     private final FilteredList<Task> filteredTasks;
+    private Elderly elderlyOfInterest;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -38,6 +39,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredElderlies = new FilteredList<>(this.addressBook.getElderlyList());
         filteredTasks = new FilteredList<>(this.addressBook.getTaskList());
+        this.elderlyOfInterest = null;
     }
 
     public ModelManager() {
@@ -136,8 +138,15 @@ public class ModelManager implements Model {
 
         addressBook.setElderly(target, editedElderly);
     }
+    //=========== Elderly of interest Accessors =============================================================
+    public void setElderlyOfInterest(Elderly e) {
+        requireNonNull(e);
+        this.elderlyOfInterest = e;
+    }
 
-
+    public Elderly getElderlyOfInterest() {
+        return elderlyOfInterest;
+    }
     //=========== Filtered Lists Accessors =============================================================
 
     /**
@@ -180,9 +189,17 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return addressBook.equals(other.addressBook)
+        if (elderlyOfInterest == null) {
+            return other.elderlyOfInterest == null
+                    && addressBook.equals(other.addressBook)
+                    && userPrefs.equals(other.userPrefs)
+                    && filteredElderlies.equals(other.filteredElderlies);
+        }
+        return other.elderlyOfInterest != null
+                && addressBook.equals(other.addressBook)
                 && userPrefs.equals(other.userPrefs)
-                && filteredElderlies.equals(other.filteredElderlies);
+                && filteredElderlies.equals(other.filteredElderlies)
+                && elderlyOfInterest.equals(other.elderlyOfInterest);
     }
 
 }

@@ -50,4 +50,9 @@ public interface Logic {
     void setGuiSettings(GuiSettings guiSettings);
 
     ObservableList<Task> getFilteredTaskList();
+
+    /**
+     * Gets elderly whose details are of interest
+     */
+    Elderly getElderlyOfInterest();
 }

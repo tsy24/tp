@@ -30,7 +30,7 @@ public class ResultDisplay extends UiPart<Region> {
         requireNonNull(feedbackToUser);
         requireNonNull(isSuccess);
 
-        Image img =  isSuccess
+        Image img = isSuccess
                 ? new Image(this.getClass().getResourceAsStream(SUCCESS_IMG))
                 : new Image(this.getClass().getResourceAsStream(FAILURE_IMG));
         resultStatus.setImage(img);

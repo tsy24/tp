@@ -29,8 +29,9 @@ public class ElderlyCard extends UiPart<Region> {
 
     @FXML
     private TitledPane titledPane;
+
     /**
-     * Creates a {@code ElderlyCode} with the given {@code Elderly} and index to display.
+     * Creates a {@code ElderlyCard} with the given {@code Elderly} and index to display.
      */
     public ElderlyCard(Elderly elderly, int displayedIndex) {
         super(FXML);
@@ -79,7 +80,7 @@ public class ElderlyCard extends UiPart<Region> {
             super(FXML);
             id.setText(displayedIndex + ". ");
             name.setText(elderly.getName().fullName);
-            roomNumber.setText("Room No.: " + elderly.getRoomNumber().value);
+            roomNumber.setText("Room " + elderly.getRoomNumber().value);
             elderly.getTags().stream()
                     .sorted(Comparator.comparing(tag -> tag.tagName))
                     .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

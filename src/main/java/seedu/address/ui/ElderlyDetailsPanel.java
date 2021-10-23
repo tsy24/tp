@@ -1,16 +1,19 @@
 package seedu.address.ui;
 
+import java.util.Comparator;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
 import seedu.address.model.person.Elderly;
 
-import java.util.Comparator;
-
+/**
+ * Panel containing the full details of the specified elderly.
+ */
 public class ElderlyDetailsPanel extends UiPart<Region> {
 
-    private static final String FXML = "ElderlyListCard.fxml";
+    private static final String FXML = "ElderlyDetailsPanel.fxml";
     public final Elderly elderly;
 
     @FXML
@@ -36,6 +39,9 @@ public class ElderlyDetailsPanel extends UiPart<Region> {
     @FXML
     private Label remark;
 
+    /**
+     * Creates a {@code ElderlyDetailsPanel} with the given {@code Elderly} to display.
+     */
     public ElderlyDetailsPanel(Elderly elderly) {
         super(FXML);
 
@@ -53,7 +59,5 @@ public class ElderlyDetailsPanel extends UiPart<Region> {
         email.setText(elderly.getNok().getEmail().value);
         address.setText(elderly.getNok().getAddress().value);
         remark.setText(elderly.getRemark().value);
-        remark.setMaxWidth(Double.MAX_VALUE);
     }
-
 }

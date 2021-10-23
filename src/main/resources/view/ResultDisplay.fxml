@@ -7,8 +7,8 @@
 <?import javafx.scene.image.ImageView?>
 <StackPane fx:id="placeHolder" xmlns="http://javafx.com/javafx/8"
            xmlns:fx="http://javafx.com/fxml/1">
-  <HBox style="-fx-border-width: 0; -fx-padding: 10">
+  <HBox style="-fx-border-width: 0; -fx-padding: 10;" alignment="CENTER_LEFT">
     <ImageView fx:id="resultStatus" fitWidth="40" preserveRatio="true"/>
-    <TextArea fx:id="resultDisplay" editable="false" styleClass="result-display" HBox.hgrow="ALWAYS"/>
+    <TextArea fx:id="resultDisplay" editable="false" HBox.hgrow="ALWAYS"/>
   </HBox>
 </StackPane>

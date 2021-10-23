@@ -22,6 +22,9 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
+    /** UI should show an elderly's full details. */
+    private final boolean isViewFull;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
@@ -30,6 +33,7 @@ public class CommandResult {
         this.showHelp = showHelp;
         this.exit = exit;
         this.displayChange = ListDisplayChange.NONE;
+        this.isViewFull = false;
     }
 
     /**
@@ -40,6 +44,18 @@ public class CommandResult {
         this.showHelp = false;
         this.exit = false;
         this.displayChange = change;
+        this.isViewFull = false;
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with the specified fields.
+     */
+    public CommandResult(String feedbackToUser, Boolean isViewFull) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showHelp = false;
+        this.exit = false;
+        this.displayChange = ListDisplayChange.NONE;
+        this.isViewFull = isViewFull;
     }
 
     /**
@@ -70,6 +86,13 @@ public class CommandResult {
         return displayChange == ListDisplayChange.TASK;
     }
 
+    /**
+     * Returns true if command result indicates UI should show full details of an elderly
+     */
+    public boolean isViewFull() {
+        return isViewFull;
+    }
+
     public boolean isShowHelp() {
         return showHelp;
     }
@@ -93,12 +116,13 @@ public class CommandResult {
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
                 && showHelp == otherCommandResult.showHelp
                 && exit == otherCommandResult.exit
-                && displayChange.equals(otherCommandResult.displayChange);
+                && displayChange.equals(otherCommandResult.displayChange)
+                && isViewFull == otherCommandResult.isViewFull;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit, displayChange);
+        return Objects.hash(feedbackToUser, showHelp, exit, displayChange, isViewFull);
     }
 
 }

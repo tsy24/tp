@@ -4,7 +4,6 @@ import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
@@ -13,8 +12,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.ImagePattern;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -22,6 +19,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.person.Elderly;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -61,7 +59,13 @@ public class MainWindow extends UiPart<Stage> {
     private ImageView displayLogo;
 
     @FXML
+    private Label headerText;
+
+    @FXML
     private StackPane listPanelPlaceholder;
+
+    @FXML
+    private StackPane detailsPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -85,9 +89,6 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
-
-        Image logo = new Image(this.getClass().getResourceAsStream("/images/nurseybook.png"));
-        displayLogo.setImage(logo);
 
     }
 
@@ -133,6 +134,9 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
+        Image logo = new Image(this.getClass().getResourceAsStream("/images/nurseybook.png"));
+        displayLogo.setImage(logo);
+
         elderlyListPanel = new ElderlyListPanel(logic.getFilteredElderlyList());
         taskListPanel = new TaskListPanel(logic.getFilteredTaskList());
 
@@ -147,7 +151,11 @@ public class MainWindow extends UiPart<Stage> {
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
+        detailsPanelPlaceholder.setVisible(false);
+
         elderlyDisplayLabel.getStyleClass().add("selected");
+
+        headerText.setText("Manage your tasks\nand contacts today");
     }
 
     /**
@@ -215,6 +223,15 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Displays a dialog containing the elderly of interest's details
+     */
+    private void handleViewFull(Elderly e) {
+        detailsPanelPlaceholder.getChildren().clear();
+        detailsPanelPlaceholder.getChildren().add(new ElderlyDetailsPanel(e).getRoot());
+        detailsPanelPlaceholder.setVisible(true);
+    }
+
+    /**
      * Executes the command and returns the result.
      *
      * @see seedu.address.logic.Logic#execute(String)
@@ -237,6 +254,14 @@ public class MainWindow extends UiPart<Stage> {
                 handleChange(commandResult.shouldChangeToTask());
             }
 
+            if (commandResult.isViewFull()) {
+                Elderly e = logic.getElderlyOfInterest();
+                assert(e != null);
+                handleViewFull(e);
+            } else {
+                handleNonViewFull();
+            }
+
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
@@ -244,4 +269,10 @@ public class MainWindow extends UiPart<Stage> {
             throw e;
         }
     }
+
+    private void handleNonViewFull() {
+        detailsPanelPlaceholder.getChildren().clear();
+        detailsPanelPlaceholder.setVisible(false);
+    }
+
 }
