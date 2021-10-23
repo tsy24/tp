@@ -1,0 +1,23 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor LOGIC_COLOR_T4
+skinparam classBackgroundColor LOGIC_COLOR
+show members
+hide empty members
+
+Class CommandResult {
+    <color:White>isChangeList()
+    <color:White>shouldChangeToTask()
+
+}
+Enum ListDisplayChange <<Enumeration>> {
+    <color:White>PERSON;
+    <color:White>TASK
+    <color:White>NONE;
+}
+
+CommandResult ..|> ListDisplayChange
+
+
+@enduml

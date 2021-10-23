@@ -294,6 +294,8 @@ The following class diagram shows the changes made to the `CommandResult` class.
 * `CommandResult#ListDisplayChange.TASK` — Specifies the task list to be displayed after the current command execution
 * `CommandResult#ListDisplayChange.NONE` — Specifies the type of displayed list should not change after the current command execution
 
+![](./images/ViewElderlyClassDiagram.png)
+
 #### How `MainWindow` processes `CommandResult`
 
 `MainWindow#handleChange()` is a new method that handles the switch the list display. It checks if a `CommandResult` instance specifies the change of display list, and changes the UI accordingly.
@@ -312,7 +314,7 @@ Step 4. `MainWindow#executeCommand()` processes the `CommandResult`. It calls `M
 
 The following activity diagram shows the interaction between the `MainWindow` and `CommandResult` class as a result of either `viewElderly` or `viewTasks` being executed.
 
-
+![ViewElderlyActivityDiagram](./images/ViewElderlyActivityDiagram.png)
 
 #### Design considerations:
 
