@@ -4,10 +4,10 @@
 <?import javafx.scene.layout.*?>
 
 <?import javafx.geometry.Insets?>
-<ScrollPane xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" styleClass="pane-with-no-border">
-    <VBox id="elderlyDetails" alignment="CENTER_LEFT" maxWidth="500" prefWidth="500" minHeight="105">
+<ScrollPane xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" styleClass="pane-with-no-border" >
+    <VBox id="elderlyDetails" alignment="CENTER_LEFT" maxWidth="490" prefWidth="490" minHeight="105" styleClass="details-panel">
         <padding>
-            <Insets bottom="20" left="20" right="20" top="5" />
+            <Insets bottom="40" left="20" right="20" top="5" />
         </padding>
         <Label fx:id="id" styleClass="cell_big_label" HBox.hgrow="NEVER">
             <minWidth>
@@ -27,7 +27,7 @@
         <Label styleClass="cell_big_label" text="GENDER"/>
         <Label fx:id="gender" styleClass="cell_small_label" text="\$gender" />
         <Label styleClass="cell_big_label" text="REMARK" wrapText="true"/>
-        <Label fx:id="remark" minHeight="-Infinity" styleClass="cell_small_label" maxWidth="480" wrapText="true" text="\$remark"/>
+        <Label fx:id="remark" minHeight="-Infinity" styleClass="cell_small_label" maxWidth="470" wrapText="true" text="\$remark"/>
         <Separator orientation="HORIZONTAL" GridPane.columnIndex="1">
             <padding>
                 <Insets bottom="5" left="15" right="15" top="5" />

@@ -98,7 +98,7 @@
 .list-cell {
     -fx-label-padding: 0 0 0 0;
     -fx-graphic-text-gap : 0;
-    -fx-padding: 0 0 0 0;
+    -fx-padding: 10;
     -fx-background-color: transparent;
 }
 
@@ -312,8 +312,14 @@
 .pane-with-no-border {
     -fx-background-color: transparent;
     -fx-border-width: 0;
+    -fx-padding: 40 10 10 10;
 }
+
 /* command panel*/
+.header-panel {
+    -fx-background-color: derive(#cdc4bd, 10%);
+    -fx-background-radius: 0 0 0 80;
+}
 .pane-with-border {
     -fx-background-color: white;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.8), 10, 0, 0, 0);
@@ -345,9 +351,18 @@
     -fx-background-color: transparent;
 }
 
-
+/*Details panel*/
+.details-panel {
+    -fx-background-color: derive(#cdc4bd, 20%);
+    -fx-background-radius: 30;
+}
 
 /* Elderly list */
+.titled-pane {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 10, 0, 0, 0);
+    -fx-background-radius: 20;
+    -fx-background-color: white;
+}
 .titled-pane > .title > .arrow-button > .arrow
 {
     -fx-background-color: transparent;
@@ -367,11 +382,11 @@
 }
 
 .titled-pane:expanded > .title {
-    -fx-background-color: derive(#9A887B, 20%);
+    -fx-background-color: derive(#cdc4bd, 10%);
 }
 
 .titled-pane:expanded > .content {
-    -fx-background-color: derive(#9A887B, 20%);
+    -fx-background-color: derive(#cdc4bd, 10%);
 }
 
 

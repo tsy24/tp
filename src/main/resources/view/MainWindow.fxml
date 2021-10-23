@@ -55,9 +55,9 @@
             <Label fx:id="taskDisplayLabel" styleClass="sideBarListIndicator" text="Task" />
           </VBox>
           <VBox fx:id="dashboard" HBox.hgrow="ALWAYS">
-            <StackPane>
+            <StackPane styleClass="header-panel">
               <padding>
-                <Insets bottom="5" left="10" right="30" top="5" />
+                <Insets bottom="15" left="10" right="30" top="10" />
               </padding>
               <HBox>
                 <Label fx:id="headerText" prefHeight="120.0" styleClass="header-text" wrapText="true" HBox.hgrow="NEVER">
