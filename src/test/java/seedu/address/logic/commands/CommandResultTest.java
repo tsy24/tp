@@ -20,7 +20,7 @@ public class CommandResultTest {
         assertTrue(new CommandResult("feedback", CommandResult.ListDisplayChange.TASK).isChangeList());
 
         //displayChange value of TASK -> returns true
-        assertTrue(new CommandResult("feedback", CommandResult.ListDisplayChange.PERSON).isChangeList());
+        assertTrue(new CommandResult("feedback", CommandResult.ListDisplayChange.ELDERLY).isChangeList());
     }
 
     @Test
@@ -30,7 +30,7 @@ public class CommandResultTest {
         assertThrows(AssertionError.class, () -> commandResult.shouldChangeToTask());
 
         // displayChange value of PERSON -> returns false
-        assertFalse(new CommandResult("feedback", CommandResult.ListDisplayChange.PERSON).shouldChangeToTask());
+        assertFalse(new CommandResult("feedback", CommandResult.ListDisplayChange.ELDERLY).shouldChangeToTask());
 
         // displayChange value of TASK -> returns true
         assertTrue(new CommandResult("feedback", CommandResult.ListDisplayChange.TASK).shouldChangeToTask());
