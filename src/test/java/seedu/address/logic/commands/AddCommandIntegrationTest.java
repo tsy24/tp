@@ -34,7 +34,7 @@ public class AddCommandIntegrationTest {
 
         assertCommandSuccess(new AddCommand(validElderly), model,
                 new CommandResult(String.format(AddCommand.MESSAGE_SUCCESS, validElderly),
-                        CommandResult.ListDisplayChange.PERSON), expectedModel);
+                        CommandResult.ListDisplayChange.ELDERLY), expectedModel);
     }
 
     @Test

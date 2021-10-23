@@ -10,7 +10,7 @@ import java.util.Objects;
 public class CommandResult {
 
     /** State list display changes to */
-    public enum ListDisplayChange { PERSON, TASK, NONE };
+    public enum ListDisplayChange { ELDERLY, TASK, NONE };
 
     private final String feedbackToUser;
 
