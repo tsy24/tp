@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -80,6 +81,24 @@ public class DateTime implements Comparable<DateTime> {
      */
     public boolean isAfter(DateTime dt) {
         return this.compareTo(dt) > 0;
+    }
+
+    /**
+     * Returns true if the argument is overdue (i.e later than the current date and time).
+     *
+     * @param dt The DateTime to check its overdue status.
+     * @return True if it is overdue, false otherwise
+     */
+    public static boolean isOverdue(DateTime dt) {
+        LocalDateTime currentDateTime = LocalDateTime.now().withMinute(0).withSecond(0).withNano(0);
+
+        String[] dateTime = currentDateTime.toString().split("T");
+        String date = dateTime[0];
+        String time = dateTime[1].substring(0, 5);
+
+        DateTime now = new DateTime(date, time);
+
+        return dt.isBefore(now);
     }
 
     @Override

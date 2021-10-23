@@ -22,10 +22,12 @@ public class Task implements Comparable<Task> {
      * @param names                     the names of people associated with the task
      */
     public Task(Description desc, DateTime dt, Set<Name> names) {
+        boolean isOverdue = DateTime.isOverdue(dt);
+
         this.desc = desc;
         this.dateTime = dt;
         this.relatedNames.addAll(names);
-        this.status = new Status("false");
+        this.status = new Status("false", Boolean.toString(isOverdue));
     }
 
     /**
@@ -52,7 +54,25 @@ public class Task implements Comparable<Task> {
         if (isTaskDone()) {
 
         }
-        return new Task(desc, dateTime, relatedNames, new Status("true"));
+
+        String overdueStatus = isTaskOverdue() ? "true" : "false";
+
+        return new Task(desc, dateTime, relatedNames, new Status("true", overdueStatus));
+    }
+
+    /**
+     * Marks task as overdue.
+     *
+     * @return same task object that has been marked as overdue
+     */
+    public Task markAsOverdue() {
+        if (isTaskOverdue()) {
+
+        }
+
+        String completedStatus = isTaskDone() ? "true" : "false";
+
+        return new Task(desc, dateTime, relatedNames, new Status(completedStatus, "true"));
     }
 
     /**
@@ -116,6 +136,13 @@ public class Task implements Comparable<Task> {
      */
     public boolean isTaskDone() {
         return status.isDone;
+    }
+
+    /**
+     * Returns true if task is overdue
+     */
+    public boolean isTaskOverdue() {
+        return status.isOverdue;
     }
 
     /**
