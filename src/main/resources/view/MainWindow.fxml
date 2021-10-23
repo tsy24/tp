@@ -74,7 +74,7 @@
             </StackPane>
             <HBox fx:id="list" VBox.vgrow="ALWAYS">
               <StackPane fx:id="listPanelPlaceholder" styleClass="pane-with-no-border" HBox.hgrow="ALWAYS" />
-              <StackPane fx:id="detailsPanelPlaceholder" HBox.hgrow="NEVER" maxWidth="520" />
+              <StackPane fx:id="detailsPanelPlaceholder" HBox.hgrow="NEVER" maxWidth="510" />
             </HBox>
           </VBox>
         </HBox>

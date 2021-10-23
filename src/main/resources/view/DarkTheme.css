@@ -312,7 +312,7 @@
 .pane-with-no-border {
     -fx-background-color: transparent;
     -fx-border-width: 0;
-    -fx-padding: 40 10 10 10;
+    -fx-padding: 40 7 10 7;
 }
 
 /* command panel*/
