@@ -116,19 +116,29 @@ How the parsing works:
 ### Model component
 **API** : [`Model.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/model/Model.java)
 
-<img src="images/ModelClassDiagram.png" width="450" />
+<img src="images/ModelClassDiagram.png" width="400" />
 
 
 The `Model` component,
 
 * stores the address book data i.e., all `Elderly` objects (which are contained in a `UniqueElderlyList` object).
+* implicitly also stores `Nok` objects which is contained in `Elderly` objects
 * stores the currently 'selected' `Elderly` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Elderly>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the currently 'selected' `Task` objects in a similar way to `Elderly` objects
+which is also exposed to outsiders as an unmodifiable `ObservableList<Task>`.
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
+
+<img src="images/DetailedModelClassDiagram.png" width="800" />
+
+
+More details regarding `Person`, `Elderly`, `Nok` and `Task` objects.
+
+
 <div markdown="span" class="alert alert-info">:information_source: **Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Elderly` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Elderly` needing their own `Tag` objects.<br>
 
-<img src="images/BetterModelClassDiagram.png" width="450" />
+<img src="images/BetterModelClassDiagram.png" width="250" />
 
 </div>
 
@@ -153,6 +163,44 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 ## **Implementation**
 
 This section describes some noteworthy details on how certain features are implemented.
+
+### Filter command
+
+#### Implementation
+The implementation of the filter command is facilitated by the FilterCommand class and ElderlyHasTagPredicate class.
+ElderlyHasTagPredicate contains a set of tags that was queried in the filter command and has a method `test`
+to test whether an Elderly has all the tags in the set.
+
+Given below is the class diagram of the FilterCommand and the ElderlyHasTagPredicate.
+
+![](images/FilterClassDiagram.png)
+
+The following sequence diagram shows how the filter command works:
+
+![FilterSequenceDiagram](images/FilterSequenceDiagram.png)
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `FilterCommand` and `ElderlyHasTagPredicate` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
+
+As tags can only be alphanumeric, the `parse` method in FilterCommandParser checks that the all the tags queried are valid first before creating the FilterCommand and ElderlyHasTagPredicate objects. 
+If there is a tag that is invalid, an exception will be thrown. 
+
+When executing the filter command, the `updateFilteredElderlyList` method of Model calls other methods that are omitted from the diagram.
+One of the methods then calls the `test` method of the ElderlyHasTagPredicate object with every Elderly saved in NurseyBook.
+The list of Elderly that return true for `test` is then assigned to `filteredElderlies` in ModelManager and displayed in the GUI.
+
+#### Design Considerations
+##### Aspect: How to store tags
+* Alternative 1: Create a new class TagSet to store tags
+    * Pros: Can add custom methods
+    * Cons: More code needs to be written and more room for bugs
+* Alternative 2: Use Java Util Set to store tags
+    * Pros: Easy to import and use
+    * Cons: Methods that can be used are limited to the methods in Set
+
+Decision: Alternative 2 was chosen as the tags are simply kept as a collection.
+Only the simple operations such as checking whether a Tag is in the Set and changing the Tags in the set are needed.
+Thus, the methods provided in Java Util Set are sufficient and there is no need to implement custom methods.
 
 ### Mark task as done feature
 
@@ -253,6 +301,38 @@ The following activity diagram summarizes what happens when a user executes a ne
   * Cons: We must ensure that the implementation of each individual command are correct.
 
 _{more aspects and alternatives to be added}_
+
+### Delete Nok feature
+
+#### Implementation
+
+The implementation of `DeleteNokCommand` is highly similar to that of `DeleteCommand`. Major differences are in how the steps 5 and 6 below are handled.
+
+Given below is an example usage scenario and how the delete Nok mechanism behaves at each step. The example command is `deleteNok 1`.
+
+Step 1. The user and executes `deleteNok 1` command to delete the NoK details of the first elderly in the elderly list. This prompts the `LogicManager` to start its execution by calling its `execute()` command.
+
+Step 2. `LogicManager` calls the `AddressBookParser` to parse the command.
+
+Step 3. The `AddressBookParser` creates a new `DeleteNokCommandParser` which will `parse()` the arguments. This creates and returns a new `DeleteNokCommand` which is ready to be executed, containing the index of the targetted elderly as one of its fields.
+
+Step 4. The `DeleteNokCommand` is executed by calling its `execute()` method. This calls the `Model#getFilteredElderlyList()` and retrieves the filtered elderly list, which should contain all elderlies.
+
+Step 5. A new updated Elderly object is created with all fields equivalent to the targeted Elderly object, apart from the Nok fields which are wiped. This process has been omitted from the sequence diagram below. 
+
+Step 6. The `Model#setElderly()` method is then called to replace the targeted Elderly with the updated Elderly object.
+
+Step 7. A new `CommandResult` is returned which contains the details of the new Elderly object. The result is returned to `LogicManager`.
+
+The following sequence diagram shows how the find task operation works:
+
+![DeleteNokSequenceDiagram](images/DeleteNokSequenceDiagram.png)
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `DeleteNokCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
+
+
 
 ### Find task feature
 
@@ -396,7 +476,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Use cases
 
-(For all use cases below, the **System** is the `NurseyBook` the **Actor** is the `User`, and the **Person** is the 
+(For all use cases below, the **System** is the `NurseyBook` the **Actor** is the `User`, and the **Person** is the
 `Nurse` unless specified otherwise)
 
 **Use cases of elderly commands**
@@ -483,7 +563,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 4.  NurseyBook deletes the tag from the elderly
 
     Use case ends.
-    
+
 **Extensions**
 
 * 2a. The list of elderly is empty.
@@ -539,7 +619,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 3a1. NurseyBook shows an error message.
 
       Use case resumes at step 2.
-      
+
 
 **UC7: Mark a task as complete**
 
@@ -576,7 +656,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions**
 
-* 2a. The list of tasks is empty. 
+* 2a. The list of tasks is empty.
 
   Use case ends.
 
