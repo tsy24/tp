@@ -305,7 +305,7 @@
 .header-text {
     -fx-font-family: "Open Sans SemiBold";
     -fx-padding: 20;
-    -fx-font-size: 20pt;
+    -fx-font-size: 20px;
     -fx-text-fill: #362F29;
 }
 

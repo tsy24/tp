@@ -21,11 +21,11 @@
             <padding>
                 <Insets bottom="5" left="15" right="5" top="5" />
             </padding>
-            <Label styleClass="cell_big_label_padded" text="AGE"/>
+            <Label styleClass="cell_big_label_padded" text="Age"/>
             <Label fx:id="age" styleClass="cell_small_label" text="\$age" />
-            <Label styleClass="cell_big_label_padded" text="GENDER"/>
+            <Label styleClass="cell_big_label_padded" text="Gender"/>
             <Label fx:id="gender" styleClass="cell_small_label" text="\$gender" />
-            <Label styleClass="cell_big_label_padded" text="REMARK"/>
+            <Label styleClass="cell_big_label_padded" text="Remark"/>
             <Label fx:id="remark" minHeight="-Infinity" styleClass="cell_small_label" wrapText="true" text="\$remark"/>
         </VBox>
         <Separator orientation="VERTICAL" prefHeight="180.0" GridPane.columnIndex="1">
@@ -34,7 +34,7 @@
             </padding>
         </Separator>
         <VBox id="nextOfKinDetails" alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="2">
-        <Label styleClass="cell_big_label_padded" text="NEXT OF KIN"/>
+        <Label styleClass="cell_big_label_padded" text="Next of Kin"/>
             <padding>
                 <Insets bottom="5" left="5" right="15" top="5" />
             </padding>

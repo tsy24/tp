@@ -60,12 +60,7 @@
                 <Insets bottom="15" left="10" right="30" top="10" />
               </padding>
               <HBox>
-                <Label fx:id="headerText" prefHeight="120.0" styleClass="header-text" wrapText="true" HBox.hgrow="NEVER">
-                  <minWidth>
-                    <!-- Ensures that the label text is never truncated -->
-                    <Region fx:constant="USE_PREF_SIZE" />
-                  </minWidth>
-                </Label>
+                <Label text="Manage your tasks and contacts" minHeight="-Infinity" prefWidth="180" styleClass="header-text" wrapText="true" HBox.hgrow="NEVER"/>
                 <VBox id="commandPanel" prefHeight="120.0" prefWidth="131.0" styleClass="pane-with-border" HBox.hgrow="ALWAYS">
                   <StackPane fx:id="commandBoxPlaceholder" styleClass="pane" />
                   <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100" styleClass="pane" />

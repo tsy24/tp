@@ -59,9 +59,6 @@ public class MainWindow extends UiPart<Stage> {
     private ImageView displayLogo;
 
     @FXML
-    private Label headerText;
-
-    @FXML
     private StackPane listPanelPlaceholder;
 
     @FXML
@@ -155,7 +152,6 @@ public class MainWindow extends UiPart<Stage> {
 
         elderlyDisplayLabel.getStyleClass().add("selected");
 
-        headerText.setText("Manage your tasks\nand contacts today");
     }
 
     /**

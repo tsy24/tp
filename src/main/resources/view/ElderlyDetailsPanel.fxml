@@ -22,18 +22,18 @@
         </Label>
         <Label fx:id="roomNumber" styleClass="cell_small_label" text="\$roomNumber"/>
         <FlowPane fx:id="tags"/>
-        <Label styleClass="cell_big_label" prefHeight="30" text="AGE"/>
+        <Label styleClass="cell_big_label" prefHeight="30" text="Age"/>
         <Label fx:id="age" styleClass="cell_small_label" text="\$age" />
-        <Label styleClass="cell_big_label" text="GENDER"/>
+        <Label styleClass="cell_big_label" text="Gender"/>
         <Label fx:id="gender" styleClass="cell_small_label" text="\$gender" />
-        <Label styleClass="cell_big_label" text="REMARK" wrapText="true"/>
+        <Label styleClass="cell_big_label" text="Remark" wrapText="true"/>
         <Label fx:id="remark" minHeight="-Infinity" styleClass="cell_small_label" maxWidth="420" wrapText="true" text="\$remark"/>
         <Separator orientation="HORIZONTAL" GridPane.columnIndex="1">
             <padding>
                 <Insets bottom="5" left="15" right="15" top="5" />
             </padding>
         </Separator>
-        <Label styleClass="cell_big_label" text="NEXT OF KIN"/>
+        <Label styleClass="cell_big_label" text="Next of Kin"/>
         <HBox alignment="CENTER_LEFT" spacing="5">
             <Label styleClass="cell_small_italics_label" text="Name"/>
             <Label fx:id="nokName" styleClass="cell_small_label" text="\$nokName" />
