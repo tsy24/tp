@@ -74,7 +74,6 @@ public class CommandResultTest {
         // different isViewFull value -> returns false
         assertTrue(commandResult.equals(new CommandResult("feedback",
                false)));
-
     }
 
     @Test

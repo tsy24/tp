@@ -1,0 +1,55 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Package Model <<Rectangle>>{
+Class Person
+Class Elderly
+Class Nok
+
+Class Phone
+Class Age
+Class Gender
+Class Remark
+Class RoomNumber
+Class Email
+Class Address
+Class Name
+Class Tag
+
+Class Task
+Class Description
+Class DateTime
+Class Status
+Class Relationship
+Class Recurrence
+}
+
+Class HiddenOutside #FFFFFF
+
+Person *--> Name
+Elderly -up--|> Person
+Nok -up-|> Person
+Elderly *---> "*" Tag
+Elderly *---> Age
+Elderly *---> Gender
+Elderly *---> RoomNumber
+Elderly *---> Remark
+Elderly --> Nok
+Nok *--> Phone
+Nok *--> Email
+Nok *--> Address
+Nok *--> Relationship
+
+Task *--> Description
+Task *--> DateTime
+Task *--> Status
+Task *--> Recurrence
+Task *--> "*" Name
+
+'Phone -[hidden]right-> Address
+'Address -[hidden]left-> Email
+'Relationship -[hidden]right-> Phone
+@enduml
