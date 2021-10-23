@@ -4,6 +4,6 @@
     "description": "Bring insulin shots",
     "date": "30 July 201",
     "time": "9382",
-    "status": "true"
+    "status": ["true", "true"]
   } ]
 }

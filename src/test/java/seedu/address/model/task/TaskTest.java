@@ -22,14 +22,14 @@ import seedu.address.testutil.TaskBuilder;
 public class TaskTest {
 
     private Task keithInsulin = new TaskBuilder(KEITH_INSULIN).build();
-    private Task alexInsulin = new TaskBuilder(ALEX_INSULIN).build();
+    private Task applyLeave = new TaskBuilder(APPLY_LEAVE).build();
 
     @Test
     public void equals() {
         // same values -> returns true
         assertTrue(keithInsulin.equals(KEITH_INSULIN));
         Task alexToKeith = new TaskBuilder(ALEX_INSULIN).withNames(VALID_NAME_KEITH)
-                .withDateTime(VALID_DATE_NOV, VALID_TIME_SEVENPM).withStatus("false").build();
+                .withDateTime(VALID_DATE_NOV, VALID_TIME_SEVENPM).withStatus("false", "false").build();
         assertTrue(keithInsulin.equals(alexToKeith));
 
         // same object -> returns true
@@ -63,7 +63,7 @@ public class TaskTest {
         assertFalse(keithInsulin.equals(editedTask));
 
         // different status -> returns false
-        editedTask = new TaskBuilder(keithInsulin).withStatus("true").build();
+        editedTask = new TaskBuilder(keithInsulin).withStatus("true", "false").build();
         assertFalse(keithInsulin.equals(editedTask));
     }
 
@@ -101,16 +101,28 @@ public class TaskTest {
 
     @Test
     void isTaskDone() {
-        assertFalse(keithInsulin.isTaskDone()); //status: isDone = "false"
+        assertFalse(keithInsulin.isTaskDone()); // status: isDone = "false"
 
-        Task applyLeave = new TaskBuilder(APPLY_LEAVE).build(); //status: isDone = "true"
         assertTrue(applyLeave.isTaskDone());
     }
 
     @Test
+    void isTaskOverdue() {
+        assertTrue(applyLeave.isTaskOverdue()); // status: isOverdue = "true"
+
+        assertFalse(keithInsulin.isTaskOverdue()); // default status: isOverdue = "false"
+    }
+
+    @Test
     void markTaskDone() {
-        Task doneKeith = new TaskBuilder(keithInsulin).withStatus("true").build();
+        Task doneKeith = new TaskBuilder(keithInsulin).withStatus("true", "false").build();
         assertEquals(keithInsulin.markAsDone(), doneKeith);
+    }
+
+    @Test
+    void markTaskOverdue() {
+        Task overdueKeith = new TaskBuilder(keithInsulin).withStatus("false", "true").build();
+        assertEquals(keithInsulin.markAsOverdue(), overdueKeith);
     }
 
     @Test

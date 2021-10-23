@@ -60,11 +60,13 @@ public class TaskListTest {
     @Test
     public void mark_nullTask_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> taskList.markTaskAsDone(null));
+        assertThrows(NullPointerException.class, () -> taskList.markTaskAsOverdue(null));
     }
 
     @Test
     public void mark_taskDoesNotExist_throwsTaskNotFoundException() {
         assertThrows(TaskNotFoundException.class, () -> taskList.markTaskAsDone(DO_PAPERWORK));
+        assertThrows(TaskNotFoundException.class, () -> taskList.markTaskAsOverdue(DO_PAPERWORK));
     }
 
     @Test

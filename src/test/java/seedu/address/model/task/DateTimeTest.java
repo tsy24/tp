@@ -79,6 +79,18 @@ class DateTimeTest {
     }
 
     @Test
+    public void isOverdue() {
+        DateTime before = new DateTime("2021-10-20", "12:30");
+        DateTime after = new DateTime("2025-10-01", "18:45");
+
+        // day over -> returns true
+        assertTrue(DateTime.isOverdue(before));
+
+        // day in the future -> returns false
+        assertFalse(DateTime.isOverdue(after));
+    }
+
+    @Test
     public void compareTo() {
         DateTime dt0 = new DateTime("2021-12-25", "12:30"); // main DateTest item
         DateTime dt1 = new DateTime("2021-12-31", "23:59"); // compare with dt0 by time

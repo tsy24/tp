@@ -39,7 +39,7 @@ public class AddTaskCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Task expectedTask = new TaskBuilder(KEITH_INSULIN).build();
+        Task expectedTask = new TaskBuilder(KEITH_INSULIN).withStatus("false", "true").build();
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_KEITH + DATE_DESC_NOV
@@ -58,7 +58,9 @@ public class AddTaskCommandParserTest {
                 + TIME_DESC_SEVENPM + DESC_MEDICINE, new AddTaskCommand(expectedTask));
 
         // multiple names - all accepted
-        expectedTask = new TaskBuilder(KEITH_INSULIN).withNames(VALID_NAME_KEITH, VALID_NAME_ALEX).build();
+        expectedTask = new TaskBuilder(KEITH_INSULIN)
+                .withNames(VALID_NAME_KEITH, VALID_NAME_ALEX)
+                .withStatus("false", "true").build();
         assertParseSuccess(parser, NAME_DESC_KEITH + NAME_DESC_ALEX + DATE_DESC_NOV
                 + TIME_DESC_SEVENPM + DESC_MEDICINE, new AddTaskCommand(expectedTask));
 
@@ -114,7 +116,7 @@ public class AddTaskCommandParserTest {
         // invalid time
         assertParseFailure(parser, NAME_DESC_ALEX + DESC_MEDICINE + DATE_DESC_NOV
                 + INVALID_TIME, DateTime.MESSAGE_TIME_CONSTRAINTS);
-;
+        ;
 
         // two invalid values, only first invalid value reported
         assertParseFailure(parser, INVALID_NAME_DESC + DESC_MEDICINE + DATE_DESC_NOV
