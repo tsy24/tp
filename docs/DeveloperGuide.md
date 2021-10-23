@@ -368,7 +368,7 @@ As NurseyBook has to support the display of two different lists (contacts vs tas
 
 The following class diagram shows the changes made to the `CommandResult` class. Each `CommandResult` has an enum that specifies the type of display. 
 
-* `CommandResult#ListDisplayChange.PERSON` — Specifies the elderly/contact list to displayed after the current command execution
+* `CommandResult#ListDisplayChange.PERSON` — Specifies the elderly/contact list to be displayed after the current command execution
 * `CommandResult#ListDisplayChange.TASK` — Specifies the task list to be displayed after the current command execution
 * `CommandResult#ListDisplayChange.NONE` — Specifies the type of displayed list should not change after the current command execution
 
@@ -376,7 +376,7 @@ The following class diagram shows the changes made to the `CommandResult` class.
 
 #### How `MainWindow` processes `CommandResult`
 
-`MainWindow#handleChange()` is a new method that handles the switch the list display. It checks if a `CommandResult` object specifies the change of list display, and changes the UI accordingly.
+`MainWindow#handleChange()` is a new method that handles the switching of the list display. It checks if a `CommandResult` object specifies the change of list display, and changes the UI accordingly.
 
 #### Execution
 
