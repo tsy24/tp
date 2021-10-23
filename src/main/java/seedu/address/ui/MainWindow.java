@@ -4,6 +4,8 @@ import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.image.Image;
@@ -45,6 +47,12 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private MenuItem helpMenuItem;
+
+    @FXML
+    private Label elderlyDisplayLabel;
+
+    @FXML
+    private Label taskDisplayLabel;
 
     @FXML
     private StackPane sideBar;
@@ -138,6 +146,8 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        elderlyDisplayLabel.getStyleClass().add("selected");
     }
 
     /**
@@ -147,9 +157,19 @@ public class MainWindow extends UiPart<Stage> {
         if (isShowTasks) {
             listPanelPlaceholder.getChildren().clear();
             listPanelPlaceholder.getChildren().add(taskListPanel.getRoot());
+
+            elderlyDisplayLabel.getStyleClass().clear();
+            elderlyDisplayLabel.getStyleClass().add("sideBarListIndicator");
+
+            taskDisplayLabel.getStyleClass().add("selected");
         } else {
             listPanelPlaceholder.getChildren().clear();
             listPanelPlaceholder.getChildren().add(elderlyListPanel.getRoot());
+
+            taskDisplayLabel.getStyleClass().clear();
+            taskDisplayLabel.getStyleClass().add("sideBarListIndicator");
+
+            elderlyDisplayLabel.getStyleClass().add("selected");
         }
     }
 
@@ -203,7 +223,7 @@ public class MainWindow extends UiPart<Stage> {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
-            resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+            resultDisplay.setFeedbackToUser(true, commandResult.getFeedbackToUser());
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
@@ -220,7 +240,7 @@ public class MainWindow extends UiPart<Stage> {
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
-            resultDisplay.setFeedbackToUser(e.getMessage());
+            resultDisplay.setFeedbackToUser(false, e.getMessage());
             throw e;
         }
     }
