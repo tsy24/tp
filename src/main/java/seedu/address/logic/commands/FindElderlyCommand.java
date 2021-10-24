@@ -7,12 +7,12 @@ import seedu.address.model.Model;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 
 /**
- * Finds and lists all elderlies in address book whose name contains any of the argument keywords.
+ * Finds and lists all elderlies in the address book whose name contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
-public class FindCommand extends Command {
+public class FindElderlyCommand extends Command {
 
-    public static final String COMMAND_WORD = "find";
+    public static final String COMMAND_WORD = "findElderly";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all elderlies whose names contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
@@ -21,7 +21,7 @@ public class FindCommand extends Command {
 
     private final NameContainsKeywordsPredicate predicate;
 
-    public FindCommand(NameContainsKeywordsPredicate predicate) {
+    public FindElderlyCommand(NameContainsKeywordsPredicate predicate) {
         this.predicate = predicate;
     }
 
@@ -30,13 +30,14 @@ public class FindCommand extends Command {
         requireNonNull(model);
         model.updateFilteredElderlyList(predicate);
         return new CommandResult(
-                String.format(Messages.MESSAGE_ELDERLIES_LISTED_OVERVIEW, model.getFilteredElderlyList().size()));
+                String.format(Messages.MESSAGE_ELDERLIES_LISTED_OVERVIEW, model.getFilteredElderlyList().size()),
+                CommandResult.ListDisplayChange.ELDERLY);
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof FindCommand // instanceof handles nulls
-                && predicate.equals(((FindCommand) other).predicate)); // state check
+                || (other instanceof FindElderlyCommand // instanceof handles nulls
+                && predicate.equals(((FindElderlyCommand) other).predicate)); // state check
     }
 }

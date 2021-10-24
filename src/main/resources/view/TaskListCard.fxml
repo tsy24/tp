@@ -32,9 +32,14 @@
             <Pane HBox.hgrow="ALWAYS" />
             <CheckBox fx:id="status" />
         </HBox>
+        <FlowPane fx:id="overdue">
+            <VBox.margin>
+               <Insets bottom="3.0" />
+            </VBox.margin></FlowPane>
         <FlowPane fx:id="names" />
         <Label fx:id="date" styleClass="cell_small_label" text="\$date" />
         <Label fx:id="time" styleClass="cell_small_label" text="\$time" />
+        <Label fx:id="recurring" styleClass="cell_small_label" text="\$recurring" />
     </VBox>
       <rowConstraints>
          <RowConstraints />

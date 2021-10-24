@@ -28,17 +28,20 @@ import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditElderlyDescriptor;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FilterCommand;
-import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.FindElderlyCommand;
+import seedu.address.logic.commands.FindTaskCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.RemarkCommand;
 import seedu.address.logic.commands.RemindCommand;
 import seedu.address.logic.commands.ViewElderlyCommand;
+import seedu.address.logic.commands.ViewFullCommand;
 import seedu.address.logic.commands.ViewTasksCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Elderly;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Remark;
 import seedu.address.model.tag.ElderlyHasTagPredicate;
+import seedu.address.model.task.DescriptionContainsKeywordPredicate;
 import seedu.address.model.task.Task;
 import seedu.address.testutil.EditElderlyDescriptorBuilder;
 import seedu.address.testutil.ElderlyBuilder;
@@ -113,6 +116,13 @@ public class AddressBookParserTest {
     }
 
     @Test
+    public void parseCommand_viewFull() throws Exception {
+        ViewFullCommand command = (ViewFullCommand) parser.parseCommand(
+                ViewFullCommand.COMMAND_WORD + " " + INDEX_FIRST.getOneBased());
+        assertEquals(new ViewFullCommand(INDEX_FIRST), command);
+    }
+
+    @Test
     public void parseCommand_exit() throws Exception {
         assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD) instanceof ExitCommand);
         assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD + " 3") instanceof ExitCommand);
@@ -121,9 +131,18 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_find() throws Exception {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
-        FindCommand command = (FindCommand) parser.parseCommand(
-                FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
+        FindElderlyCommand command = (FindElderlyCommand) parser.parseCommand(
+                FindElderlyCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
+        assertEquals(new FindElderlyCommand(new NameContainsKeywordsPredicate(keywords)), command);
+    }
+
+    @Test
+    public void parseCommand_findTask() throws Exception {
+        List<String> keywords = Arrays.asList("foo", "bar", "baz");
+        FindTaskCommand command = (FindTaskCommand) parser.parseCommand(
+                FindTaskCommand.COMMAND_WORD + " "
+                        + keywords.stream().collect(Collectors.joining(" ")));
+        assertEquals(new FindTaskCommand(new DescriptionContainsKeywordPredicate(keywords)), command);
     }
 
     @Test

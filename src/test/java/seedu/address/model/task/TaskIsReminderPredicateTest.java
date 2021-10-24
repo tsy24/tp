@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.TypicalTasks.APPLY_LEAVE;
 import static seedu.address.testutil.TypicalTasks.KEITH_INSULIN;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import org.junit.jupiter.api.Test;
 
@@ -15,17 +15,17 @@ public class TaskIsReminderPredicateTest {
 
     @Test
     public void equals() {
-        LocalDate firstDate = LocalDate.of(2021, 10, 31);
-        LocalDate secondDate = LocalDate.of(2021, 11, 11);
+        LocalDateTime firstDateTime = LocalDateTime.of(2021, 10, 31, 10, 30);
+        LocalDateTime secondDateTime = LocalDateTime.of(2021, 11, 11, 11, 45);
 
-        TaskIsReminderPredicate firstPredicate = new TaskIsReminderPredicate(firstDate);
-        TaskIsReminderPredicate secondPredicate = new TaskIsReminderPredicate(secondDate);
+        TaskIsReminderPredicate firstPredicate = new TaskIsReminderPredicate(firstDateTime);
+        TaskIsReminderPredicate secondPredicate = new TaskIsReminderPredicate(secondDateTime);
 
         // same object -> returns true
         assertTrue(firstPredicate.equals(firstPredicate));
 
         // same values -> returns true
-        TaskIsReminderPredicate firstPredicateCopy = new TaskIsReminderPredicate(firstDate);
+        TaskIsReminderPredicate firstPredicateCopy = new TaskIsReminderPredicate(firstDateTime);
         assertTrue(firstPredicate.equals(firstPredicateCopy));
 
         // different types -> returns false
@@ -42,17 +42,17 @@ public class TaskIsReminderPredicateTest {
     public void test_validTasks_returnsTrue() {
         Task keithInsulin = new TaskBuilder(KEITH_INSULIN).build();
 
-        // on the same day -> returns true
+        // on the same day but later time -> returns true
         TaskIsReminderPredicate predicate =
-                new TaskIsReminderPredicate(LocalDate.of(2020, 11, 1));
+                new TaskIsReminderPredicate(LocalDateTime.of(2020, 11, 1, 10, 30));
         assertTrue(predicate.test(keithInsulin));
 
         // three days later -> returns true
-        predicate = new TaskIsReminderPredicate(LocalDate.of(2020, 10, 29));
+        predicate = new TaskIsReminderPredicate(LocalDateTime.of(2020, 10, 29, 11, 45));
         assertTrue(predicate.test(keithInsulin));
 
         // task not yet completed -> returns true
-        predicate = new TaskIsReminderPredicate(LocalDate.of(2021, 11, 11));
+        predicate = new TaskIsReminderPredicate(LocalDateTime.of(2021, 11, 11, 11, 45));
         assertTrue(predicate.test(new TaskBuilder()
                 .withDesc("get vaccinated")
                 .withDateTime("2021-11-13", "10:15")
@@ -67,15 +67,15 @@ public class TaskIsReminderPredicateTest {
 
         // before the day -> returns false
         TaskIsReminderPredicate predicate =
-                new TaskIsReminderPredicate(LocalDate.of(2020, 11, 5));
+                new TaskIsReminderPredicate(LocalDateTime.of(2020, 11, 5, 10, 30));
         assertFalse(predicate.test(keithInsulin));
 
         // more than three days later -> returns false
-        predicate = new TaskIsReminderPredicate(LocalDate.of(2020, 10, 27));
+        predicate = new TaskIsReminderPredicate(LocalDateTime.of(2020, 10, 27, 11, 45));
         assertFalse(predicate.test(keithInsulin));
 
-        // valid dates, but task is completed -> returns false
-        predicate = new TaskIsReminderPredicate(LocalDate.of(2021, 10, 1));
+        // valid date and time, but task is completed -> returns false
+        predicate = new TaskIsReminderPredicate(LocalDateTime.of(2021, 9, 30, 11, 45));
         assertFalse(predicate.test(new TaskBuilder(applyLeave).build()));
     }
 }

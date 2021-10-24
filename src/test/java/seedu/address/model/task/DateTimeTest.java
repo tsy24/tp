@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 class DateTimeTest {
     @Test
     public void constructor_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new DateTime(null, null));
+        assertThrows(NullPointerException.class, () -> new DateTime((String) null, (String) null));
     }
 
     @Test

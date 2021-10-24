@@ -1,6 +1,6 @@
 package seedu.address.model.task;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.function.Predicate;
 
 /**
@@ -8,16 +8,25 @@ import java.util.function.Predicate;
  */
 public class TaskIsReminderPredicate implements Predicate<Task> {
 
-    private final LocalDate currentDate;
+    public final LocalDateTime currentDateTime;
 
-    public TaskIsReminderPredicate(LocalDate currentDate) {
-        this.currentDate = currentDate;
+    public TaskIsReminderPredicate(LocalDateTime now) {
+        this.currentDateTime = now;
     }
 
     @Override
     public boolean test(Task task) {
-        DateTime now = new DateTime(currentDate.plusDays(-1).toString(), "23:59");
-        DateTime limit = new DateTime(currentDate.plusDays(4).toString(), "00:00");
+        String[] dateTime = currentDateTime.toString().split("T");
+        String currentDate = dateTime[0];
+        String currentTime = dateTime[1].substring(0, 5);
+        DateTime now = new DateTime(currentDate, currentTime);
+
+        String[] limitDateTime = currentDateTime.plusDays(4)
+                .withHour(0)
+                .toString().split("T");
+        String limitDate = limitDateTime[0];
+        String limitTime = limitDateTime[1].substring(0, 5);
+        DateTime limit = new DateTime(limitDate, limitTime);
 
         return task.isAfter(now) && task.isBefore(limit) && !task.isTaskDone();
     }
@@ -26,6 +35,6 @@ public class TaskIsReminderPredicate implements Predicate<Task> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof TaskIsReminderPredicate // instanceof handles nulls
-                && currentDate.equals(((TaskIsReminderPredicate) other).currentDate)); // state check
+                && currentDateTime.equals(((TaskIsReminderPredicate) other).currentDateTime)); // state check
     }
 }

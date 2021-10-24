@@ -14,6 +14,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Name;
 import seedu.address.model.task.DateTime;
 import seedu.address.model.task.Description;
+import seedu.address.model.task.Recurrence;
 import seedu.address.model.task.Status;
 import seedu.address.model.task.Task;
 
@@ -25,14 +26,15 @@ public class JsonAdaptedTask {
     private final String date;
     private final String time;
     private final List<String> status;
+    private final String recurrence;
 
     /**
      * Constructs a {@code JsonAdaptedTask} with the given task details.
      */
     @JsonCreator
     public JsonAdaptedTask(@JsonProperty("names") List<String> names, @JsonProperty("description") String description,
-                             @JsonProperty("date") String date, @JsonProperty("time") String time,
-                           @JsonProperty("status") List<String> status) {
+                           @JsonProperty("date") String date, @JsonProperty("time") String time,
+                           @JsonProperty("status") List<String> status, @JsonProperty("recurrence") String recurrence) {
         if (names != null) {
             this.names.addAll(names);
         }
@@ -40,6 +42,7 @@ public class JsonAdaptedTask {
         this.date = date;
         this.time = time;
         this.status = status;
+        this.recurrence = recurrence;
     }
 
     /**
@@ -53,6 +56,7 @@ public class JsonAdaptedTask {
                 .map(name -> name.fullName)
                 .collect(Collectors.toList()));
         status = Arrays.asList(source.getStatus().toString().split("; "));
+        recurrence = source.getRecurrence().toString();
     }
 
     /**
@@ -99,8 +103,19 @@ public class JsonAdaptedTask {
 
         final Status modelStatus = new Status(status.get(0), status.get(1));
 
+        if (recurrence == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Status.class.getSimpleName()));
+        }
+
+        if (!Recurrence.isValidRecurrence(recurrence)) {
+            throw new IllegalValueException(Recurrence.MESSAGE_CONSTRAINTS);
+        }
+
+        final Recurrence modelRecurrence = new Recurrence(recurrence);
+
         final Set<Name> modelNames = new HashSet<>(relatedNames);
 
-        return new Task(modelDesc, modelDt, modelNames, modelStatus);
+        return new Task(modelDesc, modelDt, modelNames, modelStatus, modelRecurrence);
     }
 }

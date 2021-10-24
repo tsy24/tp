@@ -6,7 +6,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 import java.util.Objects;
 
 /**
- * Represents a task's completion status in NurseyBook.
+ * Represents a task's completion status in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidStatus(String)}
  */
 public class Status {
@@ -14,13 +14,13 @@ public class Status {
     public static final String MESSAGE_CONSTRAINTS = "Status can take either 'true' or 'false' as its values and"
             + "is case-insensitive. It cannot be null.";
 
-    /*
+    /**
      * The first character of the Description must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String VALIDATION_REGEX = "^(?i)(true|false)$";
 
-    /*
+    /**
      * If a task is completed/done, isDone will be true. Else, it will be false.
      */
     public final boolean isDone;

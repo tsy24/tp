@@ -144,6 +144,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     @Override
     public ObservableList<Task> getTaskList() {
+        tasks.changeDateOfPastRecurringTasks();
         return tasks.asUnmodifiableObservableList();
     }
 

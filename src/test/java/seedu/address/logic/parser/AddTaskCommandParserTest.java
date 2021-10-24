@@ -13,6 +13,7 @@ import static seedu.address.logic.commands.TaskCommandTestUtil.INVALID_DESC;
 import static seedu.address.logic.commands.TaskCommandTestUtil.INVALID_TIME;
 import static seedu.address.logic.commands.TaskCommandTestUtil.NAME_DESC_ALEX;
 import static seedu.address.logic.commands.TaskCommandTestUtil.NAME_DESC_KEITH;
+import static seedu.address.logic.commands.TaskCommandTestUtil.RECUR_MONTH;
 import static seedu.address.logic.commands.TaskCommandTestUtil.TIME_DESC_SEVENPM;
 import static seedu.address.logic.commands.TaskCommandTestUtil.TIME_DESC_TENAM;
 import static seedu.address.logic.commands.TaskCommandTestUtil.VALID_DATE_NOV;
@@ -70,7 +71,8 @@ public class AddTaskCommandParserTest {
     public void parse_optionalFieldsMissing_success() {
         // zero tags
         Task expectedTask = new TaskBuilder(DO_PAPERWORK).build();
-        assertParseSuccess(parser, DESC_PAPERWORK + DATE_DESC_JAN + TIME_DESC_TENAM,
+        assertParseSuccess(parser, DESC_PAPERWORK + DATE_DESC_JAN + TIME_DESC_TENAM
+                        + RECUR_MONTH,
                 new AddTaskCommand(expectedTask));
     }
 
