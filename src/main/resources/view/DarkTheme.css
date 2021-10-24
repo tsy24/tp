@@ -372,12 +372,7 @@
     -fx-font-size: 11;
 }
 
-#overdueStatus {
-    -fx-hgap: 7;
-    -fx-vgap: 3;
-}
-
-#overdueStatus .label {
+.label .overdue {
     -fx-text-fill: white;
     -fx-background-color: #dc143C;
     -fx-padding: 2 5 2 5;

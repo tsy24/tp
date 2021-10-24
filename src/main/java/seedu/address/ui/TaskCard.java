@@ -28,9 +28,9 @@ public class TaskCard extends UiPart<Region> {
     @FXML
     private Label time;
     @FXML
-    private FlowPane names;
+    private Label overdue;
     @FXML
-    private FlowPane overdueStatus;
+    private FlowPane names;
     @FXML
     private CheckBox status;
 
@@ -46,7 +46,9 @@ public class TaskCard extends UiPart<Region> {
         time.setText(task.getDateTime().getStringTime());
 
         if (task.isTaskOverdue()) {
-            overdueStatus.getChildren().add(new Label("Overdue"));
+            overdue = new Label("Overdue");
+            overdue.getStyleClass().add("overdue");
+            names.getChildren().add(overdue);
         }
 
         task.getRelatedNames().stream()
