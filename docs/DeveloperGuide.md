@@ -360,6 +360,52 @@ The following sequence diagram shows how the find task operation works:
 
 </div>
 
+### ViewElderly and ViewTasks feature
+
+#### How `CommandResult` is changed
+
+As NurseyBook has to support the display of two different lists (contacts vs task), each `CommandResult` object will now store the information which list should be displayed to the user.
+
+The following class diagram shows the changes made to the `CommandResult` class. Each `CommandResult` has an enum that specifies the type of display. 
+
+* `CommandResult#ListDisplayChange.PERSON` — Specifies the elderly/contact list to be displayed after the current command execution
+* `CommandResult#ListDisplayChange.TASK` — Specifies the task list to be displayed after the current command execution
+* `CommandResult#ListDisplayChange.NONE` — Specifies the type of displayed list should not change after the current command execution
+
+![](./images/ViewElderlyClassDiagram.png)
+
+#### How `MainWindow` processes `CommandResult`
+
+`MainWindow#handleChange()` is a new method that handles the switching of the list display. It checks if a `CommandResult` object specifies the change of list display, and changes the UI accordingly.
+
+#### Execution
+
+Given below is an example usage scenario and how the display of elderly/task list mechanism behaves at each step. An example command is `viewElderly`, and the mechanism of `viewTasks` is similar.
+
+Step 1. The user launches the application for the first time. The default display of NurseyBook shows the list of all elderly contacts that were added in.
+
+Step 2. The user runs a few other available commands, and wants to switch back to the default display with the elderly contacts, thus executes the `viewElderly` command.
+
+Step 3. `MainWindow#executeCommand("viewElderly")` is called. Within the method body, it calls the `LogicManager#execute()` which returns a new `CommandResult`.
+
+Step 4. `MainWindow#executeCommand()` processes the `CommandResult`. It calls `MainWindow#handleChange()` to change the display of the list, to show all elderly contacts.
+
+The following activity diagram summarizes what happens in the `MainWindow` class when the user enters either the `viewElderly` or `viewTasks` command.
+
+![ViewElderlyActivityDiagram](./images/ViewElderlyActivityDiagram.png)
+
+#### Design considerations:
+
+**Aspect: How to display contacts (elderlies) and tasks separately**
+* **Alternative 1 (current choice):** Using a commands `viewElderly` and `viewTasks`, switch the display in the main window between the elderly list and task list stored in `AddressBook`.
+  * Pros: Cleaner display, able to display the necessary information without cluttering the display window
+  * Cons: The need to implement two new commands, `viewElderly` and `viewTask` for the user to view the two lists respectively. The code for the two commands might contain repetition due to the similarity in function.
+  
+
+* **Alternative 2:** Display the list of elderly and list of tasks side by side in the same display window.
+  * Pros: Implementation/Creation of new commands are not needed. The user is able to type less yet still view what he/she is interested in.
+  * Cons: With two different lists (that contain different objects) displayed side by side, the display might seem cluttered and hard to read from. It negatively impacts the user experience.
+
 
 --------------------------------------------------------------------------------------------------------------------
 
