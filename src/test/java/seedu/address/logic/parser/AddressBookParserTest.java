@@ -34,6 +34,7 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.RemarkCommand;
 import seedu.address.logic.commands.RemindCommand;
 import seedu.address.logic.commands.ViewElderlyCommand;
+import seedu.address.logic.commands.ViewFullCommand;
 import seedu.address.logic.commands.ViewTasksCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Elderly;
@@ -112,6 +113,13 @@ public class AddressBookParserTest {
     public void parseCommand_viewTasks() throws Exception {
         assertTrue(parser.parseCommand(ViewTasksCommand.COMMAND_WORD) instanceof ViewTasksCommand);
         assertTrue(parser.parseCommand(ViewTasksCommand.COMMAND_WORD + " 3") instanceof ViewTasksCommand);
+    }
+
+    @Test
+    public void parseCommand_viewFull() throws Exception {
+        ViewFullCommand command = (ViewFullCommand) parser.parseCommand(
+                ViewFullCommand.COMMAND_WORD + " " + INDEX_FIRST.getOneBased());
+        assertEquals(new ViewFullCommand(INDEX_FIRST), command);
     }
 
     @Test

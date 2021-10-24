@@ -85,6 +85,17 @@ public interface Model {
     void addElderly(Elderly elderly);
 
     /**
+     * Set given elderly as the elderly whose full details are to be displayed.
+     * The elderly must exist in the address book.
+     */
+    void setElderlyOfInterest(Elderly e);
+
+    /**
+     * Returns elderly whose full details are to be displayed.
+     */
+    Elderly getElderlyOfInterest();
+
+    /**
      * Adds the given task.
      */
     void addTask(Task task);

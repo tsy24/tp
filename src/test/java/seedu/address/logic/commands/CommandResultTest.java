@@ -4,10 +4,39 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
 public class CommandResultTest {
+
+    @Test
+    public void isChangeList() {
+        CommandResult commandResult = new CommandResult("feedback");
+        // displayChange value of NONE -> returns false
+        assertFalse(commandResult.isChangeList());
+
+        //displayChange value of TASK -> returns true
+        assertTrue(new CommandResult("feedback", CommandResult.ListDisplayChange.TASK).isChangeList());
+
+        //displayChange value of TASK -> returns true
+        assertTrue(new CommandResult("feedback", CommandResult.ListDisplayChange.ELDERLY).isChangeList());
+    }
+
+    @Test
+    public void shouldChangeToTask() {
+        CommandResult commandResult = new CommandResult("feedback");
+        // displayChange value of NONE -> returns false
+        assertThrows(AssertionError.class, () -> commandResult.shouldChangeToTask());
+
+        // displayChange value of PERSON -> returns false
+        assertFalse(new CommandResult("feedback", CommandResult.ListDisplayChange.ELDERLY).shouldChangeToTask());
+
+        // displayChange value of TASK -> returns true
+        assertTrue(new CommandResult("feedback", CommandResult.ListDisplayChange.TASK).shouldChangeToTask());
+    }
+
+
     @Test
     public void equals() {
         CommandResult commandResult = new CommandResult("feedback");
@@ -17,6 +46,8 @@ public class CommandResultTest {
         assertTrue(commandResult.equals(new CommandResult("feedback", false, false)));
         assertTrue(commandResult.equals(new CommandResult("feedback",
                 CommandResult.ListDisplayChange.NONE)));
+        assertTrue(commandResult.equals(new CommandResult("feedback",
+                false)));
 
         // same object -> returns true
         assertTrue(commandResult.equals(commandResult));
@@ -40,14 +71,9 @@ public class CommandResultTest {
         assertFalse(commandResult.equals(new CommandResult("feedback",
                 CommandResult.ListDisplayChange.TASK)));
 
-        // displayChange value of NONE -> returns false
-        assertFalse(commandResult.isChangeList());
-
-        // displayChange value of ELDERLY -> returns false
-        assertFalse(new CommandResult("feedback", CommandResult.ListDisplayChange.ELDERLY).shouldChangeToTask());
-
-        // displayChange value of TASK -> returns true
-        assertTrue(new CommandResult("feedback", CommandResult.ListDisplayChange.TASK).shouldChangeToTask());
+        // different isViewFull value -> returns false
+        assertTrue(commandResult.equals(new CommandResult("feedback",
+               false)));
     }
 
     @Test
