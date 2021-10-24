@@ -15,7 +15,7 @@ public class ViewFullCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Shows the full details of the elderly identified by the index number"
-            + "used in the displayed elderly list.\n"
+            + " used in the displayed elderly list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 

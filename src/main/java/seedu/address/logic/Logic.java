@@ -52,7 +52,7 @@ public interface Logic {
     ObservableList<Task> getFilteredTaskList();
 
     /**
-     * Gets elderly whose details are of interest
+     * Gets elderly whose details are of interest.
      */
     Elderly getElderlyOfInterest();
 }
