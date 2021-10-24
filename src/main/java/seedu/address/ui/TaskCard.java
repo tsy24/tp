@@ -28,6 +28,8 @@ public class TaskCard extends UiPart<Region> {
     @FXML
     private Label time;
     @FXML
+    private FlowPane overdue;
+    @FXML
     private Label recurring;
     @FXML
     private FlowPane names;
@@ -44,6 +46,11 @@ public class TaskCard extends UiPart<Region> {
         description.setText(task.getDesc().value);
         date.setText(task.getDateTime().getStringDate());
         time.setText(task.getDateTime().getStringTime());
+
+        if (task.isTaskOverdue()) {
+            overdue.getChildren().add(new Label("Overdue"));
+        }
+
         task.getRelatedNames().stream()
                 .forEach(name -> names.getChildren().add(new Label(name.fullName)));
         status.setSelected(task.isTaskDone());

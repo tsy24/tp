@@ -473,3 +473,17 @@
     -fx-background-radius: 2;
     -fx-font-size: 11;
 }
+
+#overdue {
+    -fx-hgap: 7;
+    -fx-vgap: 3;
+}
+
+#overdue .label {
+    -fx-text-fill: white;
+    -fx-background-color: #dc143C;
+    -fx-padding: 2 5 2 5;
+    -fx-border-radius: 2;
+    -fx-background-radius: 2;
+    -fx-font-size: 11;
+}

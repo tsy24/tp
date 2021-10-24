@@ -13,6 +13,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Elderly;
 import seedu.address.model.task.Task;
+import seedu.address.model.task.TaskIsOverduePredicate;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -111,6 +112,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void markTaskAsOverdue(Task target) {
+        addressBook.markTaskAsOverdue(target);
+    }
+
+    @Override
     public void deleteElderly(Elderly target) {
         addressBook.removeElderly(target);
     }
@@ -172,7 +178,15 @@ public class ModelManager implements Model {
     @Override
     public void updateFilteredTaskList(Predicate<Task> predicate) {
         requireNonNull(predicate);
+        updateOverdueTaskList();
         filteredTasks.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateOverdueTaskList() {
+        Predicate<Task> predicate = new TaskIsOverduePredicate();
+        filteredTasks.setPredicate(predicate);
+        filteredTasks.forEach(task -> markTaskAsOverdue(task));
     }
 
     @Override

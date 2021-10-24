@@ -2,6 +2,7 @@ package seedu.address.testutil;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -17,7 +18,7 @@ public class TaskBuilder {
     public static final String DEFAULT_DESC = "inject 5000 mg tylenol";
     public static final String DEFAULT_DATE = "2069-06-09";
     public static final String DEFAULT_TIME = "18:09";
-    public static final String DEFAULT_STATUS = "false";
+    public static final List<String> DEFAULT_STATUS = Arrays.asList("false", "false");
     public static final String DEFAULT_RECURRENCE = Recurrence.RecurrenceType.NONE.name();
 
     private Description desc;
@@ -33,7 +34,11 @@ public class TaskBuilder {
         desc = new Description(DEFAULT_DESC);
         dateTime = new DateTime(DEFAULT_DATE, DEFAULT_TIME);
         names = new HashSet<>();
-        status = new Status(DEFAULT_STATUS);
+
+        String isDone = DEFAULT_STATUS.get(0);
+        String isOverdue = DEFAULT_STATUS.get(1);
+        status = new Status(isDone, isOverdue);
+
         recurrence = new Recurrence(DEFAULT_RECURRENCE);
     }
 
@@ -77,8 +82,8 @@ public class TaskBuilder {
     /**
      * Sets the {@code DateTime} of the {@code Task} that we are building.
      */
-    public TaskBuilder withStatus(String status) {
-        this.status = new Status(status);
+    public TaskBuilder withStatus(String isDone, String isOverdue) {
+        this.status = new Status(isDone, isOverdue);
         return this;
     }
 

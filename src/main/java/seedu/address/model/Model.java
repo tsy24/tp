@@ -73,6 +73,12 @@ public interface Model {
     void markTaskAsDone(Task target);
 
     /**
+     * Mark the given task {@code target} as overdue.
+     * {@code target} must exist in the address book.
+     */
+    void markTaskAsOverdue(Task target);
+
+    /**
      * Deletes the given elderly.
      * The elderly must exist in the address book.
      */
@@ -131,4 +137,9 @@ public interface Model {
      * The task must exist in the address book.
      */
     void deleteTask(Task taskToDelete);
+
+    /**
+     * Updates the overdue status of the tasks in the task list.
+     */
+    void updateOverdueTaskList();
 }
