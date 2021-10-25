@@ -172,4 +172,12 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void markTaskAsDone(Task target) {
         tasks.markTaskAsDone(target);
     }
+
+    /**
+     * Mark the given task {@code target} as overdue.
+     * {@code target} must exist in the address book.
+     */
+    public void markTaskAsOverdue(Task target) {
+        tasks.markTaskAsOverdue(target);
+    }
 }

@@ -1,6 +1,7 @@
 package seedu.address.storage;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -24,7 +25,7 @@ public class JsonAdaptedTask {
     private final List<String> names = new ArrayList<>();
     private final String date;
     private final String time;
-    private final String status;
+    private final List<String> status;
     private final String recurrence;
 
     /**
@@ -33,7 +34,7 @@ public class JsonAdaptedTask {
     @JsonCreator
     public JsonAdaptedTask(@JsonProperty("names") List<String> names, @JsonProperty("description") String description,
                            @JsonProperty("date") String date, @JsonProperty("time") String time,
-                           @JsonProperty("status") String status, @JsonProperty("recurrence") String recurrence) {
+                           @JsonProperty("status") List<String> status, @JsonProperty("recurrence") String recurrence) {
         if (names != null) {
             this.names.addAll(names);
         }
@@ -54,7 +55,7 @@ public class JsonAdaptedTask {
         names.addAll(source.getRelatedNames().stream()
                 .map(name -> name.fullName)
                 .collect(Collectors.toList()));
-        status = source.getStatus().toString();
+        status = Arrays.asList(source.getStatus().toString().split("; "));
         recurrence = source.getRecurrence().toString();
     }
 
@@ -95,11 +96,12 @@ public class JsonAdaptedTask {
                     Status.class.getSimpleName()));
         }
 
-        if (!Status.isValidStatus(status)) {
+        if (!Status.isValidStatus(status.get(0))
+                || !Status.isValidStatus(status.get(1))) {
             throw new IllegalValueException(Status.MESSAGE_CONSTRAINTS);
         }
 
-        final Status modelStatus = new Status(status);
+        final Status modelStatus = new Status(status.get(0), status.get(1));
 
         if (recurrence == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,

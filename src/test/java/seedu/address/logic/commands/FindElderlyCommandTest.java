@@ -21,9 +21,9 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 
 /**
- * Contains integration tests (interaction with the Model) for {@code FindCommand}.
+ * Contains integration tests (interaction with the Model) for {@code FindElderlyCommand}.
  */
-public class FindCommandTest {
+public class FindElderlyCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
@@ -34,14 +34,14 @@ public class FindCommandTest {
         NameContainsKeywordsPredicate secondPredicate =
                 new NameContainsKeywordsPredicate(Collections.singletonList("second"));
 
-        FindCommand findFirstCommand = new FindCommand(firstPredicate);
-        FindCommand findSecondCommand = new FindCommand(secondPredicate);
+        FindElderlyCommand findFirstCommand = new FindElderlyCommand(firstPredicate);
+        FindElderlyCommand findSecondCommand = new FindElderlyCommand(secondPredicate);
 
         // same object -> returns true
         assertTrue(findFirstCommand.equals(findFirstCommand));
 
         // same values -> returns true
-        FindCommand findFirstCommandCopy = new FindCommand(firstPredicate);
+        FindElderlyCommand findFirstCommandCopy = new FindElderlyCommand(firstPredicate);
         assertTrue(findFirstCommand.equals(findFirstCommandCopy));
 
         // different types -> returns false
@@ -57,20 +57,28 @@ public class FindCommandTest {
     @Test
     public void execute_zeroKeywords_noElderlyFound() {
         String expectedMessage = String.format(MESSAGE_ELDERLIES_LISTED_OVERVIEW, 0);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage,
+                CommandResult.ListDisplayChange.ELDERLY);
+
         NameContainsKeywordsPredicate predicate = preparePredicate(" ");
-        FindCommand command = new FindCommand(predicate);
+        FindElderlyCommand command = new FindElderlyCommand(predicate);
         expectedModel.updateFilteredElderlyList(predicate);
-        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+
+        assertCommandSuccess(command, model, expectedCommandResult, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredElderlyList());
     }
 
     @Test
     public void execute_multipleKeywords_multipleElderliesFound() {
         String expectedMessage = String.format(MESSAGE_ELDERLIES_LISTED_OVERVIEW, 3);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage,
+                CommandResult.ListDisplayChange.ELDERLY);
+
         NameContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
-        FindCommand command = new FindCommand(predicate);
+        FindElderlyCommand command = new FindElderlyCommand(predicate);
         expectedModel.updateFilteredElderlyList(predicate);
-        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+
+        assertCommandSuccess(command, model, expectedCommandResult, expectedModel);
         assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredElderlyList());
     }
 
