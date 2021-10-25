@@ -97,11 +97,11 @@ Format: `editElderly INDEX [en/ELDERLY_NAME] [a/AGE] [g/GENDER] [r/ROOMNO] [t/TA
 
 * Any number of tags is acceptable (including 0).
 
-### View full details of an elderly: `viewFull`
+### View full details of an elderly: `viewDetails`
 
 View full details of a specific elderly
 
-Format: `viewFull INDEX`
+Format: `viewDetails INDEX`
 
 * Shows the full details of the elderly at the specified `INDEX`.
 * The index refers to the index number shown in the displayed elderly list.
@@ -290,7 +290,7 @@ Action | Format, Examples
 **Find Elderly** | `findElderly KEYWORD [MORE_KEYWORDS]`
 **Filter** | `filter t/TAG [t/TAG]…​`
 **Edit Elderly** | `editElderly INDEX [en/ELDERLY_NAME] [a/AGE] [g/GENDER] [r/ROOMNO] [t/TAG]…​ [nn/NOK_NAME] [rs/NOK_RELATIONSHIP] [p/NOK_PHONE_NUMBER] [e/NOK_EMAIL] [addr/NOK_ADDRESS]`
-**View Elderly Details** | `viewFull INDEX`<br> e.g., `viewFull 2`
+**View Elderly Details** | `viewDetails INDEX`<br> e.g., `viewDetails 2`
 **Remind** | `remind`
 **Add task** | `addTask [en/ELDERLY_NAME] desc/DESCRIPTION date/DATE time/TIME` <br> e.g., `addTask en/John desc/check insulin level date/2021-09-25 time/10.00am`
 **Delete task** | `deleteTask INDEX`<br> e.g., `delete 3`

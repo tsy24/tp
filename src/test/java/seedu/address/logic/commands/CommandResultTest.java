@@ -71,7 +71,7 @@ public class CommandResultTest {
         assertFalse(commandResult.equals(new CommandResult("feedback",
                 CommandResult.ListDisplayChange.TASK)));
 
-        // different isViewFull value -> returns false
+        // different isViewDetails value -> returns false
         assertTrue(commandResult.equals(new CommandResult("feedback",
                false)));
     }
