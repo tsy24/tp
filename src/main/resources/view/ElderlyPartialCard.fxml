@@ -13,30 +13,37 @@
 <HBox id="partialCard" fx:id="partialCard" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <GridPane HBox.hgrow="ALWAYS">
         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10"/>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="100"/>
         </columnConstraints>
         <VBox alignment="CENTER_LEFT" fillWidth="true" minHeight="85" GridPane.columnIndex="0">
             <padding>
                 <Insets top="5" right="15" bottom="5" left="15" />
             </padding>
             <HBox spacing="5" alignment="CENTER_LEFT">
-                <Label fx:id="id" styleClass="cell_big_label" HBox.hgrow="NEVER">
-                    <minWidth>
-                        <!-- Ensures that the label text is never truncated -->
-                        <Region fx:constant="USE_PREF_SIZE" />
-                    </minWidth>
-                </Label>
-                <Label fx:id="name" text="\$first" styleClass="cell_big_label">
-                    <minWidth>
-                        <Region fx:constant="USE_PREF_SIZE" />
-                    </minWidth>
-                </Label>
-                <Pane HBox.hgrow="ALWAYS" />
-                <Label fx:id="roomNumber" styleClass="cell_small_label" text="\$roomNumber">
-                    <minWidth>
-                        <Region fx:constant="USE_PREF_SIZE" />
-                    </minWidth>
-                </Label>
+                <GridPane HBox.hgrow="ALWAYS">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="ALWAYS" percentWidth="50"/>
+                        <ColumnConstraints hgrow="ALWAYS" percentWidth="50"/>
+                    </columnConstraints>
+                    <HBox GridPane.columnIndex="0">
+                        <Label fx:id="id" styleClass="cell_big_label" HBox.hgrow="NEVER">
+                            <minWidth>
+                                <!-- Ensures that the label text is never truncated -->
+                                <Region fx:constant="USE_PREF_SIZE" />
+                            </minWidth>
+                        </Label>
+                        <Label fx:id="name" text="\$first" styleClass="cell_big_label">
+                            <minWidth>
+                                <Region fx:constant="USE_PREF_SIZE" />
+                            </minWidth>
+                        </Label>
+                    </HBox>
+                    <Label fx:id="roomNumber" styleClass="cell_small_label" GridPane.columnIndex="1" text="\$roomNumber">
+                        <minWidth>
+                            <Region fx:constant="USE_PREF_SIZE" />
+                        </minWidth>
+                    </Label>
+                </GridPane>
             </HBox>
             <FlowPane fx:id="tags"/>
         </VBox>

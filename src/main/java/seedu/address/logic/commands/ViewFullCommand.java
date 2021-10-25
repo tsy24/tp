@@ -38,7 +38,7 @@ public class ViewFullCommand extends Command {
 
         Elderly elderlyOfInterest = lastShownList.get(targetIndex.getZeroBased());
         model.setElderlyOfInterest(elderlyOfInterest);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, elderlyOfInterest), true);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, elderlyOfInterest.getName()), true);
     }
 
     @Override
