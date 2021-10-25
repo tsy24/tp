@@ -1,5 +1,7 @@
 package seedu.address.testutil;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -23,6 +25,8 @@ public class TaskBuilder {
 
     private Description desc;
     private DateTime dateTime;
+    private LocalDate date;
+    private LocalTime time;
     private Set<Name> names;
     private Status status;
     private Recurrence recurrence;
@@ -66,6 +70,22 @@ public class TaskBuilder {
      */
     public TaskBuilder withDateTime(String date, String time) {
         this.dateTime = new DateTime(date, time);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Date} of the {@code Task} that we are building.
+     */
+    public TaskBuilder withDate(String date) {
+        this.date = LocalDate.parse(date);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Time} of the {@code Task} that we are building.
+     */
+    public TaskBuilder withTime(String time) {
+        this.time = LocalTime.parse(time);
         return this;
     }
 

@@ -1,5 +1,7 @@
 package seedu.address.model.task;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -100,12 +102,7 @@ public class Task implements Comparable<Task> {
      * @return same task object that has been marked as overdue
      */
     public Task markAsOverdue() {
-        if (isTaskOverdue()) {
-
-        }
-
         String completedStatus = isTaskDone() ? "true" : "false";
-
         return new Task(desc, dateTime, relatedNames, new Status(completedStatus, "true"));
     }
 
@@ -131,12 +128,30 @@ public class Task implements Comparable<Task> {
     }
 
     /**
-     * Returns set date of this task.
+     * Returns the dateTime of this task.
      *
-     * @return task description
+     * @return task dateTime
      */
     public DateTime getDateTime() {
         return dateTime;
+    }
+
+    /**
+     * Returns the date of this task.
+     *
+     * @return task date
+     */
+    public LocalDate getDate() {
+        return dateTime.date;
+    }
+
+    /**
+     * Returns the time of this task.
+     *
+     * @return task time
+     */
+    public LocalTime getTime() {
+        return dateTime.time;
     }
 
     /**

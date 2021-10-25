@@ -114,6 +114,14 @@ public interface Model {
      */
     void setElderly(Elderly target, Elderly editedElderly);
 
+    /**
+     * Replaces the given task {@code target} with {@code editedTask}.
+     * {@code target} must exist in the address book.
+     * The task identity of {@code editedTask} must not be the same as another existing task
+     * in the address book.
+     */
+    void setTask(Task target, Task editedTask);
+
     /** Returns an unmodifiable view of the filtered elderly list */
     ObservableList<Elderly> getFilteredElderlyList();
 

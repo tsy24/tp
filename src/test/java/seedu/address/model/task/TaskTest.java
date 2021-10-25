@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.TaskCommandTestUtil.VALID_DATE_JAN;
 import static seedu.address.logic.commands.TaskCommandTestUtil.VALID_DATE_NOV;
+import static seedu.address.logic.commands.TaskCommandTestUtil.VALID_DESC_MEDICINE;
 import static seedu.address.logic.commands.TaskCommandTestUtil.VALID_DESC_PAPERWORK;
 import static seedu.address.logic.commands.TaskCommandTestUtil.VALID_NAME_ALEX;
 import static seedu.address.logic.commands.TaskCommandTestUtil.VALID_NAME_KEITH;
@@ -29,8 +30,8 @@ public class TaskTest {
     public void equals() {
         // same values -> returns true
         assertTrue(keithInsulin.equals(KEITH_INSULIN));
-        Task alexToKeith = new TaskBuilder(ALEX_INSULIN).withNames(VALID_NAME_KEITH)
-                .withDateTime(VALID_DATE_NOV, VALID_TIME_SEVENPM).withStatus("false", "false")
+        Task alexToKeith = new TaskBuilder(ALEX_INSULIN).withNames(VALID_NAME_KEITH).withDesc(VALID_DESC_MEDICINE)
+                .withDateTime(VALID_DATE_NOV, VALID_TIME_SEVENPM).withStatus("false", "true")
                 .withRecurrence(RecurrenceType.NONE.name()).build();
         assertTrue(keithInsulin.equals(alexToKeith));
 
@@ -115,13 +116,12 @@ public class TaskTest {
     @Test
     void isTaskOverdue() {
         assertTrue(applyLeave.isTaskOverdue()); // status: isOverdue = "true"
-
-        assertFalse(keithInsulin.isTaskOverdue()); // default status: isOverdue = "false"
+        assertTrue(keithInsulin.isTaskOverdue()); // status: isOverdue = "true"
     }
 
     @Test
     void markTaskDone() {
-        Task doneKeith = new TaskBuilder(keithInsulin).withStatus("true", "false").build();
+        Task doneKeith = new TaskBuilder(keithInsulin).withStatus("true", "true").build();
         assertEquals(keithInsulin.markAsDone(), doneKeith);
     }
 

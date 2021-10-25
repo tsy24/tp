@@ -42,8 +42,9 @@ public class TaskList implements Iterable<Task> {
     /**
      * Replaces the task {@code target} in the list with {@code editedTask}.
      * {@code target} must exist in the list.
+     * The task's description of {@code editedTask} must not be the same as another existing task in the list.
      */
-    private void setTask(Task target, Task editedTask) {
+    public void setTask(Task target, Task editedTask) {
         requireAllNonNull(target, editedTask);
 
         int index = internalList.indexOf(target);
@@ -105,8 +106,8 @@ public class TaskList implements Iterable<Task> {
     }
 
     /**
-     * If a recurring task's original DateTime is before the current {@code DateTime},
-     * changes the task's {@code DateTime} to the next earliest {@code DateTime},
+     * Changes the task's {@code DateTime} to the next earliest {@code DateTime},
+     * if a recurring task's original DateTime is before the current {@code DateTime},
      * according to whether is it a {@code DAY}, {@code WEEK} or {@code MONTH} recurrence type.
      * At the same time, after changing the {@code DateTime},
      * it also maintains the sorted order of tasks according to {@code DateTime}.

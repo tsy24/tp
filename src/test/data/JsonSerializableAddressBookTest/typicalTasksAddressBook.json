@@ -8,13 +8,13 @@
     "description": "Bring insulin shots",
     "date": "2020-11-01",
     "time": "19:45",
-    "status": ["false", "false"],
+    "status": ["false", "true"],
     "recurrence" : "NONE"
   }, {
     "names": [
       "Alex Andre"
     ],
-    "description": "Bring insulin shots",
+    "description": "Take covid shots",
     "date": "2022-01-31",
     "time": "19:45",
     "status": ["false", "false"],

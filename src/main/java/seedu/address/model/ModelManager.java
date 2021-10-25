@@ -141,8 +141,13 @@ public class ModelManager implements Model {
     @Override
     public void setElderly(Elderly target, Elderly editedElderly) {
         requireAllNonNull(target, editedElderly);
-
         addressBook.setElderly(target, editedElderly);
+    }
+
+    @Override
+    public void setTask(Task target, Task editedTask) {
+        requireAllNonNull(target, editedTask);
+        addressBook.setTask(target, editedTask);
     }
     //=========== Elderly of interest Accessors =============================================================
     public void setElderlyOfInterest(Elderly e) {
@@ -207,13 +212,15 @@ public class ModelManager implements Model {
             return other.elderlyOfInterest == null
                     && addressBook.equals(other.addressBook)
                     && userPrefs.equals(other.userPrefs)
-                    && filteredElderlies.equals(other.filteredElderlies);
+                    && filteredElderlies.equals(other.filteredElderlies)
+                    && filteredTasks.equals(other.filteredTasks);
         }
         return other.elderlyOfInterest != null
                 && addressBook.equals(other.addressBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredElderlies.equals(other.filteredElderlies)
-                && elderlyOfInterest.equals(other.elderlyOfInterest);
+                && elderlyOfInterest.equals(other.elderlyOfInterest)
+                && filteredTasks.equals(other.filteredTasks);
     }
 
 }

@@ -2,8 +2,10 @@ package seedu.address.testutil;
 
 import static seedu.address.logic.commands.TaskCommandTestUtil.VALID_DATE_JAN;
 import static seedu.address.logic.commands.TaskCommandTestUtil.VALID_DATE_NOV;
+import static seedu.address.logic.commands.TaskCommandTestUtil.VALID_DESC_COVID;
 import static seedu.address.logic.commands.TaskCommandTestUtil.VALID_DESC_MEDICINE;
 import static seedu.address.logic.commands.TaskCommandTestUtil.VALID_DESC_PAPERWORK;
+import static seedu.address.logic.commands.TaskCommandTestUtil.VALID_DESC_VACCINE;
 import static seedu.address.logic.commands.TaskCommandTestUtil.VALID_NAME_ALEX;
 import static seedu.address.logic.commands.TaskCommandTestUtil.VALID_NAME_KEITH;
 import static seedu.address.logic.commands.TaskCommandTestUtil.VALID_TIME_SEVENPM;
@@ -21,10 +23,11 @@ public class TypicalTasks {
 
     public static final Task KEITH_INSULIN = new TaskBuilder().withDesc(VALID_DESC_MEDICINE)
             .withDateTime(VALID_DATE_NOV, VALID_TIME_SEVENPM).withNames(VALID_NAME_KEITH)
+            .withStatus("false", "true")
             .withRecurrence(RecurrenceType.NONE.name())
             .build();
 
-    public static final Task ALEX_INSULIN = new TaskBuilder().withDesc(VALID_DESC_MEDICINE)
+    public static final Task ALEX_INSULIN = new TaskBuilder().withDesc(VALID_DESC_COVID)
             .withDateTime(VALID_DATE_JAN, VALID_TIME_SEVENPM).withNames(VALID_NAME_ALEX)
             .withRecurrence(RecurrenceType.NONE.name()).build();
 
@@ -39,7 +42,7 @@ public class TypicalTasks {
             .withDateTime("2021-10-01", "00:00").withStatus("true", "true")
             .withRecurrence(RecurrenceType.DAY.name()).build();
 
-    public static final Task KG_SC_VACCINE = new TaskBuilder().withDesc("3rd shot for Pfizer")
+    public static final Task KG_SC_VACCINE = new TaskBuilder().withDesc(VALID_DESC_VACCINE)
             .withDateTime("2021-10-30", "18:00").withNames("Khong Guan", "Swee Choon")
             .withStatus("false", "false").withRecurrence(RecurrenceType.NONE.name()).build();
 
