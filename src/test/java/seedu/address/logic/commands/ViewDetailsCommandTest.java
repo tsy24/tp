@@ -17,28 +17,28 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Elderly;
 
-class ViewFullCommandTest {
+class ViewDetailsCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
         Elderly elderlyToView = model.getFilteredElderlyList().get(INDEX_FIRST.getZeroBased());
-        ViewFullCommand viewFullCommand = new ViewFullCommand(INDEX_FIRST);
+        ViewDetailsCommand viewDetailsCommand = new ViewDetailsCommand(INDEX_FIRST);
 
-        String expectedMessage = String.format(ViewFullCommand.MESSAGE_SUCCESS, elderlyToView);
+        String expectedMessage = String.format(ViewDetailsCommand.MESSAGE_SUCCESS, elderlyToView.getName());
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.setElderlyOfInterest(elderlyToView);
 
-        assertCommandSuccess(viewFullCommand, model, expectedMessage, true, expectedModel);
+        assertCommandSuccess(viewDetailsCommand, model, expectedMessage, true, expectedModel);
     }
 
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredElderlyList().size() + 1);
-        ViewFullCommand viewFullCommand = new ViewFullCommand(outOfBoundIndex);
+        ViewDetailsCommand viewDetailsCommand = new ViewDetailsCommand(outOfBoundIndex);
 
-        assertCommandFailure(viewFullCommand, model, Messages.MESSAGE_INVALID_ELDERLY_DISPLAYED_INDEX);
+        assertCommandFailure(viewDetailsCommand, model, Messages.MESSAGE_INVALID_ELDERLY_DISPLAYED_INDEX);
     }
 
     @Test
@@ -46,15 +46,15 @@ class ViewFullCommandTest {
         showElderlyAtIndex(model, INDEX_FIRST);
 
         Elderly elderlyToView = model.getFilteredElderlyList().get(INDEX_FIRST.getZeroBased());
-        ViewFullCommand viewFullCommand = new ViewFullCommand(INDEX_FIRST);
+        ViewDetailsCommand viewDetailsCommand = new ViewDetailsCommand(INDEX_FIRST);
 
-        String expectedMessage = String.format(ViewFullCommand.MESSAGE_SUCCESS, elderlyToView);
+        String expectedMessage = String.format(ViewDetailsCommand.MESSAGE_SUCCESS, elderlyToView.getName());
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         showElderlyAtIndex(expectedModel, INDEX_FIRST);
         expectedModel.setElderlyOfInterest(elderlyToView);
 
-        assertCommandSuccess(viewFullCommand, model, expectedMessage, true, expectedModel);
+        assertCommandSuccess(viewDetailsCommand, model, expectedMessage, true, expectedModel);
     }
 
     @Test
@@ -65,8 +65,8 @@ class ViewFullCommandTest {
         // ensures that outOfBoundIndex is still in bounds of address book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getElderlyList().size());
 
-        ViewFullCommand viewFullCommand = new ViewFullCommand(outOfBoundIndex);
+        ViewDetailsCommand viewDetailsCommand = new ViewDetailsCommand(outOfBoundIndex);
 
-        assertCommandFailure(viewFullCommand, model, Messages.MESSAGE_INVALID_ELDERLY_DISPLAYED_INDEX);
+        assertCommandFailure(viewDetailsCommand, model, Messages.MESSAGE_INVALID_ELDERLY_DISPLAYED_INDEX);
     }
 }

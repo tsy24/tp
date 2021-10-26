@@ -37,7 +37,9 @@ public class ElderlyCard extends UiPart<Region> {
         super(FXML);
 
         this.elderly = elderly;
-        titledPane.setGraphic(new ElderlyPartialCard(displayedIndex).getRoot());
+        Region partialCard = new ElderlyPartialCard(displayedIndex).getRoot();
+        partialCard.minWidthProperty().bind(getRoot().widthProperty());
+        titledPane.setGraphic(partialCard);
         titledPane.setContent(new ElderlyFullCard().getRoot());
     }
 

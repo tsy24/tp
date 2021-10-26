@@ -144,11 +144,11 @@ public class CommandTestUtil {
 
     /**
      * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, CommandResult, Model)}
-     * that takes a string {@code expectedMessage} and boolean {@code expectedIsViewFull} .
+     * that takes a string {@code expectedMessage} and boolean {@code expectedIsViewDetails} .
      */
     public static void assertCommandSuccess(Command command, Model actualModel, String expectedMessage,
-                                            boolean expectedIsViewFull, Model expectedModel) {
-        CommandResult expectedCommandResult = new CommandResult(expectedMessage, expectedIsViewFull);
+                                            boolean expectedIsViewDetails, Model expectedModel) {
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage, expectedIsViewDetails);
         assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
     }
 

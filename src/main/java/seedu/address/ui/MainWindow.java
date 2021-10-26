@@ -221,7 +221,7 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Displays a dialog containing the elderly of interest's details
      */
-    private void handleViewFull(Elderly e) {
+    private void handleViewDetails(Elderly e) {
         detailsPanelPlaceholder.getChildren().clear();
         detailsPanelPlaceholder.getChildren().add(new ElderlyDetailsPanel(e).getRoot());
         detailsPanelPlaceholder.setVisible(true);
@@ -250,12 +250,12 @@ public class MainWindow extends UiPart<Stage> {
                 handleChange(commandResult.shouldChangeToTask());
             }
 
-            if (commandResult.isViewFull()) {
+            if (commandResult.isViewDetails()) {
                 Elderly e = logic.getElderlyOfInterest();
                 assert(e != null);
-                handleViewFull(e);
+                handleViewDetails(e);
             } else {
-                handleNonViewFull();
+                handleNonViewDetails();
             }
 
             return commandResult;
@@ -266,7 +266,7 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    private void handleNonViewFull() {
+    private void handleNonViewDetails() {
         detailsPanelPlaceholder.getChildren().clear();
         detailsPanelPlaceholder.setVisible(false);
     }

@@ -10,8 +10,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Elderly;
 
-public class ViewFullCommand extends Command {
-    public static final String COMMAND_WORD = "viewFull";
+public class ViewDetailsCommand extends Command {
+    public static final String COMMAND_WORD = "viewDetails";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Shows the full details of the elderly identified by the index number"
@@ -23,7 +23,7 @@ public class ViewFullCommand extends Command {
 
     private final Index targetIndex;
 
-    public ViewFullCommand(Index targetIndex) {
+    public ViewDetailsCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
@@ -38,14 +38,14 @@ public class ViewFullCommand extends Command {
 
         Elderly elderlyOfInterest = lastShownList.get(targetIndex.getZeroBased());
         model.setElderlyOfInterest(elderlyOfInterest);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, elderlyOfInterest), true);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, elderlyOfInterest.getName()), true);
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof ViewFullCommand // instanceof handles nulls
-                && targetIndex.equals(((ViewFullCommand) other).targetIndex)); // state check
+                || (other instanceof ViewDetailsCommand // instanceof handles nulls
+                && targetIndex.equals(((ViewDetailsCommand) other).targetIndex)); // state check
     }
 
 }
