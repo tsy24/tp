@@ -24,8 +24,8 @@ import seedu.address.logic.commands.FindTaskCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.RemarkCommand;
 import seedu.address.logic.commands.RemindCommand;
-import seedu.address.logic.commands.ViewElderlyCommand;
 import seedu.address.logic.commands.ViewDetailsCommand;
+import seedu.address.logic.commands.ViewElderlyCommand;
 import seedu.address.logic.commands.ViewTasksCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
