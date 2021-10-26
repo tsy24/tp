@@ -260,8 +260,7 @@ Listed below are some of the situations and corresponding implementations where 
 4. User edits non-recurring `Task` with a future `DateTime` to a passed `DateTime`
   - Mark `Status#isOverdue` to `True`
 
-![HandleOverdueAndRecurringTasksActivityDiagram](./images/HandleOverdueAndRecurringTasksActivityDiagram.png)
-
+<img src="images/HandleOverdueAndRecurringTasksActivityDiagram.png" width="350"/>
 
 ### \[Proposed\] Undo/redo feature
 
