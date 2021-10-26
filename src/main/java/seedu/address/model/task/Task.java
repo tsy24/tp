@@ -1,7 +1,10 @@
 package seedu.address.model.task;
 
+import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -103,20 +106,68 @@ public class Task implements Comparable<Task> {
      */
     public Task markAsOverdue() {
         String completedStatus = isTaskDone() ? "true" : "false";
-        return new Task(desc, dateTime, relatedNames, new Status(completedStatus, "true"));
+        return new Task(desc, dateTime, relatedNames, new Status(completedStatus, "true"), recurrence);
     }
 
     /**
-     * Resets the completion status of the task.
+     * Resets the overdue status of the task.
      *
-     * @return same task object that has been marked as undone
+     * @return same task object that has been marked as undone and not overdue
      */
-    public Task markAsUndone() {
-        String overdueStatus = isTaskOverdue() ? "true" : "false";
-
-        return new Task(desc, dateTime, relatedNames, new Status("false", overdueStatus), recurrence);
+    public Task markAsNotOverdue() {
+        String completedStatus = isTaskDone() ? "true" : "false";
+        return new Task(desc, dateTime, relatedNames,
+                new Status(completedStatus, "false"), recurrence);
     }
 
+    /**
+     * Updates the date of the recurring task such that it is not overdue.
+     *
+     * @return same task object that has a date in the future
+     */
+    public Task updateDateRecurringTask() {
+        LocalDateTime currentDateTime = LocalDateTime.now();
+
+        Recurrence.RecurrenceType recurrenceType = recurrence.getRecurrenceType();
+        assert(recurrenceType != Recurrence.RecurrenceType.NONE);
+
+        DateTime dateTime = changeTaskDate(currentDateTime, recurrenceType);
+        return new Task(desc, dateTime, relatedNames,
+                new Status("false", "false"), recurrence);
+    }
+
+    private DateTime changeTaskDate(LocalDateTime currentDateTime, Recurrence.RecurrenceType recurrenceType) {
+        LocalDate taskDate = dateTime.date;
+        LocalTime taskTime = dateTime.time;
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd MM yyyy HH mm");
+        String inputString = String.format("%02d", taskDate.getDayOfMonth()) + " "
+                + String.format("%02d", taskDate.getMonthValue()) + " "
+                + String.format("%02d", taskDate.getYear()) + " "
+                + String.format("%02d", taskTime.getHour()) + " "
+                + String.format("%02d", taskTime.getMinute());
+        LocalDateTime taskLocalDateTime = LocalDateTime.parse(inputString, dtf);
+        long daysBetween = Duration.between(taskLocalDateTime, currentDateTime).toDays();
+
+        return changeTaskDateBasedOnRecurrence(recurrenceType, taskLocalDateTime, daysBetween);
+    }
+
+    private DateTime changeTaskDateBasedOnRecurrence(Recurrence.RecurrenceType recurrenceType,
+                                                 LocalDateTime taskLocalDateTime, long daysBetween) {
+        assert(daysBetween > 0);
+        LocalDateTime taskNewLocalDateTime = taskLocalDateTime;
+        if (recurrenceType == Recurrence.RecurrenceType.DAY) {
+            taskNewLocalDateTime = taskLocalDateTime.plusDays(daysBetween + 1);
+        } else if (recurrenceType == Recurrence.RecurrenceType.WEEK) {
+            int daysToAdd = ((int) (daysBetween / 7)) * 7 + 7;
+            taskNewLocalDateTime = taskLocalDateTime.plusDays(daysToAdd);
+        } else {
+            // assume its + 4 weeks
+            int daysToAdd = ((int) (daysBetween / 28)) * 28 + 28;
+            taskNewLocalDateTime = taskLocalDateTime.plusDays(daysToAdd);
+        }
+        // time is fixed
+        return new DateTime(taskNewLocalDateTime.toLocalDate(), taskLocalDateTime.toLocalTime());
+    }
 
     /**
      * Returns task description of this task.
@@ -231,6 +282,10 @@ public class Task implements Comparable<Task> {
             relatedPeople.add(book.getElderly(name));
         }
         return relatedPeople;
+    }
+
+    public boolean changeDateToPastWhenRecurring() {
+       return DateTime.isOverdue(this.dateTime) && recurrence.isRecurring();
     }
 
     @Override

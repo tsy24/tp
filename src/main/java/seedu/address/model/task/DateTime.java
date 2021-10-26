@@ -101,7 +101,7 @@ public class DateTime implements Comparable<DateTime> {
      * @return True if it is overdue, false otherwise
      */
     public static boolean isOverdue(DateTime dt) {
-        LocalDateTime currentDateTime = LocalDateTime.now().withMinute(0).withSecond(0).withNano(0);
+        LocalDateTime currentDateTime = LocalDateTime.now().withMinute(0).withSecond(0);
 
         String[] dateTime = currentDateTime.toString().split("T");
         String date = dateTime[0];

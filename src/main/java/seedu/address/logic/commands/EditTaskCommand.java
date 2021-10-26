@@ -21,6 +21,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_TASK_DATETIME_FOR_RECURRING_TASK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_DESC;
@@ -50,7 +51,6 @@ public class EditTaskCommand extends Command {
 
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited Task: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the address book.";
 
     private final Index index;
     private final EditTaskDescriptor editTaskDescriptor;
@@ -78,6 +78,10 @@ public class EditTaskCommand extends Command {
 
         Task taskToEdit = lastShownList.get(index.getZeroBased());
         Task editedTask = createEditedTask(taskToEdit, editTaskDescriptor);
+
+        if (editedTask.changeDateToPastWhenRecurring()) {
+            throw new CommandException(MESSAGE_INVALID_TASK_DATETIME_FOR_RECURRING_TASK);
+        }
 
         model.setTask(taskToEdit, editedTask);
         model.updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
@@ -137,7 +141,7 @@ public class EditTaskCommand extends Command {
 
         /**
          * Copy constructor.
-         * A defensive copy of {@code tags} is used internally.
+         * A defensive copy of {@code names} is used internally.
          */
         public EditTaskDescriptor(EditTaskDescriptor toCopy) {
             setNames(toCopy.names);

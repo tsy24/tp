@@ -13,7 +13,9 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Elderly;
 import seedu.address.model.task.Task;
+import seedu.address.model.task.TaskIsNotOverduePredicate;
 import seedu.address.model.task.TaskIsOverduePredicate;
+import seedu.address.model.task.TaskIsRecurringAndOverduePredicate;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -117,6 +119,16 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void markTaskAsNotOverdue(Task target) {
+        addressBook.markTaskAsNotOverdue(target);
+    }
+
+    @Override
+    public void updateDateRecurringTask(Task target) {
+        addressBook.updateDateOfRecurringTask(target);
+    }
+
+    @Override
     public void deleteElderly(Elderly target) {
         addressBook.removeElderly(target);
     }
@@ -184,6 +196,8 @@ public class ModelManager implements Model {
     public void updateFilteredTaskList(Predicate<Task> predicate) {
         requireNonNull(predicate);
         updateOverdueTaskList();
+        updateNotOverdueTaskList();
+        updateDateRecurringTaskList();
         filteredTasks.setPredicate(predicate);
     }
 
@@ -192,6 +206,21 @@ public class ModelManager implements Model {
         Predicate<Task> predicate = new TaskIsOverduePredicate();
         filteredTasks.setPredicate(predicate);
         filteredTasks.forEach(task -> markTaskAsOverdue(task));
+
+    }
+
+    @Override
+    public void updateNotOverdueTaskList() {
+        Predicate<Task> predicate = new TaskIsNotOverduePredicate();
+        filteredTasks.setPredicate(predicate);
+        filteredTasks.forEach(task -> markTaskAsNotOverdue(task));
+    }
+
+    @Override
+    public void updateDateRecurringTaskList() {
+        Predicate<Task> predicate = new TaskIsRecurringAndOverduePredicate();
+        filteredTasks.setPredicate(predicate);
+        filteredTasks.forEach(task -> updateDateRecurringTask(task));
     }
 
     @Override

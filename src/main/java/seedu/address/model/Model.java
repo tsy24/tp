@@ -73,10 +73,22 @@ public interface Model {
     void markTaskAsDone(Task target);
 
     /**
-     * Mark the given task {@code target} as overdue.
+     * Marks the given task {@code target} as overdue.
      * {@code target} must exist in the address book.
      */
     void markTaskAsOverdue(Task target);
+
+    /**
+     * Marks the given task {@code target} as not overdue.
+     * {@code target} must exist in the address book.
+     */
+    void markTaskAsNotOverdue(Task target);
+
+    /**
+     * Updates the date of the given task {@code target} such that it is not overdue.
+     * {@code target} must exist in the address book.
+     */
+    void updateDateRecurringTask(Task target);
 
     /**
      * Deletes the given elderly.
@@ -150,4 +162,14 @@ public interface Model {
      * Updates the overdue status of the tasks in the task list.
      */
     void updateOverdueTaskList();
+
+    /**
+     * Updates the not overdue status of the tasks in the task list.
+     */
+    void updateNotOverdueTaskList();
+
+    /**
+     * Updates the not overdue status of the tasks in the task list.
+     */
+    void updateDateRecurringTaskList();
 }
