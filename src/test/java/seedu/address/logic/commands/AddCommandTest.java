@@ -14,7 +14,9 @@ import org.junit.jupiter.api.Test;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.VersionedNurseyBook;
 import seedu.address.model.person.Elderly;
+import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.ElderlyBuilder;
 import seedu.address.testutil.ModelStub;
 
@@ -94,6 +96,7 @@ public class AddCommandTest {
      */
     private class ModelStubAcceptingElderlyAdded extends ModelStub {
         final ArrayList<Elderly> elderliesAdded = new ArrayList<>();
+        final VersionedNurseyBook versionedNurseyBook = new VersionedNurseyBook(new AddressBookBuilder().build());
 
         @Override
         public boolean hasElderly(Elderly elderly) {
@@ -108,7 +111,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
+        public void commitNurseyBook(CommandResult commandResult) {
+            versionedNurseyBook.commit(commandResult);
+        }
+
+        @Override
+        public ReadOnlyAddressBook getVersionedNurseyBook() {
             return new AddressBook();
         }
     }

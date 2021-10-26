@@ -49,7 +49,9 @@ public class AddTaskCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         model.addTask(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), ListDisplayChange.TASK);
+        CommandResult result = new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), ListDisplayChange.TASK);
+        model.commitNurseyBook(result);
+        return result;
     }
 
     @Override

@@ -71,7 +71,9 @@ public class AddCommand extends Command {
         }
 
         model.addElderly(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), ListDisplayChange.PERSON);
+        CommandResult result = new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), ListDisplayChange.PERSON);
+        model.commitNurseyBook(result);
+        return result;
     }
 
     @Override

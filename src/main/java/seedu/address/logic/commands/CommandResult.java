@@ -54,6 +54,10 @@ public class CommandResult {
         return feedbackToUser;
     }
 
+    public ListDisplayChange getDisplayChange() {
+        return displayChange;
+    }
+
     /**
      * Returns true if command result requires a change in list displayed by UI.
      */

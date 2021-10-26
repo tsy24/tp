@@ -31,8 +31,10 @@ import seedu.address.logic.commands.FilterCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.FindTaskCommand;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.RemarkCommand;
 import seedu.address.logic.commands.RemindCommand;
+import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.ViewElderlyCommand;
 import seedu.address.logic.commands.ViewTasksCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -176,6 +178,18 @@ public class AddressBookParserTest {
         FilterCommand filterCommand = (FilterCommand) parser.parseCommand(FilterCommand.COMMAND_WORD + " "
                 + TAG_DESC_DIABETES);
         assertEquals(new FilterCommand(new ElderlyHasTagPredicate(SET_ONE_TAG)), filterCommand);
+    }
+
+    @Test
+    public void parseCommand_undo() throws Exception {
+        assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD) instanceof UndoCommand);
+        assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD + " 3") instanceof UndoCommand);
+    }
+
+    @Test
+    public void parseCommand_redo() throws Exception {
+        assertTrue(parser.parseCommand(RedoCommand.COMMAND_WORD) instanceof RedoCommand);
+        assertTrue(parser.parseCommand(RedoCommand.COMMAND_WORD + " 3") instanceof RedoCommand);
     }
 
     @Test

@@ -29,17 +29,19 @@ public class AddCommandIntegrationTest {
     public void execute_newElderly_success() {
         Elderly validElderly = new ElderlyBuilder().build();
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getVersionedNurseyBook(), new UserPrefs());
         expectedModel.addElderly(validElderly);
+        CommandResult expectedCommandResult = new CommandResult(String.format(AddCommand.MESSAGE_SUCCESS, validElderly),
+                CommandResult.ListDisplayChange.PERSON);
+        expectedModel.commitNurseyBook(expectedCommandResult);
 
         assertCommandSuccess(new AddCommand(validElderly), model,
-                new CommandResult(String.format(AddCommand.MESSAGE_SUCCESS, validElderly),
-                        CommandResult.ListDisplayChange.PERSON), expectedModel);
+                expectedCommandResult, expectedModel);
     }
 
     @Test
     public void execute_duplicateElderly_throwsCommandException() {
-        Elderly elderlyInList = model.getAddressBook().getElderlyList().get(0);
+        Elderly elderlyInList = model.getVersionedNurseyBook().getElderlyList().get(0);
         assertCommandFailure(new AddCommand(elderlyInList), model, AddCommand.MESSAGE_DUPLICATE_ELDERLY);
     }
 
