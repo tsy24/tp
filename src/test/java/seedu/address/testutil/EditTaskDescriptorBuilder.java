@@ -26,7 +26,7 @@ public class EditTaskDescriptorBuilder {
     }
 
     /**
-     * Returns an {@code EditElderlyDescriptor} with fields containing {@code elderly}'s details
+     * Returns an {@code EditTaskDescriptor} with fields containing {@code Task}'s details
      */
     public EditTaskDescriptorBuilder(Task task) {
         descriptor = new EditTaskDescriptor();
