@@ -27,20 +27,19 @@ public class RedoCommandTest {
         expectedModel.undoNurseyBook();
         expectedModel.undoNurseyBook();
 
-
-        // multiple undo-able states
+        // multiple redo-able states
         expectedModel.redoNurseyBook();
         String expectedMessage = RedoCommand.MESSAGE_SUCCESS + firstCommandResult.getFeedbackToUser();
         CommandResult expectedCommandResult = new CommandResult(expectedMessage, firstCommandResult.getDisplayChange());
         assertCommandSuccess(new RedoCommand(), model, expectedCommandResult, expectedModel);
 
-        // one undo-able state
+        // one redo-able state
         expectedModel.redoNurseyBook();
         expectedMessage = RedoCommand.MESSAGE_SUCCESS + secondCommandResult.getFeedbackToUser();
         expectedCommandResult = new CommandResult(expectedMessage, secondCommandResult.getDisplayChange());
         assertCommandSuccess(new RedoCommand(), model, expectedCommandResult, expectedModel);
 
-        // no undo-able states
+        // no redo-able states
         assertCommandFailure(new RedoCommand(), model, RedoCommand.MESSAGE_FAILURE);
     }
 
