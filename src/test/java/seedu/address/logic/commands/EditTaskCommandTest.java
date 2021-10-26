@@ -9,9 +9,9 @@ import static seedu.address.logic.commands.TaskCommandTestUtil.VACCINE_TASK;
 import static seedu.address.logic.commands.TaskCommandTestUtil.VALID_DESC_MEDICINE;
 import static seedu.address.logic.commands.TaskCommandTestUtil.VALID_DESC_VACCINE;
 import static seedu.address.logic.commands.TaskCommandTestUtil.showTaskAtIndex;
-import static seedu.address.testutil.TypicalTasks.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND;
+import static seedu.address.testutil.TypicalTasks.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
 
@@ -47,28 +47,27 @@ public class EditTaskCommandTest {
         assertCommandSuccess(editTaskCommand, model, expectedMessage, expectedModel);
     }
 
-//    @Test
-//    public void execute_someFieldsSpecifiedUnfilteredList_success() {
-//        Index indexLastTask = Index.fromOneBased(model.getFilteredTaskList().size());
-//        Task lastTask = model.getFilteredTaskList().get(indexLastTask.getZeroBased());
-//
-//        TaskBuilder TaskInList = new TaskBuilder(lastTask);
-//        // Names and recurrence field not specified
-//        Task editedTask = TaskInList
-//                .build();
-//
-//
-//        EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder(editedTask).build();
-//        EditTaskCommand editTaskCommand = new EditTaskCommand(indexLastTask, descriptor);
-//
-//        String expectedMessage = String.format(EditTaskCommand.MESSAGE_EDIT_TASK_SUCCESS, editedTask);
-//
-//        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-//        expectedModel.setTask(lastTask, editedTask);
-//
-//        assertCommandSuccess(editTaskCommand, model, expectedMessage, expectedModel);
-//    }
-//
+    @Test
+    public void execute_someFieldsSpecifiedUnfilteredList_success() {
+        Index indexLastTask = Index.fromOneBased(model.getFilteredTaskList().size());
+        Task lastTask = model.getFilteredTaskList().get(indexLastTask.getZeroBased());
+
+        TaskBuilder taskInList = new TaskBuilder(lastTask);
+        // Names and recurrence field not specified
+        Task editedTask = taskInList
+                .build();
+
+        EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder(editedTask).build();
+        EditTaskCommand editTaskCommand = new EditTaskCommand(indexLastTask, descriptor);
+
+        String expectedMessage = String.format(EditTaskCommand.MESSAGE_EDIT_TASK_SUCCESS, editedTask);
+
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        expectedModel.setTask(lastTask, editedTask);
+
+        assertCommandSuccess(editTaskCommand, model, expectedMessage, expectedModel);
+    }
+
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
         EditTaskCommand editTaskCommand = new EditTaskCommand(INDEX_FIRST, new EditTaskDescriptor());
@@ -85,8 +84,8 @@ public class EditTaskCommandTest {
     public void execute_filteredList_success() {
         showTaskAtIndex(model, INDEX_FIRST);
 
-        Task TaskInFilteredList = model.getFilteredTaskList().get(INDEX_FIRST.getZeroBased());
-        Task editedTask = new TaskBuilder(TaskInFilteredList).withDesc(VALID_DESC_MEDICINE).build();
+        Task taskInFilteredList = model.getFilteredTaskList().get(INDEX_FIRST.getZeroBased());
+        Task editedTask = new TaskBuilder(taskInFilteredList).withDesc(VALID_DESC_MEDICINE).build();
         EditTaskCommand editTaskCommand = new EditTaskCommand(INDEX_FIRST,
                 new EditTaskDescriptorBuilder().withDescription(VALID_DESC_MEDICINE).build());
         String expectedMessage = String.format(EditTaskCommand.MESSAGE_EDIT_TASK_SUCCESS, editedTask);

@@ -1,5 +1,22 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_TASK_DATETIME_FOR_RECURRING_TASK;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_DESC;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_RECURRING;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_TIME;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TASKS;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
@@ -11,23 +28,6 @@ import seedu.address.model.task.Description;
 import seedu.address.model.task.Recurrence;
 import seedu.address.model.task.Status;
 import seedu.address.model.task.Task;
-
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_TASK_DATETIME_FOR_RECURRING_TASK;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_DATE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_DESC;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_RECURRING;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_TIME;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TASKS;
 
 /**
  * Edits the details of an existing task in the address book.

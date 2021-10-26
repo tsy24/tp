@@ -284,8 +284,13 @@ public class Task implements Comparable<Task> {
         return relatedPeople;
     }
 
+    /**
+     * Returns true if the task is past the current date and time, and it is a recurring task.
+     *
+     * @return true if its past and is a recurring task
+     */
     public boolean changeDateToPastWhenRecurring() {
-       return DateTime.isOverdue(this.dateTime) && recurrence.isRecurring();
+        return DateTime.isOverdue(this.dateTime) && recurrence.isRecurring();
     }
 
     @Override

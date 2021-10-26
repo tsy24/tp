@@ -1,5 +1,11 @@
 package seedu.address.testutil;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 import seedu.address.logic.commands.EditTaskCommand.EditTaskDescriptor;
 import seedu.address.model.person.Name;
 import seedu.address.model.task.Description;
@@ -7,11 +13,6 @@ import seedu.address.model.task.Recurrence;
 import seedu.address.model.task.Status;
 import seedu.address.model.task.Task;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class EditTaskDescriptorBuilder {
     private EditTaskDescriptor descriptor;

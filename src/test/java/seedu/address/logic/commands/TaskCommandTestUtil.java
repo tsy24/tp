@@ -8,20 +8,16 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_DESC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_RECURRING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_TIME;
 
+import java.util.Arrays;
+import java.util.Set;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.Model;
-import seedu.address.model.person.Elderly;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
-import seedu.address.model.tag.Tag;
 import seedu.address.model.task.DescriptionContainsKeywordPredicate;
 import seedu.address.model.task.Recurrence.RecurrenceType;
 import seedu.address.model.task.Task;
-import seedu.address.testutil.EditElderlyDescriptorBuilder;
 import seedu.address.testutil.EditTaskDescriptorBuilder;
-
-import java.util.Arrays;
-import java.util.Set;
 
 public class TaskCommandTestUtil extends CommandTestUtil {
     public static final String VALID_DESC_PAPERWORK = "Do paperwork";

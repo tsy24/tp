@@ -6,14 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalTasks.ALEX_INSULIN;
 import static seedu.address.testutil.TypicalTasks.APPLY_LEAVE;
-import static seedu.address.testutil.TypicalTasks.APPLY_LEAVE_LATE_TIME;
-import static seedu.address.testutil.TypicalTasks.APPLY_LEAVE_MONTH_RECURRENCE;
-import static seedu.address.testutil.TypicalTasks.APPLY_LEAVE_WEEK_RECURRENCE;
 import static seedu.address.testutil.TypicalTasks.DO_PAPERWORK;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.Collections;
 import java.util.List;
 

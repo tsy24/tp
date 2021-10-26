@@ -2,7 +2,6 @@ package seedu.address.model.task;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.testutil.TypicalTasks.APPLY_LEAVE;
 import static seedu.address.testutil.TypicalTasks.KEITH_INSULIN;
 import static seedu.address.testutil.TypicalTasks.YASMINE_PHYSIO;
 

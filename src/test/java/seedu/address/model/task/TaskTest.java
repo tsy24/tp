@@ -19,14 +19,15 @@ import static seedu.address.testutil.TypicalTasks.APPLY_LEAVE_WEEK_RECURRENCE;
 import static seedu.address.testutil.TypicalTasks.DO_PAPERWORK;
 import static seedu.address.testutil.TypicalTasks.KEITH_INSULIN;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.address.model.task.Recurrence.RecurrenceType;
 import seedu.address.testutil.TaskBuilder;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 public class TaskTest {
 
