@@ -91,7 +91,7 @@ public class LogicManagerTest {
         ModelManager expectedModel = new ModelManager();
         expectedModel.addElderly(expectedElderly);
         expectedModel.commitNurseyBook(new CommandResult(String.format(AddCommand.MESSAGE_SUCCESS, expectedElderly),
-                CommandResult.ListDisplayChange.PERSON));
+                CommandResult.ListDisplayChange.ELDERLY));
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
         assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
     }

@@ -30,7 +30,7 @@ public class ViewElderlyCommandTest {
     @Test
     public void execute_elderlyAreNotFiltered_showsSameList() {
         CommandResult expectedCommandResult = new CommandResult(MESSAGE_SUCCESS,
-                CommandResult.ListDisplayChange.PERSON);
+                CommandResult.ListDisplayChange.ELDERLY);
         assertCommandSuccess(new ViewElderlyCommand(), model, expectedCommandResult, expectedModel);
     }
 
@@ -38,7 +38,7 @@ public class ViewElderlyCommandTest {
     public void execute_elderlyAreFiltered_showsEverything() {
         showElderlyAtIndex(model, INDEX_FIRST);
         CommandResult expectedCommandResult = new CommandResult(MESSAGE_SUCCESS,
-                CommandResult.ListDisplayChange.PERSON);
+                CommandResult.ListDisplayChange.ELDERLY);
         assertCommandSuccess(new ViewElderlyCommand(), model, expectedCommandResult, expectedModel);
     }
 }

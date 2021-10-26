@@ -97,10 +97,15 @@ Format: `editElderly INDEX [en/ELDERLY_NAME] [a/AGE] [g/GENDER] [r/ROOMNO] [t/TA
 
 * Any number of tags is acceptable (including 0).
 
-### View details of an elderly: `viewDetails`
+### View full details of an elderly: `viewDetails`
 
-View details of a specific elderly
-Format: `viewDetails en/ELDERLY_NAME`
+View full details of a specific elderly
+
+Format: `viewDetails INDEX`
+
+* Shows the full details of the elderly at the specified `INDEX`.
+* The index refers to the index number shown in the displayed elderly list.
+* The index **must be a positive integer** 1, 2, 3, …​
 
 ### Deleting an elderly : `deleteElderly`
 
@@ -153,6 +158,22 @@ Format: `deleteTag INDEX t/TAG [t/TAG]…​`
 
 Example:
 * `deleteTag 1 t/covid`
+
+### Find elderly: `findElderly`
+
+Finds elderlies whose names contain any of the given keywords.
+
+Format: `findElderly KEYWORD [MORE_KEYWORDS]`
+
+* The search is case-insensitive. e.g `elena` will match `Elena`
+* The order of the keywords does not matter. e.g. `Elena Kro` will match `Kro Elena`
+* Only the name is searched.
+* Only full words will be matched. e.g. `Ele` will not match `Elena`
+* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Elena Kro` will return `Elena Grob`, `Kro Stanly`
+
+Examples:
+* `findElderly Elena` returns `elena` and `Elena Kro`
+* `findElderly Elena Jav` returns `Elena Kro`, `Jav Marsh`
 
 ### Filter elderly: `filter`
 
@@ -266,9 +287,10 @@ Action | Format, Examples
 **Delete NoK of Elderly** | `deleteNok INDEX`<br> e.g., `deleteNok 3`
 **Add Tag** | `addTag INDEX t/TAG [t/TAG]…​` e.g., `addTag 1 t/diabetes`
 **Delete Tag** | `deleteTag INDEX t/TAG [t/TAG]…​`
+**Find Elderly** | `findElderly KEYWORD [MORE_KEYWORDS]`
 **Filter** | `filter t/TAG [t/TAG]…​`
 **Edit Elderly** | `editElderly INDEX [en/ELDERLY_NAME] [a/AGE] [g/GENDER] [r/ROOMNO] [t/TAG]…​ [nn/NOK_NAME] [rs/NOK_RELATIONSHIP] [p/NOK_PHONE_NUMBER] [e/NOK_EMAIL] [addr/NOK_ADDRESS]`
-**View Elderly Details** | `viewDetails en/ELDERLY_NAME`<br> e.g., `viewDetails en/James`
+**View Elderly Details** | `viewDetails INDEX`<br> e.g., `viewDetails 2`
 **Remind** | `remind`
 **Add task** | `addTask [en/ELDERLY_NAME] desc/DESCRIPTION date/DATE time/TIME` <br> e.g., `addTask en/John desc/check insulin level date/2021-09-25 time/10.00am`
 **Delete task** | `deleteTask INDEX`<br> e.g., `delete 3`

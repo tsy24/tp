@@ -1,0 +1,22 @@
+@startuml
+!include style.puml
+
+start
+:User enters the command "viewElderly";
+
+partition Ui UI_COLOR_T1 {
+:Call the execute() method in LogicManager;
+:Return a new CommandResult, with the field ListDisplayChange.PERSON;
+if () then ([display list to change after command])
+    if () then ([to display task list])
+        :Clear list panel to display task list;
+    else ([else])
+        :Clear list panel to display elderly list;
+
+    endif
+else ([else])
+endif
+}
+
+stop
+@enduml

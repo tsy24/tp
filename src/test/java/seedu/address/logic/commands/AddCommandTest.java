@@ -34,7 +34,7 @@ public class AddCommandTest {
 
         CommandResult commandResult = new AddCommand(validElderly).execute(modelStub);
         CommandResult expectedCommand = new CommandResult(String.format(AddCommand.MESSAGE_SUCCESS, validElderly),
-                CommandResult.ListDisplayChange.PERSON);
+                CommandResult.ListDisplayChange.ELDERLY);
 
         assertEquals(expectedCommand, commandResult);
         assertEquals(Arrays.asList(validElderly), modelStub.elderliesAdded);

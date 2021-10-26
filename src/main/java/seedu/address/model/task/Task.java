@@ -23,10 +23,12 @@ public class Task implements Comparable<Task> {
      * @param names                     the names of people associated with the task
      */
     public Task(Description desc, DateTime dt, Set<Name> names) {
+        boolean isOverdue = DateTime.isOverdue(dt);
+
         this.desc = desc;
         this.dateTime = dt;
         this.relatedNames.addAll(names);
-        this.status = new Status("false");
+        this.status = new Status("false", Boolean.toString(isOverdue));
         this.recurrence = new Recurrence(Recurrence.RecurrenceType.NONE.name());
     }
 
@@ -39,10 +41,12 @@ public class Task implements Comparable<Task> {
      * @param recurrence                the recurrence type of the task
      */
     public Task(Description desc, DateTime dt, Set<Name> names, Recurrence recurrence) {
+        boolean isOverdue = DateTime.isOverdue(dt);
+
         this.desc = desc;
         this.dateTime = dt;
         this.relatedNames.addAll(names);
-        this.status = new Status("false");
+        this.status = new Status("false", Boolean.toString(isOverdue));
         this.recurrence = recurrence;
     }
 
@@ -85,11 +89,35 @@ public class Task implements Comparable<Task> {
      * @return same task object that has been marked as done
      */
     public Task markAsDone() {
-        return new Task(desc, dateTime, relatedNames, new Status("true"), recurrence);
+        String overdueStatus = isTaskOverdue() ? "true" : "false";
+
+        return new Task(desc, dateTime, relatedNames, new Status("true", overdueStatus), recurrence);
     }
 
+    /**
+     * Marks task as overdue.
+     *
+     * @return same task object that has been marked as overdue
+     */
+    public Task markAsOverdue() {
+        if (isTaskOverdue()) {
+
+        }
+
+        String completedStatus = isTaskDone() ? "true" : "false";
+
+        return new Task(desc, dateTime, relatedNames, new Status(completedStatus, "true"));
+    }
+
+    /**
+     * Resets the completion status of the task.
+     *
+     * @return same task object that has been marked as undone
+     */
     public Task markAsUndone() {
-        return new Task(desc, dateTime, relatedNames, new Status("false"), recurrence);
+        String overdueStatus = isTaskOverdue() ? "true" : "false";
+
+        return new Task(desc, dateTime, relatedNames, new Status("false", overdueStatus), recurrence);
     }
 
 
@@ -167,6 +195,13 @@ public class Task implements Comparable<Task> {
      */
     public boolean isTaskDone() {
         return status.isDone;
+    }
+
+    /**
+     * Returns true if task is overdue
+     */
+    public boolean isTaskOverdue() {
+        return status.isOverdue;
     }
 
     /**

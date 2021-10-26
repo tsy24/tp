@@ -32,7 +32,7 @@ public class AddCommandIntegrationTest {
         Model expectedModel = new ModelManager(model.getVersionedNurseyBook(), new UserPrefs());
         expectedModel.addElderly(validElderly);
         CommandResult expectedCommandResult = new CommandResult(String.format(AddCommand.MESSAGE_SUCCESS, validElderly),
-                CommandResult.ListDisplayChange.PERSON);
+                CommandResult.ListDisplayChange.ELDERLY);
         expectedModel.commitNurseyBook(expectedCommandResult);
 
         assertCommandSuccess(new AddCommand(validElderly), model,

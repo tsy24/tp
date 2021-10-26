@@ -68,6 +68,7 @@ public class RemindCommandTest {
         TaskIsReminderPredicate predicate = preparePredicate(2021, 10, 31, 10, 0);
         RemindCommand command = new RemindCommand(predicate);
         CommandResult expectedCommandResult = new CommandResult(MESSAGE_SUCCESS, CommandResult.ListDisplayChange.TASK);
+        expectedModel.updateFilteredTaskList(predicate);
         assertCommandSuccess(command, model, expectedCommandResult, expectedModel);
     }
 
