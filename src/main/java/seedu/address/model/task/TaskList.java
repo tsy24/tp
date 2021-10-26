@@ -3,18 +3,12 @@ package seedu.address.model.task;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.time.Duration;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.task.Recurrence.RecurrenceType;
 import seedu.address.model.task.exceptions.TaskNotFoundException;
 
 /**
@@ -91,14 +85,6 @@ public class TaskList implements Iterable<Task> {
     public void markTaskAsNotOverdue(Task toMark) {
         setTask(toMark, toMark.markAsNotOverdue());
     }
-
-//    /**
-//     * Mark the task {@code target} in the list as undone.
-//     * {@code target} must exist in the list.
-//     */
-//    public void markTaskAsUndone(Task toMark) {
-//        setTask(toMark, toMark.markAsUndoneAndNotOverdue());
-//    }
 
     /**
      * Replaces this list with the list from {@code replacement}.

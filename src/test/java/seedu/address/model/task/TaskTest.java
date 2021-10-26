@@ -13,6 +13,9 @@ import static seedu.address.logic.commands.TaskCommandTestUtil.VALID_TIME_SEVENP
 import static seedu.address.logic.commands.TaskCommandTestUtil.VALID_TIME_TENAM;
 import static seedu.address.testutil.TypicalTasks.ALEX_INSULIN;
 import static seedu.address.testutil.TypicalTasks.APPLY_LEAVE;
+import static seedu.address.testutil.TypicalTasks.APPLY_LEAVE_LATE_TIME;
+import static seedu.address.testutil.TypicalTasks.APPLY_LEAVE_MONTH_RECURRENCE;
+import static seedu.address.testutil.TypicalTasks.APPLY_LEAVE_WEEK_RECURRENCE;
 import static seedu.address.testutil.TypicalTasks.DO_PAPERWORK;
 import static seedu.address.testutil.TypicalTasks.KEITH_INSULIN;
 
@@ -20,6 +23,10 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.model.task.Recurrence.RecurrenceType;
 import seedu.address.testutil.TaskBuilder;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public class TaskTest {
 
@@ -145,6 +152,59 @@ public class TaskTest {
 
         // doPaperwork before alexInsulin -> returns negative value
         assertFalse(doPaperwork.compareTo(keithInsulin) == 0);
+    }
+
+    @Test
+    public void updateDateOfRecurringTasks_forDayRecurring() {
+        Task task1 = APPLY_LEAVE_LATE_TIME; // date: "2021-10-01", time: "23:50"
+        // (which is most probably past current time) DAY RECURRING
+        task1 = task1.updateDateRecurringTask();
+        LocalDateTime currentDateTime1 = LocalDateTime.now();
+        assertEquals(new DateTime(currentDateTime1.toLocalDate(), LocalTime.of(23, 50)), task1.getDateTime());
+
+        Task task2 = APPLY_LEAVE; // date: "2021-10-01", time: "00:00" (which is most probably before current time)
+        // DAY RECURRING
+        task2 = task2.updateDateRecurringTask();
+        LocalDateTime currentDateTime2 = LocalDateTime.now();
+        assertEquals(new DateTime(currentDateTime2.toLocalDate().plusDays(1),
+                LocalTime.of(0, 0)), task2.getDateTime());
+    }
+
+    @Test
+    public void changeDateOfPastRecurringTasks_forWeekRecurring() {
+        LocalDate date = LocalDate.of(2021, 9, 30);
+        LocalTime time = LocalTime.of(23, 50);
+        Task task1 = APPLY_LEAVE_WEEK_RECURRENCE; // date: "2021-09-30", time: "23:50"
+        // (which is most probably past current time) DAY RECURRING
+        LocalDateTime currentDateTime1 = LocalDateTime.now();
+        int daysDiff = currentDateTime1.getDayOfYear() - date.getDayOfYear();
+        int daysToAdd = daysDiff % 7 == 0 ? 0 : 7 - daysDiff % 7;
+        task1 = task1.updateDateRecurringTask();
+        assertEquals(new DateTime(currentDateTime1.toLocalDate().plusDays(daysToAdd), time),
+                task1.getDateTime());
+    }
+
+    @Test
+    public void changeDateOfPastRecurringTasks_forMonthRecurring() {
+        LocalDate date = LocalDate.of(2021, 7, 30);
+        LocalTime time = LocalTime.of(23, 50);
+
+        Task task1 = APPLY_LEAVE_MONTH_RECURRENCE; // date: "2021-07-30", time: "23:50"
+        // (which is most probably past current time) DAY RECURRING
+        LocalDateTime currentDateTime1 = LocalDateTime.now();
+        int daysDiff = currentDateTime1.getDayOfYear() - date.getDayOfYear();
+        int daysToAdd = daysDiff % 28 == 0 ? 0 : 28 - daysDiff % 28;
+        task1 = task1.updateDateRecurringTask();
+        assertEquals(new DateTime(currentDateTime1.toLocalDate().plusDays(daysToAdd), time),
+                task1.getDateTime());
+    }
+
+    @Test
+    public void changeDateOfPastRecurringTasks_changedToUndoneTasks() {
+        Task task1 = APPLY_LEAVE_MONTH_RECURRENCE; // date: "2021-07-30", time: "23:50"
+        // (which is most probably past current time) DAY RECURRING
+        task1 = task1.updateDateRecurringTask();
+        assertFalse(task1.getStatus().isDone);
     }
 
 }
