@@ -15,8 +15,8 @@ public interface Model {
     /** {@code Predicate} for elderly lists that always evaluate to true */
     Predicate<Elderly> PREDICATE_SHOW_ALL_ELDERLIES = unused -> true;
 
-    /** {@code Predicate} for task lists that always evaluate to true */
-    Predicate<Task> PREDICATE_SHOW_ALL_TASKS = unused -> true;
+    /** {@code Predicate} for task lists that evaluate to true for real tasks */
+    Predicate<Task> PREDICATE_SHOW_ALL_TASKS = task -> task.isRealTask();
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -96,6 +96,9 @@ public interface Model {
      * in the address book.
      */
     void setElderly(Elderly target, Elderly editedElderly);
+
+    /** Deletes all tasks that are not real in AddressBook. */
+    void deleteGhostTasks();
 
     /** Returns an unmodifiable view of the filtered elderly list */
     ObservableList<Elderly> getFilteredElderlyList();

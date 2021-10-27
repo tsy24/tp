@@ -53,8 +53,4 @@ public class Status {
                 && isDone == ((Status) other).isDone); // state check
     }
 
-    @Override
-    public int hashCode() {
-        return Boolean.hashCode(isDone);
-    }
 }

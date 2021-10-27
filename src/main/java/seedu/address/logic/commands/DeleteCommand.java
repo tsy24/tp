@@ -11,7 +11,7 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Elderly;
 
 /**
- * Deletes a elderly identified using it's displayed index from the address book.
+ * Deletes an elderly identified using it's displayed index from the address book.
  */
 public class DeleteCommand extends Command {
 

@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -249,6 +250,21 @@ public class ParserUtil {
             throw new ParseException(DateTime.MESSAGE_TIME_CONSTRAINTS);
         }
         return new DateTime(trimmedDate, trimmedTime);
+    }
+
+    /**
+     * Parses a {@code String date} into a {@code LocalDate}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code date} is invalid.
+     */
+    public static LocalDate parseLocalDate(String date) throws ParseException {
+        requireAllNonNull(date);
+        String trimmedDate = date.trim();
+        if (!DateTime.isValidDate(trimmedDate)) {
+            throw new ParseException(DateTime.MESSAGE_DATE_CONSTRAINTS);
+        }
+        return LocalDate.parse(date);
     }
 
     /**

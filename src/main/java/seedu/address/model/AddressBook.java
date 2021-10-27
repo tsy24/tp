@@ -73,7 +73,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// elderly-level operations
 
     /**
-     * Returns true if a elderly with the same identity as {@code elderly} exists in the address book.
+     * Returns true if an elderly with the same identity as {@code elderly} exists in the address book.
      */
     public boolean hasElderly(Elderly elderly) {
         requireNonNull(elderly);

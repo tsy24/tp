@@ -13,6 +13,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Name;
 import seedu.address.model.task.DateTime;
 import seedu.address.model.task.Description;
+import seedu.address.model.task.GhostTask;
 import seedu.address.model.task.Recurrence;
 import seedu.address.model.task.Status;
 import seedu.address.model.task.Task;
@@ -26,6 +27,7 @@ public class JsonAdaptedTask {
     private final String time;
     private final String status;
     private final String recurrence;
+    private final String ghostTask;
 
     /**
      * Constructs a {@code JsonAdaptedTask} with the given task details.
@@ -33,7 +35,8 @@ public class JsonAdaptedTask {
     @JsonCreator
     public JsonAdaptedTask(@JsonProperty("names") List<String> names, @JsonProperty("description") String description,
                            @JsonProperty("date") String date, @JsonProperty("time") String time,
-                           @JsonProperty("status") String status, @JsonProperty("recurrence") String recurrence) {
+                           @JsonProperty("status") String status, @JsonProperty("recurrence") String recurrence,
+                           @JsonProperty("ghostTask") String ghostTask) {
         if (names != null) {
             this.names.addAll(names);
         }
@@ -42,6 +45,7 @@ public class JsonAdaptedTask {
         this.time = time;
         this.status = status;
         this.recurrence = recurrence;
+        this.ghostTask = ghostTask;
     }
 
     /**
@@ -56,6 +60,7 @@ public class JsonAdaptedTask {
                 .collect(Collectors.toList()));
         status = source.getStatus().toString();
         recurrence = source.getRecurrence().toString();
+        ghostTask = source.getGhostTask().toString();
     }
 
     /**
@@ -112,8 +117,19 @@ public class JsonAdaptedTask {
 
         final Recurrence modelRecurrence = new Recurrence(recurrence);
 
+        if (ghostTask == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    GhostTask.class.getSimpleName()));
+        }
+
+        if (!GhostTask.isValidGhostTask(ghostTask)) {
+            throw new IllegalValueException(GhostTask.MESSAGE_CONSTRAINTS);
+        }
+
+        final GhostTask modelIsGhostTask = new GhostTask(ghostTask);
+
         final Set<Name> modelNames = new HashSet<>(relatedNames);
 
-        return new Task(modelDesc, modelDt, modelNames, modelStatus, modelRecurrence);
+        return new Task(modelDesc, modelDt, modelNames, modelStatus, modelRecurrence, modelIsGhostTask);
     }
 }

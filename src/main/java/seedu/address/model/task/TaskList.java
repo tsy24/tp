@@ -114,7 +114,6 @@ public class TaskList implements Iterable<Task> {
                 assert(recurrenceType != RecurrenceType.NONE);
 
                 changeTaskDate(currentDateTime, t, recurrenceType);
-                this.markTaskAsUndone(t);
             }
         }
         // Re-sorts task list when task date is changed
@@ -138,6 +137,7 @@ public class TaskList implements Iterable<Task> {
         // if task dateTime is before current dateTime
         if (daysBetween > 0) {
             changeTaskDateBasedOnRecurrence(t, recurrenceType, taskLocalDateTime, daysBetween);
+            this.markTaskAsUndone(t);
         }
     }
 

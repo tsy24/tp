@@ -10,7 +10,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.task.DescriptionContainsKeywordPredicate;
 
 /**
- * Parses input arguments and creates a new FindTaskCommand object
+ * Parses input arguments and creates a new FindTaskCommand object.
  */
 public class FindTaskCommandParser implements Parser<Command> {
 

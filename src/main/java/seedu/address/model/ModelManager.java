@@ -137,6 +137,15 @@ public class ModelManager implements Model {
         addressBook.setElderly(target, editedElderly);
     }
 
+    @Override
+    public void deleteGhostTasks() {
+        for (Task task : addressBook.getTaskList()) {
+            if (!task.isRealTask()) {
+                this.deleteTask(task);
+            }
+        }
+    }
+
 
     //=========== Filtered Lists Accessors =============================================================
 

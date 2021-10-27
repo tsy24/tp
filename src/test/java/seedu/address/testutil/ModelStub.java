@@ -114,4 +114,10 @@ public class ModelStub implements Model {
     public void deleteTask(Task taskToDelete) {
         throw new AssertionError("This method should not be called.");
     }
+
+    @Override
+    public void deleteGhostTasks() {
+        throw new AssertionError("This method should not be called.");
+    }
+
 }

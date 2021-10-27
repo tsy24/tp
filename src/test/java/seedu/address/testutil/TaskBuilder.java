@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import seedu.address.model.person.Name;
 import seedu.address.model.task.DateTime;
 import seedu.address.model.task.Description;
+import seedu.address.model.task.GhostTask;
 import seedu.address.model.task.Recurrence;
 import seedu.address.model.task.Status;
 import seedu.address.model.task.Task;
@@ -19,12 +20,14 @@ public class TaskBuilder {
     public static final String DEFAULT_TIME = "18:09";
     public static final String DEFAULT_STATUS = "false";
     public static final String DEFAULT_RECURRENCE = Recurrence.RecurrenceType.NONE.name();
+    public static final String DEFAULT_GHOST_TASK = "false";
 
     private Description desc;
     private DateTime dateTime;
     private Set<Name> names;
     private Status status;
     private Recurrence recurrence;
+    private GhostTask ghostTask;
 
     /**
      * Creates a {@code TaskBuilder} with the default details.
@@ -35,6 +38,7 @@ public class TaskBuilder {
         names = new HashSet<>();
         status = new Status(DEFAULT_STATUS);
         recurrence = new Recurrence(DEFAULT_RECURRENCE);
+        ghostTask = new GhostTask(DEFAULT_GHOST_TASK);
     }
 
     /**
@@ -46,6 +50,7 @@ public class TaskBuilder {
         names = new HashSet<>(taskToCopy.getRelatedNames());
         status = taskToCopy.getStatus();
         recurrence = taskToCopy.getRecurrence();
+        ghostTask = taskToCopy.getGhostTask();
     }
 
     /**
@@ -91,9 +96,18 @@ public class TaskBuilder {
     }
 
     /**
+     * Sets the {@code GhostTask} of the {@code Task} that we are building.
+     */
+    public TaskBuilder withGhostTask(String ghostTask) {
+        this.ghostTask = new GhostTask(ghostTask);
+        return this;
+    }
+
+
+    /**
      * Returns task object created with fields of the taskBuilder
      */
     public Task build() {
-        return new Task(desc, dateTime, names, status, recurrence);
+        return new Task(desc, dateTime, names, status, recurrence, ghostTask);
     }
 }
