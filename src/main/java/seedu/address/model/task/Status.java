@@ -3,6 +3,8 @@ package seedu.address.model.task;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.util.Objects;
+
 /**
  * Represents a task's completion status in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidStatus(String)}
@@ -24,14 +26,29 @@ public class Status {
     public final boolean isDone;
 
     /**
+     * If a task is overdue, isOverdue will be true. Else, it will be false.
+     */
+    public final boolean isOverdue;
+
+    /**
      * Constructs an {@code Status}.
      *
      * @param completionStatus A valid completion status.
      */
-    public Status(String completionStatus) {
+    public Status(String completionStatus, String overdueStatus) {
         requireNonNull(completionStatus);
+
         checkArgument(isValidStatus(completionStatus), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidStatus(overdueStatus), MESSAGE_CONSTRAINTS);
+
         isDone = Boolean.parseBoolean(completionStatus);
+        isOverdue = Boolean.parseBoolean(overdueStatus);
+    }
+
+    public Status(Boolean completionStatus, boolean isOverdue) {
+        requireNonNull(completionStatus);
+        this.isDone  = completionStatus;
+        this.isOverdue = isOverdue;
     }
 
     /**
@@ -43,14 +60,24 @@ public class Status {
 
     @Override
     public String toString() {
-        return Boolean.toString(isDone);
+        final StringBuilder builder = new StringBuilder();
+        builder.append(isDone)
+                .append("; ")
+                .append(isOverdue);
+
+        return builder.toString();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Status // instanceof handles nulls
-                && isDone == ((Status) other).isDone); // state check
+                && isDone == ((Status) other).isDone
+                && isOverdue == ((Status) other).isOverdue); // state check
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(isDone, isOverdue);
+    }
 }

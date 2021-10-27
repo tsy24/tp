@@ -51,6 +51,16 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void setElderlyOfInterest(Elderly e) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public Elderly getElderlyOfInterest() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public void addTask(Task task) {
         throw new AssertionError("This method should not be called.");
     }
@@ -71,7 +81,17 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public boolean hasTask(Task t) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public void deleteElderly(Elderly target) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void deleteTask(Task taskToDelete) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -81,12 +101,12 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public boolean hasTask(Task t) {
+    public void markTaskAsDone(Task target) {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void markTaskAsDone(Task target) {
+    public void markTaskAsOverdue(Task target) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -111,8 +131,8 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void deleteTask(Task taskToDelete) {
-        throw new AssertionError("This method should not be called.");
+    public void updateOverdueTaskList() {
+        throw new ArithmeticException("This method should not be called.");
     }
 
     @Override

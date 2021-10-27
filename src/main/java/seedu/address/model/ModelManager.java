@@ -13,6 +13,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Elderly;
 import seedu.address.model.task.Task;
+import seedu.address.model.task.TaskIsOverduePredicate;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -24,6 +25,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Elderly> filteredElderlies;
     private final FilteredList<Task> filteredTasks;
+    private Elderly elderlyOfInterest;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -38,6 +40,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredElderlies = new FilteredList<>(this.addressBook.getElderlyList());
         filteredTasks = new FilteredList<>(this.addressBook.getTaskList());
+        this.elderlyOfInterest = null;
     }
 
     public ModelManager() {
@@ -109,6 +112,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void markTaskAsOverdue(Task target) {
+        addressBook.markTaskAsOverdue(target);
+    }
+
+    @Override
     public void deleteElderly(Elderly target) {
         addressBook.removeElderly(target);
     }
@@ -146,6 +154,15 @@ public class ModelManager implements Model {
         }
     }
 
+    //=========== Elderly of interest Accessors =============================================================
+    public void setElderlyOfInterest(Elderly e) {
+        requireNonNull(e);
+        this.elderlyOfInterest = e;
+    }
+
+    public Elderly getElderlyOfInterest() {
+        return elderlyOfInterest;
+    }
 
     //=========== Filtered Lists Accessors =============================================================
 
@@ -172,7 +189,15 @@ public class ModelManager implements Model {
     @Override
     public void updateFilteredTaskList(Predicate<Task> predicate) {
         requireNonNull(predicate);
+        updateOverdueTaskList();
         filteredTasks.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateOverdueTaskList() {
+        Predicate<Task> predicate = new TaskIsOverduePredicate();
+        filteredTasks.setPredicate(predicate);
+        filteredTasks.forEach(task -> markTaskAsOverdue(task));
     }
 
     @Override
@@ -189,9 +214,17 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return addressBook.equals(other.addressBook)
+        if (elderlyOfInterest == null) {
+            return other.elderlyOfInterest == null
+                    && addressBook.equals(other.addressBook)
+                    && userPrefs.equals(other.userPrefs)
+                    && filteredElderlies.equals(other.filteredElderlies);
+        }
+        return other.elderlyOfInterest != null
+                && addressBook.equals(other.addressBook)
                 && userPrefs.equals(other.userPrefs)
-                && filteredElderlies.equals(other.filteredElderlies);
+                && filteredElderlies.equals(other.filteredElderlies)
+                && elderlyOfInterest.equals(other.elderlyOfInterest);
     }
 
 }

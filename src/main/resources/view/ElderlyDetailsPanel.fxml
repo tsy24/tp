@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<ScrollPane xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" prefWidth="510" styleClass="pane-with-no-border" >
+    <VBox id="elderlyDetails" alignment="CENTER_LEFT" maxWidth="480" prefWidth="480" minHeight="105" styleClass="details-panel">
+        <padding>
+            <Insets bottom="40" left="20" right="20" top="5" />
+        </padding>
+        <Label fx:id="id" styleClass="cell_big_label" HBox.hgrow="NEVER">
+            <minWidth>
+                <!-- Ensures that the label text is never truncated -->
+                <Region fx:constant="USE_PREF_SIZE" />
+            </minWidth>
+        </Label>
+        <Label fx:id="name" text="\$first" styleClass="cell_big_label">
+            <minWidth>
+                <Region fx:constant="USE_PREF_SIZE" />
+            </minWidth>
+        </Label>
+        <Label fx:id="roomNumber" styleClass="cell_small_label" text="\$roomNumber"/>
+        <FlowPane fx:id="tags"/>
+        <Label styleClass="cell_big_label" prefHeight="30" text="Age"/>
+        <Label fx:id="age" styleClass="cell_small_label" text="\$age" />
+        <Label styleClass="cell_big_label" text="Gender"/>
+        <Label fx:id="gender" styleClass="cell_small_label" text="\$gender" />
+        <Label styleClass="cell_big_label" text="Remark" wrapText="true"/>
+        <Label fx:id="remark" minHeight="-Infinity" styleClass="cell_small_label" maxWidth="420" wrapText="true" text="\$remark"/>
+        <Separator orientation="HORIZONTAL" GridPane.columnIndex="1">
+            <padding>
+                <Insets bottom="5" left="15" right="15" top="5" />
+            </padding>
+        </Separator>
+        <Label styleClass="cell_big_label" text="Next of Kin"/>
+        <HBox alignment="CENTER_LEFT" spacing="5">
+            <Label styleClass="cell_small_italics_label" text="Name"/>
+            <Label fx:id="nokName" styleClass="cell_small_label" text="\$nokName" />
+        </HBox>
+        <HBox alignment="CENTER_LEFT" spacing="5">
+            <Label styleClass="cell_small_italics_label" text="Relationship"/>
+            <Label fx:id="relationship" styleClass="cell_small_label" text="\$relationship" />
+        </HBox>
+        <HBox alignment="CENTER_LEFT" spacing="5">
+            <Label styleClass="cell_small_italics_label" text="Phone"/>
+            <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
+        </HBox>
+        <HBox alignment="CENTER_LEFT" spacing="5">
+            <Label styleClass="cell_small_italics_label" text="Email"/>
+            <Label fx:id="email" styleClass="cell_small_label" text="\$email" />
+        </HBox>
+        <HBox alignment="CENTER_LEFT" spacing="5">
+            <Label styleClass="cell_small_italics_label" text="Address"/>
+            <Label fx:id="address" minHeight="-Infinity" styleClass="cell_small_label" maxWidth="420" wrapText="true" text="\$address" />
+        </HBox>
+    </VBox>
+</ScrollPane>

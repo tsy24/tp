@@ -62,6 +62,14 @@ public class TaskList implements Iterable<Task> {
     }
 
     /**
+     * Mark the task {@code target} in the list as overdue.
+     * {@code target} must exist in the list.
+     */
+    public void markTaskAsOverdue(Task toMark) {
+        setTask(toMark, toMark.markAsOverdue());
+    }
+
+    /**
      * Mark the task {@code target} in the list as undone.
      * {@code target} must exist in the list.
      */

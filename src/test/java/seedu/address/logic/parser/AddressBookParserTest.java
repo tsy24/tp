@@ -33,6 +33,7 @@ import seedu.address.logic.commands.FindTaskCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.RemarkCommand;
 import seedu.address.logic.commands.RemindCommand;
+import seedu.address.logic.commands.ViewDetailsCommand;
 import seedu.address.logic.commands.ViewElderlyCommand;
 import seedu.address.logic.commands.ViewTasksCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -112,6 +113,13 @@ public class AddressBookParserTest {
     public void parseCommand_viewTasks() throws Exception {
         assertTrue(parser.parseCommand(ViewTasksCommand.COMMAND_WORD) instanceof ViewTasksCommand);
         assertTrue(parser.parseCommand(ViewTasksCommand.COMMAND_WORD + " 3") instanceof ViewTasksCommand);
+    }
+
+    @Test
+    public void parseCommand_viewDetails() throws Exception {
+        ViewDetailsCommand command = (ViewDetailsCommand) parser.parseCommand(
+                ViewDetailsCommand.COMMAND_WORD + " " + INDEX_FIRST.getOneBased());
+        assertEquals(new ViewDetailsCommand(INDEX_FIRST), command);
     }
 
     @Test
