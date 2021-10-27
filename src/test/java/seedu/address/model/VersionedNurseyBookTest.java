@@ -19,19 +19,19 @@ import seedu.address.testutil.AddressBookBuilder;
 
 public class VersionedNurseyBookTest {
 
-    private final ReadOnlyAddressBook addressBookInitial = getTypicalAddressBook();
-    private final ReadOnlyAddressBook addressBookWithAmy = new AddressBookBuilder().withElderly(AMY).build();
-    private final ReadOnlyAddressBook addressBookWithBob = new AddressBookBuilder().withElderly(BOB).build();
+    private final ReadOnlyAddressBook nurseyBookInitial = getTypicalAddressBook();
+    private final ReadOnlyAddressBook nurseyBookWithAmy = new AddressBookBuilder().withElderly(AMY).build();
+    private final ReadOnlyAddressBook nurseyBookWithBob = new AddressBookBuilder().withElderly(BOB).build();
     private final CommandResult dummyCommandResult = new CommandResult("feedback");
 
     @Test
     public void commit_initialState_noStatesRemovedCurrentStateSaved() {
-        VersionedNurseyBook versionedNurseyBook = new VersionedNurseyBook(addressBookInitial);
+        VersionedNurseyBook versionedNurseyBook = new VersionedNurseyBook(nurseyBookInitial);
 
         versionedNurseyBook.commit(dummyCommandResult);
-        assertAddressBookListStatus(versionedNurseyBook,
-                Collections.singletonList(addressBookInitial),
-                addressBookInitial,
+        assertNurseyBookListStatus(versionedNurseyBook,
+                Collections.singletonList(nurseyBookInitial),
+                nurseyBookInitial,
                 Collections.emptyList());
     }
 
@@ -40,21 +40,21 @@ public class VersionedNurseyBookTest {
         VersionedNurseyBook versionedNurseyBook = initialiseMultipleStatesVersionedNurseyBook();
 
         versionedNurseyBook.commit(dummyCommandResult);
-        assertAddressBookListStatus(versionedNurseyBook,
-                Arrays.asList(addressBookInitial, addressBookWithAmy, addressBookWithBob),
-                addressBookWithBob,
+        assertNurseyBookListStatus(versionedNurseyBook,
+                Arrays.asList(nurseyBookInitial, nurseyBookWithAmy, nurseyBookWithBob),
+                nurseyBookWithBob,
                 Collections.emptyList());
     }
 
     @Test
     public void commit_multipleStatesPointerNotAtEndOfStateList_statesAfterPointerRemovedCurrentStateSaved() {
-        VersionedNurseyBook versionedAddressBook = initialiseMultipleStatesVersionedNurseyBook();
-        versionedAddressBook.undo();
+        VersionedNurseyBook versionedNurseyBook = initialiseMultipleStatesVersionedNurseyBook();
+        versionedNurseyBook.undo();
 
-        versionedAddressBook.commit(dummyCommandResult);
-        assertAddressBookListStatus(versionedAddressBook,
-                Arrays.asList(addressBookInitial, addressBookWithAmy),
-                addressBookWithAmy,
+        versionedNurseyBook.commit(dummyCommandResult);
+        assertNurseyBookListStatus(versionedNurseyBook,
+                Arrays.asList(nurseyBookInitial, nurseyBookWithAmy),
+                nurseyBookWithAmy,
                 Collections.emptyList());
     }
 
@@ -96,10 +96,10 @@ public class VersionedNurseyBookTest {
         VersionedNurseyBook versionedNurseyBook = initialiseMultipleStatesVersionedNurseyBook();
 
         versionedNurseyBook.undo();
-        assertAddressBookListStatus(versionedNurseyBook,
-                Collections.singletonList(addressBookInitial),
-                addressBookWithAmy,
-                Collections.singletonList(addressBookWithBob));
+        assertNurseyBookListStatus(versionedNurseyBook,
+                Collections.singletonList(nurseyBookInitial),
+                nurseyBookWithAmy,
+                Collections.singletonList(nurseyBookWithBob));
     }
 
     @Test
@@ -108,15 +108,15 @@ public class VersionedNurseyBookTest {
         versionedNurseyBook.undo();
 
         versionedNurseyBook.undo();
-        assertAddressBookListStatus(versionedNurseyBook,
+        assertNurseyBookListStatus(versionedNurseyBook,
                 Collections.emptyList(),
-                addressBookInitial,
-                Arrays.asList(addressBookWithAmy, addressBookWithBob));
+                nurseyBookInitial,
+                Arrays.asList(nurseyBookWithAmy, nurseyBookWithBob));
     }
 
     @Test
     public void undo_initialState_throwsNoUndoableStateException() {
-        VersionedNurseyBook versionedNurseyBook = new VersionedNurseyBook(addressBookInitial);
+        VersionedNurseyBook versionedNurseyBook = new VersionedNurseyBook(nurseyBookInitial);
 
         assertThrows(VersionedNurseyBook.NoUndoableStateException.class, versionedNurseyBook::undo);
     }
@@ -170,10 +170,10 @@ public class VersionedNurseyBookTest {
         versionedNurseyBook.undo();
 
         versionedNurseyBook.redo();
-        assertAddressBookListStatus(versionedNurseyBook,
-                Collections.singletonList(addressBookInitial),
-                addressBookWithAmy,
-                Collections.singletonList(addressBookWithBob));
+        assertNurseyBookListStatus(versionedNurseyBook,
+                Collections.singletonList(nurseyBookInitial),
+                nurseyBookWithAmy,
+                Collections.singletonList(nurseyBookWithBob));
     }
 
     @Test
@@ -182,15 +182,15 @@ public class VersionedNurseyBookTest {
         versionedNurseyBook.undo();
 
         versionedNurseyBook.redo();
-        assertAddressBookListStatus(versionedNurseyBook,
-                Arrays.asList(addressBookInitial, addressBookWithAmy),
-                addressBookWithBob,
+        assertNurseyBookListStatus(versionedNurseyBook,
+                Arrays.asList(nurseyBookInitial, nurseyBookWithAmy),
+                nurseyBookWithBob,
                 Collections.emptyList());
     }
 
     @Test
     public void redo_initialState_throwsNoRedoableStateException() {
-        VersionedNurseyBook versionedNurseyBook = new VersionedNurseyBook(addressBookInitial);
+        VersionedNurseyBook versionedNurseyBook = new VersionedNurseyBook(nurseyBookInitial);
 
         assertThrows(VersionedNurseyBook.NoRedoableStateException.class, versionedNurseyBook::redo);
     }
@@ -205,9 +205,9 @@ public class VersionedNurseyBookTest {
 
     private VersionedNurseyBook initialiseMultipleStatesVersionedNurseyBook() {
         VersionedNurseyBook versionedNurseyBook = new VersionedNurseyBook(getTypicalAddressBook());
-        versionedNurseyBook.resetData(addressBookWithAmy);
+        versionedNurseyBook.resetData(nurseyBookWithAmy);
         versionedNurseyBook.commit(dummyCommandResult);
-        versionedNurseyBook.resetData(addressBookWithBob);
+        versionedNurseyBook.resetData(nurseyBookWithBob);
         versionedNurseyBook.commit(dummyCommandResult);
         return versionedNurseyBook;
     }
@@ -230,7 +230,7 @@ public class VersionedNurseyBookTest {
         assertFalse(versionedNurseyBook.equals(null));
 
         // different nurseyBookStateList -> returns false
-        VersionedNurseyBook differentVersionedNurseyBook = new VersionedNurseyBook(addressBookInitial);
+        VersionedNurseyBook differentVersionedNurseyBook = new VersionedNurseyBook(nurseyBookInitial);
         assertFalse(versionedNurseyBook.equals(differentVersionedNurseyBook));
 
         // different currentStateIndex -> returns false
@@ -239,14 +239,14 @@ public class VersionedNurseyBookTest {
     }
 
     /**
-     * Asserts that {@code versionedAddressBook} is currently pointing at {@code expectedCurrentState},
-     * states before {@code versionedAddressBook#currentStatePointer} is equal to {@code expectedStatesBeforePointer},
-     * and states after {@code versionedAddressBook#currentStatePointer} is equal to {@code expectedStatesAfterPointer}.
+     * Asserts that {@code versionedNurseyBook} is currently pointing at {@code expectedCurrentState},
+     * states before {@code versionedNurseyBook#currentStateIndex} is equal to {@code expectedStatesBeforeIndex},
+     * and states after {@code versionedNurseyBook#currentStateIndex} is equal to {@code expectedStatesAfterIndex}.
      */
-    private void assertAddressBookListStatus(VersionedNurseyBook versionedNurseyBook,
-                                             List<ReadOnlyAddressBook> expectedStatesBeforePointer,
-                                             ReadOnlyAddressBook expectedCurrentState,
-                                             List<ReadOnlyAddressBook> expectedStatesAfterPointer) {
+    private void assertNurseyBookListStatus(VersionedNurseyBook versionedNurseyBook,
+                                            List<ReadOnlyAddressBook> expectedStatesBeforeIndex,
+                                            ReadOnlyAddressBook expectedCurrentState,
+                                            List<ReadOnlyAddressBook> expectedStatesAfterIndex) {
         // check state currently pointing at is correct
         assertEquals(new AddressBook(versionedNurseyBook), expectedCurrentState);
 
@@ -256,22 +256,22 @@ public class VersionedNurseyBookTest {
         }
 
         // check states before pointer are correct
-        for (ReadOnlyAddressBook expectedAddressBook : expectedStatesBeforePointer) {
-            assertEquals(expectedAddressBook, new AddressBook(versionedNurseyBook));
+        for (ReadOnlyAddressBook expectedNurseyBook : expectedStatesBeforeIndex) {
+            assertEquals(expectedNurseyBook, new AddressBook(versionedNurseyBook));
             versionedNurseyBook.redo();
         }
 
         // check states after pointer are correct
-        for (ReadOnlyAddressBook expectedAddressBook : expectedStatesAfterPointer) {
+        for (ReadOnlyAddressBook expectedNurseyBook : expectedStatesAfterIndex) {
             versionedNurseyBook.redo();
-            assertEquals(expectedAddressBook, new AddressBook(versionedNurseyBook));
+            assertEquals(expectedNurseyBook, new AddressBook(versionedNurseyBook));
         }
 
         // check that there are no more states after pointer
         assertFalse(versionedNurseyBook.canRedo());
 
         // revert pointer to original position
-        expectedStatesAfterPointer.forEach(unused -> versionedNurseyBook.undo());
+        expectedStatesAfterIndex.forEach(unused -> versionedNurseyBook.undo());
     }
 
 }

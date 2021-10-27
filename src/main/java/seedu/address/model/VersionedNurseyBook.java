@@ -5,6 +5,9 @@ import java.util.List;
 
 import seedu.address.logic.commands.CommandResult;
 
+/**
+ * Tracks the state of the nurseybook
+ */
 public class VersionedNurseyBook extends AddressBook {
 
     private static final CommandResult INITIAL_COMMAND_RESULT = new CommandResult("Initialise NurseyBook");
@@ -23,7 +26,8 @@ public class VersionedNurseyBook extends AddressBook {
     }
 
     /**
-     * Saves a new NurseyBookState with a copy of this {@code VersionedAddressBook} and {@code commandResult}.
+     * Saves a new NurseyBookState with a copy of this {@code VersionedAddressBook} and {@code commandResult}
+     * and increases the {@code currentStateIndex}.
      */
     public void commit(CommandResult commandResult) {
         deleteUndoneStates();
@@ -32,8 +36,8 @@ public class VersionedNurseyBook extends AddressBook {
     }
 
     /**
-     * Resets data in this {@code VersionedAddressBook} to the version saved in
-     * the previous {@code NurseyBookState} based on the {@code currentStateIndex}.
+     * Decreases the {@code currentStateIndex} and resets data in this {@code VersionedAddressBook}
+     * to the version saved in the previous {@code NurseyBookState} based on the {@code currentStateIndex}.
      */
     public void undo() {
         if (!canUndo()) {
@@ -70,8 +74,8 @@ public class VersionedNurseyBook extends AddressBook {
     }
 
     /**
-     * Resets data in this {@code VersionedAddressBook} to the version saved in
-     * the next {@code NurseyBookState} based on the {@code currentStateIndex}.
+     * Increases the {@code currentStateIndex} and resets data in this {@code VersionedAddressBook}
+     * to the version saved in the next {@code NurseyBookState} based on the {@code currentStateIndex}.
      */
     public void redo() {
         if (!canRedo()) {
