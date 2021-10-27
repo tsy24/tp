@@ -12,6 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Elderly;
+import seedu.address.model.task.DateTime;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskIsNotOverduePredicate;
 import seedu.address.model.task.TaskIsOverduePredicate;
@@ -111,6 +112,7 @@ public class ModelManager implements Model {
     @Override
     public void markTaskAsDone(Task target) {
         addressBook.markTaskAsDone(target);
+
     }
 
     @Override
@@ -205,7 +207,7 @@ public class ModelManager implements Model {
     public void updateOverdueTaskList() {
         Predicate<Task> predicate = new TaskIsOverduePredicate();
         filteredTasks.setPredicate(predicate);
-        filteredTasks.forEach(task -> markTaskAsOverdue(task));
+        filteredTasks.forEach(this::markTaskAsOverdue);
 
     }
 
@@ -213,14 +215,22 @@ public class ModelManager implements Model {
     public void updateNotOverdueTaskList() {
         Predicate<Task> predicate = new TaskIsNotOverduePredicate();
         filteredTasks.setPredicate(predicate);
-        filteredTasks.forEach(task -> markTaskAsNotOverdue(task));
+        filteredTasks.forEach(this::markTaskAsNotOverdue);
     }
 
     @Override
     public void updateDateRecurringTaskList() {
         Predicate<Task> predicate = new TaskIsRecurringAndOverduePredicate();
         filteredTasks.setPredicate(predicate);
-        filteredTasks.forEach(task -> updateDateRecurringTask(task));
+        // The below for loop is not replaceable with enhanced for loop because changes made to the datetime of the
+        // task will cause it to disappear from filteredTask, leading to some error.
+        // anyone is welcome to fix this bug :)
+        for (int i = 0; i < filteredTasks.size(); i++) {
+            Task t = filteredTasks.get(i);
+            if (t.isTaskRecurringAndOverdue()) {
+                addressBook.updateDateOfRecurringTask(t);
+            }
+        }
     }
 
     @Override

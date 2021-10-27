@@ -95,7 +95,6 @@ public class Task implements Comparable<Task> {
      */
     public Task markAsDone() {
         String overdueStatus = isTaskOverdue() ? "true" : "false";
-
         return new Task(desc, dateTime, relatedNames, new Status("true", overdueStatus), recurrence);
     }
 
@@ -127,13 +126,18 @@ public class Task implements Comparable<Task> {
      */
     public Task updateDateRecurringTask() {
         LocalDateTime currentDateTime = LocalDateTime.now();
+        if (recurrence.isRecurring()) {
+            Recurrence.RecurrenceType recurrenceType = recurrence.getRecurrenceType();
+            assert(recurrenceType != Recurrence.RecurrenceType.NONE);
 
-        Recurrence.RecurrenceType recurrenceType = recurrence.getRecurrenceType();
-        assert(recurrenceType != Recurrence.RecurrenceType.NONE);
+            DateTime dateTime = changeTaskDate(currentDateTime, recurrenceType);
+            return new Task(desc, dateTime, relatedNames,
+                    new Status("false", "false"), recurrence);
+        } else {
+            return this;
+        }
 
-        DateTime dateTime = changeTaskDate(currentDateTime, recurrenceType);
-        return new Task(desc, dateTime, relatedNames,
-                new Status("false", "false"), recurrence);
+
     }
 
     private DateTime changeTaskDate(LocalDateTime currentDateTime, Recurrence.RecurrenceType recurrenceType) {
@@ -268,6 +272,13 @@ public class Task implements Comparable<Task> {
      */
     public boolean isTaskOverdue() {
         return status.isOverdue;
+    }
+
+    /**
+     * Returns true if task is recurring and overdue
+     */
+    public boolean isTaskRecurringAndOverdue() {
+        return getRecurrence().isRecurring() && DateTime.isOverdue(getDateTime());
     }
 
     /**
