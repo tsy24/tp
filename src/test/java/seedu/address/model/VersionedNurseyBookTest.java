@@ -250,27 +250,27 @@ public class VersionedNurseyBookTest {
         // check state currently pointing at is correct
         assertEquals(new AddressBook(versionedNurseyBook), expectedCurrentState);
 
-        // shift pointer to start of state list
+        // set index to 0
         while (versionedNurseyBook.canUndo()) {
             versionedNurseyBook.undo();
         }
 
-        // check states before pointer are correct
+        // check states before index are correct
         for (ReadOnlyAddressBook expectedNurseyBook : expectedStatesBeforeIndex) {
             assertEquals(expectedNurseyBook, new AddressBook(versionedNurseyBook));
             versionedNurseyBook.redo();
         }
 
-        // check states after pointer are correct
+        // check states after index are correct
         for (ReadOnlyAddressBook expectedNurseyBook : expectedStatesAfterIndex) {
             versionedNurseyBook.redo();
             assertEquals(expectedNurseyBook, new AddressBook(versionedNurseyBook));
         }
 
-        // check that there are no more states after pointer
+        // check that there are no more states
         assertFalse(versionedNurseyBook.canRedo());
 
-        // revert pointer to original position
+        // revert index to original position
         expectedStatesAfterIndex.forEach(unused -> versionedNurseyBook.undo());
     }
 

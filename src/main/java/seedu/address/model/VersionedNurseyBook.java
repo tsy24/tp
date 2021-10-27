@@ -26,7 +26,7 @@ public class VersionedNurseyBook extends AddressBook {
     }
 
     /**
-     * Saves a new NurseyBookState with a copy of this {@code VersionedAddressBook} and {@code commandResult}
+     * Saves a new NurseyBookState with a copy of this {@code VersionedNurseyBook} and {@code commandResult}
      * and increases the {@code currentStateIndex}.
      */
     public void commit(CommandResult commandResult) {
@@ -36,7 +36,7 @@ public class VersionedNurseyBook extends AddressBook {
     }
 
     /**
-     * Decreases the {@code currentStateIndex} and resets data in this {@code VersionedAddressBook}
+     * Decreases the {@code currentStateIndex} and resets data in this {@code VersionedNurseyBook}
      * to the version saved in the previous {@code NurseyBookState} based on the {@code currentStateIndex}.
      */
     public void undo() {
@@ -74,7 +74,7 @@ public class VersionedNurseyBook extends AddressBook {
     }
 
     /**
-     * Increases the {@code currentStateIndex} and resets data in this {@code VersionedAddressBook}
+     * Increases the {@code currentStateIndex} and resets data in this {@code VersionedNurseyBook}
      * to the version saved in the next {@code NurseyBookState} based on the {@code currentStateIndex}.
      */
     public void redo() {
@@ -107,7 +107,7 @@ public class VersionedNurseyBook extends AddressBook {
      */
     public static class NoUndoableStateException extends RuntimeException {
         private NoUndoableStateException() {
-            super("Current state pointer is at the initial state, unable to undo.");
+            super("Current state index is at the initial state, unable to undo.");
         }
     }
 
@@ -116,7 +116,7 @@ public class VersionedNurseyBook extends AddressBook {
      */
     public static class NoRedoableStateException extends RuntimeException {
         private NoRedoableStateException() {
-            super("Current state pointer is at the most recent state, unable to redo.");
+            super("Current state index is at the most recent state, unable to redo.");
         }
     }
 }
