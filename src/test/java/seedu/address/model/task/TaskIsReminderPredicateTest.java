@@ -56,7 +56,7 @@ public class TaskIsReminderPredicateTest {
         assertTrue(predicate.test(new TaskBuilder()
                 .withDesc("get vaccinated")
                 .withDateTime("2021-11-13", "10:15")
-                .withStatus("false")
+                .withStatus("false", "false")
                 .build()));
     }
 

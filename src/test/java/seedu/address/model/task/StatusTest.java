@@ -9,13 +9,22 @@ import org.junit.jupiter.api.Test;
 class StatusTest {
     @Test
     public void constructor_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new Status(null));
+        // null isDone
+        assertThrows(NullPointerException.class, () -> new Status(null, "true"));
+
+        // null isOverdue
+        assertThrows(NullPointerException.class, () -> new Status("false", null));
     }
 
     @Test
     public void constructor_invalidStatus_throwsIllegalArgumentException() {
         String invalidStatus = "a";
-        assertThrows(IllegalArgumentException.class, () -> new Status(invalidStatus));
+
+        // invalid isDone
+        assertThrows(IllegalArgumentException.class, () -> new Status(invalidStatus, "false"));
+
+        // invalid isOverdue
+        assertThrows(IllegalArgumentException.class, () -> new Status("false", invalidStatus));
     }
 
     @Test
@@ -35,10 +44,17 @@ class StatusTest {
 
     @Test
     public void equals() {
-        Status completedStatus = new Status("true");
-        assertTrue(completedStatus.equals(new Status("true")));
-        assertTrue(completedStatus.equals(new Status("TruE"))); // random upper cases
+        Status completedStatus = new Status("true", "false");
+        assertTrue(completedStatus.equals(new Status("true", "false")));
 
-        assertFalse(completedStatus.equals(new Status("false")));
+        // random upper cases
+        assertTrue(completedStatus.equals(new Status("TruE", "faLse")));
+
+        // different isDone value
+        assertFalse(completedStatus.equals(new Status("false", "false")));
+
+        // different isOverdue value
+        assertFalse(completedStatus.equals(new Status("false", "true")));
+
     }
 }

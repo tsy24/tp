@@ -164,6 +164,44 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+### Filter command
+
+#### Implementation
+The implementation of the filter command is facilitated by the FilterCommand class and ElderlyHasTagPredicate class.
+ElderlyHasTagPredicate contains a set of tags that was queried in the filter command and has a method `test`
+to test whether an Elderly has all the tags in the set.
+
+Given below is the class diagram of the FilterCommand and the ElderlyHasTagPredicate.
+
+![](images/FilterClassDiagram.png)
+
+The following sequence diagram shows how the filter command works:
+
+![FilterSequenceDiagram](images/FilterSequenceDiagram.png)
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `FilterCommand` and `ElderlyHasTagPredicate` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
+
+As tags can only be alphanumeric, the `parse` method in FilterCommandParser checks that the all the tags queried are valid first before creating the FilterCommand and ElderlyHasTagPredicate objects. 
+If there is a tag that is invalid, an exception will be thrown. 
+
+When executing the filter command, the `updateFilteredElderlyList` method of Model calls other methods that are omitted from the diagram.
+One of the methods then calls the `test` method of the ElderlyHasTagPredicate object with every Elderly saved in NurseyBook.
+The list of Elderly that return true for `test` is then assigned to `filteredElderlies` in ModelManager and displayed in the GUI.
+
+#### Design Considerations
+##### Aspect: How to store tags
+* Alternative 1: Create a new class TagSet to store tags
+    * Pros: Can add custom methods
+    * Cons: More code needs to be written and more room for bugs
+* Alternative 2: Use Java Util Set to store tags
+    * Pros: Easy to import and use
+    * Cons: Methods that can be used are limited to the methods in Set
+
+Decision: Alternative 2 was chosen as the tags are simply kept as a collection.
+Only the simple operations such as checking whether a Tag is in the Set and changing the Tags in the set are needed.
+Thus, the methods provided in Java Util Set are sufficient and there is no need to implement custom methods.
+
 ### Mark task as done feature
 
 #### How task status is changed
@@ -264,6 +302,38 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 _{more aspects and alternatives to be added}_
 
+### Delete Nok feature
+
+#### Implementation
+
+The implementation of `DeleteNokCommand` is highly similar to that of `DeleteCommand`. Major differences are in how the steps 5 and 6 below are handled.
+
+Given below is an example usage scenario and how the delete Nok mechanism behaves at each step. The example command is `deleteNok 1`.
+
+Step 1. The user and executes `deleteNok 1` command to delete the NoK details of the first elderly in the elderly list. This prompts the `LogicManager` to start its execution by calling its `execute()` command.
+
+Step 2. `LogicManager` calls the `AddressBookParser` to parse the command.
+
+Step 3. The `AddressBookParser` creates a new `DeleteNokCommandParser` which will `parse()` the arguments. This creates and returns a new `DeleteNokCommand` which is ready to be executed, containing the index of the targetted elderly as one of its fields.
+
+Step 4. The `DeleteNokCommand` is executed by calling its `execute()` method. This calls the `Model#getFilteredElderlyList()` and retrieves the filtered elderly list, which should contain all elderlies.
+
+Step 5. A new updated Elderly object is created with all fields equivalent to the targeted Elderly object, apart from the Nok fields which are wiped. This process has been omitted from the sequence diagram below. 
+
+Step 6. The `Model#setElderly()` method is then called to replace the targeted Elderly with the updated Elderly object.
+
+Step 7. A new `CommandResult` is returned which contains the details of the new Elderly object. The result is returned to `LogicManager`.
+
+The following sequence diagram shows how the find task operation works:
+
+![DeleteNokSequenceDiagram](images/DeleteNokSequenceDiagram.png)
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `DeleteNokCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
+
+
+
 ### Find task feature
 
 #### Implementation
@@ -289,6 +359,52 @@ The following sequence diagram shows how the find task operation works:
 <div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `FindTaskCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 </div>
+
+### ViewElderly and ViewTasks feature
+
+#### How `CommandResult` is changed
+
+As NurseyBook has to support the display of two different lists (contacts vs task), each `CommandResult` object will now store the information which list should be displayed to the user.
+
+The following class diagram shows the changes made to the `CommandResult` class. Each `CommandResult` has an enum that specifies the type of display. 
+
+* `CommandResult#ListDisplayChange.PERSON` — Specifies the elderly/contact list to be displayed after the current command execution
+* `CommandResult#ListDisplayChange.TASK` — Specifies the task list to be displayed after the current command execution
+* `CommandResult#ListDisplayChange.NONE` — Specifies the type of displayed list should not change after the current command execution
+
+![](./images/ViewElderlyClassDiagram.png)
+
+#### How `MainWindow` processes `CommandResult`
+
+`MainWindow#handleChange()` is a new method that handles the switching of the list display. It checks if a `CommandResult` object specifies the change of list display, and changes the UI accordingly.
+
+#### Execution
+
+Given below is an example usage scenario and how the display of elderly/task list mechanism behaves at each step. An example command is `viewElderly`, and the mechanism of `viewTasks` is similar.
+
+Step 1. The user launches the application for the first time. The default display of NurseyBook shows the list of all elderly contacts that were added in.
+
+Step 2. The user runs a few other available commands, and wants to switch back to the default display with the elderly contacts, thus executes the `viewElderly` command.
+
+Step 3. `MainWindow#executeCommand("viewElderly")` is called. Within the method body, it calls the `LogicManager#execute()` which returns a new `CommandResult`.
+
+Step 4. `MainWindow#executeCommand()` processes the `CommandResult`. It calls `MainWindow#handleChange()` to change the display of the list, to show all elderly contacts.
+
+The following activity diagram summarizes what happens in the `MainWindow` class when the user enters either the `viewElderly` or `viewTasks` command.
+
+![ViewElderlyActivityDiagram](./images/ViewElderlyActivityDiagram.png)
+
+#### Design considerations:
+
+**Aspect: How to display contacts (elderlies) and tasks separately**
+* **Alternative 1 (current choice):** Using a commands `viewElderly` and `viewTasks`, switch the display in the main window between the elderly list and task list stored in `AddressBook`.
+  * Pros: Cleaner display, able to display the necessary information without cluttering the display window
+  * Cons: The need to implement two new commands, `viewElderly` and `viewTask` for the user to view the two lists respectively. The code for the two commands might contain repetition due to the similarity in function.
+  
+
+* **Alternative 2:** Display the list of elderly and list of tasks side by side in the same display window.
+  * Pros: Implementation/Creation of new commands are not needed. The user is able to type less yet still view what he/she is interested in.
+  * Cons: With two different lists (that contain different objects) displayed side by side, the display might seem cluttered and hard to read from. It negatively impacts the user experience.
 
 
 --------------------------------------------------------------------------------------------------------------------
