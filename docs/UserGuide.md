@@ -244,9 +244,9 @@ Example:
 `addTask en/John desc/check insulin level date/2021-09-25 time/19:22 recur/week`
 
 
-#### Delete task: `deleteTask`
+#### Delete a task: `deleteTask`
 
-Deletes a particular task for you in the task list from NurseyBook.
+Deletes a particular task in the task list from NurseyBook.
 
 Format: `deleteTask INDEX`
 
@@ -262,6 +262,39 @@ Format: `deleteTask INDEX`
 
 Examples:
 * `viewTasks` followed by `delete 2` deletes the 2nd task shown by NurseyBook.
+
+
+#### Edit a task: `editTask`
+
+Edits the details of a specific task.
+
+Format: `editTask INDEX [en/ELDERLY_NAME]... [desc/DESCRIPTION] [date/DATE] [time/TIME] [recur/RECURRENCE_TYPE]`
+
+Example:
+* `viewTasks` followed by `editTask 1 date/2021-12-25` changes the date of the 1st task shown by NurseyBook to Christmas.
+
+
+#### Find a task: `findTask`
+
+Finds tasks which description contain any of the given keywords.
+
+Format: `findTask KEYWORD [MORE_KEYWORDS]`
+
+<div markdown="block" class="information information-info">
+
+:information_source: **Information:**
+
+* The search is case-insensitive. e.g. `shift` will match `Shift`
+* The order of the keywords does not matter. e.g. `Day shift` will match `shift Day`
+* Only the description is searched.
+* Only full words will be matched. e.g. `Sh` will not match `Shift`
+* Task matching at least one keyword will be returned (i.e. `OR` search). e.g. `Day shift` will return `Day routine`, `Shift items`
+
+</div>
+
+Examples:
+* `findElderly Day` returns `day` and `Day routine`
+* `findElderly Day shift` returns `Day routine`, `Shift items`
 
 
 #### Mark a task as completed: `doneTask`
@@ -343,16 +376,16 @@ There is no need to save manually.
 
 Action | Format, Examples
 --------|------------------
-**Add Elderly** | `addElderly en/ELDERLY_NAME a/AGE r/ROOMNO g/GENDER [t/TAG]…​ [nn/NOK_NAME] [rs/NOK_RELATIONSHIP] [p/NOK_PHONE_NUMBER] [e/NOK_EMAIL] [addr/NOK_ADDRESS]` <br> <br> e.g., `addElderly en/Khong Guan a/80 g/M r/201 nn/Gong Kuan rs/Brother p/91234567 e/guanbro@gmail.com addr/London Street 11`
-**Delete Elderly** | `deleteElderly INDEX` <br> <br> e.g., `deleteElderly 3`
-**Edit Elderly** | `editElderly INDEX [en/ELDERLY_NAME] [a/AGE] [g/GENDER] [r/ROOMNO] [t/TAG]…​ [nn/NOK_NAME] [rs/NOK_RELATIONSHIP] [p/NOK_PHONE_NUMBER] [e/NOK_EMAIL] [addr/NOK_ADDRESS] [re/REMARK]`
-**Find Elderly** | `findElderly KEYWORD [MORE_KEYWORDS]`
-**Delete Next-of-Kin of Elderly** | `deleteNok INDEX`<br> <br> e.g., `deleteNok 3`
-**Add Tag** | `addTagINDEX t/TAG [t/TAG]…​` <br> <br> e.g., `addTag 1 t/diabetes`
-**Delete Tag** | `deleteTag INDEX t/TAG [t/TAG]…​`
+**Add an elderly** | `addElderly en/ELDERLY_NAME a/AGE r/ROOMNO g/GENDER [t/TAG]…​ [nn/NOK_NAME] [rs/NOK_RELATIONSHIP] [p/NOK_PHONE_NUMBER] [e/NOK_EMAIL] [addr/NOK_ADDRESS]` <br> <br> e.g., `addElderly en/Khong Guan a/80 g/M r/201 nn/Gong Kuan rs/Brother p/91234567 e/guanbro@gmail.com addr/London Street 11`
+**Delete an elderly** | `deleteElderly INDEX` <br> <br> e.g., `deleteElderly 3`
+**Edit an elderly** | `editElderly INDEX [en/ELDERLY_NAME] [a/AGE] [g/GENDER] [r/ROOMNO] [t/TAG]…​ [nn/NOK_NAME] [rs/NOK_RELATIONSHIP] [p/NOK_PHONE_NUMBER] [e/NOK_EMAIL] [addr/NOK_ADDRESS] [re/REMARK]`
+**Find an elderly** | `findElderly KEYWORD [MORE_KEYWORDS]`
+**Delete next-of-kin of elderly** | `deleteNok INDEX`<br> <br> e.g., `deleteNok 3`
+**Add tag(s)** | `addTagINDEX t/TAG [t/TAG]…​` <br> <br> e.g., `addTag 1 t/diabetes`
+**Delete tag(s)** | `deleteTag INDEX t/TAG [t/TAG]…​`
 **Filter** | `filter t/TAG [t/TAG]…​`
 **Remark** | `remark INDEX re/REMARK`
-**View Elderly Details** | `viewDetails INDEX`<br> <br> e.g., `viewDetails 2`
+**View elderly details** | `viewDetails INDEX`<br> <br> e.g., `viewDetails 2`
 **View all elderly** | `viewElderly`
 
 
@@ -360,10 +393,11 @@ Action | Format, Examples
 
 Action | Format, Examples
 --------|------------------
-**Add task** | `addTask [en/ELDERLY_NAME] desc/DESCRIPTION date/DATE time/TIME [recur/RECURRENCE_TYPE]` <br> <br> e.g., `addTask en/John desc/check insulin level date/2021-09-25 time/10.00am recur/week`
-**Delete task** | `deleteTask INDEX`<br> e.g., `delete 3`
-**Edit task** | `editTask INDEX [en/ELDERLY_NAME] [desc/DESCRIPTION] [date/DATE] [time/TIME] [recur/RECURRENCE_TYPE]` <br> <br> e.g., `editTask 2 desc/Meeting with head nurse`
-**Mark task as complete** | `doneTask INDEX`<br> e.g., `done 3`
+**Add a task** | `addTask [en/ELDERLY_NAME] desc/DESCRIPTION date/DATE time/TIME [recur/RECURRENCE_TYPE]` <br> <br> e.g., `addTask en/John desc/check insulin level date/2021-09-25 time/10.00am recur/week`
+**Delete a task** | `deleteTask INDEX`<br> e.g., `delete 3`
+**Edit a task** | `editTask INDEX [en/ELDERLY_NAME] [desc/DESCRIPTION] [date/DATE] [time/TIME] [recur/RECURRENCE_TYPE]` <br> <br> e.g., `editTask 2 desc/Meeting with head nurse`
+**Find a task** | `findTask KEYWORD [MORE_KEYWORDS]`
+**Mark a task as complete** | `doneTask INDEX`<br> e.g., `done 3`
 **Remind** | `remind`
 **View all tasks** | `viewTasks`
 
