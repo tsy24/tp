@@ -10,6 +10,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -37,12 +38,14 @@ import seedu.address.logic.commands.RemindCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.ViewDetailsCommand;
 import seedu.address.logic.commands.ViewElderlyCommand;
+import seedu.address.logic.commands.ViewScheduleCommand;
 import seedu.address.logic.commands.ViewTasksCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Elderly;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Remark;
 import seedu.address.model.tag.ElderlyHasTagPredicate;
+import seedu.address.model.task.DateTimeContainsDatePredicate;
 import seedu.address.model.task.DescriptionContainsKeywordPredicate;
 import seedu.address.model.task.Task;
 import seedu.address.testutil.EditElderlyDescriptorBuilder;
@@ -198,6 +201,13 @@ public class AddressBookParserTest {
     public void parseCommand_redo() throws Exception {
         assertTrue(parser.parseCommand(RedoCommand.COMMAND_WORD) instanceof RedoCommand);
         assertTrue(parser.parseCommand(RedoCommand.COMMAND_WORD + " 3") instanceof RedoCommand);
+    }
+
+    public void parseCommand_viewSchedule() throws Exception {
+        ViewScheduleCommand viewScheduleCommand = (ViewScheduleCommand) parser.parseCommand(
+                ViewScheduleCommand.COMMAND_WORD + " " + "2021-11-02");
+        LocalDate keyDate = LocalDate.parse("2021-11-02");
+        assertEquals(new ViewScheduleCommand(new DateTimeContainsDatePredicate(keyDate), keyDate), viewScheduleCommand);
     }
 
     @Test

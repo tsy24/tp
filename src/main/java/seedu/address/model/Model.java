@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.time.LocalDate;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -16,8 +17,8 @@ public interface Model {
     /** {@code Predicate} for elderly lists that always evaluate to true */
     Predicate<Elderly> PREDICATE_SHOW_ALL_ELDERLIES = unused -> true;
 
-    /** {@code Predicate} for task lists that always evaluate to true */
-    Predicate<Task> PREDICATE_SHOW_ALL_TASKS = unused -> true;
+    /** {@code Predicate} for task lists that evaluate to true for real tasks */
+    Predicate<Task> PREDICATE_SHOW_ALL_TASKS = task -> task.checkIfRealTask();
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -127,6 +128,10 @@ public interface Model {
      */
     void setElderly(Elderly target, Elderly editedElderly);
 
+
+    /** Deletes all tasks that are not real in AddressBook. */
+    void deleteGhostTasks();
+
     /**
      * Replaces the given task {@code target} with {@code editedTask}.
      * {@code target} must exist in the address book.
@@ -188,6 +193,14 @@ public interface Model {
      * Updates the overdue status of the tasks in the task list.
      */
     void updateOverdueTaskList();
+
+    /**
+     * Adds ghost tasks on the specified keyDate, if any of the current recurring tasks' future occurrences
+     * coincide with the given keydate.
+     *
+     * @param keyDate Date to compare future occurrences against.
+     */
+    void addPossibleGhostTasksWithMatchingDate(LocalDate keyDate);
 
     /**
      * Updates the not overdue status of the tasks in the task list.

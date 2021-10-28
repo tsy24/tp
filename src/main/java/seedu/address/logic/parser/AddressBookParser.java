@@ -29,6 +29,7 @@ import seedu.address.logic.commands.RemindCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.ViewDetailsCommand;
 import seedu.address.logic.commands.ViewElderlyCommand;
+import seedu.address.logic.commands.ViewScheduleCommand;
 import seedu.address.logic.commands.ViewTasksCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -131,6 +132,10 @@ public class AddressBookParser {
 
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand();
+
+        case ViewScheduleCommand.COMMAND_WORD:
+            return new ViewScheduleCommandParser().parse(arguments);
+
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
