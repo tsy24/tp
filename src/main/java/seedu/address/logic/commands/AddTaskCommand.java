@@ -49,9 +49,11 @@ public class AddTaskCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
         if (toAdd.isPastCurrentDateAndRecurringTask()) {
             throw new CommandException(MESSAGE_INVALID_TASK_DATETIME_FOR_RECURRING_TASK);
         }
+
         model.addTask(toAdd);
         CommandResult result = new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), ListDisplayChange.TASK);
         model.commitNurseyBook(result);

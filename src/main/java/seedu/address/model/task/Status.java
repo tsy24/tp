@@ -33,7 +33,8 @@ public class Status {
     /**
      * Constructs an {@code Status}.
      *
-     * @param completionStatus A valid completion status.
+     * @param completionStatus A valid completion status in String.
+     * @param overdueStatus A valid overdue status in String.
      */
     public Status(String completionStatus, String overdueStatus) {
         requireNonNull(completionStatus);
@@ -43,6 +44,18 @@ public class Status {
 
         isDone = Boolean.parseBoolean(completionStatus);
         isOverdue = Boolean.parseBoolean(overdueStatus);
+    }
+
+    /**
+     * Constructs an {@code Status}.
+     *
+     * @param completionStatus A valid completion status in boolean.
+     * @param isOverdue A valid overdue status in boolean.
+     */
+    public Status(Boolean completionStatus, boolean isOverdue) {
+        requireNonNull(completionStatus);
+        this.isDone = completionStatus;
+        this.isOverdue = isOverdue;
     }
 
     /**
