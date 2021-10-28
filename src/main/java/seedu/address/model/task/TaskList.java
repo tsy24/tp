@@ -15,7 +15,6 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.Model;
 import seedu.address.model.task.Recurrence.RecurrenceType;
 import seedu.address.model.task.exceptions.TaskNotFoundException;
 

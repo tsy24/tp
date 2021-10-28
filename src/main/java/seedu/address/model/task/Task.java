@@ -3,7 +3,6 @@ package seedu.address.model.task;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.person.Elderly;
@@ -124,7 +123,7 @@ public class Task implements Comparable<Task> {
      * @return Ghost Task.
      */
     public Task createGhostTask(Description desc, DateTime dt, Set<Name> names, Status status, Recurrence recurrence) {
-        return new Task(desc, dt, names, status, recurrence,new GhostTask("true"));
+        return new Task(desc, dt, names, status, recurrence, new GhostTask("true"));
     }
 
     /**
