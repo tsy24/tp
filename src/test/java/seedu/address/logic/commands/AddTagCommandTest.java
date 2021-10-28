@@ -39,8 +39,9 @@ public class AddTagCommandTest {
 
         String expectedMessage = String.format(AddTagCommand.MESSAGE_ADD_TAG_SUCCESS, tagAddedElderly);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new AddressBook(model.getVersionedNurseyBook()), new UserPrefs());
         expectedModel.setElderly(firstElderly, tagAddedElderly);
+        expectedModel.commitNurseyBook(new CommandResult(expectedMessage));
 
         assertCommandSuccess(addTagCommand, model, expectedMessage, expectedModel);
     }
@@ -55,8 +56,9 @@ public class AddTagCommandTest {
 
         String expectedMessage = String.format(AddTagCommand.MESSAGE_ADD_TAG_SUCCESS, tagAddedElderly);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new AddressBook(model.getVersionedNurseyBook()), new UserPrefs());
         expectedModel.setElderly(thirdElderly, tagAddedElderly);
+        expectedModel.commitNurseyBook(new CommandResult(expectedMessage));
 
         assertCommandSuccess(addTagCommand, model, expectedMessage, expectedModel);
     }
@@ -71,8 +73,9 @@ public class AddTagCommandTest {
 
         String expectedMessage = String.format(AddTagCommand.MESSAGE_ADD_TAG_SUCCESS, tagAddedElderly);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new AddressBook(model.getVersionedNurseyBook()), new UserPrefs());
         expectedModel.setElderly(firstElderly, tagAddedElderly);
+        expectedModel.commitNurseyBook(new CommandResult(expectedMessage));
 
         assertCommandSuccess(addTagCommand, model, expectedMessage, expectedModel);
     }
@@ -89,8 +92,9 @@ public class AddTagCommandTest {
 
         String expectedMessage = String.format(AddTagCommand.MESSAGE_ADD_TAG_SUCCESS, tagAddedElderly);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new AddressBook(model.getVersionedNurseyBook()), new UserPrefs());
         expectedModel.setElderly(firstElderly, tagAddedElderly);
+        expectedModel.commitNurseyBook(new CommandResult(expectedMessage));
 
         assertCommandSuccess(addTagCommand, model, expectedMessage, expectedModel);
     }
@@ -112,7 +116,7 @@ public class AddTagCommandTest {
         showElderlyAtIndex(model, INDEX_FIRST);
         Index outOfBoundIndex = INDEX_SECOND;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getElderlyList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getVersionedNurseyBook().getElderlyList().size());
 
         AddTagCommand addTagCommand = new AddTagCommand(outOfBoundIndex, SET_ONE_TAG);
 

@@ -87,9 +87,11 @@ public class LogicManagerTest {
         String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + AGE_DESC_AMY + GENDER_DESC_AMY
                 + ROOM_NUMBER_DESC_AMY + NOK_NAME_DESC_AMY + NOK_RELATIONSHIP_DESC_AMY + NOK_PHONE_DESC_AMY
                 + NOK_EMAIL_DESC_AMY + NOK_ADDRESS_DESC_AMY;
-        Elderly expectedElderly = new ElderlyBuilder(AMY).withTags().build();
+        Elderly expectedElderly = new ElderlyBuilder(AMY).withTags().withRemark("").build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addElderly(expectedElderly);
+        expectedModel.commitNurseyBook(new CommandResult(String.format(AddCommand.MESSAGE_SUCCESS, expectedElderly),
+                CommandResult.ListDisplayChange.ELDERLY));
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
         assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
     }
@@ -135,7 +137,7 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getVersionedNurseyBook(), new UserPrefs());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 
@@ -149,6 +151,7 @@ public class LogicManagerTest {
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage, Model expectedModel) {
         assertThrows(expectedException, expectedMessage, () -> logic.execute(inputCommand));
+        expectedModel.equals(model);
         assertEquals(expectedModel, model);
     }
 

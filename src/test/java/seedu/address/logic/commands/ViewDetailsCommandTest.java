@@ -27,7 +27,7 @@ class ViewDetailsCommandTest {
 
         String expectedMessage = String.format(ViewDetailsCommand.MESSAGE_SUCCESS, elderlyToView.getName());
 
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getVersionedNurseyBook(), new UserPrefs());
         expectedModel.setElderlyOfInterest(elderlyToView);
 
         assertCommandSuccess(viewDetailsCommand, model, expectedMessage, true, expectedModel);
@@ -50,7 +50,7 @@ class ViewDetailsCommandTest {
 
         String expectedMessage = String.format(ViewDetailsCommand.MESSAGE_SUCCESS, elderlyToView.getName());
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getVersionedNurseyBook(), new UserPrefs());
         showElderlyAtIndex(expectedModel, INDEX_FIRST);
         expectedModel.setElderlyOfInterest(elderlyToView);
 
@@ -63,7 +63,7 @@ class ViewDetailsCommandTest {
 
         Index outOfBoundIndex = INDEX_SECOND;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getElderlyList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getVersionedNurseyBook().getElderlyList().size());
 
         ViewDetailsCommand viewDetailsCommand = new ViewDetailsCommand(outOfBoundIndex);
 
