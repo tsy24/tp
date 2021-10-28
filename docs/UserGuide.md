@@ -246,6 +246,31 @@ Clears all entries from NurseyBook.
 
 Format: `clear`
 
+### Undo previous command : `undo`
+
+Undoes the previous undoable command executed on the NurseyBook.
+
+Format: `undo`
+
+* Undoable commands: `addElderly`, `editElderly`, `deleteElderly`, `deleteNok`, `addTag`, `deleteTag`, `addTask`, `editTask`, `deleteTask`, `doneTask`, `clear`
+* Non-undoable commands: `findElderly`, `filter`, `viewDetails`, `viewElderly`, `findTask`, `remind`, `viewTasks`, `viewSchedule`
+* If there are no undoable commands executed previously, the undo command will fail and an error message will be shown.
+
+Example: 
+* `deleteElderly 1` followed by `undo` causes the `deleteElderly 1` command to be undone and no elderly is deleted from the NurseyBook.
+
+### Redo previously undone command : `redo`
+
+Reverses the previous undo command executed on the NurseyBook.
+
+Format: `redo`
+
+* If there are no undo commands executed previously, the redo command will fail and an error message will be shown.
+
+Example:
+* `deleteElderly 1` followed by `undo` causes the `deleteElderly 1` command to be undone and no elderly is deleted from the NurseyBook. 
+Entering `redo` will reverse the previous undo command, causing the elderly to be deleted again.
+
 ### Exiting the program : `exit`
 
 Exits the program.
@@ -297,3 +322,5 @@ Action | Format, Examples
 **Mark task as complete** | `doneTask INDEX`<br> e.g., `done 3`
 **View all tasks** | `viewTasks`
 **View all elderly** | `viewElderly`
+**Undo** | `undo`
+**Redo** | `redo`
