@@ -24,6 +24,7 @@ public class RedoCommand extends Command {
         }
 
         CommandResult lastCommandResult = model.redoNurseyBook();
+        model.updateFilteredTaskList(Model.PREDICATE_SHOW_ALL_TASKS);
         return new CommandResult(MESSAGE_SUCCESS + lastCommandResult.getFeedbackToUser(),
                 lastCommandResult.getDisplayChange());
     }
