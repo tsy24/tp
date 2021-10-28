@@ -12,7 +12,6 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Elderly;
-import seedu.address.model.task.DateTime;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskIsNotOverduePredicate;
 import seedu.address.model.task.TaskIsOverduePredicate;

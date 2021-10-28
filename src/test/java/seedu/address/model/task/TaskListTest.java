@@ -6,14 +6,17 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalTasks.ALEX_INSULIN;
 import static seedu.address.testutil.TypicalTasks.APPLY_LEAVE;
+import static seedu.address.testutil.TypicalTasks.APPLY_LEAVE_LATE_TIME;
 import static seedu.address.testutil.TypicalTasks.DO_PAPERWORK;
 
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.model.task.exceptions.TaskNotFoundException;
+import seedu.address.testutil.TaskBuilder;
 
 public class TaskListTest {
     private final TaskList taskList = new TaskList();
@@ -108,5 +111,22 @@ public class TaskListTest {
         expectedTaskList.add(DO_PAPERWORK);
         expectedTaskList.add(ALEX_INSULIN);
         assertEquals(expectedTaskList, taskList);
+    }
+
+    @Test
+    public void updateDateOfRecurringTask_nullTask_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> taskList.updateDateOfRecurringTask(null));
+    }
+
+    @Test
+    public void updateDateOfRecurringTask_taskList_updatesPastDateWithNewDate() {
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        Task t = APPLY_LEAVE_LATE_TIME;
+        taskList.add(APPLY_LEAVE_LATE_TIME);
+        taskList.updateDateOfRecurringTask(t);
+        Task test = new TaskBuilder(APPLY_LEAVE_LATE_TIME)
+                        .withDateTime(currentDateTime.toLocalDate().toString(),
+                            t.getTime().toString()).withStatus("false", "false").build();
+        assertTrue(taskList.contains(test));
     }
 }
