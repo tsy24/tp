@@ -126,7 +126,7 @@ public class ModelManager implements Model {
 
     @Override
     public void updateDateRecurringTask(Task target) {
-        addressBook.updateDateOfRecurringTask(target);
+        addressBook.updateDateRecurringTask(target);
     }
 
     @Override
@@ -227,7 +227,7 @@ public class ModelManager implements Model {
         for (int i = 0; i < filteredTasks.size(); i++) {
             Task t = filteredTasks.get(i);
             if (t.isTaskRecurringAndOverdue()) {
-                addressBook.updateDateOfRecurringTask(t);
+                addressBook.updateDateRecurringTask(t);
             }
         }
     }

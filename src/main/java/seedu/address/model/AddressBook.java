@@ -205,7 +205,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Updates the date of the given task {@code target} such that it is not overdue.
      * {@code target} must exist in the address book.
      */
-    public void updateDateOfRecurringTask(Task target) {
+    public void updateDateRecurringTask(Task target) {
         tasks.updateDateOfRecurringTask(target);
     }
 }

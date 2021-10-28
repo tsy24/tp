@@ -11,6 +11,7 @@ import java.util.Set;
 import seedu.address.model.AddressBook;
 import seedu.address.model.person.Elderly;
 import seedu.address.model.person.Name;
+import seedu.address.model.task.Recurrence.RecurrenceType;
 
 public class Task implements Comparable<Task> {
 
@@ -127,7 +128,7 @@ public class Task implements Comparable<Task> {
     public Task updateDateRecurringTask() {
         LocalDateTime currentDateTime = LocalDateTime.now();
         if (recurrence.isRecurring()) {
-            Recurrence.RecurrenceType recurrenceType = recurrence.getRecurrenceType();
+            RecurrenceType recurrenceType = recurrence.getRecurrenceType();
             assert(recurrenceType != Recurrence.RecurrenceType.NONE);
 
             DateTime dateTime = changeTaskDate(currentDateTime, recurrenceType);
@@ -300,7 +301,7 @@ public class Task implements Comparable<Task> {
      *
      * @return true if its past and is a recurring task
      */
-    public boolean changeDateToPastWhenRecurring() {
+    public boolean isPastCurrentDateAndRecurringTask() {
         return DateTime.isOverdue(this.dateTime) && recurrence.isRecurring();
     }
 

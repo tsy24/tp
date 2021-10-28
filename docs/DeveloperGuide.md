@@ -248,13 +248,14 @@ If a user does not specify `Recurrence` when adding a new `Task`, it will defaul
 
 #### Implementation
 
-Listed below are some of the situations and corresponding implementations where the overdue `Status`, and `DateTime` might be changed based on either a manual edit of the `Task` details or the passing of time.
+Listed below are some situations and corresponding implementations where the overdue `Status`, and `DateTime` might be changed based on either a manual edit of the `Task` details or the passing of time.
 
 1. `DateTime` of non-recurring `Task` has passed current `DateTime`
   - Mark `Status#isOverdue` to `True`
 2. `DateTime` of recurring `Task` has passed current `DateTime`
   - Update old `DateTime` to new `DateTime` according to its `Recurrence` type.
   - Mark `Status#isDone` to `False`
+  - Status#isOverdue remains 'False'
 3. User edits non-recurring `Task` with a passed `DateTime` to a future `DateTime`
   - Mark `Status#isOverdue` to `False`
 4. User edits non-recurring `Task` with a future `DateTime` to a passed `DateTime`

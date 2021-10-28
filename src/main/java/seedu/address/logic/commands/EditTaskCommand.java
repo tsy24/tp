@@ -79,7 +79,7 @@ public class EditTaskCommand extends Command {
         Task taskToEdit = lastShownList.get(index.getZeroBased());
         Task editedTask = createEditedTask(taskToEdit, editTaskDescriptor);
 
-        if (editedTask.changeDateToPastWhenRecurring()) {
+        if (editedTask.isPastCurrentDateAndRecurringTask()) {
             throw new CommandException(MESSAGE_INVALID_TASK_DATETIME_FOR_RECURRING_TASK);
         }
 
