@@ -16,7 +16,7 @@ public class DateTimeContainsDatePredicate implements Predicate<Task> {
 
     @Override
     public boolean test(Task task) {
-        return task.isSameDateTask(keyDate);
+        return task.checkIfTaskFallsOnDate(keyDate);
     }
 
     @Override

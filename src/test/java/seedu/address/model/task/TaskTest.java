@@ -12,8 +12,11 @@ import static seedu.address.logic.commands.TaskCommandTestUtil.VALID_TIME_SEVENP
 import static seedu.address.logic.commands.TaskCommandTestUtil.VALID_TIME_TENAM;
 import static seedu.address.testutil.TypicalTasks.ALEX_INSULIN;
 import static seedu.address.testutil.TypicalTasks.APPLY_LEAVE;
+import static seedu.address.testutil.TypicalTasks.APPLY_LEAVE_DAY_NEXT_RECURRENCE_GHOST;
 import static seedu.address.testutil.TypicalTasks.DO_PAPERWORK;
 import static seedu.address.testutil.TypicalTasks.KEITH_INSULIN;
+
+import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
 
@@ -129,6 +132,35 @@ public class TaskTest {
     void markTaskOverdue() {
         Task overdueKeith = new TaskBuilder(keithInsulin).withStatus("false", "true").build();
         assertEquals(keithInsulin.markAsOverdue(), overdueKeith);
+    }
+
+    @Test
+    void checkIfTaskRecurring() {
+        //recurring task
+        assertTrue(APPLY_LEAVE.checkIfTaskRecurring());
+
+        //non-recurring task
+        assertFalse(keithInsulin.checkIfTaskRecurring());
+    }
+
+    @Test
+    void checkIfRealTask() {
+        //real task
+        assertTrue(keithInsulin.checkIfRealTask());
+
+        //ghost task
+        assertFalse(APPLY_LEAVE_DAY_NEXT_RECURRENCE_GHOST.checkIfRealTask());
+    }
+
+    @Test
+    void checkIfTaskFallsOnDate() {
+        //task falls on date
+        LocalDate sameDate = LocalDate.parse("2020-11-01");
+        assertTrue(keithInsulin.checkIfTaskFallsOnDate(sameDate));
+
+        //task does not fall on date
+        LocalDate differentDate = LocalDate.parse("2020-11-02");
+        assertFalse(keithInsulin.checkIfTaskFallsOnDate(differentDate));
     }
 
     @Test

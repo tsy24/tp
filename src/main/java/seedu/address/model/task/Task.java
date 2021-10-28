@@ -168,7 +168,7 @@ public class Task implements Comparable<Task> {
      *
      * @return True if the task is a recurring task; false otherwise.
      */
-    public boolean isTaskRecurring() {
+    public boolean checkIfTaskRecurring() {
         return this.recurrence.isRecurring();
     }
 
@@ -177,7 +177,7 @@ public class Task implements Comparable<Task> {
      *
      * @return True if real task; false if ghost task.
      */
-    public boolean isRealTask() {
+    public boolean checkIfRealTask() {
         return !this.ghostTask.checkIfGhostTask();
     }
 
@@ -186,7 +186,7 @@ public class Task implements Comparable<Task> {
      *
      * @return True if the task is on the same date; false otherwise.
      */
-    public boolean isSameDateTask(LocalDate givenDate) {
+    public boolean checkIfTaskFallsOnDate(LocalDate givenDate) {
         return this.dateTime.isSameDate(givenDate);
     }
 
@@ -286,7 +286,7 @@ public class Task implements Comparable<Task> {
      * @return A copy of the next occurrence of the given task if recurring; otherwise returns current instance.
      */
     public Task createNextTaskOccurrence() {
-        if (!this.isTaskRecurring()) {
+        if (!this.checkIfTaskRecurring()) {
             return this;
         }
 

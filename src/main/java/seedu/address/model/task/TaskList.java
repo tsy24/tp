@@ -109,7 +109,7 @@ public class TaskList implements Iterable<Task> {
      * Removes all tasks that are ghost tasks, if any.
      */
     public void deleteGhostTasks() {
-        this.internalList.removeIf(task -> !task.isRealTask());
+        this.internalList.removeIf(task -> !task.checkIfRealTask());
     }
 
     /**
@@ -120,7 +120,7 @@ public class TaskList implements Iterable<Task> {
     public void addPossibleGhostTasksWithMatchingDate(LocalDate keyDate) {
         List<Task> ghostTaskList = new ArrayList<Task>();
         for (Task task : this.internalList) {
-            if (task.isTaskRecurring() && task.isRealTask()) {
+            if (task.checkIfTaskRecurring() && task.checkIfRealTask()) {
                 Task ghostTask = (addFutureGhostTasksWithMatchingDate(task, keyDate));
                 if (ghostTask != null) {
                     ghostTaskList.add(ghostTask);
@@ -219,7 +219,7 @@ public class TaskList implements Iterable<Task> {
         int daysLeftToCheck = 84 - interval;
 
         while (daysLeftToCheck > 0) {
-            if (currTask.isSameDateTask(keyDate) && !this.contains(currTask)) {
+            if (currTask.checkIfTaskFallsOnDate(keyDate) && !this.contains(currTask)) {
                 return currTask;
             }
 
