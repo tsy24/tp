@@ -230,8 +230,8 @@ The undo and redo features are facilitated by `VersionedNurseyBook`. It extends 
 The `VersionedNurseyBook` implements the following operations:
 
 * `VersionedNurseyBook#commit()` — Saves the current nursey book state and the latest command result in its history.
-* `VersionedNurseyBook#undo()` — Restores the previous address book state from its history and returns the command result of the command undone.
-* `VersionedNurseyBook#redo()` — Restores a previously undone address book state from its history and returns the command result of the command redone.
+* `VersionedNurseyBook#undo()` — Restores the previous nursey book state from its history and returns the command result of the command undone.
+* `VersionedNurseyBook#redo()` — Restores a previously undone nursey book state from its history and returns the command result of the command redone.
 
 These operations are exposed in the `Model` interface as `Model#commitNurseyBook()`, `Model#undoNurseyBook()` and `Model#redoNurseyBook()` respectively.
 
@@ -282,7 +282,7 @@ The `redo` command uses `Model#canRedoNurseyBook()` to check if this is the case
 
 </div>
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the data of the nursey book, such as `list`, will not call `Model#commitNurseyBook()`, `Model#undoNurseyBook()` or `Model#redoNurseyBook()`. 
+Step 5. The user then decides to execute the command `viewElderly`. Commands that do not modify the data of the nursey book, such as `viewElderly`, will not call `Model#commitNurseyBook()`, `Model#undoNurseyBook()` or `Model#redoNurseyBook()`. 
 Thus, the `nurseyBookStateList` and `currentStateIndex` remains unchanged.
 
 ![UndoRedoState4](images/UndoRedoState4.png)

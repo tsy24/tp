@@ -255,7 +255,7 @@ Undoes the previous undoable command executed on the NurseyBook.
 
 Format: `undo`
 
-* Undoable commands: `addElderly`, `editElderly`, `deleteElderly`, `deleteNok`, `addTag`, `deleteTag`, `addTask`, `editTask`, `deleteTask`, `doneTask`, `clear`
+* Undoable commands(i.e. any command that modifies NurseyBook's data): `addElderly`, `editElderly`, `deleteElderly`, `deleteNok`, `addTag`, `deleteTag`, `addTask`, `editTask`, `deleteTask`, `doneTask`, `clear`
 * Non-undoable commands: `findElderly`, `filter`, `viewDetails`, `viewElderly`, `findTask`, `remind`, `viewTasks`, `viewSchedule`
 * If there are no undoable commands executed previously, the undo command will fail and an error message will be shown.
 
