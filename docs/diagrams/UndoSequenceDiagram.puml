@@ -3,44 +3,50 @@
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":NurseyBookParser" as NurseyBookParser LOGIC_COLOR
 participant "u:UndoCommand" as UndoCommand LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
-participant ":VersionedAddressBook" as VersionedAddressBook MODEL_COLOR
+participant ":VersionedNurseyBook" as VersionedNurseyBook MODEL_COLOR
 end box
-[-> LogicManager : execute(undo)
+[-> LogicManager : execute("undo")
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand(undo)
-activate AddressBookParser
+LogicManager -> NurseyBookParser : parseCommand("undo")
+activate NurseyBookParser
 
 create UndoCommand
-AddressBookParser -> UndoCommand
+NurseyBookParser -> UndoCommand
 activate UndoCommand
 
-UndoCommand --> AddressBookParser
+UndoCommand --> NurseyBookParser
 deactivate UndoCommand
 
-AddressBookParser --> LogicManager : u
-deactivate AddressBookParser
+NurseyBookParser --> LogicManager : u
+deactivate NurseyBookParser
 
 LogicManager -> UndoCommand : execute()
 activate UndoCommand
 
-UndoCommand -> Model : undoAddressBook()
+UndoCommand -> Model : undoNurseyBook()
 activate Model
 
-Model -> VersionedAddressBook : undo()
-activate VersionedAddressBook
+Model -> VersionedNurseyBook : getCurrentCommandResult()
+activate VersionedNurseyBook
 
-VersionedAddressBook -> VersionedAddressBook :resetData(ReadOnlyAddressBook)
-VersionedAddressBook --> Model :
-deactivate VersionedAddressBook
+VersionedNurseyBook --> Model : commandResult
+deactivate VersionedNurseyBook
 
-Model --> UndoCommand
+Model -> VersionedNurseyBook : undo()
+activate VersionedNurseyBook
+
+VersionedNurseyBook -> VersionedNurseyBook :resetData(ReadOnlyNurseyBook)
+VersionedNurseyBook --> Model :
+deactivate VersionedNurseyBook
+
+Model --> UndoCommand : commandResult
 deactivate Model
 
 UndoCommand --> LogicManager : result
