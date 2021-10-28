@@ -28,7 +28,7 @@ public class ViewScheduleCommandParser implements Parser<Command> {
         }
 
         String stringKeyDate = trimmedArgs.split(" ")[0];
-        LocalDate keyDate = ParserUtil.parseLocalDate(stringKeyDate);
+        LocalDate keyDate = ParserUtil.parseDate(stringKeyDate);
 
         return new ViewScheduleCommand(new DateTimeContainsDatePredicate(keyDate), keyDate);
     }

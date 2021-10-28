@@ -9,20 +9,17 @@ import static seedu.address.testutil.TypicalTasks.APPLY_LEAVE;
 import static seedu.address.testutil.TypicalTasks.APPLY_LEAVE_DAY_NEXT_RECURRENCE_GHOST;
 import static seedu.address.testutil.TypicalTasks.APPLY_LEAVE_LATE_TIME;
 import static seedu.address.testutil.TypicalTasks.APPLY_LEAVE_MONTH_NEXT_RECURRENCE_GHOST;
-import static seedu.address.testutil.TypicalTasks.APPLY_LEAVE_MONTH_RECURRENCE;
 import static seedu.address.testutil.TypicalTasks.APPLY_LEAVE_WEEK_NEXT_RECURRENCE_GHOST;
-import static seedu.address.testutil.TypicalTasks.APPLY_LEAVE_WEEK_RECURRENCE;
 import static seedu.address.testutil.TypicalTasks.DO_PAPERWORK;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.Collections;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.model.task.exceptions.TaskNotFoundException;
+import seedu.address.testutil.TaskBuilder;
 
 public class TaskListTest {
     private final TaskList taskList = new TaskList();
@@ -120,65 +117,20 @@ public class TaskListTest {
     }
 
     @Test
-    public void changeDateOfPastRecurringTasks_forDayRecurring() {
-        TaskList taskList = new TaskList();
-        taskList.add(APPLY_LEAVE_LATE_TIME); // date: "2021-10-01", time: "23:50"
-        // (which is most probably past current time) DAY RECURRING
-        taskList.changeDateOfPastRecurringTasks();
-        Task task1 = taskList.asUnmodifiableObservableList().get(0);
-        LocalDateTime currentDateTime1 = LocalDateTime.now();
-        assertEquals(new DateTime(currentDateTime1.toLocalDate(), LocalTime.of(23, 50)), task1.getDateTime());
-
-        taskList = new TaskList();
-        taskList.add(APPLY_LEAVE); // date: "2021-10-01", time: "00:00" (which is most probably before current time)
-        // DAY RECURRING
-        taskList.changeDateOfPastRecurringTasks();
-        Task task2 = taskList.asUnmodifiableObservableList().get(0);
-        LocalDateTime currentDateTime2 = LocalDateTime.now();
-        assertEquals(new DateTime(currentDateTime2.toLocalDate().plusDays(1),
-                LocalTime.of(0, 0)), task2.getDateTime());
+    public void updateDateOfRecurringTask_nullTask_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> taskList.updateDateOfRecurringTask(null));
     }
 
     @Test
-    public void changeDateOfPastRecurringTasks_forWeekRecurring() {
-        TaskList taskList = new TaskList();
-        taskList.add(APPLY_LEAVE_WEEK_RECURRENCE); // date: "2021-09-30", time: "23:50"
-        // (which is most probably past current time) DAY RECURRING
-        LocalDate date = LocalDate.of(2021, 9, 30);
-        LocalTime time = LocalTime.of(23, 50);
-        Task task1 = taskList.asUnmodifiableObservableList().get(0);
-        LocalDateTime currentDateTime1 = LocalDateTime.now();
-        int daysDiff = currentDateTime1.getDayOfYear() - date.getDayOfYear();
-        int daysToAdd = daysDiff % 7 == 0 ? 0 : 7 - daysDiff % 7;
-        taskList.changeDateOfPastRecurringTasks();
-        assertEquals(new DateTime(currentDateTime1.toLocalDate().plusDays(daysToAdd), time),
-                task1.getDateTime());
-    }
-
-    @Test
-    public void changeDateOfPastRecurringTasks_forMonthRecurring() {
-        TaskList taskList = new TaskList();
-        taskList.add(APPLY_LEAVE_MONTH_RECURRENCE); // date: "2021-07-30", time: "23:50"
-        LocalDate date = LocalDate.of(2021, 7, 30);
-        LocalTime time = LocalTime.of(23, 50);
-        // (which is most probably past current time) DAY RECURRING
-        Task task1 = taskList.asUnmodifiableObservableList().get(0);
-        LocalDateTime currentDateTime1 = LocalDateTime.now();
-        int daysDiff = currentDateTime1.getDayOfYear() - date.getDayOfYear();
-        int daysToAdd = daysDiff % 28 == 0 ? 0 : 28 - daysDiff % 28;
-        taskList.changeDateOfPastRecurringTasks();
-        assertEquals(new DateTime(currentDateTime1.toLocalDate().plusDays(daysToAdd), time),
-                task1.getDateTime());
-    }
-
-    @Test
-    public void changeDateOfPastRecurringTasks_changedToUndoneTasks() {
-        TaskList taskList = new TaskList();
-        taskList.add(APPLY_LEAVE_MONTH_RECURRENCE); // date: "2021-07-30", time: "23:50"
-        // (which is most probably past current time) DAY RECURRING
-        taskList.changeDateOfPastRecurringTasks();
-        Task newTask1 = taskList.asUnmodifiableObservableList().get(0);
-        assertFalse(newTask1.getStatus().isDone);
+    public void updateDateOfRecurringTask_taskList_updatesPastDateWithNewDate() {
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        Task t = APPLY_LEAVE_LATE_TIME;
+        taskList.add(APPLY_LEAVE_LATE_TIME);
+        taskList.updateDateOfRecurringTask(t);
+        Task test = new TaskBuilder(APPLY_LEAVE_LATE_TIME)
+                        .withDateTime(currentDateTime.toLocalDate().toString(),
+                            t.getTime().toString()).withStatus("false", "false").build();
+        assertTrue(taskList.contains(test));
     }
 
     @Test
