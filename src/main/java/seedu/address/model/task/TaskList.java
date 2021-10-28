@@ -132,7 +132,7 @@ public class TaskList implements Iterable<Task> {
         List<Task> ghostTaskList = new ArrayList<Task>();
         for (Task task : this.internalList) {
             if (task.checkIfTaskRecurring() && task.checkIfRealTask()) {
-                Task ghostTask = (addFutureGhostTasksWithMatchingDate(task, keyDate));
+                Task ghostTask = addFutureGhostTasksWithMatchingDate(task, keyDate);
                 if (ghostTask != null) {
                     ghostTaskList.add(ghostTask);
                 }
