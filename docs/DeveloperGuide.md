@@ -182,8 +182,8 @@ The following sequence diagram shows how the filter command works:
 
 </div>
 
-As tags can only be alphanumeric, the `parse` method in FilterCommandParser checks that the all the tags queried are valid first before creating the FilterCommand and ElderlyHasTagPredicate objects. 
-If there is a tag that is invalid, an exception will be thrown. 
+As tags can only be alphanumeric, the `parse` method in FilterCommandParser checks that the all the tags queried are valid first before creating the FilterCommand and ElderlyHasTagPredicate objects.
+If there is a tag that is invalid, an exception will be thrown.
 
 When executing the filter command, the `updateFilteredElderlyList` method of Model calls other methods that are omitted from the diagram.
 One of the methods then calls the `test` method of the ElderlyHasTagPredicate object with every Elderly saved in NurseyBook.
@@ -221,6 +221,47 @@ The following sequence diagram shows how this operation works:
 The following activity diagram summarizes what happens when a user enters the command for this feature:
 
 ![DoneTaskActivityDiagram](images/DoneTaskActivityDiagram.png)
+
+### Add Recurring Task feature
+
+#### Implementation
+Task now contains `Recurrence`,  which encapsulates the recurrence type of the task. There are 4 recurrence types:
+1. `NONE` -> Non-recurring `Task`
+2. `DAY` -> Recurring `Task` that repeats daily
+3. `WEEKLY` -> Recurring `Task` that repeats weekly (every 7 days)
+4. `MONTHLY` -> Recurring `Task` that repeats every 4 weeks
+
+If a user does not specify `Recurrence` when adding a new `Task`, it will default to a `NONE` `Recurrence` type.
+
+#### Design considerations
+##### Aspect: When should the task date be changed based on its `Recurrence` type
+
+* Alternative 1: Once a user has marked a recurring `Task` as done, the date of the `Task` will be automatically changed to the next date according to its `Recurrence` type, with its completion status reset to be undone.
+    * Pros: User Experience could be more intuitive in the sense that the user can focus on the next deadline rather than the current completed task
+    * Cons: There is an increase in coupling between the `Task`’s `Status`, `Recurrence` and `DateTime` because `DateTime` now needs to depend on `Status` and `Recurrence` to decide if its date and time needs to be changed. This can increase bugs and make testing harder as more functions would have side effects (reseting task’s completion `Status` and updating `Task`’s `DateTime`).
+
+* Alternative 2: Once a `DateTime` of a `Task` has been passed, this will trigger Nurseybook to update the new `DateTime` of the `Task` according to its `Recurrence` type.
+    * Pros: Easier to implement because there is only one condition that needs to be checked (if the `Task`’s `DateTime` is before the current `DateTime`) for the `Task`’s `DateTime` to be updated.
+    * Cons: Restricted choice for users who would prefer seeing upcoming tasks to seeing completed tasks.
+
+### Handling of Overdue and Recurring tasks
+
+#### Implementation
+
+Listed below are some situations and corresponding implementations where the overdue `Status`, and `DateTime` might be changed based on either a manual edit of the `Task` details or the passing of time.
+
+1. `DateTime` of non-recurring `Task` has passed current `DateTime`
+  - Mark `Status#isOverdue` to `True`
+2. `DateTime` of recurring `Task` has passed current `DateTime`
+  - Update old `DateTime` to new `DateTime` according to its `Recurrence` type.
+  - Mark `Status#isDone` to `False`
+  - Status#isOverdue remains 'False'
+3. User edits non-recurring `Task` with a passed `DateTime` to a future `DateTime`
+  - Mark `Status#isOverdue` to `False`
+4. User edits non-recurring `Task` with a future `DateTime` to a passed `DateTime`
+  - Mark `Status#isOverdue` to `True`
+
+<img src="images/HandleOverdueAndRecurringTasksActivityDiagram.png" width="350"/>
 
 ### \[Proposed\] Undo/redo feature
 
@@ -318,7 +359,7 @@ Step 3. The `AddressBookParser` creates a new `DeleteNokCommandParser` which wil
 
 Step 4. The `DeleteNokCommand` is executed by calling its `execute()` method. This calls the `Model#getFilteredElderlyList()` and retrieves the filtered elderly list, which should contain all elderlies.
 
-Step 5. A new updated Elderly object is created with all fields equivalent to the targeted Elderly object, apart from the Nok fields which are wiped. This process has been omitted from the sequence diagram below. 
+Step 5. A new updated Elderly object is created with all fields equivalent to the targeted Elderly object, apart from the Nok fields which are wiped. This process has been omitted from the sequence diagram below.
 
 Step 6. The `Model#setElderly()` method is then called to replace the targeted Elderly with the updated Elderly object.
 
@@ -366,7 +407,7 @@ The following sequence diagram shows how the find task operation works:
 
 As NurseyBook has to support the display of two different lists (contacts vs task), each `CommandResult` object will now store the information which list should be displayed to the user.
 
-The following class diagram shows the changes made to the `CommandResult` class. Each `CommandResult` has an enum that specifies the type of display. 
+The following class diagram shows the changes made to the `CommandResult` class. Each `CommandResult` has an enum that specifies the type of display.
 
 * `CommandResult#ListDisplayChange.PERSON` — Specifies the elderly/contact list to be displayed after the current command execution
 * `CommandResult#ListDisplayChange.TASK` — Specifies the task list to be displayed after the current command execution
@@ -400,7 +441,7 @@ The following activity diagram summarizes what happens in the `MainWindow` class
 * **Alternative 1 (current choice):** Using a commands `viewElderly` and `viewTasks`, switch the display in the main window between the elderly list and task list stored in `AddressBook`.
   * Pros: Cleaner display, able to display the necessary information without cluttering the display window
   * Cons: The need to implement two new commands, `viewElderly` and `viewTask` for the user to view the two lists respectively. The code for the two commands might contain repetition due to the similarity in function.
-  
+
 
 * **Alternative 2:** Display the list of elderly and list of tasks side by side in the same display window.
   * Pros: Implementation/Creation of new commands are not needed. The user is able to type less yet still view what he/she is interested in.
