@@ -13,7 +13,9 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.VersionedNurseyBook;
 import seedu.address.model.task.Task;
+import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.ModelStub;
 import seedu.address.testutil.TaskBuilder;
 
@@ -65,6 +67,7 @@ public class AddTaskCommandTest {
      */
     private class ModelStubAcceptingTaskAdded extends ModelStub {
         final ArrayList<Task> tasksAdded = new ArrayList<>();
+        final VersionedNurseyBook versionedNurseyBook = new VersionedNurseyBook(new AddressBookBuilder().build());
 
         @Override
         public boolean hasTask(Task t) {
@@ -79,7 +82,12 @@ public class AddTaskCommandTest {
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
+        public void commitNurseyBook(CommandResult commandResult) {
+            versionedNurseyBook.commit(commandResult);
+        }
+
+        @Override
+        public ReadOnlyAddressBook getVersionedNurseyBook() {
             return new AddressBook();
         }
     }

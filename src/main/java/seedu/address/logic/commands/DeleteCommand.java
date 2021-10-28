@@ -41,7 +41,9 @@ public class DeleteCommand extends Command {
 
         Elderly elderlyToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteElderly(elderlyToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_ELDERLY_SUCCESS, elderlyToDelete));
+        CommandResult result = new CommandResult(String.format(MESSAGE_DELETE_ELDERLY_SUCCESS, elderlyToDelete));
+        model.commitNurseyBook(result);
+        return result;
     }
 
     @Override

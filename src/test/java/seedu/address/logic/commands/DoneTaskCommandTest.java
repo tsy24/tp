@@ -25,8 +25,9 @@ public class DoneTaskCommandTest {
 
         String expectedMessage = String.format(DoneTaskCommand.MESSAGE_MARK_TASK_DONE_SUCCESS, taskToMark);
 
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getVersionedNurseyBook(), new UserPrefs());
         expectedModel.markTaskAsDone(taskToMark);
+        expectedModel.commitNurseyBook(new CommandResult(expectedMessage));
 
         assertCommandSuccess(doneTaskCommand, model, expectedMessage, expectedModel);
     }

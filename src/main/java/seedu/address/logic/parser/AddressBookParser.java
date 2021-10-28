@@ -23,8 +23,10 @@ import seedu.address.logic.commands.FilterCommand;
 import seedu.address.logic.commands.FindElderlyCommand;
 import seedu.address.logic.commands.FindTaskCommand;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.RemarkCommand;
 import seedu.address.logic.commands.RemindCommand;
+import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.ViewDetailsCommand;
 import seedu.address.logic.commands.ViewElderlyCommand;
 import seedu.address.logic.commands.ViewScheduleCommand;
@@ -127,6 +129,12 @@ public class AddressBookParser {
 
         case ViewScheduleCommand.COMMAND_WORD:
             return new ViewScheduleCommandParser().parse(arguments);
+
+        case UndoCommand.COMMAND_WORD:
+            return new UndoCommand();
+
+        case RedoCommand.COMMAND_WORD:
+            return new RedoCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

@@ -32,8 +32,10 @@ import seedu.address.logic.commands.FilterCommand;
 import seedu.address.logic.commands.FindElderlyCommand;
 import seedu.address.logic.commands.FindTaskCommand;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.RemarkCommand;
 import seedu.address.logic.commands.RemindCommand;
+import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.ViewDetailsCommand;
 import seedu.address.logic.commands.ViewElderlyCommand;
 import seedu.address.logic.commands.ViewScheduleCommand;
@@ -195,6 +197,18 @@ public class AddressBookParserTest {
                 ViewScheduleCommand.COMMAND_WORD + " " + "2021-11-02");
         LocalDate keyDate = LocalDate.parse("2021-11-02");
         assertEquals(new ViewScheduleCommand(new DateTimeContainsDatePredicate(keyDate), keyDate), viewScheduleCommand);
+    }
+
+    @Test
+    public void parseCommand_undo() throws Exception {
+        assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD) instanceof UndoCommand);
+        assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD + " 3") instanceof UndoCommand);
+    }
+
+    @Test
+    public void parseCommand_redo() throws Exception {
+        assertTrue(parser.parseCommand(RedoCommand.COMMAND_WORD) instanceof RedoCommand);
+        assertTrue(parser.parseCommand(RedoCommand.COMMAND_WORD + " 3") instanceof RedoCommand);
     }
 
     @Test
