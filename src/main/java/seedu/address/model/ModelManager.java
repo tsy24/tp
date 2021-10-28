@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.time.LocalDate;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -158,6 +159,15 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void deleteGhostTasks() {
+        versionedNurseyBook.deleteGhostTasks();
+    }
+
+    @Override
+    public void addPossibleGhostTasksWithMatchingDate(LocalDate keyDate) {
+        versionedNurseyBook.addPossibleGhostTasksWithMatchingDate(keyDate);
+    }
+
     public void setTask(Task target, Task editedTask) {
         requireAllNonNull(target, editedTask);
         versionedNurseyBook.setTask(target, editedTask);
@@ -200,6 +210,7 @@ public class ModelManager implements Model {
     public Elderly getElderlyOfInterest() {
         return elderlyOfInterest;
     }
+
     //=========== Filtered Lists Accessors =============================================================
 
     /**

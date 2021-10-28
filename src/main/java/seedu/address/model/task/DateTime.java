@@ -95,6 +95,41 @@ public class DateTime implements Comparable<DateTime> {
     }
 
     /**
+     * Returns true if this DateTime's date is equivalent to the given date.
+     */
+    public boolean isSameDate(LocalDate otherDate) {
+        return this.date.equals(otherDate);
+    }
+
+    /**
+     * Returns a copy of the current DateTime, with the date incremented by the given number of days.
+     *
+     * @param numOfDays Number of days to increment the current date by.
+     * @return DateTime with the same LocalTime but incremented LocalDate.
+     */
+    public DateTime incrementDateByDays(int numOfDays) {
+        return new DateTime(this.date.plusDays(numOfDays), this.time);
+    }
+
+    /**
+     * Returns a copy of the current DateTime, with the date incremented by the given number of weeks.
+     *
+     * @param numOfWeeks Number of weeks to increment the current date by.
+     * @return DateTime with the same LocalTime but incremented LocalDate.
+     */
+    public DateTime incrementDateByWeeks(int numOfWeeks) {
+        return new DateTime(this.date.plusWeeks(numOfWeeks), this.time);
+    }
+
+    public LocalDate getDate() {
+        return this.date;
+    }
+
+    public LocalTime getTime() {
+        return this.time;
+    }
+
+    /**
      * Returns true if the argument is overdue (i.e later than the current date and time).
      *
      * @param dt The DateTime to check its overdue status.

@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
@@ -73,7 +74,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// elderly-level operations
 
     /**
-     * Returns true if a elderly with the same identity as {@code elderly} exists in the address book.
+     * Returns true if an elderly with the same identity as {@code elderly} exists in the address book.
      */
     public boolean hasElderly(Elderly elderly) {
         requireNonNull(elderly);
@@ -138,6 +139,20 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removeTask(Task key) {
         tasks.remove(key);
+    }
+
+    /**
+     * Removes all ghost tasks, if any, from this {@code AddressBook}.
+     */
+    public void deleteGhostTasks() {
+        tasks.deleteGhostTasks();
+    }
+
+    /**
+     * Adds all possible ghost tasks that fall on the given keyDate.
+     */
+    public void addPossibleGhostTasksWithMatchingDate(LocalDate keyDate) {
+        tasks.addPossibleGhostTasksWithMatchingDate(keyDate);
     }
 
     //// util methods
