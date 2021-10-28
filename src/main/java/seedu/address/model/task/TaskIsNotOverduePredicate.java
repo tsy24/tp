@@ -2,10 +2,10 @@ package seedu.address.model.task;
 
 import java.util.function.Predicate;
 
-public class TaskIsOverduePredicate implements Predicate<Task> {
+public class TaskIsNotOverduePredicate implements Predicate<Task> {
 
     @Override
     public boolean test(Task task) {
-        return DateTime.isOverdue(task.getDateTime());
+        return !DateTime.isOverdue(task.getDateTime());
     }
 }

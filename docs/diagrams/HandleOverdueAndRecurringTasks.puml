@@ -1,0 +1,24 @@
+@startuml
+!include style.puml
+
+start
+:User enters any Elderly or Task command;
+
+partition Model UI_COLOR_T1 {
+:Command is executed;
+if () then ([If DateTime of Tasks has passed])
+    :Mark as overdue;
+else ([else])
+endif
+if () then ([If DateTime of Tasks has not passed])
+    :Mark as not overdue;
+else ([else])
+endif
+if () then ([If DateTime of recurring Tasks has passed])
+    :Update DateTime;
+else ([else])
+endif
+}
+
+stop
+@enduml

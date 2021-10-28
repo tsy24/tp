@@ -102,12 +102,27 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void setTask(Task target, Task editedTask) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public void markTaskAsDone(Task target) {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public void markTaskAsOverdue(Task target) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void markTaskAsNotOverdue(Task target) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void updateDateRecurringTask(Task target) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -159,5 +174,14 @@ public class ModelStub implements Model {
     @Override
     public boolean canRedoNurseyBook() {
         throw new AssertionError("This method should not be called.");
+    }
+
+    public void updateNotOverdueTaskList() {
+        throw new ArithmeticException("This method should not be called.");
+    }
+
+    @Override
+    public void updateDateRecurringTaskList() {
+        throw new ArithmeticException("This method should not be called.");
     }
 }
