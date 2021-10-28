@@ -1,5 +1,7 @@
 package seedu.address.testutil;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -9,6 +11,7 @@ import java.util.stream.Collectors;
 import seedu.address.model.person.Name;
 import seedu.address.model.task.DateTime;
 import seedu.address.model.task.Description;
+import seedu.address.model.task.GhostTask;
 import seedu.address.model.task.Recurrence;
 import seedu.address.model.task.Status;
 import seedu.address.model.task.Task;
@@ -20,12 +23,16 @@ public class TaskBuilder {
     public static final String DEFAULT_TIME = "18:09";
     public static final List<String> DEFAULT_STATUS = Arrays.asList("false", "false");
     public static final String DEFAULT_RECURRENCE = Recurrence.RecurrenceType.NONE.name();
+    public static final String DEFAULT_GHOST_TASK = "false";
 
     private Description desc;
     private DateTime dateTime;
+    private LocalDate date;
+    private LocalTime time;
     private Set<Name> names;
     private Status status;
     private Recurrence recurrence;
+    private GhostTask ghostTask;
 
     /**
      * Creates a {@code TaskBuilder} with the default details.
@@ -40,6 +47,7 @@ public class TaskBuilder {
         status = new Status(isDone, isOverdue);
 
         recurrence = new Recurrence(DEFAULT_RECURRENCE);
+        ghostTask = new GhostTask(DEFAULT_GHOST_TASK);
     }
 
     /**
@@ -51,6 +59,7 @@ public class TaskBuilder {
         names = new HashSet<>(taskToCopy.getRelatedNames());
         status = taskToCopy.getStatus();
         recurrence = taskToCopy.getRecurrence();
+        ghostTask = taskToCopy.getGhostTask();
     }
 
     /**
@@ -66,6 +75,22 @@ public class TaskBuilder {
      */
     public TaskBuilder withDateTime(String date, String time) {
         this.dateTime = new DateTime(date, time);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Date} of the {@code Task} that we are building.
+     */
+    public TaskBuilder withDate(String date) {
+        this.date = LocalDate.parse(date);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Time} of the {@code Task} that we are building.
+     */
+    public TaskBuilder withTime(String time) {
+        this.time = LocalTime.parse(time);
         return this;
     }
 
@@ -96,9 +121,18 @@ public class TaskBuilder {
     }
 
     /**
+     * Sets the {@code GhostTask} of the {@code Task} that we are building.
+     */
+    public TaskBuilder withGhostTask(String ghostTask) {
+        this.ghostTask = new GhostTask(ghostTask);
+        return this;
+    }
+
+
+    /**
      * Returns task object created with fields of the taskBuilder
      */
     public Task build() {
-        return new Task(desc, dateTime, names, status, recurrence);
+        return new Task(desc, dateTime, names, status, recurrence, ghostTask);
     }
 }

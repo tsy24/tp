@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.time.LocalDate;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -11,9 +12,12 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.person.Elderly;
 import seedu.address.model.task.Task;
+import seedu.address.model.task.TaskIsNotOverduePredicate;
 import seedu.address.model.task.TaskIsOverduePredicate;
+import seedu.address.model.task.TaskIsRecurringAndOverduePredicate;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -21,25 +25,25 @@ import seedu.address.model.task.TaskIsOverduePredicate;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
+    private final VersionedNurseyBook versionedNurseyBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Elderly> filteredElderlies;
     private final FilteredList<Task> filteredTasks;
     private Elderly elderlyOfInterest;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given versionedNurseyBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAddressBook versionedNurseyBook, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(versionedNurseyBook, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with address book: " + versionedNurseyBook + " and user prefs " + userPrefs);
 
-        this.addressBook = new AddressBook(addressBook);
+        this.versionedNurseyBook = new VersionedNurseyBook(versionedNurseyBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredElderlies = new FilteredList<>(this.addressBook.getElderlyList());
-        filteredTasks = new FilteredList<>(this.addressBook.getTaskList());
+        filteredElderlies = new FilteredList<>(this.versionedNurseyBook.getElderlyList());
+        filteredTasks = new FilteredList<>(this.versionedNurseyBook.getTaskList());
         this.elderlyOfInterest = null;
     }
 
@@ -85,65 +89,118 @@ public class ModelManager implements Model {
     //=========== AddressBook ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
+    public void setVersionedNurseyBook(ReadOnlyAddressBook versionedNurseyBook) {
+        this.versionedNurseyBook.resetData(versionedNurseyBook);
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
+    public ReadOnlyAddressBook getVersionedNurseyBook() {
+        return versionedNurseyBook;
     }
 
     @Override
     public boolean hasElderly(Elderly elderly) {
         requireNonNull(elderly);
-        return addressBook.hasElderly(elderly);
+        return versionedNurseyBook.hasElderly(elderly);
     }
 
     @Override
     public boolean hasTask(Task t) {
         requireNonNull(t);
-        return addressBook.hasTask(t);
+        return versionedNurseyBook.hasTask(t);
     }
 
     @Override
     public void markTaskAsDone(Task target) {
-        addressBook.markTaskAsDone(target);
+        versionedNurseyBook.markTaskAsDone(target);
     }
 
     @Override
     public void markTaskAsOverdue(Task target) {
-        addressBook.markTaskAsOverdue(target);
+        versionedNurseyBook.markTaskAsOverdue(target);
+    }
+
+    @Override
+    public void markTaskAsNotOverdue(Task target) {
+        versionedNurseyBook.markTaskAsNotOverdue(target);
+    }
+
+    @Override
+    public void updateDateRecurringTask(Task target) {
+        versionedNurseyBook.updateDateRecurringTask(target);
     }
 
     @Override
     public void deleteElderly(Elderly target) {
-        addressBook.removeElderly(target);
+        versionedNurseyBook.removeElderly(target);
     }
 
     @Override
     public void deleteTask(Task target) {
-        addressBook.removeTask(target);
+        versionedNurseyBook.removeTask(target);
     }
 
     @Override
     public void addElderly(Elderly elderly) {
-        addressBook.addElderly(elderly);
+        versionedNurseyBook.addElderly(elderly);
         updateFilteredElderlyList(PREDICATE_SHOW_ALL_ELDERLIES);
     }
 
     @Override
     public void addTask(Task task) {
-        addressBook.addTask(task);
+        versionedNurseyBook.addTask(task);
         updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
     }
 
     @Override
     public void setElderly(Elderly target, Elderly editedElderly) {
         requireAllNonNull(target, editedElderly);
-
-        addressBook.setElderly(target, editedElderly);
+        versionedNurseyBook.setElderly(target, editedElderly);
     }
+
+    @Override
+    public void deleteGhostTasks() {
+        versionedNurseyBook.deleteGhostTasks();
+    }
+
+    @Override
+    public void addPossibleGhostTasksWithMatchingDate(LocalDate keyDate) {
+        versionedNurseyBook.addPossibleGhostTasksWithMatchingDate(keyDate);
+    }
+
+    public void setTask(Task target, Task editedTask) {
+        requireAllNonNull(target, editedTask);
+        versionedNurseyBook.setTask(target, editedTask);
+    }
+
+    @Override
+    public void commitNurseyBook(CommandResult commandResult) {
+        versionedNurseyBook.commit(commandResult);
+    }
+
+    @Override
+    public CommandResult undoNurseyBook() {
+        CommandResult commandResult = versionedNurseyBook.getCurrentCommandResult();
+        versionedNurseyBook.undo();
+        return commandResult;
+    }
+
+    @Override
+    public boolean canUndoNurseyBook() {
+        return versionedNurseyBook.canUndo();
+    }
+
+    @Override
+    public CommandResult redoNurseyBook() {
+        versionedNurseyBook.redo();
+        return versionedNurseyBook.getCurrentCommandResult();
+    }
+
+    @Override
+    public boolean canRedoNurseyBook() {
+        return versionedNurseyBook.canRedo();
+    }
+
     //=========== Elderly of interest Accessors =============================================================
     public void setElderlyOfInterest(Elderly e) {
         requireNonNull(e);
@@ -153,6 +210,7 @@ public class ModelManager implements Model {
     public Elderly getElderlyOfInterest() {
         return elderlyOfInterest;
     }
+
     //=========== Filtered Lists Accessors =============================================================
 
     /**
@@ -179,6 +237,8 @@ public class ModelManager implements Model {
     public void updateFilteredTaskList(Predicate<Task> predicate) {
         requireNonNull(predicate);
         updateOverdueTaskList();
+        updateNotOverdueTaskList();
+        updateDateRecurringTaskList();
         filteredTasks.setPredicate(predicate);
     }
 
@@ -186,7 +246,30 @@ public class ModelManager implements Model {
     public void updateOverdueTaskList() {
         Predicate<Task> predicate = new TaskIsOverduePredicate();
         filteredTasks.setPredicate(predicate);
-        filteredTasks.forEach(task -> markTaskAsOverdue(task));
+        filteredTasks.forEach(this::markTaskAsOverdue);
+
+    }
+
+    @Override
+    public void updateNotOverdueTaskList() {
+        Predicate<Task> predicate = new TaskIsNotOverduePredicate();
+        filteredTasks.setPredicate(predicate);
+        filteredTasks.forEach(this::markTaskAsNotOverdue);
+    }
+
+    @Override
+    public void updateDateRecurringTaskList() {
+        Predicate<Task> predicate = new TaskIsRecurringAndOverduePredicate();
+        filteredTasks.setPredicate(predicate);
+        // The below for loop is not replaceable with enhanced for loop because changes made to the datetime of the
+        // task will cause it to disappear from filteredTask, leading to some error.
+        // anyone is welcome to fix this bug :)
+        for (int i = 0; i < filteredTasks.size(); i++) {
+            Task t = filteredTasks.get(i);
+            if (t.isTaskRecurringAndOverdue()) {
+                versionedNurseyBook.updateDateRecurringTask(t);
+            }
+        }
     }
 
     @Override
@@ -203,17 +286,20 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
+
         if (elderlyOfInterest == null) {
             return other.elderlyOfInterest == null
-                    && addressBook.equals(other.addressBook)
+                    && versionedNurseyBook.equals(other.versionedNurseyBook)
                     && userPrefs.equals(other.userPrefs)
-                    && filteredElderlies.equals(other.filteredElderlies);
+                    && filteredElderlies.equals(other.filteredElderlies)
+                    && filteredTasks.equals(other.filteredTasks);
         }
         return other.elderlyOfInterest != null
-                && addressBook.equals(other.addressBook)
+                && versionedNurseyBook.equals(other.versionedNurseyBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredElderlies.equals(other.filteredElderlies)
-                && elderlyOfInterest.equals(other.elderlyOfInterest);
+                && elderlyOfInterest.equals(other.elderlyOfInterest)
+                && filteredTasks.equals(other.filteredTasks);
     }
 
 }

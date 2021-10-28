@@ -41,8 +41,8 @@ public class RemarkCommandTest {
 
         String expectedMessage = String.format(RemarkCommand.MESSAGE_ADD_REMARK_SUCCESS, editedElderly);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.setElderly(firstElderly, editedElderly);
+        Model expectedModel = new ModelManager(new AddressBook(model.getVersionedNurseyBook()), new UserPrefs());
+        expectedModel.commitNurseyBook(new CommandResult(expectedMessage));
 
         assertCommandSuccess(remarkCommand, model, expectedMessage, expectedModel);
     }
@@ -57,8 +57,9 @@ public class RemarkCommandTest {
 
         String expectedMessage = String.format(RemarkCommand.MESSAGE_DELETE_REMARK_SUCCESS, editedElderly);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new AddressBook(model.getVersionedNurseyBook()), new UserPrefs());
         expectedModel.setElderly(firstElderly, editedElderly);
+        expectedModel.commitNurseyBook(new CommandResult(expectedMessage));
 
         assertCommandSuccess(remarkCommand, model, expectedMessage, expectedModel);
     }
@@ -76,8 +77,9 @@ public class RemarkCommandTest {
 
         String expectedMessage = String.format(RemarkCommand.MESSAGE_ADD_REMARK_SUCCESS, editedElderly);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new AddressBook(model.getVersionedNurseyBook()), new UserPrefs());
         expectedModel.setElderly(firstElderly, editedElderly);
+        expectedModel.commitNurseyBook(new CommandResult(expectedMessage));
 
         assertCommandSuccess(remarkCommand, model, expectedMessage, expectedModel);
     }
@@ -99,7 +101,7 @@ public class RemarkCommandTest {
         showElderlyAtIndex(model, INDEX_FIRST);
         Index outOfBoundIndex = INDEX_SECOND;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getElderlyList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getVersionedNurseyBook().getElderlyList().size());
 
         RemarkCommand remarkCommand = new RemarkCommand(outOfBoundIndex, new Remark(VALID_REMARK_BOB));
 

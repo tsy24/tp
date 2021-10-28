@@ -71,7 +71,9 @@ public class DeleteTagCommand extends Command {
         model.setElderly(elderlyToDeleteTag, updatedElderly);
         model.updateFilteredElderlyList(PREDICATE_SHOW_ALL_ELDERLIES);
 
-        return new CommandResult(String.format(MESSAGE_DELETE_TAG_SUCCESS, updatedElderly));
+        CommandResult result = new CommandResult(String.format(MESSAGE_DELETE_TAG_SUCCESS, updatedElderly));
+        model.commitNurseyBook(result);
+        return result;
     }
 
     @Override

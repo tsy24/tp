@@ -35,6 +35,7 @@ public class DoneTaskCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
         List<Task> lastShownList = model.getFilteredTaskList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
@@ -48,7 +49,9 @@ public class DoneTaskCommand extends Command {
         }
 
         model.markTaskAsDone(taskToMark);
-        return new CommandResult(String.format(MESSAGE_MARK_TASK_DONE_SUCCESS, taskToMark));
+        CommandResult result = new CommandResult(String.format(MESSAGE_MARK_TASK_DONE_SUCCESS, taskToMark));
+        model.commitNurseyBook(result);
+        return result;
     }
 
     @Override

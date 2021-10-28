@@ -62,30 +62,36 @@ public class FilterCommandTest {
     @Test
     public void execute_oneFilterTag_noPersonFound() {
         String expectedMessage = String.format(MESSAGE_ELDERLIES_LISTED_OVERVIEW, 0);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage,
+                CommandResult.ListDisplayChange.ELDERLY);
         ElderlyHasTagPredicate predicate = new ElderlyHasTagPredicate(Set.of(new Tag(VALID_TAG_HUSBAND)));
         FilterCommand command = new FilterCommand(predicate);
         expectedModel.updateFilteredElderlyList(predicate);
-        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertCommandSuccess(command, model, expectedCommandResult, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredElderlyList());
     }
 
     @Test
     public void execute_oneFilterTag_multiplePersonsFound() {
         String expectedMessage = String.format(MESSAGE_ELDERLIES_LISTED_OVERVIEW, 3);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage,
+                CommandResult.ListDisplayChange.ELDERLY);
         ElderlyHasTagPredicate predicate = new ElderlyHasTagPredicate(Set.of(new Tag(VALID_TAG_FRIEND)));
         FilterCommand command = new FilterCommand(predicate);
         expectedModel.updateFilteredElderlyList(predicate);
-        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertCommandSuccess(command, model, expectedCommandResult, expectedModel);
         assertEquals(Arrays.asList(ALICE, BENSON, DANIEL), model.getFilteredElderlyList());
     }
 
     @Test
     public void execute_multipleFilterTags_onePersonFound() {
         String expectedMessage = String.format(MESSAGE_ELDERLIES_LISTED_OVERVIEW, 1);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage,
+                CommandResult.ListDisplayChange.ELDERLY);
         ElderlyHasTagPredicate predicate = new ElderlyHasTagPredicate(SET_TWO_TAGS);
         FilterCommand command = new FilterCommand(predicate);
         expectedModel.updateFilteredElderlyList(predicate);
-        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertCommandSuccess(command, model, expectedCommandResult, expectedModel);
         assertEquals(List.of(BENSON), model.getFilteredElderlyList());
     }
 }
