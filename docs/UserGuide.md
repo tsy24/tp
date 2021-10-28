@@ -84,13 +84,28 @@ Format: `addElderly en/ELDERLY_NAME a/AGE g/GENDER r/ROOMNO [t/TAG]…​ [nn/NO
 <div markdown="block" class="information information-info">
 
 :information_source: **Information:**
-A elderly can have any number of tags (including 0).
+* A elderly can have any number of tags (including 0).
 
 Examples:
 * `addElderly en/Khong Guan a/80 g/M r/201 nn/Gong Kuan rs/Brother p/91234567 e/guanbro@gmail.com addr/London Street 11`
 * `addElderly en/John a/77 g/M r/420 t/diabetes`
 * `addElderly en/John a/77 g/M r/420 t/diabetes nn/Timothy rs/Son`
 
+#### Deleting an elderly : `deleteElderly`
+
+Deletes an elderly from NurseyBook.
+
+Format: `deleteElderly INDEX`   
+
+<div markdown="block" class="information information-info">
+
+:information_source: **Information:**
+* Deletes the elderly at the specified `INDEX`.
+* The index refers to the index number shown in the displayed elderly list.
+* The index **must be a positive integer** 1, 2, 3, …​
+
+Examples:
+* `viewElderly` followed by `delete 2` deletes the 2nd elderly in NurseyBook.
 
 #### Edit an elderly's details: `editElderly`
 
@@ -103,7 +118,7 @@ Format: `editElderly INDEX [en/ELDERLY_NAME] [a/AGE] [g/GENDER] [r/ROOMNO] [t/TA
 :information_source: **Information:**
 * Any number of tags is acceptable (including 0).
 
-:bulb: **Tip:**
+:bulb: **Tip:**  
 You can remove a remark by leaving the remark input empty!  
 e.g. `editElderly 1 re/`
 
@@ -113,6 +128,9 @@ Finds elderlies whose names contain any of the given keywords.
 
 Format: `findElderly KEYWORD [MORE_KEYWORDS]`
 
+<div markdown="block" class="information information-info">
+
+:information_source: **Information:**
 * The search is case-insensitive. e.g `elena` will match `Elena`
 * The order of the keywords does not matter. e.g. `Elena Kro` will match `Kro Elena`
 * Only the name is searched.
@@ -135,22 +153,6 @@ Format: `viewDetails INDEX`
 * Shows the full details of the elderly at the specified `INDEX`.
 * The index refers to the index number shown in the displayed elderly list.
 * The index **must be a positive integer** 1, 2, 3, …​
-
-#### Deleting an elderly : `deleteElderly`
-
-Deletes an elderly from NurseyBook.
-
-Format: `deleteElderly INDEX`   
-
-<div markdown="block" class="information information-info">
-
-:information_source: **Information:**
-* Deletes the elderly at the specified `INDEX`.
-* The index refers to the index number shown in the displayed elderly list.
-* The index **must be a positive integer** 1, 2, 3, …​
-
-Examples:
-* `viewElderly` followed by `delete 2` deletes the 2nd elderly in NurseyBook.
 
 #### Deleting an elderly's NoK details : `deleteNok`
 
@@ -223,16 +225,16 @@ Adds a remark to a specific elderly.
 
 Format: `remark INDEX re/REMARK`
 
-Example:
-* `remark 1 re/Medicine seems to be ineffective`
-
 <div markdown="block" class="information information-info">
 
 :information_source: **Information:**
 * The index refers to the index number shown in the displayed elderly list.
 * The index **must be a positive integer** 1, 2, 3, …​
 
-:bulb: **Tip:**
+Example:
+* `remark 1 re/Medicine seems to be ineffective`
+
+:bulb: **Tip:**  
 You can remove a remark by leaving the remark input empty!  
 e.g. `remark 1 re/`
 
