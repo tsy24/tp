@@ -113,6 +113,18 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the given task {@code target} in the list with {@code editedTask}.
+     * {@code target} must exist in the address book.
+     * The task identity of {@code editedTask} must not be the same as another existing task in the address
+     * book.
+     */
+    public void setTask(Task target, Task editedTask) {
+        requireNonNull(editedTask);
+
+        tasks.setTask(target, editedTask);
+    }
+
+    /**
      * Removes {@code key} elderly from this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
@@ -144,7 +156,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     @Override
     public ObservableList<Task> getTaskList() {
-        tasks.changeDateOfPastRecurringTasks();
+        // tasks.changeDateOfPastRecurringTasks();
         return tasks.asUnmodifiableObservableList();
     }
 
@@ -166,7 +178,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Mark the given task {@code target} as done.
+     * Marks the given task {@code target} as done.
      * {@code target} must exist in the address book.
      */
     public void markTaskAsDone(Task target) {
@@ -174,10 +186,26 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Mark the given task {@code target} as overdue.
+     * Marks the given task {@code target} as overdue.
      * {@code target} must exist in the address book.
      */
     public void markTaskAsOverdue(Task target) {
         tasks.markTaskAsOverdue(target);
+    }
+
+    /**
+     * Marks the given task {@code target} as not overdue.
+     * {@code target} must exist in the address book.
+     */
+    public void markTaskAsNotOverdue(Task target) {
+        tasks.markTaskAsNotOverdue(target);
+    }
+
+    /**
+     * Updates the date of the given task {@code target} such that it is not overdue.
+     * {@code target} must exist in the address book.
+     */
+    public void updateDateRecurringTask(Task target) {
+        tasks.updateDateOfRecurringTask(target);
     }
 }

@@ -7,6 +7,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ELDERLIES;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalElderlies.ALICE;
 import static seedu.address.testutil.TypicalElderlies.BENSON;
+import static seedu.address.testutil.TypicalTasks.KEITH_INSULIN;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -78,8 +79,18 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void hasTask_nullTask_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.hasTask(null));
+    }
+
+    @Test
     public void hasElderly_elderlyNotInAddressBook_returnsFalse() {
         assertFalse(modelManager.hasElderly(ALICE));
+    }
+
+    @Test
+    public void hasTask_taskNotInAddressBook_returnsFalse() {
+        assertFalse(modelManager.hasTask(KEITH_INSULIN));
     }
 
     @Test
@@ -89,8 +100,19 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void hasTask_taskInAddressBook_returnsTrue() {
+        modelManager.addTask(KEITH_INSULIN);
+        assertTrue(modelManager.hasTask(KEITH_INSULIN));
+    }
+
+    @Test
     public void getFilteredElderlyList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredElderlyList().remove(0));
+    }
+
+    @Test
+    public void getFilteredTaskList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredTaskList().remove(0));
     }
 
     @Test

@@ -13,7 +13,9 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Elderly;
 import seedu.address.model.task.Task;
+import seedu.address.model.task.TaskIsNotOverduePredicate;
 import seedu.address.model.task.TaskIsOverduePredicate;
+import seedu.address.model.task.TaskIsRecurringAndOverduePredicate;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -109,11 +111,22 @@ public class ModelManager implements Model {
     @Override
     public void markTaskAsDone(Task target) {
         addressBook.markTaskAsDone(target);
+
     }
 
     @Override
     public void markTaskAsOverdue(Task target) {
         addressBook.markTaskAsOverdue(target);
+    }
+
+    @Override
+    public void markTaskAsNotOverdue(Task target) {
+        addressBook.markTaskAsNotOverdue(target);
+    }
+
+    @Override
+    public void updateDateRecurringTask(Task target) {
+        addressBook.updateDateRecurringTask(target);
     }
 
     @Override
@@ -141,8 +154,13 @@ public class ModelManager implements Model {
     @Override
     public void setElderly(Elderly target, Elderly editedElderly) {
         requireAllNonNull(target, editedElderly);
-
         addressBook.setElderly(target, editedElderly);
+    }
+
+    @Override
+    public void setTask(Task target, Task editedTask) {
+        requireAllNonNull(target, editedTask);
+        addressBook.setTask(target, editedTask);
     }
     //=========== Elderly of interest Accessors =============================================================
     public void setElderlyOfInterest(Elderly e) {
@@ -179,6 +197,8 @@ public class ModelManager implements Model {
     public void updateFilteredTaskList(Predicate<Task> predicate) {
         requireNonNull(predicate);
         updateOverdueTaskList();
+        updateNotOverdueTaskList();
+        updateDateRecurringTaskList();
         filteredTasks.setPredicate(predicate);
     }
 
@@ -186,7 +206,30 @@ public class ModelManager implements Model {
     public void updateOverdueTaskList() {
         Predicate<Task> predicate = new TaskIsOverduePredicate();
         filteredTasks.setPredicate(predicate);
-        filteredTasks.forEach(task -> markTaskAsOverdue(task));
+        filteredTasks.forEach(this::markTaskAsOverdue);
+
+    }
+
+    @Override
+    public void updateNotOverdueTaskList() {
+        Predicate<Task> predicate = new TaskIsNotOverduePredicate();
+        filteredTasks.setPredicate(predicate);
+        filteredTasks.forEach(this::markTaskAsNotOverdue);
+    }
+
+    @Override
+    public void updateDateRecurringTaskList() {
+        Predicate<Task> predicate = new TaskIsRecurringAndOverduePredicate();
+        filteredTasks.setPredicate(predicate);
+        // The below for loop is not replaceable with enhanced for loop because changes made to the datetime of the
+        // task will cause it to disappear from filteredTask, leading to some error.
+        // anyone is welcome to fix this bug :)
+        for (int i = 0; i < filteredTasks.size(); i++) {
+            Task t = filteredTasks.get(i);
+            if (t.isTaskRecurringAndOverdue()) {
+                addressBook.updateDateRecurringTask(t);
+            }
+        }
     }
 
     @Override
@@ -207,13 +250,15 @@ public class ModelManager implements Model {
             return other.elderlyOfInterest == null
                     && addressBook.equals(other.addressBook)
                     && userPrefs.equals(other.userPrefs)
-                    && filteredElderlies.equals(other.filteredElderlies);
+                    && filteredElderlies.equals(other.filteredElderlies)
+                    && filteredTasks.equals(other.filteredTasks);
         }
         return other.elderlyOfInterest != null
                 && addressBook.equals(other.addressBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredElderlies.equals(other.filteredElderlies)
-                && elderlyOfInterest.equals(other.elderlyOfInterest);
+                && elderlyOfInterest.equals(other.elderlyOfInterest)
+                && filteredTasks.equals(other.filteredTasks);
     }
 
 }
