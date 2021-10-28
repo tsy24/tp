@@ -47,7 +47,8 @@ public class ViewScheduleCommand extends Command {
         model.addPossibleGhostTasksWithMatchingDate(keyDate);
 
         model.updateFilteredTaskList(predicate); // to change
-        return new CommandResult(String.format(Messages.MESSAGE_TASKS_ON_DATE, model.getFilteredTaskList().size()), CommandResult.ListDisplayChange.TASK);
+        return new CommandResult(String.format(Messages.MESSAGE_TASKS_ON_DATE, model.getFilteredTaskList().size()),
+                CommandResult.ListDisplayChange.TASK);
     }
 
     @Override
