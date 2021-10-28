@@ -7,7 +7,10 @@ import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalTasks.ALEX_INSULIN;
 import static seedu.address.testutil.TypicalTasks.APPLY_LEAVE;
 import static seedu.address.testutil.TypicalTasks.APPLY_LEAVE_LATE_TIME;
+import static seedu.address.testutil.TypicalTasks.APPLY_LEAVE_MONTH_NEXT_RECURRENCE_GHOST;
 import static seedu.address.testutil.TypicalTasks.APPLY_LEAVE_MONTH_RECURRENCE;
+import static seedu.address.testutil.TypicalTasks.APPLY_LEAVE_DAY_NEXT_RECURRENCE_GHOST;
+import static seedu.address.testutil.TypicalTasks.APPLY_LEAVE_WEEK_NEXT_RECURRENCE_GHOST;
 import static seedu.address.testutil.TypicalTasks.APPLY_LEAVE_WEEK_RECURRENCE;
 import static seedu.address.testutil.TypicalTasks.DO_PAPERWORK;
 
@@ -176,5 +179,20 @@ public class TaskListTest {
         taskList.changeDateOfPastRecurringTasks();
         Task newTask1 = taskList.asUnmodifiableObservableList().get(0);
         assertFalse(newTask1.getStatus().isDone);
+    }
+
+    @Test
+    public void deleteGhostTasks_deletesAllGhostTasks() {
+        TaskList taskList = new TaskList();
+        taskList.add(APPLY_LEAVE_DAY_NEXT_RECURRENCE_GHOST);
+        taskList.add(APPLY_LEAVE);
+        taskList.add(APPLY_LEAVE_WEEK_NEXT_RECURRENCE_GHOST);
+        taskList.add(APPLY_LEAVE_MONTH_NEXT_RECURRENCE_GHOST);
+        taskList.deleteGhostTasks();
+
+        TaskList expectedTaskList = new TaskList();
+        expectedTaskList.add(APPLY_LEAVE);
+
+        assertEquals(taskList, expectedTaskList);
     }
 }

@@ -8,12 +8,14 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.Model;
 import seedu.address.model.task.Recurrence.RecurrenceType;
 import seedu.address.model.task.exceptions.TaskNotFoundException;
 
@@ -105,6 +107,34 @@ public class TaskList implements Iterable<Task> {
     }
 
     /**
+     * Removes all tasks that are ghost tasks, if any.
+     */
+    public void deleteGhostTasks() {
+        this.internalList.removeIf(task -> !task.isRealTask());
+    }
+
+    /**
+     * For each task in the TaskList, if it is a real and recurring task, all possible future occurrences of the task
+     * are compared against the given keyDate. If any future task's date matches with the given keyDate,
+     * the future task is added as a ghost task to the TaskList.
+     */
+    public void addPossibleGhostTasksWithMatchingDate(LocalDate keyDate) {
+        List<Task> ghostTaskList = new ArrayList<Task>();
+        for (Task task : this.internalList) {
+            if (task.isTaskRecurring() && task.isRealTask()) {
+                Task ghostTask = (addFutureGhostTasksWithMatchingDate(task, keyDate));
+                if (ghostTask != null) {
+                    ghostTaskList.add(ghostTask);
+                }
+            }
+        }
+
+        for (Task task : ghostTaskList) {
+            this.add(task);
+        }
+    }
+
+    /**
      * If a recurring task's original DateTime is before the current {@code DateTime},
      * changes the task's {@code DateTime} to the next earliest {@code DateTime},
      * according to whether is it a {@code DAY}, {@code WEEK} or {@code MONTH} recurrence type.
@@ -165,6 +195,39 @@ public class TaskList implements Iterable<Task> {
         // time is fixed
         t.setDateTime(
                 new DateTime(taskNewLocalDateTime.toLocalDate(), taskLocalDateTime.toLocalTime()));
+    }
+
+    /**
+     * Checks if any of the given recurring task's future occurrences coincide with the given keyDate. If it does,
+     * the future task is added as a ghost task to the TaskList.
+     */
+    private Task addFutureGhostTasksWithMatchingDate(Task task, LocalDate keyDate) {
+        RecurrenceType taskRecurrenceType = task.getRecurrence().getRecurrenceType();
+        int interval; //interval between task occurrences depending on RecurrenceType.
+        if (taskRecurrenceType == RecurrenceType.DAY) {
+            interval = 1;
+        } else if (taskRecurrenceType == RecurrenceType.WEEK) {
+            interval = 7;
+        } else { //taskRecurrenceType == RecurrenceType.MONTH
+            interval = 28;
+        }
+
+        Task nextTaskOccurrence = task.createNextTaskOccurrence();
+        nextTaskOccurrence.setGhostTask();
+        Task currTask = nextTaskOccurrence;
+
+        //No. of days to check for recurring tasks in the future is set to 84 days, or 12 weeks.
+        int daysLeftToCheck = 84 - interval;
+
+        while (daysLeftToCheck > 0) {
+            if (currTask.isSameDateTask(keyDate) && !this.contains(currTask)) {
+                return currTask;
+            }
+
+            currTask = currTask.createNextTaskOccurrence();
+            daysLeftToCheck -= interval;
+        }
+        return null;
     }
 
     /**

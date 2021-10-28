@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.time.LocalDate;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -147,11 +148,12 @@ public class ModelManager implements Model {
 
     @Override
     public void deleteGhostTasks() {
-        for (Task task : addressBook.getTaskList()) {
-            if (!task.isRealTask()) {
-                this.deleteTask(task);
-            }
-        }
+        addressBook.deleteGhostTasks();
+    }
+
+    @Override
+    public void addPossibleGhostTasksWithMatchingDate(LocalDate keyDate) {
+        addressBook.addPossibleGhostTasksWithMatchingDate(keyDate);
     }
 
     //=========== Elderly of interest Accessors =============================================================

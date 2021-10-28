@@ -1,6 +1,7 @@
 package seedu.address.testutil;
 
 import java.nio.file.Path;
+import java.time.LocalDate;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -140,4 +141,8 @@ public class ModelStub implements Model {
         throw new AssertionError("This method should not be called.");
     }
 
+    @Override
+    public void addPossibleGhostTasksWithMatchingDate(LocalDate date) {
+        throw new AssertionError("This method should not be called.");
+    }
 }

@@ -57,6 +57,18 @@ public class TypicalTasks {
             .withDateTime("2021-07-30", "23:50").withStatus("true", "true")
             .withRecurrence(RecurrenceType.MONTH.name()).build();
 
+    public static final Task APPLY_LEAVE_DAY_NEXT_RECURRENCE_GHOST = new TaskBuilder().withDesc("Apply leave with HR")
+            .withDateTime("2021-10-02", "00:00").withStatus("true", "true")
+            .withRecurrence(RecurrenceType.DAY.name()).withGhostTask("true").build();
+
+    public static final Task APPLY_LEAVE_WEEK_NEXT_RECURRENCE_GHOST = new TaskBuilder().withDesc("Apply leave with HR")
+            .withDateTime("2021-10-07", "23:50").withStatus("true", "true")
+            .withRecurrence(RecurrenceType.WEEK.name()).withGhostTask("true").build();
+
+    public static final Task APPLY_LEAVE_MONTH_NEXT_RECURRENCE_GHOST = new TaskBuilder().withDesc("Apply leave with HR")
+            .withDateTime("2021-08-27", "23:50").withStatus("true", "true")
+            .withRecurrence(RecurrenceType.MONTH.name()).withGhostTask("true").build();
+
     /**
      * Returns an {@code AddressBook} with all the typical tasks.
      */

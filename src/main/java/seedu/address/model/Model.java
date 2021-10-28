@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.time.LocalDate;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -145,4 +146,12 @@ public interface Model {
      * Updates the overdue status of the tasks in the task list.
      */
     void updateOverdueTaskList();
+
+    /**
+     * Adds ghost tasks on the specified keyDate, if any of the current recurring tasks' future occurrences
+     * coincide with the given keydate.
+     *
+     * @param keyDate
+     */
+    void addPossibleGhostTasksWithMatchingDate(LocalDate keyDate);
 }

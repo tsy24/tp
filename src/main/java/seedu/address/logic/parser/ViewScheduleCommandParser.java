@@ -3,12 +3,10 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.ViewScheduleCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.task.DateTime;
 import seedu.address.model.task.DateTimeContainsDatePredicate;
 
 /**
