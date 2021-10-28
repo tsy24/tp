@@ -9,6 +9,20 @@ NurseyBook is a **desktop app made for nurses in nursing homes to aid them in ma
 {:toc}
 
 --------------------------------------------------------------------------------------------------------------------
+## About this document
+
+This document introduces the features of NurseyBook. Note the following symbols and formatting used in this document:
+
+`viewElderly`   Gray highlight (called a mark-up) indicates that this is a command that can be typed into the command line and executed by the application.
+
+:information_source:    This symbol indicates important information that may be useful to know.
+
+:exclamation:   This symbol indicates caution.Such instructions should be followed, as unintended consequences might arise otherwise.
+
+:bulb:  This symbol indicates tips. Tips are useful for improving your experience with NurseyBook.
+
+
+--------------------------------------------------------------------------------------------------------------------
 
 ## Quick start
 
@@ -39,9 +53,20 @@ NurseyBook is a **desktop app made for nurses in nursing homes to aid them in ma
 
 1. Refer to the [Features](#features) below for details of each command.
 
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## Features
+
+This section contains the documentation on NurseyBook's features and commands. It is split into the following subsections:
+
+1. Command format
+2. Elderly commands
+3. Task commands
+4. Miscellaneous commands
+5. Storage 
+
+### Command format
 
 <div markdown="block" class="alert alert-info">
 
@@ -67,8 +92,9 @@ NurseyBook is a **desktop app made for nurses in nursing homes to aid them in ma
 
 </div>
 
+### Elderly commands
 
-### View all elderly assigned to staff: `viewElderly`
+#### View all elderly assigned to staff: `viewElderly`
 
 Shows the list of all elderly assigned under a staff (the user).
 
@@ -186,13 +212,17 @@ Format: `filter t/TAG [t/TAG]…​`
 Example:
 * `filter t/covid t/diabetes`
 
-### View all tasks: `viewTasks`
 
-Shows a list of all tasks for a nurse in the NurseyBook.
+### Task commands
+
+#### View all tasks: `viewTasks`
+
+Shows a list of all your tasks in NurseyBook.
 
 Format: `viewTasks`
 
-### Add a task: `addTask`
+
+#### Add a task: `addTask`
 
 Adds a task to the task list.
 
@@ -200,100 +230,159 @@ Adds a task to the task list.
 You can add a recurring task to the list! <br>
 There are a few recurring options available namely: `DAY`, `WEEK` and `MONTH` (4 weeks later from the previous date). Tasks that have passed their original date will have their date automatically changed to the new date based on the recurrence type of the task.
 
+<div markdown="block" class="information information-info">
+
+:information_source: **Information:**
+
+* Will automatically change the display view to your task list, so that you can see the task you added.
+
+</div>
+
 Format: `addTask [en/ELDERLY_NAME]... desc/DESCRIPTION date/DATE time/TIME [recur/RECURRENCE_TYPE]`  
 
 Example:
 `addTask en/John desc/check insulin level date/2021-09-25 time/19:22 recur/week`
 
-### Delete task: `deleteTask`
 
-Deletes a particular task for a staff user in the task list from NurseyBook
+#### Delete task: `deleteTask`
+
+Deletes a particular task for you in the task list from NurseyBook.
 
 Format: `deleteTask INDEX`
+
+<div markdown="block" class="information information-info">
+
+:information_source: **Information:**
 
 * Deletes the task at the specified `INDEX`.
 * The index refers to the index number shown in the displayed task list.
 * The index **must be a positive integer** 1, 2, 3, …​
 
+</div>
+
 Examples:
 * `viewTasks` followed by `delete 2` deletes the 2nd task shown by NurseyBook.
 
-### Mark a task as completed: `doneTask`
+
+#### Mark a task as completed: `doneTask`
 
 Marks a particular task in the task list as completed.
 
 Format: `doneTask INDEX`
 
+<div markdown="block" class="information information-info">
+
+:information_source: **Information:**
+
 * Marks the task at the specified `INDEX` as done.
 * The index refers to the index number shown in the displayed task list.
 * The index **must be a positive integer** 1, 2, 3, …​
+
+</div>
 
 Examples:
 * `viewTasks` followed by `done 2` marks the 2nd task shown by NurseyBook as completed.
 
 
-### View reminders: `remind`
+#### View reminders: `remind`
 
-Shows the list of upcoming tasks (that are coming up in the next three days), such as the required
-medical needs for those under the user's care.
+Shows the list of upcoming tasks (that are coming up in the next three days), such as the required medical needs for
+those under your care.
 
 Format: `remind`
 
 
-### Clearing all entries : `clear`
+### Miscellaneous commands
+
+#### Clearing all entries : `clear`
 
 Clears all entries from NurseyBook.
 
 Format: `clear`
 
-### Exiting the program : `exit`
+
+#### Exiting the program : `exit`
 
 Exits the program.
 
 Format: `exit`
 
-### Saving the data
 
-NurseyBook data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+### Storage
 
-### Editing the data file
+#### Saving the data
 
-NurseyBook data are saved as a JSON file `[JAR file location]/data/nurseybook.json`. Advanced users are welcome to update data directly by editing that data file.
+NurseyBook's data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+
+
+#### Editing the data file
+
+NurseyBook data are saved as a JSON file `[JAR file location]/data/nurseybook.json`. If you are technologically savvy, you
+are also welcome to update data directly by editing that data file.
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
 If your changes to the data file makes its format invalid, NurseyBook will discard all data and start with an empty data file at the next run.
 </div>
-
-### Archiving data files `[coming in v2.0]`
-
-_Details coming soon ..._
 
 --------------------------------------------------------------------------------------------------------------------
 
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous NurseyBook home folder.
+**A**: Install the app in the other computer and overwrite the empty data file NurseyBook creates with the file, with the file
+that contains the data of your previous NurseyBook home folder.
 
+**Q**: How do I save my data?<br>
+**A**: NurseyBook's data is saved in the hard disk automatically after any command that changes the data.
+There is no need to save manually.
 --------------------------------------------------------------------------------------------------------------------
 
 ## Command summary
 
+### Elderly
+
 Action | Format, Examples
 --------|------------------
-**Add Elderly** | `addElderly en/ELDERLY_NAME a/AGE r/ROOMNO g/GENDER [t/TAG]…​ [nn/NOK_NAME] [rs/NOK_RELATIONSHIP] [p/NOK_PHONE_NUMBER] [e/NOK_EMAIL] [addr/NOK_ADDRESS]` <br> e.g., `addElderly en/Khong Guan a/80 g/M r/201 nn/Gong Kuan rs/Brother p/91234567 e/guanbro@gmail.com addr/London Street 11`
-**Clear** | `clear`
-**Delete Elderly** | `deleteElderly INDEX`<br> e.g., `deleteElderly 3`
-**Delete NoK of Elderly** | `deleteNok INDEX`<br> e.g., `deleteNok 3`
-**Add Tag** | `addTag INDEX t/TAG [t/TAG]…​` e.g., `addTag 1 t/diabetes`
-**Delete Tag** | `deleteTag INDEX t/TAG [t/TAG]…​`
+**Add Elderly** | `addElderly en/ELDERLY_NAME a/AGE r/ROOMNO g/GENDER [t/TAG]…​ [nn/NOK_NAME] [rs/NOK_RELATIONSHIP] [p/NOK_PHONE_NUMBER] [e/NOK_EMAIL] [addr/NOK_ADDRESS]` <br> <br> e.g., `addElderly en/Khong Guan a/80 g/M r/201 nn/Gong Kuan rs/Brother p/91234567 e/guanbro@gmail.com addr/London Street 11`
+**Delete Elderly** | `deleteElderly INDEX` <br> <br> e.g., `deleteElderly 3`
+**Edit Elderly** | `editElderly INDEX [en/ELDERLY_NAME] [a/AGE] [g/GENDER] [r/ROOMNO] [t/TAG]…​ [nn/NOK_NAME] [rs/NOK_RELATIONSHIP] [p/NOK_PHONE_NUMBER] [e/NOK_EMAIL] [addr/NOK_ADDRESS] [re/REMARK]`
 **Find Elderly** | `findElderly KEYWORD [MORE_KEYWORDS]`
+**Delete Next-of-Kin of Elderly** | `deleteNok INDEX`<br> <br> e.g., `deleteNok 3`
+**Add Tag** | `addTagINDEX t/TAG [t/TAG]…​` <br> <br> e.g., `addTag 1 t/diabetes`
+**Delete Tag** | `deleteTag INDEX t/TAG [t/TAG]…​`
 **Filter** | `filter t/TAG [t/TAG]…​`
-**Edit Elderly** | `editElderly INDEX [en/ELDERLY_NAME] [a/AGE] [g/GENDER] [r/ROOMNO] [t/TAG]…​ [nn/NOK_NAME] [rs/NOK_RELATIONSHIP] [p/NOK_PHONE_NUMBER] [e/NOK_EMAIL] [addr/NOK_ADDRESS]`
-**View Elderly Details** | `viewDetails INDEX`<br> e.g., `viewDetails 2`
-**Remind** | `remind`
-**Add task** | `addTask [en/ELDERLY_NAME] desc/DESCRIPTION date/DATE time/TIME` <br> e.g., `addTask en/John desc/check insulin level date/2021-09-25 time/10.00am`
-**Delete task** | `deleteTask INDEX`<br> e.g., `delete 3`
-**Mark task as complete** | `doneTask INDEX`<br> e.g., `done 3`
-**View all tasks** | `viewTasks`
+**Remark** | `remark INDEX re/REMARK`
+**View Elderly Details** | `viewDetails INDEX`<br> <br> e.g., `viewDetails 2`
 **View all elderly** | `viewElderly`
+
+
+### Task
+
+Action | Format, Examples
+--------|------------------
+**Add task** | `addTask [en/ELDERLY_NAME] desc/DESCRIPTION date/DATE time/TIME [recur/RECURRENCE_TYPE]` <br> <br> e.g., `addTask en/John desc/check insulin level date/2021-09-25 time/10.00am recur/week`
+**Delete task** | `deleteTask INDEX`<br> e.g., `delete 3`
+**Edit task** | `editTask INDEX [en/ELDERLY_NAME] [desc/DESCRIPTION] [date/DATE] [time/TIME] [recur/RECURRENCE_TYPE]` <br> <br> e.g., `editTask 2 desc/Meeting with head nurse`
+**Mark task as complete** | `doneTask INDEX`<br> e.g., `done 3`
+**Remind** | `remind`
+**View all tasks** | `viewTasks`
+
+
+### Miscellaneous
+
+Action | Format, Examples
+--------|------------------
+**Clear** | `clear`
+**Help** | `help`
+**Exit** | `exit`
+
+
+## Glossary
+
+Term | Definition
+--------|------------------
+**Command Line Interface (CLI)** | Command line interface where users interact with the system by typing in commands. <br> <br> e.g., Terminal
+**Graphical User Interface (GUI)** | Graphical user interface where users interact with the system through visual representations. <br> <br> e.g., Microsoft Windows Desktop
+**JAR** | A file format that contains all bundled Java files (relevant to NurseyBook).
+**Java 11** | The Java Platform, Standard Edition 11 Development Kit (JDK 11) is a feature release of the Java SE platform.
+**Javascript Object Notation (JSON)** | JSON is a lightweight text format for storing and transporting data.            
