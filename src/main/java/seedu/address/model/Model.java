@@ -73,10 +73,22 @@ public interface Model {
     void markTaskAsDone(Task target);
 
     /**
-     * Mark the given task {@code target} as overdue.
+     * Marks the given task {@code target} as overdue.
      * {@code target} must exist in the address book.
      */
     void markTaskAsOverdue(Task target);
+
+    /**
+     * Marks the given task {@code target} as not overdue.
+     * {@code target} must exist in the address book.
+     */
+    void markTaskAsNotOverdue(Task target);
+
+    /**
+     * Updates the date of the given task {@code target} such that it is not overdue.
+     * {@code target} must exist in the address book.
+     */
+    void updateDateRecurringTask(Task target);
 
     /**
      * Deletes the given elderly.
@@ -114,6 +126,14 @@ public interface Model {
      */
     void setElderly(Elderly target, Elderly editedElderly);
 
+    /**
+     * Replaces the given task {@code target} with {@code editedTask}.
+     * {@code target} must exist in the address book.
+     * The task identity of {@code editedTask} must not be the same as another existing task
+     * in the address book.
+     */
+    void setTask(Task target, Task editedTask);
+
     /** Returns an unmodifiable view of the filtered elderly list */
     ObservableList<Elderly> getFilteredElderlyList();
 
@@ -142,4 +162,14 @@ public interface Model {
      * Updates the overdue status of the tasks in the task list.
      */
     void updateOverdueTaskList();
+
+    /**
+     * Updates the not overdue status of the tasks in the task list.
+     */
+    void updateNotOverdueTaskList();
+
+    /**
+     * Updates the not overdue status of the tasks in the task list.
+     */
+    void updateDateRecurringTaskList();
 }
