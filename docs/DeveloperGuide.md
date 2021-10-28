@@ -190,7 +190,7 @@ One of the methods then calls the `test` method of the ElderlyHasTagPredicate ob
 The list of Elderly that return true for `test` is then assigned to `filteredElderlies` in ModelManager and displayed in the GUI.
 
 #### Design Considerations
-##### Aspect: How to store tags
+**Aspect: How to store tags:** 
 * **Alternative 1:** Create a new class TagSet to store tags
     * Pros: Can add custom methods
     * Cons: More code needs to be written and more room for bugs
@@ -312,7 +312,7 @@ The following activity diagram summarizes what happens when a user executes a ne
 **Decision:** Alternative 1 was chosen as there are many commands that change the data of the nursey book. 
 With alternative 1, all these commands will go through the same activity of saving the nursey book state instead of having different activity flow for undoing or redoing each command, making it easier to maintain.
 
-**Aspect: What to save**
+**Aspect: What to save:**
 * **Alternative 1:** Save only the nursey book.
     * Pros: Easy to implement.
     * Cons: No information on the commands that changed the data of the nursey book.

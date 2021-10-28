@@ -28,7 +28,7 @@ NurseyBook is a **desktop app made for nurses in nursing homes to aid them in ma
 
    * **`viewTasks`** : Lists all tasks.
 
-   * **`addElderly`**`addElderly en/John p/92345678 a/77 g/M r/420 t/diabetes` : Adds a contact named `John` to NurseyBook.
+   * **`addElderly`**`addElderly en/John a/77 g/M r/420 t/diabetes` : Adds an elderly named `John` to NurseyBook.
 
    * **`deleteElderly`**`3` : Deletes the records of the 3rd elderly shown in the current list.
 
@@ -140,6 +140,7 @@ Add one or more tags to a specific elderly.
 Format: `addTag INDEX t/TAG [t/TAG]…​`
 
 * There should be at least one tag.
+* Tags should be alphanumeric.
 * The index refers to the index number shown in the displayed elderly list.
 * The index **must be a positive integer** 1, 2, 3, …​
 
@@ -153,6 +154,7 @@ Delete one or more tags of a specific elderly.
 Format: `deleteTag INDEX t/TAG [t/TAG]…​`
 
 * There should be at least one tag.
+* Tags should be alphanumeric.
 * The index refers to the index number shown in the displayed elderly list.
 * The index **must be a positive integer** 1, 2, 3, …​
 
@@ -181,7 +183,8 @@ Filter elderly based on one or more tags.
 
 Format: `filter t/TAG [t/TAG]…​`
 
-* There should be at least one tag.
+* There should be at least one tag. 
+* Tags should be alphanumeric.
 
 Example:
 * `filter t/covid t/diabetes`
