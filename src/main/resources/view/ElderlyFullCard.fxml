@@ -21,11 +21,20 @@
                 <Insets bottom="5" left="15" right="5" top="5" />
             </padding>
             <Label styleClass="cell_big_label_padded" text="Age" />
-            <Label fx:id="age" styleClass="cell_small_label" text="\$age" />
+            <Label fx:id="age" styleClass="cell_small_label" text="\$age">
+            <padding>
+               <Insets left="5.0" />
+            </padding></Label>
             <Label styleClass="cell_big_label_padded" text="Gender" />
-            <Label fx:id="gender" styleClass="cell_small_label" text="\$gender" />
+            <Label fx:id="gender" styleClass="cell_small_label" text="\$gender">
+            <padding>
+               <Insets left="5.0" />
+            </padding></Label>
             <Label styleClass="cell_big_label_padded" text="Remark" />
-            <Label fx:id="remark" minHeight="-Infinity" styleClass="cell_small_label" text="\$remark" wrapText="true" />
+            <Label fx:id="remark" minHeight="-Infinity" styleClass="cell_small_label" text="\$remark" wrapText="true">
+            <padding>
+               <Insets left="5.0" />
+            </padding></Label>
         </VBox>
         <Separator orientation="VERTICAL" prefHeight="180.0" GridPane.columnIndex="1">
             <padding>
