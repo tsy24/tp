@@ -5,10 +5,12 @@ start
 'Since the beta syntax does not support placing the condition outside the
 'diamond we place it as the true branch instead.
 
-if () then ([command commits AddressBook])
-    :Purge redundant states;
-    :Save AddressBook to
-    addressBookStateList;
+if () then ([command commits NurseyBook])
+    :Delete redundant states;
+    :Create new NurseyBookState with current
+    NurseyBook and CommandResult;
+    :Save NurseyBookState to
+    nurseyBookStateList;
 else ([else])
 endif
 stop
