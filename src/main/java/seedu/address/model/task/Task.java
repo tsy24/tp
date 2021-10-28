@@ -159,7 +159,7 @@ public class Task implements Comparable<Task> {
     public Task markAsNotOverdue() {
         String completedStatus = isTaskDone() ? "true" : "false";
         return new Task(desc, dateTime, relatedNames,
-                new Status(completedStatus, "false"), recurrence);
+                new Status(completedStatus, "false"), recurrence, ghostTask);
     }
 
     /**

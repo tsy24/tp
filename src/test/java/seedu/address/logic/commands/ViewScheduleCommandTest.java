@@ -57,7 +57,7 @@ public class ViewScheduleCommandTest {
     @Test
     public void execute_multipleKeywords_multipleTasksFound() {
         String expectedMessage = String.format(MESSAGE_TASKS_ON_DATE, 1);
-        CommandResult expectedCommandResult = new CommandResult(expectedMessage);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage, CommandResult.ListDisplayChange.TASK);
 
         LocalDate keyDate = prepareDate("2021-09-13");
         DateTimeContainsDatePredicate predicate = new DateTimeContainsDatePredicate(keyDate);
