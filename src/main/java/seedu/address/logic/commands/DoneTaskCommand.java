@@ -48,7 +48,9 @@ public class DoneTaskCommand extends Command {
         }
 
         model.markTaskAsDone(taskToMark);
-        return new CommandResult(String.format(MESSAGE_MARK_TASK_DONE_SUCCESS, taskToMark));
+        CommandResult result = new CommandResult(String.format(MESSAGE_MARK_TASK_DONE_SUCCESS, taskToMark));
+        model.commitNurseyBook(result);
+        return result;
     }
 
     @Override

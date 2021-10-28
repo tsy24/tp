@@ -65,7 +65,9 @@ public class AddTagCommand extends Command {
         model.setElderly(elderlyToAddTag, addedElderly);
         model.updateFilteredElderlyList(PREDICATE_SHOW_ALL_ELDERLIES);
 
-        return new CommandResult(String.format(MESSAGE_ADD_TAG_SUCCESS, addedElderly));
+        CommandResult result = new CommandResult(String.format(MESSAGE_ADD_TAG_SUCCESS, addedElderly));
+        model.commitNurseyBook(result);
+        return result;
     }
 
     @Override

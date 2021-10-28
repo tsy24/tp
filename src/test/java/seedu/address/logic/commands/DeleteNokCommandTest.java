@@ -37,8 +37,9 @@ public class DeleteNokCommandTest {
         String expectedMessage = String.format(
                 DeleteNokCommand.MESSAGE_DELETE_ELDERLY_NOK_SUCCESS, nokDeletedElderly);
 
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getVersionedNurseyBook(), new UserPrefs());
         expectedModel.setElderly(elderlyToDeleteNokFrom, nokDeletedElderly);
+        expectedModel.commitNurseyBook(new CommandResult(expectedMessage));
 
         assertCommandSuccess(deleteNokCommand, model, expectedMessage, expectedModel);
     }
@@ -64,8 +65,9 @@ public class DeleteNokCommandTest {
         String expectedMessage = String.format(
                 DeleteNokCommand.MESSAGE_DELETE_ELDERLY_NOK_SUCCESS, nokDeletedElderly);
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getVersionedNurseyBook(), new UserPrefs());
         expectedModel.setElderly(elderlyToDeleteNokFrom, nokDeletedElderly);
+        expectedModel.commitNurseyBook(new CommandResult(expectedMessage));
 
         assertCommandSuccess(deleteNokCommand, model, expectedMessage, expectedModel);
     }
@@ -76,7 +78,7 @@ public class DeleteNokCommandTest {
 
         Index outOfBoundIndex = INDEX_SECOND;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getElderlyList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getVersionedNurseyBook().getElderlyList().size());
 
         DeleteNokCommand deleteNokCommand = new DeleteNokCommand(outOfBoundIndex);
 

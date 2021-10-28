@@ -41,8 +41,9 @@ public class EditTaskCommandTest {
 
         String expectedMessage = String.format(EditTaskCommand.MESSAGE_EDIT_TASK_SUCCESS, editedTask);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new AddressBook(model.getVersionedNurseyBook()), new UserPrefs());
         expectedModel.setTask(model.getFilteredTaskList().get(0), editedTask);
+        expectedModel.commitNurseyBook(new CommandResult(expectedMessage));
 
         assertCommandSuccess(editTaskCommand, model, expectedMessage, expectedModel);
     }
@@ -62,8 +63,9 @@ public class EditTaskCommandTest {
 
         String expectedMessage = String.format(EditTaskCommand.MESSAGE_EDIT_TASK_SUCCESS, editedTask);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new AddressBook(model.getVersionedNurseyBook()), new UserPrefs());
         expectedModel.setTask(lastTask, editedTask);
+        expectedModel.commitNurseyBook(new CommandResult(expectedMessage));
 
         assertCommandSuccess(editTaskCommand, model, expectedMessage, expectedModel);
     }
@@ -75,7 +77,8 @@ public class EditTaskCommandTest {
 
         String expectedMessage = String.format(EditTaskCommand.MESSAGE_EDIT_TASK_SUCCESS, editedTask);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new AddressBook(model.getVersionedNurseyBook()), new UserPrefs());
+        expectedModel.commitNurseyBook(new CommandResult(expectedMessage));
 
         assertCommandSuccess(editTaskCommand, model, expectedMessage, expectedModel);
     }
@@ -90,8 +93,9 @@ public class EditTaskCommandTest {
                 new EditTaskDescriptorBuilder().withDescription(VALID_DESC_MEDICINE).build());
         String expectedMessage = String.format(EditTaskCommand.MESSAGE_EDIT_TASK_SUCCESS, editedTask);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new AddressBook(model.getVersionedNurseyBook()), new UserPrefs());
         expectedModel.setTask(model.getFilteredTaskList().get(INDEX_FIRST.getZeroBased()), editedTask);
+        expectedModel.commitNurseyBook(new CommandResult(expectedMessage));
 
         assertCommandSuccess(editTaskCommand, model, expectedMessage, expectedModel);
     }
@@ -115,7 +119,7 @@ public class EditTaskCommandTest {
         showTaskAtIndex(model, INDEX_FIRST);
         Index outOfBoundIndex = INDEX_SECOND;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getTaskList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getVersionedNurseyBook().getTaskList().size());
 
         EditTaskCommand editTaskCommand = new EditTaskCommand(outOfBoundIndex,
                 new EditTaskDescriptorBuilder().withDescription(VALID_DESC_VACCINE).build());

@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
@@ -66,12 +67,12 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook newData) {
+    public void setVersionedNurseyBook(ReadOnlyAddressBook newData) {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
+    public ReadOnlyAddressBook getVersionedNurseyBook() {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -151,6 +152,30 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void commitNurseyBook(CommandResult commandResult) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public CommandResult undoNurseyBook() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public boolean canUndoNurseyBook() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public CommandResult redoNurseyBook() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public boolean canRedoNurseyBook() {
+        throw new AssertionError("This method should not be called.");
+    }
+
     public void updateNotOverdueTaskList() {
         throw new ArithmeticException("This method should not be called.");
     }

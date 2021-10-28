@@ -53,7 +53,9 @@ public class AddTaskCommand extends Command {
             throw new CommandException(MESSAGE_INVALID_TASK_DATETIME_FOR_RECURRING_TASK);
         }
         model.addTask(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), ListDisplayChange.TASK);
+        CommandResult result = new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), ListDisplayChange.TASK);
+        model.commitNurseyBook(result);
+        return result;
     }
 
     @Override
