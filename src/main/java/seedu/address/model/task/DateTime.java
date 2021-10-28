@@ -121,18 +121,6 @@ public class DateTime implements Comparable<DateTime> {
         return new DateTime(this.date.plusWeeks(numOfWeeks), this.time);
     }
 
-    /**
-     * Returns a copy of the current DateTime, with the date incremented by the given number of months.
-     * Due to months not having an equivalent number of days, one month is assumed to be 4 weeks, or 28 days.
-     *
-     * @param numOfMonths Number of days to increment the current date by.
-     * @return DateTime with the same LocalTime but incremented LocalDate.
-     */
-    public DateTime incrementDateByMonths(int numOfMonths) {
-        int numOfDaysToIncrement = 28 * numOfMonths;
-        return new DateTime(this.date.plusDays(numOfDaysToIncrement), this.time);
-    }
-
     public LocalDate getDate() {
         return this.date;
     }
