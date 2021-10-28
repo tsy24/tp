@@ -3,18 +3,12 @@ package seedu.address.model.task;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.time.Duration;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.task.Recurrence.RecurrenceType;
 import seedu.address.model.task.exceptions.TaskNotFoundException;
 
 /**
@@ -42,8 +36,9 @@ public class TaskList implements Iterable<Task> {
     /**
      * Replaces the task {@code target} in the list with {@code editedTask}.
      * {@code target} must exist in the list.
+     * The task's description of {@code editedTask} must not be the same as another existing task in the list.
      */
-    private void setTask(Task target, Task editedTask) {
+    public void setTask(Task target, Task editedTask) {
         requireAllNonNull(target, editedTask);
 
         int index = internalList.indexOf(target);
@@ -54,7 +49,7 @@ public class TaskList implements Iterable<Task> {
     }
 
     /**
-     * Mark the task {@code target} in the list as done.
+     * Marks the task {@code target} in the list as done.
      * {@code target} must exist in the list.
      */
     public void markTaskAsDone(Task toMark) {
@@ -62,7 +57,7 @@ public class TaskList implements Iterable<Task> {
     }
 
     /**
-     * Mark the task {@code target} in the list as overdue.
+     * Marks the task {@code target} in the list as overdue.
      * {@code target} must exist in the list.
      */
     public void markTaskAsOverdue(Task toMark) {
@@ -70,11 +65,25 @@ public class TaskList implements Iterable<Task> {
     }
 
     /**
-     * Mark the task {@code target} in the list as undone.
+     * Changes the task's {@code DateTime} to the next earliest {@code DateTime},
+     * if a recurring task's original DateTime is before the current {@code DateTime},
+     * according to whether is it a {@code DAY}, {@code WEEK} or {@code MONTH} recurrence type.
+     * At the same time, after changing the {@code DateTime},
+     * it also maintains the sorted order of tasks according to {@code DateTime}.
+     * All tasks which had their {@code DateTime} changed will also have their status's {@code isDone} as false.
+     */
+    public void updateDateOfRecurringTask(Task toMark) {
+        setTask(toMark, toMark.updateDateRecurringTask());
+        // Re-sorts task list when task date is changed
+        internalList.sort(Comparator.naturalOrder());
+    }
+
+    /**
+     * Updates the task {@code target} in the list as overdue.
      * {@code target} must exist in the list.
      */
-    public void markTaskAsUndone(Task toMark) {
-        setTask(toMark, toMark.markAsUndone());
+    public void markTaskAsNotOverdue(Task toMark) {
+        setTask(toMark, toMark.markAsNotOverdue());
     }
 
     /**
@@ -102,69 +111,6 @@ public class TaskList implements Iterable<Task> {
         if (!internalList.remove(toRemove)) {
             throw new TaskNotFoundException();
         }
-    }
-
-    /**
-     * If a recurring task's original DateTime is before the current {@code DateTime},
-     * changes the task's {@code DateTime} to the next earliest {@code DateTime},
-     * according to whether is it a {@code DAY}, {@code WEEK} or {@code MONTH} recurrence type.
-     * At the same time, after changing the {@code DateTime},
-     * it also maintains the sorted order of tasks according to {@code DateTime}.
-     * All tasks which had their {@code DateTime} changed will also have their status's {@code isDone} as false.
-     */
-    public void changeDateOfPastRecurringTasks() {
-        LocalDateTime currentDateTime = LocalDateTime.now();
-
-        for (Task t : this.internalList) {
-            Recurrence recurrence = t.getRecurrence();
-            if (recurrence.isRecurring()) {
-                RecurrenceType recurrenceType = recurrence.getRecurrenceType();
-                assert(recurrenceType != RecurrenceType.NONE);
-
-                changeTaskDate(currentDateTime, t, recurrenceType);
-                this.markTaskAsUndone(t);
-            }
-        }
-        // Re-sorts task list when task date is changed
-        internalList.sort(Comparator.naturalOrder());
-    }
-
-    private void changeTaskDate(LocalDateTime currentDateTime, Task t,
-                                                 RecurrenceType recurrenceType) {
-        DateTime taskDateTime = t.getDateTime();
-        LocalDate taskDate = taskDateTime.date;
-        LocalTime taskTime = taskDateTime.time;
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd MM yyyy HH mm");
-        String inputString = String.format("%02d", taskDate.getDayOfMonth()) + " "
-                + String.format("%02d", taskDate.getMonthValue()) + " "
-                + String.format("%02d", taskDate.getYear()) + " "
-                + String.format("%02d", taskTime.getHour()) + " "
-                + String.format("%02d", taskTime.getMinute());
-        LocalDateTime taskLocalDateTime = LocalDateTime.parse(inputString, dtf);
-        long daysBetween = Duration.between(taskLocalDateTime, currentDateTime).toDays();
-
-        // if task dateTime is before current dateTime
-        if (daysBetween > 0) {
-            changeTaskDateBasedOnRecurrence(t, recurrenceType, taskLocalDateTime, daysBetween);
-        }
-    }
-
-    private void changeTaskDateBasedOnRecurrence(Task t, RecurrenceType recurrenceType,
-                                                 LocalDateTime taskLocalDateTime, long daysBetween) {
-        LocalDateTime taskNewLocalDateTime;
-        if (recurrenceType == RecurrenceType.DAY) {
-            taskNewLocalDateTime = taskLocalDateTime.plusDays(daysBetween + 1);
-        } else if (recurrenceType == RecurrenceType.WEEK) {
-            int daysToAdd = (int) (daysBetween / 7) * 7 + 7;
-            taskNewLocalDateTime = taskLocalDateTime.plusDays(daysToAdd);
-        } else {
-            // assume its + 4 weeks
-            int daysToAdd = (int) (daysBetween / 28) * 28 + 28;
-            taskNewLocalDateTime = taskLocalDateTime.plusDays(daysToAdd);
-        }
-        // time is fixed
-        t.setDateTime(
-                new DateTime(taskNewLocalDateTime.toLocalDate(), taskLocalDateTime.toLocalTime()));
     }
 
     /**

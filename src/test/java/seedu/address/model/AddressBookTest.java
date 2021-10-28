@@ -101,6 +101,11 @@ public class AddressBookTest {
         assertThrows(UnsupportedOperationException.class, () -> addressBook.getElderlyList().remove(0));
     }
 
+    @Test
+    public void getTaskList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> addressBook.getTaskList().remove(0));
+    }
+
     /**
      * A stub ReadOnlyAddressBook whose elderlies list can violate interface constraints.
      */
@@ -116,7 +121,6 @@ public class AddressBookTest {
         public ObservableList<Elderly> getElderlyList() {
             return elderlies;
         }
-
 
         @Override
         public ObservableList<Task> getTaskList() {
