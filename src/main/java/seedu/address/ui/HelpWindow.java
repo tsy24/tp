@@ -16,7 +16,33 @@ import seedu.address.commons.core.LogsCenter;
 public class HelpWindow extends UiPart<Stage> {
 
     public static final String USERGUIDE_URL = "https://se-education.org/addressbook-level3/UserGuide.html";
-    public static final String HELP_MESSAGE = "Refer to the user guide: " + USERGUIDE_URL;
+    public static final String HELP_MESSAGE = "Refer to the user guide for in-depth info: " + USERGUIDE_URL
+            + "\n------------------------------------------------------"
+            + "\nA command summary has been provided below."
+            + "\n------------------------------------------------------"
+            + "\nAdd Elderly: addElderly en/ELDERLY_NAME a/AGE r/ROOMNO g/GENDER [t/TAG]... "
+            + "\n[nn/NOK_NAME] [rs/NOK_RELATIONSHIP] [p/NOK_PHONE_NUMBER] [e/NOK_EMAIL] [addr/NOK_ADDRESS]"
+            + "\nDelete Elderly: deleteElderly INDEX"
+            + "\nDelete NoK of Elderly: deleteNok INDEX"
+            + "\nEdit Elderly: editElderly INDEX [en/ELDERLY_NAME] [a/AGE] [g/GENDER] [r/ROOMNO] [t/TAG]... "
+            + "\n[nn/NOK_NAME] [rs/NOK_RELATIONSHIP] [p/NOK_PHONE_NUMBER] [e/NOK_EMAIL] [addr/NOK_ADDRESS]"
+            + "\nFind Elderly: findElderly KEYWORD [MORE_KEYWORDS]"
+            + "\nAdd Tag: addTag INDEX t/TAG [t/TAG]..."
+            + "\nDelete Tag: deleteTag INDEX t/TAG [t/TAG]..."
+            + "\nFilter: filter t/TAG [t/TAG]..."
+            + "\nView Elderly Details: viewDetails INDEX"
+            + "\n--------"
+            + "\nAdd Task: addTask [en/ELDERLY_NAME] desc/DESCRIPTION date/DATE time/TIME"
+            + "\nDelete Task: deleteTask INDEX"
+            + "\nDone Task: doneTask INDEX"
+            + "\nRemind: remind"
+            + "\nViewSchedule: viewSchedule"
+            + "\n--------"
+            + "\nView Elderly: viewElderly"
+            + "\nView Task: viewTasks"
+            + "\nUndo: undo"
+            + "\nRedo: redo"
+            + "\nClear: clear";
 
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
     private static final String FXML = "HelpWindow.fxml";
