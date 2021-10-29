@@ -6,7 +6,9 @@ title: User Guide
 NurseyBook is a **desktop app made for nurses in nursing homes to aid them in managing contacts and tasks in their busy lives. It is optimized for use via a Command Line Interface** (CLI) while still **having the benefits of a Graphical User Interface** (GUI). If you can type fast, NurseyBook can manage your contacts & tasks done faster than traditional GUI apps! :smile:
 
 ## Table of Contents
-{:toc}
+
+* Table of Contents
+  {:toc}
 
 --------------------------------------------------------------------------------------------------------------------
 ## About this document
