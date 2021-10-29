@@ -6,7 +6,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalTasks.ALEX_INSULIN;
 import static seedu.address.testutil.TypicalTasks.APPLY_LEAVE;
+import static seedu.address.testutil.TypicalTasks.APPLY_LEAVE_DAY_NEXT_RECURRENCE_GHOST;
 import static seedu.address.testutil.TypicalTasks.APPLY_LEAVE_LATE_TIME;
+import static seedu.address.testutil.TypicalTasks.APPLY_LEAVE_MONTH_NEXT_RECURRENCE_GHOST;
+import static seedu.address.testutil.TypicalTasks.APPLY_LEAVE_WEEK_NEXT_RECURRENCE_GHOST;
 import static seedu.address.testutil.TypicalTasks.DO_PAPERWORK;
 
 import java.time.LocalDateTime;
@@ -128,5 +131,20 @@ public class TaskListTest {
                         .withDateTime(currentDateTime.toLocalDate().toString(),
                             t.getTime().toString()).withStatus("false", "false").build();
         assertTrue(taskList.contains(test));
+    }
+
+    @Test
+    public void deleteGhostTasks_deletesAllGhostTasks() {
+        TaskList taskList = new TaskList();
+        taskList.add(APPLY_LEAVE_DAY_NEXT_RECURRENCE_GHOST);
+        taskList.add(APPLY_LEAVE);
+        taskList.add(APPLY_LEAVE_WEEK_NEXT_RECURRENCE_GHOST);
+        taskList.add(APPLY_LEAVE_MONTH_NEXT_RECURRENCE_GHOST);
+        taskList.deleteGhostTasks();
+
+        TaskList expectedTaskList = new TaskList();
+        expectedTaskList.add(APPLY_LEAVE);
+
+        assertEquals(taskList, expectedTaskList);
     }
 }

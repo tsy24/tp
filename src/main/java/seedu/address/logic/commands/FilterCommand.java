@@ -31,7 +31,8 @@ public class FilterCommand extends Command {
         requireNonNull(model);
         model.updateFilteredElderlyList(predicate);
         return new CommandResult(
-                String.format(Messages.MESSAGE_ELDERLIES_LISTED_OVERVIEW, model.getFilteredElderlyList().size()));
+                String.format(Messages.MESSAGE_ELDERLIES_LISTED_OVERVIEW, model.getFilteredElderlyList().size()),
+                CommandResult.ListDisplayChange.ELDERLY);
     }
 
     @Override

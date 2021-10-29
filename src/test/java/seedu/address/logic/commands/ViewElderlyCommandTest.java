@@ -24,7 +24,7 @@ public class ViewElderlyCommandTest {
     @BeforeEach
     public void setUp() {
         model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        expectedModel = new ModelManager(model.getVersionedNurseyBook(), new UserPrefs());
     }
 
     @Test
