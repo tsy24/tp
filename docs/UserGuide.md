@@ -276,7 +276,7 @@ Example:
 
 #### Find a task: `findTask`
 
-Finds tasks which description contain any of the given keywords.
+Finds tasks whose description contain any of the given keywords.
 
 Format: `findTask KEYWORD [MORE_KEYWORDS]`
 
