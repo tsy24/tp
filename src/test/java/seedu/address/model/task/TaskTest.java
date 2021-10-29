@@ -5,32 +5,41 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.TaskCommandTestUtil.VALID_DATE_JAN;
 import static seedu.address.logic.commands.TaskCommandTestUtil.VALID_DATE_NOV;
-import static seedu.address.logic.commands.TaskCommandTestUtil.VALID_DESC_PAPERWORK;
+import static seedu.address.logic.commands.TaskCommandTestUtil.VALID_DESC_MEDICINE;
 import static seedu.address.logic.commands.TaskCommandTestUtil.VALID_NAME_ALEX;
 import static seedu.address.logic.commands.TaskCommandTestUtil.VALID_NAME_KEITH;
 import static seedu.address.logic.commands.TaskCommandTestUtil.VALID_TIME_SEVENPM;
 import static seedu.address.logic.commands.TaskCommandTestUtil.VALID_TIME_TENAM;
 import static seedu.address.testutil.TypicalTasks.ALEX_INSULIN;
 import static seedu.address.testutil.TypicalTasks.APPLY_LEAVE;
+import static seedu.address.testutil.TypicalTasks.APPLY_LEAVE_DAY_NEXT_RECURRENCE_GHOST;
+import static seedu.address.testutil.TypicalTasks.APPLY_LEAVE_LATE_TIME;
+import static seedu.address.testutil.TypicalTasks.APPLY_LEAVE_MONTH_RECURRENCE;
+import static seedu.address.testutil.TypicalTasks.APPLY_LEAVE_WEEK_RECURRENCE;
 import static seedu.address.testutil.TypicalTasks.DO_PAPERWORK;
 import static seedu.address.testutil.TypicalTasks.KEITH_INSULIN;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.model.task.Recurrence.RecurrenceType;
 import seedu.address.testutil.TaskBuilder;
 
+
 public class TaskTest {
 
-    private Task keithInsulin = new TaskBuilder(KEITH_INSULIN).build();
-    private Task applyLeave = new TaskBuilder(APPLY_LEAVE).build();
+    private final Task keithInsulin = new TaskBuilder(KEITH_INSULIN).build();
+    private final Task applyLeave = new TaskBuilder(APPLY_LEAVE).build();
 
     @Test
     public void equals() {
         // same values -> returns true
         assertTrue(keithInsulin.equals(KEITH_INSULIN));
-        Task alexToKeith = new TaskBuilder(ALEX_INSULIN).withNames(VALID_NAME_KEITH)
-                .withDateTime(VALID_DATE_NOV, VALID_TIME_SEVENPM).withStatus("false", "false")
+        Task alexToKeith = new TaskBuilder(ALEX_INSULIN).withNames(VALID_NAME_KEITH).withDesc(VALID_DESC_MEDICINE)
+                .withDateTime(VALID_DATE_NOV, VALID_TIME_SEVENPM).withStatus("false", "true")
                 .withRecurrence(RecurrenceType.NONE.name()).build();
         assertTrue(keithInsulin.equals(alexToKeith));
 
@@ -42,9 +51,6 @@ public class TaskTest {
 
         // different type -> returns false
         assertFalse(keithInsulin.equals(5));
-
-        // different elderly -> returns false
-        assertFalse(keithInsulin.equals(ALEX_INSULIN));
 
         // different name -> returns false
         Task editedTask = new TaskBuilder(keithInsulin).withNames(VALID_NAME_ALEX).build();
@@ -58,10 +64,6 @@ public class TaskTest {
 
         // different time -> returns false
         editedTask = new TaskBuilder(keithInsulin).withDateTime(VALID_DATE_NOV, VALID_TIME_TENAM).build();
-        assertFalse(keithInsulin.equals(editedTask));
-
-        // different address -> returns false
-        editedTask = new TaskBuilder(keithInsulin).withDesc(VALID_DESC_PAPERWORK).build();
         assertFalse(keithInsulin.equals(editedTask));
 
         // different status -> returns false
@@ -108,20 +110,18 @@ public class TaskTest {
     @Test
     void isTaskDone() {
         assertFalse(keithInsulin.isTaskDone()); // status: isDone = "false"
-
         assertTrue(applyLeave.isTaskDone());
     }
 
     @Test
     void isTaskOverdue() {
         assertTrue(applyLeave.isTaskOverdue()); // status: isOverdue = "true"
-
-        assertFalse(keithInsulin.isTaskOverdue()); // default status: isOverdue = "false"
+        assertTrue(keithInsulin.isTaskOverdue()); // status: isOverdue = "true"
     }
 
     @Test
     void markTaskDone() {
-        Task doneKeith = new TaskBuilder(keithInsulin).withStatus("true", "false").build();
+        Task doneKeith = new TaskBuilder(keithInsulin).withStatus("true", "true").build();
         assertEquals(keithInsulin.markAsDone(), doneKeith);
     }
 
@@ -129,6 +129,35 @@ public class TaskTest {
     void markTaskOverdue() {
         Task overdueKeith = new TaskBuilder(keithInsulin).withStatus("false", "true").build();
         assertEquals(keithInsulin.markAsOverdue(), overdueKeith);
+    }
+
+    @Test
+    void checkIfTaskRecurring() {
+        //recurring task
+        assertTrue(APPLY_LEAVE.checkIfTaskRecurring());
+
+        //non-recurring task
+        assertFalse(keithInsulin.checkIfTaskRecurring());
+    }
+
+    @Test
+    void checkIfRealTask() {
+        //real task
+        assertTrue(keithInsulin.checkIfRealTask());
+
+        //ghost task
+        assertFalse(APPLY_LEAVE_DAY_NEXT_RECURRENCE_GHOST.checkIfRealTask());
+    }
+
+    @Test
+    void checkIfTaskFallsOnDate() {
+        //task falls on date
+        LocalDate sameDate = LocalDate.parse("2020-11-01");
+        assertTrue(keithInsulin.checkIfTaskFallsOnDate(sameDate));
+
+        //task does not fall on date
+        LocalDate differentDate = LocalDate.parse("2020-11-02");
+        assertFalse(keithInsulin.checkIfTaskFallsOnDate(differentDate));
     }
 
     @Test
@@ -145,6 +174,57 @@ public class TaskTest {
 
         // doPaperwork before alexInsulin -> returns negative value
         assertFalse(doPaperwork.compareTo(keithInsulin) == 0);
+    }
+
+    @Test
+    public void updateDateOfRecurringTasks_forDayRecurring() {
+        Task task1 = APPLY_LEAVE_LATE_TIME; // date: "2021-10-01", time: "23:50"
+        // (which is most probably past current time) DAY RECURRING
+        task1 = task1.updateDateRecurringTask();
+        LocalDateTime currentDateTime1 = LocalDateTime.now();
+        assertEquals(new DateTime(currentDateTime1.toLocalDate(), LocalTime.of(23, 50)), task1.getDateTime());
+        // date: "2021-10-01", time: "00:00" (before current time), recurrence: DAY
+        Task task2 = APPLY_LEAVE;
+        task2 = task2.updateDateRecurringTask();
+        LocalDateTime currentDateTime2 = LocalDateTime.now();
+        assertEquals(new DateTime(currentDateTime2.toLocalDate().plusDays(1),
+                LocalTime.of(0, 0)), task2.getDateTime());
+    }
+
+    @Test
+    public void changeDateOfPastRecurringTasks_forWeekRecurring() {
+        LocalDate date = LocalDate.of(2021, 9, 30);
+        LocalTime time = LocalTime.of(23, 50);
+        // date: "2021-09-30", time: "23:50" (after current time) recurrence: WEEK
+        Task task1 = APPLY_LEAVE_WEEK_RECURRENCE;
+        LocalDateTime currentDateTime1 = LocalDateTime.now();
+        int daysDiff = currentDateTime1.getDayOfYear() - date.getDayOfYear();
+        int daysToAdd = daysDiff % 7 == 0 ? 0 : 7 - daysDiff % 7;
+        task1 = task1.updateDateRecurringTask();
+        assertEquals(new DateTime(currentDateTime1.toLocalDate().plusDays(daysToAdd), time),
+                task1.getDateTime());
+    }
+
+    @Test
+    public void changeDateOfPastRecurringTasks_forMonthRecurring() {
+        LocalDate date = LocalDate.of(2021, 7, 30);
+        LocalTime time = LocalTime.of(23, 50);
+        // date: "2021-07-30", time: "23:50" (after current time), recurrence: MONTH
+        Task task1 = APPLY_LEAVE_MONTH_RECURRENCE;
+        LocalDateTime currentDateTime1 = LocalDateTime.now();
+        int daysDiff = currentDateTime1.getDayOfYear() - date.getDayOfYear();
+        int daysToAdd = daysDiff % 28 == 0 ? 0 : 28 - daysDiff % 28;
+        task1 = task1.updateDateRecurringTask();
+        assertEquals(new DateTime(currentDateTime1.toLocalDate().plusDays(daysToAdd), time),
+                task1.getDateTime());
+    }
+
+    @Test
+    public void changeDateOfPastRecurringTasks_changedToUndoneTasks() {
+        Task task1 = APPLY_LEAVE_MONTH_RECURRENCE; // date: "2021-07-30", time: "23:50"
+        // (which is most probably past current time) DAY RECURRING
+        task1 = task1.updateDateRecurringTask();
+        assertFalse(task1.getStatus().isDone);
     }
 
 }

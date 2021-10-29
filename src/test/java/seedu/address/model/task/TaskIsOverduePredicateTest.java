@@ -2,7 +2,6 @@ package seedu.address.model.task;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.testutil.TypicalTasks.APPLY_LEAVE;
 import static seedu.address.testutil.TypicalTasks.KEITH_INSULIN;
 import static seedu.address.testutil.TypicalTasks.YASMINE_PHYSIO;
 
@@ -14,15 +13,14 @@ import seedu.address.testutil.TaskBuilder;
 
 public class TaskIsOverduePredicateTest {
 
-    private Task applyLeave = new TaskBuilder(APPLY_LEAVE).build(); // date: 2021-10-01, time: 00:00
+    private Task keithInsulin = new TaskBuilder(KEITH_INSULIN).build(); // date: 2021-10-01, time: 00:00
     private Task yasminPhysio = new TaskBuilder(YASMINE_PHYSIO).build(); // date: 2021-09-13, time: 15:30
 
     @Test
     public void test_overdueTasks_returnsTrue() {
-
         // default isOverdue = true -> returns true
         TaskIsOverduePredicate predicate = new TaskIsOverduePredicate();
-        assertTrue(predicate.test(applyLeave));
+        assertTrue(predicate.test(keithInsulin));
 
         // day has passed -> returns true
         assertTrue(predicate.test(yasminPhysio));
@@ -43,7 +41,7 @@ public class TaskIsOverduePredicateTest {
 
         TaskIsOverduePredicate predicate = new TaskIsOverduePredicate();
 
-        LocalDateTime now = LocalDateTime.now().withMinute(0).withSecond(0).withNano(0);
+        LocalDateTime now = LocalDateTime.now().withMinute(0).withSecond(0);
         LocalDateTime future = now.plusDays(30);
 
         String[] dateTime = future.toString().split("T");

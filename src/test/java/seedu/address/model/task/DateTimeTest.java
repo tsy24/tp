@@ -1,5 +1,6 @@
 package seedu.address.model.task;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -88,6 +89,24 @@ class DateTimeTest {
 
         // day in the future -> returns false
         assertFalse(DateTime.isOverdue(after));
+    }
+
+    @Test
+    public void incrementDateByDays() {
+        DateTime before = new DateTime("2021-10-20", "12:30");
+        DateTime after = new DateTime("2021-10-21", "12:30");
+
+        //increment date by 1
+        assertEquals(before.incrementDateByDays(1), after);
+    }
+
+    @Test
+    public void incrementDateByWeeks() {
+        DateTime before = new DateTime("2021-10-20", "12:30");
+        DateTime after = new DateTime("2021-10-27", "12:30");
+
+        //increment week by 1
+        assertEquals(before.incrementDateByWeeks(1), after);
     }
 
     @Test

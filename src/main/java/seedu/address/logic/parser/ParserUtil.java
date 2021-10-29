@@ -2,7 +2,12 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.model.task.DateTime.MESSAGE_DATE_CONSTRAINTS;
+import static seedu.address.model.task.DateTime.MESSAGE_TIME_CONSTRAINTS;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -243,12 +248,50 @@ public class ParserUtil {
         String trimmedDate = date.trim();
         String trimmedTime = time.trim();
         if (!DateTime.isValidDate(trimmedDate)) {
-            throw new ParseException(DateTime.MESSAGE_DATE_CONSTRAINTS);
+            throw new ParseException(MESSAGE_DATE_CONSTRAINTS);
         }
         if (!DateTime.isValidTime(trimmedTime)) {
-            throw new ParseException(DateTime.MESSAGE_TIME_CONSTRAINTS);
+            throw new ParseException(MESSAGE_TIME_CONSTRAINTS);
         }
         return new DateTime(trimmedDate, trimmedTime);
+    }
+
+    /**
+     * Parses a {@code String date} into a {@code LocalDate}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code date} is invalid.
+     */
+    public static LocalDate parseDate(String date) throws ParseException {
+        requireNonNull(date);
+        String trimmedDate = date.trim();
+        if (!DateTime.isValidDate(trimmedDate)) {
+            throw new ParseException(MESSAGE_DATE_CONSTRAINTS);
+        }
+        try {
+            return LocalDate.parse(trimmedDate);
+        } catch (DateTimeParseException e) {
+            throw new IllegalArgumentException(MESSAGE_DATE_CONSTRAINTS);
+        }
+    }
+
+    /**
+     * Parses a {@code String time} into an {@code LocalTime}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code time} is invalid.
+     */
+    public static LocalTime parseTime(String time) throws ParseException {
+        requireNonNull(time);
+        String trimmedTime = time.trim();
+        if (!DateTime.isValidTime(trimmedTime)) {
+            throw new ParseException(MESSAGE_TIME_CONSTRAINTS);
+        }
+        try {
+            return LocalTime.parse(trimmedTime);
+        } catch (DateTimeParseException e) {
+            throw new IllegalArgumentException(MESSAGE_TIME_CONSTRAINTS);
+        }
     }
 
     /**

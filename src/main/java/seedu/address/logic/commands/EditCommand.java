@@ -99,7 +99,9 @@ public class EditCommand extends Command {
 
         model.setElderly(elderlyToEdit, editedElderly);
         model.updateFilteredElderlyList(PREDICATE_SHOW_ALL_ELDERLIES);
-        return new CommandResult(String.format(MESSAGE_EDIT_ELDERLY_SUCCESS, editedElderly));
+        CommandResult result = new CommandResult(String.format(MESSAGE_EDIT_ELDERLY_SUCCESS, editedElderly));
+        model.commitNurseyBook(result);
+        return result;
     }
 
     /**

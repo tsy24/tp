@@ -24,7 +24,7 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "addElderly";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a elderly to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a elderly to the address book.\n"
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_AGE + "AGE "
@@ -71,7 +71,9 @@ public class AddCommand extends Command {
         }
 
         model.addElderly(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), ListDisplayChange.ELDERLY);
+        CommandResult result = new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), ListDisplayChange.ELDERLY);
+        model.commitNurseyBook(result);
+        return result;
     }
 
     @Override

@@ -4,10 +4,10 @@
 <?import javafx.scene.layout.*?>
 
 <?import javafx.geometry.Insets?>
-<ScrollPane xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" prefWidth="500" styleClass="pane-with-no-border" >
-    <VBox id="elderlyDetails" alignment="CENTER_LEFT" maxWidth="455" prefWidth="455" minHeight="105" styleClass="details-panel">
+<ScrollPane xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" prefWidth="510" styleClass="pane-with-no-border" >
+    <VBox id="elderlyDetails" alignment="CENTER_LEFT" maxWidth="480" prefWidth="480" minHeight="105" styleClass="details-panel">
         <padding>
-            <Insets bottom="40" left="15" right="15" top="5" />
+            <Insets bottom="40" left="20" right="20" top="5" />
         </padding>
         <Label fx:id="id" styleClass="cell_big_label" HBox.hgrow="NEVER">
             <minWidth>

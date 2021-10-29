@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_ELDERLY_SUCCESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
@@ -144,11 +145,11 @@ public class CommandTestUtil {
 
     /**
      * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, CommandResult, Model)}
-     * that takes a string {@code expectedMessage} and boolean {@code expectedIsViewFull} .
+     * that takes a string {@code expectedMessage} and boolean {@code expectedIsViewDetails} .
      */
     public static void assertCommandSuccess(Command command, Model actualModel, String expectedMessage,
-                                            boolean expectedIsViewFull, Model expectedModel) {
-        CommandResult expectedCommandResult = new CommandResult(expectedMessage, expectedIsViewFull);
+                                            boolean expectedIsViewDetails, Model expectedModel) {
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage, expectedIsViewDetails);
         assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
     }
 
@@ -161,11 +162,11 @@ public class CommandTestUtil {
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
+        AddressBook expectedAddressBook = new AddressBook(actualModel.getVersionedNurseyBook());
         List<Elderly> expectedFilteredList = new ArrayList<>(actualModel.getFilteredElderlyList());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
-        assertEquals(expectedAddressBook, actualModel.getAddressBook());
+        assertEquals(expectedAddressBook, actualModel.getVersionedNurseyBook());
         assertEquals(expectedFilteredList, actualModel.getFilteredElderlyList());
     }
     /**
@@ -182,4 +183,14 @@ public class CommandTestUtil {
         assertEquals(1, model.getFilteredElderlyList().size());
     }
 
+    /**
+     * Deletes the first person in {@code model}'s filtered list from {@code model}'s address book.
+     */
+    public static CommandResult deleteFirstElderly(Model model) {
+        Elderly firstElderly = model.getFilteredElderlyList().get(0);
+        model.deleteElderly(firstElderly);
+        CommandResult result = new CommandResult(String.format(MESSAGE_DELETE_ELDERLY_SUCCESS, firstElderly));
+        model.commitNurseyBook(result);
+        return result;
+    }
 }

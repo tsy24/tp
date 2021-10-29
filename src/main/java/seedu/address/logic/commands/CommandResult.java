@@ -23,7 +23,7 @@ public class CommandResult {
     private final boolean exit;
 
     /** UI should show an elderly's full details. */
-    private final boolean isViewFull;
+    private final boolean isViewDetails;
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
@@ -33,7 +33,7 @@ public class CommandResult {
         this.showHelp = showHelp;
         this.exit = exit;
         this.displayChange = ListDisplayChange.NONE;
-        this.isViewFull = false;
+        this.isViewDetails = false;
     }
 
     /**
@@ -44,18 +44,18 @@ public class CommandResult {
         this.showHelp = false;
         this.exit = false;
         this.displayChange = change;
-        this.isViewFull = false;
+        this.isViewDetails = false;
     }
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, Boolean isViewFull) {
+    public CommandResult(String feedbackToUser, Boolean isViewDetails) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = false;
         this.exit = false;
         this.displayChange = ListDisplayChange.NONE;
-        this.isViewFull = isViewFull;
+        this.isViewDetails = isViewDetails;
     }
 
     /**
@@ -68,6 +68,10 @@ public class CommandResult {
 
     public String getFeedbackToUser() {
         return feedbackToUser;
+    }
+
+    public ListDisplayChange getDisplayChange() {
+        return displayChange;
     }
 
     /**
@@ -89,8 +93,8 @@ public class CommandResult {
     /**
      * Returns true if command result indicates UI should show full details of an elderly
      */
-    public boolean isViewFull() {
-        return isViewFull;
+    public boolean isViewDetails() {
+        return isViewDetails;
     }
 
     public boolean isShowHelp() {
@@ -117,12 +121,12 @@ public class CommandResult {
                 && showHelp == otherCommandResult.showHelp
                 && exit == otherCommandResult.exit
                 && displayChange.equals(otherCommandResult.displayChange)
-                && isViewFull == otherCommandResult.isViewFull;
+                && isViewDetails == otherCommandResult.isViewDetails;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit, displayChange, isViewFull);
+        return Objects.hash(feedbackToUser, showHelp, exit, displayChange, isViewDetails);
     }
 
 }
