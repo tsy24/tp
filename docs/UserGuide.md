@@ -106,7 +106,7 @@ Adds an elderly to NurseyBook.
 
 Format: `addElderly en/ELDERLY_NAME a/AGE g/GENDER r/ROOMNO [t/TAG]…​ [nn/NOK_NAME] [rs/NOK_RELATIONSHIP] [p/NOK_PHONE_NUMBER] [e/NOK_EMAIL] [addr/NOK_ADDRESS]`
 
-<div markdown="block" class="information information-info">
+<div markdown="block" class="alert alert-info">
 
 :information_source: **Information:**
 * A elderly can have any number of tags (including 0).
@@ -125,7 +125,7 @@ Deletes an elderly from NurseyBook.
 
 Format: `deleteElderly INDEX`   
 
-<div markdown="block" class="information information-info">
+<div markdown="block" class="alert alert-info">
 
 :information_source: **Information:**
 * Deletes the elderly at the specified `INDEX`.
@@ -144,16 +144,20 @@ Edits the details of a specific elderly.
 
 Format: `editElderly INDEX [en/ELDERLY_NAME] [a/AGE] [g/GENDER] [r/ROOMNO] [t/TAG]…​ [nn/NOK_NAME] [rs/NOK_RELATIONSHIP] [p/NOK_PHONE_NUMBER] [e/NOK_EMAIL] [addr/NOK_ADDRESS]`
 
-<div markdown="block" class="information information-info">
+<div markdown="block" class="alert alert-info">
 
 :information_source: **Information:**
 * Any number of tags is acceptable (including 0).
 
 </div>
 
+<div markdown="block" class="alert alert-primary">
+
 :bulb: **Tip:**  
 You can remove a remark by leaving the remark input empty!  
 e.g. `editElderly 1 re/`
+
+</div>
 
 
 #### Find elderly: `findElderly`
@@ -162,7 +166,7 @@ Finds elderlies whose names contain any of the given keywords.
 
 Format: `findElderly KEYWORD [MORE_KEYWORDS]`
 
-<div markdown="block" class="information information-info">
+<div markdown="block" class="alert alert-info">
 
 :information_source: **Information:**
 * The search is case-insensitive. e.g `elena` will match `Elena`
@@ -184,7 +188,7 @@ Displays full details of a specific elderly
 
 Format: `viewDetails INDEX`
 
-<div markdown="block" class="information information-info">
+<div markdown="block" class="alert alert-info">
 
 :information_source: **Information:**
 * Shows the full details of the elderly at the specified `INDEX`.
@@ -200,7 +204,7 @@ Deletes an elderly's Next-of-Kin details from NurseyBook.
 
 Format: `deleteNok INDEX`
 
-<div markdown="block" class="information information-info">
+<div markdown="block" class="alert alert-info">
 
 :information_source: **Information:**
 * Deletes the NoK details of the elderly at the specified `INDEX`.
@@ -219,7 +223,7 @@ Adds one or more tags to a specific elderly.
 
 Format: `addTag INDEX t/TAG [t/TAG]…​`
 
-<div markdown="block" class="information information-info">
+<div markdown="block" class="alert alert-info">
 
 :information_source: **Information:**
 * There should be at least one tag.
@@ -239,7 +243,7 @@ Deletes one or more tags of a specific elderly.
 
 Format: `deleteTag INDEX t/TAG [t/TAG]…​`
 
-<div markdown="block" class="information information-info">
+<div markdown="block" class="alert alert-info">
 
 :information_source: **Information:**
 * There should be at least one tag.
@@ -259,7 +263,7 @@ Filters elderly based on one or more tags.
 
 Format: `filter t/TAG [t/TAG]…​`
 
-<div markdown="block" class="information information-info">
+<div markdown="block" class="alert alert-info">
 
 :information_source: **Information:**
 * There should be at least one tag.
@@ -277,7 +281,7 @@ Adds a remark to a specific elderly.
 
 Format: `remark INDEX re/REMARK`
 
-<div markdown="block" class="information information-info">
+<div markdown="block" class="alert alert-info">
 
 :information_source: **Information:**
 * The index refers to the index number shown in the displayed elderly list.
@@ -288,9 +292,13 @@ Format: `remark INDEX re/REMARK`
 Example:
 * `remark 1 re/Medicine seems to be ineffective`
 
+<div markdown="block" class="alert alert-primary">
+
 :bulb: **Tip:**  
 You can remove a remark by leaving the remark input empty!  
 e.g. `remark 1 re/`
+
+</div>
 
 
 ### Task commands
@@ -310,7 +318,7 @@ Adds a task to the task list.
 You can add a recurring task to the list! <br>
 There are a few recurring options available namely: `DAY`, `WEEK` and `MONTH` (4 weeks later from the previous date). Tasks that have passed their original date will have their date automatically changed to the new date based on the recurrence type of the task.
 
-<div markdown="block" class="information information-info">
+<div markdown="block" class="alert alert-info">
 
 :information_source: **Information:**
 
@@ -330,7 +338,7 @@ Deletes a particular task in the task list from NurseyBook.
 
 Format: `deleteTask INDEX`
 
-<div markdown="block" class="information information-info">
+<div markdown="block" class="alert alert-info">
 
 :information_source: **Information:**
 
@@ -360,7 +368,7 @@ Finds tasks whose description contain any of the given keywords.
 
 Format: `findTask KEYWORD [MORE_KEYWORDS]`
 
-<div markdown="block" class="information information-info">
+<div markdown="block" class="alert alert-info">
 
 :information_source: **Information:**
 
@@ -383,7 +391,7 @@ Marks a particular task in the task list as completed.
 
 Format: `doneTask INDEX`
 
-<div markdown="block" class="information information-info">
+<div markdown="block" class="alert alert-info">
 
 :information_source: **Information:**
 
@@ -412,7 +420,7 @@ Recurring tasks that will take place on that date is also included.
 
 Format: `viewSchedule DATE`
 
-<div markdown="block" class="information information-info">
+<div markdown="block" class="alert alert-info">
 
 :information_source: **Information:**
 * Date must be in yyyy-mm-dd form.
@@ -495,6 +503,7 @@ that contains the data of your previous NurseyBook home folder.
 **Q**: How do I save my data?<br>
 **A**: NurseyBook's data is saved in the hard disk automatically after any command that changes the data.
 There is no need to save manually.
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## Command summary
