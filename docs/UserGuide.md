@@ -337,7 +337,7 @@ Clears all entries from NurseyBook.
 Format: `clear`
 
 
-### Undo previous command : `undo`
+#### Undo previous command : `undo`
 
 Undoes the previous undoable command executed on the NurseyBook.
 
@@ -351,7 +351,7 @@ Example:
 * `deleteElderly 1` followed by `undo` causes the `deleteElderly 1` command to be undone and no elderly is deleted from the NurseyBook.
 
 
-### Redo previously undone command : `redo`
+#### Redo previously undone command : `redo`
 
 Reverses the previous undo command executed on the NurseyBook.
 
@@ -363,8 +363,8 @@ Example:
 * `deleteElderly 1` followed by `undo` causes the `deleteElderly 1` command to be undone and no elderly is deleted from the NurseyBook. 
 Entering `redo` will reverse the previous undo command, causing the elderly to be deleted again.
 
-
-### Exiting the program : `exit`
+  
+#### Exiting the program : `exit`
 
 Exits the program.
 
@@ -450,4 +450,4 @@ Term | Definition
 **Graphical User Interface (GUI)** | Graphical user interface where users interact with the system through visual representations. <br> <br> e.g., Microsoft Windows Desktop
 **JAR** | A file format that contains all bundled Java files (relevant to NurseyBook).
 **Java 11** | The Java Platform, Standard Edition 11 Development Kit (JDK 11) is a feature release of the Java SE platform.
-**Javascript Object Notation (JSON)** | JSON is a lightweight text format for storing and transporting data.
+**Javascript Object Notation (JSON)** | JSON is a lightweight text format for storing and transporting data.            
