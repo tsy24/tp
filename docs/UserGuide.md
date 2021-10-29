@@ -68,126 +68,195 @@ NurseyBook is a **desktop app made for nurses in nursing homes to aid them in ma
 </div>
 
 
-### View all elderly assigned to staff: `viewElderly`
+### Elderly commands
+#### View all elderly: `viewElderly`
 
-Shows the list of all elderly assigned under a staff (the user).
+Shows the list of all added elderly.
 
 Format: `viewElderly`
 
-### Adding an elderly: `addElderly`
+#### Add an elderly: `addElderly`
 
 Adds an elderly to NurseyBook.
 
 Format: `addElderly en/ELDERLY_NAME a/AGE g/GENDER r/ROOMNO [t/TAG]…​ [nn/NOK_NAME] [rs/NOK_RELATIONSHIP] [p/NOK_PHONE_NUMBER] [e/NOK_EMAIL] [addr/NOK_ADDRESS]`
 
-:bulb: **Tip:**
-A elderly can have any number of tags (including 0)
+<div markdown="block" class="information information-info">
+
+:information_source: **Information:**
+* A elderly can have any number of tags (including 0).
+
+</div>
 
 Examples:
 * `addElderly en/Khong Guan a/80 g/M r/201 nn/Gong Kuan rs/Brother p/91234567 e/guanbro@gmail.com addr/London Street 11`
 * `addElderly en/John a/77 g/M r/420 t/diabetes`
 * `addElderly en/John a/77 g/M r/420 t/diabetes nn/Timothy rs/Son`
 
-
-### Edit an elderly's details: `editElderly`
-
-Edit the details of a specific elderly.
-
-Format: `editElderly INDEX [en/ELDERLY_NAME] [a/AGE] [g/GENDER] [r/ROOMNO] [t/TAG]…​ [nn/NOK_NAME] [rs/NOK_RELATIONSHIP] [p/NOK_PHONE_NUMBER] [e/NOK_EMAIL] [addr/NOK_ADDRESS]`
-
-* Any number of tags is acceptable (including 0).
-
-### View full details of an elderly: `viewDetails`
-
-View full details of a specific elderly
-
-Format: `viewDetails INDEX`
-
-* Shows the full details of the elderly at the specified `INDEX`.
-* The index refers to the index number shown in the displayed elderly list.
-* The index **must be a positive integer** 1, 2, 3, …​
-
-### Deleting an elderly : `deleteElderly`
+#### Delete an elderly : `deleteElderly`
 
 Deletes an elderly from NurseyBook.
 
 Format: `deleteElderly INDEX`   
 
+<div markdown="block" class="information information-info">
+
+:information_source: **Information:**
 * Deletes the elderly at the specified `INDEX`.
 * The index refers to the index number shown in the displayed elderly list.
 * The index **must be a positive integer** 1, 2, 3, …​
 
+</div>
+
 Examples:
 * `viewElderly` followed by `delete 2` deletes the 2nd elderly in NurseyBook.
 
-### Deleting an elderly's NoK details : `deleteNok`
+#### Edit an elderly's details: `editElderly`
 
-Deletes an elderly's Next-of-Kin details from NurseyBook.
+Edits the details of a specific elderly.
 
-Format: `deleteNok INDEX`
+Format: `editElderly INDEX [en/ELDERLY_NAME] [a/AGE] [g/GENDER] [r/ROOMNO] [t/TAG]…​ [nn/NOK_NAME] [rs/NOK_RELATIONSHIP] [p/NOK_PHONE_NUMBER] [e/NOK_EMAIL] [addr/NOK_ADDRESS]`
 
-* Deletes the NoK details of the elderly at the specified `INDEX`.
-* The index refers to the index number shown in the displayed elderly list.
-* The index **must be a positive integer** 1, 2, 3, …​
+<div markdown="block" class="information information-info">
 
-Examples:
-* `viewElderly` followed by `deleteNok 2` deletes the NoK details of the 2nd elderly in NurseyBook.
+:information_source: **Information:**
+* Any number of tags is acceptable (including 0).
 
-### Add tags to elderly: `addTag`
+</div>
 
-Add one or more tags to a specific elderly.
+:bulb: **Tip:**  
+You can remove a remark by leaving the remark input empty!  
+e.g. `editElderly 1 re/`
 
-Format: `addTag INDEX t/TAG [t/TAG]…​`
-
-* There should be at least one tag.
-* Tags should be alphanumeric.
-* The index refers to the index number shown in the displayed elderly list.
-* The index **must be a positive integer** 1, 2, 3, …​
-
-Example:
-* `addTag 1 t/covid`
-
-### Delete tags of elderly: `deleteTag`
-
-Delete one or more tags of a specific elderly.
-
-Format: `deleteTag INDEX t/TAG [t/TAG]…​`
-
-* There should be at least one tag.
-* Tags should be alphanumeric.
-* The index refers to the index number shown in the displayed elderly list.
-* The index **must be a positive integer** 1, 2, 3, …​
-
-Example:
-* `deleteTag 1 t/covid`
-
-### Find elderly: `findElderly`
+#### Find elderly: `findElderly`
 
 Finds elderlies whose names contain any of the given keywords.
 
 Format: `findElderly KEYWORD [MORE_KEYWORDS]`
 
+<div markdown="block" class="information information-info">
+
+:information_source: **Information:**
 * The search is case-insensitive. e.g `elena` will match `Elena`
 * The order of the keywords does not matter. e.g. `Elena Kro` will match `Kro Elena`
 * Only the name is searched.
 * Only full words will be matched. e.g. `Ele` will not match `Elena`
 * Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Elena Kro` will return `Elena Grob`, `Kro Stanly`
 
+</div>
+
 Examples:
 * `findElderly Elena` returns `elena` and `Elena Kro`
 * `findElderly Elena Jav` returns `Elena Kro`, `Jav Marsh`
 
-### Filter elderly: `filter`
+#### View full details of an elderly: `viewDetails`
 
-Filter elderly based on one or more tags.
+Displays full details of a specific elderly
+
+Format: `viewDetails INDEX`
+
+<div markdown="block" class="information information-info">
+
+:information_source: **Information:**
+* Shows the full details of the elderly at the specified `INDEX`.
+* The index refers to the index number shown in the displayed elderly list.
+* The index **must be a positive integer** 1, 2, 3, …​
+
+</div>
+
+#### Delete an elderly's NoK details : `deleteNok`
+
+Deletes an elderly's Next-of-Kin details from NurseyBook.
+
+Format: `deleteNok INDEX`
+
+<div markdown="block" class="information information-info">
+
+:information_source: **Information:**
+* Deletes the NoK details of the elderly at the specified `INDEX`.
+* The index refers to the index number shown in the displayed elderly list.
+* The index **must be a positive integer** 1, 2, 3, …​
+
+</div>
+
+Examples:
+* `viewElderly` followed by `deleteNok 2` deletes the NoK details of the 2nd elderly in NurseyBook.
+
+#### Add tags to elderly: `addTag`
+
+Adds one or more tags to a specific elderly.
+
+Format: `addTag INDEX t/TAG [t/TAG]…​`
+
+<div markdown="block" class="information information-info">
+
+:information_source: **Information:**
+* There should be at least one tag.
+* Tags should be alphanumeric.
+* The index refers to the index number shown in the displayed elderly list.
+* The index **must be a positive integer** 1, 2, 3, …​
+
+</div>
+
+Example:
+* `addTag 1 t/covid`
+
+#### Delete tags of elderly: `deleteTag`
+
+Deletes one or more tags of a specific elderly.
+
+Format: `deleteTag INDEX t/TAG [t/TAG]…​`
+
+<div markdown="block" class="information information-info">
+
+:information_source: **Information:**
+* There should be at least one tag.
+* Tags should be alphanumeric.
+* The index refers to the index number shown in the displayed elderly list.
+* The index **must be a positive integer** 1, 2, 3, …​
+
+</div>
+
+Example:
+* `deleteTag 1 t/covid`
+
+#### Filter elderly: `filter`
+
+Filters elderly based on one or more tags.
 
 Format: `filter t/TAG [t/TAG]…​`
 
-* There should be at least one tag. 
+<div markdown="block" class="information information-info">
+
+:information_source: **Information:**
+* There should be at least one tag.
 * Tags should be alphanumeric.
+
+</div>
 
 Example:
 * `filter t/covid t/diabetes`
+
+#### Add remark to elderly: `remark`
+
+Adds a remark to a specific elderly.
+
+Format: `remark INDEX re/REMARK`
+
+<div markdown="block" class="information information-info">
+
+:information_source: **Information:**
+* The index refers to the index number shown in the displayed elderly list.
+* The index **must be a positive integer** 1, 2, 3, …​
+
+</div>
+
+Example:
+* `remark 1 re/Medicine seems to be ineffective`
+
+:bulb: **Tip:**  
+You can remove a remark by leaving the remark input empty!  
+e.g. `remark 1 re/`
 
 ### View all tasks: `viewTasks`
 
@@ -245,11 +314,18 @@ Format: `remind`
 
 ### View task schedule: `viewSchedule`
 
-Shows the list of tasks on a specific date, inclusive of upcoming future occurrences of recursive tasks.
-You can view schedule for up to 12 weeks in advance.
-Date input must be in yyyy-mm-dd form.
+Displays the list of tasks set to occur on the specified date.
+Recurring tasks that will take place on that date is also included.
 
 Format: `viewSchedule DATE`
+
+<div markdown="block" class="information information-info">
+
+:information_source: **Information:**
+* Date must be in yyyy-mm-dd form.
+* You can view schedule for up to 12 weeks in advance.
+
+</div>
 
 Example:
 `viewSchedule 2021-11-02`
