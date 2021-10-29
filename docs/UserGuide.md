@@ -243,6 +243,18 @@ medical needs for those under the user's care.
 Format: `remind`
 
 
+### View task schedule: `viewSchedule`
+
+Shows the list of tasks on a specific date, inclusive of upcoming future occurrences of recursive tasks.
+You can view schedule for up to 12 weeks in advance.
+Date input must be in yyyy-mm-dd form.
+
+Format: `viewSchedule DATE`
+
+Example:
+`viewSchedule 2021-11-02`
+
+
 ### Clearing all entries : `clear`
 
 Clears all entries from NurseyBook.
@@ -323,6 +335,7 @@ Action | Format, Examples
 **Add task** | `addTask [en/ELDERLY_NAME] desc/DESCRIPTION date/DATE time/TIME` <br> e.g., `addTask en/John desc/check insulin level date/2021-09-25 time/10.00am`
 **Delete task** | `deleteTask INDEX`<br> e.g., `delete 3`
 **Mark task as complete** | `doneTask INDEX`<br> e.g., `done 3`
+**View Schedule** | `viewSchedule DATE` <br> e.g., `viewSchedule 2021-11-02`
 **View all tasks** | `viewTasks`
 **View all elderly** | `viewElderly`
 **Undo** | `undo`
