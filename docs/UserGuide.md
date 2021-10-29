@@ -190,7 +190,7 @@ Format: `viewDetails INDEX`
 * Shows the full details of the elderly at the specified `INDEX`.
 * The index refers to the index number shown in the displayed elderly list.
 * The index **must be a positive integer** 1, 2, 3, …​
-* After executing another command that is not a viewDetails command, the details panel will close
+* After executing another command that is not a viewDetails command, the details panel will close.
 
 </div>
 
