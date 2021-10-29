@@ -61,7 +61,9 @@ public class RemarkCommand extends Command {
         model.setElderly(elderlyToEdit, editedElderly);
         model.updateFilteredElderlyList(PREDICATE_SHOW_ALL_ELDERLIES);
 
-        return new CommandResult(generateSuccessMessage(editedElderly));
+        CommandResult result = new CommandResult(generateSuccessMessage(editedElderly));
+        model.commitNurseyBook(result);
+        return result;
     }
 
     @Override

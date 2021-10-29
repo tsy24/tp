@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_TASK_DATETIME_FOR_RECURRING_TASK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_DESC;
@@ -48,8 +49,15 @@ public class AddTaskCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        if (toAdd.isPastCurrentDateAndRecurringTask()) {
+            throw new CommandException(MESSAGE_INVALID_TASK_DATETIME_FOR_RECURRING_TASK);
+        }
+
         model.addTask(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), ListDisplayChange.TASK);
+        CommandResult result = new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), ListDisplayChange.TASK);
+        model.commitNurseyBook(result);
+        return result;
     }
 
     @Override

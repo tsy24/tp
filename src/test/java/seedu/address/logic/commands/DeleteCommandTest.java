@@ -33,8 +33,9 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_ELDERLY_SUCCESS, elderlyToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getVersionedNurseyBook(), new UserPrefs());
         expectedModel.deleteElderly(elderlyToDelete);
+        expectedModel.commitNurseyBook(new CommandResult(expectedMessage));
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
     }
@@ -56,8 +57,9 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_ELDERLY_SUCCESS, elderlyToDelete);
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getVersionedNurseyBook(), new UserPrefs());
         expectedModel.deleteElderly(elderlyToDelete);
+        expectedModel.commitNurseyBook(new CommandResult(expectedMessage));
         showNoElderly(expectedModel);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
@@ -69,7 +71,7 @@ public class DeleteCommandTest {
 
         Index outOfBoundIndex = INDEX_SECOND;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getElderlyList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getVersionedNurseyBook().getElderlyList().size());
 
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 

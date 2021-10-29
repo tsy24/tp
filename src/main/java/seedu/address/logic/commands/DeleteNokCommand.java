@@ -50,7 +50,9 @@ public class DeleteNokCommand extends Command {
 
         model.setElderly(elderlyToDeleteNokFrom, updatedElderly);
         model.updateFilteredElderlyList(PREDICATE_SHOW_ALL_ELDERLIES);
-        return new CommandResult(String.format(MESSAGE_DELETE_ELDERLY_NOK_SUCCESS, updatedElderly));
+        CommandResult result = new CommandResult(String.format(MESSAGE_DELETE_ELDERLY_NOK_SUCCESS, updatedElderly));
+        model.commitNurseyBook(result);
+        return result;
     }
 
     @Override
