@@ -351,7 +351,7 @@ Format: `deleteTask INDEX`
 </div>
 
 Examples:
-* `viewTasks` followed by `delete 2` deletes the 2nd task shown by NurseyBook.
+* `viewTasks` followed by `deleteTask 2` deletes the 2nd task shown by NurseyBook.
 
 
 #### Edit a task: `editTask`
@@ -383,8 +383,8 @@ Format: `findTask KEYWORD [MORE_KEYWORDS]`
 </div>
 
 Examples:
-* `findElderly Day` returns `day` and `Day routine`
-* `findElderly Day shift` returns `Day routine`, `Shift items`
+* `findTask Day` returns `day` and `Day routine`
+* `findTask Day shift` returns `Day routine`, `Shift items`
 
 
 #### Mark a task as completed: `doneTask`
@@ -404,7 +404,7 @@ Format: `doneTask INDEX`
 </div>
 
 Examples:
-* `viewTasks` followed by `done 2` marks the 2nd task shown by NurseyBook as completed.
+* `viewTasks` followed by `doneTask 2` marks the 2nd task shown by NurseyBook as completed.
 
 
 #### View reminders: `remind`
@@ -532,10 +532,10 @@ Action | Format, Examples
 Action | Format, Examples
 --------|------------------
 **Add a task** | `addTask [en/ELDERLY_NAME] desc/DESCRIPTION date/DATE time/TIME [recur/RECURRENCE_TYPE]` <br> <br> e.g., `addTask en/John desc/check insulin level date/2021-09-25 time/10:00 recur/week`
-**Delete a task** | `deleteTask INDEX`<br> e.g., `delete 3`
+**Delete a task** | `deleteTask INDEX`<br> e.g., `deleteTask 3`
 **Edit a task** | `editTask INDEX [en/ELDERLY_NAME] [desc/DESCRIPTION] [date/DATE] [time/TIME] [recur/RECURRENCE_TYPE]` <br> <br> e.g., `editTask 2 desc/Meeting with head nurse`
 **Find a task** | `findTask KEYWORD [MORE_KEYWORDS]`
-**Mark a task as complete** | `doneTask INDEX`<br> e.g., `done 3`
+**Mark a task as complete** | `doneTask INDEX`<br> e.g., `doneTask 3`
 **Remind** | `remind`
 **View Schedule** | `viewSchedule DATE` <br> e.g., `viewSchedule 2021-11-02`
 **View all tasks** | `viewTasks`
