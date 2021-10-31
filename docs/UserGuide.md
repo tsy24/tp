@@ -531,7 +531,7 @@ Action | Format, Examples
 
 Action | Format, Examples
 --------|------------------
-**Add a task** | `addTask [en/ELDERLY_NAME] desc/DESCRIPTION date/DATE time/TIME [recur/RECURRENCE_TYPE]` <br> <br> e.g., `addTask en/John desc/check insulin level date/2021-09-25 time/10.00am recur/week`
+**Add a task** | `addTask [en/ELDERLY_NAME] desc/DESCRIPTION date/DATE time/TIME [recur/RECURRENCE_TYPE]` <br> <br> e.g., `addTask en/John desc/check insulin level date/2021-09-25 time/10:00 recur/week`
 **Delete a task** | `deleteTask INDEX`<br> e.g., `delete 3`
 **Edit a task** | `editTask INDEX [en/ELDERLY_NAME] [desc/DESCRIPTION] [date/DATE] [time/TIME] [recur/RECURRENCE_TYPE]` <br> <br> e.g., `editTask 2 desc/Meeting with head nurse`
 **Find a task** | `findTask KEYWORD [MORE_KEYWORDS]`
