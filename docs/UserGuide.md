@@ -161,6 +161,17 @@ e.g. `editElderly 1 re/`
 
 </div>
 
+<div markdown="block" class="alert alert-warning">
+
+:exclamation: **Caution**
+* By leaving the tag input empty, you will remove all the tags currently assigned to the elderly.
+* If you want to add a tag with `editElderly`, you have to include all the existing tags of the elderly in your command.
+
+e.g. John has an existing tag `cancer`, and he is at index 1 in the current list of elderly displayed. To add a tag to John, your command should be `editElderly 1 t/overweight t/covid`.
+
+* For more accessible tag related commands, do refer to the `addTag` and `deleteTag` commands.
+</div>
+
 
 #### Find elderly: `findElderly`
 
