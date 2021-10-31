@@ -137,7 +137,7 @@ Format: `deleteElderly INDEX`
 </div>
 
 Examples:
-* `viewElderly` followed by `delete 2` deletes the 2nd elderly in NurseyBook.
+* `viewElderly` followed by `deleteElderly 2` deletes the 2nd elderly in NurseyBook.
 
 
 #### Edit an elderly's details: `editElderly`
