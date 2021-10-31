@@ -517,8 +517,11 @@ NurseyBook's data are saved in the hard disk automatically after any command tha
 NurseyBook data are saved as a JSON file `[JAR file location]/data/nurseybook.json`. If you are technologically savvy, you
 are also welcome to update data directly by editing that data file.
 
-<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
+<div markdown="span" class="alert alert-warning">
+
+:exclamation: **Caution:**
 If your changes to the data file makes its format invalid, NurseyBook will discard all data and start with an empty data file at the next run.
+
 </div>
 
 --------------------------------------------------------------------------------------------------------------------
