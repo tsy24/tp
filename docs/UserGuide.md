@@ -331,7 +331,7 @@ There are a few recurring options available namely: `DAY`, `WEEK` and `MONTH` (4
 Format: `addTask [en/ELDERLY_NAME]... desc/DESCRIPTION date/DATE time/TIME [recur/RECURRENCE_TYPE]`  
 
 Example:
-`addTask en/John desc/check insulin level date/2021-09-25 time/19:22 recur/week`
+`addTask en/John desc/check insulin level date/2022-01-25 time/19:22 recur/week`
 
 
 #### Delete a task: `deleteTask`
@@ -361,7 +361,7 @@ Edits the details of a specific task.
 Format: `editTask INDEX [en/ELDERLY_NAME]... [desc/DESCRIPTION] [date/DATE] [time/TIME] [recur/RECURRENCE_TYPE]`
 
 Example:
-* `viewTasks` followed by `editTask 1 date/2021-12-25` changes the date of the 1st task shown by NurseyBook to Christmas.
+* `viewTasks` followed by `editTask 1 date/2022-01-30` changes the date of the 1st task shown by NurseyBook to Christmas.
 
 
 #### Find a task: `findTask`
@@ -431,8 +431,7 @@ Format: `viewSchedule DATE`
 </div>
 
 Example:
-`viewSchedule 2021-11-02`
-
+`viewSchedule 2022-02-14`
 
 
 ### Miscellaneous commands
@@ -531,13 +530,13 @@ Action | Format, Examples
 
 Action | Format, Examples
 --------|------------------
-**Add a task** | `addTask [en/ELDERLY_NAME] desc/DESCRIPTION date/DATE time/TIME [recur/RECURRENCE_TYPE]` <br> <br> e.g., `addTask en/John desc/check insulin level date/2021-09-25 time/10:00 recur/week`
+**Add a task** | `addTask [en/ELDERLY_NAME] desc/DESCRIPTION date/DATE time/TIME [recur/RECURRENCE_TYPE]` <br> <br> e.g., `addTask en/John desc/check insulin level date/2022-01-25 time/10:00 recur/week`
 **Delete a task** | `deleteTask INDEX`<br> e.g., `deleteTask 3`
 **Edit a task** | `editTask INDEX [en/ELDERLY_NAME] [desc/DESCRIPTION] [date/DATE] [time/TIME] [recur/RECURRENCE_TYPE]` <br> <br> e.g., `editTask 2 desc/Meeting with head nurse`
 **Find a task** | `findTask KEYWORD [MORE_KEYWORDS]`
 **Mark a task as complete** | `doneTask INDEX`<br> e.g., `doneTask 3`
 **Remind** | `remind`
-**View Schedule** | `viewSchedule DATE` <br> e.g., `viewSchedule 2021-11-02`
+**View Schedule** | `viewSchedule DATE` <br> e.g., `viewSchedule 2022-02-14`
 **View all tasks** | `viewTasks`
 
 
