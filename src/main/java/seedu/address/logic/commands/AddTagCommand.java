@@ -32,6 +32,8 @@ public class AddTagCommand extends Command {
 
     public static final String MESSAGE_ADD_TAG_SUCCESS = "Added tag(s) to Elderly: %1$s";
 
+    public static final String MESSAGE_TAG_EXISTS = "'%1$s' tag already exists for elderly";
+
     private final Index index;
     private final Set<Tag> tags;
 
@@ -56,6 +58,7 @@ public class AddTagCommand extends Command {
 
         Elderly elderlyToAddTag = lastShownList.get(index.getZeroBased());
         Set<Tag> currentTags = elderlyToAddTag.getTags();
+
         Elderly addedElderly = new Elderly(
                 elderlyToAddTag.getName(), elderlyToAddTag.getAge(),
                 elderlyToAddTag.getGender(), elderlyToAddTag.getRoomNumber(),
@@ -88,10 +91,15 @@ public class AddTagCommand extends Command {
                 && tags.equals(e.tags);
     }
 
-    private Set<Tag> addTagsToSet(Set<Tag> currentTags, Set<Tag> newTags) {
+    private Set<Tag> addTagsToSet(Set<Tag> currentTags, Set<Tag> newTags) throws CommandException {
         Set<Tag> addedSet = new HashSet<>();
         addedSet.addAll(currentTags);
-        addedSet.addAll(newTags);
+        for (Tag tagToAdd: tags) {
+            if (addedSet.contains(tagToAdd)) {
+                throw new CommandException(String.format(MESSAGE_TAG_EXISTS, tagToAdd.tagName));
+            }
+            addedSet.add(tagToAdd);
+        }
         return addedSet;
     }
 }

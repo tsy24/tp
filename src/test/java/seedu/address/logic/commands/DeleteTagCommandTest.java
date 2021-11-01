@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.SET_ONE_TAG;
+import static seedu.address.logic.commands.CommandTestUtil.SET_ONE_TAG_DIFFERENT_CASE;
 import static seedu.address.logic.commands.CommandTestUtil.SET_TWO_TAGS;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_DIABETES;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
@@ -45,6 +46,22 @@ public class DeleteTagCommandTest {
     }
 
     @Test
+    public void execute_deleteDifferentCaseTagUnfilteredList_success() {
+        Elderly secondElderly = model.getFilteredElderlyList().get(INDEX_SECOND.getZeroBased());
+        Elderly tagDeletedElderly = new ElderlyBuilder(secondElderly).withTags(VALID_TAG_DIABETES).build();
+
+        DeleteTagCommand deleteTagCommand = new DeleteTagCommand(INDEX_SECOND, SET_ONE_TAG_DIFFERENT_CASE);
+
+        String expectedMessage = String.format(DeleteTagCommand.MESSAGE_DELETE_TAG_SUCCESS, tagDeletedElderly);
+
+        Model expectedModel = new ModelManager(new AddressBook(model.getVersionedNurseyBook()), new UserPrefs());
+        expectedModel.setElderly(secondElderly, tagDeletedElderly);
+        expectedModel.commitNurseyBook(new CommandResult(expectedMessage));
+
+        assertCommandSuccess(deleteTagCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
     public void execute_deleteTagsUnfilteredList_success() {
         Elderly secondElderly = model.getFilteredElderlyList().get(INDEX_SECOND.getZeroBased());
         Elderly tagDeletedElderly = new ElderlyBuilder(secondElderly).withoutTags().build();
@@ -64,14 +81,14 @@ public class DeleteTagCommandTest {
     public void execute_deleteNewTagUnfilteredList_failure() {
 
         // Only one new tag
-        DeleteTagCommand addTagCommand = new DeleteTagCommand(INDEX_FIRST, SET_ONE_TAG);
+        DeleteTagCommand deleteTagCommand = new DeleteTagCommand(INDEX_FIRST, SET_ONE_TAG);
         String expectedMessage = String.format(DeleteTagCommand.MESSAGE_NO_SUCH_TAG, VALID_TAG_DIABETES);
-        assertCommandFailure(addTagCommand, model, expectedMessage);
+        assertCommandFailure(deleteTagCommand, model, expectedMessage);
 
         // Mix of new and existing tags
-        addTagCommand = new DeleteTagCommand(INDEX_FIRST, SET_TWO_TAGS);
+        deleteTagCommand = new DeleteTagCommand(INDEX_FIRST, SET_TWO_TAGS);
         expectedMessage = String.format(DeleteTagCommand.MESSAGE_NO_SUCH_TAG, VALID_TAG_DIABETES);
-        assertCommandFailure(addTagCommand, model, expectedMessage);
+        assertCommandFailure(deleteTagCommand, model, expectedMessage);
     }
 
     @Test

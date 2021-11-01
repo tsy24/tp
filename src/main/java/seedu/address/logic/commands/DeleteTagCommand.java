@@ -56,13 +56,7 @@ public class DeleteTagCommand extends Command {
         }
 
         Elderly elderlyToDeleteTag = lastShownList.get(index.getZeroBased());
-        Set<Tag> updatedTags = new HashSet<>(elderlyToDeleteTag.getTags());
-        for (Tag tagToDelete: tags) {
-            if (!updatedTags.contains(tagToDelete)) {
-                throw new CommandException(String.format(MESSAGE_NO_SUCH_TAG, tagToDelete.tagName));
-            }
-            updatedTags.remove(tagToDelete);
-        }
+        Set<Tag> updatedTags = removeTagsFromSet(elderlyToDeleteTag.getTags());
         Elderly updatedElderly = new Elderly(
                 elderlyToDeleteTag.getName(), elderlyToDeleteTag.getAge(),
                 elderlyToDeleteTag.getGender(), elderlyToDeleteTag.getRoomNumber(), elderlyToDeleteTag.getNok(),
@@ -92,6 +86,17 @@ public class DeleteTagCommand extends Command {
         DeleteTagCommand e = (DeleteTagCommand) other;
         return index.equals(e.index)
                 && tags.equals(e.tags);
+    }
+
+    private Set<Tag> removeTagsFromSet(Set<Tag> currentTags) throws CommandException {
+        Set<Tag> updatedTags = new HashSet<>(currentTags);
+        for (Tag tagToDelete: tags) {
+            if (!updatedTags.contains(tagToDelete)) {
+                throw new CommandException(String.format(MESSAGE_NO_SUCH_TAG, tagToDelete.tagName));
+            }
+            updatedTags.remove(tagToDelete);
+        }
+        return updatedTags;
     }
 }
 

@@ -3,9 +3,11 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.SET_ONE_TAG;
+import static seedu.address.logic.commands.CommandTestUtil.SET_ONE_TAG_DIFFERENT_CASE;
 import static seedu.address.logic.commands.CommandTestUtil.SET_TWO_TAGS;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_DIABETES;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND_DIFF_CASE;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showElderlyAtIndex;
@@ -64,20 +66,21 @@ public class AddTagCommandTest {
     }
 
     @Test
-    public void execute_addExistingTagUnfilteredList_success() {
-        Elderly firstElderly = model.getFilteredElderlyList().get(INDEX_FIRST.getZeroBased());
-        Elderly tagAddedElderly = new ElderlyBuilder(firstElderly)
-                .withTags(VALID_TAG_FRIEND, VALID_TAG_DIABETES).build();
+    public void execute_addExistingTagUnfilteredList_failure() {
+        // Only one existing tag
+        AddTagCommand addTagCommand = new AddTagCommand(INDEX_SECOND, SET_ONE_TAG);
+        String expectedMessage = String.format(AddTagCommand.MESSAGE_TAG_EXISTS, VALID_TAG_DIABETES);
+        assertCommandFailure(addTagCommand, model, expectedMessage);
 
-        AddTagCommand addTagCommand = new AddTagCommand(INDEX_FIRST, SET_TWO_TAGS);
+        // Mix of new and existing tags
+        addTagCommand = new AddTagCommand(INDEX_FIRST, SET_TWO_TAGS);
+        expectedMessage = String.format(AddTagCommand.MESSAGE_TAG_EXISTS, VALID_TAG_FRIEND);
+        assertCommandFailure(addTagCommand, model, expectedMessage);
 
-        String expectedMessage = String.format(AddTagCommand.MESSAGE_ADD_TAG_SUCCESS, tagAddedElderly);
-
-        Model expectedModel = new ModelManager(new AddressBook(model.getVersionedNurseyBook()), new UserPrefs());
-        expectedModel.setElderly(firstElderly, tagAddedElderly);
-        expectedModel.commitNurseyBook(new CommandResult(expectedMessage));
-
-        assertCommandSuccess(addTagCommand, model, expectedMessage, expectedModel);
+        // Different case existing tag
+        addTagCommand = new AddTagCommand(INDEX_SECOND, SET_ONE_TAG_DIFFERENT_CASE);
+        expectedMessage = String.format(AddTagCommand.MESSAGE_TAG_EXISTS, VALID_TAG_FRIEND_DIFF_CASE);
+        assertCommandFailure(addTagCommand, model, expectedMessage);
     }
 
     @Test

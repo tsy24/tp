@@ -56,6 +56,7 @@ public class CommandTestUtil {
     public static final String VALID_REMARK_BOB = "Favourite pastime: Eating";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friends";
+    public static final String VALID_TAG_FRIEND_DIFF_CASE = "fRienDs";
     public static final String VALID_TAG_DIABETES = "diabetes";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
@@ -99,6 +100,7 @@ public class CommandTestUtil {
     public static final EditCommand.EditElderlyDescriptor DESC_AMY;
     public static final EditCommand.EditElderlyDescriptor DESC_BOB;
     public static final Set<Tag> SET_ONE_TAG;
+    public static final Set<Tag> SET_ONE_TAG_DIFFERENT_CASE;
     public static final Set<Tag> SET_TWO_TAGS;
 
     static {
@@ -114,6 +116,7 @@ public class CommandTestUtil {
                 .withAddress(VALID_NOK_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
 
         SET_ONE_TAG = Set.of(new Tag(VALID_TAG_DIABETES));
+        SET_ONE_TAG_DIFFERENT_CASE = Set.of(new Tag(VALID_TAG_FRIEND_DIFF_CASE));
         SET_TWO_TAGS = Set.of(new Tag(VALID_TAG_DIABETES), new Tag(VALID_TAG_FRIEND));
     }
 
