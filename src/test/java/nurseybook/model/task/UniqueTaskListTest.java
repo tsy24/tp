@@ -1,16 +1,16 @@
-package seedu.address.model.task;
+package nurseybook.model.task;
 
+import static nurseybook.testutil.Assert.assertThrows;
+import static nurseybook.testutil.TypicalTasks.ALEX_INSULIN;
+import static nurseybook.testutil.TypicalTasks.APPLY_LEAVE;
+import static nurseybook.testutil.TypicalTasks.APPLY_LEAVE_DAY_NEXT_RECURRENCE_GHOST;
+import static nurseybook.testutil.TypicalTasks.APPLY_LEAVE_LATE_TIME;
+import static nurseybook.testutil.TypicalTasks.APPLY_LEAVE_MONTH_NEXT_RECURRENCE_GHOST;
+import static nurseybook.testutil.TypicalTasks.APPLY_LEAVE_WEEK_NEXT_RECURRENCE_GHOST;
+import static nurseybook.testutil.TypicalTasks.DO_PAPERWORK;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalTasks.ALEX_INSULIN;
-import static seedu.address.testutil.TypicalTasks.APPLY_LEAVE;
-import static seedu.address.testutil.TypicalTasks.APPLY_LEAVE_DAY_NEXT_RECURRENCE_GHOST;
-import static seedu.address.testutil.TypicalTasks.APPLY_LEAVE_LATE_TIME;
-import static seedu.address.testutil.TypicalTasks.APPLY_LEAVE_MONTH_NEXT_RECURRENCE_GHOST;
-import static seedu.address.testutil.TypicalTasks.APPLY_LEAVE_WEEK_NEXT_RECURRENCE_GHOST;
-import static seedu.address.testutil.TypicalTasks.DO_PAPERWORK;
 
 import java.time.LocalDateTime;
 import java.util.Collections;
@@ -18,8 +18,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.task.exceptions.TaskNotFoundException;
-import seedu.address.testutil.TaskBuilder;
+import nurseybook.model.task.exceptions.TaskNotFoundException;
+import nurseybook.testutil.TaskBuilder;
 
 public class UniqueTaskListTest {
     private final UniqueTaskList uniqueTaskList = new UniqueTaskList();

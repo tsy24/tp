@@ -1,5 +1,7 @@
 package nurseybook.logic.commands;
 
+import static nurseybook.commons.core.Messages.MESSAGE_DUPLICATE_ELDERLY;
+import static nurseybook.commons.core.Messages.MESSAGE_NO_CHANGES;
 import static nurseybook.logic.commands.CommandTestUtil.DESC_AMY;
 import static nurseybook.logic.commands.CommandTestUtil.DESC_BOB;
 import static nurseybook.logic.commands.CommandTestUtil.VALID_AGE_BOB;
@@ -10,30 +12,12 @@ import static nurseybook.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static nurseybook.logic.commands.CommandTestUtil.assertCommandFailure;
 import static nurseybook.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static nurseybook.logic.commands.CommandTestUtil.showElderlyAtIndex;
+import static nurseybook.logic.commands.EditCommand.MESSAGE_EDIT_ELDERLY_SUCCESS;
 import static nurseybook.testutil.TypicalElderlies.getTypicalNurseyBook;
 import static nurseybook.testutil.TypicalIndexes.INDEX_FIRST;
 import static nurseybook.testutil.TypicalIndexes.INDEX_SECOND;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-<<<<<<< HEAD:src/test/java/nurseybook/logic/commands/EditCommandTest.java
-=======
-import static seedu.address.commons.core.Messages.MESSAGE_DUPLICATE_ELDERLY;
-import static seedu.address.commons.core.Messages.MESSAGE_NO_CHANGES;
-import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_AGE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_GENDER_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NOK_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.CommandTestUtil.showElderlyAtIndex;
-import static seedu.address.logic.commands.EditCommand.MESSAGE_EDIT_ELDERLY_SUCCESS;
-import static seedu.address.testutil.TypicalElderlies.getTypicalAddressBook;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND;
->>>>>>> 05b67180673b53490a68ffa0e70b2353fc8aa2af:src/test/java/seedu/address/logic/commands/EditCommandTest.java
 
 import org.junit.jupiter.api.Test;
 
@@ -93,22 +77,6 @@ public class EditCommandTest {
     }
 
     @Test
-<<<<<<< HEAD:src/test/java/nurseybook/logic/commands/EditCommandTest.java
-    public void execute_noFieldSpecifiedUnfilteredList_success() {
-        EditCommand editCommand = new EditCommand(INDEX_FIRST, new EditCommand.EditElderlyDescriptor());
-        Elderly editedElderly = model.getFilteredElderlyList().get(INDEX_FIRST.getZeroBased());
-
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ELDERLY_SUCCESS, editedElderly);
-
-        Model expectedModel = new ModelManager(new NurseyBook(model.getVersionedNurseyBook()), new UserPrefs());
-        expectedModel.commitNurseyBook(new CommandResult(expectedMessage));
-
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
-    }
-
-    @Test
-=======
->>>>>>> 05b67180673b53490a68ffa0e70b2353fc8aa2af:src/test/java/seedu/address/logic/commands/EditCommandTest.java
     public void execute_filteredList_success() {
         showElderlyAtIndex(model, INDEX_FIRST);
 
@@ -175,7 +143,7 @@ public class EditCommandTest {
     @Test
     public void execute_sameFieldsUnfilteredList_failure() {
         Elderly firstElderly = model.getFilteredElderlyList().get(INDEX_FIRST.getZeroBased());
-        EditElderlyDescriptor descriptor = new EditElderlyDescriptorBuilder(firstElderly).build();
+        EditCommand.EditElderlyDescriptor descriptor = new EditElderlyDescriptorBuilder(firstElderly).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST, descriptor);
 
         assertCommandFailure(editCommand, model, MESSAGE_NO_CHANGES);

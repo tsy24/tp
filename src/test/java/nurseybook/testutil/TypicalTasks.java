@@ -45,11 +45,7 @@ public class TypicalTasks {
 
     public static final Task KG_SC_VACCINE = new TaskBuilder().withDesc(VALID_DESC_VACCINE)
             .withDateTime("2021-10-30", "18:00").withNames("Khong Guan", "Swee Choon")
-<<<<<<< HEAD:src/test/java/nurseybook/testutil/TypicalTasks.java
             .withStatus("false", "true").withRecurrence(Recurrence.RecurrenceType.NONE.name()).build();
-=======
-            .withStatus("false", "true").withRecurrence(RecurrenceType.NONE.name()).build();
->>>>>>> 05b67180673b53490a68ffa0e70b2353fc8aa2af:src/test/java/seedu/address/testutil/TypicalTasks.java
 
     // Extra test cases
 

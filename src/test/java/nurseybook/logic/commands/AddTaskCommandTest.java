@@ -1,22 +1,18 @@
 package nurseybook.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static nurseybook.commons.core.Messages.MESSAGE_DUPLICATE_TASK;
 import static nurseybook.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-<<<<<<< HEAD:src/test/java/nurseybook/logic/commands/AddTaskCommandTest.java
-=======
-import static seedu.address.commons.core.Messages.MESSAGE_DUPLICATE_TASK;
-import static seedu.address.testutil.Assert.assertThrows;
->>>>>>> 05b67180673b53490a68ffa0e70b2353fc8aa2af:src/test/java/seedu/address/logic/commands/AddTaskCommandTest.java
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
-<<<<<<< HEAD:src/test/java/nurseybook/logic/commands/AddTaskCommandTest.java
+import nurseybook.logic.commands.exceptions.CommandException;
 import nurseybook.model.NurseyBook;
 import nurseybook.model.ReadOnlyNurseyBook;
 import nurseybook.model.VersionedNurseyBook;
@@ -24,16 +20,6 @@ import nurseybook.model.task.Task;
 import nurseybook.testutil.ModelStub;
 import nurseybook.testutil.NurseyBookBuilder;
 import nurseybook.testutil.TaskBuilder;
-=======
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.VersionedNurseyBook;
-import seedu.address.model.task.Task;
-import seedu.address.testutil.AddressBookBuilder;
-import seedu.address.testutil.ModelStub;
-import seedu.address.testutil.TaskBuilder;
->>>>>>> 05b67180673b53490a68ffa0e70b2353fc8aa2af:src/test/java/seedu/address/logic/commands/AddTaskCommandTest.java
 
 public class AddTaskCommandTest {
     @Test

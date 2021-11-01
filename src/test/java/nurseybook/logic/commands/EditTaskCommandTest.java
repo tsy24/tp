@@ -1,32 +1,20 @@
 package nurseybook.logic.commands;
 
+import static nurseybook.commons.core.Messages.MESSAGE_DUPLICATE_TASK;
+import static nurseybook.commons.core.Messages.MESSAGE_NO_CHANGES;
 import static nurseybook.logic.commands.CommandTestUtil.assertCommandFailure;
 import static nurseybook.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static nurseybook.logic.commands.EditTaskCommand.MESSAGE_EDIT_TASK_SUCCESS;
 import static nurseybook.logic.commands.TaskCommandTestUtil.PAPERWORK_TASK;
 import static nurseybook.logic.commands.TaskCommandTestUtil.VACCINE_TASK;
-import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_DESC_MEDICINE;
+import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_DATE_JAN;
 import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_DESC_VACCINE;
+import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_TIME_SEVENPM;
 import static nurseybook.logic.commands.TaskCommandTestUtil.showTaskAtIndex;
 import static nurseybook.testutil.TypicalIndexes.INDEX_FIRST;
+import static nurseybook.testutil.TypicalIndexes.INDEX_SECOND;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-<<<<<<< HEAD:src/test/java/nurseybook/logic/commands/EditTaskCommandTest.java
-=======
-import static seedu.address.commons.core.Messages.MESSAGE_DUPLICATE_TASK;
-import static seedu.address.commons.core.Messages.MESSAGE_NO_CHANGES;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.EditTaskCommand.MESSAGE_EDIT_TASK_SUCCESS;
-import static seedu.address.logic.commands.TaskCommandTestUtil.PAPERWORK_TASK;
-import static seedu.address.logic.commands.TaskCommandTestUtil.VACCINE_TASK;
-import static seedu.address.logic.commands.TaskCommandTestUtil.VALID_DATE_JAN;
-import static seedu.address.logic.commands.TaskCommandTestUtil.VALID_DESC_VACCINE;
-import static seedu.address.logic.commands.TaskCommandTestUtil.VALID_TIME_SEVENPM;
-import static seedu.address.logic.commands.TaskCommandTestUtil.showTaskAtIndex;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND;
-import static seedu.address.testutil.TypicalTasks.getTypicalAddressBook;
->>>>>>> 05b67180673b53490a68ffa0e70b2353fc8aa2af:src/test/java/seedu/address/logic/commands/EditTaskCommandTest.java
 
 import org.junit.jupiter.api.Test;
 
@@ -39,7 +27,6 @@ import nurseybook.model.UserPrefs;
 import nurseybook.model.task.Task;
 import nurseybook.testutil.EditTaskDescriptorBuilder;
 import nurseybook.testutil.TaskBuilder;
-import nurseybook.testutil.TypicalIndexes;
 import nurseybook.testutil.TypicalTasks;
 
 /**
@@ -87,22 +74,6 @@ public class EditTaskCommandTest {
     }
 
     @Test
-<<<<<<< HEAD:src/test/java/nurseybook/logic/commands/EditTaskCommandTest.java
-    public void execute_noFieldSpecifiedUnfilteredList_success() {
-        EditTaskCommand editTaskCommand = new EditTaskCommand(INDEX_FIRST, new EditTaskCommand.EditTaskDescriptor());
-        Task editedTask = model.getFilteredTaskList().get(INDEX_FIRST.getZeroBased());
-
-        String expectedMessage = String.format(EditTaskCommand.MESSAGE_EDIT_TASK_SUCCESS, editedTask);
-
-        Model expectedModel = new ModelManager(new NurseyBook(model.getVersionedNurseyBook()), new UserPrefs());
-        expectedModel.commitNurseyBook(new CommandResult(expectedMessage));
-
-        assertCommandSuccess(editTaskCommand, model, expectedMessage, expectedModel);
-    }
-
-    @Test
-=======
->>>>>>> 05b67180673b53490a68ffa0e70b2353fc8aa2af:src/test/java/seedu/address/logic/commands/EditTaskCommandTest.java
     public void execute_filteredList_success() {
         showTaskAtIndex(model, INDEX_FIRST);
 
@@ -122,7 +93,7 @@ public class EditTaskCommandTest {
     @Test
     public void execute_duplicateTaskUnfilteredList_failure() {
         Task firstTask = model.getFilteredTaskList().get(INDEX_FIRST.getZeroBased());
-        EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder(firstTask).build();
+        EditTaskCommand.EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder(firstTask).build();
         EditTaskCommand editTaskCommand = new EditTaskCommand(INDEX_SECOND, descriptor);
 
         assertCommandFailure(editTaskCommand, model, MESSAGE_DUPLICATE_TASK);
@@ -132,7 +103,7 @@ public class EditTaskCommandTest {
     public void execute_duplicateTaskFilteredList_failure() {
         showTaskAtIndex(model, INDEX_FIRST);
 
-        // edit task in filtered list into a duplicate in the address book
+        // edit task in filtered list into a duplicate in the nursey book
         Task taskInList = model.getVersionedNurseyBook().getTaskList().get(INDEX_SECOND.getZeroBased());
         EditTaskCommand editTaskCommand = new EditTaskCommand(INDEX_FIRST,
                 new EditTaskDescriptorBuilder(taskInList).build());
@@ -156,7 +127,7 @@ public class EditTaskCommandTest {
     @Test
     public void execute_invalidTaskIndexFilteredList_failure() {
         showTaskAtIndex(model, INDEX_FIRST);
-        Index outOfBoundIndex = TypicalIndexes.INDEX_SECOND;
+        Index outOfBoundIndex = INDEX_SECOND;
         // ensures that outOfBoundIndex is still in bounds of nursey book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getVersionedNurseyBook().getTaskList().size());
 
@@ -169,7 +140,7 @@ public class EditTaskCommandTest {
     @Test
     public void execute_sameFieldsUnfilteredList_failure() {
         Task firstTask = model.getFilteredTaskList().get(INDEX_FIRST.getZeroBased());
-        EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder(firstTask).build();
+        EditTaskCommand.EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder(firstTask).build();
         EditTaskCommand editTaskCommand = new EditTaskCommand(INDEX_FIRST, descriptor);
 
         assertCommandFailure(editTaskCommand, model, MESSAGE_NO_CHANGES);
@@ -203,7 +174,7 @@ public class EditTaskCommandTest {
         assertFalse(standardCommand.equals(new ClearCommand()));
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(new EditTaskCommand(TypicalIndexes.INDEX_SECOND, VACCINE_TASK)));
+        assertFalse(standardCommand.equals(new EditTaskCommand(INDEX_SECOND, VACCINE_TASK)));
 
         // different descriptor -> returns false
         assertFalse(standardCommand.equals(new EditTaskCommand(INDEX_FIRST, PAPERWORK_TASK)));

@@ -1,15 +1,11 @@
 package nurseybook.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static nurseybook.commons.core.Messages.MESSAGE_DUPLICATE_ELDERLY;
 import static nurseybook.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-<<<<<<< HEAD:src/test/java/nurseybook/logic/commands/AddCommandTest.java
-=======
-import static seedu.address.commons.core.Messages.MESSAGE_DUPLICATE_ELDERLY;
-import static seedu.address.testutil.Assert.assertThrows;
->>>>>>> 05b67180673b53490a68ffa0e70b2353fc8aa2af:src/test/java/seedu/address/logic/commands/AddCommandTest.java
 
 import java.util.ArrayList;
 import java.util.Arrays;

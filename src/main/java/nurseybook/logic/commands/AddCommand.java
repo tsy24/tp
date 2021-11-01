@@ -51,7 +51,7 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New elderly added: %1$s";
 
-    public static final String MESSAGE_DUPLICATE_ELDERLY = "This elderly already exists in the nursey book";
+    public static final String MESSAGE_DUPLICATE_ELDERLY = "This elderly already exists in the nursey book.";
 
 
     private final Elderly toAdd;

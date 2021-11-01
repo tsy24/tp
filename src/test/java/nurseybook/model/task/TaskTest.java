@@ -3,38 +3,20 @@ package nurseybook.model.task;
 import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_DATE_JAN;
 import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_DATE_NOV;
 import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_DESC_MEDICINE;
+import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_DESC_VACCINE;
 import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_NAME_ALEX;
 import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_NAME_KEITH;
 import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_TIME_SEVENPM;
 import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_TIME_TENAM;
+import static nurseybook.testutil.Assert.assertThrows;
 import static nurseybook.testutil.TypicalTasks.ALEX_INSULIN;
 import static nurseybook.testutil.TypicalTasks.DO_PAPERWORK;
 import static nurseybook.testutil.TypicalTasks.KEITH_INSULIN;
+import static nurseybook.testutil.TypicalTasks.KG_SC_VACCINE;
+import static nurseybook.testutil.TypicalTasks.YASMINE_PHYSIO;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-<<<<<<< HEAD:src/test/java/nurseybook/model/task/TaskTest.java
-=======
-import static seedu.address.logic.commands.TaskCommandTestUtil.VALID_DATE_JAN;
-import static seedu.address.logic.commands.TaskCommandTestUtil.VALID_DATE_NOV;
-import static seedu.address.logic.commands.TaskCommandTestUtil.VALID_DESC_MEDICINE;
-import static seedu.address.logic.commands.TaskCommandTestUtil.VALID_DESC_VACCINE;
-import static seedu.address.logic.commands.TaskCommandTestUtil.VALID_NAME_ALEX;
-import static seedu.address.logic.commands.TaskCommandTestUtil.VALID_NAME_KEITH;
-import static seedu.address.logic.commands.TaskCommandTestUtil.VALID_TIME_SEVENPM;
-import static seedu.address.logic.commands.TaskCommandTestUtil.VALID_TIME_TENAM;
-import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalTasks.ALEX_INSULIN;
-import static seedu.address.testutil.TypicalTasks.APPLY_LEAVE;
-import static seedu.address.testutil.TypicalTasks.APPLY_LEAVE_DAY_NEXT_RECURRENCE_GHOST;
-import static seedu.address.testutil.TypicalTasks.APPLY_LEAVE_LATE_TIME;
-import static seedu.address.testutil.TypicalTasks.APPLY_LEAVE_MONTH_RECURRENCE;
-import static seedu.address.testutil.TypicalTasks.APPLY_LEAVE_WEEK_RECURRENCE;
-import static seedu.address.testutil.TypicalTasks.DO_PAPERWORK;
-import static seedu.address.testutil.TypicalTasks.KEITH_INSULIN;
-import static seedu.address.testutil.TypicalTasks.KG_SC_VACCINE;
-import static seedu.address.testutil.TypicalTasks.YASMINE_PHYSIO;
->>>>>>> 05b67180673b53490a68ffa0e70b2353fc8aa2af:src/test/java/seedu/address/model/task/TaskTest.java
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -68,27 +50,27 @@ public class TaskTest {
 
         // same description, date and time, all other attributes different -> returns true
         Task editedPhysio = new TaskBuilder(YASMINE_PHYSIO).withStatus("false", "false")
-                .withRecurrence(RecurrenceType.WEEK.name()).build();
+                .withRecurrence(Recurrence.RecurrenceType.WEEK.name()).build();
         assertTrue(YASMINE_PHYSIO.isSameTask(editedPhysio));
 
         // same description, all other attributes different -> returns false
         Task fuck = new TaskBuilder(YASMINE_PHYSIO)
                 .withDate(VALID_DATE_JAN)
                 .withTime(VALID_TIME_TENAM).withStatus("false", "false")
-                .withRecurrence(RecurrenceType.WEEK.name()).build();
+                .withRecurrence(Recurrence.RecurrenceType.WEEK.name()).build();
 
         assertFalse(YASMINE_PHYSIO.isSameTask(fuck));
 
         // same date, all other attributes different -> returns false
         editedPhysio = new TaskBuilder(YASMINE_PHYSIO).withDesc("Physiotherapy with yoga ball")
                 .withTime(VALID_TIME_TENAM).withStatus("false", "false")
-                .withRecurrence(RecurrenceType.WEEK.name()).build();
+                .withRecurrence(Recurrence.RecurrenceType.WEEK.name()).build();
         assertFalse(YASMINE_PHYSIO.isSameTask(editedPhysio));
 
         // same time, all other attributes different -> returns false
         editedPhysio = new TaskBuilder(YASMINE_PHYSIO).withDesc("Physiotherapy with yoga ball")
                 .withDate(VALID_DATE_JAN).withStatus("false", "false")
-                .withRecurrence(RecurrenceType.WEEK.name()).build();
+                .withRecurrence(Recurrence.RecurrenceType.WEEK.name()).build();
         assertFalse(YASMINE_PHYSIO.isSameTask(editedPhysio));
 
         // different description, date and time, all other attributes same -> returns false

@@ -76,7 +76,7 @@ public class DeleteNokCommandTest {
         showElderlyAtIndex(model, TypicalIndexes.INDEX_FIRST);
 
         Index outOfBoundIndex = TypicalIndexes.INDEX_SECOND;
-        // ensures that outOfBoundIndex is still in bounds of address book list
+        // ensures that outOfBoundIndex is still in bounds of nursey book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getVersionedNurseyBook().getElderlyList().size());
 
         DeleteNokCommand deleteNokCommand = new DeleteNokCommand(outOfBoundIndex);
