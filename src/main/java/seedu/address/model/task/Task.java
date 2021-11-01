@@ -448,7 +448,7 @@ public class Task implements Comparable<Task> {
     }
 
     /**
-     * Returns true if both tasks have the same description.
+     * Returns true if both tasks have the same {@code Description} and {@code DateTime}.
      * This defines a weaker notion of equality between two tasks.
      */
     public boolean isSameTask(Task otherTask) {
@@ -457,7 +457,7 @@ public class Task implements Comparable<Task> {
         }
 
         return otherTask != null
-                && otherTask.getDesc().equals(getDesc());
+                && otherTask.getDesc().equals(getDesc()) && otherTask.getDateTime().equals(getDateTime());
     }
 
     @Override

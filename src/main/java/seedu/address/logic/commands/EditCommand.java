@@ -1,6 +1,8 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_DUPLICATE_ELDERLY;
+import static seedu.address.commons.core.Messages.MESSAGE_NO_CHANGES;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
@@ -64,7 +66,6 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_EDIT_ELDERLY_SUCCESS = "Edited Elderly: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_ELDERLY = "This elderly already exists in the address book.";
 
     private final Index index;
     private final EditElderlyDescriptor editElderlyDescriptor;
@@ -92,6 +93,10 @@ public class EditCommand extends Command {
 
         Elderly elderlyToEdit = lastShownList.get(index.getZeroBased());
         Elderly editedElderly = createEditedElderly(elderlyToEdit, editElderlyDescriptor);
+
+        if (elderlyToEdit.isSameElderly(editedElderly)) {
+            throw new CommandException(MESSAGE_NO_CHANGES);
+        }
 
         if (!elderlyToEdit.isSameElderly(editedElderly) && model.hasElderly(editedElderly)) {
             throw new CommandException(MESSAGE_DUPLICATE_ELDERLY);

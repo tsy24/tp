@@ -27,8 +27,6 @@ public class TaskBuilder {
 
     private Description desc;
     private DateTime dateTime;
-    private LocalDate date;
-    private LocalTime time;
     private Set<Name> names;
     private Status status;
     private Recurrence recurrence;
@@ -81,16 +79,18 @@ public class TaskBuilder {
     /**
      * Sets the {@code Date} of the {@code Task} that we are building.
      */
-    public TaskBuilder withDate(String date) {
-        this.date = LocalDate.parse(date);
+    public TaskBuilder withDate(String dateStr) {
+        LocalDate date = LocalDate.parse(dateStr);
+        this.dateTime = new DateTime(date, this.dateTime.time);
         return this;
     }
 
     /**
      * Sets the {@code Time} of the {@code Task} that we are building.
      */
-    public TaskBuilder withTime(String time) {
-        this.time = LocalTime.parse(time);
+    public TaskBuilder withTime(String timeStr) {
+        LocalTime time = LocalTime.parse(timeStr);
+        this.dateTime = new DateTime(this.dateTime.date, time);
         return this;
     }
 

@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.commons.core.Messages.MESSAGE_DUPLICATE_ELDERLY;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -46,7 +47,7 @@ public class AddCommandTest {
         AddCommand addCommand = new AddCommand(validElderly);
         ModelStub modelStub = new ModelStubWithElderly(validElderly);
 
-        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_ELDERLY, () -> addCommand.execute(modelStub));
+        assertThrows(CommandException.class, MESSAGE_DUPLICATE_ELDERLY, () -> addCommand.execute(modelStub));
     }
 
     @Test

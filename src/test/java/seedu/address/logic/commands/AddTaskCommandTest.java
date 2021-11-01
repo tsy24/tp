@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.commons.core.Messages.MESSAGE_DUPLICATE_TASK;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -44,8 +45,7 @@ public class AddTaskCommandTest {
         Task validTask = new TaskBuilder().build();
         AddTaskCommand addTaskCommand = new AddTaskCommand(validTask);
         ModelStub modelStub = new ModelStubWithTask(validTask);
-        assertThrows(CommandException.class,
-                AddTaskCommand.MESSAGE_DUPLICATE_TASK, () -> addTaskCommand.execute(modelStub));
+        assertThrows(CommandException.class, MESSAGE_DUPLICATE_TASK, () -> addTaskCommand.execute(modelStub));
     }
 
     @Test

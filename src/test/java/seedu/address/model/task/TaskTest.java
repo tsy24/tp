@@ -52,16 +52,35 @@ public class TaskTest {
         // null -> returns false
         assertFalse(YASMINE_PHYSIO.isSameTask(null));
 
-        // same name, all other attributes different -> returns true
-        Task editedYasmin = new TaskBuilder(YASMINE_PHYSIO).withDesc("Physiotherapy with yoga ball")
+        // same description, date and time, all other attributes different -> returns true
+        Task editedPhysio = new TaskBuilder(YASMINE_PHYSIO).withStatus("false", "false")
+                .withRecurrence(RecurrenceType.WEEK.name()).build();
+        assertTrue(YASMINE_PHYSIO.isSameTask(editedPhysio));
+
+        // same description, all other attributes different -> returns false
+        Task fuck = new TaskBuilder(YASMINE_PHYSIO)
                 .withDate(VALID_DATE_JAN)
                 .withTime(VALID_TIME_TENAM).withStatus("false", "false")
                 .withRecurrence(RecurrenceType.WEEK.name()).build();
-        assertTrue(YASMINE_PHYSIO.isSameTask(editedYasmin));
 
-        // different description, all other attributes same -> returns false
-        editedYasmin = new TaskBuilder(YASMINE_PHYSIO).withDesc(VALID_DESC_MEDICINE).build();
-        assertFalse(YASMINE_PHYSIO.isSameTask(editedYasmin));
+        assertFalse(YASMINE_PHYSIO.isSameTask(fuck));
+
+        // same date, all other attributes different -> returns false
+        editedPhysio = new TaskBuilder(YASMINE_PHYSIO).withDesc("Physiotherapy with yoga ball")
+                .withTime(VALID_TIME_TENAM).withStatus("false", "false")
+                .withRecurrence(RecurrenceType.WEEK.name()).build();
+        assertFalse(YASMINE_PHYSIO.isSameTask(editedPhysio));
+
+        // same time, all other attributes different -> returns false
+        editedPhysio = new TaskBuilder(YASMINE_PHYSIO).withDesc("Physiotherapy with yoga ball")
+                .withDate(VALID_DATE_JAN).withStatus("false", "false")
+                .withRecurrence(RecurrenceType.WEEK.name()).build();
+        assertFalse(YASMINE_PHYSIO.isSameTask(editedPhysio));
+
+        // different description, date and time, all other attributes same -> returns false
+        editedPhysio = new TaskBuilder(YASMINE_PHYSIO).withDesc(VALID_DESC_MEDICINE).withDate(VALID_DATE_JAN)
+                .withTime(VALID_TIME_TENAM).build();
+        assertFalse(YASMINE_PHYSIO.isSameTask(editedPhysio));
 
         // description differs in case, all other attributes same -> returns false
         Task editedVaccine = new TaskBuilder(KG_SC_VACCINE).withDesc(VALID_DESC_VACCINE.toLowerCase()).build();
