@@ -8,9 +8,9 @@ import nurseybook.logic.commands.CommandResult;
 import nurseybook.logic.commands.exceptions.CommandException;
 import nurseybook.logic.parser.exceptions.ParseException;
 import nurseybook.model.Model;
+import nurseybook.model.ReadOnlyNurseyBook;
 import nurseybook.model.person.Elderly;
 import nurseybook.model.task.Task;
-import nurseybook.model.ReadOnlyAddressBook;
 
 /**
  * API of the Logic component
@@ -26,19 +26,19 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
-     * Returns the AddressBook.
+     * Returns the NurseyBook.
      *
      * @see Model#getVersionedNurseyBook()
      */
-    ReadOnlyAddressBook getAddressBook();
+    ReadOnlyNurseyBook getNurseyBook();
 
     /** Returns an unmodifiable view of the filtered list of elderlies */
     ObservableList<Elderly> getFilteredElderlyList();
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' nursey book file path.
      */
-    Path getAddressBookFilePath();
+    Path getNurseyBookFilePath();
 
     /**
      * Returns the user prefs' GUI settings.

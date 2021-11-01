@@ -6,7 +6,7 @@ import static nurseybook.commons.util.AppUtil.checkArgument;
 import java.util.Objects;
 
 /**
- * Represents if a task is a recurring task in NurseyBook.
+ * Represents if a task is a recurring task in Nursey Book.
  * Guarantees: immutable; is valid as declared in {@link #isValidRecurrence(String)}
  */
 public class Recurrence {
@@ -14,7 +14,7 @@ public class Recurrence {
             + "is case-insensitive. It cannot be null.";
 
     /**
-     * The first character of the Description must not be a whitespace,
+     * The first character of the Recurrence must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String VALIDATION_REGEX = "\\bNONE|DAY|WEEK|MONTH\\b";

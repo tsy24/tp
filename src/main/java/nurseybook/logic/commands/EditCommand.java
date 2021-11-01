@@ -1,6 +1,16 @@
 package nurseybook.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static nurseybook.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static nurseybook.logic.parser.CliSyntax.PREFIX_AGE;
+import static nurseybook.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static nurseybook.logic.parser.CliSyntax.PREFIX_GENDER;
+import static nurseybook.logic.parser.CliSyntax.PREFIX_NAME;
+import static nurseybook.logic.parser.CliSyntax.PREFIX_NOK_NAME;
+import static nurseybook.logic.parser.CliSyntax.PREFIX_PHONE;
+import static nurseybook.logic.parser.CliSyntax.PREFIX_RELATIONSHIP;
+import static nurseybook.logic.parser.CliSyntax.PREFIX_ROOM_NUM;
+import static nurseybook.logic.parser.CliSyntax.PREFIX_TAG;
 import static nurseybook.model.Model.PREDICATE_SHOW_ALL_ELDERLIES;
 
 import java.util.Collections;
@@ -9,7 +19,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import nurseybook.logic.parser.CliSyntax;
 import nurseybook.commons.core.Messages;
 import nurseybook.commons.core.index.Index;
 import nurseybook.commons.util.CollectionUtil;
@@ -29,7 +38,7 @@ import nurseybook.model.person.RoomNumber;
 import nurseybook.model.tag.Tag;
 
 /**
- * Edits the details of an existing elderly in the address book.
+ * Edits the details of an existing elderly in the nursey book.
  */
 public class EditCommand extends Command {
 
@@ -39,23 +48,23 @@ public class EditCommand extends Command {
             + "by the index number used in the displayed elderly list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + CliSyntax.PREFIX_NAME + "NAME] "
-            + "[" + CliSyntax.PREFIX_AGE + "AGE] "
-            + "[" + CliSyntax.PREFIX_GENDER + "GENDER] "
-            + "[" + CliSyntax.PREFIX_ROOM_NUM + "ROOM_NUMBER] "
-            + "[" + CliSyntax.PREFIX_NOK_NAME + "NOK NAME] "
-            + "[" + CliSyntax.PREFIX_RELATIONSHIP + "RELATIONSHIP] "
-            + "[" + CliSyntax.PREFIX_PHONE + "NOK PHONE] "
-            + "[" + CliSyntax.PREFIX_EMAIL + "NOK EMAIL] "
-            + "[" + CliSyntax.PREFIX_ADDRESS + "NOK ADDRESS] "
-            + "[" + CliSyntax.PREFIX_TAG + "TAG]...\n"
+            + "[" + PREFIX_NAME + "NAME] "
+            + "[" + PREFIX_AGE + "AGE] "
+            + "[" + PREFIX_GENDER + "GENDER] "
+            + "[" + PREFIX_ROOM_NUM + "ROOM_NUMBER] "
+            + "[" + PREFIX_NOK_NAME + "NOK NAME] "
+            + "[" + PREFIX_RELATIONSHIP + "RELATIONSHIP] "
+            + "[" + PREFIX_PHONE + "NOK PHONE] "
+            + "[" + PREFIX_EMAIL + "NOK EMAIL] "
+            + "[" + PREFIX_ADDRESS + "NOK ADDRESS] "
+            + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + CliSyntax.PREFIX_PHONE + "91234567 "
-            + CliSyntax.PREFIX_EMAIL + "johndoe@example.com";
+            + PREFIX_PHONE + "91234567 "
+            + PREFIX_EMAIL + "johndoe@example.com";
 
     public static final String MESSAGE_EDIT_ELDERLY_SUCCESS = "Edited Elderly: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_ELDERLY = "This elderly already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_ELDERLY = "This elderly already exists in the nursey book.";
 
     private final Index index;
     private final EditElderlyDescriptor editElderlyDescriptor;

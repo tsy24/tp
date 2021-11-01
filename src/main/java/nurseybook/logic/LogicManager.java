@@ -10,13 +10,13 @@ import nurseybook.commons.core.LogsCenter;
 import nurseybook.logic.commands.Command;
 import nurseybook.logic.commands.CommandResult;
 import nurseybook.logic.commands.exceptions.CommandException;
-import nurseybook.logic.parser.AddressBookParser;
+import nurseybook.logic.parser.NurseyBookParser;
 import nurseybook.logic.parser.exceptions.ParseException;
+import nurseybook.model.Model;
+import nurseybook.model.ReadOnlyNurseyBook;
 import nurseybook.model.person.Elderly;
 import nurseybook.model.task.Task;
 import nurseybook.storage.Storage;
-import nurseybook.model.Model;
-import nurseybook.model.ReadOnlyAddressBook;
 
 /**
  * The main LogicManager of the app.
@@ -27,7 +27,7 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
-    private final AddressBookParser addressBookParser;
+    private final NurseyBookParser nurseyBookParser;
 
     /**
      * Constructs a {@code LogicManager} with the given {@code Model} and {@code Storage}.
@@ -35,7 +35,7 @@ public class LogicManager implements Logic {
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        addressBookParser = new AddressBookParser();
+        nurseyBookParser = new NurseyBookParser();
     }
 
     @Override
@@ -46,11 +46,11 @@ public class LogicManager implements Logic {
         model.deleteGhostTasks();
 
         CommandResult commandResult;
-        Command command = addressBookParser.parseCommand(commandText);
+        Command command = nurseyBookParser.parseCommand(commandText);
         commandResult = command.execute(model);
 
         try {
-            storage.saveAddressBook(model.getVersionedNurseyBook());
+            storage.saveNurseyBook(model.getVersionedNurseyBook());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -59,7 +59,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
+    public ReadOnlyNurseyBook getNurseyBook() {
         return model.getVersionedNurseyBook();
     }
 
@@ -69,8 +69,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
+    public Path getNurseyBookFilePath() {
+        return model.getNurseyBookFilePath();
     }
 
     @Override

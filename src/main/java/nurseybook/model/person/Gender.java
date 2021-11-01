@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static nurseybook.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Elderly's gender in the address book.
+ * Represents a Elderly's gender in the nursey book.
  * Guarantees: immutable; is valid as declared in {@link #isValidGender(String)}
  */
 public class Gender {
@@ -25,7 +25,7 @@ public class Gender {
     }
 
     /**
-     * Returns true if a given string is a valid phone number.
+     * Returns true if a given string is a valid gender.
      */
     public static boolean isValidGender(String test) {
         return test.matches(VALIDATION_REGEX);

@@ -42,6 +42,10 @@ import static nurseybook.logic.commands.CommandTestUtil.VALID_NOK_RELATIONSHIP_B
 import static nurseybook.logic.commands.CommandTestUtil.VALID_ROOM_NUMBER_BOB;
 import static nurseybook.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static nurseybook.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static nurseybook.logic.parser.CommandParserTestUtil.assertParseFailure;
+import static nurseybook.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static nurseybook.testutil.TypicalElderlies.AMY;
+import static nurseybook.testutil.TypicalElderlies.BOB;
 
 import org.junit.jupiter.api.Test;
 
@@ -57,80 +61,79 @@ import nurseybook.model.person.Relationship;
 import nurseybook.model.person.RoomNumber;
 import nurseybook.model.tag.Tag;
 import nurseybook.testutil.ElderlyBuilder;
-import nurseybook.testutil.TypicalElderlies;
 
 public class AddCommandParserTest {
     private AddCommandParser parser = new AddCommandParser();
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Elderly expectedElderly = new ElderlyBuilder(TypicalElderlies.BOB).withTags(VALID_TAG_FRIEND).build();
+        Elderly expectedElderly = new ElderlyBuilder(BOB).withTags(VALID_TAG_FRIEND).build();
 
         // whitespace only preamble
-        CommandParserTestUtil.assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + AGE_DESC_BOB
+        assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + AGE_DESC_BOB
                 + GENDER_DESC_BOB + ROOM_NUMBER_DESC_BOB + NOK_NAME_DESC_BOB + NOK_PHONE_DESC_BOB
                 + NOK_EMAIL_DESC_BOB + NOK_ADDRESS_DESC_BOB + NOK_RELATIONSHIP_DESC_BOB + TAG_DESC_FRIEND,
                 new AddCommand(expectedElderly));
 
         // multiple names - last name accepted
-        CommandParserTestUtil.assertParseSuccess(parser, NAME_DESC_AMY + NAME_DESC_BOB + NOK_PHONE_DESC_BOB + AGE_DESC_BOB
-                + GENDER_DESC_BOB + ROOM_NUMBER_DESC_BOB + NOK_NAME_DESC_BOB + NOK_RELATIONSHIP_DESC_BOB
+        assertParseSuccess(parser, NAME_DESC_AMY + NAME_DESC_BOB + NOK_PHONE_DESC_BOB
+                + AGE_DESC_BOB + GENDER_DESC_BOB + ROOM_NUMBER_DESC_BOB + NOK_NAME_DESC_BOB + NOK_RELATIONSHIP_DESC_BOB
                 + NOK_EMAIL_DESC_BOB + NOK_ADDRESS_DESC_BOB + TAG_DESC_FRIEND,
                 new AddCommand(expectedElderly));
 
         // multiple phones - last phone accepted
-        CommandParserTestUtil.assertParseSuccess(parser, NAME_DESC_BOB + NOK_PHONE_DESC_AMY + NOK_PHONE_DESC_BOB + AGE_DESC_BOB
-                + GENDER_DESC_BOB + ROOM_NUMBER_DESC_BOB + NOK_NAME_DESC_BOB + NOK_RELATIONSHIP_DESC_BOB
-                + NOK_EMAIL_DESC_BOB + NOK_ADDRESS_DESC_BOB + TAG_DESC_FRIEND,
+        assertParseSuccess(parser, NAME_DESC_BOB + NOK_PHONE_DESC_AMY
+                + NOK_PHONE_DESC_BOB + AGE_DESC_BOB + GENDER_DESC_BOB + ROOM_NUMBER_DESC_BOB + NOK_NAME_DESC_BOB
+                + NOK_RELATIONSHIP_DESC_BOB + NOK_EMAIL_DESC_BOB + NOK_ADDRESS_DESC_BOB + TAG_DESC_FRIEND,
                 new AddCommand(expectedElderly));
 
         // multiple ages - last age accepted
-        CommandParserTestUtil.assertParseSuccess(parser, NAME_DESC_BOB + NOK_PHONE_DESC_BOB + AGE_DESC_AMY + AGE_DESC_BOB
-                + GENDER_DESC_BOB + ROOM_NUMBER_DESC_BOB + NOK_NAME_DESC_BOB + NOK_RELATIONSHIP_DESC_BOB
+        assertParseSuccess(parser, NAME_DESC_BOB + NOK_PHONE_DESC_BOB + AGE_DESC_AMY
+                + AGE_DESC_BOB + GENDER_DESC_BOB + ROOM_NUMBER_DESC_BOB + NOK_NAME_DESC_BOB + NOK_RELATIONSHIP_DESC_BOB
                 + NOK_EMAIL_DESC_BOB + NOK_ADDRESS_DESC_BOB + TAG_DESC_FRIEND,
                 new AddCommand(expectedElderly));
 
         // multiple genders - last gender accepted
-        CommandParserTestUtil.assertParseSuccess(parser, NAME_DESC_BOB + NOK_PHONE_DESC_BOB + AGE_DESC_BOB + GENDER_DESC_AMY
-                + GENDER_DESC_BOB + ROOM_NUMBER_DESC_BOB + NOK_NAME_DESC_BOB + NOK_RELATIONSHIP_DESC_BOB
-                + NOK_EMAIL_DESC_BOB + NOK_ADDRESS_DESC_BOB + TAG_DESC_FRIEND,
+        assertParseSuccess(parser, NAME_DESC_BOB + NOK_PHONE_DESC_BOB + AGE_DESC_BOB
+                + GENDER_DESC_AMY + GENDER_DESC_BOB + ROOM_NUMBER_DESC_BOB + NOK_NAME_DESC_BOB
+                + NOK_RELATIONSHIP_DESC_BOB + NOK_EMAIL_DESC_BOB + NOK_ADDRESS_DESC_BOB + TAG_DESC_FRIEND,
                 new AddCommand(expectedElderly));
 
         // multiple nok names - last nok name accepted
-        CommandParserTestUtil.assertParseSuccess(parser, NAME_DESC_BOB + NOK_PHONE_DESC_BOB + AGE_DESC_BOB + GENDER_DESC_BOB
-                + ROOM_NUMBER_DESC_BOB + NOK_NAME_DESC_AMY + NOK_NAME_DESC_BOB + NOK_RELATIONSHIP_DESC_BOB
-                + NOK_EMAIL_DESC_AMY + NOK_ADDRESS_DESC_BOB + TAG_DESC_FRIEND,
+        assertParseSuccess(parser, NAME_DESC_BOB + NOK_PHONE_DESC_BOB + AGE_DESC_BOB
+                + GENDER_DESC_BOB + ROOM_NUMBER_DESC_BOB + NOK_NAME_DESC_AMY + NOK_NAME_DESC_BOB
+                + NOK_RELATIONSHIP_DESC_BOB + NOK_EMAIL_DESC_AMY + NOK_ADDRESS_DESC_BOB + TAG_DESC_FRIEND,
                 new AddCommand(expectedElderly));
 
         // multiple relationships - last relationship accepted
-        CommandParserTestUtil.assertParseSuccess(parser, NAME_DESC_BOB + NOK_PHONE_DESC_BOB + AGE_DESC_BOB + GENDER_DESC_BOB
-                + ROOM_NUMBER_DESC_BOB + NOK_NAME_DESC_BOB + NOK_RELATIONSHIP_DESC_AMY + NOK_RELATIONSHIP_DESC_BOB
-                + NOK_EMAIL_DESC_AMY + NOK_ADDRESS_DESC_BOB + TAG_DESC_FRIEND,
+        assertParseSuccess(parser, NAME_DESC_BOB + NOK_PHONE_DESC_BOB + AGE_DESC_BOB
+                + GENDER_DESC_BOB + ROOM_NUMBER_DESC_BOB + NOK_NAME_DESC_BOB + NOK_RELATIONSHIP_DESC_AMY
+                + NOK_RELATIONSHIP_DESC_BOB + NOK_EMAIL_DESC_AMY + NOK_ADDRESS_DESC_BOB + TAG_DESC_FRIEND,
                 new AddCommand(expectedElderly));
 
         // multiple emails - last email accepted
-        CommandParserTestUtil.assertParseSuccess(parser, NAME_DESC_BOB + NOK_PHONE_DESC_BOB + AGE_DESC_BOB + GENDER_DESC_BOB
-                + ROOM_NUMBER_DESC_BOB + NOK_NAME_DESC_BOB + NOK_RELATIONSHIP_DESC_BOB
+        assertParseSuccess(parser, NAME_DESC_BOB + NOK_PHONE_DESC_BOB + AGE_DESC_BOB
+                + GENDER_DESC_BOB + ROOM_NUMBER_DESC_BOB + NOK_NAME_DESC_BOB + NOK_RELATIONSHIP_DESC_BOB
                 + NOK_EMAIL_DESC_AMY + NOK_EMAIL_DESC_BOB + NOK_ADDRESS_DESC_BOB + TAG_DESC_FRIEND,
                 new AddCommand(expectedElderly));
 
         // multiple addresses - last address accepted
-        CommandParserTestUtil.assertParseSuccess(parser, NAME_DESC_BOB + NOK_PHONE_DESC_BOB + AGE_DESC_BOB + GENDER_DESC_BOB
-                + ROOM_NUMBER_DESC_BOB + NOK_NAME_DESC_BOB + NOK_RELATIONSHIP_DESC_BOB
+        assertParseSuccess(parser, NAME_DESC_BOB + NOK_PHONE_DESC_BOB + AGE_DESC_BOB
+                + GENDER_DESC_BOB + ROOM_NUMBER_DESC_BOB + NOK_NAME_DESC_BOB + NOK_RELATIONSHIP_DESC_BOB
                 + NOK_EMAIL_DESC_BOB + NOK_ADDRESS_DESC_AMY + NOK_ADDRESS_DESC_BOB + TAG_DESC_FRIEND,
                 new AddCommand(expectedElderly));
 
         // multiple roomNumbers - last roomNumber accepted
-        CommandParserTestUtil.assertParseSuccess(parser, NAME_DESC_BOB + NOK_PHONE_DESC_BOB + AGE_DESC_BOB + GENDER_DESC_BOB
-                + ROOM_NUMBER_DESC_AMY + ROOM_NUMBER_DESC_BOB + NOK_NAME_DESC_BOB + NOK_RELATIONSHIP_DESC_BOB
-                + NOK_EMAIL_DESC_BOB + NOK_ADDRESS_DESC_BOB + TAG_DESC_FRIEND,
+        assertParseSuccess(parser, NAME_DESC_BOB + NOK_PHONE_DESC_BOB + AGE_DESC_BOB
+                + GENDER_DESC_BOB + ROOM_NUMBER_DESC_AMY + ROOM_NUMBER_DESC_BOB + NOK_NAME_DESC_BOB
+                + NOK_RELATIONSHIP_DESC_BOB + NOK_EMAIL_DESC_BOB + NOK_ADDRESS_DESC_BOB + TAG_DESC_FRIEND,
                 new AddCommand(expectedElderly));
 
         // multiple tags - all accepted
-        Elderly expectedElderlyMultipleTags = new ElderlyBuilder(TypicalElderlies.BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
-                .build();
-        CommandParserTestUtil.assertParseSuccess(parser, NAME_DESC_BOB + NOK_PHONE_DESC_BOB + AGE_DESC_BOB + GENDER_DESC_BOB
-                + ROOM_NUMBER_DESC_BOB + NOK_NAME_DESC_BOB + NOK_RELATIONSHIP_DESC_BOB
+        Elderly expectedElderlyMultipleTags = new ElderlyBuilder(BOB)
+                .withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND).build();
+        assertParseSuccess(parser, NAME_DESC_BOB + NOK_PHONE_DESC_BOB + AGE_DESC_BOB
+                + GENDER_DESC_BOB + ROOM_NUMBER_DESC_BOB + NOK_NAME_DESC_BOB + NOK_RELATIONSHIP_DESC_BOB
                 + NOK_EMAIL_DESC_BOB + NOK_ADDRESS_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
                 new AddCommand(expectedElderlyMultipleTags));
     }
@@ -138,9 +141,9 @@ public class AddCommandParserTest {
     @Test
     public void parse_optionalFieldsMissing_success() {
         // zero tags
-        Elderly expectedElderly = new ElderlyBuilder(TypicalElderlies.AMY).withTags().build();
-        CommandParserTestUtil.assertParseSuccess(parser, NAME_DESC_AMY + AGE_DESC_AMY + GENDER_DESC_AMY + ROOM_NUMBER_DESC_AMY,
-                new AddCommand(expectedElderly));
+        Elderly expectedElderly = new ElderlyBuilder(AMY).withTags().build();
+        assertParseSuccess(parser, NAME_DESC_AMY + AGE_DESC_AMY + GENDER_DESC_AMY
+                        + ROOM_NUMBER_DESC_AMY, new AddCommand(expectedElderly));
     }
 
     @Test
@@ -148,98 +151,98 @@ public class AddCommandParserTest {
         String expectedMessage = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
 
         // missing name prefix
-        CommandParserTestUtil.assertParseFailure(parser, VALID_NAME_BOB + NOK_PHONE_DESC_BOB + AGE_DESC_BOB + GENDER_DESC_BOB
-                + ROOM_NUMBER_DESC_BOB + NOK_NAME_DESC_BOB + NOK_RELATIONSHIP_DESC_BOB
+        assertParseFailure(parser, VALID_NAME_BOB + NOK_PHONE_DESC_BOB + AGE_DESC_BOB
+                + GENDER_DESC_BOB + ROOM_NUMBER_DESC_BOB + NOK_NAME_DESC_BOB + NOK_RELATIONSHIP_DESC_BOB
                 + NOK_EMAIL_DESC_BOB + NOK_ADDRESS_DESC_BOB, expectedMessage);
 
         // missing age prefix
-        CommandParserTestUtil.assertParseFailure(parser, NAME_DESC_BOB + NOK_PHONE_DESC_BOB + VALID_AGE_BOB + GENDER_DESC_BOB
-                + ROOM_NUMBER_DESC_BOB + NOK_NAME_DESC_BOB + NOK_RELATIONSHIP_DESC_BOB
+        assertParseFailure(parser, NAME_DESC_BOB + NOK_PHONE_DESC_BOB + VALID_AGE_BOB
+                + GENDER_DESC_BOB + ROOM_NUMBER_DESC_BOB + NOK_NAME_DESC_BOB + NOK_RELATIONSHIP_DESC_BOB
                 + NOK_EMAIL_DESC_BOB + NOK_ADDRESS_DESC_BOB, expectedMessage);
 
         // missing gender prefix
-        CommandParserTestUtil.assertParseFailure(parser, NAME_DESC_BOB + NOK_PHONE_DESC_BOB + AGE_DESC_BOB + VALID_GENDER_BOB
-                + ROOM_NUMBER_DESC_BOB + NOK_NAME_DESC_BOB + NOK_RELATIONSHIP_DESC_BOB
+        assertParseFailure(parser, NAME_DESC_BOB + NOK_PHONE_DESC_BOB + AGE_DESC_BOB
+                + VALID_GENDER_BOB + ROOM_NUMBER_DESC_BOB + NOK_NAME_DESC_BOB + NOK_RELATIONSHIP_DESC_BOB
                 + VALID_NOK_EMAIL_BOB + NOK_ADDRESS_DESC_BOB, expectedMessage);
 
         // missing roomNumber prefix
-        CommandParserTestUtil.assertParseFailure(parser, NAME_DESC_BOB + NOK_PHONE_DESC_BOB + AGE_DESC_BOB + GENDER_DESC_BOB
-                + VALID_ROOM_NUMBER_BOB + NOK_NAME_DESC_BOB + NOK_RELATIONSHIP_DESC_BOB
+        assertParseFailure(parser, NAME_DESC_BOB + NOK_PHONE_DESC_BOB + AGE_DESC_BOB
+                + GENDER_DESC_BOB + VALID_ROOM_NUMBER_BOB + NOK_NAME_DESC_BOB + NOK_RELATIONSHIP_DESC_BOB
                 + NOK_EMAIL_DESC_BOB + NOK_ADDRESS_DESC_BOB, expectedMessage);
 
         // all prefixes missing
-        CommandParserTestUtil.assertParseFailure(parser, VALID_NAME_BOB + VALID_NOK_PHONE_BOB + AGE_DESC_BOB + GENDER_DESC_BOB
-                + ROOM_NUMBER_DESC_BOB + VALID_NOK_NAME_BOB + VALID_NOK_RELATIONSHIP_BOB + VALID_NOK_EMAIL_BOB
-                + VALID_NOK_ADDRESS_BOB, expectedMessage);
+        assertParseFailure(parser, VALID_NAME_BOB + VALID_NOK_PHONE_BOB + AGE_DESC_BOB
+                + GENDER_DESC_BOB + ROOM_NUMBER_DESC_BOB + VALID_NOK_NAME_BOB + VALID_NOK_RELATIONSHIP_BOB
+                + VALID_NOK_EMAIL_BOB + VALID_NOK_ADDRESS_BOB, expectedMessage);
     }
 
     @Test
     public void parse_invalidValue_failure() {
         // invalid name
-        CommandParserTestUtil.assertParseFailure(parser, INVALID_NAME_DESC + NOK_PHONE_DESC_BOB + AGE_DESC_BOB + GENDER_DESC_BOB
-                + ROOM_NUMBER_DESC_BOB + NOK_NAME_DESC_BOB + NOK_RELATIONSHIP_DESC_BOB + NOK_EMAIL_DESC_BOB
-                + NOK_ADDRESS_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
+        assertParseFailure(parser, INVALID_NAME_DESC + NOK_PHONE_DESC_BOB + AGE_DESC_BOB
+                + GENDER_DESC_BOB + ROOM_NUMBER_DESC_BOB + NOK_NAME_DESC_BOB + NOK_RELATIONSHIP_DESC_BOB
+                + NOK_EMAIL_DESC_BOB + NOK_ADDRESS_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
                 Name.MESSAGE_CONSTRAINTS);
 
         // invalid phone
-        CommandParserTestUtil.assertParseFailure(parser, NAME_DESC_BOB + INVALID_NOK_PHONE_DESC + AGE_DESC_BOB + GENDER_DESC_BOB
-                + ROOM_NUMBER_DESC_BOB + NOK_NAME_DESC_BOB + NOK_RELATIONSHIP_DESC_BOB + NOK_EMAIL_DESC_BOB
-                + NOK_ADDRESS_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
+        assertParseFailure(parser, NAME_DESC_BOB + INVALID_NOK_PHONE_DESC + AGE_DESC_BOB
+                + GENDER_DESC_BOB + ROOM_NUMBER_DESC_BOB + NOK_NAME_DESC_BOB + NOK_RELATIONSHIP_DESC_BOB
+                + NOK_EMAIL_DESC_BOB + NOK_ADDRESS_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
                 Phone.MESSAGE_CONSTRAINTS);
 
         // invalid age
-        CommandParserTestUtil.assertParseFailure(parser, NAME_DESC_BOB + NOK_PHONE_DESC_BOB + INVALID_AGE_DESC + GENDER_DESC_BOB
-                + ROOM_NUMBER_DESC_BOB + NOK_NAME_DESC_BOB + NOK_RELATIONSHIP_DESC_BOB + NOK_EMAIL_DESC_BOB
-                + NOK_ADDRESS_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
+        assertParseFailure(parser, NAME_DESC_BOB + NOK_PHONE_DESC_BOB + INVALID_AGE_DESC
+                + GENDER_DESC_BOB + ROOM_NUMBER_DESC_BOB + NOK_NAME_DESC_BOB + NOK_RELATIONSHIP_DESC_BOB
+                + NOK_EMAIL_DESC_BOB + NOK_ADDRESS_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
                 Age.MESSAGE_CONSTRAINTS);
 
         // invalid gender
-        CommandParserTestUtil.assertParseFailure(parser, NAME_DESC_BOB + NOK_PHONE_DESC_BOB + AGE_DESC_BOB + INVALID_GENDER_DESC
-                + ROOM_NUMBER_DESC_BOB + NOK_NAME_DESC_BOB + NOK_RELATIONSHIP_DESC_BOB + NOK_EMAIL_DESC_BOB
-                + NOK_ADDRESS_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
+        assertParseFailure(parser, NAME_DESC_BOB + NOK_PHONE_DESC_BOB + AGE_DESC_BOB
+                + INVALID_GENDER_DESC + ROOM_NUMBER_DESC_BOB + NOK_NAME_DESC_BOB + NOK_RELATIONSHIP_DESC_BOB
+                + NOK_EMAIL_DESC_BOB + NOK_ADDRESS_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
                 Gender.MESSAGE_CONSTRAINTS);
 
         // invalid roomNumber
-        CommandParserTestUtil.assertParseFailure(parser, NAME_DESC_BOB + NOK_PHONE_DESC_BOB + AGE_DESC_BOB + GENDER_DESC_BOB
+        assertParseFailure(parser, NAME_DESC_BOB + NOK_PHONE_DESC_BOB + AGE_DESC_BOB + GENDER_DESC_BOB
                 + INVALID_ROOM_NUMBER_DESC + NOK_NAME_DESC_BOB + NOK_RELATIONSHIP_DESC_BOB + NOK_EMAIL_DESC_BOB
                 + NOK_ADDRESS_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, RoomNumber.MESSAGE_CONSTRAINTS);
 
         // invalid nokName
-        CommandParserTestUtil.assertParseFailure(parser, NAME_DESC_BOB + NOK_PHONE_DESC_BOB + AGE_DESC_BOB + GENDER_DESC_BOB
-                + ROOM_NUMBER_DESC_BOB + INVALID_NOK_NAME_DESC + NOK_RELATIONSHIP_DESC_BOB + NOK_EMAIL_DESC_BOB
-                + NOK_ADDRESS_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
+        assertParseFailure(parser, NAME_DESC_BOB + NOK_PHONE_DESC_BOB + AGE_DESC_BOB
+                + GENDER_DESC_BOB + ROOM_NUMBER_DESC_BOB + INVALID_NOK_NAME_DESC + NOK_RELATIONSHIP_DESC_BOB
+                + NOK_EMAIL_DESC_BOB + NOK_ADDRESS_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
                 Name.MESSAGE_CONSTRAINTS);
 
         // invalid relationship
-        CommandParserTestUtil.assertParseFailure(parser, NAME_DESC_BOB + NOK_PHONE_DESC_BOB + AGE_DESC_BOB + GENDER_DESC_BOB
-                + ROOM_NUMBER_DESC_BOB + NOK_NAME_DESC_BOB + INVALID_NOK_RELATIONSHIP_DESC + NOK_EMAIL_DESC_BOB
-                + NOK_ADDRESS_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
+        assertParseFailure(parser, NAME_DESC_BOB + NOK_PHONE_DESC_BOB + AGE_DESC_BOB
+                + GENDER_DESC_BOB + ROOM_NUMBER_DESC_BOB + NOK_NAME_DESC_BOB + INVALID_NOK_RELATIONSHIP_DESC
+                + NOK_EMAIL_DESC_BOB + NOK_ADDRESS_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
                 Relationship.MESSAGE_CONSTRAINTS);
 
         // invalid email
-        CommandParserTestUtil.assertParseFailure(parser, NAME_DESC_BOB + NOK_PHONE_DESC_BOB + AGE_DESC_BOB + GENDER_DESC_BOB
-                + ROOM_NUMBER_DESC_BOB + NOK_NAME_DESC_BOB + NOK_RELATIONSHIP_DESC_BOB + INVALID_NOK_EMAIL_DESC
-                + NOK_ADDRESS_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
+        assertParseFailure(parser, NAME_DESC_BOB + NOK_PHONE_DESC_BOB + AGE_DESC_BOB
+                + GENDER_DESC_BOB + ROOM_NUMBER_DESC_BOB + NOK_NAME_DESC_BOB + NOK_RELATIONSHIP_DESC_BOB
+                + INVALID_NOK_EMAIL_DESC + NOK_ADDRESS_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
                 Email.MESSAGE_CONSTRAINTS);
 
         // invalid address
         // No test for invalid address since after tokenization there is no invalid address input at this point.
 
         // invalid tag
-        CommandParserTestUtil.assertParseFailure(parser, NAME_DESC_BOB + NOK_PHONE_DESC_BOB + AGE_DESC_BOB + GENDER_DESC_BOB
-                + ROOM_NUMBER_DESC_BOB + NOK_NAME_DESC_BOB + NOK_RELATIONSHIP_DESC_BOB + NOK_EMAIL_DESC_BOB
-                + NOK_ADDRESS_DESC_BOB + INVALID_TAG_DESC + VALID_TAG_FRIEND,
+        assertParseFailure(parser, NAME_DESC_BOB + NOK_PHONE_DESC_BOB + AGE_DESC_BOB
+                + GENDER_DESC_BOB + ROOM_NUMBER_DESC_BOB + NOK_NAME_DESC_BOB + NOK_RELATIONSHIP_DESC_BOB
+                + NOK_EMAIL_DESC_BOB + NOK_ADDRESS_DESC_BOB + INVALID_TAG_DESC + VALID_TAG_FRIEND,
                 Tag.MESSAGE_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
-        CommandParserTestUtil.assertParseFailure(parser, INVALID_NAME_DESC + NOK_PHONE_DESC_BOB + AGE_DESC_BOB + GENDER_DESC_BOB
-                + ROOM_NUMBER_DESC_BOB + NOK_NAME_DESC_BOB + NOK_RELATIONSHIP_DESC_BOB + NOK_EMAIL_DESC_BOB
-                + INVALID_NOK_PHONE_DESC, Name.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, INVALID_NAME_DESC + NOK_PHONE_DESC_BOB + AGE_DESC_BOB
+                + GENDER_DESC_BOB + ROOM_NUMBER_DESC_BOB + NOK_NAME_DESC_BOB + NOK_RELATIONSHIP_DESC_BOB
+                + NOK_EMAIL_DESC_BOB + INVALID_NOK_PHONE_DESC, Name.MESSAGE_CONSTRAINTS);
 
         // non-empty preamble
-        CommandParserTestUtil.assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_BOB + AGE_DESC_BOB + GENDER_DESC_BOB
-                + ROOM_NUMBER_DESC_BOB + NOK_NAME_DESC_BOB + NOK_RELATIONSHIP_DESC_BOB + NOK_PHONE_DESC_BOB
-                + NOK_EMAIL_DESC_BOB + NOK_ADDRESS_DESC_BOB + TAG_DESC_HUSBAND
+        assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_BOB + AGE_DESC_BOB
+                + GENDER_DESC_BOB + ROOM_NUMBER_DESC_BOB + NOK_NAME_DESC_BOB + NOK_RELATIONSHIP_DESC_BOB
+                + NOK_PHONE_DESC_BOB + NOK_EMAIL_DESC_BOB + NOK_ADDRESS_DESC_BOB + TAG_DESC_HUSBAND
                 + TAG_DESC_FRIEND, String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
     }
 }

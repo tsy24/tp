@@ -16,7 +16,8 @@ public class ViewTasksCommandTest {
 
     @Test
     public void execute_viewTask_success() {
-        CommandResult expectedCommandResult = new CommandResult(ViewTasksCommand.MESSAGE_SUCCESS, CommandResult.ListDisplayChange.TASK);
-        CommandTestUtil.assertCommandSuccess(new ViewTasksCommand(), model, expectedCommandResult, expectedModel);
+        CommandResult expectedCommandResult = new CommandResult(ViewTasksCommand.MESSAGE_SUCCESS,
+                CommandResult.ListDisplayChange.TASK);
+        assertCommandSuccess(new ViewTasksCommand(), model, expectedCommandResult, expectedModel);
     }
 }

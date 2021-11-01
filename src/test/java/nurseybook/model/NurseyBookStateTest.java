@@ -1,19 +1,19 @@
 package nurseybook.model;
 
+import static nurseybook.testutil.TypicalElderlies.getTypicalNurseyBook;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static nurseybook.testutil.TypicalElderlies.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
 
 import nurseybook.logic.commands.CommandResult;
-import nurseybook.testutil.AddressBookBuilder;
+import nurseybook.testutil.NurseyBookBuilder;
 
 public class NurseyBookStateTest {
 
     @Test
     public void equals() {
-        NurseyBookState nurseyBookState = new NurseyBookState(getTypicalAddressBook(),
+        NurseyBookState nurseyBookState = new NurseyBookState(getTypicalNurseyBook(),
                 new CommandResult("feedback"));
 
         // same object -> returns true
@@ -31,7 +31,7 @@ public class NurseyBookStateTest {
         assertFalse(nurseyBookState.equals(null));
 
         // different nurseybook -> returns false
-        ReadOnlyAddressBook differentNurseyBook = new AddressBookBuilder().build();
+        ReadOnlyNurseyBook differentNurseyBook = new NurseyBookBuilder().build();
         NurseyBookState differentNurseyBookState = new NurseyBookState(differentNurseyBook,
                 nurseyBookState.getCommandResult());
         assertFalse(nurseyBookState.equals(differentNurseyBookState));

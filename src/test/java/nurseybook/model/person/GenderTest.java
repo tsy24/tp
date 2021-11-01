@@ -1,30 +1,28 @@
 package nurseybook.model.person;
 
+import static nurseybook.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static nurseybook.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
-
-import nurseybook.testutil.Assert;
 
 public class GenderTest {
 
     @Test
     public void constructor_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> new Gender(null));
+        assertThrows(NullPointerException.class, () -> new Gender(null));
     }
 
     @Test
     public void constructor_invalidGender_throwsIllegalArgumentException() {
         String invalidGender = "";
-        Assert.assertThrows(IllegalArgumentException.class, () -> new Gender(invalidGender));
+        assertThrows(IllegalArgumentException.class, () -> new Gender(invalidGender));
     }
 
     @Test
     public void isValidGender() {
         // null gender
-        Assert.assertThrows(NullPointerException.class, () -> Gender.isValidGender(null));
+        assertThrows(NullPointerException.class, () -> Gender.isValidGender(null));
 
         // invalid phone numbers
         assertFalse(Gender.isValidGender("")); // empty string

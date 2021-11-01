@@ -5,25 +5,25 @@ import static java.util.Objects.requireNonNull;
 import nurseybook.logic.commands.CommandResult;
 
 /**
- * Represents a state of the nurseybook.
- * Contains a copy of the nurseybook at a particular state
- * and the commandResult of the command that changed the state of the nurseybook.
+ * Represents a state of the nursey book.
+ * Contains a copy of the nursey book at a particular state
+ * and the commandResult of the command that changed the state of the nursey book.
  */
 public class NurseyBookState {
 
-    private final ReadOnlyAddressBook nurseyBook;
+    private final ReadOnlyNurseyBook nurseyBook;
     private final CommandResult commandResult;
 
     /**
      * Creates a NurseyBookState using the copied {@code nurseyBook} and the {@code commandResult}.
      */
-    public NurseyBookState(ReadOnlyAddressBook nurseyBook, CommandResult commandResult) {
+    public NurseyBookState(ReadOnlyNurseyBook nurseyBook, CommandResult commandResult) {
         requireNonNull(nurseyBook);
         this.nurseyBook = nurseyBook;
         this.commandResult = commandResult;
     }
 
-    public ReadOnlyAddressBook getNurseyBook() {
+    public ReadOnlyNurseyBook getNurseyBook() {
         return nurseyBook;
     }
 

@@ -1,10 +1,13 @@
 package nurseybook.logic.parser;
 
+import static nurseybook.logic.parser.CommandParserTestUtil.assertParseFailure;
+import static nurseybook.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static nurseybook.testutil.TypicalIndexes.INDEX_FIRST;
+
 import org.junit.jupiter.api.Test;
 
 import nurseybook.commons.core.Messages;
 import nurseybook.logic.commands.DeleteCommand;
-import nurseybook.testutil.TypicalIndexes;
 
 /**
  * As we are only doing white-box testing, our test cases do not cover path variations
@@ -19,11 +22,12 @@ public class DeleteCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsDeleteCommand() {
-        CommandParserTestUtil.assertParseSuccess(parser, "1", new DeleteCommand(TypicalIndexes.INDEX_FIRST));
+        assertParseSuccess(parser, "1", new DeleteCommand(INDEX_FIRST));
     }
 
     @Test
     public void parse_invalidArgs_throwsParseException() {
-        CommandParserTestUtil.assertParseFailure(parser, "a", String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "a", String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                DeleteCommand.MESSAGE_USAGE));
     }
 }

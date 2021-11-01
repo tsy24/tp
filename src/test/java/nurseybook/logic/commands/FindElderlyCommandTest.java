@@ -1,9 +1,13 @@
 package nurseybook.logic.commands;
 
+import static nurseybook.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static nurseybook.testutil.TypicalElderlies.CARL;
+import static nurseybook.testutil.TypicalElderlies.ELLE;
+import static nurseybook.testutil.TypicalElderlies.FIONA;
+import static nurseybook.testutil.TypicalElderlies.getTypicalNurseyBook;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static nurseybook.logic.commands.CommandTestUtil.assertCommandSuccess;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -11,18 +15,17 @@ import java.util.Collections;
 import org.junit.jupiter.api.Test;
 
 import nurseybook.commons.core.Messages;
-import nurseybook.model.person.NameContainsKeywordsPredicate;
-import nurseybook.testutil.TypicalElderlies;
 import nurseybook.model.Model;
 import nurseybook.model.ModelManager;
 import nurseybook.model.UserPrefs;
+import nurseybook.model.person.NameContainsKeywordsPredicate;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindElderlyCommand}.
  */
 public class FindElderlyCommandTest {
-    private Model model = new ModelManager(TypicalElderlies.getTypicalAddressBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(TypicalElderlies.getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalNurseyBook(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalNurseyBook(), new UserPrefs());
 
     @Test
     public void equals() {
@@ -61,7 +64,7 @@ public class FindElderlyCommandTest {
         FindElderlyCommand command = new FindElderlyCommand(predicate);
         expectedModel.updateFilteredElderlyList(predicate);
 
-        CommandTestUtil.assertCommandSuccess(command, model, expectedCommandResult, expectedModel);
+        assertCommandSuccess(command, model, expectedCommandResult, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredElderlyList());
     }
 
@@ -75,8 +78,8 @@ public class FindElderlyCommandTest {
         FindElderlyCommand command = new FindElderlyCommand(predicate);
         expectedModel.updateFilteredElderlyList(predicate);
 
-        CommandTestUtil.assertCommandSuccess(command, model, expectedCommandResult, expectedModel);
-        assertEquals(Arrays.asList(TypicalElderlies.CARL, TypicalElderlies.ELLE, TypicalElderlies.FIONA), model.getFilteredElderlyList());
+        assertCommandSuccess(command, model, expectedCommandResult, expectedModel);
+        assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredElderlyList());
     }
 
     /**

@@ -1,8 +1,10 @@
 package nurseybook.commons.util;
 
+import static nurseybook.commons.util.ConfigUtil.readConfig;
+import static nurseybook.commons.util.ConfigUtil.saveConfig;
+import static nurseybook.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static nurseybook.testutil.Assert.assertThrows;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -15,7 +17,6 @@ import org.junit.jupiter.api.io.TempDir;
 
 import nurseybook.commons.core.Config;
 import nurseybook.commons.exceptions.DataConversionException;
-import nurseybook.testutil.Assert;
 
 public class ConfigUtilTest {
 
@@ -26,7 +27,7 @@ public class ConfigUtilTest {
 
     @Test
     public void read_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> read(null));
+        assertThrows(NullPointerException.class, () -> read(null));
     }
 
     @Test
@@ -36,7 +37,7 @@ public class ConfigUtilTest {
 
     @Test
     public void read_notJsonFormat_exceptionThrown() {
-        Assert.assertThrows(DataConversionException.class, () -> read("NotJsonFormatConfig.json"));
+        assertThrows(DataConversionException.class, () -> read("NotJsonFormatConfig.json"));
     }
 
     @Test
@@ -71,17 +72,17 @@ public class ConfigUtilTest {
 
     private Optional<Config> read(String configFileInTestDataFolder) throws DataConversionException {
         Path configFilePath = addToTestDataPathIfNotNull(configFileInTestDataFolder);
-        return ConfigUtil.readConfig(configFilePath);
+        return readConfig(configFilePath);
     }
 
     @Test
     public void save_nullConfig_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> save(null, "SomeFile.json"));
+        assertThrows(NullPointerException.class, () -> save(null, "SomeFile.json"));
     }
 
     @Test
     public void save_nullFile_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> save(new Config(), null));
+        assertThrows(NullPointerException.class, () -> save(new Config(), null));
     }
 
     @Test
@@ -91,20 +92,20 @@ public class ConfigUtilTest {
         Path configFilePath = tempDir.resolve("TempConfig.json");
 
         //Try writing when the file doesn't exist
-        ConfigUtil.saveConfig(original, configFilePath);
-        Config readBack = ConfigUtil.readConfig(configFilePath).get();
+        saveConfig(original, configFilePath);
+        Config readBack = readConfig(configFilePath).get();
         assertEquals(original, readBack);
 
         //Try saving when the file exists
         original.setLogLevel(Level.FINE);
-        ConfigUtil.saveConfig(original, configFilePath);
-        readBack = ConfigUtil.readConfig(configFilePath).get();
+        saveConfig(original, configFilePath);
+        readBack = readConfig(configFilePath).get();
         assertEquals(original, readBack);
     }
 
     private void save(Config config, String configFileInTestDataFolder) throws IOException {
         Path configFilePath = addToTestDataPathIfNotNull(configFileInTestDataFolder);
-        ConfigUtil.saveConfig(config, configFilePath);
+        saveConfig(config, configFilePath);
     }
 
     private Path addToTestDataPathIfNotNull(String configFileInTestDataFolder) {

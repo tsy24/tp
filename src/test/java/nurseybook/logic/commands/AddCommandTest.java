@@ -1,10 +1,10 @@
 package nurseybook.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static nurseybook.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static nurseybook.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,14 +12,14 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import nurseybook.logic.commands.exceptions.CommandException;
+import nurseybook.model.NurseyBook;
+import nurseybook.model.ReadOnlyNurseyBook;
+import nurseybook.model.VersionedNurseyBook;
 import nurseybook.model.person.Elderly;
-import nurseybook.testutil.AddressBookBuilder;
 import nurseybook.testutil.Assert;
 import nurseybook.testutil.ElderlyBuilder;
 import nurseybook.testutil.ModelStub;
-import nurseybook.model.AddressBook;
-import nurseybook.model.ReadOnlyAddressBook;
-import nurseybook.model.VersionedNurseyBook;
+import nurseybook.testutil.NurseyBookBuilder;
 
 public class AddCommandTest {
 
@@ -47,7 +47,7 @@ public class AddCommandTest {
         AddCommand addCommand = new AddCommand(validElderly);
         ModelStub modelStub = new ModelStubWithElderly(validElderly);
 
-        Assert.assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_ELDERLY, () -> addCommand.execute(modelStub));
+        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_ELDERLY, () -> addCommand.execute(modelStub));
     }
 
     @Test
@@ -97,7 +97,7 @@ public class AddCommandTest {
      */
     private class ModelStubAcceptingElderlyAdded extends ModelStub {
         final ArrayList<Elderly> elderliesAdded = new ArrayList<>();
-        final VersionedNurseyBook versionedNurseyBook = new VersionedNurseyBook(new AddressBookBuilder().build());
+        final VersionedNurseyBook versionedNurseyBook = new VersionedNurseyBook(new NurseyBookBuilder().build());
 
         @Override
         public boolean hasElderly(Elderly elderly) {
@@ -117,8 +117,8 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyAddressBook getVersionedNurseyBook() {
-            return new AddressBook();
+        public ReadOnlyNurseyBook getVersionedNurseyBook() {
+            return new NurseyBook();
         }
     }
 

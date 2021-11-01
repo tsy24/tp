@@ -1,6 +1,5 @@
 package nurseybook.logic;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static nurseybook.logic.commands.CommandTestUtil.AGE_DESC_AMY;
 import static nurseybook.logic.commands.CommandTestUtil.GENDER_DESC_AMY;
 import static nurseybook.logic.commands.CommandTestUtil.NAME_DESC_AMY;
@@ -12,6 +11,7 @@ import static nurseybook.logic.commands.CommandTestUtil.NOK_RELATIONSHIP_DESC_AM
 import static nurseybook.logic.commands.CommandTestUtil.ROOM_NUMBER_DESC_AMY;
 import static nurseybook.testutil.Assert.assertThrows;
 import static nurseybook.testutil.TypicalElderlies.AMY;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -26,14 +26,14 @@ import nurseybook.logic.commands.CommandResult;
 import nurseybook.logic.commands.ViewElderlyCommand;
 import nurseybook.logic.commands.exceptions.CommandException;
 import nurseybook.logic.parser.exceptions.ParseException;
-import nurseybook.model.person.Elderly;
-import nurseybook.storage.JsonAddressBookStorage;
-import nurseybook.storage.JsonUserPrefsStorage;
-import nurseybook.storage.StorageManager;
 import nurseybook.model.Model;
 import nurseybook.model.ModelManager;
-import nurseybook.model.ReadOnlyAddressBook;
+import nurseybook.model.ReadOnlyNurseyBook;
 import nurseybook.model.UserPrefs;
+import nurseybook.model.person.Elderly;
+import nurseybook.storage.JsonNurseyBookStorage;
+import nurseybook.storage.JsonUserPrefsStorage;
+import nurseybook.storage.StorageManager;
 import nurseybook.testutil.ElderlyBuilder;
 
 public class LogicManagerTest {
@@ -47,10 +47,10 @@ public class LogicManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonAddressBookStorage addressBookStorage =
-                new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
+        JsonNurseyBookStorage nurseyBookStorage =
+                new JsonNurseyBookStorage(temporaryFolder.resolve("nurseyBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(nurseyBookStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -74,12 +74,12 @@ public class LogicManagerTest {
 
     @Test
     public void execute_storageThrowsIoException_throwsCommandException() {
-        // Setup LogicManager with JsonAddressBookIoExceptionThrowingStub
-        JsonAddressBookStorage addressBookStorage =
-                new JsonAddressBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
+        // Setup LogicManager with JsonNurseyBookIoExceptionThrowingStub
+        JsonNurseyBookStorage nurseyBookStorage =
+                new JsonNurseyBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionNurseyBook.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(nurseyBookStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
@@ -157,13 +157,13 @@ public class LogicManagerTest {
     /**
      * A stub class to throw an {@code IOException} when the save method is called.
      */
-    private static class JsonAddressBookIoExceptionThrowingStub extends JsonAddressBookStorage {
-        private JsonAddressBookIoExceptionThrowingStub(Path filePath) {
+    private static class JsonNurseyBookIoExceptionThrowingStub extends JsonNurseyBookStorage {
+        private JsonNurseyBookIoExceptionThrowingStub(Path filePath) {
             super(filePath);
         }
 
         @Override
-        public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+        public void saveNurseyBook(ReadOnlyNurseyBook nurseyBook, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }

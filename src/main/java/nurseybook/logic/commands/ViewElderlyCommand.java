@@ -6,7 +6,7 @@ import static nurseybook.model.Model.PREDICATE_SHOW_ALL_ELDERLIES;
 import nurseybook.model.Model;
 
 /**
- * Lists all elderly in the address book to the user.
+ * Lists all elderly in the nursey book to the user.
  */
 public class ViewElderlyCommand extends Command {
 

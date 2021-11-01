@@ -7,7 +7,7 @@ import nurseybook.logic.commands.CommandResult.ListDisplayChange;
 import nurseybook.model.Model;
 
 /**
- * Lists all tasks in the address book to the user.
+ * Lists all tasks in the nursey book to the user.
  */
 public class ViewTasksCommand extends Command {
     public static final String COMMAND_WORD = "viewTasks";

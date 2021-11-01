@@ -5,14 +5,14 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import nurseybook.commons.exceptions.DataConversionException;
-import nurseybook.model.ReadOnlyAddressBook;
+import nurseybook.model.ReadOnlyNurseyBook;
 import nurseybook.model.ReadOnlyUserPrefs;
 import nurseybook.model.UserPrefs;
 
 /**
  * API of the Storage component
  */
-public interface Storage extends AddressBookStorage, UserPrefsStorage {
+public interface Storage extends NurseyBookStorage, UserPrefsStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -21,12 +21,12 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage {
     void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
 
     @Override
-    Path getAddressBookFilePath();
+    Path getNurseyBookFilePath();
 
     @Override
-    Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyNurseyBook> readNurseyBook() throws DataConversionException, IOException;
 
     @Override
-    void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException;
+    void saveNurseyBook(ReadOnlyNurseyBook nurseyBook) throws IOException;
 
 }

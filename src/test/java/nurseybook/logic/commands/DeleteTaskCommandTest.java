@@ -1,22 +1,22 @@
 package nurseybook.logic.commands;
 
+import static nurseybook.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static nurseybook.logic.commands.CommandTestUtil.assertCommandSuccess;
 
 import org.junit.jupiter.api.Test;
 
 import nurseybook.commons.core.Messages;
 import nurseybook.commons.core.index.Index;
-import nurseybook.model.task.Task;
-import nurseybook.testutil.TypicalIndexes;
-import nurseybook.testutil.TypicalTasks;
 import nurseybook.model.Model;
 import nurseybook.model.ModelManager;
 import nurseybook.model.UserPrefs;
+import nurseybook.model.task.Task;
+import nurseybook.testutil.TypicalIndexes;
+import nurseybook.testutil.TypicalTasks;
 
 class DeleteTaskCommandTest {
-    private Model model = new ModelManager(TypicalTasks.getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(TypicalTasks.getTypicalNurseyBook(), new UserPrefs());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {

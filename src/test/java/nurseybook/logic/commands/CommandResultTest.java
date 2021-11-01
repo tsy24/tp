@@ -1,14 +1,12 @@
 package nurseybook.logic.commands;
 
+import static nurseybook.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static nurseybook.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
-
-import nurseybook.testutil.Assert;
 
 public class CommandResultTest {
 
@@ -29,7 +27,7 @@ public class CommandResultTest {
     public void shouldChangeToTask() {
         CommandResult commandResult = new CommandResult("feedback");
         // displayChange value of NONE -> returns false
-        Assert.assertThrows(AssertionError.class, () -> commandResult.shouldChangeToTask());
+        assertThrows(AssertionError.class, () -> commandResult.shouldChangeToTask());
 
         // displayChange value of PERSON -> returns false
         assertFalse(new CommandResult("feedback", CommandResult.ListDisplayChange.ELDERLY).shouldChangeToTask());

@@ -4,10 +4,8 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import nurseybook.model.person.RoomNumber;
-import nurseybook.model.tag.Tag;
-import nurseybook.model.AddressBook;
-import nurseybook.model.ReadOnlyAddressBook;
+import nurseybook.model.NurseyBook;
+import nurseybook.model.ReadOnlyNurseyBook;
 import nurseybook.model.person.Address;
 import nurseybook.model.person.Age;
 import nurseybook.model.person.Elderly;
@@ -18,9 +16,11 @@ import nurseybook.model.person.Nok;
 import nurseybook.model.person.Phone;
 import nurseybook.model.person.Relationship;
 import nurseybook.model.person.Remark;
+import nurseybook.model.person.RoomNumber;
+import nurseybook.model.tag.Tag;
 
 /**
- * Contains utility methods for populating {@code AddressBook} with sample data.
+ * Contains utility methods for populating {@code NurseyBook} with sample data.
  */
 public class SampleDataUtil {
 
@@ -60,12 +60,12 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyAddressBook getSampleAddressBook() {
-        AddressBook sampleAb = new AddressBook();
+    public static ReadOnlyNurseyBook getSampleNurseyBook() {
+        NurseyBook sampleNb = new NurseyBook();
         for (Elderly sampleElderly : getSampleElderlies()) {
-            sampleAb.addElderly(sampleElderly);
+            sampleNb.addElderly(sampleElderly);
         }
-        return sampleAb;
+        return sampleNb;
     }
 
     /**

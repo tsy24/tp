@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static nurseybook.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Elderly's phone number in the address book.
+ * Represents a Elderly's phone number in the nursey book.
  * Guarantees: immutable; is valid as declared in {@link #isValidPhone(String)}
  */
 public class Phone {

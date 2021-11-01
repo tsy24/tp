@@ -1,10 +1,12 @@
 package nurseybook.logic.parser;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static nurseybook.logic.commands.CommandTestUtil.SET_ONE_TAG;
 import static nurseybook.logic.commands.CommandTestUtil.TAG_DESC_DIABETES;
 import static nurseybook.testutil.Assert.assertThrows;
+import static nurseybook.testutil.ElderlyUtil.getEditElderlyDescriptorDetails;
+import static nurseybook.testutil.TypicalIndexes.INDEX_FIRST;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -44,17 +46,15 @@ import nurseybook.model.tag.ElderlyHasTagPredicate;
 import nurseybook.model.task.DateTimeContainsDatePredicate;
 import nurseybook.model.task.DescriptionContainsKeywordPredicate;
 import nurseybook.model.task.Task;
-import nurseybook.testutil.Assert;
 import nurseybook.testutil.EditElderlyDescriptorBuilder;
 import nurseybook.testutil.ElderlyBuilder;
 import nurseybook.testutil.ElderlyUtil;
 import nurseybook.testutil.TaskBuilder;
 import nurseybook.testutil.TaskUtil;
-import nurseybook.testutil.TypicalIndexes;
 
-public class AddressBookParserTest {
+public class NurseyBookParserTest {
 
-    private final AddressBookParser parser = new AddressBookParser();
+    private final NurseyBookParser parser = new NurseyBookParser();
 
     @Test
     public void parseCommand_add() throws Exception {
@@ -79,22 +79,22 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_delete() throws Exception {
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
-                DeleteCommand.COMMAND_WORD + " " + TypicalIndexes.INDEX_FIRST.getOneBased());
-        assertEquals(new DeleteCommand(TypicalIndexes.INDEX_FIRST), command);
+                DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST.getOneBased());
+        assertEquals(new DeleteCommand(INDEX_FIRST), command);
     }
 
     @Test
     public void parseCommand_deleteTask() throws Exception {
         DeleteTaskCommand command = (DeleteTaskCommand) parser.parseCommand(
-                DeleteTaskCommand.COMMAND_WORD + " " + TypicalIndexes.INDEX_FIRST.getOneBased());
-        assertEquals(new DeleteTaskCommand(TypicalIndexes.INDEX_FIRST), command);
+                DeleteTaskCommand.COMMAND_WORD + " " + INDEX_FIRST.getOneBased());
+        assertEquals(new DeleteTaskCommand(INDEX_FIRST), command);
     }
 
     @Test
     public void parseCommand_doneTask() throws Exception {
         DoneTaskCommand command = (DoneTaskCommand) parser.parseCommand(
-                DoneTaskCommand.COMMAND_WORD + " " + TypicalIndexes.INDEX_FIRST.getOneBased());
-        assertEquals(new DoneTaskCommand(TypicalIndexes.INDEX_FIRST), command);
+                DoneTaskCommand.COMMAND_WORD + " " + INDEX_FIRST.getOneBased());
+        assertEquals(new DoneTaskCommand(INDEX_FIRST), command);
     }
 
     @Test
@@ -102,8 +102,8 @@ public class AddressBookParserTest {
         Elderly elderly = new ElderlyBuilder().build();
         EditCommand.EditElderlyDescriptor descriptor = new EditElderlyDescriptorBuilder(elderly).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-                + TypicalIndexes.INDEX_FIRST.getOneBased() + " " + ElderlyUtil.getEditElderlyDescriptorDetails(descriptor));
-        assertEquals(new EditCommand(TypicalIndexes.INDEX_FIRST, descriptor), command);
+                + INDEX_FIRST.getOneBased() + " " + getEditElderlyDescriptorDetails(descriptor));
+        assertEquals(new EditCommand(INDEX_FIRST, descriptor), command);
     }
 
     @Test
@@ -121,8 +121,8 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_viewDetails() throws Exception {
         ViewDetailsCommand command = (ViewDetailsCommand) parser.parseCommand(
-                ViewDetailsCommand.COMMAND_WORD + " " + TypicalIndexes.INDEX_FIRST.getOneBased());
-        assertEquals(new ViewDetailsCommand(TypicalIndexes.INDEX_FIRST), command);
+                ViewDetailsCommand.COMMAND_WORD + " " + INDEX_FIRST.getOneBased());
+        assertEquals(new ViewDetailsCommand(INDEX_FIRST), command);
     }
 
     @Test
@@ -158,8 +158,8 @@ public class AddressBookParserTest {
     public void parseCommand_remark() throws Exception {
         final Remark remark = new Remark("Some remark.");
         RemarkCommand command = (RemarkCommand) parser.parseCommand(RemarkCommand.COMMAND_WORD + " "
-                + TypicalIndexes.INDEX_FIRST.getOneBased() + " " + CliSyntax.PREFIX_REMARK + remark.value);
-        assertEquals(new RemarkCommand(TypicalIndexes.INDEX_FIRST, remark), command);
+                + INDEX_FIRST.getOneBased() + " " + CliSyntax.PREFIX_REMARK + remark.value);
+        assertEquals(new RemarkCommand(INDEX_FIRST, remark), command);
     }
 
     @Test
@@ -171,15 +171,15 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_addTag() throws Exception {
         AddTagCommand addTagCommand = (AddTagCommand) parser.parseCommand(AddTagCommand.COMMAND_WORD + " "
-            + TypicalIndexes.INDEX_FIRST.getOneBased() + " " + TAG_DESC_DIABETES);
-        assertEquals(new AddTagCommand(TypicalIndexes.INDEX_FIRST, SET_ONE_TAG), addTagCommand);
+            + INDEX_FIRST.getOneBased() + " " + TAG_DESC_DIABETES);
+        assertEquals(new AddTagCommand(INDEX_FIRST, SET_ONE_TAG), addTagCommand);
     }
 
     @Test
     public void parseCommand_deleteTag() throws Exception {
         DeleteTagCommand deleteTagCommand = (DeleteTagCommand) parser.parseCommand(DeleteTagCommand.COMMAND_WORD + " "
-                + TypicalIndexes.INDEX_FIRST.getOneBased() + " " + TAG_DESC_DIABETES);
-        assertEquals(new DeleteTagCommand(TypicalIndexes.INDEX_FIRST, SET_ONE_TAG), deleteTagCommand);
+                + INDEX_FIRST.getOneBased() + " " + TAG_DESC_DIABETES);
+        assertEquals(new DeleteTagCommand(INDEX_FIRST, SET_ONE_TAG), deleteTagCommand);
     }
 
     @Test
@@ -211,12 +211,13 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_unrecognisedInput_throwsParseException() {
-        Assert.assertThrows(ParseException.class, String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE), ()
-            -> parser.parseCommand(""));
+        assertThrows(ParseException.class, String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                HelpCommand.MESSAGE_USAGE), () -> parser.parseCommand(""));
     }
 
     @Test
     public void parseCommand_unknownCommand_throwsParseException() {
-        Assert.assertThrows(ParseException.class, Messages.MESSAGE_UNKNOWN_COMMAND, () -> parser.parseCommand("unknownCommand"));
+        assertThrows(ParseException.class,
+                Messages.MESSAGE_UNKNOWN_COMMAND, () -> parser.parseCommand("unknownCommand"));
     }
 }

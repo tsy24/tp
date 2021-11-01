@@ -5,7 +5,7 @@ import static nurseybook.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Objects;
 
 /**
- * Represents a Next-of-Kin in the address book.
+ * Represents a Next-of-Kin in the nursey book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Nok extends Person {

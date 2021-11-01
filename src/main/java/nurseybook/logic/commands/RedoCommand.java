@@ -14,7 +14,7 @@ public class RedoCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Redo command: ";
 
-    public static final String MESSAGE_FAILURE = "There are no changes to the data of NurseyBook to redo";
+    public static final String MESSAGE_FAILURE = "There are no changes to the data of Nursey Book to redo";
 
     @Override
     public CommandResult execute(Model model) throws CommandException {

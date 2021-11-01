@@ -1,8 +1,18 @@
 package nurseybook.logic.commands;
 
+import static nurseybook.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static nurseybook.logic.parser.CliSyntax.PREFIX_AGE;
+import static nurseybook.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static nurseybook.logic.parser.CliSyntax.PREFIX_GENDER;
+import static nurseybook.logic.parser.CliSyntax.PREFIX_NAME;
+import static nurseybook.logic.parser.CliSyntax.PREFIX_NOK_NAME;
+import static nurseybook.logic.parser.CliSyntax.PREFIX_PHONE;
+import static nurseybook.logic.parser.CliSyntax.PREFIX_RELATIONSHIP;
+import static nurseybook.logic.parser.CliSyntax.PREFIX_ROOM_NUM;
+import static nurseybook.logic.parser.CliSyntax.PREFIX_TAG;
+import static nurseybook.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static nurseybook.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,14 +21,12 @@ import java.util.Set;
 
 import nurseybook.commons.core.index.Index;
 import nurseybook.logic.commands.exceptions.CommandException;
-import nurseybook.logic.parser.CliSyntax;
+import nurseybook.model.Model;
+import nurseybook.model.NurseyBook;
 import nurseybook.model.person.Elderly;
 import nurseybook.model.person.NameContainsKeywordsPredicate;
 import nurseybook.model.tag.Tag;
-import nurseybook.testutil.Assert;
 import nurseybook.testutil.EditElderlyDescriptorBuilder;
-import nurseybook.model.AddressBook;
-import nurseybook.model.Model;
 
 /**
  * Contains helper methods for testing commands.
@@ -49,40 +57,40 @@ public class CommandTestUtil {
     public static final String VALID_TAG_FRIEND = "friends";
     public static final String VALID_TAG_DIABETES = "diabetes";
 
-    public static final String NAME_DESC_AMY = " " + CliSyntax.PREFIX_NAME + VALID_NAME_AMY;
-    public static final String NAME_DESC_BOB = " " + CliSyntax.PREFIX_NAME + VALID_NAME_BOB;
-    public static final String AGE_DESC_AMY = " " + CliSyntax.PREFIX_AGE + VALID_AGE_AMY;
-    public static final String AGE_DESC_BOB = " " + CliSyntax.PREFIX_AGE + VALID_AGE_BOB;
-    public static final String GENDER_DESC_AMY = " " + CliSyntax.PREFIX_GENDER + VALID_GENDER_AMY;
-    public static final String GENDER_DESC_BOB = " " + CliSyntax.PREFIX_GENDER + VALID_GENDER_BOB;
-    public static final String ROOM_NUMBER_DESC_AMY = " " + CliSyntax.PREFIX_ROOM_NUM + VALID_ROOM_NUMBER_AMY;
-    public static final String ROOM_NUMBER_DESC_BOB = " " + CliSyntax.PREFIX_ROOM_NUM + VALID_ROOM_NUMBER_BOB;
-    public static final String NOK_NAME_DESC_AMY = " " + CliSyntax.PREFIX_NOK_NAME + VALID_NOK_NAME_AMY;
-    public static final String NOK_NAME_DESC_BOB = " " + CliSyntax.PREFIX_NOK_NAME + VALID_NOK_NAME_BOB;
-    public static final String NOK_RELATIONSHIP_DESC_AMY = " " + CliSyntax.PREFIX_RELATIONSHIP + VALID_NOK_RELATIONSHIP_AMY;
-    public static final String NOK_RELATIONSHIP_DESC_BOB = " " + CliSyntax.PREFIX_RELATIONSHIP + VALID_NOK_RELATIONSHIP_BOB;
-    public static final String NOK_PHONE_DESC_AMY = " " + CliSyntax.PREFIX_PHONE + VALID_NOK_PHONE_AMY;
-    public static final String NOK_PHONE_DESC_BOB = " " + CliSyntax.PREFIX_PHONE + VALID_NOK_PHONE_BOB;
-    public static final String NOK_EMAIL_DESC_AMY = " " + CliSyntax.PREFIX_EMAIL + VALID_NOK_EMAIL_AMY;
-    public static final String NOK_EMAIL_DESC_BOB = " " + CliSyntax.PREFIX_EMAIL + VALID_NOK_EMAIL_BOB;
-    public static final String NOK_ADDRESS_DESC_AMY = " " + CliSyntax.PREFIX_ADDRESS + VALID_NOK_ADDRESS_AMY;
-    public static final String NOK_ADDRESS_DESC_BOB = " " + CliSyntax.PREFIX_ADDRESS + VALID_NOK_ADDRESS_BOB;
-    public static final String TAG_DESC_FRIEND = " " + CliSyntax.PREFIX_TAG + VALID_TAG_FRIEND;
-    public static final String TAG_DESC_HUSBAND = " " + CliSyntax.PREFIX_TAG + VALID_TAG_HUSBAND;
-    public static final String TAG_DESC_DIABETES = " " + CliSyntax.PREFIX_TAG + VALID_TAG_DIABETES;
-    public static final String TAG_EMPTY = " " + CliSyntax.PREFIX_TAG;
+    public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
+    public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
+    public static final String AGE_DESC_AMY = " " + PREFIX_AGE + VALID_AGE_AMY;
+    public static final String AGE_DESC_BOB = " " + PREFIX_AGE + VALID_AGE_BOB;
+    public static final String GENDER_DESC_AMY = " " + PREFIX_GENDER + VALID_GENDER_AMY;
+    public static final String GENDER_DESC_BOB = " " + PREFIX_GENDER + VALID_GENDER_BOB;
+    public static final String ROOM_NUMBER_DESC_AMY = " " + PREFIX_ROOM_NUM + VALID_ROOM_NUMBER_AMY;
+    public static final String ROOM_NUMBER_DESC_BOB = " " + PREFIX_ROOM_NUM + VALID_ROOM_NUMBER_BOB;
+    public static final String NOK_NAME_DESC_AMY = " " + PREFIX_NOK_NAME + VALID_NOK_NAME_AMY;
+    public static final String NOK_NAME_DESC_BOB = " " + PREFIX_NOK_NAME + VALID_NOK_NAME_BOB;
+    public static final String NOK_RELATIONSHIP_DESC_AMY = " " + PREFIX_RELATIONSHIP + VALID_NOK_RELATIONSHIP_AMY;
+    public static final String NOK_RELATIONSHIP_DESC_BOB = " " + PREFIX_RELATIONSHIP + VALID_NOK_RELATIONSHIP_BOB;
+    public static final String NOK_PHONE_DESC_AMY = " " + PREFIX_PHONE + VALID_NOK_PHONE_AMY;
+    public static final String NOK_PHONE_DESC_BOB = " " + PREFIX_PHONE + VALID_NOK_PHONE_BOB;
+    public static final String NOK_EMAIL_DESC_AMY = " " + PREFIX_EMAIL + VALID_NOK_EMAIL_AMY;
+    public static final String NOK_EMAIL_DESC_BOB = " " + PREFIX_EMAIL + VALID_NOK_EMAIL_BOB;
+    public static final String NOK_ADDRESS_DESC_AMY = " " + PREFIX_ADDRESS + VALID_NOK_ADDRESS_AMY;
+    public static final String NOK_ADDRESS_DESC_BOB = " " + PREFIX_ADDRESS + VALID_NOK_ADDRESS_BOB;
+    public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
+    public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
+    public static final String TAG_DESC_DIABETES = " " + PREFIX_TAG + VALID_TAG_DIABETES;
+    public static final String TAG_EMPTY = " " + PREFIX_TAG;
 
-    public static final String INVALID_NAME_DESC = " " + CliSyntax.PREFIX_NAME + "James&"; // '&' not allowed in names
-    public static final String INVALID_AGE_DESC = " " + CliSyntax.PREFIX_AGE + "2d7"; // 'd' not allowed in age
-    public static final String INVALID_GENDER_DESC = " " + CliSyntax.PREFIX_GENDER + "a"; // other than 'M' or 'F' not allowed
+    public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
+    public static final String INVALID_AGE_DESC = " " + PREFIX_AGE + "2d7"; // 'd' not allowed in age
+    public static final String INVALID_GENDER_DESC = " " + PREFIX_GENDER + "a"; // other than 'M' or 'F' not allowed
     public static final String INVALID_ROOM_NUMBER_DESC = " "
-            + CliSyntax.PREFIX_ROOM_NUM + "18a"; // '18a' not allowed in room numbers
-    public static final String INVALID_NOK_NAME_DESC = " " + CliSyntax.PREFIX_NOK_NAME + "James&"; // '&' not allowed in nokNames
+            + PREFIX_ROOM_NUM + "18a"; // '18a' not allowed in room numbers
+    public static final String INVALID_NOK_NAME_DESC = " " + PREFIX_NOK_NAME + "James&"; // '&' not allowed in nokNames
     public static final String INVALID_NOK_RELATIONSHIP_DESC = " "
-            + CliSyntax.PREFIX_RELATIONSHIP + "2da"; // '2' not allowed in relationship
-    public static final String INVALID_NOK_PHONE_DESC = " " + CliSyntax.PREFIX_PHONE + "911a"; // 'a' not allowed in phones
-    public static final String INVALID_NOK_EMAIL_DESC = " " + CliSyntax.PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
-    public static final String INVALID_TAG_DESC = " " + CliSyntax.PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+            + PREFIX_RELATIONSHIP + "2da"; // '2' not allowed in relationship
+    public static final String INVALID_NOK_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
+    public static final String INVALID_NOK_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
+    public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
@@ -148,21 +156,21 @@ public class CommandTestUtil {
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
-     * - the address book, filtered elderly list and selected elderly in {@code actualModel} remain unchanged
+     * - the nursey book, filtered elderly list and selected elderly in {@code actualModel} remain unchanged
      */
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        AddressBook expectedAddressBook = new AddressBook(actualModel.getVersionedNurseyBook());
+        NurseyBook expectedNurseyBook = new NurseyBook(actualModel.getVersionedNurseyBook());
         List<Elderly> expectedFilteredList = new ArrayList<>(actualModel.getFilteredElderlyList());
 
-        Assert.assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
-        assertEquals(expectedAddressBook, actualModel.getVersionedNurseyBook());
+        assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
+        assertEquals(expectedNurseyBook, actualModel.getVersionedNurseyBook());
         assertEquals(expectedFilteredList, actualModel.getFilteredElderlyList());
     }
     /**
      * Updates {@code model}'s filtered list to show only the elderly at the given {@code targetIndex} in the
-     * {@code model}'s address book.
+     * {@code model}'s nursey book.
      */
     public static void showElderlyAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredElderlyList().size());
@@ -175,12 +183,13 @@ public class CommandTestUtil {
     }
 
     /**
-     * Deletes the first person in {@code model}'s filtered list from {@code model}'s address book.
+     * Deletes the first person in {@code model}'s filtered list from {@code model}'s nursey book.
      */
     public static CommandResult deleteFirstElderly(Model model) {
         Elderly firstElderly = model.getFilteredElderlyList().get(0);
         model.deleteElderly(firstElderly);
-        CommandResult result = new CommandResult(String.format(DeleteCommand.MESSAGE_DELETE_ELDERLY_SUCCESS, firstElderly));
+        CommandResult result = new CommandResult(String.format(DeleteCommand.MESSAGE_DELETE_ELDERLY_SUCCESS,
+                firstElderly));
         model.commitNurseyBook(result);
         return result;
     }

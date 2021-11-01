@@ -1,9 +1,9 @@
 package nurseybook.logic.commands;
 
+import static nurseybook.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static nurseybook.logic.commands.CommandTestUtil.assertCommandSuccess;
 
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -11,18 +11,18 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import nurseybook.commons.core.Messages;
-import nurseybook.model.task.DateTimeContainsDatePredicate;
-import nurseybook.testutil.TypicalTasks;
 import nurseybook.model.Model;
 import nurseybook.model.ModelManager;
 import nurseybook.model.UserPrefs;
+import nurseybook.model.task.DateTimeContainsDatePredicate;
+import nurseybook.testutil.TypicalTasks;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code ViewScheduleCommand}.
  */
 public class ViewScheduleCommandTest {
-    private Model model = new ModelManager(TypicalTasks.getTypicalAddressBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(TypicalTasks.getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(TypicalTasks.getTypicalNurseyBook(), new UserPrefs());
+    private Model expectedModel = new ModelManager(TypicalTasks.getTypicalNurseyBook(), new UserPrefs());
 
     @Test
     public void equals() {

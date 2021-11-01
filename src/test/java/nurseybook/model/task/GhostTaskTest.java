@@ -1,29 +1,27 @@
 package nurseybook.model.task;
 
+import static nurseybook.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static nurseybook.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
-
-import nurseybook.testutil.Assert;
 
 public class GhostTaskTest {
     @Test
     public void constructor_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> new GhostTask(null));
+        assertThrows(NullPointerException.class, () -> new GhostTask(null));
     }
 
     @Test
     public void constructor_invalidGhostTask_throwsIllegalArgumentException() {
         String invalidGhostTask = "a";
-        Assert.assertThrows(IllegalArgumentException.class, () -> new GhostTask(invalidGhostTask));
+        assertThrows(IllegalArgumentException.class, () -> new GhostTask(invalidGhostTask));
     }
 
     @Test
     public void isValidGhostTask() {
         // null ghostTask
-        Assert.assertThrows(NullPointerException.class, () -> GhostTask.isValidGhostTask(null));
+        assertThrows(NullPointerException.class, () -> GhostTask.isValidGhostTask(null));
 
         // invalid ghostTasks
         assertFalse(GhostTask.isValidGhostTask("abc"));

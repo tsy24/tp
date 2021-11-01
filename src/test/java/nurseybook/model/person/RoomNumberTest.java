@@ -1,30 +1,28 @@
 package nurseybook.model.person;
 
+import static nurseybook.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static nurseybook.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
-
-import nurseybook.testutil.Assert;
 
 public class RoomNumberTest {
 
     @Test
     public void constructor_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> new RoomNumber(null));
+        assertThrows(NullPointerException.class, () -> new RoomNumber(null));
     }
 
     @Test
     public void constructor_invalidRoomNumber_throwsIllegalArgumentException() {
         String invalidRoomNumber = "";
-        Assert.assertThrows(IllegalArgumentException.class, () -> new RoomNumber(invalidRoomNumber));
+        assertThrows(IllegalArgumentException.class, () -> new RoomNumber(invalidRoomNumber));
     }
 
     @Test
     public void isValidRoomNumber() {
         // null room number
-        Assert.assertThrows(NullPointerException.class, () -> RoomNumber.isValidRoomNumber(null));
+        assertThrows(NullPointerException.class, () -> RoomNumber.isValidRoomNumber(null));
 
         // invalid room numbers
         assertFalse(RoomNumber.isValidRoomNumber("")); // empty string

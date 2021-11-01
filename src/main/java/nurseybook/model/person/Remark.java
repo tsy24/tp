@@ -3,7 +3,7 @@ package nurseybook.model.person;
 import static java.util.Objects.requireNonNull;
 
 /**
- * Represents a Elderly's remark in the address book.
+ * Represents a Elderly's remark in the nursey book.
  * Guarantees: immutable; is always valid
  */
 public class Remark {

@@ -8,12 +8,12 @@ import java.util.Set;
 
 import nurseybook.commons.core.index.Index;
 import nurseybook.logic.parser.CliSyntax;
+import nurseybook.model.Model;
 import nurseybook.model.person.Name;
 import nurseybook.model.task.DescriptionContainsKeywordPredicate;
 import nurseybook.model.task.Recurrence;
 import nurseybook.model.task.Task;
 import nurseybook.testutil.EditTaskDescriptorBuilder;
-import nurseybook.model.Model;
 
 public class TaskCommandTestUtil extends CommandTestUtil {
     public static final String VALID_DESC_PAPERWORK = "Do paperwork";
@@ -69,7 +69,7 @@ public class TaskCommandTestUtil extends CommandTestUtil {
 
     /**
      * Updates {@code model}'s filtered list to show only the task at the given {@code targetIndex} in the
-     * {@code model}'s address book.
+     * {@code model}'s nursey book.
      */
     public static void showTaskAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredTaskList().size());

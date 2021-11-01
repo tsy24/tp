@@ -5,9 +5,9 @@ import nurseybook.model.person.Elderly;
 import nurseybook.model.task.Task;
 
 /**
- * Unmodifiable view of an address book
+ * Unmodifiable view of an nursey book
  */
-public interface ReadOnlyAddressBook {
+public interface ReadOnlyNurseyBook {
 
     /**
      * Returns an unmodifiable view of the elderlies list.

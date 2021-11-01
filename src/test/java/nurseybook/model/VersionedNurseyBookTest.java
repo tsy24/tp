@@ -1,12 +1,12 @@
 package nurseybook.model;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static nurseybook.testutil.Assert.assertThrows;
 import static nurseybook.testutil.TypicalElderlies.AMY;
 import static nurseybook.testutil.TypicalElderlies.BOB;
-import static nurseybook.testutil.TypicalElderlies.getTypicalAddressBook;
+import static nurseybook.testutil.TypicalElderlies.getTypicalNurseyBook;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -15,13 +15,13 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import nurseybook.logic.commands.CommandResult;
-import nurseybook.testutil.AddressBookBuilder;
+import nurseybook.testutil.NurseyBookBuilder;
 
 public class VersionedNurseyBookTest {
 
-    private final ReadOnlyAddressBook nurseyBookInitial = getTypicalAddressBook();
-    private final ReadOnlyAddressBook nurseyBookWithAmy = new AddressBookBuilder().withElderly(AMY).build();
-    private final ReadOnlyAddressBook nurseyBookWithBob = new AddressBookBuilder().withElderly(BOB).build();
+    private final ReadOnlyNurseyBook nurseyBookInitial = getTypicalNurseyBook();
+    private final ReadOnlyNurseyBook nurseyBookWithAmy = new NurseyBookBuilder().withElderly(AMY).build();
+    private final ReadOnlyNurseyBook nurseyBookWithBob = new NurseyBookBuilder().withElderly(BOB).build();
     private final CommandResult dummyCommandResult = new CommandResult("feedback");
 
     @Test
@@ -77,7 +77,7 @@ public class VersionedNurseyBookTest {
 
     @Test
     public void canUndo_initialState_returnsFalse() {
-        VersionedNurseyBook versionedNurseyBook = new VersionedNurseyBook(getTypicalAddressBook());
+        VersionedNurseyBook versionedNurseyBook = new VersionedNurseyBook(getTypicalNurseyBook());
 
         assertFalse(versionedNurseyBook.canUndo());
     }
@@ -149,7 +149,7 @@ public class VersionedNurseyBookTest {
 
     @Test
     public void canRedo_initialState_returnsFalse() {
-        VersionedNurseyBook versionedNurseyBook = new VersionedNurseyBook(getTypicalAddressBook());
+        VersionedNurseyBook versionedNurseyBook = new VersionedNurseyBook(getTypicalNurseyBook());
 
         assertFalse(versionedNurseyBook.canRedo());
     }
@@ -204,7 +204,7 @@ public class VersionedNurseyBookTest {
 
 
     private VersionedNurseyBook initialiseMultipleStatesVersionedNurseyBook() {
-        VersionedNurseyBook versionedNurseyBook = new VersionedNurseyBook(getTypicalAddressBook());
+        VersionedNurseyBook versionedNurseyBook = new VersionedNurseyBook(getTypicalNurseyBook());
         versionedNurseyBook.resetData(nurseyBookWithAmy);
         versionedNurseyBook.commit(dummyCommandResult);
         versionedNurseyBook.resetData(nurseyBookWithBob);
@@ -244,11 +244,11 @@ public class VersionedNurseyBookTest {
      * and states after {@code versionedNurseyBook#currentStateIndex} is equal to {@code expectedStatesAfterIndex}.
      */
     private void assertNurseyBookListStatus(VersionedNurseyBook versionedNurseyBook,
-                                            List<ReadOnlyAddressBook> expectedStatesBeforeIndex,
-                                            ReadOnlyAddressBook expectedCurrentState,
-                                            List<ReadOnlyAddressBook> expectedStatesAfterIndex) {
+                                            List<ReadOnlyNurseyBook> expectedStatesBeforeIndex,
+                                            ReadOnlyNurseyBook expectedCurrentState,
+                                            List<ReadOnlyNurseyBook> expectedStatesAfterIndex) {
         // check state currently pointing at is correct
-        assertEquals(new AddressBook(versionedNurseyBook), expectedCurrentState);
+        assertEquals(new NurseyBook(versionedNurseyBook), expectedCurrentState);
 
         // set index to 0
         while (versionedNurseyBook.canUndo()) {
@@ -256,15 +256,15 @@ public class VersionedNurseyBookTest {
         }
 
         // check states before index are correct
-        for (ReadOnlyAddressBook expectedNurseyBook : expectedStatesBeforeIndex) {
-            assertEquals(expectedNurseyBook, new AddressBook(versionedNurseyBook));
+        for (ReadOnlyNurseyBook expectedNurseyBook : expectedStatesBeforeIndex) {
+            assertEquals(expectedNurseyBook, new NurseyBook(versionedNurseyBook));
             versionedNurseyBook.redo();
         }
 
         // check states after index are correct
-        for (ReadOnlyAddressBook expectedNurseyBook : expectedStatesAfterIndex) {
+        for (ReadOnlyNurseyBook expectedNurseyBook : expectedStatesAfterIndex) {
             versionedNurseyBook.redo();
-            assertEquals(expectedNurseyBook, new AddressBook(versionedNurseyBook));
+            assertEquals(expectedNurseyBook, new NurseyBook(versionedNurseyBook));
         }
 
         // check that there are no more states

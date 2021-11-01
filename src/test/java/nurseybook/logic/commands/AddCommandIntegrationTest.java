@@ -1,16 +1,17 @@
 package nurseybook.logic.commands;
 
+import static nurseybook.logic.commands.CommandTestUtil.assertCommandFailure;
 import static nurseybook.logic.commands.CommandTestUtil.assertCommandSuccess;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import nurseybook.model.person.Elderly;
-import nurseybook.testutil.ElderlyBuilder;
-import nurseybook.testutil.TypicalElderlies;
 import nurseybook.model.Model;
 import nurseybook.model.ModelManager;
 import nurseybook.model.UserPrefs;
+import nurseybook.model.person.Elderly;
+import nurseybook.testutil.ElderlyBuilder;
+import nurseybook.testutil.TypicalElderlies;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code AddCommand}.
@@ -21,7 +22,7 @@ public class AddCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(TypicalElderlies.getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(TypicalElderlies.getTypicalNurseyBook(), new UserPrefs());
     }
 
     @Test
@@ -34,14 +35,14 @@ public class AddCommandIntegrationTest {
                 CommandResult.ListDisplayChange.ELDERLY);
         expectedModel.commitNurseyBook(expectedCommandResult);
 
-        CommandTestUtil.assertCommandSuccess(new AddCommand(validElderly), model,
+        assertCommandSuccess(new AddCommand(validElderly), model,
                 expectedCommandResult, expectedModel);
     }
 
     @Test
     public void execute_duplicateElderly_throwsCommandException() {
         Elderly elderlyInList = model.getVersionedNurseyBook().getElderlyList().get(0);
-        CommandTestUtil.assertCommandFailure(new AddCommand(elderlyInList), model, AddCommand.MESSAGE_DUPLICATE_ELDERLY);
+        assertCommandFailure(new AddCommand(elderlyInList), model, AddCommand.MESSAGE_DUPLICATE_ELDERLY);
     }
 
 }

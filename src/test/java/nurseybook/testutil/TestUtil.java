@@ -6,8 +6,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import nurseybook.commons.core.index.Index;
-import nurseybook.model.person.Elderly;
 import nurseybook.model.Model;
+import nurseybook.model.person.Elderly;
 
 /**
  * A utility class for test cases.

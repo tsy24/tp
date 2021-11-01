@@ -2,6 +2,11 @@ package nurseybook.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static nurseybook.commons.core.Messages.MESSAGE_INVALID_TASK_DATETIME_FOR_RECURRING_TASK;
+import static nurseybook.logic.parser.CliSyntax.PREFIX_NAME;
+import static nurseybook.logic.parser.CliSyntax.PREFIX_TASK_DATE;
+import static nurseybook.logic.parser.CliSyntax.PREFIX_TASK_DESC;
+import static nurseybook.logic.parser.CliSyntax.PREFIX_TASK_RECURRING;
+import static nurseybook.logic.parser.CliSyntax.PREFIX_TASK_TIME;
 import static nurseybook.model.Model.PREDICATE_SHOW_ALL_TASKS;
 
 import java.time.LocalDate;
@@ -12,7 +17,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import nurseybook.logic.parser.CliSyntax;
 import nurseybook.commons.core.Messages;
 import nurseybook.commons.core.index.Index;
 import nurseybook.commons.util.CollectionUtil;
@@ -26,7 +30,7 @@ import nurseybook.model.task.Status;
 import nurseybook.model.task.Task;
 
 /**
- * Edits the details of an existing task in the address book.
+ * Edits the details of an existing task in the nursey book.
  */
 public class EditTaskCommand extends Command {
     public static final String COMMAND_WORD = "editTask";
@@ -35,15 +39,15 @@ public class EditTaskCommand extends Command {
             + "by the index number used in the displayed task list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + CliSyntax.PREFIX_NAME + "NAME] "
-            + "[" + CliSyntax.PREFIX_TASK_DESC + "DESCRIPTION] "
-            + "[" + CliSyntax.PREFIX_TASK_DATE + "DATE] "
-            + "[" + CliSyntax.PREFIX_TASK_TIME + "TIME] "
-            + "[" + CliSyntax.PREFIX_TASK_RECURRING + "RECURRENCE_TYPE]\n"
+            + "[" + PREFIX_NAME + "NAME] "
+            + "[" + PREFIX_TASK_DESC + "DESCRIPTION] "
+            + "[" + PREFIX_TASK_DATE + "DATE] "
+            + "[" + PREFIX_TASK_TIME + "TIME] "
+            + "[" + PREFIX_TASK_RECURRING + "RECURRENCE_TYPE]\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + CliSyntax.PREFIX_NAME + "Khong Guan "
-            + CliSyntax.PREFIX_NAME + "John Doe "
-            + CliSyntax.PREFIX_TASK_RECURRING + "WEEK";
+            + PREFIX_NAME + "Khong Guan "
+            + PREFIX_NAME + "John Doe "
+            + PREFIX_TASK_RECURRING + "WEEK";
 
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited Task: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";

@@ -1,11 +1,11 @@
 package nurseybook.logic.commands;
 
 import static nurseybook.commons.util.CollectionUtil.requireAllNonNull;
+import static nurseybook.logic.parser.CliSyntax.PREFIX_REMARK;
 import static nurseybook.model.Model.PREDICATE_SHOW_ALL_ELDERLIES;
 
 import java.util.List;
 
-import nurseybook.logic.parser.CliSyntax;
 import nurseybook.commons.core.Messages;
 import nurseybook.commons.core.index.Index;
 import nurseybook.logic.commands.exceptions.CommandException;
@@ -14,7 +14,7 @@ import nurseybook.model.person.Elderly;
 import nurseybook.model.person.Remark;
 
 /**
- * Changes the remark of an existing elderly in the address book.
+ * Changes the remark of an existing elderly in the nursey book.
  */
 public class RemarkCommand extends Command {
 
@@ -24,9 +24,9 @@ public class RemarkCommand extends Command {
             + "by the index number used in the last elderly listing. "
             + "Existing remark will be overwritten by the input.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + CliSyntax.PREFIX_REMARK + "[REMARK]\n"
+            + PREFIX_REMARK + "[REMARK]\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + CliSyntax.PREFIX_REMARK + "Likes to swim.";
+            + PREFIX_REMARK + "Likes to swim.";
 
     public static final String MESSAGE_ADD_REMARK_SUCCESS = "Added remark to Elderly: %1$s";
     public static final String MESSAGE_DELETE_REMARK_SUCCESS = "Removed remark from Elderly: %1$s";

@@ -3,7 +3,7 @@ package nurseybook.model.person;
 import static nurseybook.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
- * Represents a Person in the address book.
+ * Represents a Person in the nursey book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public abstract class Person {

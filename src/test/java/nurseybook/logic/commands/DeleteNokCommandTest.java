@@ -1,29 +1,29 @@
 package nurseybook.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static nurseybook.logic.commands.CommandTestUtil.assertCommandFailure;
 import static nurseybook.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static nurseybook.logic.commands.CommandTestUtil.showElderlyAtIndex;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
 import nurseybook.commons.core.Messages;
 import nurseybook.commons.core.index.Index;
+import nurseybook.model.Model;
+import nurseybook.model.ModelManager;
+import nurseybook.model.UserPrefs;
 import nurseybook.model.person.Elderly;
 import nurseybook.testutil.ElderlyBuilder;
 import nurseybook.testutil.TypicalElderlies;
 import nurseybook.testutil.TypicalIndexes;
-import nurseybook.model.Model;
-import nurseybook.model.ModelManager;
-import nurseybook.model.UserPrefs;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for
  * {@code DeleteNokCommand}.
  */
 public class DeleteNokCommandTest {
-    private Model model = new ModelManager(TypicalElderlies.getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(TypicalElderlies.getTypicalNurseyBook(), new UserPrefs());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {

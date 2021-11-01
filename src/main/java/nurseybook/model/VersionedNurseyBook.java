@@ -8,7 +8,7 @@ import nurseybook.logic.commands.CommandResult;
 /**
  * Tracks the state of the nurseybook
  */
-public class VersionedNurseyBook extends AddressBook {
+public class VersionedNurseyBook extends NurseyBook {
 
     private static final CommandResult INITIAL_COMMAND_RESULT = new CommandResult("Initialise NurseyBook");
     private List<NurseyBookState> nurseyBookStateList;
@@ -17,10 +17,10 @@ public class VersionedNurseyBook extends AddressBook {
     /**
      * Creates a VersionedNurseyBook using the data in the {@code initialNurseyBook}.
      */
-    public VersionedNurseyBook(ReadOnlyAddressBook initialNurseyBook) {
+    public VersionedNurseyBook(ReadOnlyNurseyBook initialNurseyBook) {
         super(initialNurseyBook);
         nurseyBookStateList = new ArrayList<>();
-        nurseyBookStateList.add(new NurseyBookState(new AddressBook(initialNurseyBook),
+        nurseyBookStateList.add(new NurseyBookState(new NurseyBook(initialNurseyBook),
                 INITIAL_COMMAND_RESULT));
         currentStateIndex = 0;
     }
@@ -31,7 +31,7 @@ public class VersionedNurseyBook extends AddressBook {
      */
     public void commit(CommandResult commandResult) {
         deleteUndoneStates();
-        nurseyBookStateList.add(new NurseyBookState(new AddressBook(this), commandResult));
+        nurseyBookStateList.add(new NurseyBookState(new NurseyBook(this), commandResult));
         currentStateIndex++;
     }
 

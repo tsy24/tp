@@ -1,29 +1,28 @@
 package nurseybook.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static nurseybook.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static nurseybook.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
-import nurseybook.model.task.Task;
-import nurseybook.testutil.AddressBookBuilder;
-import nurseybook.testutil.Assert;
-import nurseybook.testutil.ModelStub;
-import nurseybook.testutil.TaskBuilder;
-import nurseybook.model.AddressBook;
-import nurseybook.model.ReadOnlyAddressBook;
+import nurseybook.model.NurseyBook;
+import nurseybook.model.ReadOnlyNurseyBook;
 import nurseybook.model.VersionedNurseyBook;
+import nurseybook.model.task.Task;
+import nurseybook.testutil.ModelStub;
+import nurseybook.testutil.NurseyBookBuilder;
+import nurseybook.testutil.TaskBuilder;
 
 public class AddTaskCommandTest {
     @Test
     public void constructor_nullTask_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> new AddTaskCommand(null));
+        assertThrows(NullPointerException.class, () -> new AddTaskCommand(null));
     }
 
     @Test
@@ -68,7 +67,7 @@ public class AddTaskCommandTest {
      */
     private class ModelStubAcceptingTaskAdded extends ModelStub {
         final ArrayList<Task> tasksAdded = new ArrayList<>();
-        final VersionedNurseyBook versionedNurseyBook = new VersionedNurseyBook(new AddressBookBuilder().build());
+        final VersionedNurseyBook versionedNurseyBook = new VersionedNurseyBook(new NurseyBookBuilder().build());
 
         @Override
         public boolean hasTask(Task t) {
@@ -88,8 +87,8 @@ public class AddTaskCommandTest {
         }
 
         @Override
-        public ReadOnlyAddressBook getVersionedNurseyBook() {
-            return new AddressBook();
+        public ReadOnlyNurseyBook getVersionedNurseyBook() {
+            return new NurseyBook();
         }
     }
 

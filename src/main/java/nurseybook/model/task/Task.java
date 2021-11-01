@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Set;
 
-import nurseybook.model.AddressBook;
+import nurseybook.model.NurseyBook;
 import nurseybook.model.person.Elderly;
 import nurseybook.model.person.Name;
 
@@ -426,10 +426,10 @@ public class Task implements Comparable<Task> {
     /**
      * Returns set of elderly objects related to this task.
      *
-     * @param book                      address book that stores this task
+     * @param book                      nursey book that stores this task
      * @return                          task description
      */
-    public Set<Elderly> getRelatedPeople(AddressBook book) {
+    public Set<Elderly> getRelatedPeople(NurseyBook book) {
         Set<Elderly> relatedPeople = new HashSet<>();
         for (Name name: relatedNames) {
             relatedPeople.add(book.getElderly(name));

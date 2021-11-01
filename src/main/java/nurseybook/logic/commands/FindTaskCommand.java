@@ -7,7 +7,7 @@ import nurseybook.model.Model;
 import nurseybook.model.task.DescriptionContainsKeywordPredicate;
 
 /**
- * Finds and lists all tasks in the address book which description contains any of the argument keywords.
+ * Finds and lists all tasks in the nursey book which description contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
 public class FindTaskCommand extends Command {

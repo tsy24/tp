@@ -1,5 +1,15 @@
 package nurseybook.model.task;
 
+import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_DATE_JAN;
+import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_DATE_NOV;
+import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_DESC_MEDICINE;
+import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_NAME_ALEX;
+import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_NAME_KEITH;
+import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_TIME_SEVENPM;
+import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_TIME_TENAM;
+import static nurseybook.testutil.TypicalTasks.ALEX_INSULIN;
+import static nurseybook.testutil.TypicalTasks.DO_PAPERWORK;
+import static nurseybook.testutil.TypicalTasks.KEITH_INSULIN;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -11,22 +21,21 @@ import java.time.LocalTime;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import nurseybook.logic.commands.TaskCommandTestUtil;
 import nurseybook.testutil.TaskBuilder;
 import nurseybook.testutil.TypicalTasks;
 
 
 public class TaskTest {
 
-    private final Task keithInsulin = new TaskBuilder(TypicalTasks.KEITH_INSULIN).build();
+    private final Task keithInsulin = new TaskBuilder(KEITH_INSULIN).build();
     private final Task applyLeave = new TaskBuilder(TypicalTasks.APPLY_LEAVE).build();
 
     @Test
     public void equals() {
         // same values -> returns true
-        assertTrue(keithInsulin.equals(TypicalTasks.KEITH_INSULIN));
-        Task alexToKeith = new TaskBuilder(TypicalTasks.ALEX_INSULIN).withNames(TaskCommandTestUtil.VALID_NAME_KEITH).withDesc(TaskCommandTestUtil.VALID_DESC_MEDICINE)
-                .withDateTime(TaskCommandTestUtil.VALID_DATE_NOV, TaskCommandTestUtil.VALID_TIME_SEVENPM).withStatus("false", "true")
+        assertTrue(keithInsulin.equals(KEITH_INSULIN));
+        Task alexToKeith = new TaskBuilder(ALEX_INSULIN).withNames(VALID_NAME_KEITH).withDesc(VALID_DESC_MEDICINE)
+                .withDateTime(VALID_DATE_NOV, VALID_TIME_SEVENPM).withStatus("false", "true")
                 .withRecurrence(Recurrence.RecurrenceType.NONE.name()).build();
         assertTrue(keithInsulin.equals(alexToKeith));
 
@@ -40,17 +49,17 @@ public class TaskTest {
         assertFalse(keithInsulin.equals(5));
 
         // different name -> returns false
-        Task editedTask = new TaskBuilder(keithInsulin).withNames(TaskCommandTestUtil.VALID_NAME_ALEX).build();
+        Task editedTask = new TaskBuilder(keithInsulin).withNames(VALID_NAME_ALEX).build();
         assertFalse(keithInsulin.equals(editedTask));
-        editedTask = new TaskBuilder(keithInsulin).withNames(TaskCommandTestUtil.VALID_NAME_KEITH, TaskCommandTestUtil.VALID_NAME_ALEX).build();
+        editedTask = new TaskBuilder(keithInsulin).withNames(VALID_NAME_KEITH, VALID_NAME_ALEX).build();
         assertFalse(keithInsulin.equals(editedTask));
 
         // different date -> returns false
-        editedTask = new TaskBuilder(keithInsulin).withDateTime(TaskCommandTestUtil.VALID_DATE_JAN, TaskCommandTestUtil.VALID_TIME_SEVENPM).build();
+        editedTask = new TaskBuilder(keithInsulin).withDateTime(VALID_DATE_JAN, VALID_TIME_SEVENPM).build();
         assertFalse(keithInsulin.equals(editedTask));
 
         // different time -> returns false
-        editedTask = new TaskBuilder(keithInsulin).withDateTime(TaskCommandTestUtil.VALID_DATE_NOV, TaskCommandTestUtil.VALID_TIME_TENAM).build();
+        editedTask = new TaskBuilder(keithInsulin).withDateTime(VALID_DATE_NOV, VALID_TIME_TENAM).build();
         assertFalse(keithInsulin.equals(editedTask));
 
         // different status -> returns false
@@ -149,9 +158,9 @@ public class TaskTest {
 
     @Test
     public void compareTo() {
-        Task keithInsulin = new TaskBuilder(TypicalTasks.KEITH_INSULIN).build(); // date = "2020-11-01"
-        Task alexInsulin = new TaskBuilder(TypicalTasks.ALEX_INSULIN).build(); // date = "2022-01-31", time: "19:45" in 24 hrs time
-        Task doPaperwork = new TaskBuilder(TypicalTasks.DO_PAPERWORK).build(); // date: "2022-01-31", time: "10:20" in 24 hrs time
+        Task keithInsulin = new TaskBuilder(KEITH_INSULIN).build(); // date = "2020-11-01"
+        Task alexInsulin = new TaskBuilder(ALEX_INSULIN).build(); // date = "2022-01-31", time: "19:45" in 24 hrs time
+        Task doPaperwork = new TaskBuilder(DO_PAPERWORK).build(); // date: "2022-01-31", time: "10:20" in 24 hrs time
 
         // keithInsulin before alexInsulin -> returns negative value
         assertTrue(keithInsulin.compareTo(alexInsulin) < 0);

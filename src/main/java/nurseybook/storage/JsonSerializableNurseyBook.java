@@ -9,16 +9,16 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import nurseybook.commons.exceptions.IllegalValueException;
-import nurseybook.model.AddressBook;
-import nurseybook.model.ReadOnlyAddressBook;
+import nurseybook.model.NurseyBook;
+import nurseybook.model.ReadOnlyNurseyBook;
 import nurseybook.model.person.Elderly;
 import nurseybook.model.task.Task;
 
 /**
- * An Immutable AddressBook that is serializable to JSON format.
+ * An Immutable NurseyBook that is serializable to JSON format.
  */
-@JsonRootName(value = "addressbook")
-class JsonSerializableAddressBook {
+@JsonRootName(value = "nurseybook")
+class JsonSerializableNurseyBook {
 
     public static final String MESSAGE_DUPLICATE_ELDERLY = "Elderlies list contains duplicate elderly(s).";
 
@@ -26,44 +26,44 @@ class JsonSerializableAddressBook {
     private final List<JsonAdaptedTask> tasks = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableAddressBook} with the given elderlies and tasks.
+     * Constructs a {@code JsonSerializableNurseyBook} with the given elderlies and tasks.
      */
     @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("elderlies") List<JsonAdaptedElderly> elderlies,
-                                       @JsonProperty("tasks") List<JsonAdaptedTask> tasks) {
+    public JsonSerializableNurseyBook(@JsonProperty("elderlies") List<JsonAdaptedElderly> elderlies,
+                                      @JsonProperty("tasks") List<JsonAdaptedTask> tasks) {
         this.elderlies.addAll(elderlies);
         this.tasks.addAll(tasks);
     }
 
     /**
-     * Converts a given {@code ReadOnlyAddressBook} into this class for Jackson use.
+     * Converts a given {@code ReadOnlyNurseyBook} into this class for Jackson use.
      *
-     * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
+     * @param source future changes to this will not affect the created {@code JsonSerializableNurseyBook}.
      */
-    public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
+    public JsonSerializableNurseyBook(ReadOnlyNurseyBook source) {
         elderlies.addAll(source.getElderlyList().stream().map(JsonAdaptedElderly::new).collect(Collectors.toList()));
         tasks.addAll(source.getTaskList().stream().map(JsonAdaptedTask::new).collect(Collectors.toList()));
     }
 
     /**
-     * Converts this address book into the model's {@code AddressBook} object.
+     * Converts this nursey book into the model's {@code NurseyBook} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public AddressBook toModelType() throws IllegalValueException {
-        AddressBook addressBook = new AddressBook();
+    public NurseyBook toModelType() throws IllegalValueException {
+        NurseyBook nurseyBook = new NurseyBook();
         for (JsonAdaptedElderly jsonAdaptedElderly : elderlies) {
             Elderly elderly = jsonAdaptedElderly.toModelType();
-            if (addressBook.hasElderly(elderly)) {
+            if (nurseyBook.hasElderly(elderly)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_ELDERLY);
             }
-            addressBook.addElderly(elderly);
+            nurseyBook.addElderly(elderly);
         }
         for (JsonAdaptedTask jsonAdaptedTask : tasks) {
             Task task = jsonAdaptedTask.toModelType();
-            addressBook.addTask(task);
+            nurseyBook.addTask(task);
         }
-        return addressBook;
+        return nurseyBook;
     }
 
 }

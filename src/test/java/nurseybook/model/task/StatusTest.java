@@ -1,21 +1,19 @@
 package nurseybook.model.task;
 
+import static nurseybook.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static nurseybook.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
-
-import nurseybook.testutil.Assert;
 
 class StatusTest {
     @Test
     public void constructor_null_throwsNullPointerException() {
         // null isDone
-        Assert.assertThrows(NullPointerException.class, () -> new Status(null, "true"));
+        assertThrows(NullPointerException.class, () -> new Status(null, "true"));
 
         // null isOverdue
-        Assert.assertThrows(NullPointerException.class, () -> new Status("false", null));
+        assertThrows(NullPointerException.class, () -> new Status("false", null));
     }
 
     @Test
@@ -23,16 +21,16 @@ class StatusTest {
         String invalidStatus = "a";
 
         // invalid isDone
-        Assert.assertThrows(IllegalArgumentException.class, () -> new Status(invalidStatus, "false"));
+        assertThrows(IllegalArgumentException.class, () -> new Status(invalidStatus, "false"));
 
         // invalid isOverdue
-        Assert.assertThrows(IllegalArgumentException.class, () -> new Status("false", invalidStatus));
+        assertThrows(IllegalArgumentException.class, () -> new Status("false", invalidStatus));
     }
 
     @Test
     public void isValidStatus() {
         // null status
-        Assert.assertThrows(NullPointerException.class, () -> Status.isValidStatus(null));
+        assertThrows(NullPointerException.class, () -> Status.isValidStatus(null));
 
         // invalid statuses
         assertFalse(Status.isValidStatus("abc"));

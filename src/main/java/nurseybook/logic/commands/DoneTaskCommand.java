@@ -11,7 +11,7 @@ import nurseybook.model.Model;
 import nurseybook.model.task.Task;
 
 /**
- * Marks a task as done identified using its displayed index in the address book.
+ * Marks a task as done identified using its displayed index in the nursey book.
  */
 public class DoneTaskCommand extends Command {
 

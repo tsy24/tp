@@ -1,32 +1,30 @@
 package nurseybook.model.task;
 
+import static nurseybook.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static nurseybook.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
-
-import nurseybook.testutil.Assert;
 
 class DateTimeTest {
     @Test
     public void constructor_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> new DateTime((String) null, (String) null));
+        assertThrows(NullPointerException.class, () -> new DateTime((String) null, (String) null));
     }
 
     @Test
     public void constructor_invalidDateTime_throwsIllegalArgumentException() {
         String invalidDate = "8 july";
         String invalidTime = "12.12am";
-        Assert.assertThrows(IllegalArgumentException.class, () -> new DateTime(invalidDate, invalidTime));
+        assertThrows(IllegalArgumentException.class, () -> new DateTime(invalidDate, invalidTime));
     }
 
     @Test
     public void isValidDateTime() {
         // null date, time
-        Assert.assertThrows(NullPointerException.class, () -> DateTime.isValidDate(null));
-        Assert.assertThrows(NullPointerException.class, () -> DateTime.isValidTime(null));
+        assertThrows(NullPointerException.class, () -> DateTime.isValidDate(null));
+        assertThrows(NullPointerException.class, () -> DateTime.isValidTime(null));
 
         // invalid dates
         assertFalse(DateTime.isValidDate("bamboo")); // nonsense

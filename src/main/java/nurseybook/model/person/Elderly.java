@@ -10,7 +10,7 @@ import java.util.Set;
 import nurseybook.model.tag.Tag;
 
 /**
- * Represents an Elderly in the address book.
+ * Represents an Elderly in the nursey book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Elderly extends Person {

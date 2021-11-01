@@ -1,21 +1,21 @@
 package nurseybook.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static nurseybook.logic.commands.CommandTestUtil.assertCommandFailure;
 import static nurseybook.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static nurseybook.logic.commands.CommandTestUtil.showElderlyAtIndex;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
 import nurseybook.commons.core.Messages;
 import nurseybook.commons.core.index.Index;
-import nurseybook.model.person.Elderly;
-import nurseybook.testutil.TypicalElderlies;
-import nurseybook.testutil.TypicalIndexes;
 import nurseybook.model.Model;
 import nurseybook.model.ModelManager;
 import nurseybook.model.UserPrefs;
+import nurseybook.model.person.Elderly;
+import nurseybook.testutil.TypicalElderlies;
+import nurseybook.testutil.TypicalIndexes;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for
@@ -23,7 +23,7 @@ import nurseybook.model.UserPrefs;
  */
 public class DeleteCommandTest {
 
-    private Model model = new ModelManager(TypicalElderlies.getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(TypicalElderlies.getTypicalNurseyBook(), new UserPrefs());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -69,7 +69,7 @@ public class DeleteCommandTest {
         showElderlyAtIndex(model, TypicalIndexes.INDEX_FIRST);
 
         Index outOfBoundIndex = TypicalIndexes.INDEX_SECOND;
-        // ensures that outOfBoundIndex is still in bounds of address book list
+        // ensures that outOfBoundIndex is still in bounds of nursey book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getVersionedNurseyBook().getElderlyList().size());
 
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);

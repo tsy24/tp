@@ -1,5 +1,5 @@
 {
-  "_comment": "AddressBook save file which contains the same Elderly values as in TypicalElderlies#getTypicalAddressBook()",
+  "_comment": "NurseyBook save file which contains the same Elderly values as in TypicalElderlies#getTypicalNurseyBook()",
   "elderlies" : [ {
     "name" : "Alice Pauline",
     "age" : "40",

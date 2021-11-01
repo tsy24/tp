@@ -1,7 +1,6 @@
 package nurseybook.model;
 
 import static java.util.Objects.requireNonNull;
-import static nurseybook.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.time.LocalDate;
@@ -21,7 +20,7 @@ import nurseybook.model.task.TaskIsOverduePredicate;
 import nurseybook.model.task.TaskIsRecurringAndOverduePredicate;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of the nursey book data.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
@@ -35,11 +34,11 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given versionedNurseyBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook versionedNurseyBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyNurseyBook versionedNurseyBook, ReadOnlyUserPrefs userPrefs) {
         super();
         CollectionUtil.requireAllNonNull(versionedNurseyBook, userPrefs);
 
-        logger.fine("Initializing with address book: " + versionedNurseyBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with nursey book: " + versionedNurseyBook + " and user prefs " + userPrefs);
 
         this.versionedNurseyBook = new VersionedNurseyBook(versionedNurseyBook);
         this.userPrefs = new UserPrefs(userPrefs);
@@ -49,7 +48,7 @@ public class ModelManager implements Model {
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new NurseyBook(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -77,25 +76,25 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
+    public Path getNurseyBookFilePath() {
+        return userPrefs.getNurseyBookFilePath();
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
+    public void setNurseyBookFilePath(Path nurseyBookFilePath) {
+        requireNonNull(nurseyBookFilePath);
+        userPrefs.setNurseyBookFilePath(nurseyBookFilePath);
     }
 
-    //=========== AddressBook ================================================================================
+    //=========== NurseyBook ================================================================================
 
     @Override
-    public void setVersionedNurseyBook(ReadOnlyAddressBook versionedNurseyBook) {
+    public void setVersionedNurseyBook(ReadOnlyNurseyBook versionedNurseyBook) {
         this.versionedNurseyBook.resetData(versionedNurseyBook);
     }
 
     @Override
-    public ReadOnlyAddressBook getVersionedNurseyBook() {
+    public ReadOnlyNurseyBook getVersionedNurseyBook() {
         return versionedNurseyBook;
     }
 
@@ -216,7 +215,7 @@ public class ModelManager implements Model {
 
     /**
      * Returns an unmodifiable view of the list of {@code Elderly} backed by the internal list of
-     * {@code versionedAddressBook}
+     * {@code versionedNurseyBook}
      */
     @Override
     public ObservableList<Elderly> getFilteredElderlyList() {

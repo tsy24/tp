@@ -1,7 +1,6 @@
 package nurseybook.commons.util;
 
 import static java.util.Objects.requireNonNull;
-import static nurseybook.commons.util.AppUtil.checkArgument;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;

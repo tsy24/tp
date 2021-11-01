@@ -25,8 +25,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import nurseybook.model.NurseyBook;
 import nurseybook.model.person.Elderly;
-import nurseybook.model.AddressBook;
 
 /**
  * A utility class containing a list of {@code Elderly} objects to be used in tests.
@@ -86,14 +86,14 @@ public class TypicalElderlies {
     private TypicalElderlies() {} // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical elderlies.
+     * Returns an {@code NurseyBook} with all the typical elderlies.
      */
-    public static AddressBook getTypicalAddressBook() {
-        AddressBook ab = new AddressBook();
+    public static NurseyBook getTypicalNurseyBook() {
+        NurseyBook nb = new NurseyBook();
         for (Elderly elderly : getTypicalElderlies()) {
-            ab.addElderly(elderly);
+            nb.addElderly(elderly);
         }
-        return ab;
+        return nb;
     }
 
     public static List<Elderly> getTypicalElderlies() {

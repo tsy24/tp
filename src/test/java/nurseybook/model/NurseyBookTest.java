@@ -1,14 +1,14 @@
 package nurseybook.model;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static nurseybook.logic.commands.CommandTestUtil.VALID_NOK_ADDRESS_BOB;
 import static nurseybook.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static nurseybook.testutil.Assert.assertThrows;
 import static nurseybook.testutil.TypicalElderlies.ALICE;
-import static nurseybook.testutil.TypicalElderlies.getTypicalAddressBook;
+import static nurseybook.testutil.TypicalElderlies.getTypicalNurseyBook;
 import static nurseybook.testutil.TypicalTasks.DO_PAPERWORK;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -24,25 +24,25 @@ import nurseybook.model.person.exceptions.DuplicateElderlyException;
 import nurseybook.model.task.Task;
 import nurseybook.testutil.ElderlyBuilder;
 
-public class AddressBookTest {
+public class NurseyBookTest {
 
-    private final AddressBook addressBook = new AddressBook();
+    private final NurseyBook nurseyBook = new NurseyBook();
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), addressBook.getElderlyList());
+        assertEquals(Collections.emptyList(), nurseyBook.getElderlyList());
     }
 
     @Test
     public void resetData_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> addressBook.resetData(null));
+        assertThrows(NullPointerException.class, () -> nurseyBook.resetData(null));
     }
 
     @Test
-    public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        AddressBook newData = getTypicalAddressBook();
-        addressBook.resetData(newData);
-        assertEquals(newData, addressBook);
+    public void resetData_withValidReadOnlyNurseyBook_replacesData() {
+        NurseyBook newData = getTypicalNurseyBook();
+        nurseyBook.resetData(newData);
+        assertEquals(newData, nurseyBook);
     }
 
     @Test
@@ -51,69 +51,69 @@ public class AddressBookTest {
         Elderly editedAlice = new ElderlyBuilder(ALICE).withAddress(VALID_NOK_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         List<Elderly> newElderlies = Arrays.asList(ALICE, editedAlice);
-        AddressBookStub newData = new AddressBookStub(newElderlies);
+        NurseyBookStub newData = new NurseyBookStub(newElderlies);
 
-        assertThrows(DuplicateElderlyException.class, () -> addressBook.resetData(newData));
+        assertThrows(DuplicateElderlyException.class, () -> nurseyBook.resetData(newData));
     }
 
     @Test
     public void hasElderly_nullElderly_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> addressBook.hasElderly(null));
+        assertThrows(NullPointerException.class, () -> nurseyBook.hasElderly(null));
     }
 
     @Test
-    public void hasElderly_elderlyNotInAddressBook_returnsFalse() {
-        assertFalse(addressBook.hasElderly(ALICE));
+    public void hasElderly_elderlyNotInNurseyBook_returnsFalse() {
+        assertFalse(nurseyBook.hasElderly(ALICE));
     }
 
     @Test
-    public void hasElderly_elderlyInAddressBook_returnsTrue() {
-        addressBook.addElderly(ALICE);
-        assertTrue(addressBook.hasElderly(ALICE));
+    public void hasElderly_elderlyInNurseyBook_returnsTrue() {
+        nurseyBook.addElderly(ALICE);
+        assertTrue(nurseyBook.hasElderly(ALICE));
     }
 
     @Test
-    public void hasElderly_elderlyWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        addressBook.addElderly(ALICE);
+    public void hasElderly_elderlyWithSameIdentityFieldsInNurseyBook_returnsTrue() {
+        nurseyBook.addElderly(ALICE);
         Elderly editedAlice = new ElderlyBuilder(ALICE).withAddress(VALID_NOK_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
-        assertTrue(addressBook.hasElderly(editedAlice));
+        assertTrue(nurseyBook.hasElderly(editedAlice));
     }
 
     @Test
     public void hasTask_nullTask_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> addressBook.hasTask(null));
+        assertThrows(NullPointerException.class, () -> nurseyBook.hasTask(null));
     }
 
     @Test
-    public void hasTask_taskNotInAddressBook_returnsFalse() {
-        assertFalse(addressBook.hasTask(DO_PAPERWORK));
+    public void hasTask_taskNotInNurseyBook_returnsFalse() {
+        assertFalse(nurseyBook.hasTask(DO_PAPERWORK));
     }
 
     @Test
-    public void hasTask_taskInAddressBook_returnsTrue() {
-        addressBook.addTask(DO_PAPERWORK);
-        assertTrue(addressBook.hasTask(DO_PAPERWORK));
+    public void hasTask_taskInNurseyBook_returnsTrue() {
+        nurseyBook.addTask(DO_PAPERWORK);
+        assertTrue(nurseyBook.hasTask(DO_PAPERWORK));
     }
 
     @Test
     public void getElderlyList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> addressBook.getElderlyList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> nurseyBook.getElderlyList().remove(0));
     }
 
     @Test
     public void getTaskList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> addressBook.getTaskList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> nurseyBook.getTaskList().remove(0));
     }
 
     /**
-     * A stub ReadOnlyAddressBook whose elderlies list can violate interface constraints.
+     * A stub ReadOnlyNurseyBook whose elderlies list can violate interface constraints.
      */
-    private static class AddressBookStub implements ReadOnlyAddressBook {
+    private static class NurseyBookStub implements ReadOnlyNurseyBook {
         private final ObservableList<Elderly> elderlies = FXCollections.observableArrayList();
         private final ObservableList<Task> tasks = FXCollections.observableArrayList();
 
-        AddressBookStub(Collection<Elderly> elderlies) {
+        NurseyBookStub(Collection<Elderly> elderlies) {
             this.elderlies.setAll(elderlies);
         }
 

@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static nurseybook.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a task's description in the address book.
+ * Represents a task's description in the nursey book.
  * Guarantees: immutable; is valid as declared in {@link #isValidDescription(String)}
  */
 public class Description {

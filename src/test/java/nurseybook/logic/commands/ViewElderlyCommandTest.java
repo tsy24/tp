@@ -1,15 +1,13 @@
 package nurseybook.logic.commands;
 
-import static nurseybook.logic.commands.CommandTestUtil.assertCommandSuccess;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import nurseybook.testutil.TypicalElderlies;
-import nurseybook.testutil.TypicalIndexes;
 import nurseybook.model.Model;
 import nurseybook.model.ModelManager;
 import nurseybook.model.UserPrefs;
+import nurseybook.testutil.TypicalElderlies;
+import nurseybook.testutil.TypicalIndexes;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for ViewElderlyCommand.
@@ -21,7 +19,7 @@ public class ViewElderlyCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(TypicalElderlies.getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(TypicalElderlies.getTypicalNurseyBook(), new UserPrefs());
         expectedModel = new ModelManager(model.getVersionedNurseyBook(), new UserPrefs());
     }
 

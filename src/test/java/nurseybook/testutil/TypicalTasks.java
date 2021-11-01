@@ -15,9 +15,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import nurseybook.model.NurseyBook;
 import nurseybook.model.task.Recurrence;
 import nurseybook.model.task.Task;
-import nurseybook.model.AddressBook;
 
 public class TypicalTasks {
 
@@ -32,7 +32,8 @@ public class TypicalTasks {
             .withRecurrence(Recurrence.RecurrenceType.NONE.name()).build();
 
     public static final Task DO_PAPERWORK = new TaskBuilder().withDesc(VALID_DESC_PAPERWORK)
-            .withDateTime(VALID_DATE_JAN, VALID_TIME_TENAM).withRecurrence(Recurrence.RecurrenceType.MONTH.name()).build();
+            .withDateTime(VALID_DATE_JAN, VALID_TIME_TENAM)
+            .withRecurrence(Recurrence.RecurrenceType.MONTH.name()).build();
 
     public static final Task YASMINE_PHYSIO = new TaskBuilder().withDesc("Physiotherapy with yoga ball")
             .withDateTime("2021-09-13", "15:30").withNames("Yasmine George")
@@ -73,14 +74,14 @@ public class TypicalTasks {
             .withRecurrence(Recurrence.RecurrenceType.MONTH.name()).withGhostTask("true").build();
 
     /**
-     * Returns an {@code AddressBook} with all the typical tasks.
+     * Returns an {@code NurseyBook} with all the typical tasks.
      */
-    public static AddressBook getTypicalAddressBook() {
-        AddressBook ab = new AddressBook();
+    public static NurseyBook getTypicalNurseyBook() {
+        NurseyBook nb = new NurseyBook();
         for (Task t : getTypicalTasks()) {
-            ab.addTask(t);
+            nb.addTask(t);
         }
-        return ab;
+        return nb;
     }
 
     public static List<Task> getTypicalTasks() {

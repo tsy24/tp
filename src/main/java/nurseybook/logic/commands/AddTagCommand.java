@@ -1,13 +1,13 @@
 package nurseybook.logic.commands;
 
 import static nurseybook.commons.util.CollectionUtil.requireAllNonNull;
+import static nurseybook.logic.parser.CliSyntax.PREFIX_TAG;
 import static nurseybook.model.Model.PREDICATE_SHOW_ALL_ELDERLIES;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import nurseybook.logic.parser.CliSyntax;
 import nurseybook.commons.core.Messages;
 import nurseybook.commons.core.index.Index;
 import nurseybook.logic.commands.exceptions.CommandException;
@@ -16,7 +16,7 @@ import nurseybook.model.person.Elderly;
 import nurseybook.model.tag.Tag;
 
 /**
- * Adds at least one tag to an existing elderly in the address book.
+ * Adds at least one tag to an existing elderly in the nursey book.
  */
 public class AddTagCommand extends Command {
 
@@ -26,9 +26,9 @@ public class AddTagCommand extends Command {
             + "by the index number used in the last elderly listing. "
             + "Must contain one or more tags\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + CliSyntax.PREFIX_TAG + "TAG " + "[" + CliSyntax.PREFIX_TAG + "MORE_TAGS]...\n"
+            + PREFIX_TAG + "TAG " + "[" + PREFIX_TAG + "MORE_TAGS]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + CliSyntax.PREFIX_TAG + "Diabetes";
+            + PREFIX_TAG + "Diabetes";
 
     public static final String MESSAGE_ADD_TAG_SUCCESS = "Added tag(s) to Elderly: %1$s";
 

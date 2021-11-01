@@ -1,8 +1,8 @@
 package nurseybook.storage;
 
+import static nurseybook.testutil.TypicalElderlies.getTypicalNurseyBook;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static nurseybook.testutil.TypicalElderlies.getTypicalAddressBook;
 
 import java.nio.file.Path;
 
@@ -11,8 +11,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import nurseybook.commons.core.GuiSettings;
-import nurseybook.model.AddressBook;
-import nurseybook.model.ReadOnlyAddressBook;
+import nurseybook.model.NurseyBook;
+import nurseybook.model.ReadOnlyNurseyBook;
 import nurseybook.model.UserPrefs;
 
 public class StorageManagerTest {
@@ -24,9 +24,9 @@ public class StorageManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(getTempFilePath("ab"));
+        JsonNurseyBookStorage nurseyBookStorage = new JsonNurseyBookStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(addressBookStorage, userPrefsStorage);
+        storageManager = new StorageManager(nurseyBookStorage, userPrefsStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -48,21 +48,21 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void addressBookReadSave() throws Exception {
+    public void nurseyBookReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
-         * {@link JsonAddressBookStorage} class.
-         * More extensive testing of UserPref saving/reading is done in {@link JsonAddressBookStorageTest} class.
+         * {@link JsonNurseyBookStorage} class.
+         * More extensive testing of UserPref saving/reading is done in {@link JsonNurseyBookStorageTest} class.
          */
-        AddressBook original = getTypicalAddressBook();
-        storageManager.saveAddressBook(original);
-        ReadOnlyAddressBook retrieved = storageManager.readAddressBook().get();
-        assertEquals(original, new AddressBook(retrieved));
+        NurseyBook original = getTypicalNurseyBook();
+        storageManager.saveNurseyBook(original);
+        ReadOnlyNurseyBook retrieved = storageManager.readNurseyBook().get();
+        assertEquals(original, new NurseyBook(retrieved));
     }
 
     @Test
-    public void getAddressBookFilePath() {
-        assertNotNull(storageManager.getAddressBookFilePath());
+    public void getNurseyBookFilePath() {
+        assertNotNull(storageManager.getNurseyBookFilePath());
     }
 
 }

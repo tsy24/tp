@@ -7,11 +7,11 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import nurseybook.commons.core.GuiSettings;
 import nurseybook.logic.commands.CommandResult;
+import nurseybook.model.Model;
+import nurseybook.model.ReadOnlyNurseyBook;
+import nurseybook.model.ReadOnlyUserPrefs;
 import nurseybook.model.person.Elderly;
 import nurseybook.model.task.Task;
-import nurseybook.model.Model;
-import nurseybook.model.ReadOnlyAddressBook;
-import nurseybook.model.ReadOnlyUserPrefs;
 
 /**
  * A default model stub that have all of the methods failing.
@@ -38,12 +38,12 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
+    public Path getNurseyBookFilePath() {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
+    public void setNurseyBookFilePath(Path nurseyBookFilePath) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -68,12 +68,12 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void setVersionedNurseyBook(ReadOnlyAddressBook newData) {
+    public void setVersionedNurseyBook(ReadOnlyNurseyBook newData) {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public ReadOnlyAddressBook getVersionedNurseyBook() {
+    public ReadOnlyNurseyBook getVersionedNurseyBook() {
         throw new AssertionError("This method should not be called.");
     }
 

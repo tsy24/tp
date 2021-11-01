@@ -14,10 +14,10 @@ import nurseybook.model.task.Task;
 import nurseybook.model.task.TaskList;
 
 /**
- * Wraps all data at the address-book level
+ * Wraps all data at the nursey book level
  * Duplicates are not allowed (by .isSameElderly comparison)
  */
-public class AddressBook implements ReadOnlyAddressBook {
+public class NurseyBook implements ReadOnlyNurseyBook {
 
     private final UniqueElderlyList elderlies;
     private final TaskList tasks;
@@ -34,12 +34,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         tasks = new TaskList();
     }
 
-    public AddressBook() {}
+    public NurseyBook() {}
 
     /**
-     * Creates an AddressBook using the Elderlies in the {@code toBeCopied}
+     * Creates an NurseyBook using the Elderlies in the {@code toBeCopied}
      */
-    public AddressBook(ReadOnlyAddressBook toBeCopied) {
+    public NurseyBook(ReadOnlyNurseyBook toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -62,9 +62,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     * Resets the existing data of this {@code NurseyBook} with {@code newData}.
      */
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyNurseyBook newData) {
         requireNonNull(newData);
 
         setElderlies(newData.getElderlyList());
@@ -74,7 +74,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// elderly-level operations
 
     /**
-     * Returns true if an elderly with the same identity as {@code elderly} exists in the address book.
+     * Returns true if an elderly with the same identity as {@code elderly} exists in the nursey book.
      */
     public boolean hasElderly(Elderly elderly) {
         requireNonNull(elderly);
@@ -87,15 +87,15 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Adds a elderly to the address book.
-     * The elderly must not already exist in the address book.
+     * Adds a elderly to the nursey book.
+     * The elderly must not already exist in the nursey book.
      */
     public void addElderly(Elderly p) {
         elderlies.add(p);
     }
 
     /**
-     * Adds a task to the address book.
+     * Adds a task to the nursey book.
      */
     public void addTask(Task t) {
         tasks.add(t);
@@ -103,8 +103,8 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     /**
      * Replaces the given elderly {@code target} in the list with {@code editedElderly}.
-     * {@code target} must exist in the address book.
-     * The elderly identity of {@code editedElderly} must not be the same as another existing elderly in the address
+     * {@code target} must exist in the nursey book.
+     * The elderly identity of {@code editedElderly} must not be the same as another existing elderly in the nursey
      * book.
      */
     public void setElderly(Elderly target, Elderly editedElderly) {
@@ -115,8 +115,8 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     /**
      * Replaces the given task {@code target} in the list with {@code editedTask}.
-     * {@code target} must exist in the address book.
-     * The task identity of {@code editedTask} must not be the same as another existing task in the address
+     * {@code target} must exist in the nursey book.
+     * The task identity of {@code editedTask} must not be the same as another existing task in the nursey
      * book.
      */
     public void setTask(Task target, Task editedTask) {
@@ -126,23 +126,23 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code key} elderly from this {@code AddressBook}.
-     * {@code key} must exist in the address book.
+     * Removes {@code key} elderly from this {@code NurseyBook}.
+     * {@code key} must exist in the nursey book.
      */
     public void removeElderly(Elderly key) {
         elderlies.remove(key);
     }
 
     /**
-     * Removes {@code key} task from this {@code AddressBook}.
-     * {@code key} must exist in the address book.
+     * Removes {@code key} task from this {@code NurseyBook}.
+     * {@code key} must exist in the nursey book.
      */
     public void removeTask(Task key) {
         tasks.remove(key);
     }
 
     /**
-     * Removes all ghost tasks, if any, from this {@code AddressBook}.
+     * Removes all ghost tasks, if any, from this {@code NurseyBook}.
      */
     public void deleteGhostTasks() {
         tasks.deleteGhostTasks();
@@ -178,9 +178,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
-                && elderlies.equals(((AddressBook) other).elderlies)
-                && tasks.equals(((AddressBook) other).tasks));
+                || (other instanceof NurseyBook // instanceof handles nulls
+                && elderlies.equals(((NurseyBook) other).elderlies)
+                && tasks.equals(((NurseyBook) other).tasks));
     }
 
     @Override
@@ -194,7 +194,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     /**
      * Marks the given task {@code target} as done.
-     * {@code target} must exist in the address book.
+     * {@code target} must exist in the nursey book.
      */
     public void markTaskAsDone(Task target) {
         tasks.markTaskAsDone(target);
@@ -202,7 +202,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     /**
      * Marks the given task {@code target} as overdue.
-     * {@code target} must exist in the address book.
+     * {@code target} must exist in the nursey book.
      */
     public void markTaskAsOverdue(Task target) {
         tasks.markTaskAsOverdue(target);
@@ -210,7 +210,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     /**
      * Marks the given task {@code target} as not overdue.
-     * {@code target} must exist in the address book.
+     * {@code target} must exist in the nursey book.
      */
     public void markTaskAsNotOverdue(Task target) {
         tasks.markTaskAsNotOverdue(target);
@@ -218,7 +218,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     /**
      * Updates the date of the given task {@code target} such that it is not overdue.
-     * {@code target} must exist in the address book.
+     * {@code target} must exist in the nursey book.
      */
     public void updateDateRecurringTask(Task target) {
         tasks.updateDateOfRecurringTask(target);

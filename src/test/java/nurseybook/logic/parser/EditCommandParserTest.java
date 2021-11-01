@@ -47,6 +47,9 @@ import static nurseybook.logic.commands.CommandTestUtil.VALID_ROOM_NUMBER_AMY;
 import static nurseybook.logic.commands.CommandTestUtil.VALID_ROOM_NUMBER_BOB;
 import static nurseybook.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static nurseybook.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static nurseybook.logic.parser.CommandParserTestUtil.assertParseFailure;
+import static nurseybook.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static nurseybook.testutil.TypicalIndexes.INDEX_FIRST;
 
 import org.junit.jupiter.api.Test;
 
@@ -76,81 +79,76 @@ public class EditCommandParserTest {
     @Test
     public void parse_missingParts_failure() {
         // no index specified
-        CommandParserTestUtil.assertParseFailure(parser, VALID_NAME_AMY, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, VALID_NAME_AMY, MESSAGE_INVALID_FORMAT);
 
         // no field specified
-        CommandParserTestUtil.assertParseFailure(parser, "1", EditCommand.MESSAGE_NOT_EDITED);
+        assertParseFailure(parser, "1", EditCommand.MESSAGE_NOT_EDITED);
 
         // no index and no field specified
-        CommandParserTestUtil.assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
     }
 
     @Test
     public void parse_invalidPreamble_failure() {
         // negative index
-        CommandParserTestUtil.assertParseFailure(parser, "-5" + NAME_DESC_AMY, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "-5" + NAME_DESC_AMY, MESSAGE_INVALID_FORMAT);
 
         // zero index
-        CommandParserTestUtil.assertParseFailure(parser, "0" + NAME_DESC_AMY, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "0" + NAME_DESC_AMY, MESSAGE_INVALID_FORMAT);
 
         // invalid arguments being parsed as preamble
-        CommandParserTestUtil.assertParseFailure(parser, "1 some random string", MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "1 some random string", MESSAGE_INVALID_FORMAT);
 
         // invalid prefix being parsed as preamble
-        CommandParserTestUtil.assertParseFailure(parser, "1 i/ string", MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "1 i/ string", MESSAGE_INVALID_FORMAT);
     }
 
     @Test
     public void parse_invalidValue_failure() {
-        CommandParserTestUtil.assertParseFailure(parser, "1" + INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS); // invalid name
-        CommandParserTestUtil.assertParseFailure(parser, "1" + INVALID_AGE_DESC, Age.MESSAGE_CONSTRAINTS); // invalid age
-        CommandParserTestUtil.assertParseFailure(parser, "1" + INVALID_GENDER_DESC, Gender.MESSAGE_CONSTRAINTS); // invalid gender
-        CommandParserTestUtil.assertParseFailure(parser, "1" + INVALID_ROOM_NUMBER_DESC,
-                RoomNumber.MESSAGE_CONSTRAINTS); // invalid room number
-        CommandParserTestUtil.assertParseFailure(parser, "1" + INVALID_NOK_NAME_DESC, Name.MESSAGE_CONSTRAINTS); // invalid nokName
-        CommandParserTestUtil.assertParseFailure(parser, "1" + INVALID_NOK_RELATIONSHIP_DESC,
-                Relationship.MESSAGE_CONSTRAINTS); // invalid relationship
-        CommandParserTestUtil.assertParseFailure(parser, "1" + INVALID_NOK_PHONE_DESC, Phone.MESSAGE_CONSTRAINTS); // invalid phone
-        CommandParserTestUtil.assertParseFailure(parser, "1" + INVALID_NOK_EMAIL_DESC, Email.MESSAGE_CONSTRAINTS); // invalid email
+        assertParseFailure(parser, "1" + INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS); // invalid name
+        assertParseFailure(parser, "1" + INVALID_AGE_DESC, Age.MESSAGE_CONSTRAINTS); // invalid age
+        assertParseFailure(parser, "1" + INVALID_GENDER_DESC, Gender.MESSAGE_CONSTRAINTS); // invalid gender
+        assertParseFailure(parser, "1" + INVALID_ROOM_NUMBER_DESC, RoomNumber.MESSAGE_CONSTRAINTS); // invalid rm no
+        assertParseFailure(parser, "1" + INVALID_NOK_NAME_DESC, Name.MESSAGE_CONSTRAINTS); // invalid nokName
+        assertParseFailure(parser, "1" + INVALID_NOK_RELATIONSHIP_DESC, Relationship.MESSAGE_CONSTRAINTS); // invalid rs
+        assertParseFailure(parser, "1" + INVALID_NOK_PHONE_DESC, Phone.MESSAGE_CONSTRAINTS); // invalid phone
+        assertParseFailure(parser, "1" + INVALID_NOK_EMAIL_DESC, Email.MESSAGE_CONSTRAINTS); // invalid email
 
         // invalid address
         // No test for invalid address since there is no invalid address input at this point.
 
-        CommandParserTestUtil.assertParseFailure(parser, "1" + INVALID_TAG_DESC, Tag.MESSAGE_CONSTRAINTS); // invalid tag
+        assertParseFailure(parser, "1" + INVALID_TAG_DESC, Tag.MESSAGE_CONSTRAINTS); // invalid tag
 
         // invalid phone followed by valid email
-        CommandParserTestUtil.assertParseFailure(parser, "1" + INVALID_NOK_PHONE_DESC + NOK_EMAIL_DESC_AMY, Phone.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + INVALID_NOK_PHONE_DESC + NOK_EMAIL_DESC_AMY, Phone.MESSAGE_CONSTRAINTS);
 
         // valid phone followed by invalid phone. The test case for invalid phone followed by valid phone
         // is tested at {@code parse_invalidValueFollowedByValidValue_success()}
-        CommandParserTestUtil.assertParseFailure(parser, "1" + NOK_PHONE_DESC_BOB + INVALID_NOK_PHONE_DESC, Phone.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + NOK_PHONE_DESC_BOB + INVALID_NOK_PHONE_DESC, Phone.MESSAGE_CONSTRAINTS);
 
         // invalid age followed by valid email
-        CommandParserTestUtil.assertParseFailure(parser, "1" + INVALID_AGE_DESC + NOK_EMAIL_DESC_AMY, Age.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + INVALID_AGE_DESC + NOK_EMAIL_DESC_AMY, Age.MESSAGE_CONSTRAINTS);
 
         // valid age followed by invalid age. The test case for invalid phone followed by valid phone
         // is tested at {@code parse_invalidValueFollowedByValidValue_success()}
-        CommandParserTestUtil.assertParseFailure(parser, "1" + AGE_DESC_BOB + INVALID_AGE_DESC, Age.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + AGE_DESC_BOB + INVALID_AGE_DESC, Age.MESSAGE_CONSTRAINTS);
 
         // invalid gender followed by valid email
-        CommandParserTestUtil.assertParseFailure(parser, "1" + INVALID_GENDER_DESC + NOK_EMAIL_DESC_AMY, Gender.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + INVALID_GENDER_DESC + NOK_EMAIL_DESC_AMY, Gender.MESSAGE_CONSTRAINTS);
 
         // valid gender followed by invalid gender. The test case for invalid phone followed by valid phone
         // is tested at {@code parse_invalidValueFollowedByValidValue_success()}
-        CommandParserTestUtil.assertParseFailure(parser, "1" + GENDER_DESC_BOB + INVALID_GENDER_DESC, Gender.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + GENDER_DESC_BOB + INVALID_GENDER_DESC, Gender.MESSAGE_CONSTRAINTS);
 
 
         // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Elderly} being edited,
         // parsing it together with a valid tag results in error
-        CommandParserTestUtil.assertParseFailure(parser, "1" + TAG_DESC_FRIEND + TAG_DESC_HUSBAND + TAG_EMPTY,
-                Tag.MESSAGE_CONSTRAINTS);
-        CommandParserTestUtil.assertParseFailure(parser, "1" + TAG_DESC_FRIEND + TAG_EMPTY + TAG_DESC_HUSBAND,
-                Tag.MESSAGE_CONSTRAINTS);
-        CommandParserTestUtil.assertParseFailure(parser, "1" + TAG_EMPTY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND,
-                Tag.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + TAG_DESC_FRIEND + TAG_DESC_HUSBAND + TAG_EMPTY, Tag.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + TAG_DESC_FRIEND + TAG_EMPTY + TAG_DESC_HUSBAND, Tag.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + TAG_EMPTY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND, Tag.MESSAGE_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
-        CommandParserTestUtil.assertParseFailure(parser, "1" + INVALID_NAME_DESC + INVALID_NOK_EMAIL_DESC + VALID_NOK_ADDRESS_AMY
+        assertParseFailure(parser, "1" + INVALID_NAME_DESC + INVALID_NOK_EMAIL_DESC + VALID_NOK_ADDRESS_AMY
                 + VALID_NOK_PHONE_AMY + VALID_ROOM_NUMBER_AMY,
                 Name.MESSAGE_CONSTRAINTS);
     }
@@ -169,19 +167,19 @@ public class EditCommandParserTest {
                 .withAddress(VALID_NOK_ADDRESS_AMY).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
-        CommandParserTestUtil.assertParseSuccess(parser, userInput, expectedCommand);
+        assertParseSuccess(parser, userInput, expectedCommand);
     }
 
     @Test
     public void parse_someFieldsSpecified_success() {
-        Index targetIndex = TypicalIndexes.INDEX_FIRST;
+        Index targetIndex = INDEX_FIRST;
         String userInput = targetIndex.getOneBased() + NOK_PHONE_DESC_BOB + NOK_EMAIL_DESC_AMY;
 
         EditCommand.EditElderlyDescriptor descriptor = new EditElderlyDescriptorBuilder().withPhone(VALID_NOK_PHONE_BOB)
                 .withEmail(VALID_NOK_EMAIL_AMY).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
-        CommandParserTestUtil.assertParseSuccess(parser, userInput, expectedCommand);
+        assertParseSuccess(parser, userInput, expectedCommand);
     }
 
     @Test
@@ -192,66 +190,66 @@ public class EditCommandParserTest {
         EditCommand.EditElderlyDescriptor descriptor = new EditElderlyDescriptorBuilder()
                 .withName(VALID_NAME_AMY).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
-        CommandParserTestUtil.assertParseSuccess(parser, userInput, expectedCommand);
+        assertParseSuccess(parser, userInput, expectedCommand);
 
         // age
         userInput = targetIndex.getOneBased() + AGE_DESC_AMY;
         descriptor = new EditElderlyDescriptorBuilder().withAge(VALID_AGE_AMY).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
-        CommandParserTestUtil.assertParseSuccess(parser, userInput, expectedCommand);
+        assertParseSuccess(parser, userInput, expectedCommand);
 
         // gender
         userInput = targetIndex.getOneBased() + GENDER_DESC_AMY;
         descriptor = new EditElderlyDescriptorBuilder().withGender(VALID_GENDER_AMY).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
-        CommandParserTestUtil.assertParseSuccess(parser, userInput, expectedCommand);
+        assertParseSuccess(parser, userInput, expectedCommand);
 
         // roomNumber
         userInput = targetIndex.getOneBased() + ROOM_NUMBER_DESC_AMY;
         descriptor = new EditElderlyDescriptorBuilder().withRoomNumber(VALID_ROOM_NUMBER_AMY).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
-        CommandParserTestUtil.assertParseSuccess(parser, userInput, expectedCommand);
+        assertParseSuccess(parser, userInput, expectedCommand);
 
         // nokName
         userInput = targetIndex.getOneBased() + NOK_NAME_DESC_AMY;
         descriptor = new EditElderlyDescriptorBuilder().withNokName(VALID_NOK_NAME_AMY).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
-        CommandParserTestUtil.assertParseSuccess(parser, userInput, expectedCommand);
+        assertParseSuccess(parser, userInput, expectedCommand);
 
         // phone
         userInput = targetIndex.getOneBased() + NOK_PHONE_DESC_AMY;
         descriptor = new EditElderlyDescriptorBuilder().withPhone(VALID_NOK_PHONE_AMY).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
-        CommandParserTestUtil.assertParseSuccess(parser, userInput, expectedCommand);
+        assertParseSuccess(parser, userInput, expectedCommand);
 
         // relationship
         userInput = targetIndex.getOneBased() + NOK_RELATIONSHIP_DESC_AMY;
         descriptor = new EditElderlyDescriptorBuilder().withRelationship(VALID_NOK_RELATIONSHIP_AMY).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
-        CommandParserTestUtil.assertParseSuccess(parser, userInput, expectedCommand);
+        assertParseSuccess(parser, userInput, expectedCommand);
 
         // email
         userInput = targetIndex.getOneBased() + NOK_EMAIL_DESC_AMY;
         descriptor = new EditElderlyDescriptorBuilder().withEmail(VALID_NOK_EMAIL_AMY).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
-        CommandParserTestUtil.assertParseSuccess(parser, userInput, expectedCommand);
+        assertParseSuccess(parser, userInput, expectedCommand);
 
         // address
         userInput = targetIndex.getOneBased() + NOK_ADDRESS_DESC_AMY;
         descriptor = new EditElderlyDescriptorBuilder().withAddress(VALID_NOK_ADDRESS_AMY).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
-        CommandParserTestUtil.assertParseSuccess(parser, userInput, expectedCommand);
+        assertParseSuccess(parser, userInput, expectedCommand);
 
         // tags
         userInput = targetIndex.getOneBased() + TAG_DESC_FRIEND;
         descriptor = new EditElderlyDescriptorBuilder().withTags(VALID_TAG_FRIEND).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
-        CommandParserTestUtil.assertParseSuccess(parser, userInput, expectedCommand);
+        assertParseSuccess(parser, userInput, expectedCommand);
     }
 
     @Test
     public void parse_multipleRepeatedFields_acceptsLast() {
-        Index targetIndex = TypicalIndexes.INDEX_FIRST;
+        Index targetIndex = INDEX_FIRST;
         String userInput = targetIndex.getOneBased() + NOK_PHONE_DESC_AMY + AGE_DESC_AMY + GENDER_DESC_AMY
                 + ROOM_NUMBER_DESC_AMY + NOK_NAME_DESC_AMY + NOK_RELATIONSHIP_DESC_AMY + NOK_ADDRESS_DESC_AMY
                 + NOK_EMAIL_DESC_AMY + TAG_DESC_FRIEND + NOK_PHONE_DESC_AMY + AGE_DESC_AMY + GENDER_DESC_AMY
@@ -268,18 +266,18 @@ public class EditCommandParserTest {
 
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
-        CommandParserTestUtil.assertParseSuccess(parser, userInput, expectedCommand);
+        assertParseSuccess(parser, userInput, expectedCommand);
     }
 
     @Test
     public void parse_invalidValueFollowedByValidValue_success() {
         // no other valid values specified
-        Index targetIndex = TypicalIndexes.INDEX_FIRST;
+        Index targetIndex = INDEX_FIRST;
         String userInput = targetIndex.getOneBased() + INVALID_NOK_PHONE_DESC + NOK_PHONE_DESC_BOB;
         EditCommand.EditElderlyDescriptor descriptor = new EditElderlyDescriptorBuilder()
                 .withPhone(VALID_NOK_PHONE_BOB).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
-        CommandParserTestUtil.assertParseSuccess(parser, userInput, expectedCommand);
+        assertParseSuccess(parser, userInput, expectedCommand);
 
         // other valid values specified
         userInput = targetIndex.getOneBased() + AGE_DESC_BOB + GENDER_DESC_BOB
@@ -291,7 +289,7 @@ public class EditCommandParserTest {
                 .withAddress(VALID_NOK_ADDRESS_BOB).build();
 
         expectedCommand = new EditCommand(targetIndex, descriptor);
-        CommandParserTestUtil.assertParseSuccess(parser, userInput, expectedCommand);
+        assertParseSuccess(parser, userInput, expectedCommand);
     }
 
     @Test
@@ -301,6 +299,6 @@ public class EditCommandParserTest {
         EditCommand.EditElderlyDescriptor descriptor = new EditElderlyDescriptorBuilder().withTags().build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
-        CommandParserTestUtil.assertParseSuccess(parser, userInput, expectedCommand);
+        assertParseSuccess(parser, userInput, expectedCommand);
     }
 }

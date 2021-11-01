@@ -1,24 +1,22 @@
 package nurseybook.model.person;
 
+import static nurseybook.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static nurseybook.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
-
-import nurseybook.testutil.Assert;
 
 public class RelationshipTest {
 
     @Test
     public void constructor_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> new Relationship(null));
+        assertThrows(NullPointerException.class, () -> new Relationship(null));
     }
 
     @Test
     public void isValidRelationship() {
         // null relationship
-        Assert.assertThrows(NullPointerException.class, () -> Relationship.isValidRelationship(null));
+        assertThrows(NullPointerException.class, () -> Relationship.isValidRelationship(null));
 
         // invalid relationships
         assertFalse(Relationship.isValidRelationship(" ")); // spaces only

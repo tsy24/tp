@@ -15,11 +15,11 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import nurseybook.commons.core.GuiSettings;
 import nurseybook.commons.core.LogsCenter;
+import nurseybook.logic.Logic;
 import nurseybook.logic.commands.CommandResult;
 import nurseybook.logic.commands.exceptions.CommandException;
 import nurseybook.logic.parser.exceptions.ParseException;
 import nurseybook.model.person.Elderly;
-import nurseybook.logic.Logic;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -142,7 +142,7 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getNurseyBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);

@@ -20,6 +20,9 @@ import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_DESC_MEDICINE;
 import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_NAME_ALEX;
 import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_NAME_KEITH;
 import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_TIME_TENAM;
+import static nurseybook.logic.parser.CommandParserTestUtil.assertParseFailure;
+import static nurseybook.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static nurseybook.testutil.TypicalTasks.KEITH_INSULIN;
 
 import org.junit.jupiter.api.Test;
 
@@ -37,29 +40,29 @@ public class AddTaskCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Task expectedTask = new TaskBuilder(TypicalTasks.KEITH_INSULIN).withStatus("false", "true").build();
+        Task expectedTask = new TaskBuilder(KEITH_INSULIN).withStatus("false", "true").build();
 
         // whitespace only preamble
-        CommandParserTestUtil.assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_KEITH + DATE_DESC_NOV
+        assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_KEITH + DATE_DESC_NOV
                 + TIME_DESC_SEVENPM + DESC_MEDICINE, new AddTaskCommand(expectedTask));
 
         // multiple desc - last desc accepted
-        CommandParserTestUtil.assertParseSuccess(parser, NAME_DESC_KEITH + DATE_DESC_NOV + TIME_DESC_SEVENPM
+        assertParseSuccess(parser, NAME_DESC_KEITH + DATE_DESC_NOV + TIME_DESC_SEVENPM
                 + DESC_PAPERWORK + DESC_MEDICINE, new AddTaskCommand(expectedTask));
 
         // multiple dates - last date accepted
-        CommandParserTestUtil.assertParseSuccess(parser, NAME_DESC_KEITH + DATE_DESC_JAN + DATE_DESC_NOV
+        assertParseSuccess(parser, NAME_DESC_KEITH + DATE_DESC_JAN + DATE_DESC_NOV
                 + TIME_DESC_SEVENPM + DESC_MEDICINE, new AddTaskCommand(expectedTask));
 
         // multiple times - last time accepted
-        CommandParserTestUtil.assertParseSuccess(parser, NAME_DESC_KEITH + DATE_DESC_NOV + TIME_DESC_TENAM
+        assertParseSuccess(parser, NAME_DESC_KEITH + DATE_DESC_NOV + TIME_DESC_TENAM
                 + TIME_DESC_SEVENPM + DESC_MEDICINE, new AddTaskCommand(expectedTask));
 
         // multiple names - all accepted
-        expectedTask = new TaskBuilder(TypicalTasks.KEITH_INSULIN)
+        expectedTask = new TaskBuilder(KEITH_INSULIN)
                 .withNames(VALID_NAME_KEITH, VALID_NAME_ALEX)
                 .withStatus("false", "true").build();
-        CommandParserTestUtil.assertParseSuccess(parser, NAME_DESC_KEITH + NAME_DESC_ALEX + DATE_DESC_NOV
+        assertParseSuccess(parser, NAME_DESC_KEITH + NAME_DESC_ALEX + DATE_DESC_NOV
                 + TIME_DESC_SEVENPM + DESC_MEDICINE, new AddTaskCommand(expectedTask));
 
     }
@@ -68,7 +71,7 @@ public class AddTaskCommandParserTest {
     public void parse_optionalFieldsMissing_success() {
         // zero tags
         Task expectedTask = new TaskBuilder(TypicalTasks.DO_PAPERWORK).build();
-        CommandParserTestUtil.assertParseSuccess(parser, DESC_PAPERWORK + DATE_DESC_JAN + TIME_DESC_TENAM
+        assertParseSuccess(parser, DESC_PAPERWORK + DATE_DESC_JAN + TIME_DESC_TENAM
                         + RECUR_MONTH,
                 new AddTaskCommand(expectedTask));
     }
@@ -78,52 +81,52 @@ public class AddTaskCommandParserTest {
         String expectedMessage = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, AddTaskCommand.MESSAGE_USAGE);
 
         // missing name prefix
-        CommandParserTestUtil.assertParseFailure(parser, VALID_NAME_ALEX + DESC_MEDICINE + DATE_DESC_NOV + TIME_DESC_SEVENPM,
+        assertParseFailure(parser, VALID_NAME_ALEX + DESC_MEDICINE + DATE_DESC_NOV + TIME_DESC_SEVENPM,
                 expectedMessage);
 
         // missing description prefix
-        CommandParserTestUtil.assertParseFailure(parser, NAME_DESC_ALEX + VALID_DESC_MEDICINE + DATE_DESC_JAN + TIME_DESC_TENAM,
+        assertParseFailure(parser, NAME_DESC_ALEX + VALID_DESC_MEDICINE + DATE_DESC_JAN + TIME_DESC_TENAM,
                 expectedMessage);
 
         // missing date prefix
-        CommandParserTestUtil.assertParseFailure(parser, NAME_DESC_ALEX + DESC_MEDICINE + VALID_DATE_NOV + TIME_DESC_SEVENPM,
+        assertParseFailure(parser, NAME_DESC_ALEX + DESC_MEDICINE + VALID_DATE_NOV + TIME_DESC_SEVENPM,
                 expectedMessage);
 
         // missing time prefix
-        CommandParserTestUtil.assertParseFailure(parser, NAME_DESC_ALEX + DESC_MEDICINE + DATE_DESC_NOV + VALID_TIME_TENAM,
+        assertParseFailure(parser, NAME_DESC_ALEX + DESC_MEDICINE + DATE_DESC_NOV + VALID_TIME_TENAM,
                 expectedMessage);
 
         // all prefixes missing
-        CommandParserTestUtil.assertParseFailure(parser, VALID_NAME_ALEX + VALID_DESC_MEDICINE + VALID_DATE_NOV + VALID_TIME_TENAM,
+        assertParseFailure(parser, VALID_NAME_ALEX + VALID_DESC_MEDICINE + VALID_DATE_NOV + VALID_TIME_TENAM,
                 expectedMessage);
     }
 
     @Test
     public void parse_invalidValue_failure() {
         // invalid name
-        CommandParserTestUtil.assertParseFailure(parser, INVALID_NAME_DESC + DESC_MEDICINE + DATE_DESC_NOV + TIME_DESC_TENAM,
+        assertParseFailure(parser, INVALID_NAME_DESC + DESC_MEDICINE + DATE_DESC_NOV + TIME_DESC_TENAM,
                 Name.MESSAGE_CONSTRAINTS);
 
         // invalid description
-        CommandParserTestUtil.assertParseFailure(parser, NAME_DESC_ALEX + INVALID_DESC + DATE_DESC_NOV
+        assertParseFailure(parser, NAME_DESC_ALEX + INVALID_DESC + DATE_DESC_NOV
                 + TIME_DESC_TENAM, Description.MESSAGE_CONSTRAINTS);
 
         // invalid date
-        CommandParserTestUtil.assertParseFailure(parser, NAME_DESC_ALEX + DESC_MEDICINE + INVALID_DATE
+        assertParseFailure(parser, NAME_DESC_ALEX + DESC_MEDICINE + INVALID_DATE
                 + TIME_DESC_TENAM, DateTime.MESSAGE_DATE_CONSTRAINTS);
 
         // invalid time
-        CommandParserTestUtil.assertParseFailure(parser, NAME_DESC_ALEX + DESC_MEDICINE + DATE_DESC_NOV
+        assertParseFailure(parser, NAME_DESC_ALEX + DESC_MEDICINE + DATE_DESC_NOV
                 + INVALID_TIME, DateTime.MESSAGE_TIME_CONSTRAINTS);
         ;
 
         // two invalid values, only first invalid value reported
-        CommandParserTestUtil.assertParseFailure(parser, INVALID_NAME_DESC + DESC_MEDICINE + DATE_DESC_NOV
+        assertParseFailure(parser, INVALID_NAME_DESC + DESC_MEDICINE + DATE_DESC_NOV
                         + INVALID_TIME,
                 Name.MESSAGE_CONSTRAINTS);
 
         // non-empty preamble
-        CommandParserTestUtil.assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_ALEX + DESC_MEDICINE
+        assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_ALEX + DESC_MEDICINE
                         + DATE_DESC_NOV + TIME_DESC_TENAM,
                 String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, AddTaskCommand.MESSAGE_USAGE));
     }

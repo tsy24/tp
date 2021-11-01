@@ -7,25 +7,25 @@ import java.util.logging.Logger;
 
 import nurseybook.commons.core.LogsCenter;
 import nurseybook.commons.exceptions.DataConversionException;
-import nurseybook.model.ReadOnlyAddressBook;
+import nurseybook.model.ReadOnlyNurseyBook;
 import nurseybook.model.ReadOnlyUserPrefs;
 import nurseybook.model.UserPrefs;
 
 /**
- * Manages storage of AddressBook data in local storage.
+ * Manages storage of NurseyBook data in local storage.
  */
 public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private AddressBookStorage addressBookStorage;
+    private NurseyBookStorage nurseyBookStorage;
     private UserPrefsStorage userPrefsStorage;
 
     /**
-     * Creates a {@code StorageManager} with the given {@code AddressBookStorage} and {@code UserPrefStorage}.
+     * Creates a {@code StorageManager} with the given {@code NurseyBookStorage} and {@code UserPrefStorage}.
      */
-    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(NurseyBookStorage nurseyBookStorage, UserPrefsStorage userPrefsStorage) {
         super();
-        this.addressBookStorage = addressBookStorage;
+        this.nurseyBookStorage = nurseyBookStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -47,33 +47,33 @@ public class StorageManager implements Storage {
     }
 
 
-    // ================ AddressBook methods ==============================
+    // ================ NurseyBook methods ==============================
 
     @Override
-    public Path getAddressBookFilePath() {
-        return addressBookStorage.getAddressBookFilePath();
+    public Path getNurseyBookFilePath() {
+        return nurseyBookStorage.getNurseyBookFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(addressBookStorage.getAddressBookFilePath());
+    public Optional<ReadOnlyNurseyBook> readNurseyBook() throws DataConversionException, IOException {
+        return readNurseyBook(nurseyBookStorage.getNurseyBookFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyNurseyBook> readNurseyBook(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return addressBookStorage.readAddressBook(filePath);
+        return nurseyBookStorage.readNurseyBook(filePath);
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
-        saveAddressBook(addressBook, addressBookStorage.getAddressBookFilePath());
+    public void saveNurseyBook(ReadOnlyNurseyBook nurseyBook) throws IOException {
+        saveNurseyBook(nurseyBook, nurseyBookStorage.getNurseyBookFilePath());
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+    public void saveNurseyBook(ReadOnlyNurseyBook nurseyBook, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        addressBookStorage.saveAddressBook(addressBook, filePath);
+        nurseyBookStorage.saveNurseyBook(nurseyBook, filePath);
     }
 
 }

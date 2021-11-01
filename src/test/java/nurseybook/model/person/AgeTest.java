@@ -1,30 +1,28 @@
 package nurseybook.model.person;
 
+import static nurseybook.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static nurseybook.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
-
-import nurseybook.testutil.Assert;
 
 public class AgeTest {
 
     @Test
     public void constructor_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> new Age(null));
+        assertThrows(NullPointerException.class, () -> new Age(null));
     }
 
     @Test
     public void constructor_invalidAge_throwsIllegalArgumentException() {
         String invalidAge = "";
-        Assert.assertThrows(IllegalArgumentException.class, () -> new Age(invalidAge));
+        assertThrows(IllegalArgumentException.class, () -> new Age(invalidAge));
     }
 
     @Test
     public void isValidAge() {
         // null age
-        Assert.assertThrows(NullPointerException.class, () -> Age.isValidAge(null));
+        assertThrows(NullPointerException.class, () -> Age.isValidAge(null));
 
         // invalid phones
         assertFalse(Age.isValidAge("")); // empty string

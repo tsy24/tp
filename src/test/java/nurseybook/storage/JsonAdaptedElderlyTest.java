@@ -1,8 +1,9 @@
 package nurseybook.storage;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static nurseybook.storage.JsonAdaptedElderly.MISSING_FIELD_MESSAGE_FORMAT;
 import static nurseybook.testutil.Assert.assertThrows;
 import static nurseybook.testutil.TypicalElderlies.BENSON;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,13 +74,13 @@ public class JsonAdaptedElderlyTest {
         JsonAdaptedElderly elderly =
                 new JsonAdaptedElderly(null, VALID_AGE, VALID_GENDER, VALID_ROOM_NUMBER, VALID_NOK_NAME,
                         VALID_RELATIONSHIP, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_REMARK, VALID_TAGS);
-        String expectedMessage = String.format(JsonAdaptedElderly.MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, elderly::toModelType);
 
         JsonAdaptedElderly elderly1 =
                 new JsonAdaptedElderly(VALID_NAME, VALID_AGE, VALID_GENDER, VALID_ROOM_NUMBER, null,
                         VALID_RELATIONSHIP, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_REMARK, VALID_TAGS);
-        String expectedMessage1 = String.format(JsonAdaptedElderly.MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
+        String expectedMessage1 = String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage1, elderly1::toModelType);
     }
 
@@ -97,7 +98,7 @@ public class JsonAdaptedElderlyTest {
         JsonAdaptedElderly elderly =
                 new JsonAdaptedElderly(VALID_NAME, null, VALID_GENDER, VALID_ROOM_NUMBER, VALID_NOK_NAME,
                         VALID_RELATIONSHIP, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_REMARK, VALID_TAGS);
-        String expectedMessage = String.format(JsonAdaptedElderly.MISSING_FIELD_MESSAGE_FORMAT, Age.class.getSimpleName());
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Age.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, elderly::toModelType);
     }
 
@@ -115,7 +116,7 @@ public class JsonAdaptedElderlyTest {
         JsonAdaptedElderly elderly =
                 new JsonAdaptedElderly(VALID_NAME, VALID_AGE, null, VALID_ROOM_NUMBER, VALID_NOK_NAME,
                         VALID_RELATIONSHIP, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_REMARK, VALID_TAGS);
-        String expectedMessage = String.format(JsonAdaptedElderly.MISSING_FIELD_MESSAGE_FORMAT, Gender.class.getSimpleName());
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Gender.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, elderly::toModelType);
     }
 
@@ -133,7 +134,7 @@ public class JsonAdaptedElderlyTest {
         JsonAdaptedElderly elderly =
                 new JsonAdaptedElderly(VALID_NAME, VALID_AGE, VALID_GENDER, null, VALID_NOK_NAME,
                         VALID_RELATIONSHIP, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_REMARK, VALID_TAGS);
-        String expectedMessage = String.format(JsonAdaptedElderly.MISSING_FIELD_MESSAGE_FORMAT, RoomNumber.class.getSimpleName());
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, RoomNumber.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, elderly::toModelType);
     }
 
@@ -151,7 +152,7 @@ public class JsonAdaptedElderlyTest {
         JsonAdaptedElderly elderly =
                 new JsonAdaptedElderly(VALID_NAME, VALID_AGE, VALID_GENDER, VALID_ROOM_NUMBER, VALID_NOK_NAME,
                         null, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_REMARK, VALID_TAGS);
-        String expectedMessage = String.format(JsonAdaptedElderly.MISSING_FIELD_MESSAGE_FORMAT, Relationship.class.getSimpleName());
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Relationship.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, elderly::toModelType);
     }
 
@@ -169,7 +170,7 @@ public class JsonAdaptedElderlyTest {
         JsonAdaptedElderly elderly =
                 new JsonAdaptedElderly(VALID_NAME, VALID_AGE, VALID_GENDER, VALID_ROOM_NUMBER, VALID_NOK_NAME,
                         VALID_RELATIONSHIP, null, VALID_EMAIL, VALID_ADDRESS, VALID_REMARK, VALID_TAGS);
-        String expectedMessage = String.format(JsonAdaptedElderly.MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName());
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, elderly::toModelType);
     }
 
@@ -187,7 +188,7 @@ public class JsonAdaptedElderlyTest {
         JsonAdaptedElderly elderly =
                 new JsonAdaptedElderly(VALID_NAME, VALID_AGE, VALID_GENDER, VALID_ROOM_NUMBER, VALID_NOK_NAME,
                         VALID_RELATIONSHIP, VALID_PHONE, null, VALID_ADDRESS, VALID_REMARK, VALID_TAGS);
-        String expectedMessage = String.format(JsonAdaptedElderly.MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName());
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, elderly::toModelType);
     }
 
@@ -205,7 +206,7 @@ public class JsonAdaptedElderlyTest {
         JsonAdaptedElderly elderly =
                 new JsonAdaptedElderly(VALID_NAME, VALID_AGE, VALID_GENDER, VALID_ROOM_NUMBER, VALID_NOK_NAME,
                         VALID_RELATIONSHIP, VALID_PHONE, VALID_EMAIL, null, VALID_REMARK, VALID_TAGS);
-        String expectedMessage = String.format(JsonAdaptedElderly.MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName());
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, elderly::toModelType);
     }
 

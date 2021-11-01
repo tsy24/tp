@@ -6,7 +6,7 @@ import nurseybook.logic.commands.exceptions.CommandException;
 import nurseybook.model.Model;
 
 /**
- * Undo the last command that changed the data of the nurseybook.
+ * Undo the last command that changed the data of the nursey book.
  */
 public class UndoCommand extends Command {
 
@@ -14,7 +14,7 @@ public class UndoCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Undo command: ";
 
-    public static final String MESSAGE_FAILURE = "There are no changes to the data of NurseyBook that can be undone";
+    public static final String MESSAGE_FAILURE = "There are no changes to the data of Nursey Book that can be undone";
 
     @Override
     public CommandResult execute(Model model) throws CommandException {

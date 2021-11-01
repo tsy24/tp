@@ -3,14 +3,14 @@ package nurseybook.model.person;
 import static java.util.Objects.requireNonNull;
 
 /**
- * Represents a Elderly's relationship with Nok in the address book.
+ * Represents a Elderly's relationship with Nok in the nursey book.
  * Guarantees: immutable; is always valid
  */
 public class Relationship {
     public static final String MESSAGE_CONSTRAINTS = "Relationships cannot contain numbers, or can be left blank.";
 
     /*
-     * The first character of the address must not be a whitespace,
+     * The first character of the relationship must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      * Relationship does not accept numerical characters.
      */
@@ -21,7 +21,7 @@ public class Relationship {
     /**
      * Constructs a {@code Remark}.
      *
-     * @param relationship A valid remark.
+     * @param relationship A valid relationship.
      */
     public Relationship(String relationship) {
         requireNonNull(relationship);

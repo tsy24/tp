@@ -1,24 +1,22 @@
 package nurseybook.model.person;
 
+import static nurseybook.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static nurseybook.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
-
-import nurseybook.testutil.Assert;
 
 public class EmailTest {
 
     @Test
     public void constructor_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> new Email(null));
+        assertThrows(NullPointerException.class, () -> new Email(null));
     }
 
     @Test
     public void isValidEmail() {
         // null email
-        Assert.assertThrows(NullPointerException.class, () -> Email.isValidEmail(null));
+        assertThrows(NullPointerException.class, () -> Email.isValidEmail(null));
 
         // blank email
         assertFalse(Email.isValidEmail(" ")); // spaces only

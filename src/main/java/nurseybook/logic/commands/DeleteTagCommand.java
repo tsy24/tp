@@ -1,13 +1,13 @@
 package nurseybook.logic.commands;
 
 import static nurseybook.commons.util.CollectionUtil.requireAllNonNull;
+import static nurseybook.logic.parser.CliSyntax.PREFIX_TAG;
 import static nurseybook.model.Model.PREDICATE_SHOW_ALL_ELDERLIES;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import nurseybook.logic.parser.CliSyntax;
 import nurseybook.commons.core.Messages;
 import nurseybook.commons.core.index.Index;
 import nurseybook.logic.commands.exceptions.CommandException;
@@ -26,9 +26,9 @@ public class DeleteTagCommand extends Command {
             + "by the index number used in the last elderly listing. "
             + "Must contain one or more tags\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + CliSyntax.PREFIX_TAG + "TAG " + "[" + CliSyntax.PREFIX_TAG + "MORE_TAGS]...\n"
+            + PREFIX_TAG + "TAG " + "[" + PREFIX_TAG + "MORE_TAGS]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + CliSyntax.PREFIX_TAG + "Diabetes";
+            + PREFIX_TAG + "Diabetes";
 
     public static final String MESSAGE_DELETE_TAG_SUCCESS = "Deleted tag(s) from Elderly: %1$s";
     public static final String MESSAGE_NO_SUCH_TAG = "'%1$s' tag does not exist for elderly";

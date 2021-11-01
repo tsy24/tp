@@ -1,29 +1,27 @@
 package nurseybook.model.task;
 
+import static nurseybook.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static nurseybook.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
-
-import nurseybook.testutil.Assert;
 
 public class RecurrenceTest {
     @Test
     public void constructor_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> new Recurrence(null));
+        assertThrows(NullPointerException.class, () -> new Recurrence(null));
     }
 
     @Test
     public void constructor_invalidRecurrence_throwsIllegalArgumentException() {
         String invalidStatus = "a";
-        Assert.assertThrows(IllegalArgumentException.class, () -> new Recurrence(invalidStatus));
+        assertThrows(IllegalArgumentException.class, () -> new Recurrence(invalidStatus));
     }
 
     @Test
     public void isValidRecurrence() {
         // null status
-        Assert.assertThrows(NullPointerException.class, () -> Recurrence.isValidRecurrence(null));
+        assertThrows(NullPointerException.class, () -> Recurrence.isValidRecurrence(null));
 
         // invalid statuses
         assertFalse(Recurrence.isValidRecurrence("d1y")); // non-matching words

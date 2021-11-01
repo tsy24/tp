@@ -2,32 +2,36 @@ package nurseybook.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static nurseybook.commons.core.Messages.MESSAGE_INVALID_TASK_DATETIME_FOR_RECURRING_TASK;
+import static nurseybook.logic.parser.CliSyntax.PREFIX_NAME;
+import static nurseybook.logic.parser.CliSyntax.PREFIX_TASK_DATE;
+import static nurseybook.logic.parser.CliSyntax.PREFIX_TASK_DESC;
+import static nurseybook.logic.parser.CliSyntax.PREFIX_TASK_RECURRING;
+import static nurseybook.logic.parser.CliSyntax.PREFIX_TASK_TIME;
 
-import nurseybook.logic.parser.CliSyntax;
 import nurseybook.logic.commands.exceptions.CommandException;
 import nurseybook.model.Model;
 import nurseybook.model.task.Task;
 
 /**
- * Adds a task to the address book.
+ * Adds a task to the nursey book.
  */
 public class AddTaskCommand extends Command {
     public static final String COMMAND_WORD = "addTask";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the address book.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the nursey book.\n"
             + "Parameters: "
-            + "[" + CliSyntax.PREFIX_NAME + "NAME]..."
-            + CliSyntax.PREFIX_TASK_DESC + "DESCRIPTION "
-            + CliSyntax.PREFIX_TASK_DATE + "DATE "
-            + CliSyntax.PREFIX_TASK_TIME + "TIME "
-            + "[" + CliSyntax.PREFIX_TASK_RECURRING + "RECURRENCE_TYPE]\n"
+            + "[" + PREFIX_NAME + "NAME]..."
+            + PREFIX_TASK_DESC + "DESCRIPTION "
+            + PREFIX_TASK_DATE + "DATE "
+            + PREFIX_TASK_TIME + "TIME "
+            + "[" + PREFIX_TASK_RECURRING + "RECURRENCE_TYPE]\n"
             + "Example: " + COMMAND_WORD + " "
-            + CliSyntax.PREFIX_NAME + "Khong Guan "
-            + CliSyntax.PREFIX_NAME + "Swee Choon "
-            + CliSyntax.PREFIX_TASK_DESC + "Weekly Taiji "
-            + CliSyntax.PREFIX_TASK_DATE + "2021-10-10 "
-            + CliSyntax.PREFIX_TASK_TIME + "14:30 "
-            + CliSyntax.PREFIX_TASK_RECURRING + "week";
+            + PREFIX_NAME + "Khong Guan "
+            + PREFIX_NAME + "Swee Choon "
+            + PREFIX_TASK_DESC + "Weekly Taiji "
+            + PREFIX_TASK_DATE + "2021-10-10 "
+            + PREFIX_TASK_TIME + "14:30 "
+            + PREFIX_TASK_RECURRING + "week";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
 
@@ -50,7 +54,8 @@ public class AddTaskCommand extends Command {
         }
 
         model.addTask(toAdd);
-        CommandResult result = new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), CommandResult.ListDisplayChange.TASK);
+        CommandResult result = new CommandResult(String.format(MESSAGE_SUCCESS, toAdd),
+                CommandResult.ListDisplayChange.TASK);
         model.commitNurseyBook(result);
         return result;
     }

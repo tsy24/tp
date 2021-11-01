@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static nurseybook.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a whether a task is a ghost task or not in the address book.
+ * Represents a whether a task is a ghost task or not in the nursey book.
  * GhostTasks are temporary tasks that are not meant to be shown to the user.
  * Guarantees: immutable; is valid as declared in {@link #isValidGhostTask(String)}
  */

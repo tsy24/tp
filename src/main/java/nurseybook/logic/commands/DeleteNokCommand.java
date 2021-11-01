@@ -13,7 +13,7 @@ import nurseybook.model.person.Elderly;
 import nurseybook.model.person.Nok;
 
 /**
- * Deletes the NoK fields of an elderly identified using it's displayed index from the address book.
+ * Deletes the NoK fields of an elderly identified using it's displayed index from the nursey book.
  */
 public class DeleteNokCommand extends Command {
 

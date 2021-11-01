@@ -1,13 +1,13 @@
 package nurseybook.model;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static nurseybook.model.Model.PREDICATE_SHOW_ALL_ELDERLIES;
 import static nurseybook.testutil.Assert.assertThrows;
 import static nurseybook.testutil.TypicalElderlies.ALICE;
 import static nurseybook.testutil.TypicalElderlies.BENSON;
 import static nurseybook.testutil.TypicalTasks.KEITH_INSULIN;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -17,7 +17,7 @@ import org.junit.jupiter.api.Test;
 
 import nurseybook.commons.core.GuiSettings;
 import nurseybook.model.person.NameContainsKeywordsPredicate;
-import nurseybook.testutil.AddressBookBuilder;
+import nurseybook.testutil.NurseyBookBuilder;
 
 public class ModelManagerTest {
 
@@ -27,7 +27,7 @@ public class ModelManagerTest {
     public void constructor() {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
-        assertEquals(new AddressBook(), new AddressBook(modelManager.getVersionedNurseyBook()));
+        assertEquals(new NurseyBook(), new NurseyBook(modelManager.getVersionedNurseyBook()));
     }
 
     @Test
@@ -38,14 +38,14 @@ public class ModelManagerTest {
     @Test
     public void setUserPrefs_validUserPrefs_copiesUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
-        userPrefs.setAddressBookFilePath(Paths.get("address/book/file/path"));
+        userPrefs.setNurseyBookFilePath(Paths.get("nurseybook/file/path"));
         userPrefs.setGuiSettings(new GuiSettings(1, 2, 3, 4));
         modelManager.setUserPrefs(userPrefs);
         assertEquals(userPrefs, modelManager.getUserPrefs());
 
         // Modifying userPrefs should not modify modelManager's userPrefs
         UserPrefs oldUserPrefs = new UserPrefs(userPrefs);
-        userPrefs.setAddressBookFilePath(Paths.get("new/address/book/file/path"));
+        userPrefs.setNurseyBookFilePath(Paths.get("new/nurseybook/file/path"));
         assertEquals(oldUserPrefs, modelManager.getUserPrefs());
     }
 
@@ -62,15 +62,15 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void setAddressBookFilePath_nullPath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> modelManager.setAddressBookFilePath(null));
+    public void setNurseyBookFilePath_nullPath_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.setNurseyBookFilePath(null));
     }
 
     @Test
-    public void setAddressBookFilePath_validPath_setsAddressBookFilePath() {
-        Path path = Paths.get("address/book/file/path");
-        modelManager.setAddressBookFilePath(path);
-        assertEquals(path, modelManager.getAddressBookFilePath());
+    public void setNurseyBookFilePath_validPath_setsNurseyBookFilePath() {
+        Path path = Paths.get("nurseybook/book/file/path");
+        modelManager.setNurseyBookFilePath(path);
+        assertEquals(path, modelManager.getNurseyBookFilePath());
     }
 
     @Test
@@ -84,23 +84,23 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void hasElderly_elderlyNotInAddressBook_returnsFalse() {
+    public void hasElderly_elderlyNotInNurseyBook_returnsFalse() {
         assertFalse(modelManager.hasElderly(ALICE));
     }
 
     @Test
-    public void hasTask_taskNotInAddressBook_returnsFalse() {
+    public void hasTask_taskNotInNurseyBook_returnsFalse() {
         assertFalse(modelManager.hasTask(KEITH_INSULIN));
     }
 
     @Test
-    public void hasElderly_elderlyInAddressBook_returnsTrue() {
+    public void hasElderly_elderlyInNurseyBook_returnsTrue() {
         modelManager.addElderly(ALICE);
         assertTrue(modelManager.hasElderly(ALICE));
     }
 
     @Test
-    public void hasTask_taskInAddressBook_returnsTrue() {
+    public void hasTask_taskInNurseyBook_returnsTrue() {
         modelManager.addTask(KEITH_INSULIN);
         assertTrue(modelManager.hasTask(KEITH_INSULIN));
     }
@@ -117,13 +117,13 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        AddressBook addressBook = new AddressBookBuilder().withElderly(ALICE).withElderly(BENSON).build();
-        AddressBook differentAddressBook = new AddressBook();
+        NurseyBook nurseyBook = new NurseyBookBuilder().withElderly(ALICE).withElderly(BENSON).build();
+        NurseyBook differentNurseyBook = new NurseyBook();
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        modelManager = new ModelManager(addressBook, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(addressBook, userPrefs);
+        modelManager = new ModelManager(nurseyBook, userPrefs);
+        ModelManager modelManagerCopy = new ModelManager(nurseyBook, userPrefs);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -135,20 +135,20 @@ public class ModelManagerTest {
         // different types -> returns false
         assertFalse(modelManager.equals(5));
 
-        // different addressBook -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs)));
+        // different nurseyBook -> returns false
+        assertFalse(modelManager.equals(new ModelManager(differentNurseyBook, userPrefs)));
 
         // different filteredList -> returns false
         String[] keywords = ALICE.getName().fullName.split("\\s+");
         modelManager.updateFilteredElderlyList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(nurseyBook, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredElderlyList(PREDICATE_SHOW_ALL_ELDERLIES);
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
-        differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, differentUserPrefs)));
+        differentUserPrefs.setNurseyBookFilePath(Paths.get("differentFilePath"));
+        assertFalse(modelManager.equals(new ModelManager(nurseyBook, differentUserPrefs)));
     }
 }

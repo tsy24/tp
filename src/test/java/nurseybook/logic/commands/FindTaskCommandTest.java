@@ -1,9 +1,12 @@
 package nurseybook.logic.commands;
 
+import static nurseybook.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static nurseybook.testutil.TypicalTasks.KG_SC_VACCINE;
+import static nurseybook.testutil.TypicalTasks.YASMINE_PHYSIO;
+import static nurseybook.testutil.TypicalTasks.getTypicalNurseyBook;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static nurseybook.logic.commands.CommandTestUtil.assertCommandSuccess;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -11,18 +14,17 @@ import java.util.Collections;
 import org.junit.jupiter.api.Test;
 
 import nurseybook.commons.core.Messages;
-import nurseybook.model.task.DescriptionContainsKeywordPredicate;
-import nurseybook.testutil.TypicalTasks;
 import nurseybook.model.Model;
 import nurseybook.model.ModelManager;
 import nurseybook.model.UserPrefs;
+import nurseybook.model.task.DescriptionContainsKeywordPredicate;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindTaskCommand}.
  */
 public class FindTaskCommandTest {
-    private Model model = new ModelManager(TypicalTasks.getTypicalAddressBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(TypicalTasks.getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalNurseyBook(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalNurseyBook(), new UserPrefs());
 
     @Test
     public void equals() {
@@ -60,7 +62,7 @@ public class FindTaskCommandTest {
         FindTaskCommand command = new FindTaskCommand(predicate);
         expectedModel.updateFilteredTaskList(predicate);
 
-        CommandTestUtil.assertCommandSuccess(command, model, expectedCommandResult, expectedModel);
+        assertCommandSuccess(command, model, expectedCommandResult, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredTaskList());
     }
 
@@ -73,8 +75,8 @@ public class FindTaskCommandTest {
         FindTaskCommand command = new FindTaskCommand(predicate);
         expectedModel.updateFilteredTaskList(predicate);
 
-        CommandTestUtil.assertCommandSuccess(command, model, expectedCommandResult, expectedModel);
-        assertEquals(Arrays.asList(TypicalTasks.YASMINE_PHYSIO, TypicalTasks.KG_SC_VACCINE), model.getFilteredTaskList());
+        assertCommandSuccess(command, model, expectedCommandResult, expectedModel);
+        assertEquals(Arrays.asList(YASMINE_PHYSIO, KG_SC_VACCINE), model.getFilteredTaskList());
     }
 
     /**

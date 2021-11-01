@@ -41,72 +41,74 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' nursey book file path.
      */
-    Path getAddressBookFilePath();
+    Path getNurseyBookFilePath();
 
     /**
-     * Sets the user prefs' address book file path.
+     * Sets the user prefs' nursey book file path.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    void setNurseyBookFilePath(Path nurseyBookFilePath);
 
     /**
-     * Replaces address book data with the data in {@code versionedNurseyBook}.
+     * Replaces nursey book data with the data in {@code versionedNurseyBook}.
      */
-    void setVersionedNurseyBook(ReadOnlyAddressBook versionedNurseyBook);
-
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getVersionedNurseyBook();
+    void setVersionedNurseyBook(ReadOnlyNurseyBook versionedNurseyBook);
 
     /**
-     * Returns true if a elderly with the same identity as {@code elderly} exists in the address book.
+     * Returns the NurseyBook
+     */
+    ReadOnlyNurseyBook getVersionedNurseyBook();
+
+    /**
+     * Returns true if a elderly with the same identity as {@code elderly} exists in the nursey book.
      */
     boolean hasElderly(Elderly elderly);
 
     /**
-     * Returns true if a task {@code task} exists in the address book.
+     * Returns true if a task {@code task} exists in the nursey book.
      */
     boolean hasTask(Task t);
 
     /**
      * Mark the given task {@code target} as done.
-     * {@code target} must exist in the address book.
+     * {@code target} must exist in the nursey book.
      */
     void markTaskAsDone(Task target);
 
     /**
      * Marks the given task {@code target} as overdue.
-     * {@code target} must exist in the address book.
+     * {@code target} must exist in the nursey book.
      */
     void markTaskAsOverdue(Task target);
 
     /**
      * Marks the given task {@code target} as not overdue.
-     * {@code target} must exist in the address book.
+     * {@code target} must exist in the nursey book.
      */
     void markTaskAsNotOverdue(Task target);
 
     /**
      * Updates the date of the given task {@code target} such that it is not overdue.
-     * {@code target} must exist in the address book.
+     * {@code target} must exist in the nursey book.
      */
     void updateDateRecurringTask(Task target);
 
     /**
      * Deletes the given elderly.
-     * The elderly must exist in the address book.
+     * The elderly must exist in the nursey book.
      */
     void deleteElderly(Elderly target);
 
     /**
      * Adds the given elderly.
-     * {@code elderly} must not already exist in the address book.
+     * {@code elderly} must not already exist in the nursey book.
      */
     void addElderly(Elderly elderly);
 
     /**
      * Set given elderly as the elderly whose full details are to be displayed.
-     * The elderly must exist in the address book.
+     * The elderly must exist in the nursey book.
      */
     void setElderlyOfInterest(Elderly e);
 
@@ -122,21 +124,21 @@ public interface Model {
 
     /**
      * Replaces the given elderly {@code target} with {@code editedElderly}.
-     * {@code target} must exist in the address book.
+     * {@code target} must exist in the nursey book.
      * The elderly identity of {@code editedElderly} must not be the same as another existing elderly
-     * in the address book.
+     * in the nursey book.
      */
     void setElderly(Elderly target, Elderly editedElderly);
 
 
-    /** Deletes all tasks that are not real in AddressBook. */
+    /** Deletes all tasks that are not real in NurseyBook. */
     void deleteGhostTasks();
 
     /**
      * Replaces the given task {@code target} with {@code editedTask}.
-     * {@code target} must exist in the address book.
+     * {@code target} must exist in the nursey book.
      * The task identity of {@code editedTask} must not be the same as another existing task
-     * in the address book.
+     * in the nursey book.
      */
     void setTask(Task target, Task editedTask);
 
@@ -160,7 +162,7 @@ public interface Model {
 
     /**
      * Deletes the given task.
-     * The task must exist in the address book.
+     * The task must exist in the nursey book.
      */
     void deleteTask(Task taskToDelete);
 

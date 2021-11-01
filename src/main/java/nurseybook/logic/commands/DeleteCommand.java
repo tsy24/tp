@@ -11,7 +11,7 @@ import nurseybook.model.Model;
 import nurseybook.model.person.Elderly;
 
 /**
- * Deletes an elderly identified using it's displayed index from the address book.
+ * Deletes an elderly identified using it's displayed index from the nursey book.
  */
 public class DeleteCommand extends Command {
 

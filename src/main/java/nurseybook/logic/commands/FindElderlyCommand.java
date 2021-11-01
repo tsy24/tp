@@ -7,7 +7,7 @@ import nurseybook.model.Model;
 import nurseybook.model.person.NameContainsKeywordsPredicate;
 
 /**
- * Finds and lists all elderlies in the address book whose name contains any of the argument keywords.
+ * Finds and lists all elderlies in the nursey book whose name contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
 public class FindElderlyCommand extends Command {
