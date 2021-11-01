@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import static seedu.address.commons.core.Messages.MESSAGE_DUPLICATE_ELDERLY;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalElderlies.getTypicalAddressBook;
@@ -42,7 +43,7 @@ public class AddCommandIntegrationTest {
     @Test
     public void execute_duplicateElderly_throwsCommandException() {
         Elderly elderlyInList = model.getVersionedNurseyBook().getElderlyList().get(0);
-        assertCommandFailure(new AddCommand(elderlyInList), model, AddCommand.MESSAGE_DUPLICATE_ELDERLY);
+        assertCommandFailure(new AddCommand(elderlyInList), model, MESSAGE_DUPLICATE_ELDERLY);
     }
 
 }
