@@ -44,7 +44,7 @@ public class TypicalTasks {
 
     public static final Task KG_SC_VACCINE = new TaskBuilder().withDesc(VALID_DESC_VACCINE)
             .withDateTime("2021-10-30", "18:00").withNames("Khong Guan", "Swee Choon")
-            .withStatus("false", "false").withRecurrence(RecurrenceType.NONE.name()).build();
+            .withStatus("false", "true").withRecurrence(RecurrenceType.NONE.name()).build();
 
     // Extra test cases
 
@@ -60,15 +60,18 @@ public class TypicalTasks {
             .withDateTime("2021-07-30", "23:50").withStatus("true", "true")
             .withRecurrence(RecurrenceType.MONTH.name()).build();
 
-    public static final Task APPLY_LEAVE_DAY_NEXT_RECURRENCE_GHOST = new TaskBuilder().withDesc("Apply leave with HR")
+    public static final Task APPLY_LEAVE_DAY_NEXT_RECURRENCE_GHOST = new TaskBuilder()
+            .withDesc("Apply leave with HR Day")
             .withDateTime("2021-10-02", "00:00").withStatus("true", "true")
             .withRecurrence(RecurrenceType.DAY.name()).withGhostTask("true").build();
 
-    public static final Task APPLY_LEAVE_WEEK_NEXT_RECURRENCE_GHOST = new TaskBuilder().withDesc("Apply leave with HR")
+    public static final Task APPLY_LEAVE_WEEK_NEXT_RECURRENCE_GHOST = new TaskBuilder()
+            .withDesc("Apply leave with HR Week")
             .withDateTime("2021-10-07", "23:50").withStatus("true", "true")
             .withRecurrence(RecurrenceType.WEEK.name()).withGhostTask("true").build();
 
-    public static final Task APPLY_LEAVE_MONTH_NEXT_RECURRENCE_GHOST = new TaskBuilder().withDesc("Apply leave with HR")
+    public static final Task APPLY_LEAVE_MONTH_NEXT_RECURRENCE_GHOST = new TaskBuilder()
+            .withDesc("Apply leave with HR Month")
             .withDateTime("2021-08-27", "23:50").withStatus("true", "true")
             .withRecurrence(RecurrenceType.MONTH.name()).withGhostTask("true").build();
 
