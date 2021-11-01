@@ -3,13 +3,27 @@ package seedu.address.model.task;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_AGE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_GENDER_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NOK_ADDRESS_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NOK_EMAIL_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NOK_NAME_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NOK_PHONE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NOK_RELATIONSHIP_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ROOM_NUMBER_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.commands.TaskCommandTestUtil.VALID_DATE_JAN;
 import static seedu.address.logic.commands.TaskCommandTestUtil.VALID_DATE_NOV;
 import static seedu.address.logic.commands.TaskCommandTestUtil.VALID_DESC_MEDICINE;
+import static seedu.address.logic.commands.TaskCommandTestUtil.VALID_DESC_VACCINE;
 import static seedu.address.logic.commands.TaskCommandTestUtil.VALID_NAME_ALEX;
 import static seedu.address.logic.commands.TaskCommandTestUtil.VALID_NAME_KEITH;
 import static seedu.address.logic.commands.TaskCommandTestUtil.VALID_TIME_SEVENPM;
 import static seedu.address.logic.commands.TaskCommandTestUtil.VALID_TIME_TENAM;
+import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalElderlies.ALICE;
+import static seedu.address.testutil.TypicalElderlies.BOB;
 import static seedu.address.testutil.TypicalTasks.ALEX_INSULIN;
 import static seedu.address.testutil.TypicalTasks.APPLY_LEAVE;
 import static seedu.address.testutil.TypicalTasks.APPLY_LEAVE_DAY_NEXT_RECURRENCE_GHOST;
@@ -18,6 +32,8 @@ import static seedu.address.testutil.TypicalTasks.APPLY_LEAVE_MONTH_RECURRENCE;
 import static seedu.address.testutil.TypicalTasks.APPLY_LEAVE_WEEK_RECURRENCE;
 import static seedu.address.testutil.TypicalTasks.DO_PAPERWORK;
 import static seedu.address.testutil.TypicalTasks.KEITH_INSULIN;
+import static seedu.address.testutil.TypicalTasks.KG_SC_VACCINE;
+import static seedu.address.testutil.TypicalTasks.YASMINE_PHYSIO;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -25,7 +41,9 @@ import java.time.LocalTime;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.person.Elderly;
 import seedu.address.model.task.Recurrence.RecurrenceType;
+import seedu.address.testutil.ElderlyBuilder;
 import seedu.address.testutil.TaskBuilder;
 
 
@@ -33,6 +51,41 @@ public class TaskTest {
 
     private final Task keithInsulin = new TaskBuilder(KEITH_INSULIN).build();
     private final Task applyLeave = new TaskBuilder(APPLY_LEAVE).build();
+
+    @Test
+    public void asObservableList_modifyList_throwsUnsupportedOperationException() {
+        Task task = new TaskBuilder().build();
+        assertThrows(UnsupportedOperationException.class, () -> task.getRelatedNames().remove(0));
+    }
+
+    @Test
+    public void isSameTask() {
+        // same object -> returns true
+        assertTrue(YASMINE_PHYSIO.isSameTask(YASMINE_PHYSIO));
+
+        // null -> returns false
+        assertFalse(YASMINE_PHYSIO.isSameTask(null));
+
+        // same name, all other attributes different -> returns true
+        Task editedYasmin = new TaskBuilder(YASMINE_PHYSIO).withDesc("Physiotherapy with yoga ball")
+                .withDate(VALID_DATE_JAN)
+                .withTime(VALID_TIME_TENAM).withStatus("false", "false")
+                .withRecurrence(RecurrenceType.WEEK.name()).build();
+        assertTrue(YASMINE_PHYSIO.isSameTask(editedYasmin));
+
+        // different description, all other attributes same -> returns false
+        editedYasmin = new TaskBuilder(YASMINE_PHYSIO).withDesc(VALID_DESC_MEDICINE).build();
+        assertFalse(YASMINE_PHYSIO.isSameTask(editedYasmin));
+
+        // description differs in case, all other attributes same -> returns false
+        Task editedVaccine = new TaskBuilder(KG_SC_VACCINE).withDesc(VALID_DESC_VACCINE.toLowerCase()).build();
+        assertFalse(KG_SC_VACCINE.isSameTask(editedVaccine));
+
+        // description has trailing spaces, all other attributes same -> returns false
+        String descriptionWithTrailingSpaces = VALID_DESC_VACCINE + " ";
+        editedVaccine = new TaskBuilder(KG_SC_VACCINE).withDesc(descriptionWithTrailingSpaces).build();
+        assertFalse(KG_SC_VACCINE.isSameTask(editedVaccine));
+    }
 
     @Test
     public void equals() {

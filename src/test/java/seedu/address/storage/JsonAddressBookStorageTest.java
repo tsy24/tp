@@ -6,6 +6,9 @@ import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalElderlies.ALICE;
 import static seedu.address.testutil.TypicalElderlies.HOON;
 import static seedu.address.testutil.TypicalElderlies.IDA;
+import static seedu.address.testutil.TypicalTasks.APPLY_LEAVE_DAY_NEXT_RECURRENCE_GHOST;
+import static seedu.address.testutil.TypicalTasks.APPLY_LEAVE_LATE_TIME;
+import static seedu.address.testutil.TypicalTasks.APPLY_LEAVE_MONTH_RECURRENCE;
 import static seedu.address.testutil.TypicalTasks.KG_SC_VACCINE;
 import static seedu.address.testutil.TypicalTasks.YASMINE_PHYSIO;
 
@@ -101,14 +104,14 @@ public class JsonAddressBookStorageTest {
         assertEquals(original, new AddressBook(readBack));
 
         // Modify data, overwrite exiting file, and read back
-        original.addTask(YASMINE_PHYSIO);
+        original.addTask(APPLY_LEAVE_LATE_TIME);
         //original.removeTask...
         jsonAddressBookStorage.saveAddressBook(original, filePath);
         readBack = jsonAddressBookStorage.readAddressBook(filePath).get();
         assertEquals(original, new AddressBook(readBack));
 
         // Save and read without specifying file path
-        original.addTask(KG_SC_VACCINE);
+        original.addTask(APPLY_LEAVE_DAY_NEXT_RECURRENCE_GHOST);
         jsonAddressBookStorage.saveAddressBook(original); // file path not specified
         readBack = jsonAddressBookStorage.readAddressBook().get(); // file path not specified
         assertEquals(original, new AddressBook(readBack));

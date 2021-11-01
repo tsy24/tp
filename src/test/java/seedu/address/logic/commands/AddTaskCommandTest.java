@@ -11,11 +11,14 @@ import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.VersionedNurseyBook;
+import seedu.address.model.person.Elderly;
 import seedu.address.model.task.Task;
 import seedu.address.testutil.AddressBookBuilder;
+import seedu.address.testutil.ElderlyBuilder;
 import seedu.address.testutil.ModelStub;
 import seedu.address.testutil.TaskBuilder;
 
@@ -36,6 +39,15 @@ public class AddTaskCommandTest {
 
         assertEquals(expectedCommand, commandResult);
         assertEquals(Arrays.asList(validTask), modelStub.tasksAdded);
+    }
+
+    @Test
+    public void execute_duplicateTask_throwsCommandException() {
+        Task validTask = new TaskBuilder().build();
+        AddTaskCommand addTaskCommand = new AddTaskCommand(validTask);
+        ModelStub modelStub = new ModelStubWithTask(validTask);
+        assertThrows(CommandException.class,
+                AddTaskCommand.MESSAGE_DUPLICATE_TASK, () -> addTaskCommand.execute(modelStub));
     }
 
     @Test
@@ -60,6 +72,24 @@ public class AddTaskCommandTest {
 
         // different description -> returns false
         assertFalse(addInsulinTask.equals(addLeaveTask));
+    }
+
+    /**
+     * A Model stub that contains a single task.
+     */
+    private class ModelStubWithTask extends ModelStub {
+        private final Task task;
+
+        ModelStubWithTask(Task task) {
+            requireNonNull(task);
+            this.task = task;
+        }
+
+        @Override
+        public boolean hasTask(Task task) {
+            requireNonNull(task);
+            return this.task.isSameTask(task);
+        }
     }
 
     /**

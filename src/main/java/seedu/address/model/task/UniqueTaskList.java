@@ -12,6 +12,7 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.task.Recurrence.RecurrenceType;
+import seedu.address.model.task.exceptions.DuplicateTaskException;
 import seedu.address.model.task.exceptions.TaskNotFoundException;
 
 /**
@@ -20,7 +21,7 @@ import seedu.address.model.task.exceptions.TaskNotFoundException;
  * Supports a minimal set of list operations.
  *
  */
-public class TaskList implements Iterable<Task> {
+public class UniqueTaskList implements Iterable<Task> {
 
     private final ObservableList<Task> internalList = FXCollections.observableArrayList();
     private final ObservableList<Task> internalUnmodifiableList =
@@ -32,6 +33,9 @@ public class TaskList implements Iterable<Task> {
      */
     public void add(Task toAdd) {
         requireNonNull(toAdd);
+        if (contains(toAdd)) {
+            throw new DuplicateTaskException();
+        }
         internalList.add(toAdd);
         internalList.sort(Comparator.naturalOrder());
     }
@@ -48,6 +52,11 @@ public class TaskList implements Iterable<Task> {
         if (index == -1) {
             throw new TaskNotFoundException();
         }
+
+        if (!target.isSameTask(editedTask) && contains(editedTask)) {
+            throw new DuplicateTaskException();
+        }
+
         internalList.set(index, editedTask);
     }
 
@@ -92,7 +101,7 @@ public class TaskList implements Iterable<Task> {
     /**
      * Replaces this list with the list from {@code replacement}.
      */
-    public void setTasks(TaskList replacement) {
+    public void setTasks(UniqueTaskList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
@@ -192,8 +201,8 @@ public class TaskList implements Iterable<Task> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof TaskList // instanceof handles nulls
-                && internalList.equals(((TaskList) other).internalList));
+                || (other instanceof UniqueTaskList // instanceof handles nulls
+                && internalList.equals(((UniqueTaskList) other).internalList));
     }
 
     @Override
@@ -206,6 +215,6 @@ public class TaskList implements Iterable<Task> {
      */
     public boolean contains(Task t) {
         requireNonNull(t);
-        return internalList.contains(t);
+        return internalList.stream().anyMatch(t::isSameTask);
     }
 }

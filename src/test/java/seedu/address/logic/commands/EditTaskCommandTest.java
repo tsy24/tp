@@ -2,8 +2,10 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.commands.AddTaskCommand.MESSAGE_DUPLICATE_TASK;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.CommandTestUtil.showElderlyAtIndex;
 import static seedu.address.logic.commands.TaskCommandTestUtil.PAPERWORK_TASK;
 import static seedu.address.logic.commands.TaskCommandTestUtil.VACCINE_TASK;
 import static seedu.address.logic.commands.TaskCommandTestUtil.VALID_DESC_MEDICINE;
@@ -22,7 +24,9 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.person.Elderly;
 import seedu.address.model.task.Task;
+import seedu.address.testutil.EditElderlyDescriptorBuilder;
 import seedu.address.testutil.EditTaskDescriptorBuilder;
 import seedu.address.testutil.TaskBuilder;
 
@@ -100,6 +104,25 @@ public class EditTaskCommandTest {
         assertCommandSuccess(editTaskCommand, model, expectedMessage, expectedModel);
     }
 
+    @Test
+    public void execute_duplicateTaskUnfilteredList_failure() {
+        Task firstTask = model.getFilteredTaskList().get(INDEX_FIRST.getZeroBased());
+        EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder(firstTask).build();
+        EditTaskCommand editTaskCommand = new EditTaskCommand(INDEX_SECOND, descriptor);
+
+        assertCommandFailure(editTaskCommand, model, MESSAGE_DUPLICATE_TASK);
+    }
+
+    @Test
+    public void execute_duplicateTaskFilteredList_failure() {
+        showTaskAtIndex(model, INDEX_FIRST);
+
+        // edit task in filtered list into a duplicate in the address book
+        Task taskInList = model.getVersionedNurseyBook().getTaskList().get(INDEX_SECOND.getZeroBased());
+        EditTaskCommand editTaskCommand = new EditTaskCommand(INDEX_FIRST,
+                new EditTaskDescriptorBuilder(taskInList).build());
+        assertCommandFailure(editTaskCommand, model, MESSAGE_DUPLICATE_TASK);
+    }
 
     @Test
     public void execute_invalidTaskIndexUnfilteredList_failure() {
