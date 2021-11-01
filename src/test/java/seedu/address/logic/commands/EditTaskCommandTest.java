@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.AddTaskCommand.MESSAGE_DUPLICATE_TASK;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.CommandTestUtil.showElderlyAtIndex;
 import static seedu.address.logic.commands.TaskCommandTestUtil.PAPERWORK_TASK;
 import static seedu.address.logic.commands.TaskCommandTestUtil.VACCINE_TASK;
 import static seedu.address.logic.commands.TaskCommandTestUtil.VALID_DESC_MEDICINE;
@@ -24,9 +23,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.person.Elderly;
 import seedu.address.model.task.Task;
-import seedu.address.testutil.EditElderlyDescriptorBuilder;
 import seedu.address.testutil.EditTaskDescriptorBuilder;
 import seedu.address.testutil.TaskBuilder;
 

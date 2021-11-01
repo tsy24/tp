@@ -3,16 +3,6 @@ package seedu.address.model.task;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_AGE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_GENDER_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NOK_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NOK_EMAIL_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NOK_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NOK_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NOK_RELATIONSHIP_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ROOM_NUMBER_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.commands.TaskCommandTestUtil.VALID_DATE_JAN;
 import static seedu.address.logic.commands.TaskCommandTestUtil.VALID_DATE_NOV;
 import static seedu.address.logic.commands.TaskCommandTestUtil.VALID_DESC_MEDICINE;
@@ -22,8 +12,6 @@ import static seedu.address.logic.commands.TaskCommandTestUtil.VALID_NAME_KEITH;
 import static seedu.address.logic.commands.TaskCommandTestUtil.VALID_TIME_SEVENPM;
 import static seedu.address.logic.commands.TaskCommandTestUtil.VALID_TIME_TENAM;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalElderlies.ALICE;
-import static seedu.address.testutil.TypicalElderlies.BOB;
 import static seedu.address.testutil.TypicalTasks.ALEX_INSULIN;
 import static seedu.address.testutil.TypicalTasks.APPLY_LEAVE;
 import static seedu.address.testutil.TypicalTasks.APPLY_LEAVE_DAY_NEXT_RECURRENCE_GHOST;
@@ -41,9 +29,7 @@ import java.time.LocalTime;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.person.Elderly;
 import seedu.address.model.task.Recurrence.RecurrenceType;
-import seedu.address.testutil.ElderlyBuilder;
 import seedu.address.testutil.TaskBuilder;
 
 

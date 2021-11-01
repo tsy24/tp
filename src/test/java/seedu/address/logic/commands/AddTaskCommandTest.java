@@ -15,10 +15,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.VersionedNurseyBook;
-import seedu.address.model.person.Elderly;
 import seedu.address.model.task.Task;
 import seedu.address.testutil.AddressBookBuilder;
-import seedu.address.testutil.ElderlyBuilder;
 import seedu.address.testutil.ModelStub;
 import seedu.address.testutil.TaskBuilder;
 

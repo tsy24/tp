@@ -8,9 +8,6 @@ import static seedu.address.testutil.TypicalElderlies.HOON;
 import static seedu.address.testutil.TypicalElderlies.IDA;
 import static seedu.address.testutil.TypicalTasks.APPLY_LEAVE_DAY_NEXT_RECURRENCE_GHOST;
 import static seedu.address.testutil.TypicalTasks.APPLY_LEAVE_LATE_TIME;
-import static seedu.address.testutil.TypicalTasks.APPLY_LEAVE_MONTH_RECURRENCE;
-import static seedu.address.testutil.TypicalTasks.KG_SC_VACCINE;
-import static seedu.address.testutil.TypicalTasks.YASMINE_PHYSIO;
 
 import java.io.IOException;
 import java.nio.file.Path;
