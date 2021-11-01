@@ -11,7 +11,7 @@ import nurseybook.model.person.Elderly;
 import nurseybook.model.person.Name;
 import nurseybook.model.person.UniqueElderlyList;
 import nurseybook.model.task.Task;
-import nurseybook.model.task.TaskList;
+import nurseybook.model.task.UniqueTaskList;
 
 /**
  * Wraps all data at the nursey book level
@@ -20,7 +20,7 @@ import nurseybook.model.task.TaskList;
 public class NurseyBook implements ReadOnlyNurseyBook {
 
     private final UniqueElderlyList elderlies;
-    private final TaskList tasks;
+    private final UniqueTaskList tasks;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -31,7 +31,7 @@ public class NurseyBook implements ReadOnlyNurseyBook {
      */
     {
         elderlies = new UniqueElderlyList();
-        tasks = new TaskList();
+        tasks = new UniqueTaskList();
     }
 
     public NurseyBook() {}
@@ -171,7 +171,6 @@ public class NurseyBook implements ReadOnlyNurseyBook {
 
     @Override
     public ObservableList<Task> getTaskList() {
-        // tasks.changeDateOfPastRecurringTasks();
         return tasks.asUnmodifiableObservableList();
     }
 

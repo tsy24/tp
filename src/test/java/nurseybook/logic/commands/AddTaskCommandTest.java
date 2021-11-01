@@ -5,12 +5,18 @@ import static nurseybook.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+<<<<<<< HEAD:src/test/java/nurseybook/logic/commands/AddTaskCommandTest.java
+=======
+import static seedu.address.commons.core.Messages.MESSAGE_DUPLICATE_TASK;
+import static seedu.address.testutil.Assert.assertThrows;
+>>>>>>> 05b67180673b53490a68ffa0e70b2353fc8aa2af:src/test/java/seedu/address/logic/commands/AddTaskCommandTest.java
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
+<<<<<<< HEAD:src/test/java/nurseybook/logic/commands/AddTaskCommandTest.java
 import nurseybook.model.NurseyBook;
 import nurseybook.model.ReadOnlyNurseyBook;
 import nurseybook.model.VersionedNurseyBook;
@@ -18,6 +24,16 @@ import nurseybook.model.task.Task;
 import nurseybook.testutil.ModelStub;
 import nurseybook.testutil.NurseyBookBuilder;
 import nurseybook.testutil.TaskBuilder;
+=======
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.AddressBook;
+import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.VersionedNurseyBook;
+import seedu.address.model.task.Task;
+import seedu.address.testutil.AddressBookBuilder;
+import seedu.address.testutil.ModelStub;
+import seedu.address.testutil.TaskBuilder;
+>>>>>>> 05b67180673b53490a68ffa0e70b2353fc8aa2af:src/test/java/seedu/address/logic/commands/AddTaskCommandTest.java
 
 public class AddTaskCommandTest {
     @Test
@@ -36,6 +52,14 @@ public class AddTaskCommandTest {
 
         assertEquals(expectedCommand, commandResult);
         assertEquals(Arrays.asList(validTask), modelStub.tasksAdded);
+    }
+
+    @Test
+    public void execute_duplicateTask_throwsCommandException() {
+        Task validTask = new TaskBuilder().build();
+        AddTaskCommand addTaskCommand = new AddTaskCommand(validTask);
+        ModelStub modelStub = new ModelStubWithTask(validTask);
+        assertThrows(CommandException.class, MESSAGE_DUPLICATE_TASK, () -> addTaskCommand.execute(modelStub));
     }
 
     @Test
@@ -60,6 +84,24 @@ public class AddTaskCommandTest {
 
         // different description -> returns false
         assertFalse(addInsulinTask.equals(addLeaveTask));
+    }
+
+    /**
+     * A Model stub that contains a single task.
+     */
+    private class ModelStubWithTask extends ModelStub {
+        private final Task task;
+
+        ModelStubWithTask(Task task) {
+            requireNonNull(task);
+            this.task = task;
+        }
+
+        @Override
+        public boolean hasTask(Task task) {
+            requireNonNull(task);
+            return this.task.isSameTask(task);
+        }
     }
 
     /**

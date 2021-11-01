@@ -1,6 +1,7 @@
 package nurseybook.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static nurseybook.commons.core.Messages.MESSAGE_NO_CHANGES;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_AGE;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_EMAIL;
@@ -92,6 +93,10 @@ public class EditCommand extends Command {
 
         Elderly elderlyToEdit = lastShownList.get(index.getZeroBased());
         Elderly editedElderly = createEditedElderly(elderlyToEdit, editElderlyDescriptor);
+
+        if (elderlyToEdit.isSameElderly(editedElderly)) {
+            throw new CommandException(MESSAGE_NO_CHANGES);
+        }
 
         if (!elderlyToEdit.isSameElderly(editedElderly) && model.hasElderly(editedElderly)) {
             throw new CommandException(MESSAGE_DUPLICATE_ELDERLY);

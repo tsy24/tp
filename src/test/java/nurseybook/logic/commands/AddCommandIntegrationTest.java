@@ -1,7 +1,14 @@
 package nurseybook.logic.commands;
 
+<<<<<<< HEAD:src/test/java/nurseybook/logic/commands/AddCommandIntegrationTest.java
 import static nurseybook.logic.commands.CommandTestUtil.assertCommandFailure;
 import static nurseybook.logic.commands.CommandTestUtil.assertCommandSuccess;
+=======
+import static seedu.address.commons.core.Messages.MESSAGE_DUPLICATE_ELDERLY;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.TypicalElderlies.getTypicalAddressBook;
+>>>>>>> 05b67180673b53490a68ffa0e70b2353fc8aa2af:src/test/java/seedu/address/logic/commands/AddCommandIntegrationTest.java
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -42,7 +49,7 @@ public class AddCommandIntegrationTest {
     @Test
     public void execute_duplicateElderly_throwsCommandException() {
         Elderly elderlyInList = model.getVersionedNurseyBook().getElderlyList().get(0);
-        assertCommandFailure(new AddCommand(elderlyInList), model, AddCommand.MESSAGE_DUPLICATE_ELDERLY);
+        assertCommandFailure(new AddCommand(elderlyInList), model, MESSAGE_DUPLICATE_ELDERLY);
     }
 
 }

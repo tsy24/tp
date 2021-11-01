@@ -14,4 +14,9 @@ public class Messages {
     public static final String MESSAGE_TASKS_ON_DATE = "%1$d tasks on indicated date!";
     public static final String MESSAGE_INVALID_TASK_DATETIME_FOR_RECURRING_TASK =
             "The task date and/or time provided cannot be before the current date and time for recurring tasks";
+    public static final String MESSAGE_DUPLICATE_ELDERLY = "This elderly already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the address book. \n"
+            + "Hint: If you want to change the recurrence of a task, edit that specific task directly.";
+    public static final String MESSAGE_NO_CHANGES = "Fields entered are the same as before.";
+
 }

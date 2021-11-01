@@ -15,6 +15,25 @@ import static nurseybook.testutil.TypicalIndexes.INDEX_FIRST;
 import static nurseybook.testutil.TypicalIndexes.INDEX_SECOND;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+<<<<<<< HEAD:src/test/java/nurseybook/logic/commands/EditCommandTest.java
+=======
+import static seedu.address.commons.core.Messages.MESSAGE_DUPLICATE_ELDERLY;
+import static seedu.address.commons.core.Messages.MESSAGE_NO_CHANGES;
+import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_AGE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_GENDER_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NOK_PHONE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.CommandTestUtil.showElderlyAtIndex;
+import static seedu.address.logic.commands.EditCommand.MESSAGE_EDIT_ELDERLY_SUCCESS;
+import static seedu.address.testutil.TypicalElderlies.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND;
+>>>>>>> 05b67180673b53490a68ffa0e70b2353fc8aa2af:src/test/java/seedu/address/logic/commands/EditCommandTest.java
 
 import org.junit.jupiter.api.Test;
 
@@ -41,7 +60,7 @@ public class EditCommandTest {
         EditCommand.EditElderlyDescriptor descriptor = new EditElderlyDescriptorBuilder(editedElderly).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST, descriptor);
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ELDERLY_SUCCESS, editedElderly);
+        String expectedMessage = String.format(MESSAGE_EDIT_ELDERLY_SUCCESS, editedElderly);
 
         Model expectedModel = new ModelManager(new NurseyBook(model.getVersionedNurseyBook()), new UserPrefs());
         expectedModel.setElderly(model.getFilteredElderlyList().get(0), editedElderly);
@@ -64,7 +83,7 @@ public class EditCommandTest {
                 .withTags(VALID_TAG_HUSBAND).build();
         EditCommand editCommand = new EditCommand(indexLastElderly, descriptor);
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ELDERLY_SUCCESS, editedElderly);
+        String expectedMessage = String.format(MESSAGE_EDIT_ELDERLY_SUCCESS, editedElderly);
 
         Model expectedModel = new ModelManager(new NurseyBook(model.getVersionedNurseyBook()), new UserPrefs());
         expectedModel.setElderly(lastElderly, editedElderly);
@@ -74,6 +93,7 @@ public class EditCommandTest {
     }
 
     @Test
+<<<<<<< HEAD:src/test/java/nurseybook/logic/commands/EditCommandTest.java
     public void execute_noFieldSpecifiedUnfilteredList_success() {
         EditCommand editCommand = new EditCommand(INDEX_FIRST, new EditCommand.EditElderlyDescriptor());
         Elderly editedElderly = model.getFilteredElderlyList().get(INDEX_FIRST.getZeroBased());
@@ -87,6 +107,8 @@ public class EditCommandTest {
     }
 
     @Test
+=======
+>>>>>>> 05b67180673b53490a68ffa0e70b2353fc8aa2af:src/test/java/seedu/address/logic/commands/EditCommandTest.java
     public void execute_filteredList_success() {
         showElderlyAtIndex(model, INDEX_FIRST);
 
@@ -94,7 +116,7 @@ public class EditCommandTest {
         Elderly editedElderly = new ElderlyBuilder(elderlyInFilteredList).withName(VALID_NAME_BOB).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST,
                 new EditElderlyDescriptorBuilder().withName(VALID_NAME_BOB).build());
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ELDERLY_SUCCESS, editedElderly);
+        String expectedMessage = String.format(MESSAGE_EDIT_ELDERLY_SUCCESS, editedElderly);
 
         Model expectedModel = new ModelManager(new NurseyBook(model.getVersionedNurseyBook()), new UserPrefs());
         expectedModel.setElderly(model.getFilteredElderlyList().get(INDEX_FIRST.getZeroBased()), editedElderly);
@@ -109,7 +131,7 @@ public class EditCommandTest {
         EditCommand.EditElderlyDescriptor descriptor = new EditElderlyDescriptorBuilder(firstElderly).build();
         EditCommand editCommand = new EditCommand(INDEX_SECOND, descriptor);
 
-        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_ELDERLY);
+        assertCommandFailure(editCommand, model, MESSAGE_DUPLICATE_ELDERLY);
     }
 
     @Test
@@ -120,7 +142,7 @@ public class EditCommandTest {
         Elderly elderlyInList = model.getVersionedNurseyBook().getElderlyList().get(INDEX_SECOND.getZeroBased());
         EditCommand editCommand = new EditCommand(INDEX_FIRST,
                 new EditElderlyDescriptorBuilder(elderlyInList).build());
-        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_ELDERLY);
+        assertCommandFailure(editCommand, model, MESSAGE_DUPLICATE_ELDERLY);
     }
 
     @Test
@@ -148,6 +170,24 @@ public class EditCommandTest {
                 new EditElderlyDescriptorBuilder().withName(VALID_NAME_BOB).build());
 
         assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_ELDERLY_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void execute_sameFieldsUnfilteredList_failure() {
+        Elderly firstElderly = model.getFilteredElderlyList().get(INDEX_FIRST.getZeroBased());
+        EditElderlyDescriptor descriptor = new EditElderlyDescriptorBuilder(firstElderly).build();
+        EditCommand editCommand = new EditCommand(INDEX_FIRST, descriptor);
+
+        assertCommandFailure(editCommand, model, MESSAGE_NO_CHANGES);
+    }
+
+    @Test
+    public void execute_sameFieldsFilteredList_failure() {
+        showElderlyAtIndex(model, INDEX_FIRST);
+        Elderly elderlyInList = model.getVersionedNurseyBook().getElderlyList().get(INDEX_FIRST.getZeroBased());
+        EditCommand editCommand = new EditCommand(INDEX_FIRST,
+                new EditElderlyDescriptorBuilder(elderlyInList).build());
+        assertCommandFailure(editCommand, model, MESSAGE_NO_CHANGES);
     }
 
     @Test

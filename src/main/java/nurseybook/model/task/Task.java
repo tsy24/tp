@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -287,12 +288,11 @@ public class Task implements Comparable<Task> {
     }
 
     /**
-     * Returns names of elderly related to this task.
-     *
-     * @return related names
+     * Returns an immutable name set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
      */
     public Set<Name> getRelatedNames() {
-        return relatedNames;
+        return Collections.unmodifiableSet(relatedNames);
     }
 
     /**
@@ -444,6 +444,19 @@ public class Task implements Comparable<Task> {
      */
     public boolean isPastCurrentDateAndRecurringTask() {
         return DateTime.isOverdue(this.dateTime) && recurrence.isRecurring();
+    }
+
+    /**
+     * Returns true if both tasks have the same {@code Description} and {@code DateTime}.
+     * This defines a weaker notion of equality between two tasks.
+     */
+    public boolean isSameTask(Task otherTask) {
+        if (otherTask == this) {
+            return true;
+        }
+
+        return otherTask != null
+                && otherTask.getDesc().equals(getDesc()) && otherTask.getDateTime().equals(getDateTime());
     }
 
     @Override

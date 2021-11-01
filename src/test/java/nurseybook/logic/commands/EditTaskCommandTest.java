@@ -10,6 +10,23 @@ import static nurseybook.logic.commands.TaskCommandTestUtil.showTaskAtIndex;
 import static nurseybook.testutil.TypicalIndexes.INDEX_FIRST;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+<<<<<<< HEAD:src/test/java/nurseybook/logic/commands/EditTaskCommandTest.java
+=======
+import static seedu.address.commons.core.Messages.MESSAGE_DUPLICATE_TASK;
+import static seedu.address.commons.core.Messages.MESSAGE_NO_CHANGES;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.EditTaskCommand.MESSAGE_EDIT_TASK_SUCCESS;
+import static seedu.address.logic.commands.TaskCommandTestUtil.PAPERWORK_TASK;
+import static seedu.address.logic.commands.TaskCommandTestUtil.VACCINE_TASK;
+import static seedu.address.logic.commands.TaskCommandTestUtil.VALID_DATE_JAN;
+import static seedu.address.logic.commands.TaskCommandTestUtil.VALID_DESC_VACCINE;
+import static seedu.address.logic.commands.TaskCommandTestUtil.VALID_TIME_SEVENPM;
+import static seedu.address.logic.commands.TaskCommandTestUtil.showTaskAtIndex;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND;
+import static seedu.address.testutil.TypicalTasks.getTypicalAddressBook;
+>>>>>>> 05b67180673b53490a68ffa0e70b2353fc8aa2af:src/test/java/seedu/address/logic/commands/EditTaskCommandTest.java
 
 import org.junit.jupiter.api.Test;
 
@@ -38,7 +55,7 @@ public class EditTaskCommandTest {
         EditTaskCommand.EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder(editedTask).build();
         EditTaskCommand editTaskCommand = new EditTaskCommand(INDEX_FIRST, descriptor);
 
-        String expectedMessage = String.format(EditTaskCommand.MESSAGE_EDIT_TASK_SUCCESS, editedTask);
+        String expectedMessage = String.format(MESSAGE_EDIT_TASK_SUCCESS, editedTask);
 
         Model expectedModel = new ModelManager(new NurseyBook(model.getVersionedNurseyBook()), new UserPrefs());
         expectedModel.setTask(model.getFilteredTaskList().get(0), editedTask);
@@ -54,13 +71,13 @@ public class EditTaskCommandTest {
 
         TaskBuilder taskInList = new TaskBuilder(lastTask);
         // Names and recurrence field not specified
-        Task editedTask = taskInList
-                .build();
+        Task editedTask = taskInList.withDesc(VALID_DESC_VACCINE).withDate(VALID_DATE_JAN).withTime(VALID_TIME_SEVENPM)
+            .build();
 
         EditTaskCommand.EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder(editedTask).build();
         EditTaskCommand editTaskCommand = new EditTaskCommand(indexLastTask, descriptor);
 
-        String expectedMessage = String.format(EditTaskCommand.MESSAGE_EDIT_TASK_SUCCESS, editedTask);
+        String expectedMessage = String.format(MESSAGE_EDIT_TASK_SUCCESS, editedTask);
 
         Model expectedModel = new ModelManager(new NurseyBook(model.getVersionedNurseyBook()), new UserPrefs());
         expectedModel.setTask(lastTask, editedTask);
@@ -70,6 +87,7 @@ public class EditTaskCommandTest {
     }
 
     @Test
+<<<<<<< HEAD:src/test/java/nurseybook/logic/commands/EditTaskCommandTest.java
     public void execute_noFieldSpecifiedUnfilteredList_success() {
         EditTaskCommand editTaskCommand = new EditTaskCommand(INDEX_FIRST, new EditTaskCommand.EditTaskDescriptor());
         Task editedTask = model.getFilteredTaskList().get(INDEX_FIRST.getZeroBased());
@@ -83,14 +101,16 @@ public class EditTaskCommandTest {
     }
 
     @Test
+=======
+>>>>>>> 05b67180673b53490a68ffa0e70b2353fc8aa2af:src/test/java/seedu/address/logic/commands/EditTaskCommandTest.java
     public void execute_filteredList_success() {
         showTaskAtIndex(model, INDEX_FIRST);
 
         Task taskInFilteredList = model.getFilteredTaskList().get(INDEX_FIRST.getZeroBased());
-        Task editedTask = new TaskBuilder(taskInFilteredList).withDesc(VALID_DESC_MEDICINE).build();
+        Task editedTask = new TaskBuilder(taskInFilteredList).withDesc(VALID_DESC_VACCINE).build();
         EditTaskCommand editTaskCommand = new EditTaskCommand(INDEX_FIRST,
-                new EditTaskDescriptorBuilder().withDescription(VALID_DESC_MEDICINE).build());
-        String expectedMessage = String.format(EditTaskCommand.MESSAGE_EDIT_TASK_SUCCESS, editedTask);
+                new EditTaskDescriptorBuilder().withDescription(VALID_DESC_VACCINE).build());
+        String expectedMessage = String.format(MESSAGE_EDIT_TASK_SUCCESS, editedTask);
 
         Model expectedModel = new ModelManager(new NurseyBook(model.getVersionedNurseyBook()), new UserPrefs());
         expectedModel.setTask(model.getFilteredTaskList().get(INDEX_FIRST.getZeroBased()), editedTask);
@@ -99,6 +119,25 @@ public class EditTaskCommandTest {
         assertCommandSuccess(editTaskCommand, model, expectedMessage, expectedModel);
     }
 
+    @Test
+    public void execute_duplicateTaskUnfilteredList_failure() {
+        Task firstTask = model.getFilteredTaskList().get(INDEX_FIRST.getZeroBased());
+        EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder(firstTask).build();
+        EditTaskCommand editTaskCommand = new EditTaskCommand(INDEX_SECOND, descriptor);
+
+        assertCommandFailure(editTaskCommand, model, MESSAGE_DUPLICATE_TASK);
+    }
+
+    @Test
+    public void execute_duplicateTaskFilteredList_failure() {
+        showTaskAtIndex(model, INDEX_FIRST);
+
+        // edit task in filtered list into a duplicate in the address book
+        Task taskInList = model.getVersionedNurseyBook().getTaskList().get(INDEX_SECOND.getZeroBased());
+        EditTaskCommand editTaskCommand = new EditTaskCommand(INDEX_FIRST,
+                new EditTaskDescriptorBuilder(taskInList).build());
+        assertCommandFailure(editTaskCommand, model, MESSAGE_DUPLICATE_TASK);
+    }
 
     @Test
     public void execute_invalidTaskIndexUnfilteredList_failure() {
@@ -125,6 +164,24 @@ public class EditTaskCommandTest {
                 new EditTaskDescriptorBuilder().withDescription(VALID_DESC_VACCINE).build());
 
         assertCommandFailure(editTaskCommand, model, Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void execute_sameFieldsUnfilteredList_failure() {
+        Task firstTask = model.getFilteredTaskList().get(INDEX_FIRST.getZeroBased());
+        EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder(firstTask).build();
+        EditTaskCommand editTaskCommand = new EditTaskCommand(INDEX_FIRST, descriptor);
+
+        assertCommandFailure(editTaskCommand, model, MESSAGE_NO_CHANGES);
+    }
+
+    @Test
+    public void execute_sameFieldsFilteredList_failure() {
+        showTaskAtIndex(model, INDEX_FIRST);
+        Task taskInList = model.getVersionedNurseyBook().getTaskList().get(INDEX_FIRST.getZeroBased());
+        EditTaskCommand editTaskCommand = new EditTaskCommand(INDEX_FIRST,
+                new EditTaskDescriptorBuilder(taskInList).build());
+        assertCommandFailure(editTaskCommand, model, MESSAGE_NO_CHANGES);
     }
 
     @Test

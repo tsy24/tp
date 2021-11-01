@@ -1,6 +1,7 @@
 package nurseybook.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static nurseybook.commons.core.Messages.MESSAGE_DUPLICATE_TASK;
 import static nurseybook.commons.core.Messages.MESSAGE_INVALID_TASK_DATETIME_FOR_RECURRING_TASK;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_NAME;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_TASK_DATE;
@@ -51,6 +52,10 @@ public class AddTaskCommand extends Command {
 
         if (toAdd.isPastCurrentDateAndRecurringTask()) {
             throw new CommandException(MESSAGE_INVALID_TASK_DATETIME_FOR_RECURRING_TASK);
+        }
+
+        if (model.hasTask(toAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_TASK);
         }
 
         model.addTask(toAdd);
