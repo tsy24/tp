@@ -12,6 +12,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RELATIONSHIP;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROOM_NUM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.ParserUtil.MESSAGE_INDEX_TOO_EXTREME;
+import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
+import static seedu.address.logic.parser.ParserUtil.MESSAGE_UNKNOWN_INDEX;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -44,9 +47,21 @@ public class EditCommandParser implements Parser<EditCommand> {
         Index index;
 
         try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
+            String str = argMultimap.getPreamble();
+            if (str.contains("/ ")) {
+                throw new ParseException(MESSAGE_UNKNOWN_INDEX);
+            }
+            if (!str.matches(".*\\d.*")) {
+                throw new ParseException(MESSAGE_UNKNOWN_INDEX);
+            }
+            index = ParserUtil.parseIndex(str);
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
+            if (pe.getMessage().equals(MESSAGE_INDEX_TOO_EXTREME) || pe.getMessage().equals(MESSAGE_INVALID_INDEX)) {
+                throw pe;
+            } else {
+                throw new ParseException(
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
+            }
         }
 
         EditElderlyDescriptor editElderlyDescriptor = new EditElderlyDescriptor();

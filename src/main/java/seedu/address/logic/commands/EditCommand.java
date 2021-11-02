@@ -94,7 +94,7 @@ public class EditCommand extends Command {
         Elderly elderlyToEdit = lastShownList.get(index.getZeroBased());
         Elderly editedElderly = createEditedElderly(elderlyToEdit, editElderlyDescriptor);
 
-        if (elderlyToEdit.isSameElderly(editedElderly)) {
+        if (elderlyToEdit.equals(editedElderly)) {
             throw new CommandException(MESSAGE_NO_CHANGES);
         }
 

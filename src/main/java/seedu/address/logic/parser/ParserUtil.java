@@ -33,18 +33,30 @@ import seedu.address.model.task.Recurrence;
  */
 public class ParserUtil {
 
-    public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_INDEX = "Index must be greater than zero.";
+    public static final String MESSAGE_UNKNOWN_INDEX = "Index entered is unknown.";
+    public static final String MESSAGE_INDEX_TOO_EXTREME = "Index entered must be less than 10 characters.";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
-     * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
+     * @throws ParseException if the specified index is invalid (not non-zero unsigned integer) or contains 10
+     * characters or more.
      */
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
         String trimmedIndex = oneBasedIndex.trim();
-        if (!StringUtil.isNonZeroUnsignedInteger(trimmedIndex)) {
-            throw new ParseException(MESSAGE_INVALID_INDEX);
+        // number with 10 digits might overflow
+        if (trimmedIndex.length() > 9) {
+            throw new ParseException(MESSAGE_INDEX_TOO_EXTREME);
         }
+
+        if (!StringUtil.isNonZeroUnsignedInteger(trimmedIndex)) {
+            if (StringUtil.isInteger(trimmedIndex)) {
+                throw new ParseException(MESSAGE_INVALID_INDEX);
+            }
+            throw new ParseException(MESSAGE_UNKNOWN_INDEX);
+        }
+
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
     }
 

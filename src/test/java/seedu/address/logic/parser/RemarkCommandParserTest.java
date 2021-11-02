@@ -4,6 +4,8 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.address.logic.parser.ParserUtil.MESSAGE_INDEX_TOO_EXTREME;
+import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 
 import org.junit.jupiter.api.Test;
@@ -38,6 +40,22 @@ public class RemarkCommandParserTest {
         assertParseFailure(parser, RemarkCommand.COMMAND_WORD, expectedMessage);
 
         // no index
-        assertParseFailure(parser, RemarkCommand.COMMAND_WORD + " " + nonEmptyRemark, expectedMessage);
+        assertParseFailure(parser, RemarkCommand.COMMAND_WORD + " " + "remark", expectedMessage);
+    }
+
+    @Test
+    public void parse_indexIsNotNonZeroUnsignedInteger_throwsParseException() {
+        assertParseFailure(parser, "0", String.format(MESSAGE_INVALID_INDEX,
+                RemarkCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "-99999999", String.format(MESSAGE_INVALID_INDEX,
+                RemarkCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_indexTooExtreme_throwsParseException() {
+        assertParseFailure(parser, "9999999999", String.format(MESSAGE_INDEX_TOO_EXTREME,
+                RemarkCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "-999999999", String.format(MESSAGE_INDEX_TOO_EXTREME,
+                RemarkCommand.MESSAGE_USAGE));
     }
 }

@@ -27,6 +27,8 @@ import static seedu.address.logic.commands.TaskCommandTestUtil.VALID_TIME_TENAM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.address.logic.parser.ParserUtil.MESSAGE_INDEX_TOO_EXTREME;
+import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD;
@@ -64,17 +66,21 @@ public class EditTaskCommandParserTest {
 
     @Test
     public void parse_invalidPreamble_failure() {
-        // negative index
-        assertParseFailure(parser, "-5" + DESC_PAPERWORK, MESSAGE_INVALID_FORMAT);
-
-        // zero index
-        assertParseFailure(parser, "0" + DESC_PAPERWORK, MESSAGE_INVALID_FORMAT);
+        // Not non-zero unsigned index integer
+        assertParseFailure(parser, "-5" + DESC_PAPERWORK, MESSAGE_INVALID_INDEX);
+        assertParseFailure(parser, "0" + DESC_PAPERWORK, MESSAGE_INVALID_INDEX);
 
         // invalid arguments being parsed as preamble
-        assertParseFailure(parser, "1 some random string", MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "1 some random string", MESSAGE_INDEX_TOO_EXTREME);
 
         // invalid prefix being parsed as preamble
         assertParseFailure(parser, "1 i/ string", MESSAGE_INVALID_FORMAT);
+
+        // Extreme indices
+        assertParseFailure(parser, "9999999999", String.format(MESSAGE_INDEX_TOO_EXTREME,
+                EditTaskCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "-999999999", String.format(MESSAGE_INDEX_TOO_EXTREME,
+                EditTaskCommand.MESSAGE_USAGE));
     }
 
     @Test
