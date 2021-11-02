@@ -65,17 +65,17 @@ public class TypicalTasks {
             .withRecurrence(Recurrence.RecurrenceType.MONTH.name()).build();
 
     public static final Task APPLY_LEAVE_DAY_NEXT_RECURRENCE_GHOST = new TaskBuilder(false)
-            .withDesc("Apply leave with HR Day")
-            .withDateTime("2021-10-02", "00:00").withStatus("true", "true")
+            .withDesc("Apply leave with HR")
+            .withDateTime("2021-10-02", "23:50").withStatus("true", "true")
             .withRecurrence(Recurrence.RecurrenceType.DAY.name()).build();
 
     public static final Task APPLY_LEAVE_WEEK_NEXT_RECURRENCE_GHOST = new TaskBuilder(false)
-            .withDesc("Apply leave with HR Week")
+            .withDesc("Apply leave with HR")
             .withDateTime("2021-10-07", "23:50").withStatus("true", "true")
             .withRecurrence(Recurrence.RecurrenceType.WEEK.name()).build();
 
     public static final Task APPLY_LEAVE_MONTH_NEXT_RECURRENCE_GHOST = new TaskBuilder(false)
-            .withDesc("Apply leave with HR Month")
+            .withDesc("Apply leave with HR")
             .withDateTime("2021-08-27", "23:50").withStatus("true", "true")
             .withRecurrence(Recurrence.RecurrenceType.MONTH.name()).build();
 
