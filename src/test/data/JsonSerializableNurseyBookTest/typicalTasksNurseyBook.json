@@ -1,0 +1,49 @@
+{
+  "_comment": "NurseyBook save file which contains the same Tasks values as in TypicalTasks#getTypicalNurseyBook()",
+  "elderlies": [],
+  "tasks": [ {
+    "names": [
+      "Keith Goh"
+    ],
+    "description": "Bring insulin shots",
+    "date": "2020-11-01",
+    "time": "19:45",
+    "status": ["false", "true"],
+    "recurrence" : "NONE",
+    "ghostTask" : "false"
+  }, {
+    "names": [
+      "Alex Andre"
+    ],
+    "description": "Take covid shots",
+    "date": "2022-01-31",
+    "time": "19:45",
+    "status": ["false", "false"],
+    "recurrence" : "NONE",
+    "ghostTask" : "false"
+  }, {
+    "names": [],
+    "description": "Do paperwork",
+    "date": "2022-01-31",
+    "time": "10:20",
+    "status": ["false", "false"],
+    "recurrence" : "MONTH",
+    "ghostTask" : "false"
+  }, {
+    "names": ["Yasmine George"],
+    "description": "Physiotherapy with yoga ball",
+    "date": "2021-09-13",
+    "time": "15:30",
+    "status": ["true", "true"],
+    "recurrence" : "NONE",
+    "ghostTask" : "false"
+  }, {
+    "names": ["Khong Guan", "Swee Choon"],
+    "description": "3rd shot for Pfizer",
+    "date": "2021-10-30",
+    "time": "18:00",
+    "status": ["false", "true"],
+    "recurrence" : "NONE",
+    "ghostTask" : "false"
+  } ]
+}
