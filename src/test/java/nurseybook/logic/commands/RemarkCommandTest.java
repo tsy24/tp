@@ -15,7 +15,6 @@ import static nurseybook.testutil.TypicalIndexes.INDEX_SECOND;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import nurseybook.testutil.ModelStub;
 import org.junit.jupiter.api.Test;
 
 import nurseybook.commons.core.index.Index;
