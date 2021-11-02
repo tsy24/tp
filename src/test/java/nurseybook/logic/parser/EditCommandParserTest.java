@@ -1,5 +1,6 @@
 package nurseybook.logic.parser;
 
+import static nurseybook.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static nurseybook.logic.commands.CommandTestUtil.AGE_DESC_AMY;
 import static nurseybook.logic.commands.CommandTestUtil.AGE_DESC_BOB;
 import static nurseybook.logic.commands.CommandTestUtil.GENDER_DESC_AMY;
@@ -47,13 +48,17 @@ import static nurseybook.logic.commands.CommandTestUtil.VALID_ROOM_NUMBER_AMY;
 import static nurseybook.logic.commands.CommandTestUtil.VALID_ROOM_NUMBER_BOB;
 import static nurseybook.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static nurseybook.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static nurseybook.logic.commands.EditCommand.MESSAGE_NOT_EDITED;
+import static nurseybook.logic.commands.EditCommand.MESSAGE_USAGE;
+import static nurseybook.logic.parser.CliSyntax.PREFIX_TAG;
 import static nurseybook.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static nurseybook.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static nurseybook.testutil.TypicalIndexes.INDEX_FIRST;
+import static nurseybook.testutil.TypicalIndexes.INDEX_SECOND;
+import static nurseybook.testutil.TypicalIndexes.INDEX_THIRD;
 
 import org.junit.jupiter.api.Test;
 
-import nurseybook.commons.core.Messages;
 import nurseybook.commons.core.index.Index;
 import nurseybook.logic.commands.EditCommand;
 import nurseybook.model.person.Age;
@@ -69,10 +74,10 @@ import nurseybook.testutil.TypicalIndexes;
 
 public class EditCommandParserTest {
 
-    private static final String TAG_EMPTY = " " + CliSyntax.PREFIX_TAG;
+    private static final String TAG_EMPTY = " " + PREFIX_TAG;
 
     private static final String MESSAGE_INVALID_FORMAT =
-            String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE);
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE);
 
     private EditCommandParser parser = new EditCommandParser();
 
@@ -82,7 +87,7 @@ public class EditCommandParserTest {
         assertParseFailure(parser, VALID_NAME_AMY, MESSAGE_INVALID_FORMAT);
 
         // no field specified
-        assertParseFailure(parser, "1", EditCommand.MESSAGE_NOT_EDITED);
+        assertParseFailure(parser, "1", MESSAGE_NOT_EDITED);
 
         // no index and no field specified
         assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
@@ -155,7 +160,7 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_allFieldsSpecified_success() {
-        Index targetIndex = TypicalIndexes.INDEX_SECOND;
+        Index targetIndex = INDEX_SECOND;
         String userInput = targetIndex.getOneBased() + AGE_DESC_BOB + TAG_DESC_HUSBAND + GENDER_DESC_AMY
                 + ROOM_NUMBER_DESC_BOB + NOK_PHONE_DESC_AMY + NOK_EMAIL_DESC_AMY + NOK_ADDRESS_DESC_AMY + NAME_DESC_AMY
                 + NOK_NAME_DESC_AMY + NOK_RELATIONSHIP_DESC_AMY + TAG_DESC_FRIEND;
@@ -185,7 +190,7 @@ public class EditCommandParserTest {
     @Test
     public void parse_oneFieldSpecified_success() {
         // name
-        Index targetIndex = TypicalIndexes.INDEX_THIRD;
+        Index targetIndex = INDEX_THIRD;
         String userInput = targetIndex.getOneBased() + NAME_DESC_AMY;
         EditCommand.EditElderlyDescriptor descriptor = new EditElderlyDescriptorBuilder()
                 .withName(VALID_NAME_AMY).build();

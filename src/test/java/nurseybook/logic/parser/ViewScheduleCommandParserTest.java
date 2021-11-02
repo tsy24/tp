@@ -1,5 +1,7 @@
 package nurseybook.logic.parser;
 
+import static nurseybook.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static nurseybook.logic.commands.ViewScheduleCommand.MESSAGE_USAGE;
 import static nurseybook.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static nurseybook.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
@@ -7,7 +9,6 @@ import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
 
-import nurseybook.commons.core.Messages;
 import nurseybook.logic.commands.ViewScheduleCommand;
 import nurseybook.model.task.DateTimeContainsDatePredicate;
 
@@ -17,8 +18,7 @@ public class ViewScheduleCommandParserTest {
 
     @Test
     public void parse_emptyArg_throwsParseException() {
-        assertParseFailure(parser, "     ", String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
-                ViewScheduleCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "     ", String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
     }
 
     @Test

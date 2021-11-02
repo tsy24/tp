@@ -1,6 +1,8 @@
 package nurseybook.logic.commands;
 
+import static nurseybook.logic.commands.CommandResult.ListDisplayChange.TASK;
 import static nurseybook.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static nurseybook.logic.commands.ViewTasksCommand.MESSAGE_SUCCESS;
 
 import org.junit.jupiter.api.Test;
 
@@ -16,8 +18,7 @@ public class ViewTasksCommandTest {
 
     @Test
     public void execute_viewTask_success() {
-        CommandResult expectedCommandResult = new CommandResult(ViewTasksCommand.MESSAGE_SUCCESS,
-                CommandResult.ListDisplayChange.TASK);
+        CommandResult expectedCommandResult = new CommandResult(MESSAGE_SUCCESS, TASK);
         assertCommandSuccess(new ViewTasksCommand(), model, expectedCommandResult, expectedModel);
     }
 }

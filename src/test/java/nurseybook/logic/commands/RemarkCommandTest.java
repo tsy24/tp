@@ -1,9 +1,12 @@
 package nurseybook.logic.commands;
 
+import static nurseybook.commons.core.Messages.MESSAGE_INVALID_ELDERLY_DISPLAYED_INDEX;
 import static nurseybook.logic.commands.CommandTestUtil.VALID_REMARK_AMY;
 import static nurseybook.logic.commands.CommandTestUtil.VALID_REMARK_BOB;
 import static nurseybook.logic.commands.CommandTestUtil.assertCommandFailure;
 import static nurseybook.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static nurseybook.logic.commands.RemarkCommand.MESSAGE_ADD_REMARK_SUCCESS;
+import static nurseybook.logic.commands.RemarkCommand.MESSAGE_DELETE_REMARK_SUCCESS;
 import static nurseybook.testutil.TypicalElderlies.getTypicalNurseyBook;
 import static nurseybook.testutil.TypicalIndexes.INDEX_FIRST;
 import static nurseybook.testutil.TypicalIndexes.INDEX_SECOND;
@@ -12,7 +15,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import nurseybook.commons.core.Messages;
 import nurseybook.commons.core.index.Index;
 import nurseybook.model.Model;
 import nurseybook.model.ModelManager;
@@ -39,7 +41,7 @@ public class RemarkCommandTest {
         RemarkCommand remarkCommand = new RemarkCommand(
                 INDEX_FIRST, new Remark(editedElderly.getRemark().value));
 
-        String expectedMessage = String.format(RemarkCommand.MESSAGE_ADD_REMARK_SUCCESS, editedElderly);
+        String expectedMessage = String.format(MESSAGE_ADD_REMARK_SUCCESS, editedElderly);
 
         Model expectedModel = new ModelManager(new NurseyBook(model.getVersionedNurseyBook()), new UserPrefs());
         expectedModel.commitNurseyBook(new CommandResult(expectedMessage));
@@ -55,7 +57,7 @@ public class RemarkCommandTest {
         RemarkCommand remarkCommand = new RemarkCommand(INDEX_FIRST,
                 new Remark(editedElderly.getRemark().toString()));
 
-        String expectedMessage = String.format(RemarkCommand.MESSAGE_DELETE_REMARK_SUCCESS, editedElderly);
+        String expectedMessage = String.format(MESSAGE_DELETE_REMARK_SUCCESS, editedElderly);
 
         Model expectedModel = new ModelManager(new NurseyBook(model.getVersionedNurseyBook()), new UserPrefs());
         expectedModel.setElderly(firstElderly, editedElderly);
@@ -75,7 +77,7 @@ public class RemarkCommandTest {
         RemarkCommand remarkCommand = new RemarkCommand(
                 INDEX_FIRST, new Remark(editedElderly.getRemark().value));
 
-        String expectedMessage = String.format(RemarkCommand.MESSAGE_ADD_REMARK_SUCCESS, editedElderly);
+        String expectedMessage = String.format(MESSAGE_ADD_REMARK_SUCCESS, editedElderly);
 
         Model expectedModel = new ModelManager(new NurseyBook(model.getVersionedNurseyBook()), new UserPrefs());
         expectedModel.setElderly(firstElderly, editedElderly);
@@ -89,7 +91,7 @@ public class RemarkCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredElderlyList().size() + 1);
         RemarkCommand remarkCommand = new RemarkCommand(outOfBoundIndex, new Remark(VALID_REMARK_BOB));
 
-        assertCommandFailure(remarkCommand, model, Messages.MESSAGE_INVALID_ELDERLY_DISPLAYED_INDEX);
+        assertCommandFailure(remarkCommand, model, MESSAGE_INVALID_ELDERLY_DISPLAYED_INDEX);
     }
 
     /**
@@ -105,7 +107,7 @@ public class RemarkCommandTest {
 
         RemarkCommand remarkCommand = new RemarkCommand(outOfBoundIndex, new Remark(VALID_REMARK_BOB));
 
-        assertCommandFailure(remarkCommand, model, Messages.MESSAGE_INVALID_ELDERLY_DISPLAYED_INDEX);
+        assertCommandFailure(remarkCommand, model, MESSAGE_INVALID_ELDERLY_DISPLAYED_INDEX);
     }
 
     @Test

@@ -5,8 +5,10 @@ import static nurseybook.logic.commands.CommandTestUtil.SET_TWO_TAGS;
 import static nurseybook.logic.commands.CommandTestUtil.VALID_TAG_DIABETES;
 import static nurseybook.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static nurseybook.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static nurseybook.testutil.TypicalElderlies.getTypicalNurseyBook;
 import static nurseybook.testutil.TypicalIndexes.INDEX_FIRST;
 import static nurseybook.testutil.TypicalIndexes.INDEX_SECOND;
+import static nurseybook.testutil.TypicalIndexes.INDEX_THIRD;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -20,11 +22,9 @@ import nurseybook.model.NurseyBook;
 import nurseybook.model.UserPrefs;
 import nurseybook.model.person.Elderly;
 import nurseybook.testutil.ElderlyBuilder;
-import nurseybook.testutil.TypicalElderlies;
-import nurseybook.testutil.TypicalIndexes;
 public class AddTagCommandTest {
 
-    private Model model = new ModelManager(TypicalElderlies.getTypicalNurseyBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalNurseyBook(), new UserPrefs());
 
     @Test
     public void execute_addTagUnfilteredList_success() {
@@ -45,11 +45,11 @@ public class AddTagCommandTest {
 
     @Test
     public void execute_addTagsUnfilteredList_success() {
-        Elderly thirdElderly = model.getFilteredElderlyList().get(TypicalIndexes.INDEX_THIRD.getZeroBased());
+        Elderly thirdElderly = model.getFilteredElderlyList().get(INDEX_THIRD.getZeroBased());
         Elderly tagAddedElderly = new ElderlyBuilder(thirdElderly)
                 .withTags(VALID_TAG_DIABETES, VALID_TAG_FRIEND).build();
 
-        AddTagCommand addTagCommand = new AddTagCommand(TypicalIndexes.INDEX_THIRD, SET_TWO_TAGS);
+        AddTagCommand addTagCommand = new AddTagCommand(INDEX_THIRD, SET_TWO_TAGS);
 
         String expectedMessage = String.format(AddTagCommand.MESSAGE_ADD_TAG_SUCCESS, tagAddedElderly);
 

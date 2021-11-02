@@ -17,7 +17,6 @@ import nurseybook.model.NurseyBook;
 import nurseybook.model.ReadOnlyNurseyBook;
 import nurseybook.model.VersionedNurseyBook;
 import nurseybook.model.person.Elderly;
-import nurseybook.testutil.Assert;
 import nurseybook.testutil.ElderlyBuilder;
 import nurseybook.testutil.ModelStub;
 import nurseybook.testutil.NurseyBookBuilder;
@@ -26,7 +25,7 @@ public class AddCommandTest {
 
     @Test
     public void constructor_nullElderly_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> new AddCommand(null));
+        assertThrows(NullPointerException.class, () -> new AddCommand(null));
     }
 
     @Test

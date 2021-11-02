@@ -1,21 +1,23 @@
 package nurseybook.logic.commands;
 
+import static nurseybook.commons.core.Messages.MESSAGE_INVALID_ELDERLY_DISPLAYED_INDEX;
 import static nurseybook.logic.commands.CommandTestUtil.assertCommandFailure;
 import static nurseybook.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static nurseybook.logic.commands.CommandTestUtil.showElderlyAtIndex;
+import static nurseybook.logic.commands.DeleteCommand.MESSAGE_DELETE_ELDERLY_SUCCESS;
+import static nurseybook.testutil.TypicalElderlies.getTypicalNurseyBook;
+import static nurseybook.testutil.TypicalIndexes.INDEX_FIRST;
+import static nurseybook.testutil.TypicalIndexes.INDEX_SECOND;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import nurseybook.commons.core.Messages;
 import nurseybook.commons.core.index.Index;
 import nurseybook.model.Model;
 import nurseybook.model.ModelManager;
 import nurseybook.model.UserPrefs;
 import nurseybook.model.person.Elderly;
-import nurseybook.testutil.TypicalElderlies;
-import nurseybook.testutil.TypicalIndexes;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for
@@ -23,14 +25,14 @@ import nurseybook.testutil.TypicalIndexes;
  */
 public class DeleteCommandTest {
 
-    private Model model = new ModelManager(TypicalElderlies.getTypicalNurseyBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalNurseyBook(), new UserPrefs());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        Elderly elderlyToDelete = model.getFilteredElderlyList().get(TypicalIndexes.INDEX_FIRST.getZeroBased());
-        DeleteCommand deleteCommand = new DeleteCommand(TypicalIndexes.INDEX_FIRST);
+        Elderly elderlyToDelete = model.getFilteredElderlyList().get(INDEX_FIRST.getZeroBased());
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST);
 
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_ELDERLY_SUCCESS, elderlyToDelete);
+        String expectedMessage = String.format(MESSAGE_DELETE_ELDERLY_SUCCESS, elderlyToDelete);
 
         ModelManager expectedModel = new ModelManager(model.getVersionedNurseyBook(), new UserPrefs());
         expectedModel.deleteElderly(elderlyToDelete);
@@ -44,17 +46,17 @@ public class DeleteCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredElderlyList().size() + 1);
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
-        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_ELDERLY_DISPLAYED_INDEX);
+        assertCommandFailure(deleteCommand, model, MESSAGE_INVALID_ELDERLY_DISPLAYED_INDEX);
     }
 
     @Test
     public void execute_validIndexFilteredList_success() {
-        showElderlyAtIndex(model, TypicalIndexes.INDEX_FIRST);
+        showElderlyAtIndex(model, INDEX_FIRST);
 
-        Elderly elderlyToDelete = model.getFilteredElderlyList().get(TypicalIndexes.INDEX_FIRST.getZeroBased());
-        DeleteCommand deleteCommand = new DeleteCommand(TypicalIndexes.INDEX_FIRST);
+        Elderly elderlyToDelete = model.getFilteredElderlyList().get(INDEX_FIRST.getZeroBased());
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST);
 
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_ELDERLY_SUCCESS, elderlyToDelete);
+        String expectedMessage = String.format(MESSAGE_DELETE_ELDERLY_SUCCESS, elderlyToDelete);
 
         Model expectedModel = new ModelManager(model.getVersionedNurseyBook(), new UserPrefs());
         expectedModel.deleteElderly(elderlyToDelete);
@@ -66,27 +68,27 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_invalidIndexFilteredList_throwsCommandException() {
-        showElderlyAtIndex(model, TypicalIndexes.INDEX_FIRST);
+        showElderlyAtIndex(model, INDEX_FIRST);
 
-        Index outOfBoundIndex = TypicalIndexes.INDEX_SECOND;
+        Index outOfBoundIndex = INDEX_SECOND;
         // ensures that outOfBoundIndex is still in bounds of nursey book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getVersionedNurseyBook().getElderlyList().size());
 
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
-        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_ELDERLY_DISPLAYED_INDEX);
+        assertCommandFailure(deleteCommand, model, MESSAGE_INVALID_ELDERLY_DISPLAYED_INDEX);
     }
 
     @Test
     public void equals() {
-        DeleteCommand deleteFirstCommand = new DeleteCommand(TypicalIndexes.INDEX_FIRST);
-        DeleteCommand deleteSecondCommand = new DeleteCommand(TypicalIndexes.INDEX_SECOND);
+        DeleteCommand deleteFirstCommand = new DeleteCommand(INDEX_FIRST);
+        DeleteCommand deleteSecondCommand = new DeleteCommand(INDEX_SECOND);
 
         // same object -> returns true
         assertTrue(deleteFirstCommand.equals(deleteFirstCommand));
 
         // same values -> returns true
-        DeleteCommand deleteFirstCommandCopy = new DeleteCommand(TypicalIndexes.INDEX_FIRST);
+        DeleteCommand deleteFirstCommandCopy = new DeleteCommand(INDEX_FIRST);
 
         assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
 

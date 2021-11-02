@@ -10,6 +10,11 @@ import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_TIME_SEVENPM;
 import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_TIME_TENAM;
 import static nurseybook.testutil.Assert.assertThrows;
 import static nurseybook.testutil.TypicalTasks.ALEX_INSULIN;
+import static nurseybook.testutil.TypicalTasks.APPLY_LEAVE;
+import static nurseybook.testutil.TypicalTasks.APPLY_LEAVE_DAY_NEXT_RECURRENCE_GHOST;
+import static nurseybook.testutil.TypicalTasks.APPLY_LEAVE_LATE_TIME;
+import static nurseybook.testutil.TypicalTasks.APPLY_LEAVE_MONTH_RECURRENCE;
+import static nurseybook.testutil.TypicalTasks.APPLY_LEAVE_WEEK_RECURRENCE;
 import static nurseybook.testutil.TypicalTasks.DO_PAPERWORK;
 import static nurseybook.testutil.TypicalTasks.KEITH_INSULIN;
 import static nurseybook.testutil.TypicalTasks.KG_SC_VACCINE;
@@ -26,13 +31,12 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import nurseybook.testutil.TaskBuilder;
-import nurseybook.testutil.TypicalTasks;
 
 
 public class TaskTest {
 
     private final Task keithInsulin = new TaskBuilder(KEITH_INSULIN).build();
-    private final Task applyLeave = new TaskBuilder(TypicalTasks.APPLY_LEAVE).build();
+    private final Task applyLeave = new TaskBuilder(APPLY_LEAVE).build();
 
     @Test
     public void asObservableList_modifyList_throwsUnsupportedOperationException() {
@@ -188,7 +192,7 @@ public class TaskTest {
     @Test
     void checkIfTaskRecurring() {
         //recurring task
-        Assertions.assertTrue(TypicalTasks.APPLY_LEAVE.checkIfTaskRecurring());
+        Assertions.assertTrue(APPLY_LEAVE.checkIfTaskRecurring());
 
         //non-recurring task
         assertFalse(keithInsulin.checkIfTaskRecurring());
@@ -200,7 +204,7 @@ public class TaskTest {
         assertTrue(keithInsulin.checkIfRealTask());
 
         //ghost task
-        Assertions.assertFalse(TypicalTasks.APPLY_LEAVE_DAY_NEXT_RECURRENCE_GHOST.checkIfRealTask());
+        Assertions.assertFalse(APPLY_LEAVE_DAY_NEXT_RECURRENCE_GHOST.checkIfRealTask());
     }
 
     @Test
@@ -232,13 +236,13 @@ public class TaskTest {
 
     @Test
     public void updateDateOfRecurringTasks_forDayRecurring() {
-        Task task1 = TypicalTasks.APPLY_LEAVE_LATE_TIME; // date: "2021-10-01", time: "23:50"
+        Task task1 = APPLY_LEAVE_LATE_TIME; // date: "2021-10-01", time: "23:50"
         // (which is most probably past current time) DAY RECURRING
         task1 = task1.updateDateRecurringTask();
         LocalDateTime currentDateTime1 = LocalDateTime.now();
         assertEquals(new DateTime(currentDateTime1.toLocalDate(), LocalTime.of(23, 50)), task1.getDateTime());
         // date: "2021-10-01", time: "00:00" (before current time), recurrence: DAY
-        Task task2 = TypicalTasks.APPLY_LEAVE;
+        Task task2 = APPLY_LEAVE;
         task2 = task2.updateDateRecurringTask();
         LocalDateTime currentDateTime2 = LocalDateTime.now();
         assertEquals(new DateTime(currentDateTime2.toLocalDate().plusDays(1),
@@ -250,7 +254,7 @@ public class TaskTest {
         LocalDate date = LocalDate.of(2021, 9, 30);
         LocalTime time = LocalTime.of(23, 50);
         // date: "2021-09-30", time: "23:50" (after current time) recurrence: WEEK
-        Task task1 = TypicalTasks.APPLY_LEAVE_WEEK_RECURRENCE;
+        Task task1 = APPLY_LEAVE_WEEK_RECURRENCE;
         LocalDateTime currentDateTime1 = LocalDateTime.now();
         int daysDiff = currentDateTime1.getDayOfYear() - date.getDayOfYear();
         int daysToAdd = daysDiff % 7 == 0 ? 0 : 7 - daysDiff % 7;
@@ -264,7 +268,7 @@ public class TaskTest {
         LocalDate date = LocalDate.of(2021, 7, 30);
         LocalTime time = LocalTime.of(23, 50);
         // date: "2021-07-30", time: "23:50" (after current time), recurrence: MONTH
-        Task task1 = TypicalTasks.APPLY_LEAVE_MONTH_RECURRENCE;
+        Task task1 = APPLY_LEAVE_MONTH_RECURRENCE;
         LocalDateTime currentDateTime1 = LocalDateTime.now();
         int daysDiff = currentDateTime1.getDayOfYear() - date.getDayOfYear();
         int daysToAdd = daysDiff % 28 == 0 ? 0 : 28 - daysDiff % 28;
@@ -275,7 +279,7 @@ public class TaskTest {
 
     @Test
     public void changeDateOfPastRecurringTasks_changedToUndoneTasks() {
-        Task task1 = TypicalTasks.APPLY_LEAVE_MONTH_RECURRENCE; // date: "2021-07-30", time: "23:50"
+        Task task1 = APPLY_LEAVE_MONTH_RECURRENCE; // date: "2021-07-30", time: "23:50"
         // (which is most probably past current time) DAY RECURRING
         task1 = task1.updateDateRecurringTask();
         assertFalse(task1.getStatus().isDone);

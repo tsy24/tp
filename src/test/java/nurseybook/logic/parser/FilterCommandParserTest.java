@@ -1,20 +1,21 @@
 package nurseybook.logic.parser;
 
+import static nurseybook.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static nurseybook.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static nurseybook.logic.commands.CommandTestUtil.SET_TWO_TAGS;
 import static nurseybook.logic.commands.CommandTestUtil.TAG_DESC_DIABETES;
 import static nurseybook.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static nurseybook.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 import static nurseybook.logic.commands.CommandTestUtil.TAG_EMPTY;
+import static nurseybook.logic.commands.FilterCommand.MESSAGE_USAGE;
 import static nurseybook.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static nurseybook.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static nurseybook.model.tag.Tag.MESSAGE_CONSTRAINTS;
 
 import org.junit.jupiter.api.Test;
 
-import nurseybook.commons.core.Messages;
 import nurseybook.logic.commands.FilterCommand;
 import nurseybook.model.tag.ElderlyHasTagPredicate;
-import nurseybook.model.tag.Tag;
 
 public class FilterCommandParserTest {
 
@@ -33,18 +34,18 @@ public class FilterCommandParserTest {
 
     @Test
     public void parse_invalidTag_failure() {
-        assertParseFailure(parser, INVALID_TAG_DESC, Tag.MESSAGE_CONSTRAINTS); // invalid tag
-        assertParseFailure(parser, TAG_EMPTY, Tag.MESSAGE_CONSTRAINTS); // invalid empty tag
+        assertParseFailure(parser, INVALID_TAG_DESC, MESSAGE_CONSTRAINTS); // invalid tag
+        assertParseFailure(parser, TAG_EMPTY, MESSAGE_CONSTRAINTS); // invalid empty tag
 
         // parsing it together with a valid tag results in error
-        assertParseFailure(parser, TAG_DESC_FRIEND + TAG_DESC_HUSBAND + TAG_EMPTY, Tag.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, TAG_DESC_FRIEND + TAG_EMPTY + TAG_DESC_HUSBAND, Tag.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, TAG_EMPTY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND, Tag.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, TAG_DESC_FRIEND + TAG_DESC_HUSBAND + TAG_EMPTY, MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, TAG_DESC_FRIEND + TAG_EMPTY + TAG_DESC_HUSBAND, MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, TAG_EMPTY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND, MESSAGE_CONSTRAINTS);
     }
 
     @Test
     public void parse_invalidPreamble_failure() {
-        String expectedMessage = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, FilterCommand.MESSAGE_USAGE);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE);
 
         // no Tags
         assertParseFailure(parser, "     ", expectedMessage);

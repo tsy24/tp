@@ -1,5 +1,7 @@
 package nurseybook.logic;
 
+import static nurseybook.commons.core.Messages.MESSAGE_INVALID_ELDERLY_DISPLAYED_INDEX;
+import static nurseybook.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static nurseybook.logic.commands.CommandTestUtil.AGE_DESC_AMY;
 import static nurseybook.logic.commands.CommandTestUtil.GENDER_DESC_AMY;
 import static nurseybook.logic.commands.CommandTestUtil.NAME_DESC_AMY;
@@ -20,7 +22,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import nurseybook.commons.core.Messages;
 import nurseybook.logic.commands.AddCommand;
 import nurseybook.logic.commands.CommandResult;
 import nurseybook.logic.commands.ViewElderlyCommand;
@@ -57,13 +58,13 @@ public class LogicManagerTest {
     @Test
     public void execute_invalidCommandFormat_throwsParseException() {
         String invalidCommand = "uicfhmowqewca";
-        assertParseException(invalidCommand, Messages.MESSAGE_UNKNOWN_COMMAND);
+        assertParseException(invalidCommand, MESSAGE_UNKNOWN_COMMAND);
     }
 
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
         String deleteCommand = "deleteElderly 9";
-        assertCommandException(deleteCommand, Messages.MESSAGE_INVALID_ELDERLY_DISPLAYED_INDEX);
+        assertCommandException(deleteCommand, MESSAGE_INVALID_ELDERLY_DISPLAYED_INDEX);
     }
 
     @Test

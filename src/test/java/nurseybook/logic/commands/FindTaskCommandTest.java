@@ -1,5 +1,7 @@
 package nurseybook.logic.commands;
 
+import static nurseybook.commons.core.Messages.MESSAGE_TASKS_LISTED_OVERVIEW;
+import static nurseybook.logic.commands.CommandResult.ListDisplayChange.TASK;
 import static nurseybook.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static nurseybook.testutil.TypicalTasks.KG_SC_VACCINE;
 import static nurseybook.testutil.TypicalTasks.YASMINE_PHYSIO;
@@ -13,7 +15,6 @@ import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
-import nurseybook.commons.core.Messages;
 import nurseybook.model.Model;
 import nurseybook.model.ModelManager;
 import nurseybook.model.UserPrefs;
@@ -55,8 +56,8 @@ public class FindTaskCommandTest {
 
     @Test
     public void execute_zeroKeywords_noTasksFound() {
-        String expectedMessage = String.format(Messages.MESSAGE_TASKS_LISTED_OVERVIEW, 0);
-        CommandResult expectedCommandResult = new CommandResult(expectedMessage, CommandResult.ListDisplayChange.TASK);
+        String expectedMessage = String.format(MESSAGE_TASKS_LISTED_OVERVIEW, 0);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage, TASK);
 
         DescriptionContainsKeywordPredicate predicate = preparePredicate(" ");
         FindTaskCommand command = new FindTaskCommand(predicate);
@@ -68,8 +69,8 @@ public class FindTaskCommandTest {
 
     @Test
     public void execute_multipleKeywords_multipleTasksFound() {
-        String expectedMessage = String.format(Messages.MESSAGE_TASKS_LISTED_OVERVIEW, 2);
-        CommandResult expectedCommandResult = new CommandResult(expectedMessage, CommandResult.ListDisplayChange.TASK);
+        String expectedMessage = String.format(MESSAGE_TASKS_LISTED_OVERVIEW, 2);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage, TASK);
 
         DescriptionContainsKeywordPredicate predicate = preparePredicate("Yoga Leave Pfizer");
         FindTaskCommand command = new FindTaskCommand(predicate);

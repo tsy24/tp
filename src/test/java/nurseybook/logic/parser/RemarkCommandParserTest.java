@@ -1,5 +1,8 @@
 package nurseybook.logic.parser;
 
+import static nurseybook.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static nurseybook.logic.commands.RemarkCommand.COMMAND_WORD;
+import static nurseybook.logic.commands.RemarkCommand.MESSAGE_USAGE;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_REMARK;
 import static nurseybook.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static nurseybook.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -7,7 +10,6 @@ import static nurseybook.testutil.TypicalIndexes.INDEX_FIRST;
 
 import org.junit.jupiter.api.Test;
 
-import nurseybook.commons.core.Messages;
 import nurseybook.commons.core.index.Index;
 import nurseybook.logic.commands.RemarkCommand;
 import nurseybook.model.person.Remark;
@@ -32,12 +34,12 @@ public class RemarkCommandParserTest {
 
     @Test
     public void parse_missingCompulsoryField_failure() {
-        String expectedMessage = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, RemarkCommand.MESSAGE_USAGE);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE);
 
         // no parameters
-        assertParseFailure(parser, RemarkCommand.COMMAND_WORD, expectedMessage);
+        assertParseFailure(parser, COMMAND_WORD, expectedMessage);
 
         // no index
-        assertParseFailure(parser, RemarkCommand.COMMAND_WORD + " " + nonEmptyRemark, expectedMessage);
+        assertParseFailure(parser, COMMAND_WORD + " " + nonEmptyRemark, expectedMessage);
     }
 }

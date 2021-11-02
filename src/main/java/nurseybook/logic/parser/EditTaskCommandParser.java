@@ -2,6 +2,11 @@ package nurseybook.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static nurseybook.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static nurseybook.logic.parser.CliSyntax.PREFIX_NAME;
+import static nurseybook.logic.parser.CliSyntax.PREFIX_TASK_DATE;
+import static nurseybook.logic.parser.CliSyntax.PREFIX_TASK_DESC;
+import static nurseybook.logic.parser.CliSyntax.PREFIX_TASK_RECURRING;
+import static nurseybook.logic.parser.CliSyntax.PREFIX_TASK_TIME;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -23,8 +28,8 @@ public class EditTaskCommandParser implements Parser<EditTaskCommand> {
     public EditTaskCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, CliSyntax.PREFIX_NAME, CliSyntax.PREFIX_TASK_DESC,
-                        CliSyntax.PREFIX_TASK_DATE, CliSyntax.PREFIX_TASK_TIME, CliSyntax.PREFIX_TASK_RECURRING);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_TASK_DESC,
+                        PREFIX_TASK_DATE, PREFIX_TASK_TIME, PREFIX_TASK_RECURRING);
 
         Index index;
 
@@ -35,27 +40,27 @@ public class EditTaskCommandParser implements Parser<EditTaskCommand> {
         }
 
         EditTaskDescriptor editTaskDescriptor = new EditTaskDescriptor();
-        if (argMultimap.getValue(CliSyntax.PREFIX_TASK_DESC).isPresent()) {
+        if (argMultimap.getValue(PREFIX_TASK_DESC).isPresent()) {
             editTaskDescriptor.setDescription(ParserUtil
-                    .parseDesc(argMultimap.getValue(CliSyntax.PREFIX_TASK_DESC).get()));
+                    .parseDesc(argMultimap.getValue(PREFIX_TASK_DESC).get()));
         }
 
-        if (argMultimap.getValue(CliSyntax.PREFIX_TASK_DATE).isPresent()) {
+        if (argMultimap.getValue(PREFIX_TASK_DATE).isPresent()) {
             editTaskDescriptor.setDate(ParserUtil
-                    .parseDate(argMultimap.getValue(CliSyntax.PREFIX_TASK_DATE).get()));
+                    .parseDate(argMultimap.getValue(PREFIX_TASK_DATE).get()));
         }
 
-        if (argMultimap.getValue(CliSyntax.PREFIX_TASK_TIME).isPresent()) {
+        if (argMultimap.getValue(PREFIX_TASK_TIME).isPresent()) {
             editTaskDescriptor.setTime(ParserUtil
-                    .parseTime(argMultimap.getValue(CliSyntax.PREFIX_TASK_TIME).get()));
+                    .parseTime(argMultimap.getValue(PREFIX_TASK_TIME).get()));
         }
 
-        if (argMultimap.getValue(CliSyntax.PREFIX_TASK_RECURRING).isPresent()) {
+        if (argMultimap.getValue(PREFIX_TASK_RECURRING).isPresent()) {
             editTaskDescriptor.setRecurrence(
-                    ParserUtil.parseRecurrence(argMultimap.getValue(CliSyntax.PREFIX_TASK_RECURRING).get()));
+                    ParserUtil.parseRecurrence(argMultimap.getValue(PREFIX_TASK_RECURRING).get()));
         }
 
-        parseNamesForEdit(argMultimap.getAllValues(CliSyntax.PREFIX_NAME)).ifPresent(editTaskDescriptor::setNames);
+        parseNamesForEdit(argMultimap.getAllValues(PREFIX_NAME)).ifPresent(editTaskDescriptor::setNames);
 
         if (!editTaskDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditTaskCommand.MESSAGE_NOT_EDITED);

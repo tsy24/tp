@@ -1,5 +1,8 @@
 package nurseybook.logic.commands;
 
+import static nurseybook.logic.commands.CommandResult.ListDisplayChange.ELDERLY;
+import static nurseybook.logic.commands.CommandResult.ListDisplayChange.NONE;
+import static nurseybook.logic.commands.CommandResult.ListDisplayChange.TASK;
 import static nurseybook.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -17,10 +20,10 @@ public class CommandResultTest {
         assertFalse(commandResult.isChangeList());
 
         //displayChange value of TASK -> returns true
-        assertTrue(new CommandResult("feedback", CommandResult.ListDisplayChange.TASK).isChangeList());
+        assertTrue(new CommandResult("feedback", TASK).isChangeList());
 
         //displayChange value of TASK -> returns true
-        assertTrue(new CommandResult("feedback", CommandResult.ListDisplayChange.ELDERLY).isChangeList());
+        assertTrue(new CommandResult("feedback", ELDERLY).isChangeList());
     }
 
     @Test
@@ -30,10 +33,10 @@ public class CommandResultTest {
         assertThrows(AssertionError.class, () -> commandResult.shouldChangeToTask());
 
         // displayChange value of PERSON -> returns false
-        assertFalse(new CommandResult("feedback", CommandResult.ListDisplayChange.ELDERLY).shouldChangeToTask());
+        assertFalse(new CommandResult("feedback", ELDERLY).shouldChangeToTask());
 
         // displayChange value of TASK -> returns true
-        assertTrue(new CommandResult("feedback", CommandResult.ListDisplayChange.TASK).shouldChangeToTask());
+        assertTrue(new CommandResult("feedback", TASK).shouldChangeToTask());
     }
 
 
@@ -45,7 +48,7 @@ public class CommandResultTest {
         assertTrue(commandResult.equals(new CommandResult("feedback")));
         assertTrue(commandResult.equals(new CommandResult("feedback", false, false)));
         assertTrue(commandResult.equals(new CommandResult("feedback",
-                CommandResult.ListDisplayChange.NONE)));
+                NONE)));
         assertTrue(commandResult.equals(new CommandResult("feedback",
                 false)));
 
@@ -69,7 +72,7 @@ public class CommandResultTest {
 
         // different displayChange value -> returns false
         assertFalse(commandResult.equals(new CommandResult("feedback",
-                CommandResult.ListDisplayChange.TASK)));
+                TASK)));
 
         // different isViewDetails value -> returns false
         assertTrue(commandResult.equals(new CommandResult("feedback",
@@ -94,6 +97,6 @@ public class CommandResultTest {
 
         // different displayChange value -> returns different hashcode
         assertNotEquals(commandResult.hashCode(), new CommandResult("feedback",
-                CommandResult.ListDisplayChange.TASK).hashCode());
+                TASK).hashCode());
     }
 }

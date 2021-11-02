@@ -1,10 +1,12 @@
 package nurseybook.logic.parser;
 
+import static nurseybook.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static nurseybook.logic.commands.FindTaskCommand.MESSAGE_USAGE;
+
 import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
-import nurseybook.commons.core.Messages;
 import nurseybook.logic.commands.FindTaskCommand;
 import nurseybook.model.task.DescriptionContainsKeywordPredicate;
 
@@ -14,8 +16,8 @@ public class FindTaskCommandParserTest {
 
     @Test
     public void parse_emptyArg_throwsParseException() {
-        CommandParserTestUtil.assertParseFailure(parser, "     ", String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
-                FindTaskCommand.MESSAGE_USAGE));
+        CommandParserTestUtil.assertParseFailure(parser, "     ", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                MESSAGE_USAGE));
     }
 
     @Test

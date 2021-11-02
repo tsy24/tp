@@ -1,6 +1,7 @@
 package nurseybook.logic.commands;
 
 import static nurseybook.commons.core.Messages.MESSAGE_DUPLICATE_TASK;
+import static nurseybook.commons.core.Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
 import static nurseybook.commons.core.Messages.MESSAGE_NO_CHANGES;
 import static nurseybook.logic.commands.CommandTestUtil.assertCommandFailure;
 import static nurseybook.logic.commands.CommandTestUtil.assertCommandSuccess;
@@ -13,12 +14,12 @@ import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_TIME_SEVENPM;
 import static nurseybook.logic.commands.TaskCommandTestUtil.showTaskAtIndex;
 import static nurseybook.testutil.TypicalIndexes.INDEX_FIRST;
 import static nurseybook.testutil.TypicalIndexes.INDEX_SECOND;
+import static nurseybook.testutil.TypicalTasks.getTypicalNurseyBook;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import nurseybook.commons.core.Messages;
 import nurseybook.commons.core.index.Index;
 import nurseybook.model.Model;
 import nurseybook.model.ModelManager;
@@ -27,14 +28,13 @@ import nurseybook.model.UserPrefs;
 import nurseybook.model.task.Task;
 import nurseybook.testutil.EditTaskDescriptorBuilder;
 import nurseybook.testutil.TaskBuilder;
-import nurseybook.testutil.TypicalTasks;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for EditTaskCommand.
  */
 public class EditTaskCommandTest {
 
-    private Model model = new ModelManager(TypicalTasks.getTypicalNurseyBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalNurseyBook(), new UserPrefs());
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
@@ -117,7 +117,7 @@ public class EditTaskCommandTest {
                 .withDescription(VALID_DESC_VACCINE).build();
         EditTaskCommand editTaskCommand = new EditTaskCommand(outOfBoundIndex, descriptor);
 
-        assertCommandFailure(editTaskCommand, model, Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+        assertCommandFailure(editTaskCommand, model, MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
     }
 
     /**
@@ -134,7 +134,7 @@ public class EditTaskCommandTest {
         EditTaskCommand editTaskCommand = new EditTaskCommand(outOfBoundIndex,
                 new EditTaskDescriptorBuilder().withDescription(VALID_DESC_VACCINE).build());
 
-        assertCommandFailure(editTaskCommand, model, Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+        assertCommandFailure(editTaskCommand, model, MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
     }
 
     @Test

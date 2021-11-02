@@ -1,6 +1,10 @@
 package nurseybook.logic.commands;
 
+import static nurseybook.commons.core.Messages.MESSAGE_TASKS_ON_DATE;
+import static nurseybook.logic.commands.CommandResult.ListDisplayChange.TASK;
 import static nurseybook.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static nurseybook.testutil.TypicalTasks.YASMINE_PHYSIO;
+import static nurseybook.testutil.TypicalTasks.getTypicalNurseyBook;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -10,28 +14,24 @@ import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
-import nurseybook.commons.core.Messages;
 import nurseybook.model.Model;
 import nurseybook.model.ModelManager;
 import nurseybook.model.UserPrefs;
 import nurseybook.model.task.DateTimeContainsDatePredicate;
-import nurseybook.testutil.TypicalTasks;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code ViewScheduleCommand}.
  */
 public class ViewScheduleCommandTest {
-    private Model model = new ModelManager(TypicalTasks.getTypicalNurseyBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(TypicalTasks.getTypicalNurseyBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalNurseyBook(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalNurseyBook(), new UserPrefs());
 
     @Test
     public void equals() {
         LocalDate firstKeyDate = LocalDate.parse("2021-11-02");
         LocalDate secondKeyDate = LocalDate.parse("2021-11-03");
-        DateTimeContainsDatePredicate firstPredicate =
-                new DateTimeContainsDatePredicate(firstKeyDate);
-        DateTimeContainsDatePredicate secondPredicate =
-                new DateTimeContainsDatePredicate(secondKeyDate);
+        DateTimeContainsDatePredicate firstPredicate = new DateTimeContainsDatePredicate(firstKeyDate);
+        DateTimeContainsDatePredicate secondPredicate = new DateTimeContainsDatePredicate(secondKeyDate);
 
         ViewScheduleCommand viewScheduleFirstCommand = new ViewScheduleCommand(firstPredicate, firstKeyDate);
         ViewScheduleCommand viewScheduleSecondCommand = new ViewScheduleCommand(secondPredicate, secondKeyDate);
@@ -55,8 +55,8 @@ public class ViewScheduleCommandTest {
 
     @Test
     public void execute_multipleKeywords_multipleTasksFound() {
-        String expectedMessage = String.format(Messages.MESSAGE_TASKS_ON_DATE, 1);
-        CommandResult expectedCommandResult = new CommandResult(expectedMessage, CommandResult.ListDisplayChange.TASK);
+        String expectedMessage = String.format(MESSAGE_TASKS_ON_DATE, 1);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage, TASK);
 
         LocalDate keyDate = prepareDate("2021-09-13");
         DateTimeContainsDatePredicate predicate = new DateTimeContainsDatePredicate(keyDate);
@@ -65,7 +65,7 @@ public class ViewScheduleCommandTest {
         expectedModel.updateFilteredTaskList(predicate);
 
         assertCommandSuccess(command, model, expectedCommandResult, expectedModel);
-        assertEquals(Arrays.asList(TypicalTasks.YASMINE_PHYSIO), model.getFilteredTaskList());
+        assertEquals(Arrays.asList(YASMINE_PHYSIO), model.getFilteredTaskList());
     }
 
     /**

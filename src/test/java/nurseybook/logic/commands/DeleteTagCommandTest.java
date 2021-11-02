@@ -7,6 +7,8 @@ import static nurseybook.logic.commands.CommandTestUtil.VALID_TAG_DIABETES;
 import static nurseybook.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static nurseybook.logic.commands.CommandTestUtil.assertCommandFailure;
 import static nurseybook.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static nurseybook.logic.commands.DeleteTagCommand.MESSAGE_DELETE_TAG_SUCCESS;
+import static nurseybook.testutil.TypicalElderlies.getTypicalNurseyBook;
 import static nurseybook.testutil.TypicalIndexes.INDEX_FIRST;
 import static nurseybook.testutil.TypicalIndexes.INDEX_SECOND;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -21,11 +23,10 @@ import nurseybook.model.NurseyBook;
 import nurseybook.model.UserPrefs;
 import nurseybook.model.person.Elderly;
 import nurseybook.testutil.ElderlyBuilder;
-import nurseybook.testutil.TypicalElderlies;
 
 public class DeleteTagCommandTest {
 
-    private Model model = new ModelManager(TypicalElderlies.getTypicalNurseyBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalNurseyBook(), new UserPrefs());
 
     @Test
     public void execute_deleteTagUnfilteredList_success() {
@@ -34,7 +35,7 @@ public class DeleteTagCommandTest {
 
         DeleteTagCommand deleteTagCommand = new DeleteTagCommand(INDEX_SECOND, SET_ONE_TAG);
 
-        String expectedMessage = String.format(DeleteTagCommand.MESSAGE_DELETE_TAG_SUCCESS, tagDeletedElderly);
+        String expectedMessage = String.format(MESSAGE_DELETE_TAG_SUCCESS, tagDeletedElderly);
 
         Model expectedModel = new ModelManager(new NurseyBook(model.getVersionedNurseyBook()), new UserPrefs());
         expectedModel.setElderly(secondElderly, tagDeletedElderly);
@@ -50,7 +51,7 @@ public class DeleteTagCommandTest {
 
         DeleteTagCommand deleteTagCommand = new DeleteTagCommand(INDEX_SECOND, SET_TWO_TAGS);
 
-        String expectedMessage = String.format(DeleteTagCommand.MESSAGE_DELETE_TAG_SUCCESS, tagDeletedElderly);
+        String expectedMessage = String.format(MESSAGE_DELETE_TAG_SUCCESS, tagDeletedElderly);
 
         Model expectedModel = new ModelManager(new NurseyBook(model.getVersionedNurseyBook()), new UserPrefs());
         expectedModel.setElderly(secondElderly, tagDeletedElderly);
@@ -83,7 +84,7 @@ public class DeleteTagCommandTest {
 
         DeleteTagCommand deleteTagCommand = new DeleteTagCommand(INDEX_FIRST, SET_ONE_TAG);
 
-        String expectedMessage = String.format(DeleteTagCommand.MESSAGE_DELETE_TAG_SUCCESS, tagDeletedElderly);
+        String expectedMessage = String.format(MESSAGE_DELETE_TAG_SUCCESS, tagDeletedElderly);
 
         Model expectedModel = new ModelManager(new NurseyBook(model.getVersionedNurseyBook()), new UserPrefs());
         expectedModel.setElderly(firstElderly, tagDeletedElderly);

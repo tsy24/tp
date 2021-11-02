@@ -1,5 +1,7 @@
 package nurseybook.logic.parser;
 
+import static nurseybook.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static nurseybook.logic.commands.AddTaskCommand.MESSAGE_USAGE;
 import static nurseybook.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static nurseybook.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static nurseybook.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
@@ -22,18 +24,17 @@ import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_NAME_KEITH;
 import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_TIME_TENAM;
 import static nurseybook.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static nurseybook.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static nurseybook.testutil.TypicalTasks.DO_PAPERWORK;
 import static nurseybook.testutil.TypicalTasks.KEITH_INSULIN;
 
 import org.junit.jupiter.api.Test;
 
-import nurseybook.commons.core.Messages;
 import nurseybook.logic.commands.AddTaskCommand;
 import nurseybook.model.person.Name;
 import nurseybook.model.task.DateTime;
 import nurseybook.model.task.Description;
 import nurseybook.model.task.Task;
 import nurseybook.testutil.TaskBuilder;
-import nurseybook.testutil.TypicalTasks;
 
 public class AddTaskCommandParserTest {
     private AddTaskCommandParser parser = new AddTaskCommandParser();
@@ -70,7 +71,7 @@ public class AddTaskCommandParserTest {
     @Test
     public void parse_optionalFieldsMissing_success() {
         // zero tags
-        Task expectedTask = new TaskBuilder(TypicalTasks.DO_PAPERWORK).build();
+        Task expectedTask = new TaskBuilder(DO_PAPERWORK).build();
         assertParseSuccess(parser, DESC_PAPERWORK + DATE_DESC_JAN + TIME_DESC_TENAM
                         + RECUR_MONTH,
                 new AddTaskCommand(expectedTask));
@@ -78,7 +79,7 @@ public class AddTaskCommandParserTest {
 
     @Test
     public void parse_compulsoryFieldMissing_failure() {
-        String expectedMessage = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, AddTaskCommand.MESSAGE_USAGE);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE);
 
         // missing name prefix
         assertParseFailure(parser, VALID_NAME_ALEX + DESC_MEDICINE + DATE_DESC_NOV + TIME_DESC_SEVENPM,
@@ -128,6 +129,6 @@ public class AddTaskCommandParserTest {
         // non-empty preamble
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_ALEX + DESC_MEDICINE
                         + DATE_DESC_NOV + TIME_DESC_TENAM,
-                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, AddTaskCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
     }
 }

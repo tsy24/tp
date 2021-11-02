@@ -3,6 +3,7 @@ package nurseybook.logic.commands;
 import static nurseybook.commons.core.Messages.MESSAGE_DUPLICATE_ELDERLY;
 import static nurseybook.logic.commands.CommandTestUtil.assertCommandFailure;
 import static nurseybook.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static nurseybook.testutil.TypicalElderlies.getTypicalNurseyBook;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,7 +13,6 @@ import nurseybook.model.ModelManager;
 import nurseybook.model.UserPrefs;
 import nurseybook.model.person.Elderly;
 import nurseybook.testutil.ElderlyBuilder;
-import nurseybook.testutil.TypicalElderlies;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code AddCommand}.
@@ -23,7 +23,7 @@ public class AddCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(TypicalElderlies.getTypicalNurseyBook(), new UserPrefs());
+        model = new ModelManager(getTypicalNurseyBook(), new UserPrefs());
     }
 
     @Test

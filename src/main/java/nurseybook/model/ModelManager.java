@@ -1,6 +1,7 @@
 package nurseybook.model;
 
 import static java.util.Objects.requireNonNull;
+import static nurseybook.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.time.LocalDate;
@@ -11,7 +12,6 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import nurseybook.commons.core.GuiSettings;
 import nurseybook.commons.core.LogsCenter;
-import nurseybook.commons.util.CollectionUtil;
 import nurseybook.logic.commands.CommandResult;
 import nurseybook.model.person.Elderly;
 import nurseybook.model.task.Task;
@@ -36,7 +36,7 @@ public class ModelManager implements Model {
      */
     public ModelManager(ReadOnlyNurseyBook versionedNurseyBook, ReadOnlyUserPrefs userPrefs) {
         super();
-        CollectionUtil.requireAllNonNull(versionedNurseyBook, userPrefs);
+        requireAllNonNull(versionedNurseyBook, userPrefs);
 
         logger.fine("Initializing with nursey book: " + versionedNurseyBook + " and user prefs " + userPrefs);
 
@@ -154,7 +154,7 @@ public class ModelManager implements Model {
 
     @Override
     public void setElderly(Elderly target, Elderly editedElderly) {
-        CollectionUtil.requireAllNonNull(target, editedElderly);
+        requireAllNonNull(target, editedElderly);
         versionedNurseyBook.setElderly(target, editedElderly);
     }
 
@@ -169,7 +169,7 @@ public class ModelManager implements Model {
     }
 
     public void setTask(Task target, Task editedTask) {
-        CollectionUtil.requireAllNonNull(target, editedTask);
+        requireAllNonNull(target, editedTask);
         versionedNurseyBook.setTask(target, editedTask);
     }
 

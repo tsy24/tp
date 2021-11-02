@@ -1,10 +1,12 @@
 package nurseybook.logic.parser;
 
+import static nurseybook.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static nurseybook.logic.commands.DeleteNokCommand.MESSAGE_USAGE;
+import static nurseybook.testutil.TypicalIndexes.INDEX_FIRST;
+
 import org.junit.jupiter.api.Test;
 
-import nurseybook.commons.core.Messages;
 import nurseybook.logic.commands.DeleteNokCommand;
-import nurseybook.testutil.TypicalIndexes;
 
 public class DeleteNokCommandParserTest {
 
@@ -12,13 +14,13 @@ public class DeleteNokCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsDeleteNokCommand() {
-        CommandParserTestUtil.assertParseSuccess(parser, "1", new DeleteNokCommand(TypicalIndexes.INDEX_FIRST));
+        CommandParserTestUtil.assertParseSuccess(parser, "1", new DeleteNokCommand(INDEX_FIRST));
     }
 
     @Test
     public void parse_invalidArgs_throwsParseException() {
         CommandParserTestUtil.assertParseFailure(parser, "a",
-                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, DeleteNokCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
     }
 }
 

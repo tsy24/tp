@@ -1,5 +1,7 @@
 package nurseybook.testutil;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.function.Executable;
 
@@ -29,6 +31,6 @@ public class Assert {
     public static void assertThrows(Class<? extends Throwable> expectedType, String expectedMessage,
             Executable executable) {
         Throwable thrownException = Assertions.assertThrows(expectedType, executable);
-        Assertions.assertEquals(expectedMessage, thrownException.getMessage());
+        assertEquals(expectedMessage, thrownException.getMessage());
     }
 }

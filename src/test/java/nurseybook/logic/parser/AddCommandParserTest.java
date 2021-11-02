@@ -1,5 +1,6 @@
 package nurseybook.logic.parser;
 
+import static nurseybook.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static nurseybook.logic.commands.CommandTestUtil.AGE_DESC_AMY;
 import static nurseybook.logic.commands.CommandTestUtil.AGE_DESC_BOB;
 import static nurseybook.logic.commands.CommandTestUtil.GENDER_DESC_AMY;
@@ -49,7 +50,6 @@ import static nurseybook.testutil.TypicalElderlies.BOB;
 
 import org.junit.jupiter.api.Test;
 
-import nurseybook.commons.core.Messages;
 import nurseybook.logic.commands.AddCommand;
 import nurseybook.model.person.Age;
 import nurseybook.model.person.Elderly;
@@ -148,7 +148,7 @@ public class AddCommandParserTest {
 
     @Test
     public void parse_compulsoryFieldMissing_failure() {
-        String expectedMessage = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
 
         // missing name prefix
         assertParseFailure(parser, VALID_NAME_BOB + NOK_PHONE_DESC_BOB + AGE_DESC_BOB
@@ -243,6 +243,6 @@ public class AddCommandParserTest {
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_BOB + AGE_DESC_BOB
                 + GENDER_DESC_BOB + ROOM_NUMBER_DESC_BOB + NOK_NAME_DESC_BOB + NOK_RELATIONSHIP_DESC_BOB
                 + NOK_PHONE_DESC_BOB + NOK_EMAIL_DESC_BOB + NOK_ADDRESS_DESC_BOB + TAG_DESC_HUSBAND
-                + TAG_DESC_FRIEND, String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+                + TAG_DESC_FRIEND, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
     }
 }

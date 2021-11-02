@@ -1,6 +1,7 @@
 package nurseybook.logic.parser;
 
 import static nurseybook.testutil.Assert.assertThrows;
+import static nurseybook.testutil.TypicalIndexes.INDEX_FIRST;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -18,7 +19,6 @@ import nurseybook.model.person.Name;
 import nurseybook.model.person.Phone;
 import nurseybook.model.person.RoomNumber;
 import nurseybook.model.tag.Tag;
-import nurseybook.testutil.TypicalIndexes;
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
@@ -56,10 +56,10 @@ public class ParserUtilTest {
     @Test
     public void parseIndex_validInput_success() throws Exception {
         // No whitespaces
-        assertEquals(TypicalIndexes.INDEX_FIRST, ParserUtil.parseIndex("1"));
+        assertEquals(INDEX_FIRST, ParserUtil.parseIndex("1"));
 
         // Leading and trailing whitespaces
-        assertEquals(TypicalIndexes.INDEX_FIRST, ParserUtil.parseIndex("  1  "));
+        assertEquals(INDEX_FIRST, ParserUtil.parseIndex("  1  "));
     }
 
     @Test

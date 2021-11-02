@@ -1,7 +1,11 @@
 package nurseybook.testutil;
 
+import static nurseybook.logic.parser.CliSyntax.PREFIX_NAME;
+import static nurseybook.logic.parser.CliSyntax.PREFIX_TASK_DATE;
+import static nurseybook.logic.parser.CliSyntax.PREFIX_TASK_DESC;
+import static nurseybook.logic.parser.CliSyntax.PREFIX_TASK_TIME;
+
 import nurseybook.logic.commands.AddTaskCommand;
-import nurseybook.logic.parser.CliSyntax;
 import nurseybook.model.task.Task;
 
 /**
@@ -23,10 +27,10 @@ public class TaskUtil {
         StringBuilder sb = new StringBuilder();
         task.getRelatedNames()
                 .stream()
-                .forEach(s -> sb.append(CliSyntax.PREFIX_NAME + s.fullName + " "));
-        sb.append(CliSyntax.PREFIX_TASK_DESC + task.getDesc().value + " ");
-        sb.append(CliSyntax.PREFIX_TASK_DATE + task.getDateTime().getStringDate() + " ");
-        sb.append(CliSyntax.PREFIX_TASK_TIME + task.getDateTime().getStringTime() + " ");
+                .forEach(s -> sb.append(PREFIX_NAME + s.fullName + " "));
+        sb.append(PREFIX_TASK_DESC + task.getDesc().value + " ");
+        sb.append(PREFIX_TASK_DATE + task.getDateTime().getStringDate() + " ");
+        sb.append(PREFIX_TASK_TIME + task.getDateTime().getStringTime() + " ");
 
         return sb.toString();
     }

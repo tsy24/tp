@@ -12,6 +12,7 @@ import java.util.Set;
 import nurseybook.model.NurseyBook;
 import nurseybook.model.person.Elderly;
 import nurseybook.model.person.Name;
+import nurseybook.model.task.Recurrence.RecurrenceType;
 
 public class Task implements Comparable<Task> {
 
@@ -36,7 +37,7 @@ public class Task implements Comparable<Task> {
         this.dateTime = dt;
         this.relatedNames.addAll(names);
         this.status = new Status("false", Boolean.toString(isOverdue));
-        this.recurrence = new Recurrence(Recurrence.RecurrenceType.NONE.name());
+        this.recurrence = new Recurrence(RecurrenceType.NONE.name());
         this.ghostTask = new GhostTask("false");
     }
 
@@ -72,7 +73,7 @@ public class Task implements Comparable<Task> {
         this.dateTime = dt;
         this.relatedNames.addAll(names);
         this.status = status;
-        this.recurrence = new Recurrence(Recurrence.RecurrenceType.NONE.name());
+        this.recurrence = new Recurrence(RecurrenceType.NONE.name());
         this.ghostTask = new GhostTask("false");
     }
 
@@ -170,8 +171,8 @@ public class Task implements Comparable<Task> {
     public Task updateDateRecurringTask() {
         LocalDateTime currentDateTime = LocalDateTime.now();
         if (recurrence.isRecurring()) {
-            Recurrence.RecurrenceType recurrenceType = recurrence.getRecurrenceType();
-            assert(recurrenceType != Recurrence.RecurrenceType.NONE);
+            RecurrenceType recurrenceType = recurrence.getRecurrenceType();
+            assert(recurrenceType != RecurrenceType.NONE);
 
             DateTime dateTime = changeTaskDate(currentDateTime, recurrenceType);
             return new Task(desc, dateTime, relatedNames,
@@ -218,7 +219,7 @@ public class Task implements Comparable<Task> {
         ghostTask = new GhostTask("true");
     }
 
-    private DateTime changeTaskDate(LocalDateTime currentDateTime, Recurrence.RecurrenceType recurrenceType) {
+    private DateTime changeTaskDate(LocalDateTime currentDateTime, RecurrenceType recurrenceType) {
         LocalDate taskDate = dateTime.date;
         LocalTime taskTime = dateTime.time;
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd MM yyyy HH mm");
@@ -233,13 +234,13 @@ public class Task implements Comparable<Task> {
         return changeTaskDateBasedOnRecurrence(recurrenceType, taskLocalDateTime, daysBetween);
     }
 
-    private DateTime changeTaskDateBasedOnRecurrence(Recurrence.RecurrenceType recurrenceType,
+    private DateTime changeTaskDateBasedOnRecurrence(RecurrenceType recurrenceType,
                                                  LocalDateTime taskLocalDateTime, long daysBetween) {
         assert(daysBetween > 0);
         LocalDateTime taskNewLocalDateTime = taskLocalDateTime;
-        if (recurrenceType == Recurrence.RecurrenceType.DAY) {
+        if (recurrenceType == RecurrenceType.DAY) {
             taskNewLocalDateTime = taskLocalDateTime.plusDays(daysBetween + 1);
-        } else if (recurrenceType == Recurrence.RecurrenceType.WEEK) {
+        } else if (recurrenceType == RecurrenceType.WEEK) {
             int daysToAdd = ((int) (daysBetween / 7)) * 7 + 7;
             taskNewLocalDateTime = taskLocalDateTime.plusDays(daysToAdd);
         } else {
@@ -363,10 +364,10 @@ public class Task implements Comparable<Task> {
         Task copyTask = this.copyTask();
 
         DateTime nextDateTime;
-        Recurrence.RecurrenceType taskRecurrenceType = copyTask.recurrence.getRecurrenceType();
-        if (taskRecurrenceType == Recurrence.RecurrenceType.DAY) {
+        RecurrenceType taskRecurrenceType = copyTask.recurrence.getRecurrenceType();
+        if (taskRecurrenceType == RecurrenceType.DAY) {
             nextDateTime = copyTask.dateTime.incrementDateByDays(1);
-        } else if (taskRecurrenceType == Recurrence.RecurrenceType.WEEK) {
+        } else if (taskRecurrenceType == RecurrenceType.WEEK) {
             nextDateTime = copyTask.dateTime.incrementDateByWeeks(1);
         } else { //taskRecurrenceType == RecurrenceType.MONTH
             //a month is assumed to be 4 weeks long only, since all months do not have an equivalent number of days.

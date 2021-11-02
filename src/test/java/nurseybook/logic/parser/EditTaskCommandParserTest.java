@@ -1,8 +1,11 @@
 package nurseybook.logic.parser;
 
+import static nurseybook.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static nurseybook.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static nurseybook.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static nurseybook.logic.commands.CommandTestUtil.VALID_NAME_AMY;
+import static nurseybook.logic.commands.EditTaskCommand.MESSAGE_NOT_EDITED;
+import static nurseybook.logic.commands.EditTaskCommand.MESSAGE_USAGE;
 import static nurseybook.logic.commands.TaskCommandTestUtil.DATE_DESC_JAN;
 import static nurseybook.logic.commands.TaskCommandTestUtil.DATE_DESC_NOV;
 import static nurseybook.logic.commands.TaskCommandTestUtil.DESC_COVID;
@@ -23,13 +26,15 @@ import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_DESC_PAPERWORK
 import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_NAME_ALEX;
 import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_TIME_SEVENPM;
 import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_TIME_TENAM;
+import static nurseybook.logic.parser.CliSyntax.PREFIX_NAME;
 import static nurseybook.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static nurseybook.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static nurseybook.testutil.TypicalIndexes.INDEX_FIRST;
+import static nurseybook.testutil.TypicalIndexes.INDEX_SECOND;
+import static nurseybook.testutil.TypicalIndexes.INDEX_THIRD;
 
 import org.junit.jupiter.api.Test;
 
-import nurseybook.commons.core.Messages;
 import nurseybook.commons.core.index.Index;
 import nurseybook.logic.commands.EditTaskCommand;
 import nurseybook.model.person.Name;
@@ -37,14 +42,13 @@ import nurseybook.model.task.DateTime;
 import nurseybook.model.task.Description;
 import nurseybook.model.task.Recurrence;
 import nurseybook.testutil.EditTaskDescriptorBuilder;
-import nurseybook.testutil.TypicalIndexes;
 
 public class EditTaskCommandParserTest {
 
-    private static final String NAME_EMPTY = " " + CliSyntax.PREFIX_NAME;
+    private static final String NAME_EMPTY = " " + PREFIX_NAME;
 
     private static final String MESSAGE_INVALID_FORMAT =
-            String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditTaskCommand.MESSAGE_USAGE);
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE);
 
     private EditTaskCommandParser parser = new EditTaskCommandParser();
 
@@ -54,7 +58,7 @@ public class EditTaskCommandParserTest {
         assertParseFailure(parser, VALID_DESC_PAPERWORK, MESSAGE_INVALID_FORMAT);
 
         // no field specified
-        assertParseFailure(parser, "1", EditTaskCommand.MESSAGE_NOT_EDITED);
+        assertParseFailure(parser, "1", MESSAGE_NOT_EDITED);
 
         // no index and no field specified
         assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
@@ -128,7 +132,7 @@ public class EditTaskCommandParserTest {
 
     @Test
     public void parse_allFieldsSpecified_success() {
-        Index targetIndex = TypicalIndexes.INDEX_SECOND;
+        Index targetIndex = INDEX_SECOND;
         String userInput = targetIndex.getOneBased() + NAME_DESC_AMY + NAME_DESC_ALEX + DESC_PAPERWORK + DATE_DESC_JAN
                 + TIME_DESC_SEVENPM + RECUR_NONE;
 
@@ -156,7 +160,7 @@ public class EditTaskCommandParserTest {
     @Test
     public void parse_oneFieldSpecified_success() {
         // names
-        Index targetIndex = TypicalIndexes.INDEX_THIRD;
+        Index targetIndex = INDEX_THIRD;
         String userInput = targetIndex.getOneBased() + NAME_DESC_AMY;
         EditTaskCommand.EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder()
                 .withNames(VALID_NAME_AMY).build();
@@ -233,7 +237,7 @@ public class EditTaskCommandParserTest {
 
     @Test
     public void parse_resetNames_success() {
-        Index targetIndex = TypicalIndexes.INDEX_THIRD;
+        Index targetIndex = INDEX_THIRD;
         String userInput = targetIndex.getOneBased() + NAME_EMPTY;
         EditTaskCommand.EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder().withNames().build();
         EditTaskCommand expectedCommand = new EditTaskCommand(targetIndex, descriptor);

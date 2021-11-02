@@ -1,5 +1,7 @@
 package nurseybook.logic.commands;
 
+import static nurseybook.commons.core.Messages.MESSAGE_ELDERLIES_LISTED_OVERVIEW;
+import static nurseybook.logic.commands.CommandResult.ListDisplayChange.ELDERLY;
 import static nurseybook.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static nurseybook.testutil.TypicalElderlies.CARL;
 import static nurseybook.testutil.TypicalElderlies.ELLE;
@@ -14,7 +16,6 @@ import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
-import nurseybook.commons.core.Messages;
 import nurseybook.model.Model;
 import nurseybook.model.ModelManager;
 import nurseybook.model.UserPrefs;
@@ -56,9 +57,8 @@ public class FindElderlyCommandTest {
 
     @Test
     public void execute_zeroKeywords_noElderlyFound() {
-        String expectedMessage = String.format(Messages.MESSAGE_ELDERLIES_LISTED_OVERVIEW, 0);
-        CommandResult expectedCommandResult = new CommandResult(expectedMessage,
-                CommandResult.ListDisplayChange.ELDERLY);
+        String expectedMessage = String.format(MESSAGE_ELDERLIES_LISTED_OVERVIEW, 0);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage, ELDERLY);
 
         NameContainsKeywordsPredicate predicate = preparePredicate(" ");
         FindElderlyCommand command = new FindElderlyCommand(predicate);
@@ -70,9 +70,8 @@ public class FindElderlyCommandTest {
 
     @Test
     public void execute_multipleKeywords_multipleElderliesFound() {
-        String expectedMessage = String.format(Messages.MESSAGE_ELDERLIES_LISTED_OVERVIEW, 3);
-        CommandResult expectedCommandResult = new CommandResult(expectedMessage,
-                CommandResult.ListDisplayChange.ELDERLY);
+        String expectedMessage = String.format(MESSAGE_ELDERLIES_LISTED_OVERVIEW, 3);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage, ELDERLY);
 
         NameContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
         FindElderlyCommand command = new FindElderlyCommand(predicate);

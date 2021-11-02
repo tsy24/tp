@@ -1,5 +1,7 @@
 package nurseybook.logic.commands;
 
+import static nurseybook.commons.core.Messages.MESSAGE_ELDERLIES_LISTED_OVERVIEW;
+import static nurseybook.logic.commands.CommandResult.ListDisplayChange.ELDERLY;
 import static nurseybook.logic.commands.CommandTestUtil.SET_ONE_TAG;
 import static nurseybook.logic.commands.CommandTestUtil.SET_TWO_TAGS;
 import static nurseybook.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
@@ -20,7 +22,6 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
-import nurseybook.commons.core.Messages;
 import nurseybook.model.Model;
 import nurseybook.model.ModelManager;
 import nurseybook.model.UserPrefs;
@@ -61,9 +62,8 @@ public class FilterCommandTest {
 
     @Test
     public void execute_oneFilterTag_noPersonFound() {
-        String expectedMessage = String.format(Messages.MESSAGE_ELDERLIES_LISTED_OVERVIEW, 0);
-        CommandResult expectedCommandResult = new CommandResult(expectedMessage,
-                CommandResult.ListDisplayChange.ELDERLY);
+        String expectedMessage = String.format(MESSAGE_ELDERLIES_LISTED_OVERVIEW, 0);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage, ELDERLY);
         ElderlyHasTagPredicate predicate = new ElderlyHasTagPredicate(Set.of(new Tag(VALID_TAG_HUSBAND)));
         FilterCommand command = new FilterCommand(predicate);
         expectedModel.updateFilteredElderlyList(predicate);
@@ -73,9 +73,8 @@ public class FilterCommandTest {
 
     @Test
     public void execute_oneFilterTag_multiplePersonsFound() {
-        String expectedMessage = String.format(Messages.MESSAGE_ELDERLIES_LISTED_OVERVIEW, 3);
-        CommandResult expectedCommandResult = new CommandResult(expectedMessage,
-                CommandResult.ListDisplayChange.ELDERLY);
+        String expectedMessage = String.format(MESSAGE_ELDERLIES_LISTED_OVERVIEW, 3);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage, ELDERLY);
         ElderlyHasTagPredicate predicate = new ElderlyHasTagPredicate(Set.of(new Tag(VALID_TAG_FRIEND)));
         FilterCommand command = new FilterCommand(predicate);
         expectedModel.updateFilteredElderlyList(predicate);
@@ -85,9 +84,8 @@ public class FilterCommandTest {
 
     @Test
     public void execute_multipleFilterTags_onePersonFound() {
-        String expectedMessage = String.format(Messages.MESSAGE_ELDERLIES_LISTED_OVERVIEW, 1);
-        CommandResult expectedCommandResult = new CommandResult(expectedMessage,
-                CommandResult.ListDisplayChange.ELDERLY);
+        String expectedMessage = String.format(MESSAGE_ELDERLIES_LISTED_OVERVIEW, 1);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage, ELDERLY);
         ElderlyHasTagPredicate predicate = new ElderlyHasTagPredicate(SET_TWO_TAGS);
         FilterCommand command = new FilterCommand(predicate);
         expectedModel.updateFilteredElderlyList(predicate);

@@ -3,6 +3,7 @@ package nurseybook.logic.commands;
 import static nurseybook.logic.commands.CommandTestUtil.assertCommandFailure;
 import static nurseybook.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static nurseybook.logic.commands.CommandTestUtil.deleteFirstElderly;
+import static nurseybook.logic.commands.RedoCommand.MESSAGE_SUCCESS;
 import static nurseybook.testutil.TypicalElderlies.getTypicalNurseyBook;
 
 import org.junit.jupiter.api.Test;
@@ -29,13 +30,13 @@ public class RedoCommandTest {
 
         // multiple redo-able states
         expectedModel.redoNurseyBook();
-        String expectedMessage = RedoCommand.MESSAGE_SUCCESS + firstCommandResult.getFeedbackToUser();
+        String expectedMessage = MESSAGE_SUCCESS + firstCommandResult.getFeedbackToUser();
         CommandResult expectedCommandResult = new CommandResult(expectedMessage, firstCommandResult.getDisplayChange());
         assertCommandSuccess(new RedoCommand(), model, expectedCommandResult, expectedModel);
 
         // one redo-able state
         expectedModel.redoNurseyBook();
-        expectedMessage = RedoCommand.MESSAGE_SUCCESS + secondCommandResult.getFeedbackToUser();
+        expectedMessage = MESSAGE_SUCCESS + secondCommandResult.getFeedbackToUser();
         expectedCommandResult = new CommandResult(expectedMessage, secondCommandResult.getDisplayChange());
         assertCommandSuccess(new RedoCommand(), model, expectedCommandResult, expectedModel);
 
