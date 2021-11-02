@@ -1,10 +1,7 @@
 package nurseybook.model.task;
 
-import java.time.Duration;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -298,22 +295,6 @@ public abstract class Task implements Comparable<Task> {
         return otherTask != null
                 && otherTask.getDesc().equals(getDesc()) && otherTask.getDateTime().equals(getDateTime());
     }
-
-    //TODO Delete equals
-
-    //    @Override
-    //    public boolean equals(Object obj) {
-    //        if (obj instanceof Task) {
-    //            Task other = (Task) obj;
-    //            return other.getDesc().equals(this.desc)
-    //                    && other.getDateTime().equals(this.dateTime)
-    //                    && other.getRelatedNames().equals(this.relatedNames)
-    //                    && other.getStatus().equals(this.status)
-    //                    && other.getRecurrence().equals(this.recurrence)
-    //                    && other.getGhostTask().equals(this.ghostTask);
-    //        }
-    //        return false;
-    //    }
 
     @Override
     public String toString() {

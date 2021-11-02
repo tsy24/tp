@@ -8,7 +8,6 @@ import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_NAME_KEITH;
 import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_TIME_SEVENPM;
 import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_TIME_TENAM;
 import static nurseybook.testutil.TypicalTasks.ALEX_INSULIN;
-import static nurseybook.testutil.TypicalTasks.APPLY_LEAVE;
 import static nurseybook.testutil.TypicalTasks.APPLY_LEAVE_DAY_NEXT_RECURRENCE_GHOST;
 import static nurseybook.testutil.TypicalTasks.APPLY_LEAVE_NEXT_DAY;
 import static nurseybook.testutil.TypicalTasks.KEITH_INSULIN;
@@ -23,7 +22,6 @@ import nurseybook.testutil.TaskBuilder;
 public class RealTaskTest {
 
     private final Task keithInsulin = new TaskBuilder(KEITH_INSULIN).build();
-    private final Task applyLeave = new TaskBuilder(APPLY_LEAVE).build();
 
     @Test
     void copyToGhostTask() {
@@ -75,5 +73,4 @@ public class RealTaskTest {
         // different Task Type -> returns false
         assertFalse(keithInsulin.equals(APPLY_LEAVE_DAY_NEXT_RECURRENCE_GHOST));
     }
-
 }

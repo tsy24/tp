@@ -115,6 +115,11 @@ public class RealTask extends Task {
         return new RealTask(copyDesc, copyDt, copyRelatedNames, copyStatus, copyRecurrence);
     }
 
+    /**
+     * Copies the contents of this task into a new GhostTask.
+     *
+     * @return A copy of the contents of this task into a new GhostTask.
+     */
     public GhostTask copyToGhostTask() {
         Description copyDesc = new Description(getDesc().value);
         DateTime copyDt = new DateTime(getDateTime().getStringDate(), getDateTime().getStringTime());

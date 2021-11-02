@@ -60,7 +60,8 @@ public class GhostTaskTest {
         assertFalse(applyLeaveNextDayGhost.equals(editedTask));
 
         // different recurrence -> returns false
-        editedTask = new TaskBuilder(applyLeaveNextDayGhost).withRecurrence(Recurrence.RecurrenceType.MONTH.name()).build();
+        editedTask = new TaskBuilder(applyLeaveNextDayGhost)
+                .withRecurrence(Recurrence.RecurrenceType.MONTH.name()).build();
         assertFalse(applyLeaveNextDayGhost.equals(editedTask));
 
         // different Task Type -> returns false

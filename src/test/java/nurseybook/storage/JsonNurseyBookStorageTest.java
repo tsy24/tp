@@ -4,7 +4,6 @@ import static nurseybook.testutil.Assert.assertThrows;
 import static nurseybook.testutil.TypicalElderlies.ALICE;
 import static nurseybook.testutil.TypicalElderlies.HOON;
 import static nurseybook.testutil.TypicalElderlies.IDA;
-import static nurseybook.testutil.TypicalTasks.APPLY_LEAVE_DAY_NEXT_RECURRENCE_GHOST;
 import static nurseybook.testutil.TypicalTasks.APPLY_LEAVE_LATE_TIME;
 import static nurseybook.testutil.TypicalTasks.APPLY_LEAVE_NEXT_DAY;
 import static org.junit.jupiter.api.Assertions.assertEquals;

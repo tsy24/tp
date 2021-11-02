@@ -11,8 +11,8 @@ import java.util.Set;
 import nurseybook.model.person.Name;
 
 /**
- * Represents a Ghost Task in NurseyBook. Ghost tasks are tasks that are not meant to be shown to the user as part of the
- * main list of tasks.
+ * Represents a Ghost Task in NurseyBook. Ghost tasks are tasks that are not meant to be shown to the user
+ * as part of the main list of tasks.
  */
 public class GhostTask extends Task {
 
