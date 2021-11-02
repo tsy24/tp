@@ -372,8 +372,8 @@
     -fx-background-radius: 20;
     -fx-background-color: white;
 }
-.titled-pane > .title > .arrow-button > .arrow
-{
+
+.titled-pane > .title > .arrow-button > .arrow {
     -fx-background-color: transparent;
     -fx-border-color: transparent;
     -fx-effect: null;
