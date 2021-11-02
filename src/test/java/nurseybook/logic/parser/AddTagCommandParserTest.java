@@ -3,6 +3,7 @@ package nurseybook.logic.parser;
 import static nurseybook.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static nurseybook.logic.commands.AddTagCommand.MESSAGE_USAGE;
 import static nurseybook.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
+import static nurseybook.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static nurseybook.logic.commands.CommandTestUtil.SET_ONE_TAG;
 import static nurseybook.logic.commands.CommandTestUtil.TAG_DESC_DIABETES;
 import static nurseybook.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
@@ -72,5 +73,11 @@ public class AddTagCommandParserTest {
         assertParseFailure(parser, "1" + TAG_DESC_FRIEND + TAG_DESC_HUSBAND + TAG_EMPTY, MESSAGE_CONSTRAINTS);
         assertParseFailure(parser, "1" + TAG_DESC_FRIEND + TAG_EMPTY + TAG_DESC_HUSBAND, MESSAGE_CONSTRAINTS);
         assertParseFailure(parser, "1" + TAG_EMPTY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND, MESSAGE_CONSTRAINTS);
+    }
+
+    @Test
+    public void parse_unexpectedFieldPresent_failure() {
+        assertParseFailure(parser, "1" + TAG_DESC_FRIEND + NAME_DESC_AMY,
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTagCommand.MESSAGE_USAGE));
     }
 }

@@ -1,6 +1,8 @@
 package nurseybook.logic.parser;
 
 import static nurseybook.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static nurseybook.logic.commands.CommandTestUtil.REMARK_DESC_AMY;
+import static nurseybook.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static nurseybook.logic.commands.RemarkCommand.COMMAND_WORD;
 import static nurseybook.logic.commands.RemarkCommand.MESSAGE_USAGE;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_REMARK;
@@ -41,5 +43,11 @@ public class RemarkCommandParserTest {
 
         // no index
         assertParseFailure(parser, COMMAND_WORD + " " + nonEmptyRemark, expectedMessage);
+    }
+
+    @Test
+    public void parse_unexpectedFieldPresent_failure() {
+        assertParseFailure(parser, "1" + REMARK_DESC_AMY + TAG_DESC_FRIEND,
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemarkCommand.MESSAGE_USAGE));
     }
 }

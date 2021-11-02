@@ -22,6 +22,7 @@ import nurseybook.logic.commands.AddTagCommand;
 import nurseybook.logic.commands.AddTaskCommand;
 import nurseybook.logic.commands.ClearCommand;
 import nurseybook.logic.commands.DeleteCommand;
+import nurseybook.logic.commands.DeleteNokCommand;
 import nurseybook.logic.commands.DeleteTagCommand;
 import nurseybook.logic.commands.DeleteTaskCommand;
 import nurseybook.logic.commands.DoneTaskCommand;
@@ -99,7 +100,7 @@ public class NurseyBookParserTest {
     }
 
     @Test
-    public void parseCommand_edit() throws Exception {
+    public void parseCommand_editElderly() throws Exception {
         Elderly elderly = new ElderlyBuilder().build();
         EditCommand.EditElderlyDescriptor descriptor = new EditElderlyDescriptorBuilder(elderly).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
@@ -188,6 +189,13 @@ public class NurseyBookParserTest {
         FilterCommand filterCommand = (FilterCommand) parser.parseCommand(FilterCommand.COMMAND_WORD + " "
                 + TAG_DESC_DIABETES);
         assertEquals(new FilterCommand(new ElderlyHasTagPredicate(SET_ONE_TAG)), filterCommand);
+    }
+
+    @Test
+    public void parseCommand_deleteNok() throws Exception {
+        DeleteNokCommand deleteNokCommand = (DeleteNokCommand) parser.parseCommand(DeleteNokCommand.COMMAND_WORD + " "
+                + INDEX_FIRST.getOneBased());
+        assertEquals(new DeleteNokCommand(INDEX_FIRST), deleteNokCommand);
     }
 
     @Test

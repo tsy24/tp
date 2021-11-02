@@ -8,6 +8,7 @@ import static nurseybook.logic.parser.CliSyntax.PREFIX_NAME;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_NOK_NAME;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_PHONE;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_RELATIONSHIP;
+import static nurseybook.logic.parser.CliSyntax.PREFIX_REMARK;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_ROOM_NUM;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_TAG;
 import static nurseybook.testutil.Assert.assertThrows;
@@ -79,6 +80,7 @@ public class CommandTestUtil {
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
     public static final String TAG_DESC_DIABETES = " " + PREFIX_TAG + VALID_TAG_DIABETES;
     public static final String TAG_EMPTY = " " + PREFIX_TAG;
+    public static final String REMARK_DESC_AMY = " " + PREFIX_REMARK + VALID_REMARK_AMY;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_AGE_DESC = " " + PREFIX_AGE + "2d7"; // 'd' not allowed in age

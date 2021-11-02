@@ -25,6 +25,7 @@ import static nurseybook.logic.commands.CommandTestUtil.NOK_PHONE_DESC_AMY;
 import static nurseybook.logic.commands.CommandTestUtil.NOK_PHONE_DESC_BOB;
 import static nurseybook.logic.commands.CommandTestUtil.NOK_RELATIONSHIP_DESC_AMY;
 import static nurseybook.logic.commands.CommandTestUtil.NOK_RELATIONSHIP_DESC_BOB;
+import static nurseybook.logic.commands.CommandTestUtil.REMARK_DESC_AMY;
 import static nurseybook.logic.commands.CommandTestUtil.ROOM_NUMBER_DESC_AMY;
 import static nurseybook.logic.commands.CommandTestUtil.ROOM_NUMBER_DESC_BOB;
 import static nurseybook.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
@@ -305,5 +306,11 @@ public class EditCommandParserTest {
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
+    }
+
+    @Test
+    public void parse_unexpectedFieldPresent_failure() {
+        assertParseFailure(parser, "1" + NAME_DESC_AMY + AGE_DESC_AMY + GENDER_DESC_AMY + ROOM_NUMBER_DESC_AMY
+                + REMARK_DESC_AMY, String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
     }
 }

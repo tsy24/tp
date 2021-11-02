@@ -28,6 +28,7 @@ import static nurseybook.logic.commands.CommandTestUtil.NOK_RELATIONSHIP_DESC_AM
 import static nurseybook.logic.commands.CommandTestUtil.NOK_RELATIONSHIP_DESC_BOB;
 import static nurseybook.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static nurseybook.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
+import static nurseybook.logic.commands.CommandTestUtil.REMARK_DESC_AMY;
 import static nurseybook.logic.commands.CommandTestUtil.ROOM_NUMBER_DESC_AMY;
 import static nurseybook.logic.commands.CommandTestUtil.ROOM_NUMBER_DESC_BOB;
 import static nurseybook.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
@@ -244,5 +245,11 @@ public class AddCommandParserTest {
                 + GENDER_DESC_BOB + ROOM_NUMBER_DESC_BOB + NOK_NAME_DESC_BOB + NOK_RELATIONSHIP_DESC_BOB
                 + NOK_PHONE_DESC_BOB + NOK_EMAIL_DESC_BOB + NOK_ADDRESS_DESC_BOB + TAG_DESC_HUSBAND
                 + TAG_DESC_FRIEND, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_unexpectedFieldPresent_failure() {
+        assertParseFailure(parser, NAME_DESC_AMY + AGE_DESC_AMY + GENDER_DESC_AMY + ROOM_NUMBER_DESC_AMY
+                + REMARK_DESC_AMY, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
     }
 }
