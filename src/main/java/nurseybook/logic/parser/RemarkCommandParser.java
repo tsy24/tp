@@ -3,9 +3,10 @@ package nurseybook.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static nurseybook.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_REMARK;
+import static nurseybook.logic.parser.ParserUtil.MESSAGE_INDEX_TOO_EXTREME;
+import static nurseybook.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 
 import nurseybook.commons.core.index.Index;
-import nurseybook.commons.exceptions.IllegalValueException;
 import nurseybook.logic.commands.RemarkCommand;
 import nurseybook.logic.parser.exceptions.ParseException;
 import nurseybook.model.person.Remark;
@@ -26,8 +27,13 @@ public class RemarkCommandParser implements Parser<RemarkCommand> {
         Index index;
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
-        } catch (IllegalValueException ive) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemarkCommand.MESSAGE_USAGE), ive);
+        } catch (ParseException pe) {
+            if (pe.getMessage().equals(MESSAGE_INDEX_TOO_EXTREME) || pe.getMessage().equals(MESSAGE_INVALID_INDEX)) {
+                throw pe;
+            } else {
+                throw new ParseException(
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemarkCommand.MESSAGE_USAGE), pe);
+            }
         }
 
         String remark = argMultimap.getValue(PREFIX_REMARK).orElse("");

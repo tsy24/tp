@@ -1,5 +1,6 @@
 package nurseybook.logic.parser;
 
+import static nurseybook.logic.parser.ParserUtil.MESSAGE_INDEX_TOO_EXTREME;
 import static nurseybook.testutil.Assert.assertThrows;
 import static nurseybook.testutil.TypicalIndexes.INDEX_FIRST;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -49,8 +50,10 @@ public class ParserUtilTest {
 
     @Test
     public void parseIndex_outOfRangeInput_throwsParseException() {
-        assertThrows(ParseException.class, ParserUtil.MESSAGE_INVALID_INDEX, ()
+        assertThrows(ParseException.class, MESSAGE_INDEX_TOO_EXTREME, ()
             -> ParserUtil.parseIndex(Long.toString(Integer.MAX_VALUE + 1)));
+        assertThrows(ParseException.class, MESSAGE_INDEX_TOO_EXTREME, ()
+            -> ParserUtil.parseIndex(Long.toString(Integer.MIN_VALUE - 1)));
     }
 
     @Test
