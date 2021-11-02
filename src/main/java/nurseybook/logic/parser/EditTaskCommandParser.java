@@ -7,6 +7,8 @@ import static nurseybook.logic.parser.CliSyntax.PREFIX_TASK_DATE;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_TASK_DESC;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_TASK_RECURRING;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_TASK_TIME;
+import static nurseybook.logic.parser.ParserUtil.MESSAGE_INDEX_TOO_EXTREME;
+import static nurseybook.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -34,9 +36,15 @@ public class EditTaskCommandParser implements Parser<EditTaskCommand> {
         Index index;
 
         try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
+            String str = argMultimap.getPreamble();
+            index = ParserUtil.parseIndex(str);
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditTaskCommand.MESSAGE_USAGE), pe);
+            if (pe.getMessage().equals(MESSAGE_INDEX_TOO_EXTREME) || pe.getMessage().equals(MESSAGE_INVALID_INDEX)) {
+                throw pe;
+            } else {
+                throw new ParseException(
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditTaskCommand.MESSAGE_USAGE), pe);
+            }
         }
 
         EditTaskDescriptor editTaskDescriptor = new EditTaskDescriptor();

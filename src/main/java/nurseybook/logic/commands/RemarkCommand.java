@@ -29,7 +29,9 @@ public class RemarkCommand extends Command {
             + PREFIX_REMARK + "Likes to swim.";
 
     public static final String MESSAGE_ADD_REMARK_SUCCESS = "Added remark to Elderly: %1$s";
+    public static final String MESSAGE_REMARK_NO_CHANGES = "Remark entered is the same as before";
     public static final String MESSAGE_DELETE_REMARK_SUCCESS = "Removed remark from Elderly: %1$s";
+    public static final String MESSAGE_REMARK_ALREADY_EMPTY = "No remark to be removed";
 
     private final Index index;
     private final Remark remark;
@@ -54,6 +56,15 @@ public class RemarkCommand extends Command {
         }
 
         Elderly elderlyToEdit = lastShownList.get(index.getZeroBased());
+
+        if (!elderlyToEdit.hasRemark() && remark.value.isEmpty()) {
+            throw new CommandException(MESSAGE_REMARK_ALREADY_EMPTY);
+        }
+
+        if (elderlyToEdit.getRemark().equals(remark)) {
+            throw new CommandException(MESSAGE_REMARK_NO_CHANGES);
+        }
+
         Elderly editedElderly = new Elderly(
                 elderlyToEdit.getName(), elderlyToEdit.getAge(), elderlyToEdit.getGender(),
                 elderlyToEdit.getRoomNumber(), elderlyToEdit.getNok(), remark, elderlyToEdit.getTags());

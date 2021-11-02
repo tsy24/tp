@@ -2,6 +2,19 @@ package nurseybook.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static nurseybook.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static nurseybook.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static nurseybook.logic.parser.CliSyntax.PREFIX_AGE;
+import static nurseybook.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static nurseybook.logic.parser.CliSyntax.PREFIX_GENDER;
+import static nurseybook.logic.parser.CliSyntax.PREFIX_NAME;
+import static nurseybook.logic.parser.CliSyntax.PREFIX_NOK_NAME;
+import static nurseybook.logic.parser.CliSyntax.PREFIX_PHONE;
+import static nurseybook.logic.parser.CliSyntax.PREFIX_RELATIONSHIP;
+import static nurseybook.logic.parser.CliSyntax.PREFIX_ROOM_NUM;
+import static nurseybook.logic.parser.CliSyntax.PREFIX_TAG;
+import static nurseybook.logic.parser.ParserUtil.MESSAGE_INDEX_TOO_EXTREME;
+import static nurseybook.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
+import static nurseybook.logic.parser.ParserUtil.MESSAGE_UNKNOWN_INDEX;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -27,63 +40,75 @@ public class EditCommandParser implements Parser<EditCommand> {
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, CliSyntax.PREFIX_NAME, CliSyntax.PREFIX_AGE, CliSyntax.PREFIX_GENDER,
-                        CliSyntax.PREFIX_ROOM_NUM, CliSyntax.PREFIX_NOK_NAME, CliSyntax.PREFIX_RELATIONSHIP,
-                        CliSyntax.PREFIX_PHONE, CliSyntax.PREFIX_EMAIL, CliSyntax.PREFIX_ADDRESS, CliSyntax.PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_AGE, PREFIX_GENDER,
+                        PREFIX_ROOM_NUM, PREFIX_NOK_NAME, PREFIX_RELATIONSHIP,
+                        PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
 
         Index index;
 
         try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
+            String str = argMultimap.getPreamble();
+            if (str.contains("/ ")) {
+                throw new ParseException(MESSAGE_UNKNOWN_INDEX);
+            }
+            if (!str.matches(".*\\d.*")) {
+                throw new ParseException(MESSAGE_UNKNOWN_INDEX);
+            }
+            index = ParserUtil.parseIndex(str);
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
+            if (pe.getMessage().equals(MESSAGE_INDEX_TOO_EXTREME) || pe.getMessage().equals(MESSAGE_INVALID_INDEX)) {
+                throw pe;
+            } else {
+                throw new ParseException(
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
+            }
         }
 
         EditElderlyDescriptor editElderlyDescriptor = new EditElderlyDescriptor();
-        if (argMultimap.getValue(CliSyntax.PREFIX_NAME).isPresent()) {
-            editElderlyDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(CliSyntax.PREFIX_NAME).get()));
+        if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
+            editElderlyDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
         }
 
-        if (argMultimap.getValue(CliSyntax.PREFIX_AGE).isPresent()) {
-            editElderlyDescriptor.setAge(ParserUtil.parseAge(argMultimap.getValue(CliSyntax.PREFIX_AGE).get()));
+        if (argMultimap.getValue(PREFIX_AGE).isPresent()) {
+            editElderlyDescriptor.setAge(ParserUtil.parseAge(argMultimap.getValue(PREFIX_AGE).get()));
         }
 
-        if (argMultimap.getValue(CliSyntax.PREFIX_GENDER).isPresent()) {
+        if (argMultimap.getValue(PREFIX_GENDER).isPresent()) {
             editElderlyDescriptor.setGender(ParserUtil
-                    .parseGender(argMultimap.getValue(CliSyntax.PREFIX_GENDER).get()));
+                    .parseGender(argMultimap.getValue(PREFIX_GENDER).get()));
         }
 
-        if (argMultimap.getValue(CliSyntax.PREFIX_ROOM_NUM).isPresent()) {
+        if (argMultimap.getValue(PREFIX_ROOM_NUM).isPresent()) {
             editElderlyDescriptor.setRoomNumber(
-                    ParserUtil.parseRoomNumber(argMultimap.getValue(CliSyntax.PREFIX_ROOM_NUM).get()));
+                    ParserUtil.parseRoomNumber(argMultimap.getValue(PREFIX_ROOM_NUM).get()));
         }
 
-        if (argMultimap.getValue(CliSyntax.PREFIX_NOK_NAME).isPresent()) {
+        if (argMultimap.getValue(PREFIX_NOK_NAME).isPresent()) {
             editElderlyDescriptor.setNokName(ParserUtil
-                    .parseNokName(argMultimap.getValue(CliSyntax.PREFIX_NOK_NAME).get()));
+                    .parseNokName(argMultimap.getValue(PREFIX_NOK_NAME).get()));
         }
 
-        if (argMultimap.getValue(CliSyntax.PREFIX_RELATIONSHIP).isPresent()) {
+        if (argMultimap.getValue(PREFIX_RELATIONSHIP).isPresent()) {
             editElderlyDescriptor.setRelationship(
-                    ParserUtil.parseRelationship(argMultimap.getValue(CliSyntax.PREFIX_RELATIONSHIP).get()));
+                    ParserUtil.parseRelationship(argMultimap.getValue(PREFIX_RELATIONSHIP).get()));
         }
 
-        if (argMultimap.getValue(CliSyntax.PREFIX_PHONE).isPresent()) {
+        if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
             editElderlyDescriptor.setNokPhone(ParserUtil
-                    .parsePhone(argMultimap.getValue(CliSyntax.PREFIX_PHONE).get()));
+                    .parsePhone(argMultimap.getValue(PREFIX_PHONE).get()));
         }
 
-        if (argMultimap.getValue(CliSyntax.PREFIX_EMAIL).isPresent()) {
+        if (argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
             editElderlyDescriptor.setNokEmail(ParserUtil
-                    .parseEmail(argMultimap.getValue(CliSyntax.PREFIX_EMAIL).get()));
+                    .parseEmail(argMultimap.getValue(PREFIX_EMAIL).get()));
         }
 
-        if (argMultimap.getValue(CliSyntax.PREFIX_ADDRESS).isPresent()) {
+        if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
             editElderlyDescriptor.setNokAddress(ParserUtil
-                    .parseAddress(argMultimap.getValue(CliSyntax.PREFIX_ADDRESS).get()));
+                    .parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
         }
 
-        parseTagsForEdit(argMultimap.getAllValues(CliSyntax.PREFIX_TAG)).ifPresent(editElderlyDescriptor::setTags);
+        parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editElderlyDescriptor::setTags);
 
         if (!editElderlyDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
