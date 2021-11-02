@@ -4,7 +4,6 @@ import static nurseybook.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_TAG;
 import static nurseybook.logic.parser.ParserUtil.MESSAGE_INDEX_TOO_EXTREME;
 import static nurseybook.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
-import static nurseybook.logic.parser.ParserUtil.MESSAGE_UNKNOWN_INDEX;
 
 import java.util.Set;
 import java.util.stream.Stream;
