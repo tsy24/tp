@@ -45,6 +45,10 @@ public class ParserUtil {
      */
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
         String trimmedIndex = oneBasedIndex.trim();
+
+        if (!trimmedIndex.matches("[0-9,-]+")) {
+            throw new ParseException(MESSAGE_UNKNOWN_INDEX);
+        }
         // number with 10 digits might overflow
         if (trimmedIndex.length() > 9) {
             throw new ParseException(MESSAGE_INDEX_TOO_EXTREME);

@@ -5,7 +5,6 @@ import static nurseybook.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_REMARK;
 import static nurseybook.logic.parser.ParserUtil.MESSAGE_INDEX_TOO_EXTREME;
 import static nurseybook.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
-import static nurseybook.logic.parser.ParserUtil.MESSAGE_UNKNOWN_INDEX;
 
 import nurseybook.commons.core.index.Index;
 import nurseybook.logic.commands.RemarkCommand;
@@ -27,11 +26,7 @@ public class RemarkCommandParser implements Parser<RemarkCommand> {
 
         Index index;
         try {
-            String str = argMultimap.getPreamble();
-            if (!str.matches(".*\\d.*")) {
-                throw new ParseException(MESSAGE_UNKNOWN_INDEX);
-            }
-            index = ParserUtil.parseIndex(str);
+            index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
             if (pe.getMessage().equals(MESSAGE_INDEX_TOO_EXTREME) || pe.getMessage().equals(MESSAGE_INVALID_INDEX)) {
                 throw pe;

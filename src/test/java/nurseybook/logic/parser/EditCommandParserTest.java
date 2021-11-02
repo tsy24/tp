@@ -98,11 +98,11 @@ public class EditCommandParserTest {
     @Test
     public void parse_invalidPreamble_failure() {
         // Not non-zero unsigned index integer
-        assertParseFailure(parser, "-5" + NAME_DESC_AMY, MESSAGE_INVALID_INDEX);
-        assertParseFailure(parser, "0" + NAME_DESC_AMY, MESSAGE_INVALID_INDEX);
+        assertParseFailure(parser, "-5" + " " + NAME_DESC_AMY, MESSAGE_INVALID_INDEX);
+        assertParseFailure(parser, "0" + " " + NAME_DESC_AMY, MESSAGE_INVALID_INDEX);
 
         // invalid arguments being parsed as preamble
-        assertParseFailure(parser, "1 some random string", MESSAGE_INDEX_TOO_EXTREME);
+        assertParseFailure(parser, "1 some random string", MESSAGE_INVALID_FORMAT);
 
         // invalid prefix being parsed as preamble
         assertParseFailure(parser, "1 i/ string", MESSAGE_INVALID_FORMAT);

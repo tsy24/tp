@@ -1,16 +1,16 @@
 package nurseybook.logic.parser;
 
 import static nurseybook.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static nurseybook.logic.commands.AddTagCommand.MESSAGE_USAGE;
 import static nurseybook.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static nurseybook.logic.commands.CommandTestUtil.SET_ONE_TAG;
 import static nurseybook.logic.commands.CommandTestUtil.TAG_DESC_DIABETES;
 import static nurseybook.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static nurseybook.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 import static nurseybook.logic.commands.CommandTestUtil.TAG_EMPTY;
-import static nurseybook.logic.commands.CommandTestUtil.VALID_TAG_DIABETES;
 import static nurseybook.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static nurseybook.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static nurseybook.logic.parser.ParserUtil.MESSAGE_INDEX_TOO_EXTREME;
+import static nurseybook.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static nurseybook.model.tag.Tag.MESSAGE_CONSTRAINTS;
 import static nurseybook.testutil.TypicalIndexes.INDEX_FIRST;
 
@@ -21,7 +21,10 @@ import nurseybook.logic.commands.AddTagCommand;
 
 public class AddTagCommandParserTest {
 
+    private static final String MESSAGE_INVALID_FORMAT =
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTagCommand.MESSAGE_USAGE);
     private AddTagCommandParser parser = new AddTagCommandParser();
+
 
     @Test
     public void parse_allFieldsSpecified_success() {
@@ -33,34 +36,32 @@ public class AddTagCommandParserTest {
 
     @Test
     public void parse_missingCompulsoryField_failure() {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE);
-
         // no parameters
-        assertParseFailure(parser, "", expectedMessage);
+        assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
 
         // no index
-        assertParseFailure(parser, TAG_DESC_DIABETES, expectedMessage);
+        assertParseFailure(parser, TAG_DESC_DIABETES, MESSAGE_INVALID_FORMAT);
 
         // no tag
-        assertParseFailure(parser, "" + INDEX_FIRST, expectedMessage);
+        assertParseFailure(parser, "" + INDEX_FIRST, MESSAGE_INVALID_FORMAT);
 
     }
 
     @Test
     public void parse_invalidPreamble_failure() {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE);
-
-        // negative index
-        assertParseFailure(parser, "-5" + VALID_TAG_DIABETES, expectedMessage);
-
-        // zero index
-        assertParseFailure(parser, "0" + VALID_TAG_DIABETES, expectedMessage);
+        // Not non-zero unsigned index integer
+        assertParseFailure(parser, "-5" + " " + TAG_DESC_DIABETES, MESSAGE_INVALID_INDEX);
+        assertParseFailure(parser, "0" + " " + TAG_DESC_DIABETES, MESSAGE_INVALID_INDEX);
 
         // invalid arguments being parsed as preamble
-        assertParseFailure(parser, "1 some random string", expectedMessage);
+        assertParseFailure(parser, "1 some random string", MESSAGE_INVALID_FORMAT);
 
         // invalid prefix being parsed as preamble
-        assertParseFailure(parser, "1 i/ string", expectedMessage);
+        assertParseFailure(parser, "1 i/ string", MESSAGE_INVALID_FORMAT);
+
+        // Extreme indices
+        assertParseFailure(parser, "9999999999" + " " + TAG_DESC_DIABETES, MESSAGE_INDEX_TOO_EXTREME);
+        assertParseFailure(parser, "-999999999" + " " + TAG_DESC_DIABETES, MESSAGE_INDEX_TOO_EXTREME);
     }
 
     @Test

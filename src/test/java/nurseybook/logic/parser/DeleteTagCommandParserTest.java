@@ -51,10 +51,10 @@ public class DeleteTagCommandParserTest {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE);
 
         // negative index
-        assertParseFailure(parser, "-5" + VALID_TAG_DIABETES, expectedMessage);
+        assertParseFailure(parser, "-5" + " " + VALID_TAG_DIABETES, expectedMessage);
 
         // zero index
-        assertParseFailure(parser, "0" + VALID_TAG_DIABETES, expectedMessage);
+        assertParseFailure(parser, "0" + " " + VALID_TAG_DIABETES, expectedMessage);
 
         // invalid arguments being parsed as preamble
         assertParseFailure(parser, "1 some random string", expectedMessage);

@@ -7,10 +7,10 @@ import static nurseybook.logic.parser.ParserUtil.MESSAGE_INDEX_TOO_EXTREME;
 import static nurseybook.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static nurseybook.testutil.TypicalIndexes.INDEX_FIRST;
 
-import nurseybook.logic.parser.DeleteTaskCommandParser;
 import org.junit.jupiter.api.Test;
 
 import nurseybook.logic.commands.DeleteTaskCommand;
+import nurseybook.logic.parser.DeleteTaskCommandParser;
 
 class DeleteTaskCommandParserTest {
     private DeleteTaskCommandParser parser = new DeleteTaskCommandParser();
