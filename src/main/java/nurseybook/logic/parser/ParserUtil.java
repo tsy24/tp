@@ -35,7 +35,8 @@ public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index must be greater than zero.";
     public static final String MESSAGE_UNKNOWN_INDEX = "Index entered is unknown.";
-    public static final String MESSAGE_INDEX_TOO_EXTREME = "Index entered must be less than 10 characters.";
+    public static final String MESSAGE_INDEX_TOO_EXTREME = "Index entered must be less than 10 characters."
+            + "NurseyBook only supports up to 999999999 entries.";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be

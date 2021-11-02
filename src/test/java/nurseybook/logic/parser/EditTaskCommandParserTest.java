@@ -73,6 +73,9 @@ public class EditTaskCommandParserTest {
         assertParseFailure(parser, "0" + " " + DESC_PAPERWORK, MESSAGE_INVALID_INDEX);
 
         // invalid arguments being parsed as preamble
+        assertParseFailure(parser, "ad", MESSAGE_INVALID_FORMAT);
+
+        // invalid arguments with integer being parsed as preamble
         assertParseFailure(parser, "1 some random string", MESSAGE_INVALID_FORMAT);
 
         // invalid prefix being parsed as preamble

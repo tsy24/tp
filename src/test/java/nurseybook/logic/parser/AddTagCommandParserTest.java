@@ -53,7 +53,10 @@ public class AddTagCommandParserTest {
         assertParseFailure(parser, "-5" + " " + TAG_DESC_DIABETES, MESSAGE_INVALID_INDEX);
         assertParseFailure(parser, "0" + " " + TAG_DESC_DIABETES, MESSAGE_INVALID_INDEX);
 
-        // invalid arguments being parsed as preamble
+        // invalid arguments with integer being parsed as preamble
+        assertParseFailure(parser, "ad" + TAG_DESC_DIABETES, MESSAGE_INVALID_FORMAT);
+
+        // invalid arguments with integer being parsed as preamble
         assertParseFailure(parser, "1 some random string", MESSAGE_INVALID_FORMAT);
 
         // invalid prefix being parsed as preamble

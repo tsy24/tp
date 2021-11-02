@@ -36,8 +36,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         Index index;
 
         try {
-            String str = argMultimap.getPreamble();
-            index = ParserUtil.parseIndex(str);
+            index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
             if (pe.getMessage().equals(MESSAGE_INDEX_TOO_EXTREME) || pe.getMessage().equals(MESSAGE_INVALID_INDEX)) {
                 throw pe;

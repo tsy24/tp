@@ -35,11 +35,7 @@ public class AddTagCommandParser implements Parser<AddTagCommand> {
         Index index;
 
         try {
-            String str = argMultimap.getPreamble();
-            if (!str.matches(".*\\d.*")) {
-                throw new ParseException(MESSAGE_UNKNOWN_INDEX);
-            }
-            index = ParserUtil.parseIndex(str);
+            index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
             if (pe.getMessage().equals(MESSAGE_INDEX_TOO_EXTREME) || pe.getMessage().equals(MESSAGE_INVALID_INDEX)) {
                 throw pe;
