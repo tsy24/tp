@@ -4,7 +4,6 @@ import static nurseybook.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_ALL;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_NAME;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_PREAMBLE;
-import static nurseybook.logic.parser.CliSyntax.PREFIX_TAG;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_TASK_DATE;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_TASK_DESC;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_TASK_RECURRING;

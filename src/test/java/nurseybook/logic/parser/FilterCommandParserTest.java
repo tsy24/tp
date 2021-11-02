@@ -15,7 +15,6 @@ import static nurseybook.model.tag.Tag.MESSAGE_CONSTRAINTS;
 
 import org.junit.jupiter.api.Test;
 
-import nurseybook.logic.commands.AddTagCommand;
 import nurseybook.logic.commands.FilterCommand;
 import nurseybook.model.tag.ElderlyHasTagPredicate;
 

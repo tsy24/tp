@@ -1,8 +1,5 @@
 package nurseybook.logic.parser;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Contains Command Line Interface (CLI) syntax definitions common to multiple commands
  */
@@ -27,7 +24,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_TASK_RECURRING = new Prefix("recur/");
 
     public static final Prefix[] PREFIX_ALL = {PREFIX_NAME, PREFIX_AGE, PREFIX_GENDER, PREFIX_ROOM_NUM,
-            PREFIX_NOK_NAME, PREFIX_RELATIONSHIP, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_REMARK, PREFIX_TAG,
-            PREFIX_TASK_DESC, PREFIX_TASK_DATE, PREFIX_TASK_TIME, PREFIX_TASK_RECURRING};
+        PREFIX_NOK_NAME, PREFIX_RELATIONSHIP, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_REMARK, PREFIX_TAG,
+        PREFIX_TASK_DESC, PREFIX_TASK_DATE, PREFIX_TASK_TIME, PREFIX_TASK_RECURRING};
 
 }

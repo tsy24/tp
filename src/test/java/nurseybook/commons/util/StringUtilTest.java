@@ -45,6 +45,32 @@ public class StringUtilTest {
         assertTrue(StringUtil.isNonZeroUnsignedInteger("10"));
     }
 
+    //---------------- Tests for isNonZeroUnsignedInteger --------------------------------------
+    // range of numbers is -99999999 to 999999999
+    @Test
+    public void isInteger() {
+
+        // EP: empty strings
+        assertFalse(StringUtil.isInteger("")); // Boundary value
+        assertFalse(StringUtil.isInteger("  "));
+
+        // EP: not a number
+        assertFalse(StringUtil.isInteger("a"));
+        assertFalse(StringUtil.isInteger("aaa"));
+
+        // EP: zero as prefix
+        assertTrue(StringUtil.isInteger("01"));
+
+        // EP: numbers with white space
+        assertFalse(StringUtil.isInteger(" 10 ")); // Leading/trailing spaces
+        assertFalse(StringUtil.isInteger("1 0")); // Spaces in the middle
+
+        // EP: valid numbers, should return true
+        assertTrue(StringUtil.isInteger("999999999")); // Boundary value
+        assertTrue(StringUtil.isInteger("-99999999")); // Boundary value
+        assertTrue(StringUtil.isInteger("10"));
+    }
+
 
     //---------------- Tests for containsWordIgnoreCase --------------------------------------
 

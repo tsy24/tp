@@ -54,6 +54,8 @@ import static nurseybook.logic.commands.EditCommand.MESSAGE_USAGE;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_TAG;
 import static nurseybook.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static nurseybook.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static nurseybook.logic.parser.ParserUtil.MESSAGE_INDEX_TOO_EXTREME;
+import static nurseybook.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static nurseybook.testutil.TypicalIndexes.INDEX_FIRST;
 import static nurseybook.testutil.TypicalIndexes.INDEX_SECOND;
 import static nurseybook.testutil.TypicalIndexes.INDEX_THIRD;
@@ -96,17 +98,24 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_invalidPreamble_failure() {
-        // negative index
-        assertParseFailure(parser, "-5" + NAME_DESC_AMY, MESSAGE_INVALID_FORMAT);
-
-        // zero index
-        assertParseFailure(parser, "0" + NAME_DESC_AMY, MESSAGE_INVALID_FORMAT);
+        // Not non-zero unsigned index integer
+        assertParseFailure(parser, "-5" + " " + NAME_DESC_AMY, MESSAGE_INVALID_INDEX);
+        assertParseFailure(parser, "0" + " " + NAME_DESC_AMY, MESSAGE_INVALID_INDEX);
 
         // invalid arguments being parsed as preamble
+        assertParseFailure(parser, "ad", MESSAGE_INVALID_FORMAT);
+
+        // invalid arguments with integer being parsed as preamble
         assertParseFailure(parser, "1 some random string", MESSAGE_INVALID_FORMAT);
 
         // invalid prefix being parsed as preamble
         assertParseFailure(parser, "1 i/ string", MESSAGE_INVALID_FORMAT);
+
+        // Extreme indices
+        assertParseFailure(parser, "9999999999", String.format(MESSAGE_INDEX_TOO_EXTREME,
+                EditCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "-999999999", String.format(MESSAGE_INDEX_TOO_EXTREME,
+                EditCommand.MESSAGE_USAGE));
     }
 
     @Test
@@ -312,5 +321,21 @@ public class EditCommandParserTest {
     public void parse_unexpectedFieldPresent_failure() {
         assertParseFailure(parser, "1" + NAME_DESC_AMY + AGE_DESC_AMY + GENDER_DESC_AMY + ROOM_NUMBER_DESC_AMY
                 + REMARK_DESC_AMY, String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_indexIsNotNonZeroUnsignedInteger_throwsParseException() {
+        assertParseFailure(parser, "0", String.format(MESSAGE_INVALID_INDEX,
+                EditCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "-99999999", String.format(MESSAGE_INVALID_INDEX,
+                EditCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_indexTooExtreme_throwsParseException() {
+        assertParseFailure(parser, "9999999999", String.format(MESSAGE_INDEX_TOO_EXTREME,
+                EditCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "-999999999", String.format(MESSAGE_INDEX_TOO_EXTREME,
+                EditCommand.MESSAGE_USAGE));
     }
 }
