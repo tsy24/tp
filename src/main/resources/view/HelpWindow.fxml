@@ -9,6 +9,12 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.stage.Stage?>
 
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.TreeView?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
 <fx:root resizable="false" title="Help" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
   <icons>
     <Image url="@/images/help_icon.png" />
@@ -20,26 +26,47 @@
         <URL value="@HelpWindow.css" />
       </stylesheets>
 
-      <HBox alignment="CENTER">
-        <children>
-          <Label fx:id="helpMessage" text="Label">
-            <HBox.margin>
-              <Insets right="5.0" />
-            </HBox.margin>
-          </Label>
-          <Button fx:id="copyButton" mnemonicParsing="false" onAction="#copyUrl" text="Copy URL">
-            <HBox.margin>
-              <Insets left="5.0" />
-            </HBox.margin>
-          </Button>
-        </children>
-        <opaqueInsets>
-          <Insets bottom="10.0" left="5.0" right="10.0" top="5.0" />
-        </opaqueInsets>
-        <padding>
-          <Insets bottom="10.0" left="5.0" right="10.0" top="5.0" />
-        </padding>
-      </HBox>
+      <VBox>
+        <HBox alignment="CENTER">
+          <children>
+            <Label fx:id="helpMessage" text="Label">
+              <HBox.margin>
+                <Insets right="5.0" />
+              </HBox.margin>
+            </Label>
+            <Button fx:id="copyButton" mnemonicParsing="false" onAction="#copyUrl" text="Copy URL">
+              <HBox.margin>
+                <Insets left="5.0" />
+              </HBox.margin>
+            </Button>
+          </children>
+          <opaqueInsets>
+            <Insets bottom="10.0" left="5.0" right="10.0" top="5.0" />
+          </opaqueInsets>
+          <padding>
+            <Insets bottom="10.0" left="5.0" right="10.0" top="5.0" />
+          </padding>
+        </HBox>
+        <HBox alignment="CENTER">
+          <GridPane HBox.hgrow="ALWAYS">
+            <columnConstraints>
+              <ColumnConstraints hgrow="SOMETIMES" minWidth="150" prefWidth="150" />
+              <ColumnConstraints hgrow="SOMETIMES" minWidth="150" prefWidth="150" />
+            </columnConstraints>
+            <TreeView fx:id="commandTree" GridPane.columnIndex="0"/>
+            <ScrollPane GridPane.columnIndex="1">
+              <VBox>
+                <padding>
+                  <Insets left="10.0"/>
+                </padding>
+                <Label styleClass="command-params" text="Parameters: "/>
+                <Label fx:id="paramInfo" minHeight="-Infinity" wrapText="true"/>
+                <Label fx:id="params" minHeight="-Infinity" styleClass="command-params" maxWidth="300" prefWidth="300" minWidth="300" wrapText="true" text=""/>
+              </VBox>
+            </ScrollPane>
+          </GridPane>
+        </HBox>
+      </VBox>
     </Scene>
   </scene>
 </fx:root>

@@ -15,6 +15,7 @@ import nurseybook.model.task.DateTimeContainsDatePredicate;
 public class ViewScheduleCommand extends Command {
 
     public static final String COMMAND_WORD = "viewSchedule";
+    public static final String[] PARAMETERS = { "DATE" };
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Displays all tasks on the indicated day, within the next 12 weeks. "
@@ -22,8 +23,8 @@ public class ViewScheduleCommand extends Command {
             + DateTime.MESSAGE_DATE_CONSTRAINTS
             + ".\n"
             + "Parameters: "
-            + "DATE \n"
-            + "Example: " + COMMAND_WORD + " "
+            + String.join(" ", PARAMETERS)
+            + "\nExample: " + COMMAND_WORD + " "
             + "2021-10-10";
 
     private final DateTimeContainsDatePredicate predicate;
