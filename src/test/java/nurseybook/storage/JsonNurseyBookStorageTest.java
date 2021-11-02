@@ -6,6 +6,7 @@ import static nurseybook.testutil.TypicalElderlies.HOON;
 import static nurseybook.testutil.TypicalElderlies.IDA;
 import static nurseybook.testutil.TypicalTasks.APPLY_LEAVE_DAY_NEXT_RECURRENCE_GHOST;
 import static nurseybook.testutil.TypicalTasks.APPLY_LEAVE_LATE_TIME;
+import static nurseybook.testutil.TypicalTasks.APPLY_LEAVE_NEXT_DAY;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
@@ -108,7 +109,7 @@ public class JsonNurseyBookStorageTest {
         assertEquals(original, new NurseyBook(readBack));
 
         // Save and read without specifying file path
-        original.addTask(APPLY_LEAVE_DAY_NEXT_RECURRENCE_GHOST);
+        original.addTask(APPLY_LEAVE_NEXT_DAY);
         jsonNurseyBookStorage.saveNurseyBook(original); // file path not specified
         readBack = jsonNurseyBookStorage.readNurseyBook().get(); // file path not specified
         assertEquals(original, new NurseyBook(readBack));

@@ -27,6 +27,7 @@ import nurseybook.model.Model;
 import nurseybook.model.person.Name;
 import nurseybook.model.task.DateTime;
 import nurseybook.model.task.Description;
+import nurseybook.model.task.RealTask;
 import nurseybook.model.task.Recurrence;
 import nurseybook.model.task.Status;
 import nurseybook.model.task.Task;
@@ -114,7 +115,7 @@ public class EditTaskCommand extends Command {
         Status updatedStatus = editTaskDescriptor.getStatus().orElse(taskToEdit.getStatus());
         Recurrence updatedRecurrence = editTaskDescriptor.getRecurrence().orElse(taskToEdit.getRecurrence());
 
-        return new Task(updatedDescription, new DateTime(updatedDate, updatedTime), updatedNames, updatedStatus,
+        return new RealTask(updatedDescription, new DateTime(updatedDate, updatedTime), updatedNames, updatedStatus,
                 updatedRecurrence);
     }
 

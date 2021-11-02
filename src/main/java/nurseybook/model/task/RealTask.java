@@ -11,14 +11,24 @@ import java.util.Set;
 import nurseybook.model.person.Name;
 
 /**
- * Represents a Ghost Task in NurseyBook. Ghost tasks are tasks that are not meant to be shown to the user as part of the
- * main list of tasks.
+ * Represents a Real Task in NurseyBook.
  */
-public class GhostTask extends Task {
+public class RealTask extends Task {
 
     /**
-     * Creates a Ghost Task object.
-     * Ghost Tasks are tasks that are not meant to be shown to the user as part of the main list of tasks.
+     * Creates a RealTask object.
+     *
+     * @param desc                      the description of the task
+     * @param dt                        the date and time of the task
+     * @param names                     the names of people associated with the task
+     * @param recurrence                the recurrence type of the task
+     */
+    public RealTask(Description desc, DateTime dt, Set<Name> names, Recurrence recurrence) {
+        super(desc, dt, names, recurrence);
+    }
+
+    /**
+     * Creates a RealTask object.
      *
      * @param desc                      the description of the task
      * @param dt                        the date and time of the task
@@ -26,28 +36,8 @@ public class GhostTask extends Task {
      * @param status                    the completion status of the task
      * @param recurrence                the recurrence type of the task
      */
-    public GhostTask(Description desc, DateTime dt, Set<Name> names, Status status,
-                     Recurrence recurrence) {
+    public RealTask(Description desc, DateTime dt, Set<Name> names, Status status, Recurrence recurrence) {
         super(desc, dt, names, status, recurrence);
-    }
-
-    /**
-     * Copies the task and returns it.
-     *
-     * @return A copy of the current task.
-     */
-    @Override
-    public GhostTask copyTask() {
-        Description copyDesc = new Description(getDesc().value);
-        DateTime copyDt = new DateTime(getDateTime().getStringDate(), getDateTime().getStringTime());
-        Set<Name> copyRelatedNames = new HashSet<>();
-        for (Name name : getRelatedNames()) {
-            copyRelatedNames.add(new Name(name.fullName));
-        }
-        Status copyStatus = new Status(getStatus().isDone, getStatus().isOverdue);
-        Recurrence copyRecurrence = new Recurrence(getRecurrence().toString());
-
-        return new GhostTask(copyDesc, copyDt, copyRelatedNames, copyStatus, copyRecurrence);
     }
 
     /**
@@ -56,9 +46,9 @@ public class GhostTask extends Task {
      * @return same task object that has been marked as done
      */
     @Override
-    public GhostTask markAsDone() {
+    public RealTask markAsDone() {
         String overdueStatus = isTaskOverdue() ? "true" : "false";
-        return new GhostTask(this.getDesc(), this.getDateTime(), super.getRelatedNames(),
+        return new RealTask(this.getDesc(), this.getDateTime(), super.getRelatedNames(),
                 new Status("true", overdueStatus), super.getRecurrence());
     }
 
@@ -68,9 +58,9 @@ public class GhostTask extends Task {
      * @return same task object that has been marked as overdue
      */
     @Override
-    public GhostTask markAsOverdue() {
+    public RealTask markAsOverdue() {
         String completedStatus = isTaskDone() ? "true" : "false";
-        return new GhostTask(this.getDesc(), this.getDateTime(), super.getRelatedNames(),
+        return new RealTask(this.getDesc(), this.getDateTime(), super.getRelatedNames(),
                 new Status(completedStatus, "true"), super.getRecurrence());
     }
 
@@ -81,9 +71,9 @@ public class GhostTask extends Task {
      * @return same task object that has been marked as undone and not overdue
      */
     @Override
-    public GhostTask markAsNotOverdue() {
+    public RealTask markAsNotOverdue() {
         String completedStatus = isTaskDone() ? "true" : "false";
-        return new GhostTask(this.getDesc(), this.getDateTime(), super.getRelatedNames(),
+        return new RealTask(this.getDesc(), this.getDateTime(), super.getRelatedNames(),
                 new Status(completedStatus, "false"), super.getRecurrence());
     }
 
@@ -93,14 +83,14 @@ public class GhostTask extends Task {
      * @return same task object that has a date in the future
      */
     @Override
-    public GhostTask updateDateRecurringTask() {
+    public RealTask updateDateRecurringTask() {
         LocalDateTime currentDateTime = LocalDateTime.now();
         if (getRecurrence().isRecurring()) {
             Recurrence.RecurrenceType recurrenceType = getRecurrence().getRecurrenceType();
             assert(recurrenceType != Recurrence.RecurrenceType.NONE);
 
             DateTime dateTime = changeTaskDate(currentDateTime, recurrenceType);
-            return new GhostTask(getDesc(), dateTime, getRelatedNames(),
+            return new RealTask(getDesc(), dateTime, getRelatedNames(),
                     new Status("false", "false"), getRecurrence());
         } else {
             return this;
@@ -108,32 +98,34 @@ public class GhostTask extends Task {
     }
 
     /**
-     * Copies the task and returns the next occurrence of it if it is a recurring task.
-     * Keeps all other fields as it is.
-     * If the task is not a recurring task, simply returns the current instance.
+     * Copies the task and returns it.
      *
-     * @return A copy of the next occurrence of the given task if recurring; otherwise returns current instance.
+     * @return A copy of the current task.
      */
-    public GhostTask createNextTaskOccurrence() {
-        if (!this.checkIfTaskRecurring()) {
-            return this;
+    public RealTask copyTask() {
+        Description copyDesc = new Description(getDesc().value);
+        DateTime copyDt = new DateTime(getDateTime().getStringDate(), getDateTime().getStringTime());
+        Set<Name> copyRelatedNames = new HashSet<>();
+        for (Name name : getRelatedNames()) {
+            copyRelatedNames.add(new Name(name.fullName));
         }
+        Status copyStatus = new Status(getStatus().isDone, getStatus().isOverdue);
+        Recurrence copyRecurrence = new Recurrence(getRecurrence().toString());
 
-        GhostTask copyTask = this.copyTask();
+        return new RealTask(copyDesc, copyDt, copyRelatedNames, copyStatus, copyRecurrence);
+    }
 
-        DateTime nextDateTime;
-        Recurrence.RecurrenceType taskRecurrenceType = copyTask.getRecurrence().getRecurrenceType();
-        if (taskRecurrenceType == Recurrence.RecurrenceType.DAY) {
-            nextDateTime = copyTask.getDateTime().incrementDateByDays(1);
-        } else if (taskRecurrenceType == Recurrence.RecurrenceType.WEEK) {
-            nextDateTime = copyTask.getDateTime().incrementDateByWeeks(1);
-        } else { //taskRecurrenceType == RecurrenceType.MONTH
-            //a month is assumed to be 4 weeks long only, since all months do not have an equivalent number of days.
-            nextDateTime = copyTask.getDateTime().incrementDateByDays(28);
+    public GhostTask copyToGhostTask() {
+        Description copyDesc = new Description(getDesc().value);
+        DateTime copyDt = new DateTime(getDateTime().getStringDate(), getDateTime().getStringTime());
+        Set<Name> copyRelatedNames = new HashSet<>();
+        for (Name name : getRelatedNames()) {
+            copyRelatedNames.add(new Name(name.fullName));
         }
+        Status copyStatus = new Status(getStatus().isDone, getStatus().isOverdue);
+        Recurrence copyRecurrence = new Recurrence(getRecurrence().toString());
 
-        copyTask.setDateTime(nextDateTime);
-        return copyTask;
+        return new GhostTask(copyDesc, copyDt, copyRelatedNames, copyStatus, copyRecurrence);
     }
 
     private DateTime changeTaskDate(LocalDateTime currentDateTime, Recurrence.RecurrenceType recurrenceType) {
@@ -171,8 +163,8 @@ public class GhostTask extends Task {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof GhostTask) {
-            GhostTask other = (GhostTask) obj;
+        if (obj instanceof RealTask) {
+            RealTask other = (RealTask) obj;
             return other.getDesc().equals(super.getDesc())
                     && other.getDateTime().equals(super.getDateTime())
                     && other.getRelatedNames().equals(super.getRelatedNames())
@@ -181,4 +173,5 @@ public class GhostTask extends Task {
         }
         return false;
     }
+
 }

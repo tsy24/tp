@@ -131,6 +131,9 @@ public class TaskTest {
         // different recurrence -> returns false
         editedTask = new TaskBuilder(keithInsulin).withRecurrence(Recurrence.RecurrenceType.MONTH.name()).build();
         assertFalse(keithInsulin.equals(editedTask));
+
+        // different Task Type -> returns false
+        assertFalse(keithInsulin.equals(APPLY_LEAVE_DAY_NEXT_RECURRENCE_GHOST));
     }
 
     @Test
@@ -175,18 +178,6 @@ public class TaskTest {
     void isTaskOverdue() {
         assertTrue(applyLeave.isTaskOverdue()); // status: isOverdue = "true"
         assertTrue(keithInsulin.isTaskOverdue()); // status: isOverdue = "true"
-    }
-
-    @Test
-    void markTaskDone() {
-        Task doneKeith = new TaskBuilder(keithInsulin).withStatus("true", "true").build();
-        assertEquals(keithInsulin.markAsDone(), doneKeith);
-    }
-
-    @Test
-    void markTaskOverdue() {
-        Task overdueKeith = new TaskBuilder(keithInsulin).withStatus("false", "true").build();
-        assertEquals(keithInsulin.markAsOverdue(), overdueKeith);
     }
 
     @Test
