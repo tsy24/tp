@@ -14,7 +14,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
@@ -130,9 +129,7 @@ public class NurseyBookTest {
 
         @Override
         public ObservableList<Task> getRealTaskList() {
-            //TODO Is this wrong?
-            return tasks.stream().filter(Task::checkIfRealTask)
-                    .collect(Collectors.toCollection(FXCollections::observableArrayList));
+            return tasks;
         }
 
     }

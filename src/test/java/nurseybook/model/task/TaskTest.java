@@ -183,30 +183,30 @@ public class TaskTest {
     @Test
     void checkIfTaskRecurring() {
         //recurring task
-        Assertions.assertTrue(APPLY_LEAVE.checkIfTaskRecurring());
+        Assertions.assertTrue(APPLY_LEAVE.isTaskRecurring());
 
         //non-recurring task
-        assertFalse(keithInsulin.checkIfTaskRecurring());
+        assertFalse(keithInsulin.isTaskRecurring());
     }
 
     @Test
     void checkIfRealTask() {
         //real task
-        assertTrue(keithInsulin.checkIfRealTask());
+        assertTrue(keithInsulin.isRealTask());
 
         //ghost task
-        Assertions.assertFalse(APPLY_LEAVE_DAY_NEXT_RECURRENCE_GHOST.checkIfRealTask());
+        Assertions.assertFalse(APPLY_LEAVE_DAY_NEXT_RECURRENCE_GHOST.isRealTask());
     }
 
     @Test
     void checkIfTaskFallsOnDate() {
         //task falls on date
         LocalDate sameDate = LocalDate.parse("2020-11-01");
-        assertTrue(keithInsulin.checkIfTaskFallsOnDate(sameDate));
+        assertTrue(keithInsulin.doesTaskFallOnDate(sameDate));
 
         //task does not fall on date
         LocalDate differentDate = LocalDate.parse("2020-11-02");
-        assertFalse(keithInsulin.checkIfTaskFallsOnDate(differentDate));
+        assertFalse(keithInsulin.doesTaskFallOnDate(differentDate));
     }
 
     @Test

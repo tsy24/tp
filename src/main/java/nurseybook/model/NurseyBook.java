@@ -194,7 +194,7 @@ public class NurseyBook implements ReadOnlyNurseyBook {
     @Override
     public ObservableList<Task> getRealTaskList() {
         UniqueTaskList realTaskList = tasks.getRealTaskList();
-        return tasks.asUnmodifiableObservableList();
+        return realTaskList.asUnmodifiableObservableList();
     }
 
     /**

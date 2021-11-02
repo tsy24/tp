@@ -91,7 +91,7 @@ public class TaskBuilder {
         names = new HashSet<>(taskToCopy.getRelatedNames());
         status = taskToCopy.getStatus();
         recurrence = taskToCopy.getRecurrence();
-        isRealTask = taskToCopy.checkIfRealTask();
+        isRealTask = taskToCopy.isRealTask();
     }
 
     /**

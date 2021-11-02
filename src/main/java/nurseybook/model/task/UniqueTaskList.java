@@ -133,7 +133,7 @@ public class UniqueTaskList implements Iterable<Task> {
     public UniqueTaskList getRealTaskList() {
         UniqueTaskList realTaskList = new UniqueTaskList();
         for (Task task : this.internalList) {
-            if (task.checkIfRealTask()) {
+            if (task.isRealTask()) {
                 realTaskList.add(task);
             }
         }
@@ -146,7 +146,7 @@ public class UniqueTaskList implements Iterable<Task> {
      * Removes all tasks that are ghost tasks, if any.
      */
     public void deleteGhostTasks() {
-        this.internalList.removeIf(task -> !task.checkIfRealTask());
+        this.internalList.removeIf(task -> !task.isRealTask());
     }
 
     /**
@@ -157,8 +157,8 @@ public class UniqueTaskList implements Iterable<Task> {
     public void addPossibleGhostTasksWithMatchingDate(LocalDate keyDate) {
         List<GhostTask> ghostTaskList = new ArrayList<GhostTask>();
         for (Task task : this.internalList) {
-            if (task.checkIfTaskRecurring() && task.checkIfRealTask()) {
-                GhostTask ghostTask = addFutureGhostTasksWithMatchingDate((RealTask) task, keyDate);
+            if (task.isTaskRecurring() && task.isRealTask()) {
+                GhostTask ghostTask = createPossibleFutureTaskWithMatchingDate((RealTask) task, keyDate);
                 if (ghostTask != null) {
                     ghostTaskList.add(ghostTask);
                 }
@@ -172,9 +172,9 @@ public class UniqueTaskList implements Iterable<Task> {
 
     /**
      * Checks if any of the given recurring task's future occurrences coincide with the given keyDate. If it does,
-     * the future task is added as a ghost task to the TaskList.
+     * a GhostTask is created and returned to represent the future task occurrence.
      */
-    private GhostTask addFutureGhostTasksWithMatchingDate(RealTask task, LocalDate keyDate) {
+    private GhostTask createPossibleFutureTaskWithMatchingDate(RealTask task, LocalDate keyDate) {
         RecurrenceType taskRecurrenceType = task.getRecurrence().getRecurrenceType();
         int interval; //interval between task occurrences depending on RecurrenceType.
         if (taskRecurrenceType == RecurrenceType.DAY) {
@@ -192,7 +192,7 @@ public class UniqueTaskList implements Iterable<Task> {
         int daysLeftToCheck = 84 - interval;
 
         while (daysLeftToCheck > 0) {
-            if (currTask.checkIfTaskFallsOnDate(keyDate) && !this.contains(currTask)) {
+            if (currTask.doesTaskFallOnDate(keyDate) && !this.contains(currTask)) {
                 return currTask;
             }
 

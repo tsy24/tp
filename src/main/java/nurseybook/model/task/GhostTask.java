@@ -115,7 +115,7 @@ public class GhostTask extends Task {
      * @return A copy of the next occurrence of the given task if recurring; otherwise returns current instance.
      */
     public GhostTask createNextTaskOccurrence() {
-        if (!this.checkIfTaskRecurring()) {
+        if (!this.isTaskRecurring()) {
             return this;
         }
 
