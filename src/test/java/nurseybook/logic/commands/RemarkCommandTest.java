@@ -7,12 +7,15 @@ import static nurseybook.logic.commands.CommandTestUtil.assertCommandFailure;
 import static nurseybook.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static nurseybook.logic.commands.RemarkCommand.MESSAGE_ADD_REMARK_SUCCESS;
 import static nurseybook.logic.commands.RemarkCommand.MESSAGE_DELETE_REMARK_SUCCESS;
+import static nurseybook.logic.commands.RemarkCommand.MESSAGE_REMARK_ALREADY_EMPTY;
+import static nurseybook.logic.commands.RemarkCommand.MESSAGE_REMARK_NO_CHANGES;
 import static nurseybook.testutil.TypicalElderlies.getTypicalNurseyBook;
 import static nurseybook.testutil.TypicalIndexes.INDEX_FIRST;
 import static nurseybook.testutil.TypicalIndexes.INDEX_SECOND;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import nurseybook.testutil.ModelStub;
 import org.junit.jupiter.api.Test;
 
 import nurseybook.commons.core.index.Index;
@@ -44,6 +47,7 @@ public class RemarkCommandTest {
         String expectedMessage = String.format(MESSAGE_ADD_REMARK_SUCCESS, editedElderly);
 
         Model expectedModel = new ModelManager(new NurseyBook(model.getVersionedNurseyBook()), new UserPrefs());
+        expectedModel.setElderly(firstElderly, editedElderly);
         expectedModel.commitNurseyBook(new CommandResult(expectedMessage));
 
         assertCommandSuccess(remarkCommand, model, expectedMessage, expectedModel);
@@ -108,6 +112,29 @@ public class RemarkCommandTest {
         RemarkCommand remarkCommand = new RemarkCommand(outOfBoundIndex, new Remark(VALID_REMARK_BOB));
 
         assertCommandFailure(remarkCommand, model, MESSAGE_INVALID_ELDERLY_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void execute_identicalRemarkEntered_failure() {
+        Elderly firstElderly = model.getFilteredElderlyList().get(INDEX_FIRST.getZeroBased());
+        String identicalRemark = firstElderly.getRemark().value;
+        RemarkCommand remarkCommand = new RemarkCommand(INDEX_FIRST, new Remark(identicalRemark));
+
+        assertCommandFailure(remarkCommand, model, MESSAGE_REMARK_NO_CHANGES);
+    }
+
+    @Test
+    public void execute_removeEmptyRemark_failure() {
+        Elderly firstElderly = model.getFilteredElderlyList().get(INDEX_FIRST.getZeroBased());
+        Elderly editedElderly = new ElderlyBuilder(firstElderly).withRemark("").build();
+
+        //create model whose first elderly has no remark
+        Model m = new ModelManager(new NurseyBook(model.getVersionedNurseyBook()), new UserPrefs());
+        m.setElderly(firstElderly, editedElderly);
+
+        RemarkCommand remarkCommand = new RemarkCommand(INDEX_FIRST, new Remark(""));
+
+        assertCommandFailure(remarkCommand, m, MESSAGE_REMARK_ALREADY_EMPTY);
     }
 
     @Test

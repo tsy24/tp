@@ -68,6 +68,15 @@ public class ElderlyTest {
     }
 
     @Test
+    public void hasRemark() {
+        Elderly aliceWithRemark = new ElderlyBuilder(ALICE).withRemark("Grouchy goat.").build();
+        assertTrue(aliceWithRemark.hasRemark());
+
+        Elderly bobNoRemark = new ElderlyBuilder(BOB).withRemark("").build();
+        assertFalse(bobNoRemark.hasRemark());
+    }
+
+    @Test
     public void equals() {
         // same values -> returns true
         Elderly aliceCopy = new ElderlyBuilder(ALICE).build();
