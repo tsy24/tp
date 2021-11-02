@@ -8,56 +8,64 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Text?>
 
-<HBox id="fullCard" fx:id="fullCard" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<HBox id="fullCard" fx:id="fullCard" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
     <GridPane HBox.hgrow="ALWAYS">
         <columnConstraints>
-            <ColumnConstraints percentWidth="45" hgrow="ALWAYS"/>
-            <ColumnConstraints percentWidth="10" hgrow="NEVER"/>
-            <ColumnConstraints percentWidth="45" hgrow="ALWAYS"/>
+            <ColumnConstraints hgrow="ALWAYS" percentWidth="45" />
+            <ColumnConstraints hgrow="NEVER" percentWidth="10" />
+            <ColumnConstraints hgrow="ALWAYS" percentWidth="45" />
         </columnConstraints>
-        <VBox id="elderlyDetails" alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0" >
+        <VBox id="elderlyDetails" alignment="TOP_LEFT" minHeight="105.0" GridPane.columnIndex="0">
             <padding>
-                <Insets bottom="5" left="15" right="5" top="5" />
+                <Insets bottom="5.0" left="15.0" right="5.0" top="5.0" />
             </padding>
-            <Label styleClass="cell_big_label_padded" text="Age"/>
-            <Label fx:id="age" styleClass="cell_small_label" text="\$age" />
-            <Label styleClass="cell_big_label_padded" text="Gender"/>
-            <Label fx:id="gender" styleClass="cell_small_label" text="\$gender" />
-            <Label styleClass="cell_big_label_padded" text="Remark"/>
-            <Label fx:id="remark" minHeight="-Infinity" styleClass="cell_small_label" wrapText="true" text="\$remark"/>
-        </VBox>
-        <Separator orientation="VERTICAL" prefHeight="180.0" GridPane.columnIndex="1">
+            <Label styleClass="cell_big_label_padded" text="Age" />
+            <Label fx:id="age" styleClass="cell_small_label" text="\$age">
             <padding>
-                <Insets bottom="5" left="15" right="15" top="5" />
+               <Insets left="5.0" />
+            </padding></Label>
+            <Label styleClass="cell_big_label_padded" text="Gender" />
+            <Label fx:id="gender" styleClass="cell_small_label" text="\$gender">
+            <padding>
+               <Insets left="5.0" />
+            </padding></Label>
+            <Label styleClass="cell_big_label_padded" text="Remark" />
+            <Label fx:id="remark" minHeight="-Infinity" styleClass="cell_small_label" text="\$remark" wrapText="true">
+            <padding>
+               <Insets left="5.0" />
+            </padding></Label>
+        </VBox>
+        <Separator orientation="VERTICAL" prefHeight="105.0" GridPane.columnIndex="1">
+            <padding>
+                <Insets bottom="5.0" left="15.0" right="15.0" top="5.0" />
             </padding>
         </Separator>
-        <VBox id="nextOfKinDetails" alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="2">
-        <Label styleClass="cell_big_label_padded" text="Next of Kin"/>
-            <padding>
-                <Insets bottom="5" left="5" right="15" top="5" />
-            </padding>
+        <VBox id="nextOfKinDetails" alignment="TOP_LEFT" minHeight="105" GridPane.columnIndex="2">
+        <Label styleClass="cell_big_label_padded" text="Next of Kin" />
             <HBox alignment="CENTER_LEFT" spacing="5">
-                <Label styleClass="cell_small_italics_label" text="Name"/>
+                <Label styleClass="cell_small_italics_label" text="Name" />
                 <Label fx:id="nokName" styleClass="cell_small_label" text="\$nokName" />
             </HBox>
             <HBox alignment="CENTER_LEFT" spacing="5">
-                <Label styleClass="cell_small_italics_label" text="Relationship"/>
+                <Label styleClass="cell_small_italics_label" text="Relationship" />
                 <Label fx:id="relationship" styleClass="cell_small_label" text="\$relationship" />
             </HBox>
             <HBox alignment="CENTER_LEFT" spacing="5">
-                <Label styleClass="cell_small_italics_label" text="Phone"/>
+                <Label styleClass="cell_small_italics_label" text="Phone" />
                 <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
             </HBox>
             <HBox alignment="CENTER_LEFT" spacing="5">
-                <Label styleClass="cell_small_italics_label" text="Email"/>
+                <Label styleClass="cell_small_italics_label" text="Email" />
                 <Label fx:id="email" styleClass="cell_small_label" text="\$email" />
             </HBox>
             <HBox alignment="CENTER_LEFT" spacing="5">
-                <Label styleClass="cell_small_italics_label" text="Address"/>
-                <Label fx:id="address" styleClass="cell_small_label" minHeight="-Infinity" wrapText="true" text="\$address"/>
+                <Label styleClass="cell_small_italics_label" text="Address" />
+                <Label fx:id="address" minHeight="-Infinity" styleClass="cell_small_label" text="\$address" wrapText="true" />
             </HBox>
+            <padding>
+                <Insets bottom="5.0" left="5.0" right="15.0" top="5.0" />
+            </padding>
         </VBox>
       <rowConstraints>
          <RowConstraints />
