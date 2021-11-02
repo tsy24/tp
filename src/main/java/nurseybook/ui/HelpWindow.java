@@ -258,6 +258,7 @@ public class HelpWindow extends UiPart<Stage> {
         TreeItem<String> addLeaf = new TreeItem<>(AddCommand.COMMAND_WORD);
         TreeItem<String> addTagLeaf = new TreeItem<>(AddTagCommand.COMMAND_WORD);
         TreeItem<String> deleteLeaf = new TreeItem<>(DeleteCommand.COMMAND_WORD);
+        TreeItem<String> deleteNokLeaf = new TreeItem<>(DeleteNokCommand.COMMAND_WORD);
         TreeItem<String> deleteTagLeaf = new TreeItem<>(DeleteTagCommand.COMMAND_WORD);
         TreeItem<String> editLeaf = new TreeItem<>(EditCommand.COMMAND_WORD);
         TreeItem<String> filterLeaf = new TreeItem<>(FilterCommand.COMMAND_WORD);
@@ -266,15 +267,15 @@ public class HelpWindow extends UiPart<Stage> {
         TreeItem<String> viewDetailsLeaf = new TreeItem<>(ViewDetailsCommand.COMMAND_WORD);
 
 
-        elderlyNode.getChildren().addAll(Arrays.asList(viewElderlyLeaf, addLeaf, addTagLeaf, deleteLeaf, deleteTagLeaf,
-                editLeaf, filterLeaf, findLeaf, remarkLeaf, viewDetailsLeaf));
+        elderlyNode.getChildren().addAll(Arrays.asList(viewElderlyLeaf, addLeaf, addTagLeaf, deleteLeaf, deleteNokLeaf,
+                deleteTagLeaf, editLeaf, filterLeaf, findLeaf, remarkLeaf, viewDetailsLeaf));
     }
 
     /**
      * Fills treeview with task commands.
      */
     private void fillTaskCommands() {
-        TreeItem<String> viewTaskLeaf = new TreeItem<>(RemindCommand.COMMAND_WORD);
+        TreeItem<String> viewTaskLeaf = new TreeItem<>(ViewTasksCommand.COMMAND_WORD);
         TreeItem<String> addTaskLeaf = new TreeItem<>(AddTaskCommand.COMMAND_WORD);
         TreeItem<String> deleteTaskLeaf = new TreeItem<>(DeleteTaskCommand.COMMAND_WORD);
         TreeItem<String> doneTaskLeaf = new TreeItem<>(DoneTaskCommand.COMMAND_WORD);
