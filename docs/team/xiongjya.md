@@ -3,24 +3,34 @@ layout: page
 title: Xiong Jingya's Project Portfolio Page
 ---
 
-### Project: AddressBook Level 3
+### Project: NurseyBook
 
-AddressBook - Level 3 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+#### Overview
+
+NurseyBook is a desktop application made for nurses in nursing homes to aid them in managing contacts and tasks in their busy lives. The user interacts with it using Command Line Interface (CLI), 
+and it still has the benefits of a Graphical User Interface (GUI) created with JavaFX. It is written in Java, and has about 17 kLoC. 
+
+#### Summary of Contributions
 
 Given below are my contributions to the project.
 
-* **New Feature**: Added the ability to undo/redo previous commands.
-    * What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-    * Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-    * Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-    * Credits: *{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}*
+* **Code contributed**: Around 4.5 kLoC contribution to the project.
 
-* **New Feature**: Added a history command that allows the user to navigate to previous commands using up/down keys.
+* **New Feature**: Added a remind command that allows the user to view the tasks coming up in the next 3 days.
+   * What it does: Detects whether the tasks added to NurseyBook have dates that are scheduled for the next 3 days (in comparison to the time of running the command), and displays the result to the user.
+   * Justification: This feature similarly adds to the user experience. If a user has a task list cluttered up with multiple irrelevant and undeleted tasks, the command assists the user in detecting tasks of higher priority (in less than a second).
+   * Highlights: This implementation marks the start of incorporating the usage of time and duration into NurseyBook.
 
-* **Code contributed**: [RepoSense link]()
+* **New Feature**: Added the ability to detect overdue tasks.
+    * What it does: Detects whether a task is overdue by comparing the indicated date and time of the task with the current time. If the task is overdue and not yet completed, a tag is added to its display in NurseyBook.
+    * Justification: This feature improves the user experience, as a user can quickly identify the tasks that should be completed as soon as possible. This way, a user can prioritise the right tasks to focus on. 
+    * Highlights: This implementation alters how a task is represented within NurseyBook. Each task has an additional overdue status. Furthermore, it required working in the UI package (compared to certain other feature implementations that only touch the model and logic packages).
 
+* **New Feature**: Added the ability to add remarks to elderly contacts.
+    * What it does: Allows the user to add additional notes in the form of a remark, to each elderly contact that has been added into NurseyBook.
+    
 * **Project management**:
-    * Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+    * Managed releases `v1.1` - `v1.4` (4 releases) on GitHub
 
 * **Enhancements to existing features**:
     * Updated the GUI color scheme (Pull requests [\#33](), [\#34]())
