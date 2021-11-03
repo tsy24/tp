@@ -9,7 +9,6 @@ import java.util.Set;
 import nurseybook.model.NurseyBook;
 import nurseybook.model.person.Elderly;
 import nurseybook.model.person.Name;
-import nurseybook.model.task.Recurrence.RecurrenceType;
 
 public abstract class Task implements Comparable<Task> {
 
@@ -18,23 +17,6 @@ public abstract class Task implements Comparable<Task> {
     private final Status status;
     private final Set<Name> relatedNames = new HashSet<>();
     private final Recurrence recurrence;
-
-    /**
-     * Creates a Task object.
-     *
-     * @param desc                      the description of the task
-     * @param dt                        the date and time of the task
-     * @param names                     the names of people associated with the task
-     */
-    public Task(Description desc, DateTime dt, Set<Name> names) {
-        boolean isOverdue = DateTime.isOverdue(dt);
-
-        this.desc = desc;
-        this.dateTime = dt;
-        this.relatedNames.addAll(names);
-        this.status = new Status("false", Boolean.toString(isOverdue));
-        this.recurrence = new Recurrence(RecurrenceType.NONE.name());
-    }
 
     /**
      * Creates a Task object.
@@ -52,22 +34,6 @@ public abstract class Task implements Comparable<Task> {
         this.relatedNames.addAll(names);
         this.status = new Status("false", Boolean.toString(isOverdue));
         this.recurrence = recurrence;
-    }
-
-    /**
-     * Creates a Task object.
-     *
-     * @param desc                      the description of the task
-     * @param dt                        the date and time of the task
-     * @param names                     the names of people associated with the task
-     * @param status                    the completion status of the task
-     */
-    public Task(Description desc, DateTime dt, Set<Name> names, Status status) {
-        this.desc = desc;
-        this.dateTime = dt;
-        this.relatedNames.addAll(names);
-        this.status = status;
-        this.recurrence = new Recurrence(RecurrenceType.NONE.name());
     }
 
     /**
