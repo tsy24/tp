@@ -1,3 +1,24 @@
+.tree-view {
+    -fx-font-family: "Open Sans";
+}
+
+.command-params {
+    -fx-font-family: "Open Sans";
+    -fx-font-size: 12px;
+    -fx-text-fill: #202632;
+    -fx-padding: 5 10 10 5;
+}
+
+#paramInfo {
+    -fx-font-family: "Open Sans";
+    -fx-font-size: 12px;
+    -fx-text-fill: #202632;
+    -fx-background-color: #c6e2ec;
+    -fx-background-radius: 20;
+    -fx-padding: 10 10 10 10;
+    -fx-alignment: CENTER;
+}
+
 #copyButton, #helpMessage {
     -fx-font-family: "Open Sans";
 }

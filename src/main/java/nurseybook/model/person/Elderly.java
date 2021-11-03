@@ -141,4 +141,8 @@ public class Elderly extends Person {
         }
         return builder.toString();
     }
+
+    public boolean hasRemark() {
+        return !remark.value.isEmpty();
+    }
 }

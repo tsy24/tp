@@ -28,16 +28,16 @@ class DeleteTaskCommandParserTest {
     @Test
     public void parse_indexIsNotNonZeroUnsignedInteger_throwsParseException() {
         assertParseFailure(parser, "0", String.format(MESSAGE_INVALID_INDEX,
-                DeleteTaskCommand.MESSAGE_USAGE));
+                MESSAGE_USAGE));
         assertParseFailure(parser, "-99999999", String.format(MESSAGE_INVALID_INDEX,
-                DeleteTaskCommand.MESSAGE_USAGE));
+                MESSAGE_USAGE));
     }
 
     @Test
     public void parse_indexTooExtreme_throwsParseException() {
         assertParseFailure(parser, "9999999999", String.format(MESSAGE_INDEX_TOO_EXTREME,
-                DeleteTaskCommand.MESSAGE_USAGE));
+                MESSAGE_USAGE));
         assertParseFailure(parser, "-999999999", String.format(MESSAGE_INDEX_TOO_EXTREME,
-                DeleteTaskCommand.MESSAGE_USAGE));
+                MESSAGE_USAGE));
     }
 }

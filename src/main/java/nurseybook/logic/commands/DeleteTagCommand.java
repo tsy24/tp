@@ -21,13 +21,15 @@ import nurseybook.model.tag.Tag;
 public class DeleteTagCommand extends Command {
 
     public static final String COMMAND_WORD = "deleteTag";
+    public static final String[] PARAMETERS = { Index.VALID_INDEX_CRITERIA,
+        PREFIX_TAG + "TAG", "[" + PREFIX_TAG + "MORE_TAGS]..." };
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Delete tag(s) from the elderly identified "
             + "by the index number used in the last elderly listing. "
             + "Must contain one or more tags\n"
-            + "Parameters: INDEX (must be a positive integer) "
-            + PREFIX_TAG + "TAG " + "[" + PREFIX_TAG + "MORE_TAGS]...\n"
-            + "Example: " + COMMAND_WORD + " 1 "
+            + "Parameters: "
+            + String.join(" ", PARAMETERS)
+            + "\nExample: " + COMMAND_WORD + " 1 "
             + PREFIX_TAG + "Diabetes";
 
     public static final String MESSAGE_DELETE_TAG_SUCCESS = "Deleted tag(s) from Elderly: %1$s";
@@ -56,13 +58,7 @@ public class DeleteTagCommand extends Command {
         }
 
         Elderly elderlyToDeleteTag = lastShownList.get(index.getZeroBased());
-        Set<Tag> updatedTags = new HashSet<>(elderlyToDeleteTag.getTags());
-        for (Tag tagToDelete: tags) {
-            if (!updatedTags.contains(tagToDelete)) {
-                throw new CommandException(String.format(MESSAGE_NO_SUCH_TAG, tagToDelete.tagName));
-            }
-            updatedTags.remove(tagToDelete);
-        }
+        Set<Tag> updatedTags = removeTagsFromSet(elderlyToDeleteTag.getTags());
         Elderly updatedElderly = new Elderly(
                 elderlyToDeleteTag.getName(), elderlyToDeleteTag.getAge(),
                 elderlyToDeleteTag.getGender(), elderlyToDeleteTag.getRoomNumber(), elderlyToDeleteTag.getNok(),
@@ -92,6 +88,17 @@ public class DeleteTagCommand extends Command {
         DeleteTagCommand e = (DeleteTagCommand) other;
         return index.equals(e.index)
                 && tags.equals(e.tags);
+    }
+
+    private Set<Tag> removeTagsFromSet(Set<Tag> currentTags) throws CommandException {
+        Set<Tag> updatedTags = new HashSet<>(currentTags);
+        for (Tag tagToDelete: tags) {
+            if (!updatedTags.contains(tagToDelete)) {
+                throw new CommandException(String.format(MESSAGE_NO_SUCH_TAG, tagToDelete.tagName));
+            }
+            updatedTags.remove(tagToDelete);
+        }
+        return updatedTags;
     }
 }
 
