@@ -1,5 +1,7 @@
 package nurseybook.logic.parser;
 
+import static nurseybook.logic.parser.CliSyntax.PREFIX_PREAMBLE;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -90,7 +92,7 @@ public class ArgumentTokenizer {
         prefixPositions.sort((prefix1, prefix2) -> prefix1.getStartPosition() - prefix2.getStartPosition());
 
         // Insert a PrefixPosition to represent the preamble
-        PrefixPosition preambleMarker = new PrefixPosition(new Prefix(""), 0);
+        PrefixPosition preambleMarker = new PrefixPosition(PREFIX_PREAMBLE, 0);
         prefixPositions.add(0, preambleMarker);
 
         // Add a dummy PrefixPosition to represent the end of the string

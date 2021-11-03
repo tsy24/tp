@@ -18,7 +18,7 @@ public interface Model {
     Predicate<Elderly> PREDICATE_SHOW_ALL_ELDERLIES = unused -> true;
 
     /** {@code Predicate} for task lists that evaluate to true for real tasks */
-    Predicate<Task> PREDICATE_SHOW_ALL_TASKS = task -> task.checkIfRealTask();
+    Predicate<Task> PREDICATE_SHOW_ALL_TASKS = task -> task.isRealTask();
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
