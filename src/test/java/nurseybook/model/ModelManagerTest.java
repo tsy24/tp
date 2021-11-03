@@ -4,7 +4,7 @@ import static nurseybook.model.Model.PREDICATE_SHOW_ALL_ELDERLIES;
 import static nurseybook.testutil.Assert.assertThrows;
 import static nurseybook.testutil.TypicalElderlies.ALICE;
 import static nurseybook.testutil.TypicalElderlies.BENSON;
-import static nurseybook.testutil.TypicalTasks.KEITH_INSULIN;
+import static nurseybook.testutil.TypicalTasks.GEORGE_INSULIN;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -90,7 +90,7 @@ public class ModelManagerTest {
 
     @Test
     public void hasTask_taskNotInNurseyBook_returnsFalse() {
-        assertFalse(modelManager.hasTask(KEITH_INSULIN));
+        assertFalse(modelManager.hasTask(GEORGE_INSULIN));
     }
 
     @Test
@@ -101,8 +101,8 @@ public class ModelManagerTest {
 
     @Test
     public void hasTask_taskInNurseyBook_returnsTrue() {
-        modelManager.addTask(KEITH_INSULIN);
-        assertTrue(modelManager.hasTask(KEITH_INSULIN));
+        modelManager.addTask(GEORGE_INSULIN);
+        assertTrue(modelManager.hasTask(GEORGE_INSULIN));
     }
 
     @Test

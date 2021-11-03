@@ -116,16 +116,27 @@ public class UniqueTaskList implements Iterable<Task> {
         internalList.setAll(tasks);
     }
 
+    /**
+     * Updates the given elderly {@code target}'s name for all tasks in the list that contains that name
+     * with {@code editedElderly}'s name.
+     * {@code target} must exist in NurseyBook.
+     * The elderly identity of {@code editedElderly} must not be the same as another existing elderly in NurseyBook.
+     */
     public void updateElderlyNameInTasks(Elderly target, Elderly editedElderly) {
         for (Task task : internalList) {
-           for (Name name : task.getRelatedNames()) {
-               if (target.getName().equals(name)) {
-                   task.replaceName(name, editedElderly.getName());
-               }
-           }
+            for (Name name : task.getRelatedNames()) {
+                if (target.getName().equals(name)) {
+                    task.replaceName(name, editedElderly.getName());
+                }
+            }
         }
     }
 
+    /**
+     * Deletes the given elderly {@code elderlyToDelete}'s name for all tasks in the list that contains that name.
+     * {@code elderlyToDelete} must exist in NurseyBook.
+     * The elderly identity of {@code editedElderly} must not be the same as another existing elderly in NurseyBook.
+     */
     public void deleteElderlyNameInTasks(Elderly elderlyToDelete) {
         for (Task task : internalList) {
             for (Name name : task.getRelatedNames()) {

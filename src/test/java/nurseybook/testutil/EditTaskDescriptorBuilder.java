@@ -30,7 +30,7 @@ public class EditTaskDescriptorBuilder {
      */
     public EditTaskDescriptorBuilder(Task task) {
         descriptor = new EditTaskCommand.EditTaskDescriptor();
-        descriptor.setNames(task.getRelatedElderlies());
+        descriptor.setNames(task.getRelatedNames());
         descriptor.setDescription(task.getDesc());
         descriptor.setDate(task.getDate());
         descriptor.setTime(task.getTime());

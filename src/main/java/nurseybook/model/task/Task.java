@@ -296,15 +296,24 @@ public class Task implements Comparable<Task> {
         return Collections.unmodifiableSet(relatedNames);
     }
 
+    /**
+     * Replaces the name {@code target} of the task with {@code editedName}.
+     */
     public void replaceName(Name target, Name editedName) {
         deleteName(target);
         addName(editedName);
     }
 
+    /**
+     * Deletes the name {@code target} of the task.
+     */
     public void deleteName(Name target) {
         relatedNames.remove(target);
     }
 
+    /**
+     * Adds the name {@code target} of the task.
+     */
     public void addName(Name target) {
         relatedNames.add(target);
     }

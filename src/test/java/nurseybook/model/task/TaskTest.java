@@ -4,19 +4,19 @@ import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_DATE_JAN;
 import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_DATE_NOV;
 import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_DESC_MEDICINE;
 import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_DESC_VACCINE;
-import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_NAME_ALEX;
-import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_NAME_KEITH;
+import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_NAME_ALICE;
+import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_NAME_GEORGE;
 import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_TIME_SEVENPM;
 import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_TIME_TENAM;
 import static nurseybook.testutil.Assert.assertThrows;
-import static nurseybook.testutil.TypicalTasks.ALEX_INSULIN;
+import static nurseybook.testutil.TypicalTasks.ALICE_INSULIN;
 import static nurseybook.testutil.TypicalTasks.APPLY_LEAVE;
 import static nurseybook.testutil.TypicalTasks.APPLY_LEAVE_DAY_NEXT_RECURRENCE_GHOST;
 import static nurseybook.testutil.TypicalTasks.APPLY_LEAVE_LATE_TIME;
 import static nurseybook.testutil.TypicalTasks.APPLY_LEAVE_MONTH_RECURRENCE;
 import static nurseybook.testutil.TypicalTasks.APPLY_LEAVE_WEEK_RECURRENCE;
 import static nurseybook.testutil.TypicalTasks.DO_PAPERWORK;
-import static nurseybook.testutil.TypicalTasks.KEITH_INSULIN;
+import static nurseybook.testutil.TypicalTasks.GEORGE_INSULIN;
 import static nurseybook.testutil.TypicalTasks.KG_SC_VACCINE;
 import static nurseybook.testutil.TypicalTasks.YASMINE_PHYSIO;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -35,13 +35,13 @@ import nurseybook.testutil.TaskBuilder;
 
 public class TaskTest {
 
-    private final Task keithInsulin = new TaskBuilder(KEITH_INSULIN).build();
+    private final Task keithInsulin = new TaskBuilder(GEORGE_INSULIN).build();
     private final Task applyLeave = new TaskBuilder(APPLY_LEAVE).build();
 
     @Test
     public void asObservableList_modifyList_throwsUnsupportedOperationException() {
         Task task = new TaskBuilder().build();
-        assertThrows(UnsupportedOperationException.class, () -> task.getRelatedElderlies().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> task.getRelatedNames().remove(0));
     }
 
     @Test
@@ -95,8 +95,8 @@ public class TaskTest {
     @Test
     public void equals() {
         // same values -> returns true
-        assertTrue(keithInsulin.equals(KEITH_INSULIN));
-        Task alexToKeith = new TaskBuilder(ALEX_INSULIN).withNames(VALID_NAME_KEITH).withDesc(VALID_DESC_MEDICINE)
+        assertTrue(keithInsulin.equals(GEORGE_INSULIN));
+        Task alexToKeith = new TaskBuilder(ALICE_INSULIN).withNames(VALID_NAME_GEORGE).withDesc(VALID_DESC_MEDICINE)
                 .withDateTime(VALID_DATE_NOV, VALID_TIME_SEVENPM).withStatus("false", "true")
                 .withRecurrence(Recurrence.RecurrenceType.NONE.name()).build();
         assertTrue(keithInsulin.equals(alexToKeith));
@@ -111,9 +111,9 @@ public class TaskTest {
         assertFalse(keithInsulin.equals(5));
 
         // different name -> returns false
-        Task editedTask = new TaskBuilder(keithInsulin).withNames(VALID_NAME_ALEX).build();
+        Task editedTask = new TaskBuilder(keithInsulin).withNames(VALID_NAME_ALICE).build();
         assertFalse(keithInsulin.equals(editedTask));
-        editedTask = new TaskBuilder(keithInsulin).withNames(VALID_NAME_KEITH, VALID_NAME_ALEX).build();
+        editedTask = new TaskBuilder(keithInsulin).withNames(VALID_NAME_GEORGE, VALID_NAME_ALICE).build();
         assertFalse(keithInsulin.equals(editedTask));
 
         // different date -> returns false
@@ -220,8 +220,8 @@ public class TaskTest {
 
     @Test
     public void compareTo() {
-        Task keithInsulin = new TaskBuilder(KEITH_INSULIN).build(); // date = "2020-11-01"
-        Task alexInsulin = new TaskBuilder(ALEX_INSULIN).build(); // date = "2022-01-31", time: "19:45" in 24 hrs time
+        Task keithInsulin = new TaskBuilder(GEORGE_INSULIN).build(); // date = "2020-11-01"
+        Task alexInsulin = new TaskBuilder(ALICE_INSULIN).build(); // date = "2022-01-31", time: "19:45" in 24 hrs time
         Task doPaperwork = new TaskBuilder(DO_PAPERWORK).build(); // date: "2022-01-31", time: "10:20" in 24 hrs time
 
         // keithInsulin before alexInsulin -> returns negative value

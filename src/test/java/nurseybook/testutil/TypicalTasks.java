@@ -6,8 +6,8 @@ import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_DESC_COVID;
 import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_DESC_MEDICINE;
 import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_DESC_PAPERWORK;
 import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_DESC_VACCINE;
-import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_NAME_ALEX;
-import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_NAME_KEITH;
+import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_NAME_ALICE;
+import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_NAME_GEORGE;
 import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_TIME_SEVENPM;
 import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_TIME_TENAM;
 
@@ -16,19 +16,20 @@ import java.util.Arrays;
 import java.util.List;
 
 import nurseybook.model.NurseyBook;
+import nurseybook.model.person.Elderly;
 import nurseybook.model.task.Recurrence;
 import nurseybook.model.task.Task;
 
 public class TypicalTasks {
 
-    public static final Task KEITH_INSULIN = new TaskBuilder().withDesc(VALID_DESC_MEDICINE)
-            .withDateTime(VALID_DATE_NOV, VALID_TIME_SEVENPM).withNames(VALID_NAME_KEITH)
+    public static final Task GEORGE_INSULIN = new TaskBuilder().withDesc(VALID_DESC_MEDICINE)
+            .withDateTime(VALID_DATE_NOV, VALID_TIME_SEVENPM).withNames(VALID_NAME_GEORGE)
             .withStatus("false", "true")
             .withRecurrence(Recurrence.RecurrenceType.NONE.name())
             .build();
 
-    public static final Task ALEX_INSULIN = new TaskBuilder().withDesc(VALID_DESC_COVID)
-            .withDateTime(VALID_DATE_JAN, VALID_TIME_SEVENPM).withNames(VALID_NAME_ALEX)
+    public static final Task ALICE_INSULIN = new TaskBuilder().withDesc(VALID_DESC_COVID)
+            .withDateTime(VALID_DATE_JAN, VALID_TIME_SEVENPM).withNames(VALID_NAME_ALICE)
             .withRecurrence(Recurrence.RecurrenceType.NONE.name()).build();
 
     public static final Task DO_PAPERWORK = new TaskBuilder().withDesc(VALID_DESC_PAPERWORK)
@@ -77,18 +78,21 @@ public class TypicalTasks {
             .withRecurrence(Recurrence.RecurrenceType.MONTH.name()).withGhostTask("true").build();
 
     /**
-     * Returns an {@code NurseyBook} with all the typical tasks.
+     * Returns an {@code NurseyBook} with all the typical tasks and elderlies.
      */
     public static NurseyBook getTypicalNurseyBook() {
         NurseyBook nb = new NurseyBook();
         for (Task t : getTypicalTasks()) {
             nb.addTask(t);
         }
+        for (Elderly elderly : TypicalElderlies.getTypicalElderlies()) {
+            nb.addElderly(elderly);
+        }
         return nb;
     }
 
     public static List<Task> getTypicalTasks() {
-        return new ArrayList<>(Arrays.asList(KEITH_INSULIN, ALEX_INSULIN, DO_PAPERWORK,
+        return new ArrayList<>(Arrays.asList(GEORGE_INSULIN, ALICE_INSULIN, DO_PAPERWORK,
                 YASMINE_PHYSIO, KG_SC_VACCINE));
     }
 }
