@@ -59,7 +59,7 @@ public class NurseyBookParserTest {
 
     @Test
     public void parseCommand_add() throws Exception {
-        Elderly elderly = new ElderlyBuilder().build();
+        Elderly elderly = new ElderlyBuilder().withRemark("").build();
         AddCommand command = (AddCommand) parser.parseCommand(ElderlyUtil.getAddCommand(elderly));
         assertEquals(new AddCommand(elderly), command);
     }
