@@ -1,6 +1,7 @@
 package nurseybook.model.task;
 
-import static nurseybook.testutil.TypicalTasks.*;
+import static nurseybook.testutil.TypicalTasks.APPLY_LEAVE_LATE_TIME;
+import static nurseybook.testutil.TypicalTasks.KEITH_INSULIN;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -11,16 +12,19 @@ import org.junit.jupiter.api.Test;
 import nurseybook.testutil.TaskBuilder;
 
 public class TaskIsRecurringAndOverduePredicateTest {
-    Task keithInsulin = new TaskBuilder(KEITH_INSULIN).build();
-    TaskIsRecurringAndOverduePredicate predicate = new TaskIsRecurringAndOverduePredicate();
+    private Task keithInsulin = new TaskBuilder(KEITH_INSULIN).build();
+    private TaskIsRecurringAndOverduePredicate predicate = new TaskIsRecurringAndOverduePredicate();
 
     @Test
     public void test_notRecurringTasks_returnsFalse() {
         assertFalse(predicate.test(keithInsulin));
     }
 
+    /**
+     * Tests tasks that are recurring but not yet overdue
+     */
     @Test
-    public void test_recurringTasks_notOverdue_returnsFalse() {
+    public void test_recurringTasks_returnsFalse() {
         LocalDateTime now = LocalDateTime.now().withSecond(0).withNano(0);
 
         // with current time -> recurring, not yet overdue -> returns false
@@ -33,8 +37,11 @@ public class TaskIsRecurringAndOverduePredicateTest {
 
     }
 
+    /**
+     * Tests tasks that are both recurring and overdue
+     */
     @Test
-    public void test_recurringTasks_overdue_returnsTrue() {
+    public void test_recurringTasks_returnsTrue() {
         LocalDateTime past = LocalDateTime.now().withSecond(0).withNano(0)
                 .minusMinutes(1);
 
