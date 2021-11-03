@@ -113,6 +113,19 @@ public class NurseyBook implements ReadOnlyNurseyBook {
         elderlies.setElderly(target, editedElderly);
     }
 
+
+    public void updateElderlyNameInTasks(Elderly target, Elderly editedElderly) {
+        requireNonNull(editedElderly);
+
+        tasks.updateElderlyNameInTasks(target, editedElderly);
+    }
+
+    public void deleteElderlyNameInTasks(Elderly elderlyToDelete) {
+        requireNonNull(elderlyToDelete);
+
+        tasks.deleteElderlyNameInTasks(elderlyToDelete);
+    }
+
     /**
      * Replaces the given task {@code target} in the list with {@code editedTask}.
      * {@code target} must exist in the nursey book.

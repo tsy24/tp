@@ -10,6 +10,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import nurseybook.model.task.Task;
 
+import java.util.Objects;
+
 /**
  * An UI component that displays information of a {@code Task}.
  */
@@ -51,11 +53,12 @@ public class TaskCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         description.setText(task.getDesc().value);
 
-        Image logo = new Image(this.getClass().getResourceAsStream("/images/calendar-blue.png"));
+        Image logo = new Image(
+                Objects.requireNonNull(this.getClass().getResourceAsStream("/images/calendar-blue.png")));
         date.setText(task.getDateTime().getStringDate());
         dateLogo.setImage(logo);
 
-        logo = new Image(this.getClass().getResourceAsStream("/images/clock-blue.png"));
+        logo = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/clock-blue.png")));
         time.setText(task.getDateTime().getStringTime());
         timeLogo.setImage(logo);
 
@@ -65,7 +68,7 @@ public class TaskCard extends UiPart<Region> {
             overdue.setVisible(false);
         }
 
-        task.getRelatedNames().stream()
+        task.getRelatedNames()
                 .forEach(name -> names.getChildren().add(new Label(name.fullName)));
 
         if (task.getRelatedNames().isEmpty()) {

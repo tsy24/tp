@@ -296,6 +296,19 @@ public class Task implements Comparable<Task> {
         return Collections.unmodifiableSet(relatedNames);
     }
 
+    public void replaceName(Name target, Name editedName) {
+        deleteName(target);
+        addName(editedName);
+    }
+
+    public void deleteName(Name target) {
+        relatedNames.remove(target);
+    }
+
+    public void addName(Name target) {
+        relatedNames.add(target);
+    }
+
     /**
      * Returns completion status of this task.
      *
@@ -457,7 +470,8 @@ public class Task implements Comparable<Task> {
         }
 
         return otherTask != null
-                && otherTask.getDesc().equals(getDesc()) && otherTask.getDateTime().equals(getDateTime());
+                && otherTask.getDesc().equals(getDesc()) && otherTask.getDateTime().equals(getDateTime())
+                && otherTask.getRelatedNames().equals(getRelatedNames());
     }
 
     @Override

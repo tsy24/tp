@@ -25,7 +25,7 @@ public class TaskUtil {
      */
     public static String getTaskDetails(Task task) {
         StringBuilder sb = new StringBuilder();
-        task.getRelatedNames()
+        task.getRelatedElderlies()
                 .stream()
                 .forEach(s -> sb.append(PREFIX_NAME + s.fullName + " "));
         sb.append(PREFIX_TASK_DESC + task.getDesc().value + " ");

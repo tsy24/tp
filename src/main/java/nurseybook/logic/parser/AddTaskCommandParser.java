@@ -40,6 +40,7 @@ public class AddTaskCommandParser implements Parser<AddTaskCommand> {
         }
 
         Set<Name> relatedNames = ParserUtil.parseNames(argMultimap.getAllValues(PREFIX_NAME));
+
         Description description = ParserUtil.parseDesc(argMultimap.getValue(PREFIX_TASK_DESC).get());
         DateTime dateTime = ParserUtil.parseDateTime(
                 argMultimap.getValue(PREFIX_TASK_DATE).get(),

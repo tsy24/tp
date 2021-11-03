@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 import nurseybook.commons.core.GuiSettings;
 import nurseybook.logic.commands.CommandResult;
 import nurseybook.model.person.Elderly;
+import nurseybook.model.person.Name;
 import nurseybook.model.task.Task;
 
 /**
@@ -88,13 +89,15 @@ public interface Model {
      */
     void markTaskAsNotOverdue(Task target);
 
-    /**
-     * Updates the date of the given task {@code target} such that it is not overdue.
-     * {@code target} must exist in the nursey book.
-     */
-    void updateDateRecurringTask(Task target);
+
+    boolean isElderlyPresent(Name name);
+
+    void updateElderlyNameInTasks(Elderly target, Elderly editedElderly);
+
+    void deleteElderlyNameInTasks(Elderly elderlyToDelete);
 
     /**
+     *
      * Deletes the given elderly.
      * The elderly must exist in the nursey book.
      */

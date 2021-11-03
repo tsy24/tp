@@ -17,6 +17,7 @@ import nurseybook.commons.util.StringUtil;
 import nurseybook.logic.parser.exceptions.ParseException;
 import nurseybook.model.person.Address;
 import nurseybook.model.person.Age;
+import nurseybook.model.person.Elderly;
 import nurseybook.model.person.Email;
 import nurseybook.model.person.Gender;
 import nurseybook.model.person.Name;
@@ -96,7 +97,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses {@code Collection<String> names} into a {@code Set<People>}.
+     * Parses {@code Collection<String> names} into a {@code Set<Elderly>}.
      */
     public static Set<Name> parseNames(Collection<String> names) throws ParseException {
         requireNonNull(names);

@@ -11,6 +11,8 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import nurseybook.model.person.Elderly;
+import nurseybook.model.person.Name;
 import nurseybook.model.task.Recurrence.RecurrenceType;
 import nurseybook.model.task.exceptions.DuplicateTaskException;
 import nurseybook.model.task.exceptions.TaskNotFoundException;
@@ -112,6 +114,26 @@ public class UniqueTaskList implements Iterable<Task> {
     public void setTasks(List<Task> tasks) {
         requireAllNonNull(tasks);
         internalList.setAll(tasks);
+    }
+
+    public void updateElderlyNameInTasks(Elderly target, Elderly editedElderly) {
+        for (Task task : internalList) {
+           for (Name name : task.getRelatedNames()) {
+               if (target.getName().equals(name)) {
+                   task.replaceName(name, editedElderly.getName());
+               }
+           }
+        }
+    }
+
+    public void deleteElderlyNameInTasks(Elderly elderlyToDelete) {
+        for (Task task : internalList) {
+            for (Name name : task.getRelatedNames()) {
+                if (elderlyToDelete.getName().equals(name)) {
+                    task.deleteName(name);
+                }
+            }
+        }
     }
 
     /**

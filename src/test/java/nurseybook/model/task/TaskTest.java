@@ -41,7 +41,7 @@ public class TaskTest {
     @Test
     public void asObservableList_modifyList_throwsUnsupportedOperationException() {
         Task task = new TaskBuilder().build();
-        assertThrows(UnsupportedOperationException.class, () -> task.getRelatedNames().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> task.getRelatedElderlies().remove(0));
     }
 
     @Test

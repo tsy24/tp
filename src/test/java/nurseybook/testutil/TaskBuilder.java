@@ -54,7 +54,7 @@ public class TaskBuilder {
     public TaskBuilder(Task taskToCopy) {
         desc = taskToCopy.getDesc();
         dateTime = taskToCopy.getDateTime();
-        names = new HashSet<>(taskToCopy.getRelatedNames());
+        names = new HashSet<>(taskToCopy.getRelatedElderlies());
         status = taskToCopy.getStatus();
         recurrence = taskToCopy.getRecurrence();
         ghostTask = taskToCopy.getGhostTask();
