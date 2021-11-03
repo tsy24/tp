@@ -21,13 +21,15 @@ import nurseybook.model.tag.Tag;
 public class AddTagCommand extends Command {
 
     public static final String COMMAND_WORD = "addTag";
+    public static final String[] PARAMETERS = { Index.VALID_INDEX_CRITERIA,
+        PREFIX_TAG + "TAG", "[" + PREFIX_TAG + "MORE_TAGS]..." };
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds tag(s) to the elderly identified "
             + "by the index number used in the last elderly listing. "
             + "Must contain one or more tags\n"
-            + "Parameters: INDEX (must be a positive integer) "
-            + PREFIX_TAG + "TAG " + "[" + PREFIX_TAG + "MORE_TAGS]...\n"
-            + "Example: " + COMMAND_WORD + " 1 "
+            + "Parameters: "
+            + String.join(" ", PARAMETERS)
+            + "\nExample: " + COMMAND_WORD + " 1 "
             + PREFIX_TAG + "Diabetes";
 
     public static final String MESSAGE_ADD_TAG_SUCCESS = "Added tag(s) to Elderly: %1$s";
