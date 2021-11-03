@@ -9,6 +9,8 @@ package nurseybook.commons.core.index;
  * convert it back to an int if the index will not be passed to a different component again.
  */
 public class Index {
+
+    public static final String VALID_INDEX_CRITERIA = "INDEX (must be a positive integer present in the list)";
     private int zeroBasedIndex;
 
     /**
