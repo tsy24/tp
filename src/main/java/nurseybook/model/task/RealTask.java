@@ -1,10 +1,6 @@
 package nurseybook.model.task;
 
-import java.time.Duration;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -47,10 +43,10 @@ public class RealTask extends Task {
      */
     @Override
     public RealTask markAsDone() {
-        String overdueStatus = isTaskOverdue() ? "true" : "false";
+        String overdueStatus = Boolean.toString(isTaskOverdue());
 
-        return new RealTask(this.getDesc(), this.getDateTime(),
-                super.getRelatedNames(), new Status("true", overdueStatus), super.getRecurrence());
+        return new RealTask(this.getDesc(),
+                this.getDateTime(), super.getRelatedNames(), new Status("true", overdueStatus), super.getRecurrence());
     }
 
     /**
@@ -60,7 +56,7 @@ public class RealTask extends Task {
      */
     @Override
     public RealTask markAsOverdue() {
-        String completedStatus = isTaskDone() ? "true" : "false";
+        String completedStatus = Boolean.toString(isTaskDone());
 
         return new RealTask(this.getDesc(), this.getDateTime(),
                 super.getRelatedNames(), new Status(completedStatus, "true"), super.getRecurrence());
@@ -74,7 +70,7 @@ public class RealTask extends Task {
      */
     @Override
     public RealTask markAsNotOverdue() {
-        String completedStatus = isTaskDone() ? "true" : "false";
+        String completedStatus = Boolean.toString(isTaskDone());
 
         return new RealTask(this.getDesc(), this.getDateTime(),
                 super.getRelatedNames(), new Status(completedStatus, "false"), super.getRecurrence());
@@ -94,7 +90,6 @@ public class RealTask extends Task {
             assert(recurrenceType != Recurrence.RecurrenceType.NONE);
 
             DateTime dateTime = changeTaskDate(currentDateTime, recurrenceType);
-
             return new RealTask(getDesc(), dateTime,
                     getRelatedNames(), new Status("false", "false"), getRecurrence());
         } else {
@@ -138,48 +133,11 @@ public class RealTask extends Task {
         return new GhostTask(copyDesc, copyDt, copyRelatedNames, copyStatus, copyRecurrence);
     }
 
-    private DateTime changeTaskDate(LocalDateTime currentDateTime, Recurrence.RecurrenceType recurrenceType) {
-        LocalDate taskDate = getDateTime().date;
-        LocalTime taskTime = getDateTime().time;
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd MM yyyy HH mm");
-        String inputString = String.format("%02d", taskDate.getDayOfMonth()) + " "
-                + String.format("%02d", taskDate.getMonthValue()) + " "
-                + String.format("%02d", taskDate.getYear()) + " "
-                + String.format("%02d", taskTime.getHour()) + " "
-                + String.format("%02d", taskTime.getMinute());
-        LocalDateTime taskLocalDateTime = LocalDateTime.parse(inputString, dtf);
-        long daysBetween = Duration.between(taskLocalDateTime, currentDateTime).toDays();
-
-        return changeTaskDateBasedOnRecurrence(recurrenceType, taskLocalDateTime, daysBetween);
-    }
-
-    private DateTime changeTaskDateBasedOnRecurrence(Recurrence.RecurrenceType recurrenceType,
-                                                     LocalDateTime taskLocalDateTime, long daysBetween) {
-//        assert(daysBetween > 0);
-        LocalDateTime taskNewLocalDateTime = taskLocalDateTime;
-        if (recurrenceType == Recurrence.RecurrenceType.DAY) {
-            taskNewLocalDateTime = taskLocalDateTime.plusDays(daysBetween + 1);
-        } else if (recurrenceType == Recurrence.RecurrenceType.WEEK) {
-            int daysToAdd = ((int) (daysBetween / 7)) * 7 + 7;
-            taskNewLocalDateTime = taskLocalDateTime.plusDays(daysToAdd);
-        } else {
-            // assume its + 4 weeks
-            int daysToAdd = ((int) (daysBetween / 28)) * 28 + 28;
-            taskNewLocalDateTime = taskLocalDateTime.plusDays(daysToAdd);
-        }
-        // time is fixed
-        return new DateTime(taskNewLocalDateTime.toLocalDate(), taskLocalDateTime.toLocalTime());
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof RealTask) {
-            RealTask other = (RealTask) obj;
-            return other.getDesc().equals(super.getDesc())
-                    && other.getDateTime().equals(super.getDateTime())
-                    && other.getRelatedNames().equals(super.getRelatedNames())
-                    && other.getStatus().equals(super.getStatus())
-                    && other.getRecurrence().equals(super.getRecurrence());
+
+            return super.equals(obj);
         }
         return false;
     }

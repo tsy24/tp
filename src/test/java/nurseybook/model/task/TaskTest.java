@@ -186,7 +186,6 @@ public class TaskTest {
     }
 
     @Test
-<<<<<<< HEAD
     void markTaskDone() {
         Task doneKeith = new TaskBuilder(keithInsulin).withStatus("true", "true").build();
         assertEquals(keithInsulin.markAsDone(), doneKeith);
@@ -205,8 +204,6 @@ public class TaskTest {
     }
 
     @Test
-=======
->>>>>>> bef12384902a596dcdc02412ce6a8ad2cb75c172
     void checkIfTaskRecurring() {
         //recurring task
         Assertions.assertTrue(APPLY_LEAVE.isTaskRecurring());
