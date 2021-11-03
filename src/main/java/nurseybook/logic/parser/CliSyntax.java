@@ -6,6 +6,7 @@ package nurseybook.logic.parser;
 public class CliSyntax {
 
     /* Prefix definitions */
+    public static final Prefix PREFIX_PREAMBLE = new Prefix("");
     public static final Prefix PREFIX_NAME = new Prefix("en/");
     public static final Prefix PREFIX_AGE = new Prefix("a/");
     public static final Prefix PREFIX_GENDER = new Prefix("g/");
@@ -21,5 +22,9 @@ public class CliSyntax {
     public static final Prefix PREFIX_TASK_DATE = new Prefix("date/");
     public static final Prefix PREFIX_TASK_TIME = new Prefix("time/");
     public static final Prefix PREFIX_TASK_RECURRING = new Prefix("recur/");
+
+    public static final Prefix[] PREFIX_ALL = {PREFIX_NAME, PREFIX_AGE, PREFIX_GENDER, PREFIX_ROOM_NUM,
+        PREFIX_NOK_NAME, PREFIX_RELATIONSHIP, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_REMARK, PREFIX_TAG,
+        PREFIX_TASK_DESC, PREFIX_TASK_DATE, PREFIX_TASK_TIME, PREFIX_TASK_RECURRING};
 
 }

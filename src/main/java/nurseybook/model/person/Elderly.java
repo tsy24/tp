@@ -111,7 +111,9 @@ public class Elderly extends Person {
                 && otherElderly.getAge().equals(getAge())
                 && otherElderly.getGender().equals(getGender())
                 && otherElderly.getRoomNumber().equals(getRoomNumber())
-                && otherElderly.getTags().equals(getTags());
+                && otherElderly.getTags().equals(getTags())
+                && otherElderly.getNok().equals(getNok())
+                && otherElderly.getRemark().equals(getRemark());
     }
 
     @Override
