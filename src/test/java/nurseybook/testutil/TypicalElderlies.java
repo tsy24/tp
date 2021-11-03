@@ -45,20 +45,20 @@ public class TypicalElderlies {
             .withTags("diabetes", "friends").build();
     public static final Elderly CARL = new ElderlyBuilder().withName("Carl Kurz")
             .withAge("40").withGender("M").withRoomNumber("9").withNokName("Carl Twain").withRelationship("Brother")
-            .withPhone("95352563").withEmail("heinz@example.com").withAddress("wall street").build();
+            .withPhone("95352563").withEmail("heinz@example.com").withAddress("wall street").withRemark("").build();
     public static final Elderly DANIEL = new ElderlyBuilder().withName("Daniel Meier")
             .withAge("40").withGender("M").withRoomNumber("27").withNokName("Daniel Mustafa").withRelationship("Sister")
             .withPhone("87652533").withEmail("cornelia@example.com")
-            .withAddress("10th street").withTags("friends").build();
+            .withAddress("10th street").withTags("friends").withRemark("").build();
     public static final Elderly ELLE = new ElderlyBuilder().withName("Elle Meyer")
             .withAge("40").withGender("F").withRoomNumber("11").withNokName("Elle Salmon").withRelationship("Daughter")
-            .withPhone("9482224").withEmail("werner@example.com").withAddress("michegan ave").build();
+            .withPhone("9482224").withEmail("werner@example.com").withAddress("michegan ave").withRemark("").build();
     public static final Elderly FIONA = new ElderlyBuilder().withName("Fiona Kunz")
             .withAge("40").withGender("F").withRoomNumber("6").withNokName("Fiona James").withRelationship("Sister")
-            .withPhone("9482427").withEmail("lydia@example.com").withAddress("little tokyo").build();
+            .withPhone("9482427").withEmail("lydia@example.com").withAddress("little tokyo").withRemark("").build();
     public static final Elderly GEORGE = new ElderlyBuilder().withName("George Best")
             .withAge("40").withGender("M").withRoomNumber("299").withNokName("George Bestron")
-            .withRelationship("Father").withPhone("9482442").withEmail("anna@example.com")
+            .withRelationship("Father").withPhone("9482442").withRemark("").withEmail("anna@example.com")
             .withAddress("4th street").build();
 
     // Manually added
