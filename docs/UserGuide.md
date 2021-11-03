@@ -3,28 +3,17 @@ layout: page
 title: User Guide
 ---
 
-NurseyBook is a **desktop app made for nurses in nursing homes to aid them in managing contacts and tasks in their busy lives. It is optimized for use via a Command Line Interface** (CLI) while still **having the benefits of a Graphical User Interface** (GUI). If you can type fast, NurseyBook can manage your contacts & tasks done faster than traditional GUI apps! :smile:
-
 * Table of Contents
   {:toc}
 
 --------------------------------------------------------------------------------------------------------------------
-## About this document
+## 1. Introduction
 
-This document introduces the features of NurseyBook. Note the following symbols and formatting used in this document:
-
-`viewElderly`   Gray highlight (called a mark-up) indicates that this is a command that can be typed into the command line and executed by the application.
-
-:information_source:    This symbol indicates important information that may be useful to know.
-
-:exclamation:   This symbol indicates caution.Such instructions should be followed, as unintended consequences might arise otherwise.
-
-:bulb:  This symbol indicates tips. Tips are useful for improving your experience with NurseyBook.
-
+NurseyBook is a **desktop app made for nurses in nursing homes to aid them in managing contacts and tasks in their busy lives. It is optimized for use via a Command Line Interface** (CLI) while still **having the benefits of a Graphical User Interface** (GUI). If you can type fast, NurseyBook can manage your contacts & tasks done faster than traditional GUI apps! :smile:
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Quick start
+## 2. Quick start
 
 1. Ensure you have Java `11` or above installed in your Computer.
 
@@ -50,29 +39,87 @@ This document introduces the features of NurseyBook. Note the following symbols 
 
    * **`exit`** : Exits the app.
 
-
-1. Refer to the [Features](#features) below for details of each command.
+Refer to the [4. Features](#4. Features) below for details of each command.
 
 
 --------------------------------------------------------------------------------------------------------------------
+## 3. About
 
-## Features
+### 3.1 Structure of this document
 
-This section contains the documentation on NurseyBook's features and commands. It is split into the following subsections:
+This document is structured in a manner that lets you find what you need fast and easily. To jump to various sections, you can refer to the Table of Contents.
 
-1. Command format
-2. Elderly commands
-3. Task commands
-4. Miscellaneous commands
-5. Storage
+In the following subsection, [3.2 Reading this document](#3.2 Reading this document), you can find several tips that could be beneficial when reading this guide. 
+The next section, documents the main features that **NurseyBook** offers and provides you with instructions on how to 
+use each one of them!
 
-### Command format
+
+### 3.2 Reading this document
+
+This subsection will introduce to you the symbols, syntax and technical terms that are used throughout this guide. 
+Being familiar with this subsection will definitely help you out when looking through this guide.
+
+
+#### 3.2.1 Special symbols
+
+**Additional Information**
+
+Text that appear in an information box indicates additional information that may be useful to know.
 
 <div markdown="block" class="alert alert-info">
 
-**:information_source: Notes about the command format:**<br>
+:information_source: **Information:**
+Example additional information.
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
+</div>
+
+**Caution**
+
+Text that appear in a caution box should be followed carefully, else unintended consequences might arise. 
+
+<div markdown="block" class="alert alert-warning">
+
+:exclamation: **Caution:**
+Example warnings.
+
+</div>
+
+**Tips**
+
+Text that appear in a tip box are useful for improving your experience with NurseyBook.
+
+<div markdown="block" class="alert alert-primary">
+
+:bulb: **Tips**
+Example tips.
+
+</div>
+
+
+#### 3.2.2 Sections of the Application Window
+
+You can refer to the image below for the names of the different sections in NurseyBook's applicatin window. 
+
+![nurseybook_application_window](/Users/jingyaxiong/Desktop/tp/docs/images/application_window.png)
+
+
+#### 3.2.3 Navigating in NurseyBook
+
+In NurseyBook, some buttons are clickable - such as the File and Help buttons at the top of the application window.
+However, the User Interface (UI) is designed primarily to be navigated using the Command Line Interface (CLI).
+
+You can enter commands into the command box and press `Enter` to execute them. The result box will then provide a response on whether the command was successfully executed.
+The display panel will similarly update itself, based on the command executed. 
+
+
+#### 3.2.4 Command Format
+
+Words that are highlighted in gray (also known as a mark-up) indicates that they are commands that you can type into the command box, and executed by the application.
+e.g. `viewTasks`
+
+Commands in this guide follow such rules:
+
+* Words in `UPPER_CASE` are the parameters to be supplied by you.<br>
   e.g. in `addElderly n/NAME`, `NAME` is a parameter which can be used as `addElderly n/Swee Choon`.
 
 * Items in square brackets are optional.<br>
@@ -84,15 +131,65 @@ This section contains the documentation on NurseyBook's features and commands. I
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 
+<div markdown="block" class="alert alert-info">
+
+**:information_source: Information:**<br>
+
 * If a parameter is expected only once in the command but you specified it multiple times, only the last occurrence of the parameter will be taken.<br>
   e.g. if you specify `p/12341234 p/56785678`, only `p/56785678` will be taken.
 
-* Extraneous parameters for commands that do not take in parameters (such as `viewElderly`, `viewTasks`, `exit` and `clear`) will be ignored.<br>
+* Commands that do not take in parameters (such as `viewElderly`, `viewTasks`, `clear`, `exit`, `help`) will ignore the additional parameters that are added to the back of it.
   e.g. if the command specifies `viewTasks 123`, it will be interpreted as `viewTasks`.
 
 </div>
 
-### Elderly commands
+<div markdown="block" class="alert alert-primary">
+
+**:bulb: Tips:**
+
+* The _User Interface_ refers to the NurseyBook application window. 
+* _Command Line Interface_ refers to where you interact with the system by typing in commands - in this case, the command box. 
+* _Parameters_ refer to the information to be included as an input to a command.
+
+</div>
+
+
+#### 3.2.5 Command Parameters
+
+The table below provides a summary on the command parameters that are mentioned in this guide.
+
+Parameter | Description
+:---------|:-----------
+`AGE` | Age of an elderly. A valid age is between 21 to 145. 
+`DATE` | Date that a task is scheduled to occur on. It should be in the format of yyyy-mm-dd. 
+`DESCRIPTION` | Description of a task. A description should not be blank.
+`ELDERLY_NAME` | Name of an elderly. No two elderly should have the same name.
+`GENDER` | Gender of an elderly. Gender is either `M` for males or `F` for females.
+`INDEX` | Index is the number shown beside an elderly/task when elderlies/tasks are displayed in the display panel respectively.
+`KEYWORD` | Keyword used to search for elderlies (by name) or tasks (by description). `MORE_KEYWORDS` are similarly defined. A keyword should not be blank. 
+`NOK_ADDRESS` | Address of an elderly's next-of-kin.
+`NOK_EMAIL` | Email of an elderly's next-of-kin. An email should be in the format of local-part@domain.
+`NOK_NAME` | Name of an elderly's next-of-kin.
+`NOK_PHONE_NUMBER` | Phone number of an elderly's next-of-kin. A phone number should either be blank, or at least 8 digits long. 
+`NOK_RELATIONSHIP` | Relationship between an elderly and his/her next-of-kin. 
+`RECURRENCE_TYPE` | Indicates the recurrence period of a task. Can be either `NONE`, by `DAY`, `WEEK`, or `MONTH`.
+`REMARK` | Additional information that can be supplied to an elderly. It should only be used with elderlies, not tasks.
+`ROOMNO` | Room number that an elderly is staying in (the Nursing Home). It should be a non-negative integer. 
+`TAG` | Tag associated with an elderly. It should only be used with elderlies, not tasks. 
+`TIME` | Time that a task is scheduled to occur from. It should be in the format of hh:mm.
+
+--------------------------------------------------------------------------------------------------------------------
+
+## 4. Features
+
+This section contains the documentation on NurseyBook's features and commands. It is split into the following subsections:
+
+1. Elderly commands
+2. Task commands
+3. Miscellaneous commands
+4. Storage
+
+### 4.1 Elderly commands
 
 #### View all elderly: `viewElderly`
 
@@ -313,7 +410,7 @@ e.g. `remark 1 re/`
 </div>
 
 
-### Task commands
+### 4.2 Task commands
 
 #### View all tasks: `viewTasks`
 
@@ -477,7 +574,8 @@ recurring tasks.
 
 </div>
 
-### Miscellaneous commands
+
+### 4.3 Miscellaneous commands
 
 #### Clearing all entries : `clear`
 
@@ -520,7 +618,7 @@ Exits the program.
 Format: `exit`
 
 
-### Storage
+### 4.4 Storage
 
 #### Saving the data
 
@@ -541,7 +639,7 @@ If your changes to the data file makes its format invalid, NurseyBook will disca
 
 --------------------------------------------------------------------------------------------------------------------
 
-## FAQ
+## 5. FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file NurseyBook creates with the file, with the file
@@ -553,9 +651,9 @@ There is no need to save manually.
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Command summary
+## 6. Command summary
 
-### Elderly
+### 6.1 Elderly
 
 Action | Format, Examples
 --------|------------------
@@ -572,7 +670,7 @@ Action | Format, Examples
 **View all elderly** | `viewElderly`
 
 
-### Task
+### 6.2 Task
 
 Action | Format, Examples
 --------|------------------
@@ -586,7 +684,7 @@ Action | Format, Examples
 **View all tasks** | `viewTasks`
 
 
-### Miscellaneous
+### 6.3 Miscellaneous
 
 Action | Format, Examples
 --------|------------------
@@ -596,7 +694,7 @@ Action | Format, Examples
 **Exit** | `exit`
 
 
-## Glossary
+## 7. Glossary
 
 Term | Definition
 --------|------------------
