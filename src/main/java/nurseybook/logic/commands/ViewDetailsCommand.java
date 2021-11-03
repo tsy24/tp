@@ -12,11 +12,13 @@ import nurseybook.model.person.Elderly;
 
 public class ViewDetailsCommand extends Command {
     public static final String COMMAND_WORD = "viewDetails";
+    public static final String[] PARAMETERS = { Index.VALID_INDEX_CRITERIA };
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Shows the full details of the elderly identified by the index number"
             + " used in the displayed elderly list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
+            + "Parameters: "
+            + String.join(" ", PARAMETERS)
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_SUCCESS = "Showing %s's details";

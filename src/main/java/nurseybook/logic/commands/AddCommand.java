@@ -23,20 +23,15 @@ import nurseybook.model.person.Elderly;
 public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "addElderly";
+    public static final String[] PARAMETERS = { PREFIX_NAME + "NAME", PREFIX_AGE + "AGE",
+        PREFIX_GENDER + "GENDER", PREFIX_ROOM_NUM + "ROOM_NUMBER", "[" + PREFIX_NOK_NAME + "NOK_NAME]",
+        "[" + PREFIX_RELATIONSHIP + "NOK_RELATIONSHIP]", "[" + PREFIX_PHONE + "NOK_PHONE_NUMBER]",
+        "[" + PREFIX_EMAIL + "NOK_EMAIL]", "[" + PREFIX_ADDRESS + "NOK_ADDRESS]", "[" + PREFIX_TAG + "TAG]..." };
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a elderly to the nursey book.\n"
             + "Parameters: "
-            + PREFIX_NAME + "NAME "
-            + PREFIX_AGE + "AGE "
-            + PREFIX_GENDER + "GENDER "
-            + PREFIX_ROOM_NUM + "ROOM_NUMBER "
-            + "[" + PREFIX_NOK_NAME + "NOK_NAME] "
-            + "[" + PREFIX_RELATIONSHIP + "NOK_RELATIONSHIP] "
-            + "[" + PREFIX_PHONE + "NOK_PHONE_NUMBER] "
-            + "[" + PREFIX_EMAIL + "NOK_EMAIL] "
-            + "[" + PREFIX_ADDRESS + "NOK_ADDRESS] "
-            + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: " + COMMAND_WORD + " "
+            + String.join(" ", PARAMETERS)
+            + "\nExample: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
             + PREFIX_AGE + "40 "
             + PREFIX_GENDER + "M "
