@@ -42,7 +42,7 @@ class JsonSerializableNurseyBook {
      */
     public JsonSerializableNurseyBook(ReadOnlyNurseyBook source) {
         elderlies.addAll(source.getElderlyList().stream().map(JsonAdaptedElderly::new).collect(Collectors.toList()));
-        tasks.addAll(source.getTaskList().stream().map(JsonAdaptedTask::new).collect(Collectors.toList()));
+        tasks.addAll(source.getRealTaskList().stream().map(JsonAdaptedTask::new).collect(Collectors.toList()));
     }
 
     /**

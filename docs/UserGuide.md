@@ -5,8 +5,6 @@ title: User Guide
 
 NurseyBook is a **desktop app made for nurses in nursing homes to aid them in managing contacts and tasks in their busy lives. It is optimized for use via a Command Line Interface** (CLI) while still **having the benefits of a Graphical User Interface** (GUI). If you can type fast, NurseyBook can manage your contacts & tasks done faster than traditional GUI apps! :smile:
 
-## Table of Contents
-
 * Table of Contents
   {:toc}
 
@@ -66,7 +64,7 @@ This section contains the documentation on NurseyBook's features and commands. I
 2. Elderly commands
 3. Task commands
 4. Miscellaneous commands
-5. Storage 
+5. Storage
 
 ### Command format
 
@@ -461,6 +459,23 @@ Format: `viewSchedule DATE`
 Example:
 `viewSchedule 2022-02-14`
 
+<div markdown="span" class="alert alert-warning">
+
+:exclamation: **Caution**
+* NurseyBook will not automatically refresh the displayed task list to reflect
+instantaneous changes, such as overdue tasks and new dates of recurring tasks.
+* However, you can manually trigger this refresh, and one way is to enter
+ `viewTasks` in the command box.
+* This will update the overdue status of all tasks and new dates of all
+recurring tasks.
+  * E.g. If the time now is 9.01pm and there is an undone task which is due at
+    9.00pm the same day, you can enter `viewTasks`,
+    otherwise the red overdue tag will not show automatically.
+  * E.g. If the time now is 9.01pm and there is a recurring task due at 9.00pm,
+    you can enter `viewTasks`, otherwise the task's date will remain
+    unchanged.
+
+</div>
 
 ### Miscellaneous commands
 
@@ -481,7 +496,7 @@ Format: `undo`
 * Non-undoable commands: `findElderly`, `filter`, `viewDetails`, `viewElderly`, `findTask`, `remind`, `viewTasks`, `viewSchedule`
 * If there are no undoable commands executed previously, the undo command will fail and an error message will be shown.
 
-Example: 
+Example:
 * `deleteElderly 1` followed by `undo` causes the `deleteElderly 1` command to be undone and no elderly is deleted from the NurseyBook.
 
 
@@ -494,10 +509,10 @@ Format: `redo`
 * If there are no undo commands executed previously, the redo command will fail and an error message will be shown.
 
 Example:
-* `deleteElderly 1` followed by `undo` causes the `deleteElderly 1` command to be undone and no elderly is deleted from the NurseyBook. 
+* `deleteElderly 1` followed by `undo` causes the `deleteElderly 1` command to be undone and no elderly is deleted from the NurseyBook.
 Entering `redo` will reverse the previous undo command, causing the elderly to be deleted again.
 
-  
+
 #### Exiting the program : `exit`
 
 Exits the program.

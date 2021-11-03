@@ -5,72 +5,72 @@
     "age" : "40",
     "gender" : "F",
     "roomNumber": "15",
-    "nokName": "Alice Prabhu",
+    "nokName": "Alice Johnson",
     "relationship": "Mother",
     "phone" : "94351253",
     "email" : "alice@example.com",
     "address" : "123, Jurong West Ave 6, #08-111",
-    "remark" : "",
+    "remark" : "She likes aardvarks.",
     "tagged" : [ "friends" ]
   }, {
     "name" : "Benson Meier",
     "age" : "40",
     "gender" : "M",
     "roomNumber": "21",
-    "nokName": "Benson Mary",
-    "relationship": "Mother",
+    "nokName": "Benson Michael",
+    "relationship": "Father",
     "phone" : "98765432",
     "email" : "johnd@example.com",
     "address" : "311, Clementi Ave 2, #02-25",
-    "remark" : "",
+    "remark" : "He can't take beer!",
     "tagged" : [ "diabetes", "friends" ]
   }, {
     "name" : "Carl Kurz",
     "age" : "40",
     "gender" : "M",
     "roomNumber": "9",
-    "nokName": "Carl Danny",
-    "relationship": "Father",
+    "nokName": "Carl Twain",
+    "relationship": "Brother",
     "phone" : "95352563",
     "email" : "heinz@example.com",
     "address" : "wall street",
-    "remark" : "",
+    "remark" : "She likes aardvarks.",
     "tagged" : [ ]
   }, {
     "name" : "Daniel Meier",
     "age" : "40",
     "gender" : "M",
     "roomNumber": "27",
-    "nokName": "Daniel Kruz",
-    "relationship": "Father",
+    "nokName": "Daniel Mustafa",
+    "relationship": "Sister",
     "phone" : "87652533",
     "email" : "cornelia@example.com",
     "address" : "10th street",
-    "remark" : "",
+    "remark" : "She likes aardvarks.",
     "tagged" : [ "friends" ]
   }, {
     "name" : "Elle Meyer",
     "age" : "40",
     "gender" : "F",
     "roomNumber": "11",
-    "nokName": "Elle Michael",
-    "relationship": "Father",
+    "nokName": "Elle Salmon",
+    "relationship": "Daughter",
     "phone" : "9482224",
     "email" : "werner@example.com",
     "address" : "michegan ave",
-    "remark" : "",
+    "remark" : "She likes aardvarks.",
     "tagged" : [ ]
   }, {
     "name" : "Fiona Kunz",
     "age" : "40",
     "gender" : "F",
     "roomNumber": "6",
-    "nokName": "Fiona Shrek",
-    "relationship": "Father",
+    "nokName": "Fiona James",
+    "relationship": "Sister",
     "phone" : "9482427",
     "email" : "lydia@example.com",
     "address" : "little tokyo",
-    "remark" : "",
+    "remark" : "She likes aardvarks.",
     "tagged" : [ ]
   }, {
     "name" : "George Best",
@@ -82,7 +82,7 @@
     "phone" : "9482442",
     "email" : "anna@example.com",
     "address" : "4th street",
-    "remark" : "",
+    "remark" : "She likes aardvarks.",
     "tagged" : [ ]
   } ],
   "tasks": [ {
@@ -93,8 +93,7 @@
     "date": "2022-01-31",
     "time": "19:45",
     "status": ["false", "false"],
-    "recurrence" : "NONE",
-    "ghostTask" : "false"
+    "recurrence" : "NONE"
   }, {
     "names": [
       "George Best"
@@ -103,31 +102,27 @@
     "date": "2020-11-01",
     "time": "19:45",
     "status": ["false", "true"],
-    "recurrence" : "NONE",
-    "ghostTask" : "false"
+    "recurrence" : "NONE"
   }, {
     "names": [],
     "description": "Do paperwork",
     "date": "2022-01-31",
     "time": "10:20",
     "status": ["false", "false"],
-    "recurrence" : "MONTH",
-    "ghostTask" : "false"
+    "recurrence" : "MONTH"
   }, {
     "names": ["Yasmine George"],
     "description": "Physiotherapy with yoga ball",
     "date": "2021-09-13",
     "time": "15:30",
     "status": ["true", "true"],
-    "recurrence" : "NONE",
-    "ghostTask" : "false"
+    "recurrence" : "NONE"
   }, {
     "names": ["Khong Guan", "Swee Choon"],
     "description": "3rd shot for Pfizer",
     "date": "2021-10-30",
     "time": "18:00",
     "status": ["false", "true"],
-    "recurrence" : "NONE",
-    "ghostTask" : "false"
+    "recurrence" : "NONE"
   } ]
 }

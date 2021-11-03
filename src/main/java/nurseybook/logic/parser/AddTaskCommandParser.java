@@ -15,6 +15,7 @@ import nurseybook.logic.parser.exceptions.ParseException;
 import nurseybook.model.person.Name;
 import nurseybook.model.task.DateTime;
 import nurseybook.model.task.Description;
+import nurseybook.model.task.RealTask;
 import nurseybook.model.task.Recurrence;
 import nurseybook.model.task.Recurrence.RecurrenceType;
 import nurseybook.model.task.Task;
@@ -48,7 +49,7 @@ public class AddTaskCommandParser implements Parser<AddTaskCommand> {
         Recurrence recurrence = ParserUtil.parseRecurrence(
                 argMultimap.getValue(PREFIX_TASK_RECURRING).orElse(RecurrenceType.NONE.name()));
 
-        Task task = new Task(description, dateTime, relatedNames, recurrence);
+        Task task = new RealTask(description, dateTime, relatedNames, recurrence);
 
         return new AddTaskCommand(task);
     }
