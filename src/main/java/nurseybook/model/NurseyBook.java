@@ -191,6 +191,12 @@ public class NurseyBook implements ReadOnlyNurseyBook {
         return tasks.contains(t);
     }
 
+    @Override
+    public ObservableList<Task> getRealTaskList() {
+        UniqueTaskList realTaskList = tasks.getRealTaskList();
+        return realTaskList.asUnmodifiableObservableList();
+    }
+
     /**
      * Marks the given task {@code target} as done.
      * {@code target} must exist in the nursey book.

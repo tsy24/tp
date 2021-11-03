@@ -127,6 +127,11 @@ public class NurseyBookTest {
             return tasks;
         }
 
+        @Override
+        public ObservableList<Task> getRealTaskList() {
+            return tasks;
+        }
+
     }
 
 }

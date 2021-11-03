@@ -1,10 +1,7 @@
 package nurseybook.model.task;
 
-import java.time.Duration;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -12,34 +9,14 @@ import java.util.Set;
 import nurseybook.model.NurseyBook;
 import nurseybook.model.person.Elderly;
 import nurseybook.model.person.Name;
-import nurseybook.model.task.Recurrence.RecurrenceType;
 
-public class Task implements Comparable<Task> {
+public abstract class Task implements Comparable<Task> {
 
     private final Description desc;
     private DateTime dateTime;
     private final Status status;
     private final Set<Name> relatedNames = new HashSet<>();
     private final Recurrence recurrence;
-    private GhostTask ghostTask;
-
-    /**
-     * Creates a Task object.
-     *
-     * @param desc                      the description of the task
-     * @param dt                        the date and time of the task
-     * @param names                     the names of people associated with the task
-     */
-    public Task(Description desc, DateTime dt, Set<Name> names) {
-        boolean isOverdue = DateTime.isOverdue(dt);
-
-        this.desc = desc;
-        this.dateTime = dt;
-        this.relatedNames.addAll(names);
-        this.status = new Status("false", Boolean.toString(isOverdue));
-        this.recurrence = new Recurrence(RecurrenceType.NONE.name());
-        this.ghostTask = new GhostTask("false");
-    }
 
     /**
      * Creates a Task object.
@@ -57,24 +34,6 @@ public class Task implements Comparable<Task> {
         this.relatedNames.addAll(names);
         this.status = new Status("false", Boolean.toString(isOverdue));
         this.recurrence = recurrence;
-        this.ghostTask = new GhostTask("false");
-    }
-
-    /**
-     * Creates a Task object.
-     *
-     * @param desc                      the description of the task
-     * @param dt                        the date and time of the task
-     * @param names                     the names of people associated with the task
-     * @param status                    the completion status of the task
-     */
-    public Task(Description desc, DateTime dt, Set<Name> names, Status status) {
-        this.desc = desc;
-        this.dateTime = dt;
-        this.relatedNames.addAll(names);
-        this.status = status;
-        this.recurrence = new Recurrence(RecurrenceType.NONE.name());
-        this.ghostTask = new GhostTask("false");
     }
 
     /**
@@ -92,44 +51,6 @@ public class Task implements Comparable<Task> {
         this.relatedNames.addAll(names);
         this.status = status;
         this.recurrence = recurrence;
-        this.ghostTask = new GhostTask("false");
-    }
-
-    /**
-     * Creates a Task object that can potentially be a Ghost Task object.
-     * Ghost Tasks are tasks that are not meant to be shown to the user as part of the main list of tasks.
-     *
-     * @param desc                      the description of the task
-     * @param dt                        the date and time of the task
-     * @param names                     the names of people associated with the task
-     * @param status                    the completion status of the task
-     * @param recurrence                the recurrence type of the task
-     * @param ghostTask                 ghost identity of the task
-     */
-    public Task(Description desc, DateTime dt, Set<Name> names, Status status,
-                 Recurrence recurrence, GhostTask ghostTask) {
-        this.desc = desc;
-        this.dateTime = dt;
-        this.relatedNames.addAll(names);
-        this.status = status;
-        this.recurrence = recurrence;
-        this.ghostTask = ghostTask;
-
-    }
-
-    /**
-     * Creates a Ghost Task.
-     * Ghost Tasks are tasks that are not meant to be shown to the user as part of the main list of tasks.
-     *
-     * @param desc                      the description of the task
-     * @param dt                        the date and time of the task
-     * @param names                     the names of people associated with the task
-     * @param status                    the completion status of the task
-     * @param recurrence                the recurrence type of the task
-     * @return Ghost Task.
-     */
-    public Task createGhostTask(Description desc, DateTime dt, Set<Name> names, Status status, Recurrence recurrence) {
-        return new Task(desc, dt, names, status, recurrence, new GhostTask("true"));
     }
 
     /**
@@ -137,59 +58,35 @@ public class Task implements Comparable<Task> {
      *
      * @return same task object that has been marked as done
      */
-    public Task markAsDone() {
-        String overdueStatus = isTaskOverdue() ? "true" : "false";
-        return new Task(desc, dateTime, relatedNames, new Status("true", overdueStatus), recurrence);
-    }
+    public abstract Task markAsDone();
 
     /**
      * Marks task as overdue.
      *
      * @return same task object that has been marked as overdue
      */
-    public Task markAsOverdue() {
-        String completedStatus = isTaskDone() ? "true" : "false";
-        return new Task(desc, dateTime, relatedNames, new Status(completedStatus, "true"), recurrence);
-    }
+    public abstract Task markAsOverdue();
 
     /**
      * Resets the overdue status of the task.
      *
      * @return same task object that has been marked as undone and not overdue
      */
-    public Task markAsNotOverdue() {
-        String completedStatus = isTaskDone() ? "true" : "false";
-        return new Task(desc, dateTime, relatedNames,
-                new Status(completedStatus, "false"), recurrence, ghostTask);
-    }
+    public abstract Task markAsNotOverdue();
 
     /**
      * Updates the date of the recurring task such that it is not overdue.
      *
      * @return same task object that has a date in the future
      */
-    public Task updateDateRecurringTask() {
-        LocalDateTime currentDateTime = LocalDateTime.now();
-        if (recurrence.isRecurring()) {
-            RecurrenceType recurrenceType = recurrence.getRecurrenceType();
-            assert(recurrenceType != RecurrenceType.NONE);
-
-            DateTime dateTime = changeTaskDate(currentDateTime, recurrenceType);
-            return new Task(desc, dateTime, relatedNames,
-                    new Status("false", "false"), recurrence);
-        } else {
-            return this;
-        }
-
-
-    }
+    public abstract Task updateDateRecurringTask();
 
     /**
      * Checks if this task is a recurring task.
      *
      * @return True if the task is a recurring task; false otherwise.
      */
-    public boolean checkIfTaskRecurring() {
+    public boolean isTaskRecurring() {
         return this.recurrence.isRecurring();
     }
 
@@ -198,8 +95,8 @@ public class Task implements Comparable<Task> {
      *
      * @return True if real task; false if ghost task.
      */
-    public boolean checkIfRealTask() {
-        return !this.ghostTask.checkIfGhostTask();
+    public boolean isRealTask() {
+        return (this instanceof RealTask);
     }
 
     /**
@@ -207,49 +104,8 @@ public class Task implements Comparable<Task> {
      *
      * @return True if the task is on the same date; false otherwise.
      */
-    public boolean checkIfTaskFallsOnDate(LocalDate givenDate) {
+    public boolean doesTaskFallOnDate(LocalDate givenDate) {
         return this.dateTime.isSameDate(givenDate);
-    }
-
-    /**
-     * Converts the given task to a ghost task.
-     */
-    public void setGhostTask() {
-        //TODO change variables to new copies. new Desc(desc) etc.
-        ghostTask = new GhostTask("true");
-    }
-
-    private DateTime changeTaskDate(LocalDateTime currentDateTime, RecurrenceType recurrenceType) {
-        LocalDate taskDate = dateTime.date;
-        LocalTime taskTime = dateTime.time;
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd MM yyyy HH mm");
-        String inputString = String.format("%02d", taskDate.getDayOfMonth()) + " "
-                + String.format("%02d", taskDate.getMonthValue()) + " "
-                + String.format("%02d", taskDate.getYear()) + " "
-                + String.format("%02d", taskTime.getHour()) + " "
-                + String.format("%02d", taskTime.getMinute());
-        LocalDateTime taskLocalDateTime = LocalDateTime.parse(inputString, dtf);
-        long daysBetween = Duration.between(taskLocalDateTime, currentDateTime).toDays();
-
-        return changeTaskDateBasedOnRecurrence(recurrenceType, taskLocalDateTime, daysBetween);
-    }
-
-    private DateTime changeTaskDateBasedOnRecurrence(RecurrenceType recurrenceType,
-                                                 LocalDateTime taskLocalDateTime, long daysBetween) {
-        assert(daysBetween > 0);
-        LocalDateTime taskNewLocalDateTime = taskLocalDateTime;
-        if (recurrenceType == RecurrenceType.DAY) {
-            taskNewLocalDateTime = taskLocalDateTime.plusDays(daysBetween + 1);
-        } else if (recurrenceType == RecurrenceType.WEEK) {
-            int daysToAdd = ((int) (daysBetween / 7)) * 7 + 7;
-            taskNewLocalDateTime = taskLocalDateTime.plusDays(daysToAdd);
-        } else {
-            // assume its + 4 weeks
-            int daysToAdd = ((int) (daysBetween / 28)) * 28 + 28;
-            taskNewLocalDateTime = taskLocalDateTime.plusDays(daysToAdd);
-        }
-        // time is fixed
-        return new DateTime(taskNewLocalDateTime.toLocalDate(), taskLocalDateTime.toLocalTime());
     }
 
     /**
@@ -314,15 +170,6 @@ public class Task implements Comparable<Task> {
         return recurrence;
     }
 
-    /**
-     * Returns identity (ghost task or not) of this task.
-     *
-     * @return identity of this task
-     */
-    public GhostTask getGhostTask() {
-        return ghostTask;
-    }
-
     public void setDateTime(DateTime dt) {
         this.dateTime = dt;
     }
@@ -332,52 +179,7 @@ public class Task implements Comparable<Task> {
      *
      * @return A copy of the current task.
      */
-    public Task copyTask() {
-        Description copyDesc = new Description(this.desc.value);
-        DateTime copyDt = new DateTime(this.dateTime.getStringDate(), this.dateTime.getStringTime());
-        Set<Name> copyRelatedNames = new HashSet<>();
-        for (Name name : relatedNames) {
-            copyRelatedNames.add(new Name(name.fullName));
-        }
-        Status copyStatus = new Status(this.status.isDone, this.status.isOverdue);
-        Recurrence copyRecurrence = new Recurrence(this.recurrence.toString());
-
-        if (ghostTask.checkIfGhostTask()) {
-            return createGhostTask(copyDesc, copyDt, copyRelatedNames, copyStatus, copyRecurrence);
-        } else {
-            return new Task(copyDesc, copyDt, copyRelatedNames, copyStatus, copyRecurrence);
-        }
-    }
-
-    /**
-     * Copies the task and returns the next occurrence of it if it is a recurring task.
-     * Keeps all other fields as it is.
-     * If the task is not a recurring task, simply returns the current instance.
-     *
-     * @return A copy of the next occurrence of the given task if recurring; otherwise returns current instance.
-     */
-    public Task createNextTaskOccurrence() {
-        if (!this.checkIfTaskRecurring()) {
-            return this;
-        }
-
-        Task copyTask = this.copyTask();
-
-        DateTime nextDateTime;
-        RecurrenceType taskRecurrenceType = copyTask.recurrence.getRecurrenceType();
-        if (taskRecurrenceType == RecurrenceType.DAY) {
-            nextDateTime = copyTask.dateTime.incrementDateByDays(1);
-        } else if (taskRecurrenceType == RecurrenceType.WEEK) {
-            nextDateTime = copyTask.dateTime.incrementDateByWeeks(1);
-        } else { //taskRecurrenceType == RecurrenceType.MONTH
-            //a month is assumed to be 4 weeks long only, since all months do not have an equivalent number of days.
-            nextDateTime = copyTask.dateTime.incrementDateByDays(28);
-        }
-
-        copyTask.setDateTime(nextDateTime);
-        return copyTask;
-
-    }
+    public abstract Task copyTask();
 
     public void setDate(LocalDate newDate) {
         this.dateTime = new DateTime(newDate, this.dateTime.getTime());
@@ -458,20 +260,6 @@ public class Task implements Comparable<Task> {
 
         return otherTask != null
                 && otherTask.getDesc().equals(getDesc()) && otherTask.getDateTime().equals(getDateTime());
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof Task) {
-            Task other = (Task) obj;
-            return other.getDesc().equals(this.desc)
-                    && other.getDateTime().equals(this.dateTime)
-                    && other.getRelatedNames().equals(this.relatedNames)
-                    && other.getStatus().equals(this.status)
-                    && other.getRecurrence().equals(this.recurrence)
-                    && other.getGhostTask().equals(this.ghostTask);
-        }
-        return false;
     }
 
     @Override
