@@ -72,7 +72,7 @@ public class Status {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(isDone)
-                .append("; ") 
+                .append("; ")
                 .append(isOverdue);
 
         return builder.toString();

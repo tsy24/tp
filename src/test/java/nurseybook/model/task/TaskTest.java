@@ -35,8 +35,8 @@ import nurseybook.testutil.TaskBuilder;
 
 public class TaskTest {
 
-    private final Task keithInsulin = new TaskBuilder(KEITH_INSULIN).build();
-    private final Task applyLeave = new TaskBuilder(APPLY_LEAVE).build();
+    private final Task keithInsulin = new TaskBuilder(KEITH_INSULIN).build(); // date: 2020-11-01 time: 19:45
+    private final Task applyLeave = new TaskBuilder(APPLY_LEAVE).build(); // date: 2021-10-01 time: 00:00
 
     @Test
     public void asObservableList_modifyList_throwsUnsupportedOperationException() {
@@ -175,12 +175,23 @@ public class TaskTest {
     void isTaskOverdue() {
         assertTrue(applyLeave.isTaskOverdue()); // status: isOverdue = "true"
         assertTrue(keithInsulin.isTaskOverdue()); // status: isOverdue = "true"
+
+        Task notOverdueKeithInsulin = new TaskBuilder(keithInsulin)
+                .withStatus("true", "false").build();
+
+        assertFalse(notOverdueKeithInsulin.isTaskOverdue());
     }
 
     @Test
     void markTaskDone() {
         Task doneKeith = new TaskBuilder(keithInsulin).withStatus("true", "true").build();
         assertEquals(keithInsulin.markAsDone(), doneKeith);
+    }
+
+    @Test
+    void markTaskNotOverdue() {
+        Task notOverdueKeith = new TaskBuilder(keithInsulin).withStatus("false", "false").build();
+        assertEquals(keithInsulin.markAsNotOverdue(), notOverdueKeith);
     }
 
     @Test
