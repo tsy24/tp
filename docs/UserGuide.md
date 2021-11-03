@@ -461,9 +461,11 @@ Format: `viewSchedule DATE`
 Example:
 `viewSchedule 2022-02-14`
 
+<div markdown="span" class="alert alert-warning">
+
 :exclamation: **Caution**
 * NurseyBook will not automatically refresh the displayed task list to reflect
-instantaneous changes such as overdue tasks and new dates of recurring tasks.
+instantaneous changes, such as overdue tasks and new dates of recurring tasks.
 * However, you can manually trigger this refresh, and one way is to enter
  `viewTasks` in the command box.
 * This will update the overdue status of all tasks and new dates of all
@@ -475,6 +477,7 @@ recurring tasks.
     you can enter `viewTasks`, otherwise the task's date will remain
     unchanged.
 
+</div>
 
 ### Miscellaneous commands
 
