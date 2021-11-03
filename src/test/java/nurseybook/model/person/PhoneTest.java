@@ -25,7 +25,7 @@ public class PhoneTest {
         assertFalse(Phone.isValidPhone("9011p041")); // alphabets within digits
         assertFalse(Phone.isValidPhone("9312 1534")); // spaces within digits
         assertFalse(Phone.isValidPhone("931201534")); // 7 digits
-        assertFalse(Phone.isValidPhone("9312534")); // 8 digits
+        assertFalse(Phone.isValidPhone("9312534")); // 9 digits
 
         // valid phone numbers
         assertTrue(Phone.isValidPhone("91135566")); // exactly 8 numbers
