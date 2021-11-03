@@ -90,7 +90,7 @@ Text that appear in a tip box are useful for improving your experience with Nurs
 
 <div markdown="block" class="alert alert-primary">
 
-:bulb: **Tips**
+:bulb: **Tips:**
 Example tips.
 
 </div>
@@ -98,9 +98,9 @@ Example tips.
 
 #### 3.2.2 Sections of the Application Window
 
-You can refer to the image below for the names of the different sections in NurseyBook's applicatin window. 
+You can refer to the image below for the names of the different sections in NurseyBook's application window. 
 
-![nurseybook_application_window](/Users/jingyaxiong/Desktop/tp/docs/images/userGuide/application_window.png)
+![nurseybook_application_window](images/userGuide/application_window.png)
 
 
 #### 3.2.3 Navigating in NurseyBook
@@ -120,20 +120,20 @@ e.g. `viewTasks`
 Commands in this guide follow such rules:
 
 * Words in `UPPER_CASE` are the parameters to be supplied by you.<br>
-  e.g. in `addElderly n/NAME`, `NAME` is a parameter which can be used as `addElderly n/Swee Choon`.
+  e.g. in `addElderly en/ELDERLY_NAME`, `NAME` is a parameter which can be used as `addElderly en/Swee Choon`.
 
 * Items in square brackets are optional.<br>
-  e.g. `n/NAME [t/TAG]` can be used as `n/Swee Choon t/vegan` or as `n/Swee Choon`.
+  e.g. `en/ELDERLY_NAME [t/TAG]` can be used as `en/Swee Choon t/vegan` or as `en/Swee Choon`.
 
 * Items with `…`​ after them can be used multiple times including zero times.<br>
   e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 
 * Parameters can be in any order.<br>
-  e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+  e.g. if the command specifies `en/ELDERLY_NAME p/NOK_PHONE_NUMBER`, `p/NOK_PHONE_NUMBER en/ELDERLY_NAME` is also acceptable.
 
 <div markdown="block" class="alert alert-info">
 
-**:information_source: Information:**<br>
+**:information_source: Information:**
 
 * If a parameter is expected only once in the command but you specified it multiple times, only the last occurrence of the parameter will be taken.<br>
   e.g. if you specify `p/12341234 p/56785678`, only `p/56785678` will be taken.
@@ -215,8 +215,8 @@ Examples:
 * `addElderly en/John a/77 g/M r/420 t/diabetes`
 * `addElderly en/John a/77 g/M r/420 t/diabetes nn/Timothy rs/Son`
 
-![](/Users/jingyaxiong/Desktop/tp/docs/images/userGuide/add_elderly_0.png)
-![](/Users/jingyaxiong/Desktop/tp/docs/images/userGuide/add_elderly_1.png)
+![](images/userGuide/add_elderly_0.png)
+![](images/userGuide/add_elderly_1.png)
 
 
 #### Delete an elderly : `deleteElderly`
@@ -309,7 +309,7 @@ Format: `viewDetails INDEX`
 
 </div>
 
-![](/Users/jingyaxiong/Desktop/tp/docs/images/userGuide/view_details.png)
+![](images/userGuide/view_details.png)
 
 
 #### Delete an elderly's NoK details : `deleteNok`
@@ -388,7 +388,7 @@ Format: `filter t/TAG [t/TAG]…​`
 Example:
 * `filter t/covid t/diabetes`
 
-![](/Users/jingyaxiong/Desktop/tp/docs/images/userGuide/filter.png)
+![](images/userGuide/filter.png)
 
 
 #### Add remark to elderly: `remark`
@@ -453,8 +453,8 @@ Format: `addTask [en/ELDERLY_NAME]... desc/DESCRIPTION date/DATE time/TIME [recu
 Example:
 `addTask en/John desc/check insulin level date/2022-01-25 time/19:22 recur/week`
 
-![](/Users/jingyaxiong/Desktop/tp/docs/images/userGuide/add_task_0.png)
-![](/Users/jingyaxiong/Desktop/tp/docs/images/userGuide/add_task_1.png)
+![](images/userGuide/add_task_0.png)
+![](images/userGuide/add_task_1.png)
 
 #### Delete a task: `deleteTask`
 
@@ -518,7 +518,7 @@ Examples:
 * `findTask Day` returns `day` and `Day routine`
 * `findTask Day shift` returns `Day routine`, `Shift items`
 
-![](/Users/jingyaxiong/Desktop/tp/docs/images/userGuide/find_task.png)
+![](images/userGuide/find_task.png)
 
 
 #### Mark a task as completed: `doneTask`
@@ -548,7 +548,7 @@ those under your care.
 
 Format: `remind`
 
-![](/Users/jingyaxiong/Desktop/tp/docs/images/userGuide/remind.png)
+![](images/userGuide/remind.png)
 
 
 #### View task schedule: `viewSchedule`
@@ -569,7 +569,7 @@ Format: `viewSchedule DATE`
 Example:
 `viewSchedule 2022-02-14`
 
-![](/Users/jingyaxiong/Desktop/tp/docs/images/userGuide/viewSchedule.png)
+![](images/userGuide/viewSchedule.png)
 
 
 <div markdown="span" class="alert alert-warning">
