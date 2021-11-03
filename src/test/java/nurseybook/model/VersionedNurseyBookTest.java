@@ -17,6 +17,7 @@ import org.junit.jupiter.api.Test;
 import nurseybook.logic.commands.CommandResult;
 import nurseybook.testutil.NurseyBookBuilder;
 
+// Solution below adapted from https://github.com/se-edu/addressbook-level4
 public class VersionedNurseyBookTest {
 
     private final ReadOnlyNurseyBook nurseyBookInitial = getTypicalNurseyBook();
@@ -238,6 +239,9 @@ public class VersionedNurseyBookTest {
         assertFalse(versionedNurseyBook.equals(versionedNurseyBookCopy));
     }
 
+    //@@author tsy24-reused
+    //Reused from https://github.com/se-edu/addressbook-level4
+    // with minor modifications
     /**
      * Asserts that {@code versionedNurseyBook} is currently pointing at {@code expectedCurrentState},
      * states before {@code versionedNurseyBook#currentStateIndex} is equal to {@code expectedStatesBeforeIndex},
@@ -273,5 +277,5 @@ public class VersionedNurseyBookTest {
         // revert index to original position
         expectedStatesAfterIndex.forEach(unused -> versionedNurseyBook.undo());
     }
-
+    //@@author
 }
