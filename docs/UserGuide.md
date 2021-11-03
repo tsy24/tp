@@ -5,8 +5,6 @@ title: User Guide
 
 NurseyBook is a **desktop app made for nurses in nursing homes to aid them in managing contacts and tasks in their busy lives. It is optimized for use via a Command Line Interface** (CLI) while still **having the benefits of a Graphical User Interface** (GUI). If you can type fast, NurseyBook can manage your contacts & tasks done faster than traditional GUI apps! :smile:
 
-## Table of Contents
-
 * Table of Contents
   {:toc}
 
@@ -66,7 +64,7 @@ This section contains the documentation on NurseyBook's features and commands. I
 2. Elderly commands
 3. Task commands
 4. Miscellaneous commands
-5. Storage 
+5. Storage
 
 ### Command format
 
@@ -78,7 +76,7 @@ This section contains the documentation on NurseyBook's features and commands. I
   e.g. in `addElderly n/NAME`, `NAME` is a parameter which can be used as `addElderly n/Swee Choon`.
 
 * Items in square brackets are optional.<br>
-  e.g `n/NAME [t/TAG]` can be used as `n/Swee Choon t/vegan` or as `n/Swee Choon`.
+  e.g. `n/NAME [t/TAG]` can be used as `n/Swee Choon t/vegan` or as `n/Swee Choon`.
 
 * Items with `…`​ after them can be used multiple times including zero times.<br>
   e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
@@ -111,7 +109,7 @@ Format: `addElderly en/ELDERLY_NAME a/AGE g/GENDER r/ROOMNO [t/TAG]…​ [nn/NO
 <div markdown="block" class="alert alert-info">
 
 :information_source: **Information:**
-* A elderly can have any number of tags (including 0).
+* An elderly can have any number of tags (including 0).
 
 </div>
 
@@ -137,7 +135,7 @@ Format: `deleteElderly INDEX`
 </div>
 
 Examples:
-* `viewElderly` followed by `delete 2` deletes the 2nd elderly in NurseyBook.
+* `viewElderly` followed by `deleteElderly 2` deletes the 2nd elderly in NurseyBook.
 
 
 #### Edit an elderly's details: `editElderly`
@@ -161,6 +159,17 @@ e.g. `editElderly 1 re/`
 
 </div>
 
+<div markdown="block" class="alert alert-warning">
+
+:exclamation: **Caution**
+* By leaving the tag input empty, you will remove all the tags currently assigned to the elderly.
+* If you want to add a tag with `editElderly`, you have to include all the existing tags of the elderly in your command.
+
+e.g. John has an existing tag `cancer`, and he is at index 1 in the current list of elderly displayed. To add a tag to John, your command should be `editElderly 1 t/overweight t/covid`.
+
+* For more accessible tag related commands, do refer to the `addTag` and `deleteTag` commands.
+</div>
+
 
 #### Find elderly: `findElderly`
 
@@ -171,7 +180,7 @@ Format: `findElderly KEYWORD [MORE_KEYWORDS]`
 <div markdown="block" class="alert alert-info">
 
 :information_source: **Information:**
-* The search is case-insensitive. e.g `elena` will match `Elena`
+* The search is case-insensitive. e.g. `elena` will match `Elena`
 * The order of the keywords does not matter. e.g. `Elena Kro` will match `Kro Elena`
 * Only the name is searched.
 * Only full words will be matched. e.g. `Ele` will not match `Elena`
@@ -317,22 +326,28 @@ Format: `viewTasks`
 
 Adds a task to the task list.
 
+<div markdown="block" class="alert alert-primary">
+
 :bulb: **Tip:**
 You can add a recurring task to the list! <br>
-There are a few recurring options available namely: `DAY`, `WEEK` and `MONTH` (4 weeks later from the previous date). Tasks that have passed their original date will have their date automatically changed to the new date based on the recurrence type of the task.
+There are a few recurring options available namely: `NONE`, `DAY`, `WEEK` and `MONTH` (4 weeks later from the previous date). Tasks that have passed their original date will have their date automatically updated to the new date based on the recurrence type of the task.
+
+If you want to create a non-recurring task, you can exclude the `recur` field. NurseyBook will automatically assume that the task is non-recurring.
+
+</div>
 
 <div markdown="block" class="alert alert-info">
 
 :information_source: **Information:**
 
-* Will automatically change the display view to your task list, so that you can see the task you added.
+* Executing the command will automatically change the display view to your task list, so that you can see the task you added.
 
 </div>
 
 Format: `addTask [en/ELDERLY_NAME]... desc/DESCRIPTION date/DATE time/TIME [recur/RECURRENCE_TYPE]`  
 
 Example:
-`addTask en/John desc/check insulin level date/2021-09-25 time/19:22 recur/week`
+`addTask en/John desc/check insulin level date/2022-01-25 time/19:22 recur/week`
 
 
 #### Delete a task: `deleteTask`
@@ -352,7 +367,7 @@ Format: `deleteTask INDEX`
 </div>
 
 Examples:
-* `viewTasks` followed by `delete 2` deletes the 2nd task shown by NurseyBook.
+* `viewTasks` followed by `deleteTask 2` deletes the 2nd task shown by NurseyBook.
 
 
 #### Edit a task: `editTask`
@@ -361,8 +376,18 @@ Edits the details of a specific task.
 
 Format: `editTask INDEX [en/ELDERLY_NAME]... [desc/DESCRIPTION] [date/DATE] [time/TIME] [recur/RECURRENCE_TYPE]`
 
+<div markdown="block" class="alert alert-info">
+
+:information_source: **Information**
+
+* If the date/recurrence type of a recurring task is edited, the updated date generated will be based on the most recently edited date.
+
+e.g. Date of task is `2022-01-01` with `daily` recurrence. On `2022-01-03`, the task is edited to be `weekly` recurring. When the next occurrence of the task is generated by NurseyBook, the date of the task will be `2022-01-10`.
+
+</div>
+
 Example:
-* `viewTasks` followed by `editTask 1 date/2021-12-25` changes the date of the 1st task shown by NurseyBook to Christmas.
+* `viewTasks` followed by `editTask 1 date/2022-01-30` changes the date of the 1st task shown by NurseyBook to 30 January 2022.
 
 
 #### Find a task: `findTask`
@@ -373,7 +398,7 @@ Format: `findTask KEYWORD [MORE_KEYWORDS]`
 
 <div markdown="block" class="alert alert-info">
 
-:information_source: **Information:**
+information_source: **Information:**
 
 * The search is case-insensitive. e.g. `shift` will match `Shift`
 * The order of the keywords does not matter. e.g. `Day shift` will match `shift Day`
@@ -384,8 +409,8 @@ Format: `findTask KEYWORD [MORE_KEYWORDS]`
 </div>
 
 Examples:
-* `findElderly Day` returns `day` and `Day routine`
-* `findElderly Day shift` returns `Day routine`, `Shift items`
+* `findTask Day` returns `day` and `Day routine`
+* `findTask Day shift` returns `Day routine`, `Shift items`
 
 
 #### Mark a task as completed: `doneTask`
@@ -405,7 +430,7 @@ Format: `doneTask INDEX`
 </div>
 
 Examples:
-* `viewTasks` followed by `done 2` marks the 2nd task shown by NurseyBook as completed.
+* `viewTasks` followed by `doneTask 2` marks the 2nd task shown by NurseyBook as completed.
 
 
 #### View reminders: `remind`
@@ -432,9 +457,25 @@ Format: `viewSchedule DATE`
 </div>
 
 Example:
-`viewSchedule 2021-11-02`
+`viewSchedule 2022-02-14`
 
+<div markdown="span" class="alert alert-warning">
 
+:exclamation: **Caution**
+* NurseyBook will not automatically refresh the displayed task list to reflect
+instantaneous changes, such as overdue tasks and new dates of recurring tasks.
+* However, you can manually trigger this refresh, and one way is to enter
+ `viewTasks` in the command box.
+* This will update the overdue status of all tasks and new dates of all
+recurring tasks.
+  * E.g. If the time now is 9.01pm and there is an undone task which is due at
+    9.00pm the same day, you can enter `viewTasks`,
+    otherwise the red overdue tag will not show automatically.
+  * E.g. If the time now is 9.01pm and there is a recurring task due at 9.00pm,
+    you can enter `viewTasks`, otherwise the task's date will remain
+    unchanged.
+
+</div>
 
 ### Miscellaneous commands
 
@@ -455,7 +496,7 @@ Format: `undo`
 * Non-undoable commands: `findElderly`, `filter`, `viewDetails`, `viewElderly`, `findTask`, `remind`, `viewTasks`, `viewSchedule`
 * If there are no undoable commands executed previously, the undo command will fail and an error message will be shown.
 
-Example: 
+Example:
 * `deleteElderly 1` followed by `undo` causes the `deleteElderly 1` command to be undone and no elderly is deleted from the NurseyBook.
 
 
@@ -468,10 +509,10 @@ Format: `redo`
 * If there are no undo commands executed previously, the redo command will fail and an error message will be shown.
 
 Example:
-* `deleteElderly 1` followed by `undo` causes the `deleteElderly 1` command to be undone and no elderly is deleted from the NurseyBook. 
+* `deleteElderly 1` followed by `undo` causes the `deleteElderly 1` command to be undone and no elderly is deleted from the NurseyBook.
 Entering `redo` will reverse the previous undo command, causing the elderly to be deleted again.
 
-  
+
 #### Exiting the program : `exit`
 
 Exits the program.
@@ -491,8 +532,11 @@ NurseyBook's data are saved in the hard disk automatically after any command tha
 NurseyBook data are saved as a JSON file `[JAR file location]/data/nurseybook.json`. If you are technologically savvy, you
 are also welcome to update data directly by editing that data file.
 
-<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
+<div markdown="span" class="alert alert-warning">
+
+:exclamation: **Caution:**
 If your changes to the data file makes its format invalid, NurseyBook will discard all data and start with an empty data file at the next run.
+
 </div>
 
 --------------------------------------------------------------------------------------------------------------------
@@ -532,13 +576,13 @@ Action | Format, Examples
 
 Action | Format, Examples
 --------|------------------
-**Add a task** | `addTask [en/ELDERLY_NAME] desc/DESCRIPTION date/DATE time/TIME [recur/RECURRENCE_TYPE]` <br> <br> e.g., `addTask en/John desc/check insulin level date/2021-09-25 time/10.00am recur/week`
-**Delete a task** | `deleteTask INDEX`<br> e.g., `delete 3`
+**Add a task** | `addTask [en/ELDERLY_NAME] desc/DESCRIPTION date/DATE time/TIME [recur/RECURRENCE_TYPE]` <br> <br> e.g., `addTask en/John desc/check insulin level date/2022-01-25 time/10:00 recur/week`
+**Delete a task** | `deleteTask INDEX`<br> e.g., `deleteTask 3`
 **Edit a task** | `editTask INDEX [en/ELDERLY_NAME] [desc/DESCRIPTION] [date/DATE] [time/TIME] [recur/RECURRENCE_TYPE]` <br> <br> e.g., `editTask 2 desc/Meeting with head nurse`
 **Find a task** | `findTask KEYWORD [MORE_KEYWORDS]`
-**Mark a task as complete** | `doneTask INDEX`<br> e.g., `done 3`
+**Mark a task as complete** | `doneTask INDEX`<br> e.g., `doneTask 3`
 **Remind** | `remind`
-**View Schedule** | `viewSchedule DATE` <br> e.g., `viewSchedule 2021-11-02`
+**View Schedule** | `viewSchedule DATE` <br> e.g., `viewSchedule 2022-02-14`
 **View all tasks** | `viewTasks`
 
 

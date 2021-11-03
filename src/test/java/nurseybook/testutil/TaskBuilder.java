@@ -12,6 +12,7 @@ import nurseybook.model.person.Name;
 import nurseybook.model.task.DateTime;
 import nurseybook.model.task.Description;
 import nurseybook.model.task.GhostTask;
+import nurseybook.model.task.RealTask;
 import nurseybook.model.task.Recurrence;
 import nurseybook.model.task.Status;
 import nurseybook.model.task.Task;
@@ -23,14 +24,13 @@ public class TaskBuilder {
     public static final String DEFAULT_TIME = "18:09";
     public static final List<String> DEFAULT_STATUS = Arrays.asList("false", "false");
     public static final String DEFAULT_RECURRENCE = Recurrence.RecurrenceType.NONE.name();
-    public static final String DEFAULT_GHOST_TASK = "false";
 
     private Description desc;
     private DateTime dateTime;
     private Set<Name> names;
     private Status status;
     private Recurrence recurrence;
-    private GhostTask ghostTask;
+    private Boolean isRealTask;
 
     /**
      * Creates a {@code TaskBuilder} with the default details.
@@ -45,7 +45,41 @@ public class TaskBuilder {
         status = new Status(isDone, isOverdue);
 
         recurrence = new Recurrence(DEFAULT_RECURRENCE);
-        ghostTask = new GhostTask(DEFAULT_GHOST_TASK);
+        isRealTask = true;
+    }
+
+    /**
+     * Creates a {@code TaskBuilder} with the default details.
+     *
+     * @param isRealTask Whether the task to build is a real or ghost task.
+     */
+    public TaskBuilder(Boolean isRealTask) {
+        desc = new Description(DEFAULT_DESC);
+        dateTime = new DateTime(DEFAULT_DATE, DEFAULT_TIME);
+        names = new HashSet<>();
+
+        String isDone = DEFAULT_STATUS.get(0);
+        String isOverdue = DEFAULT_STATUS.get(1);
+        status = new Status(isDone, isOverdue);
+
+        recurrence = new Recurrence(DEFAULT_RECURRENCE);
+        this.isRealTask = isRealTask;
+    }
+
+    /**
+     * Initializes the TaskBuilder with the data of {@code taskToCopy}. Task type of task is determined by
+     * {@code isRealTask}.
+     *
+     * @param taskToCopy Task to copy.
+     * @param isRealTask Whether the task built is real or a ghost task.
+     */
+    public TaskBuilder(Task taskToCopy, Boolean isRealTask) {
+        desc = taskToCopy.getDesc();
+        dateTime = taskToCopy.getDateTime();
+        names = new HashSet<>(taskToCopy.getRelatedNames());
+        status = taskToCopy.getStatus();
+        recurrence = taskToCopy.getRecurrence();
+        this.isRealTask = isRealTask;
     }
 
     /**
@@ -57,7 +91,7 @@ public class TaskBuilder {
         names = new HashSet<>(taskToCopy.getRelatedNames());
         status = taskToCopy.getStatus();
         recurrence = taskToCopy.getRecurrence();
-        ghostTask = taskToCopy.getGhostTask();
+        isRealTask = taskToCopy.isRealTask();
     }
 
     /**
@@ -121,18 +155,12 @@ public class TaskBuilder {
     }
 
     /**
-     * Sets the {@code GhostTask} of the {@code Task} that we are building.
-     */
-    public TaskBuilder withGhostTask(String ghostTask) {
-        this.ghostTask = new GhostTask(ghostTask);
-        return this;
-    }
-
-
-    /**
      * Returns task object created with fields of the taskBuilder
      */
     public Task build() {
-        return new Task(desc, dateTime, names, status, recurrence, ghostTask);
+        if (!isRealTask) {
+            return new GhostTask(desc, dateTime, names, status, recurrence);
+        }
+        return new RealTask(desc, dateTime, names, status, recurrence);
     }
 }

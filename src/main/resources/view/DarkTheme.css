@@ -311,7 +311,6 @@
     -fx-font-size: 20px;
     -fx-text-fill: #202632;
     -fx-pref-height: 150;
-    -fx-text-alignment: center-left;
 }
 
 .pane-with-no-border {
@@ -372,8 +371,8 @@
     -fx-background-radius: 20;
     -fx-background-color: white;
 }
-.titled-pane > .title > .arrow-button > .arrow
-{
+
+.titled-pane > .title > .arrow-button > .arrow {
     -fx-background-color: transparent;
     -fx-border-color: transparent;
     -fx-effect: null;

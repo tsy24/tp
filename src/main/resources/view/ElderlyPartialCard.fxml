@@ -7,23 +7,23 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<?import javafx.scene.layout.Pane?>
-<HBox id="partialCard" fx:id="partialCard" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<HBox id="partialCard" fx:id="partialCard" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
     <GridPane HBox.hgrow="ALWAYS">
         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="100"/>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="100" />
         </columnConstraints>
-        <VBox alignment="CENTER_LEFT" fillWidth="true" minHeight="85" GridPane.columnIndex="0">
+        <VBox alignment="CENTER_LEFT" fillWidth="true" minHeight="85.0" GridPane.columnIndex="0">
             <padding>
-                <Insets top="5" right="15" bottom="5" left="15" />
+                <Insets bottom="5" left="15" right="15" top="5" />
             </padding>
-            <HBox spacing="5" alignment="CENTER_LEFT">
+            <HBox alignment="CENTER_LEFT" spacing="5">
                 <GridPane HBox.hgrow="ALWAYS">
                     <columnConstraints>
-                        <ColumnConstraints hgrow="ALWAYS" percentWidth="50"/>
-                        <ColumnConstraints hgrow="ALWAYS" percentWidth="50"/>
+                        <ColumnConstraints hgrow="ALWAYS" percentWidth="50" />
+                        <ColumnConstraints hgrow="ALWAYS" percentWidth="50" />
                     </columnConstraints>
                     <HBox GridPane.columnIndex="0">
                         <Label fx:id="id" styleClass="cell_big_label" HBox.hgrow="NEVER">
@@ -32,20 +32,26 @@
                                 <Region fx:constant="USE_PREF_SIZE" />
                             </minWidth>
                         </Label>
-                        <Label fx:id="name" text="\$first" styleClass="cell_big_label">
+                        <Label fx:id="name" styleClass="cell_big_label" text="\$first">
                             <minWidth>
                                 <Region fx:constant="USE_PREF_SIZE" />
                             </minWidth>
                         </Label>
                     </HBox>
-                    <Label fx:id="roomNumber" styleClass="cell_small_label" GridPane.columnIndex="1" text="\$roomNumber">
+                    <Label fx:id="roomNumber" styleClass="cell_small_label" text="\$roomNumber" GridPane.columnIndex="1">
                         <minWidth>
                             <Region fx:constant="USE_PREF_SIZE" />
                         </minWidth>
                     </Label>
+               <rowConstraints>
+                  <RowConstraints />
+               </rowConstraints>
                 </GridPane>
             </HBox>
-            <FlowPane fx:id="tags"/>
+            <FlowPane fx:id="tags" />
         </VBox>
+      <rowConstraints>
+         <RowConstraints />
+      </rowConstraints>
     </GridPane>
 </HBox>

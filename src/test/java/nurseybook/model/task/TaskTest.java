@@ -131,6 +131,9 @@ public class TaskTest {
         // different recurrence -> returns false
         editedTask = new TaskBuilder(keithInsulin).withRecurrence(Recurrence.RecurrenceType.MONTH.name()).build();
         assertFalse(keithInsulin.equals(editedTask));
+
+        // different Task Type -> returns false
+        assertFalse(keithInsulin.equals(APPLY_LEAVE_DAY_NEXT_RECURRENCE_GHOST));
     }
 
     @Test
@@ -178,44 +181,32 @@ public class TaskTest {
     }
 
     @Test
-    void markTaskDone() {
-        Task doneKeith = new TaskBuilder(keithInsulin).withStatus("true", "true").build();
-        assertEquals(keithInsulin.markAsDone(), doneKeith);
-    }
-
-    @Test
-    void markTaskOverdue() {
-        Task overdueKeith = new TaskBuilder(keithInsulin).withStatus("false", "true").build();
-        assertEquals(keithInsulin.markAsOverdue(), overdueKeith);
-    }
-
-    @Test
     void checkIfTaskRecurring() {
         //recurring task
-        Assertions.assertTrue(APPLY_LEAVE.checkIfTaskRecurring());
+        Assertions.assertTrue(APPLY_LEAVE.isTaskRecurring());
 
         //non-recurring task
-        assertFalse(keithInsulin.checkIfTaskRecurring());
+        assertFalse(keithInsulin.isTaskRecurring());
     }
 
     @Test
     void checkIfRealTask() {
         //real task
-        assertTrue(keithInsulin.checkIfRealTask());
+        assertTrue(keithInsulin.isRealTask());
 
         //ghost task
-        Assertions.assertFalse(APPLY_LEAVE_DAY_NEXT_RECURRENCE_GHOST.checkIfRealTask());
+        Assertions.assertFalse(APPLY_LEAVE_DAY_NEXT_RECURRENCE_GHOST.isRealTask());
     }
 
     @Test
     void checkIfTaskFallsOnDate() {
         //task falls on date
         LocalDate sameDate = LocalDate.parse("2020-11-01");
-        assertTrue(keithInsulin.checkIfTaskFallsOnDate(sameDate));
+        assertTrue(keithInsulin.doesTaskFallOnDate(sameDate));
 
         //task does not fall on date
         LocalDate differentDate = LocalDate.parse("2020-11-02");
-        assertFalse(keithInsulin.checkIfTaskFallsOnDate(differentDate));
+        assertFalse(keithInsulin.doesTaskFallOnDate(differentDate));
     }
 
     @Test
