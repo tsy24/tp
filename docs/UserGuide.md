@@ -100,7 +100,7 @@ Example tips.
 
 You can refer to the image below for the names of the different sections in NurseyBook's applicatin window. 
 
-![nurseybook_application_window](/Users/jingyaxiong/Desktop/tp/docs/images/application_window.png)
+![nurseybook_application_window](/Users/jingyaxiong/Desktop/tp/docs/images/userGuide/application_window.png)
 
 
 #### 3.2.3 Navigating in NurseyBook
@@ -215,6 +215,9 @@ Examples:
 * `addElderly en/John a/77 g/M r/420 t/diabetes`
 * `addElderly en/John a/77 g/M r/420 t/diabetes nn/Timothy rs/Son`
 
+![](/Users/jingyaxiong/Desktop/tp/docs/images/userGuide/add_elderly_0.png)
+![](/Users/jingyaxiong/Desktop/tp/docs/images/userGuide/add_elderly_1.png)
+
 
 #### Delete an elderly : `deleteElderly`
 
@@ -306,6 +309,8 @@ Format: `viewDetails INDEX`
 
 </div>
 
+![](/Users/jingyaxiong/Desktop/tp/docs/images/userGuide/view_details.png)
+
 
 #### Delete an elderly's NoK details : `deleteNok`
 
@@ -383,6 +388,8 @@ Format: `filter t/TAG [t/TAG]…​`
 Example:
 * `filter t/covid t/diabetes`
 
+![](/Users/jingyaxiong/Desktop/tp/docs/images/userGuide/filter.png)
+
 
 #### Add remark to elderly: `remark`
 
@@ -446,6 +453,8 @@ Format: `addTask [en/ELDERLY_NAME]... desc/DESCRIPTION date/DATE time/TIME [recu
 Example:
 `addTask en/John desc/check insulin level date/2022-01-25 time/19:22 recur/week`
 
+![](/Users/jingyaxiong/Desktop/tp/docs/images/userGuide/add_task_0.png)
+![](/Users/jingyaxiong/Desktop/tp/docs/images/userGuide/add_task_1.png)
 
 #### Delete a task: `deleteTask`
 
@@ -509,6 +518,8 @@ Examples:
 * `findTask Day` returns `day` and `Day routine`
 * `findTask Day shift` returns `Day routine`, `Shift items`
 
+![](/Users/jingyaxiong/Desktop/tp/docs/images/userGuide/find_task.png)
+
 
 #### Mark a task as completed: `doneTask`
 
@@ -537,6 +548,8 @@ those under your care.
 
 Format: `remind`
 
+![](/Users/jingyaxiong/Desktop/tp/docs/images/userGuide/remind.png)
+
 
 #### View task schedule: `viewSchedule`
 
@@ -555,6 +568,9 @@ Format: `viewSchedule DATE`
 
 Example:
 `viewSchedule 2022-02-14`
+
+![](/Users/jingyaxiong/Desktop/tp/docs/images/userGuide/viewSchedule.png)
+
 
 <div markdown="span" class="alert alert-warning">
 
