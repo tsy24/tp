@@ -18,12 +18,14 @@ import nurseybook.model.person.Nok;
 public class DeleteNokCommand extends Command {
 
     public static final String COMMAND_WORD = "deleteNok";
+    public static final String[] PARAMETERS = { Index.VALID_INDEX_CRITERIA };
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the NoK fields of an elderly identified by the index number used in the displayed "
             + "elderly list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + "Parameters: "
+            + String.join(" ", PARAMETERS)
+            + "\nExample: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_DELETE_ELDERLY_NOK_SUCCESS = "Deleted NoK of Elderly: %1$s";
 

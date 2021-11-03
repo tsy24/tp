@@ -16,11 +16,13 @@ import nurseybook.model.task.Task;
 public class DoneTaskCommand extends Command {
 
     public static final String COMMAND_WORD = "doneTask";
+    public static final String[] PARAMETERS = { Index.VALID_INDEX_CRITERIA };
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Marks the task identified by the index number used in the displayed task list as done.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + "Parameters: "
+            + String.join(" ", PARAMETERS)
+            + "\nExample: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_MARK_TASK_DONE_SUCCESS = "Marked task as done: %1$s";
 

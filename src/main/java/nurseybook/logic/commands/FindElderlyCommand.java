@@ -13,11 +13,13 @@ import nurseybook.model.person.NameContainsKeywordsPredicate;
 public class FindElderlyCommand extends Command {
 
     public static final String COMMAND_WORD = "findElderly";
+    public static final String[] PARAMETERS = { "KEYWORD", "[MORE_KEYWORDS]..." };
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all elderlies whose names contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " alice bob charlie";
+            + "Parameters: "
+            + String.join(" ", PARAMETERS)
+            + "\nExample: " + COMMAND_WORD + " alice bob charlie";
 
     private final NameContainsKeywordsPredicate predicate;
 

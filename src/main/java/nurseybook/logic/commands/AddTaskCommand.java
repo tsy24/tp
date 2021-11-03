@@ -20,15 +20,14 @@ import nurseybook.model.task.Task;
  */
 public class AddTaskCommand extends Command {
     public static final String COMMAND_WORD = "addTask";
+    public static final String[] PARAMETERS = { "[" + PREFIX_NAME + "NAME]...",
+        PREFIX_TASK_DESC + "DESCRIPTION", PREFIX_TASK_DATE + "DATE",
+        PREFIX_TASK_TIME + "TIME", "[" + PREFIX_TASK_RECURRING + "RECURRENCE_TYPE]" };
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the nursey book.\n"
             + "Parameters: "
-            + "[" + PREFIX_NAME + "NAME]..."
-            + PREFIX_TASK_DESC + "DESCRIPTION "
-            + PREFIX_TASK_DATE + "DATE "
-            + PREFIX_TASK_TIME + "TIME "
-            + "[" + PREFIX_TASK_RECURRING + "RECURRENCE_TYPE]\n"
-            + "Example: " + COMMAND_WORD + " "
+            + String.join(" ", PARAMETERS)
+            + "\nExample: " + COMMAND_WORD + " "
             + PREFIX_NAME + "Khong Guan "
             + PREFIX_NAME + "Swee Choon "
             + PREFIX_TASK_DESC + "Weekly Taiji "

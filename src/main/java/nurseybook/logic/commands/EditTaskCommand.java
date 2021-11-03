@@ -37,17 +37,16 @@ import nurseybook.model.task.Task;
  */
 public class EditTaskCommand extends Command {
     public static final String COMMAND_WORD = "editTask";
+    public static final String[] PARAMETERS = { Index.VALID_INDEX_CRITERIA, "[" + PREFIX_NAME + "NAME]...",
+        PREFIX_TASK_DESC + "DESCRIPTION", PREFIX_TASK_DATE + "DATE",
+        PREFIX_TASK_TIME + "TIME", "[" + PREFIX_TASK_RECURRING + "RECURRENCE_TYPE]" };
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the task identified "
             + "by the index number used in the displayed task list. "
             + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_NAME + "NAME] "
-            + "[" + PREFIX_TASK_DESC + "DESCRIPTION] "
-            + "[" + PREFIX_TASK_DATE + "DATE] "
-            + "[" + PREFIX_TASK_TIME + "TIME] "
-            + "[" + PREFIX_TASK_RECURRING + "RECURRENCE_TYPE]\n"
-            + "Example: " + COMMAND_WORD + " 1 "
+            + "Parameters: "
+            + String.join(" ", PARAMETERS)
+            + "\nExample: " + COMMAND_WORD + " 1 "
             + PREFIX_NAME + "Khong Guan "
             + PREFIX_NAME + "John Doe "
             + PREFIX_TASK_RECURRING + "WEEK";
