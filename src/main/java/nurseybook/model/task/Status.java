@@ -38,6 +38,7 @@ public class Status {
      */
     public Status(String completionStatus, String overdueStatus) {
         requireNonNull(completionStatus);
+        requireNonNull(overdueStatus);
 
         checkArgument(isValidStatus(completionStatus), MESSAGE_CONSTRAINTS);
         checkArgument(isValidStatus(overdueStatus), MESSAGE_CONSTRAINTS);
@@ -50,12 +51,14 @@ public class Status {
      * Constructs an {@code Status}.
      *
      * @param completionStatus A valid completion status in boolean.
-     * @param isOverdue A valid overdue status in boolean.
+     * @param overdueStatus A valid overdue status in boolean.
      */
-    public Status(Boolean completionStatus, boolean isOverdue) {
+    public Status(Boolean completionStatus, Boolean overdueStatus) {
         requireNonNull(completionStatus);
+        requireNonNull(overdueStatus);
+
         this.isDone = completionStatus;
-        this.isOverdue = isOverdue;
+        this.isOverdue = overdueStatus;
     }
 
     /**
@@ -69,7 +72,7 @@ public class Status {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(isDone)
-                .append("; ")
+                .append("; ") 
                 .append(isOverdue);
 
         return builder.toString();

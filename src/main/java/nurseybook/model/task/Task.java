@@ -135,52 +135,56 @@ public class Task implements Comparable<Task> {
     /**
      * Marks task as done.
      *
-     * @return same task object that has been marked as done
+     * @return A new duplicate task object, except that it is marked as done
      */
     public Task markAsDone() {
         String overdueStatus = isTaskOverdue() ? "true" : "false";
+
         return new Task(desc, dateTime, relatedNames, new Status("true", overdueStatus), recurrence);
     }
 
     /**
      * Marks task as overdue.
      *
-     * @return same task object that has been marked as overdue
+     * @return A new duplicate task object, except that it is marked as overdue
      */
     public Task markAsOverdue() {
         String completedStatus = isTaskDone() ? "true" : "false";
+
         return new Task(desc, dateTime, relatedNames, new Status(completedStatus, "true"), recurrence);
     }
 
     /**
      * Resets the overdue status of the task.
      *
-     * @return same task object that has been marked as undone and not overdue
+     * @return A new duplicate task object, except that it is marked as undone and not overdue
      */
     public Task markAsNotOverdue() {
         String completedStatus = isTaskDone() ? "true" : "false";
-        return new Task(desc, dateTime, relatedNames,
-                new Status(completedStatus, "false"), recurrence, ghostTask);
+
+        return new Task(desc, dateTime, relatedNames, new Status(completedStatus, "false"),
+                recurrence, ghostTask);
     }
 
     /**
      * Updates the date of the recurring task such that it is not overdue.
      *
-     * @return same task object that has a date in the future
+     * @return A new duplicate task object, except with a date in the future
      */
     public Task updateDateRecurringTask() {
         LocalDateTime currentDateTime = LocalDateTime.now();
+
         if (recurrence.isRecurring()) {
             RecurrenceType recurrenceType = recurrence.getRecurrenceType();
             assert(recurrenceType != RecurrenceType.NONE);
 
             DateTime dateTime = changeTaskDate(currentDateTime, recurrenceType);
+
             return new Task(desc, dateTime, relatedNames,
                     new Status("false", "false"), recurrence);
         } else {
             return this;
         }
-
 
     }
 
