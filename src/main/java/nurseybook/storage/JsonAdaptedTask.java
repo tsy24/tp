@@ -14,7 +14,7 @@ import nurseybook.commons.exceptions.IllegalValueException;
 import nurseybook.model.person.Name;
 import nurseybook.model.task.DateTime;
 import nurseybook.model.task.Description;
-import nurseybook.model.task.GhostTask;
+import nurseybook.model.task.RealTask;
 import nurseybook.model.task.Recurrence;
 import nurseybook.model.task.Status;
 import nurseybook.model.task.Task;
@@ -28,7 +28,6 @@ public class JsonAdaptedTask {
     private final String time;
     private final List<String> status;
     private final String recurrence;
-    private final String ghostTask;
 
     /**
      * Constructs a {@code JsonAdaptedTask} with the given task details.
@@ -36,8 +35,7 @@ public class JsonAdaptedTask {
     @JsonCreator
     public JsonAdaptedTask(@JsonProperty("names") List<String> names, @JsonProperty("description") String description,
                            @JsonProperty("date") String date, @JsonProperty("time") String time,
-                           @JsonProperty("status") List<String> status, @JsonProperty("recurrence") String recurrence,
-                           @JsonProperty("ghostTask") String ghostTask) {
+                           @JsonProperty("status") List<String> status, @JsonProperty("recurrence") String recurrence) {
         if (names != null) {
             this.names.addAll(names);
         }
@@ -46,7 +44,6 @@ public class JsonAdaptedTask {
         this.time = time;
         this.status = status;
         this.recurrence = recurrence;
-        this.ghostTask = ghostTask;
     }
 
     /**
@@ -61,7 +58,6 @@ public class JsonAdaptedTask {
                 .collect(Collectors.toList()));
         status = Arrays.asList(source.getStatus().toString().split("; "));
         recurrence = source.getRecurrence().toString();
-        ghostTask = source.getGhostTask().toString();
     }
 
     /**
@@ -119,19 +115,8 @@ public class JsonAdaptedTask {
 
         final Recurrence modelRecurrence = new Recurrence(recurrence);
 
-        if (ghostTask == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    GhostTask.class.getSimpleName()));
-        }
-
-        if (!GhostTask.isValidGhostTask(ghostTask)) {
-            throw new IllegalValueException(GhostTask.MESSAGE_CONSTRAINTS);
-        }
-
-        final GhostTask modelIsGhostTask = new GhostTask(ghostTask);
-
         final Set<Name> modelNames = new HashSet<>(relatedNames);
 
-        return new Task(modelDesc, modelDt, modelNames, modelStatus, modelRecurrence, modelIsGhostTask);
+        return new RealTask(modelDesc, modelDt, modelNames, modelStatus, modelRecurrence);
     }
 }
