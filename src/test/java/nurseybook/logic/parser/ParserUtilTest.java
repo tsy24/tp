@@ -39,7 +39,7 @@ public class ParserUtilTest {
     private static final String VALID_EMAIL = "rachel@example.com";
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_NOK_NAME = "Rachel Runner";
-    private static final String VALID_PHONE = "123456";
+    private static final String VALID_PHONE = "99123456";
     private static final String VALID_RELATIONSHIP = "Daughter";
     private static final String VALID_ROOM_NUMBER = "67";
     private static final String VALID_TAG_1 = "friend";
@@ -116,20 +116,6 @@ public class ParserUtilTest {
         String ageWithWhitespace = WHITESPACE + VALID_AGE + WHITESPACE;
         Age expectedAge = new Age(VALID_AGE);
         assertEquals(expectedAge, ParserUtil.parseAge(ageWithWhitespace));
-    }
-
-    @Test
-    public void parseAge_validValueWithLeadingZeros_returnsTrimmedAge() throws Exception {
-        String ageWithLeadingZeros = ZEROS + VALID_AGE + ZEROS;
-        Age expectedAge = new Age(VALID_AGE + ZEROS);
-        assertEquals(expectedAge, ParserUtil.parseAge(ageWithLeadingZeros));
-    }
-
-    @Test
-    public void parseAge_zerosOnly_returnsTrimmedAge() throws Exception {
-        String ageWithZerosOnly = ZEROS;
-        Age expectedAge = new Age("0");
-        assertEquals(expectedAge, ParserUtil.parseAge(ageWithZerosOnly));
     }
 
     @Test

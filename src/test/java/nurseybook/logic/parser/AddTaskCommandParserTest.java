@@ -3,6 +3,7 @@ package nurseybook.logic.parser;
 import static nurseybook.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static nurseybook.logic.commands.AddTaskCommand.MESSAGE_USAGE;
 import static nurseybook.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
+import static nurseybook.logic.commands.CommandTestUtil.NOK_NAME_DESC_BOB;
 import static nurseybook.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static nurseybook.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static nurseybook.logic.commands.TaskCommandTestUtil.DATE_DESC_JAN;
@@ -130,5 +131,11 @@ public class AddTaskCommandParserTest {
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_ALEX + DESC_MEDICINE
                         + DATE_DESC_NOV + TIME_DESC_TENAM,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_unexpectedFieldPresent_failure() {
+        assertParseFailure(parser, NAME_DESC_KEITH + DATE_DESC_NOV + TIME_DESC_SEVENPM + DESC_PAPERWORK
+                + NOK_NAME_DESC_BOB, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTaskCommand.MESSAGE_USAGE));
     }
 }

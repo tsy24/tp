@@ -10,9 +10,9 @@ import static nurseybook.commons.util.AppUtil.checkArgument;
 public class Age {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Age should only contain numbers, and it should be non-negative";
+            "Age should only contain numbers, and it should be between 21 and 145";
     public static final String VALIDATION_REGEX = "\\d+";
-    public final String value;
+    public final int value;
 
     /**
      * Constructs a {@code Age}.
@@ -22,31 +22,35 @@ public class Age {
     public Age(String age) {
         requireNonNull(age);
         checkArgument(isValidAge(age), MESSAGE_CONSTRAINTS);
-        value = age;
+        value = Integer.parseInt(age);
     }
 
     /**
      * Returns true if a given string is a valid age.
      */
     public static boolean isValidAge(String test) {
-        return test.matches(VALIDATION_REGEX);
+        if (test.matches(VALIDATION_REGEX)) {
+            int age = Integer.parseInt(test);
+            return 21 <= age && age <= 145;
+        }
+        return false;
     }
 
     @Override
     public String toString() {
-        return value;
+        return "" + value;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Age // instanceof handles nulls
-                && value.equals(((Age) other).value)); // state check
+                && value == ((Age) other).value); // state check
     }
 
     @Override
     public int hashCode() {
-        return value.hashCode();
+        return Integer.hashCode(value);
     }
 
 }
