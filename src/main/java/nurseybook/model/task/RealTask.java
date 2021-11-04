@@ -9,6 +9,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import nurseybook.model.person.Name;
+import nurseybook.model.task.Recurrence.RecurrenceType;
 
 /**
  * Represents a Real Task in NurseyBook.
@@ -86,7 +87,7 @@ public class RealTask extends Task {
     public RealTask updateDateRecurringTask() {
         LocalDateTime currentDateTime = LocalDateTime.now();
         if (getRecurrence().isRecurring()) {
-            Recurrence.RecurrenceType recurrenceType = getRecurrence().getRecurrenceType();
+            RecurrenceType recurrenceType = this.getRecurrenceType();
             assert(recurrenceType != Recurrence.RecurrenceType.NONE);
 
             DateTime dateTime = changeTaskDate(currentDateTime, recurrenceType);

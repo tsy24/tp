@@ -9,6 +9,7 @@ import java.util.Set;
 import nurseybook.model.NurseyBook;
 import nurseybook.model.person.Elderly;
 import nurseybook.model.person.Name;
+import nurseybook.model.task.Recurrence.RecurrenceType;
 
 public abstract class Task implements Comparable<Task> {
 
@@ -162,12 +163,30 @@ public abstract class Task implements Comparable<Task> {
     }
 
     /**
+     * Returns the recurrence of this task.
+     *
+     * @return task recurrence
+     */
+    public Recurrence getRecurrence() {
+        return recurrence;
+    }
+
+    /**
      * Returns the recurrence type of this task.
      *
      * @return task recurrence type
      */
-    public Recurrence getRecurrence() {
-        return recurrence;
+    public RecurrenceType getRecurrenceType() {
+        return recurrence.getRecurrenceType();
+    }
+
+    /**
+     * Returns the number of days between each recurrence of a task.
+     *
+     * @return Number of days between each recurrence of task.
+     */
+    public int getRecurrenceIntervalInDays() {
+        return recurrence.getRecurrenceIntervalInDays();
     }
 
     public void setDateTime(DateTime dt) {

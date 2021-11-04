@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static nurseybook.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalDate;
+import java.time.Period;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -172,26 +174,24 @@ public class UniqueTaskList implements Iterable<Task> {
 
     /**
      * Checks if any of the given recurring task's future occurrences coincide with the given keyDate. If it does,
-     * a GhostTask is created and returned to represent the future task occurrence.
+     * a GhostTask is created and returned to represent the future task occurrence. Checks up to 84 days in advance,
+     * starting from current date.
      */
     private GhostTask createPossibleFutureTaskWithMatchingDate(RealTask task, LocalDate keyDate) {
-        RecurrenceType taskRecurrenceType = task.getRecurrence().getRecurrenceType();
-        int interval; //interval between task occurrences depending on RecurrenceType.
-        if (taskRecurrenceType == RecurrenceType.DAY) {
-            interval = 1;
-        } else if (taskRecurrenceType == RecurrenceType.WEEK) {
-            interval = 7;
-        } else { //taskRecurrenceType == RecurrenceType.MONTH
-            interval = 28;
-        }
+        int interval = task.getRecurrenceIntervalInDays(); //interval between task occurrences depending on RecurrenceType.
+
+        //No. of days to check for recurring tasks in the future is set to 84 days, or 12 weeks,
+        //starting from current date.
+        LocalDate dateToday = LocalDate.now();
+        LocalDate taskDate = task.getDate();
+        int daysLeftToCheck = 84 - ((int) ChronoUnit.DAYS.between(dateToday, taskDate));
+
 
         GhostTask ghostTaskCopy = task.copyToGhostTask();
         GhostTask currTask = ghostTaskCopy.createNextTaskOccurrence();
+        daysLeftToCheck -= interval;
 
-        //No. of days to check for recurring tasks in the future is set to 84 days, or 12 weeks.
-        int daysLeftToCheck = 84 - interval;
-
-        while (daysLeftToCheck > 0) {
+        while (daysLeftToCheck >= 0) {
             if (currTask.doesTaskFallOnDate(keyDate) && !this.contains(currTask)) {
                 return currTask;
             }

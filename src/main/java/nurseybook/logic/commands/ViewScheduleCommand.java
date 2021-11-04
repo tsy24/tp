@@ -58,4 +58,5 @@ public class ViewScheduleCommand extends Command {
                 || (other instanceof ViewScheduleCommand // instanceof handles nulls
                 && predicate.equals(((ViewScheduleCommand) other).predicate)); // state check
     }
+
 }
