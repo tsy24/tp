@@ -96,7 +96,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses {@code Collection<String> names} into a {@code Set<People>}.
+     * Parses {@code Collection<String> names} into a {@code Set<Elderly>}.
      */
     public static Set<Name> parseNames(Collection<String> names) throws ParseException {
         requireNonNull(names);

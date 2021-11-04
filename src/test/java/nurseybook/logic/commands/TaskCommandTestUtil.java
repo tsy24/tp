@@ -24,8 +24,8 @@ public class TaskCommandTestUtil extends CommandTestUtil {
     public static final String VALID_DATE_JAN = "2022-01-31";
     public static final String VALID_TIME_TENAM = "10:20";
     public static final String VALID_TIME_SEVENPM = "19:45";
-    public static final String VALID_NAME_KEITH = "Keith Goh";
-    public static final String VALID_NAME_ALEX = "Alex Andre";
+    public static final String VALID_NAME_GEORGE = "George Best";
+    public static final String VALID_NAME_ALICE = "Alice Pauline";
 
     public static final String DESC_PAPERWORK = " " + CliSyntax.PREFIX_TASK_DESC + VALID_DESC_PAPERWORK;
     public static final String DESC_MEDICINE = " " + CliSyntax.PREFIX_TASK_DESC + VALID_DESC_MEDICINE;
@@ -35,8 +35,8 @@ public class TaskCommandTestUtil extends CommandTestUtil {
     public static final String DATE_DESC_JAN = " " + CliSyntax.PREFIX_TASK_DATE + VALID_DATE_JAN;
     public static final String TIME_DESC_TENAM = " " + CliSyntax.PREFIX_TASK_TIME + VALID_TIME_TENAM;
     public static final String TIME_DESC_SEVENPM = " " + CliSyntax.PREFIX_TASK_TIME + VALID_TIME_SEVENPM;
-    public static final String NAME_DESC_KEITH = " " + CliSyntax.PREFIX_NAME + VALID_NAME_KEITH;
-    public static final String NAME_DESC_ALEX = " " + CliSyntax.PREFIX_NAME + VALID_NAME_ALEX;
+    public static final String NAME_DESC_GEORGE = " " + CliSyntax.PREFIX_NAME + VALID_NAME_GEORGE;
+    public static final String NAME_DESC_ALICE = " " + CliSyntax.PREFIX_NAME + VALID_NAME_ALICE;
     public static final String RECUR_NONE = " " + CliSyntax.PREFIX_TASK_RECURRING + Recurrence.RecurrenceType.NONE;
     public static final String RECUR_DAY = " " + CliSyntax.PREFIX_TASK_RECURRING + Recurrence.RecurrenceType.DAY;
     public static final String RECUR_WEEK = " " + CliSyntax.PREFIX_TASK_RECURRING + Recurrence.RecurrenceType.WEEK;

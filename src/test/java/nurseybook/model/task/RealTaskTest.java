@@ -3,14 +3,14 @@ package nurseybook.model.task;
 import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_DATE_JAN;
 import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_DATE_NOV;
 import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_DESC_MEDICINE;
-import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_NAME_ALEX;
-import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_NAME_KEITH;
+import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_NAME_ALICE;
+import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_NAME_GEORGE;
 import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_TIME_SEVENPM;
 import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_TIME_TENAM;
-import static nurseybook.testutil.TypicalTasks.ALEX_INSULIN;
+import static nurseybook.testutil.TypicalTasks.ALICE_INSULIN;
 import static nurseybook.testutil.TypicalTasks.APPLY_LEAVE_DAY_NEXT_RECURRENCE_GHOST;
 import static nurseybook.testutil.TypicalTasks.APPLY_LEAVE_NEXT_DAY;
-import static nurseybook.testutil.TypicalTasks.KEITH_INSULIN;
+import static nurseybook.testutil.TypicalTasks.GEORGE_INSULIN;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
@@ -22,23 +22,23 @@ import nurseybook.testutil.TaskBuilder;
 
 public class RealTaskTest {
 
-    private final RealTask keithInsulin = (RealTask) new TaskBuilder(KEITH_INSULIN).build();
+    private final RealTask georgeInsulin = (RealTask) new TaskBuilder(GEORGE_INSULIN).build();
 
     @Test
     void copyTask() {
         //check if copyTask() returns a different instance of RealTask.
-        assertNotSame(keithInsulin, keithInsulin.copyTask());
+        assertNotSame(georgeInsulin, georgeInsulin.copyTask());
 
         //check if each field in copied task is a new instance.
-        RealTask copyTask = keithInsulin.copyTask();
-        assertNotSame(keithInsulin.getDesc(), copyTask.getDesc());
-        assertNotSame(keithInsulin.getDateTime(), copyTask.getDateTime());
-        assertNotSame(keithInsulin.getRelatedNames(), copyTask.getRelatedNames());
-        assertNotSame(keithInsulin.getRecurrence(), copyTask.getRecurrence());
+        RealTask copyTask = georgeInsulin.copyTask();
+        assertNotSame(georgeInsulin.getDesc(), copyTask.getDesc());
+        assertNotSame(georgeInsulin.getDateTime(), copyTask.getDateTime());
+        assertNotSame(georgeInsulin.getRelatedNames(), copyTask.getRelatedNames());
+        assertNotSame(georgeInsulin.getRecurrence(), copyTask.getRecurrence());
 
 
         //check if copyTask() returns a RealTask that has the same field values as the copied task.
-        assertEquals(keithInsulin, copyTask);
+        assertEquals(georgeInsulin, copyTask);
     }
 
     @Test
@@ -51,44 +51,44 @@ public class RealTaskTest {
     @Test
     public void equals() {
         // same values -> returns true
-        assertTrue(keithInsulin.equals(KEITH_INSULIN));
-        Task alexToKeith = new TaskBuilder(ALEX_INSULIN).withNames(VALID_NAME_KEITH).withDesc(VALID_DESC_MEDICINE)
+        assertTrue(georgeInsulin.equals(GEORGE_INSULIN));
+        Task alexToKeith = new TaskBuilder(ALICE_INSULIN).withNames(VALID_NAME_GEORGE).withDesc(VALID_DESC_MEDICINE)
                 .withDateTime(VALID_DATE_NOV, VALID_TIME_SEVENPM).withStatus("false", "true")
                 .withRecurrence(Recurrence.RecurrenceType.NONE.name()).build();
-        assertTrue(keithInsulin.equals(alexToKeith));
+        assertTrue(georgeInsulin.equals(alexToKeith));
 
         // same object -> returns true
-        assertTrue(keithInsulin.equals(keithInsulin));
+        assertTrue(georgeInsulin.equals(georgeInsulin));
 
         // null -> returns false
-        assertFalse(keithInsulin.equals(null));
+        assertFalse(georgeInsulin.equals(null));
 
         // different type -> returns false
-        assertFalse(keithInsulin.equals(5));
+        assertFalse(georgeInsulin.equals(5));
 
         // different name -> returns false
-        Task editedTask = new TaskBuilder(keithInsulin).withNames(VALID_NAME_ALEX).build();
-        assertFalse(keithInsulin.equals(editedTask));
-        editedTask = new TaskBuilder(keithInsulin).withNames(VALID_NAME_KEITH, VALID_NAME_ALEX).build();
-        assertFalse(keithInsulin.equals(editedTask));
+        Task editedTask = new TaskBuilder(georgeInsulin).withNames(VALID_NAME_ALICE).build();
+        assertFalse(georgeInsulin.equals(editedTask));
+        editedTask = new TaskBuilder(georgeInsulin).withNames(VALID_NAME_GEORGE, VALID_NAME_ALICE).build();
+        assertFalse(georgeInsulin.equals(editedTask));
 
         // different date -> returns false
-        editedTask = new TaskBuilder(keithInsulin).withDateTime(VALID_DATE_JAN, VALID_TIME_SEVENPM).build();
-        assertFalse(keithInsulin.equals(editedTask));
+        editedTask = new TaskBuilder(georgeInsulin).withDateTime(VALID_DATE_JAN, VALID_TIME_SEVENPM).build();
+        assertFalse(georgeInsulin.equals(editedTask));
 
         // different time -> returns false
-        editedTask = new TaskBuilder(keithInsulin).withDateTime(VALID_DATE_NOV, VALID_TIME_TENAM).build();
-        assertFalse(keithInsulin.equals(editedTask));
+        editedTask = new TaskBuilder(georgeInsulin).withDateTime(VALID_DATE_NOV, VALID_TIME_TENAM).build();
+        assertFalse(georgeInsulin.equals(editedTask));
 
         // different status -> returns false
-        editedTask = new TaskBuilder(keithInsulin).withStatus("true", "false").build();
-        assertFalse(keithInsulin.equals(editedTask));
+        editedTask = new TaskBuilder(georgeInsulin).withStatus("true", "false").build();
+        assertFalse(georgeInsulin.equals(editedTask));
 
         // different recurrence -> returns false
-        editedTask = new TaskBuilder(keithInsulin).withRecurrence(Recurrence.RecurrenceType.MONTH.name()).build();
-        assertFalse(keithInsulin.equals(editedTask));
+        editedTask = new TaskBuilder(georgeInsulin).withRecurrence(Recurrence.RecurrenceType.MONTH.name()).build();
+        assertFalse(georgeInsulin.equals(editedTask));
 
         // different Task Type -> returns false
-        assertFalse(keithInsulin.equals(APPLY_LEAVE_DAY_NEXT_RECURRENCE_GHOST));
+        assertFalse(georgeInsulin.equals(APPLY_LEAVE_DAY_NEXT_RECURRENCE_GHOST));
     }
 }

@@ -20,6 +20,8 @@ public class Messages {
     public static final String MESSAGE_NO_CHANGES = "Fields entered are the same as before.";
     public static final String MESSAGE_VIEWSCHEDULE_DAYS_SUPPORTED = "NurseyBook only supports viewing of schedule "
             + "for 12 weeks, or 84 days, in advance. Please specify a date that is within 12 weeks from today.";
-
+    public static final String MESSAGE_NO_SUCH_ELDERLY = "Some of the elderly names are not found in your elderly "
+            + "database.\n"
+            + "Please make sure all elderly names typed are already added into your database.";
 
 }

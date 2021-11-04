@@ -12,6 +12,8 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import nurseybook.model.person.Elderly;
+import nurseybook.model.person.Name;
 import nurseybook.model.task.exceptions.DuplicateTaskException;
 import nurseybook.model.task.exceptions.TaskNotFoundException;
 
@@ -112,6 +114,37 @@ public class UniqueTaskList implements Iterable<Task> {
     public void setTasks(List<Task> tasks) {
         requireAllNonNull(tasks);
         internalList.setAll(tasks);
+    }
+
+    /**
+     * Updates the given elderly {@code target}'s name for all tasks in the list that contains that name
+     * with {@code editedElderly}'s name.
+     * {@code target} must exist in NurseyBook.
+     * The elderly identity of {@code editedElderly} must not be the same as another existing elderly in NurseyBook.
+     */
+    public void updateElderlyNameInTasks(Elderly target, Elderly editedElderly) {
+        for (Task task : internalList) {
+            for (Name name : task.getRelatedNames()) {
+                if (target.getName().equals(name)) {
+                    task.replaceName(name, editedElderly.getName());
+                }
+            }
+        }
+    }
+
+    /**
+     * Deletes the given elderly {@code elderlyToDelete}'s name for all tasks in the list that contains that name.
+     * {@code elderlyToDelete} must exist in NurseyBook.
+     * The elderly identity of {@code editedElderly} must not be the same as another existing elderly in NurseyBook.
+     */
+    public void deleteElderlyNameInTasks(Elderly elderlyToDelete) {
+        for (Task task : internalList) {
+            for (Name name : task.getRelatedNames()) {
+                if (elderlyToDelete.getName().equals(name)) {
+                    task.deleteName(name);
+                }
+            }
+        }
     }
 
     /**

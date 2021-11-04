@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static nurseybook.commons.core.Messages.MESSAGE_DUPLICATE_TASK;
 import static nurseybook.commons.core.Messages.MESSAGE_INVALID_TASK_DATETIME_FOR_RECURRING_TASK;
 import static nurseybook.commons.core.Messages.MESSAGE_NO_CHANGES;
+import static nurseybook.commons.core.Messages.MESSAGE_NO_SUCH_ELDERLY;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_NAME;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_TASK_DATE;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_TASK_DESC;
@@ -91,6 +92,18 @@ public class EditTaskCommand extends Command {
 
         if (!taskToEdit.isSameTask(editedTask) && model.hasTask(editedTask)) {
             throw new CommandException(MESSAGE_DUPLICATE_TASK);
+        }
+
+        boolean isElderlyPresent = true;
+        for (Name name : editedTask.getRelatedNames()) {
+            if (!model.isElderlyPresent(name)) {
+                isElderlyPresent = false;
+                break;
+            }
+        }
+
+        if (!isElderlyPresent) {
+            throw new CommandException(MESSAGE_NO_SUCH_ELDERLY);
         }
 
         model.setTask(taskToEdit, editedTask);
