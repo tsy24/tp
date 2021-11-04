@@ -746,10 +746,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Glossary
 
-* **Mainstream OS**: Windows, Linux, Unix, OS-X
-* **Private contact detail**: A contact detail that is not meant to be shared with others
-* **CLI**: Command line interface where users interact with the system by typing in commands
-* **GUI driven application**: Graphical user interface where users interact with the system through visual representations such as buttons and icons
+* **DBMS**: Database management systems are software systems used to store, retrieve, and run queries on data.
+* **Mainstream OS**: Mainstream operating systems such as Windows, Linux, Unix, OS-X.
+* **Private contact detail**: A contact detail that is not meant to be shared with others.
+* **CLI**: Command line interface where users interact with the system by typing in commands.
+* **GUI driven application**: Graphical user interface where users interact with the system through visual representations such as buttons and icons.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -768,7 +769,7 @@ testers are expected to do more *exploratory* testing.
 
    1. Download the jar file and copy into an empty folder
 
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   1. Double-click the jar file Expected: Shows the GUI with a set of sample elderlies. The window size may not be optimum.
 
 1. Saving window preferences
 
@@ -781,15 +782,15 @@ testers are expected to do more *exploratory* testing.
 
 ### Deleting a elderly
 
-1. Deleting a elderly while all elderlies are being shown
+1. Deleting an elderly while all elderlies are being shown
 
    1. Prerequisites: List all elderlies using the `viewElderly` command. Multiple elderlies in the list.
 
    2. Test case: `deleteElderly 1`<br>
-      Expected: First elderly is deleted from the list. Details of the deleted elderly shown in the status message. Timestamp in the status bar is updated.
+      Expected: First elderly is deleted from the list. Details of the deleted elderly shown in the status message.
 
    3. Test case: `deleteElderly 0`<br>
-      Expected: No elderly is deleted. Error details shown in the status message. Status bar remains the same.
+      Expected: No elderly is deleted. Error details shown in the status message.
 
    4. Other incorrect delete commands to try: `deleteElderly`, `deleteElderly x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
