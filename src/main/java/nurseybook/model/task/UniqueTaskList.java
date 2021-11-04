@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static nurseybook.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalDate;
-import java.time.Period;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -13,7 +12,6 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import nurseybook.model.task.Recurrence.RecurrenceType;
 import nurseybook.model.task.exceptions.DuplicateTaskException;
 import nurseybook.model.task.exceptions.TaskNotFoundException;
 
@@ -178,7 +176,8 @@ public class UniqueTaskList implements Iterable<Task> {
      * starting from current date.
      */
     private GhostTask createPossibleFutureTaskWithMatchingDate(RealTask task, LocalDate keyDate) {
-        int interval = task.getRecurrenceIntervalInDays(); //interval between task occurrences depending on RecurrenceType.
+        //interval between task occurrences depending on RecurrenceType.
+        int interval = task.getRecurrenceIntervalInDays();
 
         //No. of days to check for recurring tasks in the future is set to 84 days, or 12 weeks,
         //starting from current date.

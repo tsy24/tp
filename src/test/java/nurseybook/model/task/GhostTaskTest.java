@@ -19,7 +19,8 @@ import nurseybook.testutil.TaskBuilder;
 
 public class GhostTaskTest {
 
-    private final GhostTask applyLeaveNextDayGhost = (GhostTask) new TaskBuilder(APPLY_LEAVE_DAY_NEXT_RECURRENCE_GHOST).build();
+    private final GhostTask applyLeaveNextDayGhost =
+            (GhostTask) new TaskBuilder(APPLY_LEAVE_DAY_NEXT_RECURRENCE_GHOST).build();
 
     @Test
     void copyTask() {

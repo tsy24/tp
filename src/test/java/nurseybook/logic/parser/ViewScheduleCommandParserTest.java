@@ -10,7 +10,6 @@ import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
 
-import nurseybook.logic.commands.DoneTaskCommand;
 import nurseybook.logic.commands.ViewScheduleCommand;
 import nurseybook.model.task.DateTimeContainsDatePredicate;
 
