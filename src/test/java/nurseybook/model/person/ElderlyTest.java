@@ -105,5 +105,25 @@ public class ElderlyTest {
         // different tags -> returns false
         editedAlice = new ElderlyBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
         assertFalse(ALICE.equals(editedAlice));
+
+        // different nok name -> returns false
+        editedAlice = new ElderlyBuilder(ALICE).withNokName("Ronald Wes").build();
+        assertFalse(ALICE.equals(editedAlice));
+
+        // different nok email -> returns false
+        editedAlice = new ElderlyBuilder(ALICE).withEmail(VALID_NOK_EMAIL_BOB).build();
+        assertFalse(ALICE.equals(editedAlice));
+
+        // different nok phone -> returns false
+        editedAlice = new ElderlyBuilder(ALICE).withPhone(VALID_NOK_PHONE_BOB).build();
+        assertFalse(ALICE.equals(editedAlice));
+
+        // different nok rs -> returns false
+        editedAlice = new ElderlyBuilder(ALICE).withRelationship(VALID_NOK_RELATIONSHIP_BOB).build();
+        assertFalse(ALICE.equals(editedAlice));
+
+        // different nok address -> returns false
+        editedAlice = new ElderlyBuilder(ALICE).withAddress(VALID_NOK_ADDRESS_BOB).build();
+        assertFalse(ALICE.equals(editedAlice));
     }
 }

@@ -3,6 +3,7 @@ package nurseybook.logic.parser;
 import static nurseybook.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static nurseybook.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static nurseybook.logic.commands.CommandTestUtil.NAME_DESC_AMY;
+import static nurseybook.logic.commands.CommandTestUtil.NOK_NAME_DESC_BOB;
 import static nurseybook.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static nurseybook.logic.commands.EditTaskCommand.MESSAGE_NOT_EDITED;
 import static nurseybook.logic.commands.EditTaskCommand.MESSAGE_USAGE;
@@ -15,6 +16,7 @@ import static nurseybook.logic.commands.TaskCommandTestUtil.INVALID_DESC;
 import static nurseybook.logic.commands.TaskCommandTestUtil.INVALID_RECUR;
 import static nurseybook.logic.commands.TaskCommandTestUtil.INVALID_TIME;
 import static nurseybook.logic.commands.TaskCommandTestUtil.NAME_DESC_ALEX;
+import static nurseybook.logic.commands.TaskCommandTestUtil.NAME_DESC_KEITH;
 import static nurseybook.logic.commands.TaskCommandTestUtil.RECUR_DAY;
 import static nurseybook.logic.commands.TaskCommandTestUtil.RECUR_MONTH;
 import static nurseybook.logic.commands.TaskCommandTestUtil.RECUR_NONE;
@@ -252,6 +254,12 @@ public class EditTaskCommandParserTest {
         EditTaskCommand expectedCommand = new EditTaskCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
+    }
+
+    @Test
+    public void parse_unexpectedFieldPresent_failure() {
+        assertParseFailure(parser, "1" + NAME_DESC_KEITH + DATE_DESC_NOV + TIME_DESC_SEVENPM + DESC_PAPERWORK
+                + NOK_NAME_DESC_BOB, String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditTaskCommand.MESSAGE_USAGE));
     }
 }
 

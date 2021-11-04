@@ -36,7 +36,7 @@ public class ElderlyUtil {
     public static String getElderlyDetails(Elderly elderly) {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_NAME + elderly.getName().fullName + " ");
-        sb.append(PREFIX_AGE + elderly.getAge().value + " ");
+        sb.append(PREFIX_AGE + Integer.toString(elderly.getAge().value) + " ");
         sb.append(PREFIX_GENDER + elderly.getGender().value + " ");
         sb.append(PREFIX_NOK_NAME + elderly.getNok().getName().fullName + " ");
         sb.append(PREFIX_RELATIONSHIP + elderly.getNok().getRelationship().value + " ");

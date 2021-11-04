@@ -3,15 +3,18 @@ package nurseybook.logic.parser;
 import static nurseybook.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_AGE;
+import static nurseybook.logic.parser.CliSyntax.PREFIX_ALL;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_GENDER;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_NAME;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_NOK_NAME;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_PHONE;
+import static nurseybook.logic.parser.CliSyntax.PREFIX_PREAMBLE;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_RELATIONSHIP;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_ROOM_NUM;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -35,6 +38,10 @@ import nurseybook.model.tag.Tag;
  */
 public class AddCommandParser implements Parser<AddCommand> {
 
+    private static final List<Prefix> EXPECTED_PREFIXES = List.of(PREFIX_PREAMBLE, PREFIX_NAME, PREFIX_AGE,
+            PREFIX_GENDER, PREFIX_ROOM_NUM, PREFIX_NOK_NAME, PREFIX_RELATIONSHIP, PREFIX_PHONE, PREFIX_EMAIL,
+            PREFIX_ADDRESS, PREFIX_TAG);
+
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
      * and returns an AddCommand object for execution.
@@ -42,11 +49,10 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_AGE, PREFIX_GENDER, PREFIX_ROOM_NUM,
-                        PREFIX_NOK_NAME, PREFIX_RELATIONSHIP, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_ALL);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_AGE, PREFIX_GENDER, PREFIX_ROOM_NUM)
-                || !argMultimap.getPreamble().isEmpty()) {
+                || !onlyExpectedPrefixesPresent(argMultimap) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
@@ -75,6 +81,14 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
+
+    /**
+     * Returns true if all the prefixes in the {@code ArgumentMultimap} are
+     * expected prefixes for this command.
+     */
+    private static boolean onlyExpectedPrefixesPresent(ArgumentMultimap argumentMultimap) {
+        return argumentMultimap.getPrefixes().stream().allMatch(prefix -> EXPECTED_PREFIXES.contains(prefix));
     }
 
 }
