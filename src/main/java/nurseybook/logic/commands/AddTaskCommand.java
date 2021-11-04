@@ -3,6 +3,7 @@ package nurseybook.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static nurseybook.commons.core.Messages.MESSAGE_DUPLICATE_TASK;
 import static nurseybook.commons.core.Messages.MESSAGE_INVALID_TASK_DATETIME_FOR_RECURRING_TASK;
+import static nurseybook.commons.core.Messages.MESSAGE_NO_SUCH_ELDERLY;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_NAME;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_TASK_DATE;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_TASK_DESC;
@@ -11,6 +12,7 @@ import static nurseybook.logic.parser.CliSyntax.PREFIX_TASK_TIME;
 
 import nurseybook.logic.commands.exceptions.CommandException;
 import nurseybook.model.Model;
+import nurseybook.model.person.Name;
 import nurseybook.model.task.Task;
 
 /**
@@ -55,6 +57,18 @@ public class AddTaskCommand extends Command {
 
         if (model.hasTask(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_TASK);
+        }
+
+        boolean isElderlyPresent = true;
+        for (Name name : toAdd.getRelatedNames()) {
+            if (!model.isElderlyPresent(name)) {
+                isElderlyPresent = false;
+                break;
+            }
+        }
+
+        if (!isElderlyPresent) {
+            throw new CommandException(MESSAGE_NO_SUCH_ELDERLY);
         }
 
         model.addTask(toAdd);

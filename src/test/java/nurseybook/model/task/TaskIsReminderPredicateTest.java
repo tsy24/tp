@@ -1,7 +1,7 @@
 package nurseybook.model.task;
 
 import static nurseybook.testutil.TypicalTasks.APPLY_LEAVE;
-import static nurseybook.testutil.TypicalTasks.KEITH_INSULIN;
+import static nurseybook.testutil.TypicalTasks.GEORGE_INSULIN;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -40,7 +40,7 @@ public class TaskIsReminderPredicateTest {
 
     @Test
     public void test_validTasks_returnsTrue() {
-        Task keithInsulin = new TaskBuilder(KEITH_INSULIN).build();
+        Task keithInsulin = new TaskBuilder(GEORGE_INSULIN).build();
 
         // on the same day but later time -> returns true
         TaskIsReminderPredicate predicate =
@@ -62,7 +62,7 @@ public class TaskIsReminderPredicateTest {
 
     @Test
     public void test_invalidTasks_returnsFalse() {
-        Task keithInsulin = new TaskBuilder(KEITH_INSULIN).build();
+        Task keithInsulin = new TaskBuilder(GEORGE_INSULIN).build();
         Task applyLeave = new TaskBuilder(APPLY_LEAVE).build();
 
         // before the day -> returns false

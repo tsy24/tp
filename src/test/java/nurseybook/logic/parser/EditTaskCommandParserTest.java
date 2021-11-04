@@ -15,8 +15,8 @@ import static nurseybook.logic.commands.TaskCommandTestUtil.INVALID_DATE;
 import static nurseybook.logic.commands.TaskCommandTestUtil.INVALID_DESC;
 import static nurseybook.logic.commands.TaskCommandTestUtil.INVALID_RECUR;
 import static nurseybook.logic.commands.TaskCommandTestUtil.INVALID_TIME;
-import static nurseybook.logic.commands.TaskCommandTestUtil.NAME_DESC_ALEX;
-import static nurseybook.logic.commands.TaskCommandTestUtil.NAME_DESC_KEITH;
+import static nurseybook.logic.commands.TaskCommandTestUtil.NAME_DESC_ALICE;
+import static nurseybook.logic.commands.TaskCommandTestUtil.NAME_DESC_GEORGE;
 import static nurseybook.logic.commands.TaskCommandTestUtil.RECUR_DAY;
 import static nurseybook.logic.commands.TaskCommandTestUtil.RECUR_MONTH;
 import static nurseybook.logic.commands.TaskCommandTestUtil.RECUR_NONE;
@@ -25,7 +25,7 @@ import static nurseybook.logic.commands.TaskCommandTestUtil.TIME_DESC_TENAM;
 import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_DATE_JAN;
 import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_DESC_COVID;
 import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_DESC_PAPERWORK;
-import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_NAME_ALEX;
+import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_NAME_ALICE;
 import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_TIME_SEVENPM;
 import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_TIME_TENAM;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_NAME;
@@ -128,11 +128,11 @@ public class EditTaskCommandParserTest {
 
         // while parsing {@code PREFIX_NAME} alone will reset the tags of the {@code Task} being edited,
         // parsing it together with a valid tag results in error
-        assertParseFailure(parser, "1" + NAME_DESC_AMY + NAME_DESC_ALEX + NAME_EMPTY,
+        assertParseFailure(parser, "1" + NAME_DESC_AMY + NAME_DESC_ALICE + NAME_EMPTY,
                 Name.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, "1" + NAME_DESC_AMY + NAME_EMPTY + NAME_DESC_ALEX,
+        assertParseFailure(parser, "1" + NAME_DESC_AMY + NAME_EMPTY + NAME_DESC_ALICE,
                 Name.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, "1" + NAME_EMPTY + NAME_DESC_AMY + NAME_DESC_ALEX,
+        assertParseFailure(parser, "1" + NAME_EMPTY + NAME_DESC_AMY + NAME_DESC_ALICE,
                 Name.MESSAGE_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
@@ -144,11 +144,11 @@ public class EditTaskCommandParserTest {
     @Test
     public void parse_allFieldsSpecified_success() {
         Index targetIndex = INDEX_SECOND;
-        String userInput = targetIndex.getOneBased() + NAME_DESC_AMY + NAME_DESC_ALEX + DESC_PAPERWORK + DATE_DESC_JAN
+        String userInput = targetIndex.getOneBased() + NAME_DESC_AMY + NAME_DESC_ALICE + DESC_PAPERWORK + DATE_DESC_JAN
                 + TIME_DESC_SEVENPM + RECUR_NONE;
 
         EditTaskCommand.EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder()
-                .withNames(VALID_NAME_AMY, VALID_NAME_ALEX)
+                .withNames(VALID_NAME_AMY, VALID_NAME_ALICE)
                 .withDescription(VALID_DESC_PAPERWORK).withDate(VALID_DATE_JAN).withTime(VALID_TIME_SEVENPM)
                 .withRecurrence(Recurrence.RecurrenceType.NONE.name()).build();
         EditTaskCommand expectedCommand = new EditTaskCommand(targetIndex, descriptor);
@@ -206,16 +206,16 @@ public class EditTaskCommandParserTest {
     @Test
     public void parse_multipleRepeatedFields_acceptsLast() {
         Index targetIndex = INDEX_FIRST;
-        String userInput = targetIndex.getOneBased() + NAME_DESC_ALEX + DATE_DESC_JAN + TIME_DESC_SEVENPM
+        String userInput = targetIndex.getOneBased() + NAME_DESC_ALICE + DATE_DESC_JAN + TIME_DESC_SEVENPM
                 + DESC_PAPERWORK + RECUR_DAY
 
-                + NAME_DESC_ALEX + DATE_DESC_NOV + TIME_DESC_TENAM
+                + NAME_DESC_ALICE + DATE_DESC_NOV + TIME_DESC_TENAM
                 + DESC_PAPERWORK + RECUR_MONTH
 
                 + NAME_DESC_AMY + DATE_DESC_JAN + TIME_DESC_TENAM + DESC_COVID + RECUR_DAY;
 
         EditTaskCommand.EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder()
-                .withNames(VALID_NAME_AMY, VALID_NAME_ALEX)
+                .withNames(VALID_NAME_AMY, VALID_NAME_ALICE)
                 .withDescription(VALID_DESC_COVID).withDate(VALID_DATE_JAN).withTime(VALID_TIME_TENAM)
                 .withRecurrence(Recurrence.RecurrenceType.DAY.name()).build();
 
@@ -258,7 +258,7 @@ public class EditTaskCommandParserTest {
 
     @Test
     public void parse_unexpectedFieldPresent_failure() {
-        assertParseFailure(parser, "1" + NAME_DESC_KEITH + DATE_DESC_NOV + TIME_DESC_SEVENPM + DESC_PAPERWORK
+        assertParseFailure(parser, "1" + NAME_DESC_GEORGE + DATE_DESC_NOV + TIME_DESC_SEVENPM + DESC_PAPERWORK
                 + NOK_NAME_DESC_BOB, String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditTaskCommand.MESSAGE_USAGE));
     }
 }
