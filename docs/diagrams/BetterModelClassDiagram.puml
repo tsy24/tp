@@ -4,13 +4,14 @@ skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
-AddressBook *-right-> "1" UniqueElderlyList
-AddressBook *-right-> "1" UniqueTagList
+NurseyBook *-down-> "1" UniqueElderlyList
+NurseyBook *-right-> "1" UniqueTagList
+NurseyBook *-left-> "1" UniqueTaskList
 UniqueTagList -[hidden]down- UniqueElderlyList
 UniqueTagList -[hidden]down- UniqueElderlyList
 
 UniqueTagList *-right-> "*" Tag
-UniqueElderlyList --> Person
+UniqueElderlyList --> Elderly
 
 Elderly -up-|> Person
 Nok -up-|> Person
