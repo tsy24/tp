@@ -13,14 +13,14 @@ import nurseybook.testutil.TaskBuilder;
 
 public class TaskIsOverduePredicateTest {
 
-    private Task keithInsulin = new TaskBuilder(GEORGE_INSULIN).build(); // date: 2021-10-01, time: 00:00
+    private Task georgeInsulin = new TaskBuilder(GEORGE_INSULIN).build(); // date: 2021-10-01, time: 00:00
     private Task yasminPhysio = new TaskBuilder(YASMINE_PHYSIO).build(); // date: 2021-09-13, time: 15:30
 
     @Test
     public void test_overdueTasks_returnsTrue() {
         // default isOverdue = true -> returns true
         TaskIsOverduePredicate predicate = new TaskIsOverduePredicate();
-        assertTrue(predicate.test(keithInsulin));
+        assertTrue(predicate.test(georgeInsulin));
 
         // day has passed -> returns true
         assertTrue(predicate.test(yasminPhysio));

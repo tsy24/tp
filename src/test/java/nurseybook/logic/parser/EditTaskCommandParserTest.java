@@ -16,7 +16,7 @@ import static nurseybook.logic.commands.TaskCommandTestUtil.INVALID_DESC;
 import static nurseybook.logic.commands.TaskCommandTestUtil.INVALID_RECUR;
 import static nurseybook.logic.commands.TaskCommandTestUtil.INVALID_TIME;
 import static nurseybook.logic.commands.TaskCommandTestUtil.NAME_DESC_ALICE;
-import static nurseybook.logic.commands.TaskCommandTestUtil.NAME_DESC_KEITH;
+import static nurseybook.logic.commands.TaskCommandTestUtil.NAME_DESC_GEORGE;
 import static nurseybook.logic.commands.TaskCommandTestUtil.RECUR_DAY;
 import static nurseybook.logic.commands.TaskCommandTestUtil.RECUR_MONTH;
 import static nurseybook.logic.commands.TaskCommandTestUtil.RECUR_NONE;
@@ -258,7 +258,7 @@ public class EditTaskCommandParserTest {
 
     @Test
     public void parse_unexpectedFieldPresent_failure() {
-        assertParseFailure(parser, "1" + NAME_DESC_KEITH + DATE_DESC_NOV + TIME_DESC_SEVENPM + DESC_PAPERWORK
+        assertParseFailure(parser, "1" + NAME_DESC_GEORGE + DATE_DESC_NOV + TIME_DESC_SEVENPM + DESC_PAPERWORK
                 + NOK_NAME_DESC_BOB, String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditTaskCommand.MESSAGE_USAGE));
     }
 }

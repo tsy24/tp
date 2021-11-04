@@ -135,7 +135,7 @@ public class AddTaskCommandParserTest {
 
     @Test
     public void parse_unexpectedFieldPresent_failure() {
-        assertParseFailure(parser, NAME_DESC_KEITH + DATE_DESC_NOV + TIME_DESC_SEVENPM + DESC_PAPERWORK
+        assertParseFailure(parser, NAME_DESC_GEORGE + DATE_DESC_NOV + TIME_DESC_SEVENPM + DESC_PAPERWORK
                 + NOK_NAME_DESC_BOB, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTaskCommand.MESSAGE_USAGE));
     }
 }
