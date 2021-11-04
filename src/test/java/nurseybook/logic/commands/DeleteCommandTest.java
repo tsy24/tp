@@ -5,19 +5,24 @@ import static nurseybook.logic.commands.CommandTestUtil.assertCommandFailure;
 import static nurseybook.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static nurseybook.logic.commands.CommandTestUtil.showElderlyAtIndex;
 import static nurseybook.logic.commands.DeleteCommand.MESSAGE_DELETE_ELDERLY_SUCCESS;
+import static nurseybook.logic.commands.TaskCommandTestUtil.showTaskAtIndex;
 import static nurseybook.testutil.TypicalElderlies.getTypicalNurseyBook;
 import static nurseybook.testutil.TypicalIndexes.INDEX_FIRST;
 import static nurseybook.testutil.TypicalIndexes.INDEX_SECOND;
+import static nurseybook.testutil.TypicalTasks.ALICE_INSULIN;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
 import nurseybook.commons.core.index.Index;
+import nurseybook.logic.commands.exceptions.CommandException;
 import nurseybook.model.Model;
 import nurseybook.model.ModelManager;
 import nurseybook.model.UserPrefs;
 import nurseybook.model.person.Elderly;
+import nurseybook.model.task.Task;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for
@@ -64,6 +69,22 @@ public class DeleteCommandTest {
         showNoElderly(expectedModel);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_deleteAllInstancesOfElderlyWithNameInTasks_success() throws CommandException {
+        showElderlyAtIndex(model, INDEX_FIRST);
+        model.addTask(ALICE_INSULIN);
+        Elderly elderlyToDelete = model.getFilteredElderlyList().get(INDEX_FIRST.getZeroBased());
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST);
+        deleteCommand.execute(model);
+
+        showTaskAtIndex(model, INDEX_FIRST);
+        Task taskInFilteredList = model.getFilteredTaskList().get(INDEX_FIRST.getZeroBased());
+
+        // check if name has been deleted
+        assertFalse(taskInFilteredList.getRelatedNames().contains(elderlyToDelete.getName()));
+        assertEquals(0, taskInFilteredList.getRelatedNames().size());
     }
 
     @Test

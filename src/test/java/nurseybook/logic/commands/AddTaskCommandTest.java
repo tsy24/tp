@@ -2,6 +2,7 @@ package nurseybook.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static nurseybook.commons.core.Messages.MESSAGE_DUPLICATE_TASK;
+import static nurseybook.commons.core.Messages.MESSAGE_NO_SUCH_ELDERLY;
 import static nurseybook.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -46,6 +47,14 @@ public class AddTaskCommandTest {
         AddTaskCommand addTaskCommand = new AddTaskCommand(validTask);
         ModelStub modelStub = new ModelStubWithTask(validTask);
         assertThrows(CommandException.class, MESSAGE_DUPLICATE_TASK, () -> addTaskCommand.execute(modelStub));
+    }
+
+    @Test
+    public void execute_elderlyNotInNurseyBook_throwsCommandException() {
+        ModelStubAcceptingTaskAdded modelStub = new ModelStubAcceptingTaskAdded();
+        Task validTask = new TaskBuilder().withNames("Alex Yeoh").build();
+        AddTaskCommand addTaskCommand = new AddTaskCommand(validTask);
+        assertThrows(CommandException.class, MESSAGE_NO_SUCH_ELDERLY, () -> addTaskCommand.execute(modelStub));
     }
 
     @Test

@@ -14,20 +14,24 @@ import static nurseybook.logic.commands.CommandTestUtil.assertCommandFailure;
 import static nurseybook.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static nurseybook.logic.commands.CommandTestUtil.showElderlyAtIndex;
 import static nurseybook.logic.commands.EditCommand.MESSAGE_EDIT_ELDERLY_SUCCESS;
+import static nurseybook.logic.commands.TaskCommandTestUtil.showTaskAtIndex;
 import static nurseybook.testutil.TypicalElderlies.getTypicalNurseyBook;
 import static nurseybook.testutil.TypicalIndexes.INDEX_FIRST;
 import static nurseybook.testutil.TypicalIndexes.INDEX_SECOND;
+import static nurseybook.testutil.TypicalTasks.ALICE_INSULIN;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
 import nurseybook.commons.core.index.Index;
+import nurseybook.logic.commands.exceptions.CommandException;
 import nurseybook.model.Model;
 import nurseybook.model.ModelManager;
 import nurseybook.model.NurseyBook;
 import nurseybook.model.UserPrefs;
 import nurseybook.model.person.Elderly;
+import nurseybook.model.task.Task;
 import nurseybook.testutil.EditElderlyDescriptorBuilder;
 import nurseybook.testutil.ElderlyBuilder;
 
@@ -94,6 +98,20 @@ public class EditCommandTest {
     }
 
     @Test
+    public void execute_editAllInstancesOfElderlyWithNameInTasks_success() throws CommandException {
+        showElderlyAtIndex(model, INDEX_FIRST);
+        model.addTask(ALICE_INSULIN);
+        Elderly elderlyInFilteredList = model.getFilteredElderlyList().get(INDEX_FIRST.getZeroBased());
+        Elderly editedElderly = new ElderlyBuilder(elderlyInFilteredList).withName("Alex Yeoh").build();
+        EditCommand editCommand = new EditCommand(INDEX_FIRST, new EditElderlyDescriptorBuilder(editedElderly).build());
+        editCommand.execute(model);
+
+        showTaskAtIndex(model, INDEX_FIRST);
+        Task taskInFilteredList = model.getFilteredTaskList().get(INDEX_FIRST.getZeroBased());
+        assertTrue(taskInFilteredList.getRelatedNames().contains(editedElderly.getName()));
+    }
+
+    @Test
     public void execute_duplicateElderlyUnfilteredList_failure() {
         Elderly firstElderly = model.getFilteredElderlyList().get(INDEX_FIRST.getZeroBased());
         EditCommand.EditElderlyDescriptor descriptor = new EditElderlyDescriptorBuilder(firstElderly).build();
@@ -104,10 +122,8 @@ public class EditCommandTest {
 
     @Test
     public void execute_duplicateElderlyFilteredList_failure() {
-        showElderlyAtIndex(model, INDEX_FIRST);
-
         // edit elderly in filtered list into a duplicate in the nursey book
-        Elderly elderlyInList = model.getVersionedNurseyBook().getElderlyList().get(INDEX_SECOND.getZeroBased());
+        Elderly elderlyInList = model.getFilteredElderlyList().get(INDEX_SECOND.getZeroBased());
         EditCommand editCommand = new EditCommand(INDEX_FIRST,
                 new EditElderlyDescriptorBuilder(elderlyInList).build());
         assertCommandFailure(editCommand, model, MESSAGE_DUPLICATE_ELDERLY);
@@ -152,7 +168,7 @@ public class EditCommandTest {
     @Test
     public void execute_sameFieldsFilteredList_failure() {
         showElderlyAtIndex(model, INDEX_FIRST);
-        Elderly elderlyInList = model.getVersionedNurseyBook().getElderlyList().get(INDEX_FIRST.getZeroBased());
+        Elderly elderlyInList = model.getFilteredElderlyList().get(INDEX_FIRST.getZeroBased());
         EditCommand editCommand = new EditCommand(INDEX_FIRST,
                 new EditElderlyDescriptorBuilder(elderlyInList).build());
         assertCommandFailure(editCommand, model, MESSAGE_NO_CHANGES);

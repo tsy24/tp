@@ -4,7 +4,7 @@ import static nurseybook.logic.commands.CommandResult.ListDisplayChange.TASK;
 import static nurseybook.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static nurseybook.logic.commands.RemindCommand.MESSAGE_SUCCESS;
 import static nurseybook.testutil.TypicalIndexes.INDEX_FIRST;
-import static nurseybook.testutil.TypicalTasks.ALEX_INSULIN;
+import static nurseybook.testutil.TypicalTasks.ALICE_INSULIN;
 import static nurseybook.testutil.TypicalTasks.DO_PAPERWORK;
 import static nurseybook.testutil.TypicalTasks.getTypicalNurseyBook;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -104,8 +104,8 @@ public class RemindCommandTest {
         expectedModel.updateFilteredTaskList(predicate);
         assertCommandSuccess(command, model, expectedCommandResult, expectedModel);
         ObservableList<Task> temp = model.getFilteredTaskList();
-        List<Task> list = Arrays.asList(DO_PAPERWORK, ALEX_INSULIN);
-        assertEquals(Arrays.asList(DO_PAPERWORK, ALEX_INSULIN), model.getFilteredTaskList());
+        List<Task> list = Arrays.asList(DO_PAPERWORK, ALICE_INSULIN);
+        assertEquals(Arrays.asList(DO_PAPERWORK, ALICE_INSULIN), model.getFilteredTaskList());
     }
 
     @Test

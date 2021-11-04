@@ -11,10 +11,12 @@ import nurseybook.model.Model;
 import nurseybook.model.ReadOnlyNurseyBook;
 import nurseybook.model.ReadOnlyUserPrefs;
 import nurseybook.model.person.Elderly;
+import nurseybook.model.person.Name;
 import nurseybook.model.task.Task;
 
 /**
- * A default model stub that have all of the methods failing.
+ * A default model stub that have all of the methods failing except isElderlyPresent(),
+ * which returns false with the assumption that there are no elderlies present.
  */
 public class ModelStub implements Model {
     @Override
@@ -103,6 +105,21 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public boolean isElderlyPresent(Name name) {
+        return false;
+    }
+
+    @Override
+    public void updateElderlyNameInTasks(Elderly target, Elderly editedElderly) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void deleteElderlyNameInTasks(Elderly elderlyToDelete) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public void setTask(Task target, Task editedTask) {
         throw new AssertionError("This method should not be called.");
     }
@@ -119,11 +136,6 @@ public class ModelStub implements Model {
 
     @Override
     public void markTaskAsNotOverdue(Task target) {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
-    public void updateDateRecurringTask(Task target) {
         throw new AssertionError("This method should not be called.");
     }
 
