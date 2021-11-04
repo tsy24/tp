@@ -28,6 +28,7 @@ import static nurseybook.logic.commands.CommandTestUtil.NOK_RELATIONSHIP_DESC_AM
 import static nurseybook.logic.commands.CommandTestUtil.NOK_RELATIONSHIP_DESC_BOB;
 import static nurseybook.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static nurseybook.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
+import static nurseybook.logic.commands.CommandTestUtil.REMARK_DESC_AMY;
 import static nurseybook.logic.commands.CommandTestUtil.ROOM_NUMBER_DESC_AMY;
 import static nurseybook.logic.commands.CommandTestUtil.ROOM_NUMBER_DESC_BOB;
 import static nurseybook.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
@@ -67,7 +68,7 @@ public class AddCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Elderly expectedElderly = new ElderlyBuilder(BOB).withTags(VALID_TAG_FRIEND).build();
+        Elderly expectedElderly = new ElderlyBuilder(BOB).withTags(VALID_TAG_FRIEND).withRemark("").build();
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + AGE_DESC_BOB
@@ -102,13 +103,13 @@ public class AddCommandParserTest {
         // multiple nok names - last nok name accepted
         assertParseSuccess(parser, NAME_DESC_BOB + NOK_PHONE_DESC_BOB + AGE_DESC_BOB
                 + GENDER_DESC_BOB + ROOM_NUMBER_DESC_BOB + NOK_NAME_DESC_AMY + NOK_NAME_DESC_BOB
-                + NOK_RELATIONSHIP_DESC_BOB + NOK_EMAIL_DESC_AMY + NOK_ADDRESS_DESC_BOB + TAG_DESC_FRIEND,
+                + NOK_RELATIONSHIP_DESC_BOB + NOK_EMAIL_DESC_BOB + NOK_ADDRESS_DESC_BOB + TAG_DESC_FRIEND,
                 new AddCommand(expectedElderly));
 
         // multiple relationships - last relationship accepted
         assertParseSuccess(parser, NAME_DESC_BOB + NOK_PHONE_DESC_BOB + AGE_DESC_BOB
                 + GENDER_DESC_BOB + ROOM_NUMBER_DESC_BOB + NOK_NAME_DESC_BOB + NOK_RELATIONSHIP_DESC_AMY
-                + NOK_RELATIONSHIP_DESC_BOB + NOK_EMAIL_DESC_AMY + NOK_ADDRESS_DESC_BOB + TAG_DESC_FRIEND,
+                + NOK_RELATIONSHIP_DESC_BOB + NOK_EMAIL_DESC_BOB + NOK_ADDRESS_DESC_BOB + TAG_DESC_FRIEND,
                 new AddCommand(expectedElderly));
 
         // multiple emails - last email accepted
@@ -131,7 +132,7 @@ public class AddCommandParserTest {
 
         // multiple tags - all accepted
         Elderly expectedElderlyMultipleTags = new ElderlyBuilder(BOB)
-                .withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND).build();
+                .withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND).withRemark("").build();
         assertParseSuccess(parser, NAME_DESC_BOB + NOK_PHONE_DESC_BOB + AGE_DESC_BOB
                 + GENDER_DESC_BOB + ROOM_NUMBER_DESC_BOB + NOK_NAME_DESC_BOB + NOK_RELATIONSHIP_DESC_BOB
                 + NOK_EMAIL_DESC_BOB + NOK_ADDRESS_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
@@ -141,7 +142,8 @@ public class AddCommandParserTest {
     @Test
     public void parse_optionalFieldsMissing_success() {
         // zero tags
-        Elderly expectedElderly = new ElderlyBuilder(AMY).withTags().build();
+        Elderly expectedElderly = new ElderlyBuilder(AMY).withTags().withNokName("NIL")
+                .withPhone("").withAddress("").withRelationship("").withEmail("").withRemark("").build();
         assertParseSuccess(parser, NAME_DESC_AMY + AGE_DESC_AMY + GENDER_DESC_AMY
                         + ROOM_NUMBER_DESC_AMY, new AddCommand(expectedElderly));
     }
@@ -244,5 +246,11 @@ public class AddCommandParserTest {
                 + GENDER_DESC_BOB + ROOM_NUMBER_DESC_BOB + NOK_NAME_DESC_BOB + NOK_RELATIONSHIP_DESC_BOB
                 + NOK_PHONE_DESC_BOB + NOK_EMAIL_DESC_BOB + NOK_ADDRESS_DESC_BOB + TAG_DESC_HUSBAND
                 + TAG_DESC_FRIEND, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_unexpectedFieldPresent_failure() {
+        assertParseFailure(parser, NAME_DESC_AMY + AGE_DESC_AMY + GENDER_DESC_AMY + ROOM_NUMBER_DESC_AMY
+                + REMARK_DESC_AMY, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
     }
 }
