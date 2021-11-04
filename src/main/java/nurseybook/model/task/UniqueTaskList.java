@@ -25,6 +25,9 @@ import nurseybook.model.task.exceptions.TaskNotFoundException;
  */
 public class UniqueTaskList implements Iterable<Task> {
 
+    //No. of days to check for recurring tasks in the future is set to 84 days, or 12 weeks.
+    public static final int MAX_DAYS_SCHEDULE_AHEAD = 84;
+
     private final ObservableList<Task> internalList = FXCollections.observableArrayList();
     private final ObservableList<Task> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
@@ -216,7 +219,7 @@ public class UniqueTaskList implements Iterable<Task> {
         //starting from current date.
         LocalDate dateToday = LocalDate.now();
         LocalDate taskDate = task.getDate();
-        int daysLeftToCheck = 84 - ((int) ChronoUnit.DAYS.between(dateToday, taskDate));
+        int daysLeftToCheck = MAX_DAYS_SCHEDULE_AHEAD - ((int) ChronoUnit.DAYS.between(dateToday, taskDate));
 
 
         GhostTask ghostTaskCopy = task.copyToGhostTask();

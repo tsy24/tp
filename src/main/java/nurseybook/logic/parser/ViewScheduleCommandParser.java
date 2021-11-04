@@ -2,6 +2,7 @@ package nurseybook.logic.parser;
 
 import static nurseybook.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static nurseybook.commons.core.Messages.MESSAGE_VIEWSCHEDULE_DAYS_SUPPORTED;
+import static nurseybook.model.task.UniqueTaskList.MAX_DAYS_SCHEDULE_AHEAD;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -46,7 +47,7 @@ public class ViewScheduleCommandParser implements Parser<Command> {
     private void isDateWithinBounds(LocalDate keyDate) throws ParseException {
         //ViewSchedule is only supported for 12 weeks, or 84 days, in advance
         LocalDate dateToday = LocalDate.now();
-        if (ChronoUnit.DAYS.between(dateToday, keyDate) > 84) {
+        if (ChronoUnit.DAYS.between(dateToday, keyDate) > MAX_DAYS_SCHEDULE_AHEAD) {
             throw new ParseException(MESSAGE_VIEWSCHEDULE_DAYS_SUPPORTED);
         }
     }

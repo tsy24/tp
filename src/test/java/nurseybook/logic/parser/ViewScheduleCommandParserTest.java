@@ -5,6 +5,7 @@ import static nurseybook.commons.core.Messages.MESSAGE_VIEWSCHEDULE_DAYS_SUPPORT
 import static nurseybook.logic.commands.ViewScheduleCommand.MESSAGE_USAGE;
 import static nurseybook.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static nurseybook.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static nurseybook.model.task.UniqueTaskList.MAX_DAYS_SCHEDULE_AHEAD;
 
 import java.time.LocalDate;
 
@@ -41,7 +42,7 @@ public class ViewScheduleCommandParserTest {
     @Test
     public void parse_outOfBoundsKeyDate_throwsParseException() {
         LocalDate todayDate = LocalDate.now();
-        LocalDate outOfBoundsDate = todayDate.plusDays(85);
+        LocalDate outOfBoundsDate = todayDate.plusDays(MAX_DAYS_SCHEDULE_AHEAD + 1);
         String outOfBoundsDateString = outOfBoundsDate.toString();
         ViewScheduleCommand expectedViewScheduleCommand =
                 new ViewScheduleCommand(new DateTimeContainsDatePredicate(outOfBoundsDate), outOfBoundsDate);
