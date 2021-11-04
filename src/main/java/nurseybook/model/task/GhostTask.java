@@ -32,7 +32,7 @@ public class GhostTask extends Task {
     }
 
     /**
-     * Copies the task and returns it.
+     * Copies the task and all it's fields and returns a new instance of it.
      *
      * @return A copy of the current task.
      */

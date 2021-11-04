@@ -5,12 +5,10 @@ import static nurseybook.commons.core.Messages.MESSAGE_VIEWSCHEDULE_DAYS_SUPPORT
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.Date;
 
 import nurseybook.logic.commands.Command;
 import nurseybook.logic.commands.ViewScheduleCommand;
 import nurseybook.logic.parser.exceptions.ParseException;
-import nurseybook.model.task.DateTime;
 import nurseybook.model.task.DateTimeContainsDatePredicate;
 
 /**
