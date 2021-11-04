@@ -31,9 +31,11 @@ public class AgeTest {
         assertFalse(Age.isValidAge("phone")); // non-numeric
         assertFalse(Age.isValidAge("9011p041")); // alphabets within digits
         assertFalse(Age.isValidAge("9312 1534")); // spaces within digits
+        assertFalse(Age.isValidAge("20")); // below lower limit
+        assertFalse(Age.isValidAge("146")); // above lower limit
 
         // valid phones
-        assertTrue(Age.isValidAge("911")); // exactly 3 numbers
-        assertTrue(Age.isValidAge("93121534")); // although ridiculous but legit ages
+        assertTrue(Age.isValidAge("21")); // lower limit
+        assertTrue(Age.isValidAge("145")); // upper limit
     }
 }
