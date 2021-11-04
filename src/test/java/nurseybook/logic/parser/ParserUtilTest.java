@@ -119,6 +119,13 @@ public class ParserUtilTest {
     }
 
     @Test
+    public void parseAge_validValueWithLeadingZeros_returnsTrimmedAge() throws Exception {
+        String ageWithLeadingZeros = ZEROS + VALID_AGE;
+        Age expectedAge = new Age(VALID_AGE);
+        assertEquals(expectedAge, ParserUtil.parseAge(ageWithLeadingZeros));
+    }
+
+    @Test
     public void parseRoomNumber_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> ParserUtil.parseRoomNumber((String) null));
     }
