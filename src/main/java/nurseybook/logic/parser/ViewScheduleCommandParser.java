@@ -1,6 +1,7 @@
 package nurseybook.logic.parser;
 
 import static nurseybook.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static nurseybook.commons.core.Messages.MESSAGE_INVALID_PASSED_DATE;
 import static nurseybook.commons.core.Messages.MESSAGE_VIEWSCHEDULE_DAYS_SUPPORTED;
 import static nurseybook.model.task.UniqueTaskList.MAX_DAYS_SCHEDULE_AHEAD;
 
@@ -32,6 +33,11 @@ public class ViewScheduleCommandParser implements Parser<Command> {
 
         LocalDate keyDate = ParserUtil.parseDate(trimmedKeyDate);
         isDateWithinBounds(keyDate);
+
+        if (keyDate.isBefore(LocalDate.now())) {
+            throw new ParseException(MESSAGE_INVALID_PASSED_DATE);
+        }
+
         return new ViewScheduleCommand(new DateTimeContainsDatePredicate(keyDate), keyDate);
     }
 

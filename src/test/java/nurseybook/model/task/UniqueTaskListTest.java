@@ -242,25 +242,4 @@ public class UniqueTaskListTest {
 
         assertEquals(taskList, expectedTaskList);
     }
-
-    @Test
-    public void addPossibleGhostTasksWithMatchingDate_forDateBeforeCurrentDate() {
-        Set<Name> nameSet = new HashSet<>();
-        LocalDate today = LocalDate.now();
-        LocalDate keyDate = LocalDate.now().minusDays(1);
-        RealTask testTask = new RealTask(new Description("Task"), new DateTime(today, LocalTime.now()),
-                nameSet, new Recurrence("DAY"));
-
-        Task nextTaskRecurrence = testTask.copyToGhostTask();
-        nextTaskRecurrence.setDate(keyDate);
-
-        UniqueTaskList taskList = new UniqueTaskList();
-        taskList.add(testTask);
-        taskList.addPossibleGhostTasksWithMatchingDate(keyDate);
-
-        UniqueTaskList expectedTaskList = new UniqueTaskList();
-        expectedTaskList.add(testTask);
-
-        assertEquals(taskList, expectedTaskList);
-    }
 }

@@ -23,5 +23,7 @@ public class Messages {
     public static final String MESSAGE_NO_SUCH_ELDERLY = "Some of the elderly names are not found in your elderly "
             + "database.\n"
             + "Please make sure all elderly names typed are already added into your database.";
+    public static final String MESSAGE_INVALID_PASSED_DATE = "The date you have entered has already passed. "
+            + "Please enter a date that is either today or in the future.";
 
 }
