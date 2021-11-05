@@ -13,6 +13,7 @@ import static nurseybook.testutil.TypicalTasks.APPLY_LEAVE_NEXT_DAY;
 import static nurseybook.testutil.TypicalTasks.GEORGE_INSULIN;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
@@ -21,7 +22,24 @@ import nurseybook.testutil.TaskBuilder;
 
 public class RealTaskTest {
 
-    private final Task georgeInsulin = new TaskBuilder(GEORGE_INSULIN).build();
+    private final RealTask georgeInsulin = (RealTask) new TaskBuilder(GEORGE_INSULIN).build();
+
+    @Test
+    void copyTask() {
+        //check if copyTask() returns a different instance of RealTask.
+        assertNotSame(georgeInsulin, georgeInsulin.copyTask());
+
+        //check if each field in copied task is a new instance.
+        RealTask copyTask = georgeInsulin.copyTask();
+        assertNotSame(georgeInsulin.getDesc(), copyTask.getDesc());
+        assertNotSame(georgeInsulin.getDateTime(), copyTask.getDateTime());
+        assertNotSame(georgeInsulin.getRelatedNames(), copyTask.getRelatedNames());
+        assertNotSame(georgeInsulin.getRecurrence(), copyTask.getRecurrence());
+
+
+        //check if copyTask() returns a RealTask that has the same field values as the copied task.
+        assertEquals(georgeInsulin, copyTask);
+    }
 
     @Test
     void copyToGhostTask() {

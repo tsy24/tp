@@ -5,28 +5,29 @@ title: Tze Henn's Project Portfolio Page
 
 ### Project: AddressBook Level 3
 
-AddressBook - Level 3 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+NurseyBook is a desktop address book application designed to help nurses manage their contacts and tasks. The user primarily interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 17 kLoC.
 
 Given below are my contributions to the project.
 
-* **New Feature**: Added the ability to undo/redo previous commands.
-  * What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-  * Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-  * Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-  * Credits: *{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}*
+* **New Feature**: Added the ability to add recurring tasks.
+  * What it does: allows the user to create tasks with different recurrence types: none, daily, weekly or monthly.
+  * Justification: This feature improves the product significantly because it gives a user a lot of flexibility in creating variations of task, which suits different needs of a user.
+  * Highlights: This enhancement is an important feature of NurseyBook. This required implementing an auxiliary function to update the task’s current date once its date has passed, which varies based on its recurrence type. The integration of this function with the app was challenging as now, all commands executed will have this side effect of updating the task's current date. As a result, testing for this feature needed to be more comprehensive.
 
-* **New Feature**: Added a history command that allows the user to navigate to previous commands using up/down keys.
+* **New Feature**: Added the ability to edit tasks.
+  * What it does: allows the user to make changes to any details of a task, and specifically, any edits to the same elderly name will be reflected across all tasks.
+  * Justification: This feature improves the user experience greatly as a user does not have to go through the troublesome motion of deleting and adding a task again should a user decides to change the task’s details, or editing all tasks which contain the same elderly name.
+  * Highlights: Similar to the first feature mentioned above, integration of this feature was challenging as this command have the side effect of updating the elderly names of other tasks. As a result, testing for this feature was also more comprehensive than usual.
 
-* **Code contributed**: [RepoSense link]()
+* **Code contributed**: [RepoSense link](https://nus-cs2103-ay2122s1.github.io/tp-dashboard/#breakdown=true&search=superbestron)
 
 * **Project management**:
-  * Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+  * Managed releases `v1.1` - `v1.4` (4 releases) on GitHub
 
 * **Enhancements to existing features**:
-  * Updated the GUI color scheme (Pull requests [\#33](), [\#34]())
-  * Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests [\#36](), [\#38]())
+  * Performed a major refactor of `Person` class to include `Elderly` and `Nok` classes. (Pull requests [\#64](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/64), [\#78](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/78))
 
-* **Documentation**:
+* **Documentation**: (not updated yet)
   * User Guide:
     * Added documentation for the features `delete` and `find` [\#72]()
     * Did cosmetic tweaks to existing documentation of features `clear`, `exit`: [\#74]()
@@ -34,13 +35,4 @@ Given below are my contributions to the project.
     * Added implementation details of the `delete` feature.
 
 * **Community**:
-  * PRs reviewed (with non-trivial review comments): [\#12](), [\#32](), [\#19](), [\#42]()
-  * Contributed to forum discussions (examples: [1](), [2](), [3](), [4]())
-  * Reported bugs and suggestions for other teams in the class (examples: [1](), [2](), [3]())
-  * Some parts of the history feature I added was adopted by several other class mates ([1](), [2]())
-
-* **Tools**:
-  * Integrated a third party library (Natty) to the project ([\#42]())
-  * Integrated a new Github plugin (CircleCI) to the team repo
-
-* _{you can add/remove categories in the list above}_
+  * PRs reviewed (with non-trivial review comments): [\#107](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/107)

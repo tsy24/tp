@@ -1,8 +1,12 @@
 package nurseybook.logic.parser;
 
 import static nurseybook.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static nurseybook.commons.core.Messages.MESSAGE_INVALID_PASSED_DATE;
+import static nurseybook.commons.core.Messages.MESSAGE_VIEWSCHEDULE_DAYS_SUPPORTED;
+import static nurseybook.model.task.UniqueTaskList.MAX_DAYS_SCHEDULE_AHEAD;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 import nurseybook.logic.commands.Command;
 import nurseybook.logic.commands.ViewScheduleCommand;
@@ -20,16 +24,28 @@ public class ViewScheduleCommandParser implements Parser<Command> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public ViewScheduleCommand parse(String args) throws ParseException {
-        String trimmedArgs = args.trim();
+        String trimmedKeyDate = args.trim();
 
-        if (trimmedArgs.isEmpty()) {
+        if (trimmedKeyDate.isEmpty()) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewScheduleCommand.MESSAGE_USAGE));
         }
 
-        String stringKeyDate = trimmedArgs.split(" ")[0];
-        LocalDate keyDate = ParserUtil.parseDate(stringKeyDate);
+        LocalDate keyDate = ParserUtil.parseDate(trimmedKeyDate);
+        isDateWithinBounds(keyDate);
+
+        if (keyDate.isBefore(LocalDate.now())) {
+            throw new ParseException(MESSAGE_INVALID_PASSED_DATE);
+        }
 
         return new ViewScheduleCommand(new DateTimeContainsDatePredicate(keyDate), keyDate);
+    }
+
+    private void isDateWithinBounds(LocalDate keyDate) throws ParseException {
+        //ViewSchedule is only supported for 12 weeks, or 84 days, in advance
+        LocalDate dateToday = LocalDate.now();
+        if (ChronoUnit.DAYS.between(dateToday, keyDate) > MAX_DAYS_SCHEDULE_AHEAD) {
+            throw new ParseException(MESSAGE_VIEWSCHEDULE_DAYS_SUPPORTED);
+        }
     }
 }

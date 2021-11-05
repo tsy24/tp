@@ -4,7 +4,7 @@ title: User Guide
 ---
 
 * Table of Contents
-  {:toc}
+{:toc}
 
 --------------------------------------------------------------------------------------------------------------------
 ## 1. Introduction
@@ -82,14 +82,14 @@ Example warnings.
 
 </div>
 
-**Tips**
+**Tip**
 
 Text that appear in a tip box are useful for improving your experience with NurseyBook.
 
 <div markdown="block" class="alert alert-primary">
 
-:bulb: **Tips:**
-Example tips.
+:bulb: **Tip:**
+Example tip.
 
 </div>
 
@@ -128,7 +128,7 @@ Commands in this guide follow such rules:
 
 <div markdown="block" class="alert alert-info">
 
-**:information_source: Information:**
+:information_source: **Information:**
 
 * If a parameter is expected only once in the command but you specified it multiple times, only the last occurrence of the parameter will be taken.<br>
   e.g. if you specify `p/12341234 p/56785678`, only `p/56785678` will be taken.
@@ -140,7 +140,7 @@ Commands in this guide follow such rules:
 
 <div markdown="block" class="alert alert-primary">
 
-**:bulb: Tips:**
+:bulb: **Tip:**
 
 * The _User Interface_ refers to the NurseyBook application window.
 * _Command Line Interface_ refers to where you interact with the system by typing in commands - in this case, the command box.
@@ -207,6 +207,7 @@ Examples:
 
 :information_source: **Information:**
 * An elderly can have any number of tags (including 0).
+* You can specify a Next-of-Kin's (NOK) details for each elderly, when adding an elderly.
 * NurseyBook does not support any two elderly with the same name, even if any other fields are different. A suggestion will be to save the full name of the elderly you are adding into NurseyBook.
 
 </div>
@@ -256,7 +257,7 @@ Examples: See [`addElderly`](#add-an-elderly) for examples.
 
 <div markdown="block" class="alert alert-warning">
 
-:exclamation: **Caution**
+:exclamation: **Caution:**
 * By leaving the tag input empty, you will remove all the tags currently assigned to the elderly.
 * If you want to add a tag with `editElderly`, you have to include all the existing tags of the elderly in your command.
 * Editing an elderly's name will cause all occurrences of the elderly's name in tasks to be also edited.
@@ -487,7 +488,7 @@ Examples:
 
 <div markdown="block" class="alert alert-info">
 
-:information_source: **Information**
+:information_source: **Information:**
 
 * If the date/recurrence type of a recurring task is edited, the updated date generated will be based on the most recently edited date.
 
@@ -498,7 +499,7 @@ e.g. Date of task is `2022-01-01` with `daily` recurrence. On `2022-01-03`, the 
 <div markdown="block" class="alert alert-warning">
 
 :exclamation: **Caution**
-* If you want to edit the elderlies' names of the task, you need to first make sure all the elderlies' names are already registered in your elderly database.
+* If you want to edit the names of any elderlies linked to a task, you need to first make sure all the elderlies' names are already registered in your elderly database.
 
 </div>
 
@@ -558,7 +559,7 @@ Format: `remind`
 #### View task schedule: `viewSchedule`
 
 Displays the list of tasks set to occur on the specified date.
-Recurring tasks that will take place on that date is also included.
+Future occurrences of recurring tasks that will take place on that date is also included.
 
 Format: `viewSchedule DATE`
 
@@ -569,7 +570,8 @@ Example:
 
 :information_source: **Information:**
 * Date must be in yyyy-mm-dd form.
-* You can view schedule for up to 12 weeks in advance.
+* You can view schedule for up to 12 weeks in advance from the current date.
+* For recurring tasks, this is simply a tool to preview its future occurrences. You cannot modify (e.g. delete/edit/mark as done/etc.) any such future occurrences of recurring tasks shown in the task list. These future occurrences will be deleted from task view upon entering any next valid/invalid input.
 
 </div>
 
@@ -578,7 +580,7 @@ Example:
 
 <div markdown="span" class="alert alert-warning">
 
-:exclamation: **Caution**
+:exclamation: **Caution:**
 * NurseyBook will not automatically refresh the displayed task list to reflect
 instantaneous changes, such as overdue tasks and new dates of recurring tasks.
 * However, you can manually trigger this refresh, and one way is to enter
@@ -706,7 +708,8 @@ Action | Format, Examples
 **Undo** | `undo`
 **Redo** | `redo`
 **Exit** | `exit`
-<br />
+
+--------------------------------------------------------------------------------------------------------------------
 
 ## 7. Glossary
 

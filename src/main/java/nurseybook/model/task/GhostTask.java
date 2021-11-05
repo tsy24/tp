@@ -29,6 +29,25 @@ public class GhostTask extends Task {
     }
 
     /**
+     * Copies the task and all it's fields and returns a new instance of it.
+     *
+     * @return A copy of the current task.
+     */
+    @Override
+    public GhostTask copyTask() {
+        Description copyDesc = new Description(getDesc().value);
+        DateTime copyDt = new DateTime(getDateTime().getStringDate(), getDateTime().getStringTime());
+        Set<Name> copyRelatedNames = new HashSet<>();
+        for (Name name : getRelatedNames()) {
+            copyRelatedNames.add(new Name(name.fullName));
+        }
+        Status copyStatus = new Status(getStatus().isDone, getStatus().isOverdue);
+        Recurrence copyRecurrence = new Recurrence(getRecurrence().toString());
+
+        return new GhostTask(copyDesc, copyDt, copyRelatedNames, copyStatus, copyRecurrence);
+    }
+
+    /**
      * Marks task as done.
      *
      * @return A new duplicate task object, except that it is marked as done
@@ -82,25 +101,6 @@ public class GhostTask extends Task {
         } else {
             return this;
         }
-    }
-
-    /**
-     * Copies the task and returns it.
-     *
-     * @return A copy of the current task.
-     */
-    @Override
-    public GhostTask copyTask() {
-        Description copyDesc = new Description(getDesc().value);
-        DateTime copyDt = new DateTime(getDateTime().getStringDate(), getDateTime().getStringTime());
-        Set<Name> copyRelatedNames = new HashSet<>();
-        for (Name name : getRelatedNames()) {
-            copyRelatedNames.add(new Name(name.fullName));
-        }
-        Status copyStatus = new Status(getStatus().isDone, getStatus().isOverdue);
-        Recurrence copyRecurrence = new Recurrence(getRecurrence().toString());
-
-        return new GhostTask(copyDesc, copyDt, copyRelatedNames, copyStatus, copyRecurrence);
     }
 
     /**
