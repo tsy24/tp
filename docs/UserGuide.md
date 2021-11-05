@@ -84,14 +84,14 @@ Example warnings.
 
 </div>
 
-**Tips**
+**Tip**
 
 Text that appear in a tip box are useful for improving your experience with NurseyBook.
 
 <div markdown="block" class="alert alert-primary">
 
-:bulb: **Tips:**
-Example tips.
+:bulb: **Tip:**
+Example tip.
 
 </div>
 
@@ -133,7 +133,7 @@ Commands in this guide follow such rules:
 
 <div markdown="block" class="alert alert-info">
 
-**:information_source: Information:**
+:information_source: **Information:**
 
 * If a parameter is expected only once in the command but you specified it multiple times, only the last occurrence of the parameter will be taken.<br>
   e.g. if you specify `p/12341234 p/56785678`, only `p/56785678` will be taken.
@@ -145,7 +145,7 @@ Commands in this guide follow such rules:
 
 <div markdown="block" class="alert alert-primary">
 
-**:bulb: Tips:**
+:bulb: **Tip:**
 
 * The _User Interface_ refers to the NurseyBook application window. 
 * _Command Line Interface_ refers to where you interact with the system by typing in commands - in this case, the command box. 
@@ -261,7 +261,7 @@ e.g. `editElderly 1 re/`
 
 <div markdown="block" class="alert alert-warning">
 
-:exclamation: **Caution**
+:exclamation: **Caution:**
 * By leaving the tag input empty, you will remove all the tags currently assigned to the elderly.
 * If you want to add a tag with `editElderly`, you have to include all the existing tags of the elderly in your command.
 
@@ -484,7 +484,7 @@ Format: `editTask INDEX [en/ELDERLY_NAME]... [desc/DESCRIPTION] [date/DATE] [tim
 
 <div markdown="block" class="alert alert-info">
 
-:information_source: **Information**
+:information_source: **Information:**
 
 * If the date/recurrence type of a recurring task is edited, the updated date generated will be based on the most recently edited date.
 
@@ -575,7 +575,7 @@ Example:
 
 <div markdown="span" class="alert alert-warning">
 
-:exclamation: **Caution**
+:exclamation: **Caution:**
 * NurseyBook will not automatically refresh the displayed task list to reflect
 instantaneous changes, such as overdue tasks and new dates of recurring tasks.
 * However, you can manually trigger this refresh, and one way is to enter
