@@ -117,16 +117,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void markTaskAsOverdue(Task target) {
-        versionedNurseyBook.markTaskAsOverdue(target);
-    }
-
-    @Override
-    public void markTaskAsNotOverdue(Task target) {
-        versionedNurseyBook.markTaskAsNotOverdue(target);
-    }
-
-    @Override
     public boolean isElderlyPresent(Name name) {
         for (Elderly elderly : filteredElderlies) {
             if (elderly.getName().equals(name)) {
@@ -255,42 +245,12 @@ public class ModelManager implements Model {
     @Override
     public void updateFilteredTaskList(Predicate<Task> predicate) {
         requireNonNull(predicate);
-        updateOverdueTaskList();
-        updateNotOverdueTaskList();
-        updateDateRecurringTaskList();
+        versionedNurseyBook.updateRecurringTasksDate();
+        versionedNurseyBook.updateTasksOverdueStatus();
+        versionedNurseyBook.reorderTasksChronologically();
         filteredTasks.setPredicate(predicate);
     }
 
-    @Override
-    public void updateOverdueTaskList() {
-        Predicate<Task> predicate = new TaskIsOverduePredicate();
-        filteredTasks.setPredicate(predicate);
-        filteredTasks.forEach(this::markTaskAsOverdue);
-
-    }
-
-    @Override
-    public void updateNotOverdueTaskList() {
-        Predicate<Task> predicate = new TaskIsNotOverduePredicate();
-        filteredTasks.setPredicate(predicate);
-        filteredTasks.forEach(this::markTaskAsNotOverdue);
-    }
-
-    @Override
-    public void updateDateRecurringTaskList() {
-        Predicate<Task> predicate = new TaskIsRecurringAndOverduePredicate();
-        filteredTasks.setPredicate(predicate);
-
-        // The below for loop is not replaceable with enhanced for loop because changes made to the datetime of the
-        // task will cause it to disappear from filteredTask, leading to some error.
-        // anyone is welcome to fix this bug :)
-        for (int i = 0; i < filteredTasks.size(); i++) {
-            Task t = filteredTasks.get(i);
-            if (t.isTaskRecurringAndOverdue()) {
-                versionedNurseyBook.updateDateRecurringTask(t);
-            }
-        }
-    }
 
     @Override
     public boolean equals(Object obj) {

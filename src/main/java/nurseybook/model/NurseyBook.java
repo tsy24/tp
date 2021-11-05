@@ -177,6 +177,14 @@ public class NurseyBook implements ReadOnlyNurseyBook {
         tasks.addPossibleGhostTasksWithMatchingDate(keyDate);
     }
 
+    public void updateTasksOverdueStatus() {
+        tasks.updateOverdueStatuses();
+    }
+
+    public void updateRecurringTasksDate() {
+        tasks.updateRecurringDates();
+    }
+
     //// util methods
 
     @Override
@@ -227,27 +235,8 @@ public class NurseyBook implements ReadOnlyNurseyBook {
         tasks.markTaskAsDone(target);
     }
 
-    /**
-     * Marks the given task {@code target} as overdue.
-     * {@code target} must exist in NurseyBook.
-     */
-    public void markTaskAsOverdue(Task target) {
-        tasks.markTaskAsOverdue(target);
-    }
 
-    /**
-     * Marks the given task {@code target} as not overdue.
-     * {@code target} must exist in NurseyBook.
-     */
-    public void markTaskAsNotOverdue(Task target) {
-        tasks.markTaskAsNotOverdue(target);
-    }
-
-    /**
-     * Updates the date of the given task {@code target} such that it is not overdue.
-     * {@code target} must exist in NurseyBook.
-     */
-    public void updateDateRecurringTask(Task target) {
-        tasks.updateDateOfRecurringTask(target);
+    public void reorderTasksChronologically() {
+        tasks.reorderTasks();
     }
 }

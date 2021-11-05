@@ -77,19 +77,6 @@ public interface Model {
      */
     void markTaskAsDone(Task target);
 
-    /**
-     * Marks the given task {@code target} as overdue.
-     * {@code target} must exist in the nursey book.
-     */
-    void markTaskAsOverdue(Task target);
-
-    /**
-     * Marks the given task {@code target} as not overdue.
-     * {@code target} must exist in the nursey book.
-     */
-    void markTaskAsNotOverdue(Task target);
-
-
     boolean isElderlyPresent(Name name);
 
     void updateElderlyNameInTasks(Elderly target, Elderly editedElderly);
@@ -195,11 +182,6 @@ public interface Model {
     boolean canRedoNurseyBook();
 
     /**
-     * Updates the overdue status of the tasks in the task list.
-     */
-    void updateOverdueTaskList();
-
-    /**
      * Adds ghost tasks on the specified keyDate, if any of the current recurring tasks' future occurrences
      * coincide with the given keydate.
      *
@@ -207,13 +189,4 @@ public interface Model {
      */
     void addPossibleGhostTasksWithMatchingDate(LocalDate keyDate);
 
-    /**
-     * Updates the not overdue status of the tasks in the task list.
-     */
-    void updateNotOverdueTaskList();
-
-    /**
-     * Updates the not overdue status of the tasks in the task list.
-     */
-    void updateDateRecurringTaskList();
 }
