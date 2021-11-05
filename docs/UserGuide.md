@@ -52,13 +52,11 @@ This document is structured in a manner that lets you find what you need fast an
 In the following subsection, [3.2 Reading this document](#3.2 Reading this document), you can find several tips that could be beneficial when reading this guide.
 The next section, documents the main features that **NurseyBook** offers and provides you with instructions on how to
 use each one of them!
-<br />
 
 ### 3.2 Reading this document
 
 This subsection will introduce to you the symbols, syntax and technical terms that are used throughout this guide.
 Being familiar with this subsection will definitely help you out when looking through this guide.
-<br />
 
 #### 3.2.1 Special symbols
 
@@ -94,14 +92,12 @@ Text that appear in a tip box are useful for improving your experience with Nurs
 Example tips.
 
 </div>
-<br />
 
 #### 3.2.2 Sections of the Application Window
 
 You can refer to the image below for the names of the different sections in NurseyBook's application window.
 
 ![nurseybook_application_window](images/userGuide/application_window.png)
-<br />
 
 #### 3.2.3 Navigating in NurseyBook
 
@@ -110,7 +106,6 @@ However, the User Interface (UI) is designed primarily to be navigated using the
 
 You can enter commands into the command box and press `Enter` to execute them. The result box will then provide a response on whether the command was successfully executed.
 The display panel will similarly update itself, based on the command executed.
-<br />
 
 #### 3.2.4 Command Format
 
@@ -152,7 +147,6 @@ Commands in this guide follow such rules:
 * _Parameters_ refer to the information to be included as an input to a command.
 
 </div>
-<br />
 
 #### 3.2.5 Command Parameters
 
@@ -219,7 +213,6 @@ Examples:
 
 ![](images/userGuide/add_elderly_0.png)
 ![](images/userGuide/add_elderly_1.png)
-<br />
 
 #### Delete an elderly : `deleteElderly`
 
@@ -245,7 +238,6 @@ Examples:
 * Deleting an elderly's name will cause all occurrences of the elderly's name in tasks to be deleted.
 
 </div>
-<br />
 
 #### Edit an elderly's details: `editElderly`
 
@@ -280,7 +272,6 @@ Example: John has an existing `Tag` cancer, and he is at index 1 in the current 
 e.g. `editElderly 1 re/`
 * For more accessible tag related commands, do refer to the `addTag` and `deleteTag` commands.
 </div>
-<br />
 
 #### Find elderly: `findElderly`
 
@@ -302,7 +293,6 @@ Examples:
 * Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Elena Kro` will return `Elena Grob`, `Kro Stanly`
 
 </div>
-<br />
 
 #### View full details of an elderly: `viewDetails`
 
@@ -321,7 +311,6 @@ Format: `viewDetails INDEX`
 </div>
 
 ![](images/userGuide/view_details.png)
-<br />
 
 #### Delete an elderly's NoK details : `deleteNok`
 
@@ -340,7 +329,6 @@ Examples:
 * The index **must be a positive integer** 1, 2, 3, …​
 
 </div>
-<br />
 
 #### Add tags to elderly: `addTag`
 
@@ -360,7 +348,6 @@ Examples:
 * The index **must be a positive integer** 1, 2, 3, …​
 
 </div>
-<br />
 
 #### Delete tags of elderly: `deleteTag`
 
@@ -380,7 +367,6 @@ Examples:
 * The index **must be a positive integer** 1, 2, 3, …​
 
 </div>
-<br />
 
 #### Filter elderly: `filter`
 
@@ -400,7 +386,6 @@ Examples:
 </div>
 
 ![](images/userGuide/filter.png)
-<br />
 
 #### Add remark to elderly: `remark`
 
@@ -426,7 +411,6 @@ Examples:
 You can remove a remark by leaving the remark input empty!  
 
 </div>
-<br />
 
 ### 4.2 Task commands
 
@@ -435,7 +419,6 @@ You can remove a remark by leaving the remark input empty!
 Shows a list of all your tasks in NurseyBook.
 
 Format: `viewTasks`
-<br />
 
 #### Add a task: `addTask`
 
@@ -473,7 +456,6 @@ If you want to create a non-recurring task, you can exclude the `recur` field. N
 
 ![](images/userGuide/add_task_0.png)
 ![](images/userGuide/add_task_1.png)
-<br />
 
 #### Delete a task: `deleteTask`
 
@@ -493,7 +475,6 @@ Format: `deleteTask INDEX`
 
 Examples:
 * `viewTasks` followed by `deleteTask 2` deletes the 2nd task shown by NurseyBook.
-<br />
 
 #### Edit a task: `editTask`
 
@@ -520,7 +501,6 @@ e.g. Date of task is `2022-01-01` with `daily` recurrence. On `2022-01-03`, the 
 * If you want to edit the elderlies' names of the task, you need to first make sure all the elderlies' names are already registered in your elderly database.
 
 </div>
-<br />
 
 #### Find a task: `findTask`
 
@@ -545,7 +525,6 @@ Examples:
 </div>
 
 ![](images/userGuide/find_task.png)
-<br />
 
 #### Mark a task as completed: `doneTask`
 
@@ -566,7 +545,6 @@ Examples:
 * After marking an overdue task is completed, the overdue tag will no longer be displayed.
 
 </div>
-<br />
 
 #### View reminders: `remind`
 
@@ -576,7 +554,6 @@ those under your care.
 Format: `remind`
 
 ![](images/userGuide/remind.png)
-<br />
 
 #### View task schedule: `viewSchedule`
 
@@ -616,7 +593,6 @@ recurring tasks.
     unchanged.
 
 </div>
-<br />
 
 ### 4.3 Miscellaneous commands
 
@@ -625,7 +601,6 @@ recurring tasks.
 Clears all entries from NurseyBook.
 
 Format: `clear`
-<br />
 
 #### Undo previous command : `undo`
 
@@ -639,7 +614,6 @@ Format: `undo`
 
 Example:
 * `deleteElderly 1` followed by `undo` causes the `deleteElderly 1` command to be undone and no elderly is deleted from the NurseyBook.
-<br />
 
 #### Redo previously undone command : `redo`
 
@@ -652,21 +626,18 @@ Format: `redo`
 Example:
 * `deleteElderly 1` followed by `undo` causes the `deleteElderly 1` command to be undone and no elderly is deleted from the NurseyBook.
 Entering `redo` will reverse the previous undo command, causing the elderly to be deleted again.
-<br />
 
 #### Exiting the program : `exit`
 
 Exits the program.
 
 Format: `exit`
-<br />
 
 ### 4.4 Storage
 
 #### Saving the data
 
 NurseyBook's data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
-<br />
 
 #### Editing the data file
 
