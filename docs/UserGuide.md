@@ -207,7 +207,8 @@ Format: `addElderly en/ELDERLY_NAME a/AGE g/GENDER r/ROOMNO [t/TAG]…​ [nn/NO
 
 :information_source: **Information:**
 * An elderly can have any number of tags (including 0).
-* You can specify a Next-of-Kin's (NOK) details for each elderly as well, when adding an elderly.
+* You can specify a Next-of-Kin's (NOK) details for each elderly, when adding an elderly.
+* NurseyBook does not support any two elderly with the same name, even if any other fields are different. A suggestion will be to save the full name of the elderly you are adding into NurseyBook.
 
 </div>
 
