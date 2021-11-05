@@ -63,6 +63,7 @@ public class UniqueTaskList implements Iterable<Task> {
         }
 
         internalList.set(index, editedTask);
+        internalList.sort(Comparator.naturalOrder());
     }
 
     /**
@@ -99,6 +100,7 @@ public class UniqueTaskList implements Iterable<Task> {
      */
     public void updateDateOfRecurringTask(Task toMark) {
         setTask(toMark, toMark.updateDateRecurringTask());
+
         // Re-sorts task list when task date is changed
         internalList.sort(Comparator.naturalOrder());
     }
