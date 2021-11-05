@@ -142,13 +142,13 @@ public class TaskTest {
         DateTime november = new DateTime("2020-11-01", "19:45");
         DateTime december = new DateTime("2021-12-25", "12:00");
 
-        // keithInsulin on 2021-11-01, after 2021 October -> returns true
+        // georgeInsulin on 2021-11-01, after 2021 October -> returns true
         assertTrue(georgeInsulin.isAfter(october));
 
-        // keithInsulin on 2021-11-01, before 2021 December -> returns false
+        // georgeInsulin on 2021-11-01, before 2021 December -> returns false
         assertFalse(georgeInsulin.isAfter(december));
 
-        // keithInsulin on 2021-11-01, same time as november -> returns false
+        // georgeInsulin on 2021-11-01, same time as november -> returns false
         assertFalse(georgeInsulin.isAfter(november));
     }
 
@@ -158,13 +158,13 @@ public class TaskTest {
         DateTime november = new DateTime("2020-11-01", "19:45");
         DateTime december = new DateTime("2021-12-25", "12:00");
 
-        // keithInsulin on 2021-11-01, after 2021 October -> returns false
+        // georgeInsulin on 2021-11-01, after 2021 October -> returns false
         assertFalse(georgeInsulin.isBefore(october));
 
-        // keithInsulin on 2021-11-01, before 2021 December -> returns true
+        // georgeInsulin on 2021-11-01, before 2021 December -> returns true
         assertTrue(georgeInsulin.isBefore(december));
 
-        // keithInsulin on 2021-11-01, same time as november -> returns false
+        // georgeInsulin on 2021-11-01, same time as november -> returns false
         assertFalse(georgeInsulin.isBefore(november));
     }
 
@@ -238,7 +238,7 @@ public class TaskTest {
         Task alexInsulin = new TaskBuilder(ALICE_INSULIN).build(); // date = "2022-01-31", time: "19:45" in 24 hrs time
         Task doPaperwork = new TaskBuilder(DO_PAPERWORK).build(); // date: "2022-01-31", time: "10:20" in 24 hrs time
 
-        // keithInsulin before alexInsulin -> returns negative value
+        // georgeInsulin before alexInsulin -> returns negative value
         assertTrue(georgeInsulin.compareTo(alexInsulin) < 0);
 
         // alexInsulin after doPaperwork -> returns positive value

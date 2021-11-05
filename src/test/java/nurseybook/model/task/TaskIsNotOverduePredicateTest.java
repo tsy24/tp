@@ -1,6 +1,6 @@
 package nurseybook.model.task;
 
-import static nurseybook.testutil.TypicalTasks.KEITH_INSULIN;
+import static nurseybook.testutil.TypicalTasks.GEORGE_INSULIN;
 import static nurseybook.testutil.TypicalTasks.YASMINE_PHYSIO;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -13,7 +13,7 @@ import nurseybook.testutil.TaskBuilder;
 
 public class TaskIsNotOverduePredicateTest {
 
-    private Task keithInsulin = new TaskBuilder(KEITH_INSULIN).build(); // date: 2021-10-01, time: 00:00
+    private Task georgeInsulin = new TaskBuilder(GEORGE_INSULIN).build(); // date: 2021-10-01, time: 00:00
 
     @Test
     public void test_overdueTasks_returnsFalse() {
@@ -26,8 +26,8 @@ public class TaskIsNotOverduePredicateTest {
         String date = dateTime[0];
         String time = dateTime[1].substring(0, 5);
 
-        Task overdueYasminPhysio = new TaskBuilder(YASMINE_PHYSIO).withDateTime(date, time).build();
-        assertFalse(predicate.test(overdueYasminPhysio));
+        Task overdueYasminEPhysio = new TaskBuilder(YASMINE_PHYSIO).withDateTime(date, time).build();
+        assertFalse(predicate.test(overdueYasminEPhysio));
     }
 
     @Test
@@ -42,8 +42,8 @@ public class TaskIsNotOverduePredicateTest {
         String date = dateTime[0];
         String time = dateTime[1].substring(0, 5);
 
-        Task notOverdueKeithInsulin = new TaskBuilder(KEITH_INSULIN).withDateTime(date, time).build();
-        assertTrue(predicate.test(notOverdueKeithInsulin));
+        Task notOverdueGeorgeInsulin = new TaskBuilder(georgeInsulin).withDateTime(date, time).build();
+        assertTrue(predicate.test(notOverdueGeorgeInsulin));
 
         // one minute after current time -> not overdue -> returns true
         LocalDateTime future = now.plusMinutes(1);
@@ -51,8 +51,8 @@ public class TaskIsNotOverduePredicateTest {
         date = dateTime[0];
         time = dateTime[1].substring(0, 5);
 
-        Task notOverdueYasminPhysio = new TaskBuilder(YASMINE_PHYSIO).withDateTime(date, time).build();
-        assertTrue(predicate.test(notOverdueYasminPhysio));
+        Task notOverdueYasminePhysio = new TaskBuilder(YASMINE_PHYSIO).withDateTime(date, time).build();
+        assertTrue(predicate.test(notOverdueYasminePhysio));
 
     }
 }

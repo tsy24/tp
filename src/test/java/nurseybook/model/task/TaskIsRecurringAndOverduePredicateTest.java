@@ -1,7 +1,7 @@
 package nurseybook.model.task;
 
 import static nurseybook.testutil.TypicalTasks.APPLY_LEAVE_LATE_TIME;
-import static nurseybook.testutil.TypicalTasks.KEITH_INSULIN;
+import static nurseybook.testutil.TypicalTasks.GEORGE_INSULIN;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -12,12 +12,12 @@ import org.junit.jupiter.api.Test;
 import nurseybook.testutil.TaskBuilder;
 
 public class TaskIsRecurringAndOverduePredicateTest {
-    private Task keithInsulin = new TaskBuilder(KEITH_INSULIN).build();
+    private Task georgeInsulin = new TaskBuilder(GEORGE_INSULIN).build();
     private TaskIsRecurringAndOverduePredicate predicate = new TaskIsRecurringAndOverduePredicate();
 
     @Test
     public void test_notRecurringTasks_returnsFalse() {
-        assertFalse(predicate.test(keithInsulin));
+        assertFalse(predicate.test(georgeInsulin));
     }
 
     /**
