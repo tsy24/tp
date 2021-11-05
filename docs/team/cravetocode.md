@@ -29,14 +29,6 @@ Given below are my contributions to the project.
 * **New Feature**: Added the ability to delete Next-of-Kin (NoK) details
   * What it does: Allows the user to quickly wipe all Next-of-Kin details by using a shortcut command.
   * Justification: A good Quality-Of-Life feature for users to instantly get rid of outdated NoK details, without having to go through the hassle of editting field by field.
-  * Highlights: This command was partly responsible for the need to refactor the `Person` class into an abstract class with concrete `Elderly` and `Nok` subclasses, in order to better represent the information.
-
-
-* **New Feature**: Added the ability to undo/redo previous commands.
-  * What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-  * Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-  * Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-
 
 
 * **Code contributed**: [RepoSense link](https://nus-cs2103-ay2122s1.github.io/tp-dashboard/?search=&sort=groupTitle&sortWithin=title&since=2021-09-17&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=CraveToCode&tabRepo=AY2122S1-CS2103T-F13-2%2Ftp%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=docs~functional-code~test-code~other&authorshipIsBinaryFileTypeChecked=false)
@@ -45,15 +37,13 @@ Given below are my contributions to the project.
   * Managed releases `v1.1` - `v1.4` (4 releases) on GitHub
 
 * **Enhancements to existing features**:
-  * //DELETE Updated the GUI color scheme (Pull requests [\#33](), [\#34]())
-  * //DELETE Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests [\#36](), [\#38]())
   * Partly responsible for refactoring `Person` into an abstract class with concrete `Elderly` and `Nok` subclasses.
   * Added the ability to store `RoomNumber` information in `Person` objects. (Pull request [\#63](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/63))
 
 * **Documentation**:
   * User Guide:
     * Added documentation for the features `addElderly`, `deleteElderly`, and `viewSchedule`. [\#72]()
-    * //DELETEDid cosmetic tweaks to existing documentation of features `clear`, `exit`: [\#74]()
+    * //DELETED_LATER id cosmetic tweaks to existing documentation of features `clear`, `exit`: [\#74]()
   * Developer Guide:
     * Added implementation details of the `viewSchedule` and `deleteNok` features.
 
