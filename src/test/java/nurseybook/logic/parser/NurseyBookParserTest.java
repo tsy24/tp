@@ -200,9 +200,15 @@ public class NurseyBookParserTest {
 
     @Test
     public void parseCommand_viewSchedule() throws Exception {
+        LocalDate todayDate = LocalDate.now();
+        String todayDateString = todayDate.toString();
+
+        //check that regex of todayDateString is in the form of yyyy-mm-dd
+        assert todayDateString.matches("^\\d{4}\\-(0[1-9]|1[012])\\-(0[1-9]|[12][0-9]|3[01])$");
+
         ViewScheduleCommand viewScheduleCommand = (ViewScheduleCommand) parser.parseCommand(
-                ViewScheduleCommand.COMMAND_WORD + " " + "2021-11-02");
-        LocalDate keyDate = LocalDate.parse("2021-11-02");
+                ViewScheduleCommand.COMMAND_WORD + " " + todayDateString);
+        LocalDate keyDate = LocalDate.parse(todayDateString);
         assertEquals(new ViewScheduleCommand(new DateTimeContainsDatePredicate(keyDate), keyDate), viewScheduleCommand);
     }
 

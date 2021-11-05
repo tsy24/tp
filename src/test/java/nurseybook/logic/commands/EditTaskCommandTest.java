@@ -3,6 +3,7 @@ package nurseybook.logic.commands;
 import static nurseybook.commons.core.Messages.MESSAGE_DUPLICATE_TASK;
 import static nurseybook.commons.core.Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
 import static nurseybook.commons.core.Messages.MESSAGE_NO_CHANGES;
+import static nurseybook.commons.core.Messages.MESSAGE_NO_SUCH_ELDERLY;
 import static nurseybook.logic.commands.CommandTestUtil.assertCommandFailure;
 import static nurseybook.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static nurseybook.logic.commands.EditTaskCommand.MESSAGE_EDIT_TASK_SUCCESS;
@@ -34,7 +35,7 @@ import nurseybook.testutil.TaskBuilder;
  */
 public class EditTaskCommandTest {
 
-    private Model model = new ModelManager(getTypicalNurseyBook(), new UserPrefs());
+    private final Model model = new ModelManager(getTypicalNurseyBook(), new UserPrefs());
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
@@ -149,10 +150,20 @@ public class EditTaskCommandTest {
     @Test
     public void execute_sameFieldsFilteredList_failure() {
         showTaskAtIndex(model, INDEX_FIRST);
-        Task taskInList = model.getVersionedNurseyBook().getTaskList().get(INDEX_FIRST.getZeroBased());
+        Task taskInList = model.getFilteredTaskList().get(INDEX_FIRST.getZeroBased());
         EditTaskCommand editTaskCommand = new EditTaskCommand(INDEX_FIRST,
                 new EditTaskDescriptorBuilder(taskInList).build());
         assertCommandFailure(editTaskCommand, model, MESSAGE_NO_CHANGES);
+    }
+
+    @Test
+    public void execute_elderlyNotInNurseyBook_throwsCommandException() {
+        showTaskAtIndex(model, INDEX_FIRST);
+        Task taskInFilteredList = model.getFilteredTaskList().get(INDEX_FIRST.getZeroBased());
+        Task editedTask = new TaskBuilder(taskInFilteredList).withNames("Alex Yeoh").build();
+        EditTaskCommand editTaskCommand = new EditTaskCommand(INDEX_FIRST,
+                new EditTaskDescriptorBuilder(editedTask).build());
+        assertCommandFailure(editTaskCommand, model, MESSAGE_NO_SUCH_ELDERLY);
     }
 
     @Test

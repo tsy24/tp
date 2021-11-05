@@ -1,5 +1,7 @@
 package nurseybook.ui;
 
+import java.util.Objects;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -9,6 +11,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import nurseybook.model.task.Task;
+
 
 /**
  * An UI component that displays information of a {@code Task}.
@@ -51,21 +54,22 @@ public class TaskCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         description.setText(task.getDesc().value);
 
-        Image logo = new Image(this.getClass().getResourceAsStream("/images/calendar-blue.png"));
+        Image logo = new Image(
+                Objects.requireNonNull(this.getClass().getResourceAsStream("/images/calendar-blue.png")));
         date.setText(task.getDateTime().getStringDate());
         dateLogo.setImage(logo);
 
-        logo = new Image(this.getClass().getResourceAsStream("/images/clock-blue.png"));
+        logo = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/clock-blue.png")));
         time.setText(task.getDateTime().getStringTime());
         timeLogo.setImage(logo);
 
-        if (task.isTaskOverdue()) {
+        if ((!task.isTaskDone()) && task.isTaskOverdue()) {
             overdue.getChildren().add(new Label("Overdue"));
         } else {
             overdue.setVisible(false);
         }
 
-        task.getRelatedNames().stream()
+        task.getRelatedNames()
                 .forEach(name -> names.getChildren().add(new Label(name.fullName)));
 
         if (task.getRelatedNames().isEmpty()) {

@@ -207,6 +207,8 @@ Format: `addElderly en/ELDERLY_NAME a/AGE g/GENDER r/ROOMNO [t/TAG]…​ [nn/NO
 
 :information_source: **Information:**
 * An elderly can have any number of tags (including 0).
+* You can specify a Next-of-Kin's (NOK) details for each elderly, when adding an elderly.
+* NurseyBook does not support any two elderly with the same name, even if any other fields are different. A suggestion will be to save the full name of the elderly you are adding into NurseyBook.
 
 </div>
 
@@ -534,6 +536,7 @@ Format: `doneTask INDEX`
 * Marks the task at the specified `INDEX` as done.
 * The index refers to the index number shown in the displayed task list.
 * The index **must be a positive integer** 1, 2, 3, …​
+* After marking an overdue task is completed, the overdue tag will no longer be displayed.
 
 </div>
 
@@ -554,7 +557,7 @@ Format: `remind`
 #### View task schedule: `viewSchedule`
 
 Displays the list of tasks set to occur on the specified date.
-Recurring tasks that will take place on that date is also included.
+Future occurrences of recurring tasks that will take place on that date is also included.
 
 Format: `viewSchedule DATE`
 
@@ -562,7 +565,8 @@ Format: `viewSchedule DATE`
 
 :information_source: **Information:**
 * Date must be in yyyy-mm-dd form.
-* You can view schedule for up to 12 weeks in advance.
+* You can view schedule for up to 12 weeks in advance from the current date.
+* For recurring tasks, this is simply a tool to preview its future occurrences. You cannot modify (e.g. delete/edit/mark as done/etc.) any such future occurrences of recurring tasks shown in the task list. These future occurrences will be deleted from task view upon entering any next valid/invalid input.
 
 </div>
 

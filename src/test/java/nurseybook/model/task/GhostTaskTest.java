@@ -2,14 +2,15 @@ package nurseybook.model.task;
 
 import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_DATE_JAN;
 import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_DATE_NOV;
-import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_NAME_ALEX;
-import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_NAME_KEITH;
+import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_NAME_ALICE;
+import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_NAME_GEORGE;
 import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_TIME_SEVENPM;
 import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_TIME_TENAM;
 import static nurseybook.testutil.TypicalTasks.APPLY_LEAVE_DAY_NEXT_RECURRENCE_GHOST;
 import static nurseybook.testutil.TypicalTasks.APPLY_LEAVE_NEXT_DAY;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
@@ -18,7 +19,24 @@ import nurseybook.testutil.TaskBuilder;
 
 public class GhostTaskTest {
 
-    private final Task applyLeaveNextDayGhost = new TaskBuilder(APPLY_LEAVE_DAY_NEXT_RECURRENCE_GHOST).build();
+    private final GhostTask applyLeaveNextDayGhost =
+            (GhostTask) new TaskBuilder(APPLY_LEAVE_DAY_NEXT_RECURRENCE_GHOST).build();
+
+    @Test
+    void copyTask() {
+        //check if copyTask() returns a different instance of RealTask.
+        assertNotSame(applyLeaveNextDayGhost, applyLeaveNextDayGhost.copyTask());
+
+        //check if each field in copied task is a new instance.
+        GhostTask copyTask = applyLeaveNextDayGhost.copyTask();
+        assertNotSame(applyLeaveNextDayGhost.getDesc(), copyTask.getDesc());
+        assertNotSame(applyLeaveNextDayGhost.getDateTime(), copyTask.getDateTime());
+        assertNotSame(applyLeaveNextDayGhost.getRelatedNames(), copyTask.getRelatedNames());
+        assertNotSame(applyLeaveNextDayGhost.getRecurrence(), copyTask.getRecurrence());
+
+        //check if copyTask() returns a RealTask that has the same field values as the copied task.
+        assertEquals(applyLeaveNextDayGhost, applyLeaveNextDayGhost.copyTask());
+    }
 
     @Test
     void copyToGhostTask() {
@@ -42,9 +60,9 @@ public class GhostTaskTest {
         assertFalse(applyLeaveNextDayGhost.equals(5));
 
         // different name -> returns false
-        Task editedTask = new TaskBuilder(applyLeaveNextDayGhost).withNames(VALID_NAME_ALEX).build();
+        Task editedTask = new TaskBuilder(applyLeaveNextDayGhost).withNames(VALID_NAME_GEORGE).build();
         assertFalse(applyLeaveNextDayGhost.equals(editedTask));
-        editedTask = new TaskBuilder(applyLeaveNextDayGhost).withNames(VALID_NAME_KEITH, VALID_NAME_ALEX).build();
+        editedTask = new TaskBuilder(applyLeaveNextDayGhost).withNames(VALID_NAME_GEORGE, VALID_NAME_ALICE).build();
         assertFalse(applyLeaveNextDayGhost.equals(editedTask));
 
         // different date -> returns false
