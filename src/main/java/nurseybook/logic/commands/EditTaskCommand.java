@@ -86,7 +86,7 @@ public class EditTaskCommand extends Command {
             throw new CommandException(MESSAGE_INVALID_TASK_DATETIME_FOR_RECURRING_TASK);
         }
 
-        if (taskToEdit.isSameTask(editedTask)) {
+        if (taskToEdit.equals(editedTask)) {
             throw new CommandException(MESSAGE_NO_CHANGES);
         }
 
