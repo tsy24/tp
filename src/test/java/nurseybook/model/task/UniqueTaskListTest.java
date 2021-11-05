@@ -70,12 +70,14 @@ public class UniqueTaskListTest {
     public void mark_nullTask_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueTaskList.markTaskAsDone(null));
         assertThrows(NullPointerException.class, () -> uniqueTaskList.markTaskAsOverdue(null));
+        assertThrows(NullPointerException.class, () -> uniqueTaskList.markTaskAsNotOverdue(null));
     }
 
     @Test
     public void mark_taskDoesNotExist_throwsTaskNotFoundException() {
         assertThrows(TaskNotFoundException.class, () -> uniqueTaskList.markTaskAsDone(DO_PAPERWORK));
         assertThrows(TaskNotFoundException.class, () -> uniqueTaskList.markTaskAsOverdue(DO_PAPERWORK));
+        assertThrows(TaskNotFoundException.class, () -> uniqueTaskList.markTaskAsNotOverdue(DO_PAPERWORK));
     }
 
     @Test

@@ -35,8 +35,8 @@ import nurseybook.testutil.TaskBuilder;
 
 public class TaskTest {
 
-    private final Task georgeInsulin = new TaskBuilder(GEORGE_INSULIN).build();
-    private final Task applyLeave = new TaskBuilder(APPLY_LEAVE).build();
+    private final Task georgeInsulin = new TaskBuilder(GEORGE_INSULIN).build(); // date: 2020-11-01 time: 19:45
+    private final Task applyLeave = new TaskBuilder(APPLY_LEAVE).build(); // date: 2021-10-01 time: 00:00
 
     @Test
     public void asObservableList_modifyList_throwsUnsupportedOperationException() {
@@ -58,12 +58,12 @@ public class TaskTest {
         assertTrue(YASMINE_PHYSIO.isSameTask(editedPhysio));
 
         // same description, all other attributes different -> returns false
-        Task fuck = new TaskBuilder(YASMINE_PHYSIO)
+        editedPhysio = new TaskBuilder(YASMINE_PHYSIO)
                 .withDate(VALID_DATE_JAN)
                 .withTime(VALID_TIME_TENAM).withStatus("false", "false")
                 .withRecurrence(Recurrence.RecurrenceType.WEEK.name()).build();
 
-        assertFalse(YASMINE_PHYSIO.isSameTask(fuck));
+        assertFalse(YASMINE_PHYSIO.isSameTask(editedPhysio));
 
         // same date, all other attributes different -> returns false
         editedPhysio = new TaskBuilder(YASMINE_PHYSIO).withDesc("Physiotherapy with yoga ball")
@@ -96,10 +96,10 @@ public class TaskTest {
     public void equals() {
         // same values -> returns true
         assertTrue(georgeInsulin.equals(GEORGE_INSULIN));
-        Task alexToKeith = new TaskBuilder(ALICE_INSULIN).withNames(VALID_NAME_GEORGE).withDesc(VALID_DESC_MEDICINE)
+        Task alexToGeorge = new TaskBuilder(ALICE_INSULIN).withNames(VALID_NAME_GEORGE).withDesc(VALID_DESC_MEDICINE)
                 .withDateTime(VALID_DATE_NOV, VALID_TIME_SEVENPM).withStatus("false", "true")
                 .withRecurrence(Recurrence.RecurrenceType.NONE.name()).build();
-        assertTrue(georgeInsulin.equals(alexToKeith));
+        assertTrue(georgeInsulin.equals(alexToGeorge));
 
         // same object -> returns true
         assertTrue(georgeInsulin.equals(georgeInsulin));
@@ -178,6 +178,29 @@ public class TaskTest {
     void isTaskOverdue() {
         assertTrue(applyLeave.isTaskOverdue()); // status: isOverdue = "true"
         assertTrue(georgeInsulin.isTaskOverdue()); // status: isOverdue = "true"
+
+        Task notOverdueGeorgeInsulin = new TaskBuilder(georgeInsulin)
+                .withStatus("true", "false").build();
+
+        assertFalse(notOverdueGeorgeInsulin.isTaskOverdue());
+    }
+
+    @Test
+    void markTaskDone() {
+        Task doneGeorge = new TaskBuilder(georgeInsulin).withStatus("true", "true").build();
+        assertEquals(georgeInsulin.markAsDone(), doneGeorge);
+    }
+
+    @Test
+    void markTaskNotOverdue() {
+        Task notOverdueGeorge = new TaskBuilder(georgeInsulin).withStatus("false", "false").build();
+        assertEquals(georgeInsulin.markAsNotOverdue(), notOverdueGeorge);
+    }
+
+    @Test
+    void markTaskOverdue() {
+        Task overdueGeorge = new TaskBuilder(georgeInsulin).withStatus("false", "true").build();
+        assertEquals(georgeInsulin.markAsOverdue(), overdueGeorge);
     }
 
     @Test
