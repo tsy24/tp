@@ -1,23 +1,107 @@
 {
   "_comment": "NurseyBook save file which contains the same Tasks values as in TypicalTasks#getTypicalNurseyBook()",
-  "elderlies": [],
+  "elderlies": [ {
+    "name" : "Alice Pauline",
+    "age" : "40",
+    "gender" : "F",
+    "roomNumber": "15",
+    "nokName": "Alice Johnson",
+    "relationship": "Mother",
+    "phone" : "94351253",
+    "email" : "alice@example.com",
+    "address" : "123, Jurong West Ave 6, #08-111",
+    "remark" : "She likes aardvarks.",
+    "tagged" : [ "friends" ]
+  }, {
+    "name" : "Benson Meier",
+    "age" : "40",
+    "gender" : "M",
+    "roomNumber": "21",
+    "nokName": "Benson Michael",
+    "relationship": "Father",
+    "phone" : "98765432",
+    "email" : "johnd@example.com",
+    "address" : "311, Clementi Ave 2, #02-25",
+    "remark" : "He can't take beer!",
+    "tagged" : [ "diabetes", "friends" ]
+  }, {
+    "name" : "Carl Kurz",
+    "age" : "40",
+    "gender" : "M",
+    "roomNumber": "9",
+    "nokName": "Carl Twain",
+    "relationship": "Brother",
+    "phone" : "95352563",
+    "email" : "heinz@example.com",
+    "address" : "wall street",
+    "remark" : "",
+    "tagged" : [ ]
+  }, {
+    "name" : "Daniel Meier",
+    "age" : "40",
+    "gender" : "M",
+    "roomNumber": "27",
+    "nokName": "Daniel Mustafa",
+    "relationship": "Sister",
+    "phone" : "87652533",
+    "email" : "cornelia@example.com",
+    "address" : "10th street",
+    "remark" : "",
+    "tagged" : [ "friends" ]
+  }, {
+    "name" : "Elle Meyer",
+    "age" : "40",
+    "gender" : "F",
+    "roomNumber": "11",
+    "nokName": "Elle Salmon",
+    "relationship": "Daughter",
+    "phone" : "94823224",
+    "email" : "werner@example.com",
+    "address" : "michegan ave",
+    "remark" : "",
+    "tagged" : [ ]
+  }, {
+    "name" : "Fiona Kunz",
+    "age" : "40",
+    "gender" : "F",
+    "roomNumber": "6",
+    "nokName": "Fiona James",
+    "relationship": "Sister",
+    "phone" : "94822427",
+    "email" : "lydia@example.com",
+    "address" : "little tokyo",
+    "remark" : "",
+    "tagged" : [ ]
+  }, {
+    "name" : "George Best",
+    "age" : "40",
+    "gender" : "M",
+    "roomNumber": "299",
+    "nokName": "George Bestron",
+    "relationship": "Father",
+    "phone" : "94824042",
+    "email" : "anna@example.com",
+    "address" : "4th street",
+    "remark" : "",
+    "tagged" : [ ]
+  } ],
   "tasks": [ {
     "names": [
-      "Keith Goh"
-    ],
-    "description": "Bring insulin shots",
-    "date": "2020-11-01",
-    "time": "19:45",
-    "status": ["false", "true"],
-    "recurrence" : "NONE"
-  }, {
-    "names": [
-      "Alex Andre"
+      "Alice Pauline"
     ],
     "description": "Take covid shots",
     "date": "2022-01-31",
     "time": "19:45",
     "status": ["false", "false"],
+    "recurrence" : "NONE"
+  }, {
+    "names": [
+      "George Best"
+    ],
+    "description": "Bring insulin shots",
+    "date": "2020-11-01",
+    "time": "19:45",
+    "status": ["false", "true"],
     "recurrence" : "NONE"
   }, {
     "names": [],
@@ -34,7 +118,7 @@
     "status": ["true", "true"],
     "recurrence" : "NONE"
   }, {
-    "names": ["Khong Guan", "Swee Choon"],
+    "names": ["Elle Mayer", "Fiona Kunz"],
     "description": "3rd shot for Pfizer",
     "date": "2021-10-30",
     "time": "18:00",

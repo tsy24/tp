@@ -52,21 +52,21 @@ public class TypicalElderlies {
             .withAddress("10th street").withTags("friends").withRemark("").build();
     public static final Elderly ELLE = new ElderlyBuilder().withName("Elle Meyer")
             .withAge("40").withGender("F").withRoomNumber("11").withNokName("Elle Salmon").withRelationship("Daughter")
-            .withPhone("9482224").withEmail("werner@example.com").withAddress("michegan ave").withRemark("").build();
+            .withPhone("94823224").withEmail("werner@example.com").withAddress("michegan ave").withRemark("").build();
     public static final Elderly FIONA = new ElderlyBuilder().withName("Fiona Kunz")
             .withAge("40").withGender("F").withRoomNumber("6").withNokName("Fiona James").withRelationship("Sister")
-            .withPhone("9482427").withEmail("lydia@example.com").withAddress("little tokyo").withRemark("").build();
+            .withPhone("94822427").withEmail("lydia@example.com").withAddress("little tokyo").withRemark("").build();
     public static final Elderly GEORGE = new ElderlyBuilder().withName("George Best")
             .withAge("40").withGender("M").withRoomNumber("299").withNokName("George Bestron")
-            .withRelationship("Father").withPhone("9482442").withRemark("").withEmail("anna@example.com")
+            .withRelationship("Father").withPhone("94824042").withRemark("").withEmail("anna@example.com")
             .withAddress("4th street").build();
 
     // Manually added
     public static final Elderly HOON = new ElderlyBuilder().withName("Hoon Meier").withRoomNumber("77")
-            .withNokName("Chara Meier").withRelationship("Daughter").withPhone("8482424")
+            .withNokName("Chara Meier").withRelationship("Daughter").withPhone("84822424")
             .withEmail("stefan@example.com").withAddress("little india").build();
     public static final Elderly IDA = new ElderlyBuilder().withName("Ida Mueller").withRoomNumber("82")
-            .withNokName("Dina Mueller").withRelationship("Mother").withPhone("8482131")
+            .withNokName("Dina Mueller").withRelationship("Mother").withPhone("84823131")
             .withEmail("hans@example.com").withAddress("chicago ave").build();
 
     // Manually added - Elderly's details found in {@code CommandTestUtil}
