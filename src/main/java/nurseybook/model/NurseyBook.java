@@ -14,7 +14,7 @@ import nurseybook.model.task.Task;
 import nurseybook.model.task.UniqueTaskList;
 
 /**
- * Wraps all data at the nursey book level
+ * Wraps all data at NurseyBook level
  * Duplicates are not allowed (by .isSameElderly comparison)
  */
 public class NurseyBook implements ReadOnlyNurseyBook {
@@ -74,7 +74,7 @@ public class NurseyBook implements ReadOnlyNurseyBook {
     //// elderly-level operations
 
     /**
-     * Returns true if an elderly with the same identity as {@code elderly} exists in the nursey book.
+     * Returns true if an elderly with the same identity as {@code elderly} exists in NurseyBook.
      */
     public boolean hasElderly(Elderly elderly) {
         requireNonNull(elderly);
@@ -87,15 +87,15 @@ public class NurseyBook implements ReadOnlyNurseyBook {
     }
 
     /**
-     * Adds a elderly to the nursey book.
-     * The elderly must not already exist in the nursey book.
+     * Adds a elderly to NurseyBook.
+     * The elderly must not already exist in NurseyBook.
      */
     public void addElderly(Elderly p) {
         elderlies.add(p);
     }
 
     /**
-     * Adds a task to the nursey book.
+     * Adds a task to NurseyBook.
      */
     public void addTask(Task t) {
         tasks.add(t);
@@ -103,9 +103,8 @@ public class NurseyBook implements ReadOnlyNurseyBook {
 
     /**
      * Replaces the given elderly {@code target} in the list with {@code editedElderly}.
-     * {@code target} must exist in the nursey book.
-     * The elderly identity of {@code editedElderly} must not be the same as another existing elderly in the nursey
-     * book.
+     * {@code target} must exist in NurseyBook.
+     * The elderly identity of {@code editedElderly} must not be the same as another existing elderly in NurseyBook.
      */
     public void setElderly(Elderly target, Elderly editedElderly) {
         requireNonNull(editedElderly);
@@ -114,8 +113,31 @@ public class NurseyBook implements ReadOnlyNurseyBook {
     }
 
     /**
+     * Updates the given elderly {@code target}'s name for all tasks in the list that contains that name
+     * with {@code editedElderly}'s name.
+     * {@code target} must exist in NurseyBook.
+     * The elderly identity of {@code editedElderly} must not be the same as another existing elderly in NurseyBook.
+     */
+    public void updateElderlyNameInTasks(Elderly target, Elderly editedElderly) {
+        requireNonNull(editedElderly);
+
+        tasks.updateElderlyNameInTasks(target, editedElderly);
+    }
+
+    /**
+     * Deletes the given elderly {@code target}'s name for all tasks in the list that contains that name
+     * with {@code editedElderly}'s name.
+     * {@code target} must exist in NurseyBook.
+     */
+    public void deleteElderlyNameInTasks(Elderly elderlyToDelete) {
+        requireNonNull(elderlyToDelete);
+
+        tasks.deleteElderlyNameInTasks(elderlyToDelete);
+    }
+
+    /**
      * Replaces the given task {@code target} in the list with {@code editedTask}.
-     * {@code target} must exist in the nursey book.
+     * {@code target} must exist in NurseyBook.
      * The task identity of {@code editedTask} must not be the same as another existing task in the nursey
      * book.
      */
@@ -127,7 +149,7 @@ public class NurseyBook implements ReadOnlyNurseyBook {
 
     /**
      * Removes {@code key} elderly from this {@code NurseyBook}.
-     * {@code key} must exist in the nursey book.
+     * {@code key} must exist in NurseyBook.
      */
     public void removeElderly(Elderly key) {
         elderlies.remove(key);
@@ -135,7 +157,7 @@ public class NurseyBook implements ReadOnlyNurseyBook {
 
     /**
      * Removes {@code key} task from this {@code NurseyBook}.
-     * {@code key} must exist in the nursey book.
+     * {@code key} must exist in NurseyBook.
      */
     public void removeTask(Task key) {
         tasks.remove(key);
@@ -199,7 +221,7 @@ public class NurseyBook implements ReadOnlyNurseyBook {
 
     /**
      * Marks the given task {@code target} as done.
-     * {@code target} must exist in the nursey book.
+     * {@code target} must exist in NurseyBook.
      */
     public void markTaskAsDone(Task target) {
         tasks.markTaskAsDone(target);
@@ -207,7 +229,7 @@ public class NurseyBook implements ReadOnlyNurseyBook {
 
     /**
      * Marks the given task {@code target} as overdue.
-     * {@code target} must exist in the nursey book.
+     * {@code target} must exist in NurseyBook.
      */
     public void markTaskAsOverdue(Task target) {
         tasks.markTaskAsOverdue(target);
@@ -215,7 +237,7 @@ public class NurseyBook implements ReadOnlyNurseyBook {
 
     /**
      * Marks the given task {@code target} as not overdue.
-     * {@code target} must exist in the nursey book.
+     * {@code target} must exist in NurseyBook.
      */
     public void markTaskAsNotOverdue(Task target) {
         tasks.markTaskAsNotOverdue(target);
@@ -223,7 +245,7 @@ public class NurseyBook implements ReadOnlyNurseyBook {
 
     /**
      * Updates the date of the given task {@code target} such that it is not overdue.
-     * {@code target} must exist in the nursey book.
+     * {@code target} must exist in NurseyBook.
      */
     public void updateDateRecurringTask(Task target) {
         tasks.updateDateOfRecurringTask(target);

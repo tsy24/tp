@@ -2,8 +2,8 @@ package nurseybook.model.task;
 
 import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_DATE_JAN;
 import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_DATE_NOV;
-import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_NAME_ALEX;
-import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_NAME_KEITH;
+import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_NAME_ALICE;
+import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_NAME_GEORGE;
 import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_TIME_SEVENPM;
 import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_TIME_TENAM;
 import static nurseybook.testutil.TypicalTasks.APPLY_LEAVE_DAY_NEXT_RECURRENCE_GHOST;
@@ -42,9 +42,9 @@ public class GhostTaskTest {
         assertFalse(applyLeaveNextDayGhost.equals(5));
 
         // different name -> returns false
-        Task editedTask = new TaskBuilder(applyLeaveNextDayGhost).withNames(VALID_NAME_ALEX).build();
+        Task editedTask = new TaskBuilder(applyLeaveNextDayGhost).withNames(VALID_NAME_GEORGE).build();
         assertFalse(applyLeaveNextDayGhost.equals(editedTask));
-        editedTask = new TaskBuilder(applyLeaveNextDayGhost).withNames(VALID_NAME_KEITH, VALID_NAME_ALEX).build();
+        editedTask = new TaskBuilder(applyLeaveNextDayGhost).withNames(VALID_NAME_GEORGE, VALID_NAME_ALICE).build();
         assertFalse(applyLeaveNextDayGhost.equals(editedTask));
 
         // different date -> returns false

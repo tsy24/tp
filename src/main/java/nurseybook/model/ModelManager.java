@@ -14,6 +14,7 @@ import nurseybook.commons.core.GuiSettings;
 import nurseybook.commons.core.LogsCenter;
 import nurseybook.logic.commands.CommandResult;
 import nurseybook.model.person.Elderly;
+import nurseybook.model.person.Name;
 import nurseybook.model.task.Task;
 import nurseybook.model.task.TaskIsNotOverduePredicate;
 import nurseybook.model.task.TaskIsOverduePredicate;
@@ -126,8 +127,13 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateDateRecurringTask(Task target) {
-        versionedNurseyBook.updateDateRecurringTask(target);
+    public boolean isElderlyPresent(Name name) {
+        for (Elderly elderly : filteredElderlies) {
+            if (elderly.getName().equals(name)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
@@ -157,6 +163,19 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedElderly);
         versionedNurseyBook.setElderly(target, editedElderly);
     }
+
+    @Override
+    public void updateElderlyNameInTasks(Elderly target, Elderly editedElderly) {
+        requireAllNonNull(target, editedElderly);
+        versionedNurseyBook.updateElderlyNameInTasks(target, editedElderly);
+    }
+
+    @Override
+    public void deleteElderlyNameInTasks(Elderly elderlyToDelete) {
+        requireNonNull(elderlyToDelete);
+        versionedNurseyBook.deleteElderlyNameInTasks(elderlyToDelete);
+    }
+
 
     @Override
     public void deleteGhostTasks() {
