@@ -280,6 +280,7 @@ public class ModelManager implements Model {
     public void updateDateRecurringTaskList() {
         Predicate<Task> predicate = new TaskIsRecurringAndOverduePredicate();
         filteredTasks.setPredicate(predicate);
+
         // The below for loop is not replaceable with enhanced for loop because changes made to the datetime of the
         // task will cause it to disappear from filteredTask, leading to some error.
         // anyone is welcome to fix this bug :)
