@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.time.LocalDateTime;
+
 import org.junit.jupiter.api.Test;
 
 class DateTimeTest {
@@ -81,14 +83,32 @@ class DateTimeTest {
 
     @Test
     public void isOverdue() {
-        DateTime before = new DateTime("2021-10-20", "12:30");
-        DateTime after = new DateTime("2025-10-01", "18:45");
 
-        // day over -> returns true
-        assertTrue(DateTime.isOverdue(before));
+        LocalDateTime now = LocalDateTime.now().withSecond(0).withNano(0);
 
-        // day in the future -> returns false
-        assertFalse(DateTime.isOverdue(after));
+        LocalDateTime before = now.minusMinutes(1);
+        String[] dateTime = before.toString().split("T");
+        String date = dateTime[0];
+        String time = dateTime[1].substring(0, 5);
+
+        // one minute before current time -> returns true
+        assertTrue(DateTime.isOverdue(new DateTime(date, time)));
+
+        // matching time (matching only minute and hour) -> returns false;
+        dateTime = now.toString().split("T");
+        date = dateTime[0];
+        time = dateTime[1].substring(0, 5);
+
+        assertFalse(DateTime.isOverdue(new DateTime(date, time)));
+
+        // one minute after current time -> returns false
+        LocalDateTime after = now.plusMinutes(1);
+        dateTime = after.toString().split("T");
+        date = dateTime[0];
+        time = dateTime[1].substring(0, 5);
+
+        assertFalse(DateTime.isOverdue(new DateTime(date, time)));
+
     }
 
     @Test

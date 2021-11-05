@@ -63,7 +63,7 @@ public class TaskCard extends UiPart<Region> {
         time.setText(task.getDateTime().getStringTime());
         timeLogo.setImage(logo);
 
-        if (task.isTaskOverdue()) {
+        if ((!task.isTaskDone()) && task.isTaskOverdue()) {
             overdue.getChildren().add(new Label("Overdue"));
         } else {
             overdue.setVisible(false);

@@ -11,53 +11,48 @@ import org.junit.jupiter.api.Test;
 
 import nurseybook.testutil.TaskBuilder;
 
-public class TaskIsOverduePredicateTest {
+public class TaskIsNotOverduePredicateTest {
 
     private Task georgeInsulin = new TaskBuilder(GEORGE_INSULIN).build(); // date: 2021-10-01, time: 00:00
-    private Task yasminePhysio = new TaskBuilder(YASMINE_PHYSIO).build(); // date: 2021-09-13, time: 15:30
 
     @Test
-    public void test_overdueTasks_returnsTrue() {
-        TaskIsOverduePredicate predicate = new TaskIsOverduePredicate();
+    public void test_overdueTasks_returnsFalse() {
+        TaskIsNotOverduePredicate predicate = new TaskIsNotOverduePredicate();
 
-        // default isOverdue = true -> returns true
-        assertTrue(predicate.test(georgeInsulin));
-
-        // one minute before current time -> returns true
+        // one minute before current time -> is overdue -> returns false
         LocalDateTime now = LocalDateTime.now().withSecond(0).withNano(0);
         LocalDateTime past = now.minusMinutes(1);
         String[] dateTime = past.toString().split("T");
         String date = dateTime[0];
         String time = dateTime[1].substring(0, 5);
 
-        Task overdueYasminePhysio = new TaskBuilder(yasminePhysio).withDateTime(date, time).build();
-        assertTrue(predicate.test(overdueYasminePhysio));
-
+        Task overdueYasminePhysio = new TaskBuilder(YASMINE_PHYSIO).withDateTime(date, time).build();
+        assertFalse(predicate.test(overdueYasminePhysio));
     }
 
     @Test
-    public void test_notOverdueTasks_returnsFalse() {
+    public void test_notOverdueTasks_returnsTrue() {
 
-        TaskIsOverduePredicate predicate = new TaskIsOverduePredicate();
+        TaskIsNotOverduePredicate predicate = new TaskIsNotOverduePredicate();
 
         LocalDateTime now = LocalDateTime.now().withSecond(0).withNano(0);
 
-        // with current time -> returns false
+        // with current time -> not yet overdue -> returns true
         String[] dateTime = now.toString().split("T");
         String date = dateTime[0];
         String time = dateTime[1].substring(0, 5);
 
         Task notOverdueGeorgeInsulin = new TaskBuilder(georgeInsulin).withDateTime(date, time).build();
-        assertFalse(predicate.test(notOverdueGeorgeInsulin));
+        assertTrue(predicate.test(notOverdueGeorgeInsulin));
 
-        // one minute after current time -> returns false
+        // one minute after current time -> not overdue -> returns true
         LocalDateTime future = now.plusMinutes(1);
         dateTime = future.toString().split("T");
         date = dateTime[0];
         time = dateTime[1].substring(0, 5);
 
-        Task notOverdueYasminePhysio = new TaskBuilder(yasminePhysio).withDateTime(date, time).build();
-        assertFalse(predicate.test(notOverdueYasminePhysio));
+        Task notOverdueYasminePhysio = new TaskBuilder(YASMINE_PHYSIO).withDateTime(date, time).build();
+        assertTrue(predicate.test(notOverdueYasminePhysio));
 
     }
 }

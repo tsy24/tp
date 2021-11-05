@@ -71,6 +71,14 @@ public class UniqueTaskList implements Iterable<Task> {
     }
 
     /**
+     * Updates the task {@code target} in the list as not overdue.
+     * {@code target} must exist in the list.
+     */
+    public void markTaskAsNotOverdue(Task toMark) {
+        setTask(toMark, toMark.markAsNotOverdue());
+    }
+
+    /**
      * Marks the task {@code target} in the list as overdue.
      * {@code target} must exist in the list.
      */
@@ -90,14 +98,6 @@ public class UniqueTaskList implements Iterable<Task> {
         setTask(toMark, toMark.updateDateRecurringTask());
         // Re-sorts task list when task date is changed
         internalList.sort(Comparator.naturalOrder());
-    }
-
-    /**
-     * Updates the task {@code target} in the list as overdue.
-     * {@code target} must exist in the list.
-     */
-    public void markTaskAsNotOverdue(Task toMark) {
-        setTask(toMark, toMark.markAsNotOverdue());
     }
 
     /**

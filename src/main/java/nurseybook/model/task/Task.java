@@ -1,6 +1,8 @@
 package nurseybook.model.task;
 
+import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Collections;
 import java.util.HashSet;
@@ -9,6 +11,7 @@ import java.util.Set;
 import nurseybook.model.NurseyBook;
 import nurseybook.model.person.Elderly;
 import nurseybook.model.person.Name;
+import nurseybook.model.task.Recurrence.RecurrenceType;
 
 public abstract class Task implements Comparable<Task> {
 
@@ -56,28 +59,28 @@ public abstract class Task implements Comparable<Task> {
     /**
      * Marks task as done.
      *
-     * @return same task object that has been marked as done
+     * @return A new duplicate task object, except that it is marked as done
      */
     public abstract Task markAsDone();
 
     /**
      * Marks task as overdue.
      *
-     * @return same task object that has been marked as overdue
+     * @return A new duplicate task object, except that it is marked as overdue
      */
     public abstract Task markAsOverdue();
 
     /**
      * Resets the overdue status of the task.
      *
-     * @return same task object that has been marked as undone and not overdue
+     * @return A new duplicate task object, except that it is marked as undone and not overdue
      */
     public abstract Task markAsNotOverdue();
 
     /**
      * Updates the date of the recurring task such that it is not overdue.
      *
-     * @return same task object that has a date in the future
+     * @return A new duplicate task object, except with a date in the future
      */
     public abstract Task updateDateRecurringTask();
 
@@ -93,7 +96,7 @@ public abstract class Task implements Comparable<Task> {
     /**
      * Checks if this is a real task.
      *
-     * @return True if real task; false if ghost task.
+     * @return True if the task is a real task; false if it is a ghost task.
      */
     public boolean isRealTask() {
         return (this instanceof RealTask);
@@ -111,7 +114,7 @@ public abstract class Task implements Comparable<Task> {
     /**
      * Returns task description of this task.
      *
-     * @return task description
+     * @return The task's description
      */
     public Description getDesc() {
         return desc;
@@ -120,7 +123,7 @@ public abstract class Task implements Comparable<Task> {
     /**
      * Returns the dateTime of this task.
      *
-     * @return task dateTime
+     * @return The task's dateTime
      */
     public DateTime getDateTime() {
         return dateTime;
@@ -129,7 +132,7 @@ public abstract class Task implements Comparable<Task> {
     /**
      * Returns the date of this task.
      *
-     * @return task date
+     * @return The task's date
      */
     public LocalDate getDate() {
         return dateTime.date;
@@ -138,14 +141,14 @@ public abstract class Task implements Comparable<Task> {
     /**
      * Returns the time of this task.
      *
-     * @return task time
+     * @return The task's time
      */
     public LocalTime getTime() {
         return dateTime.time;
     }
 
     /**
-     * Returns an immutable name set, which throws {@code UnsupportedOperationException}
+     * Returns the task's related immutable name set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
     public Set<Name> getRelatedNames() {
@@ -177,7 +180,7 @@ public abstract class Task implements Comparable<Task> {
     /**
      * Returns completion status of this task.
      *
-     * @return task completion status
+     * @return The task's status
      */
     public Status getStatus() {
         return status;
@@ -186,14 +189,28 @@ public abstract class Task implements Comparable<Task> {
     /**
      * Returns the recurrence type of this task.
      *
-     * @return task recurrence type
+     * @return The task's recurrence type
      */
     public Recurrence getRecurrence() {
         return recurrence;
     }
 
+    /**
+     * Changes the dateTime of the task to the intended dateTime
+     *
+     * @param dt The intended dateTime
+     */
     public void setDateTime(DateTime dt) {
         this.dateTime = dt;
+    }
+
+    /**
+     * Changes the date of the task to the intended date
+     *
+     * @param newDate The intended date
+     */
+    public void setDate(LocalDate newDate) {
+        this.dateTime = new DateTime(newDate, this.dateTime.getTime());
     }
 
     /**
@@ -202,10 +219,6 @@ public abstract class Task implements Comparable<Task> {
      * @return A copy of the current task.
      */
     public abstract Task copyTask();
-
-    public void setDate(LocalDate newDate) {
-        this.dateTime = new DateTime(newDate, this.dateTime.getTime());
-    }
 
     /**
      * Returns true if task dateTime is after the date given in the argument.
@@ -285,6 +298,36 @@ public abstract class Task implements Comparable<Task> {
                 && otherTask.getRelatedNames().equals(getRelatedNames());
     }
 
+    protected DateTime changeTaskDate(LocalDateTime currentDateTime, RecurrenceType recurrenceType) {
+        LocalDate taskDate = getDateTime().date;
+        LocalTime taskTime = getDateTime().time;
+
+        LocalDateTime taskLocalDateTime = LocalDateTime.of(taskDate, taskTime);
+        long daysBetween = Duration.between(taskLocalDateTime, currentDateTime).toDays();
+
+        return changeTaskDateBasedOnRecurrence(recurrenceType, taskLocalDateTime, daysBetween);
+    }
+
+    private DateTime changeTaskDateBasedOnRecurrence(RecurrenceType recurrenceType,
+                                                     LocalDateTime taskLocalDateTime, long daysBetween) {
+        LocalDateTime taskNewLocalDateTime;
+
+        if (recurrenceType == RecurrenceType.DAY) {
+            taskNewLocalDateTime = taskLocalDateTime.plusDays(daysBetween + 1);
+
+        } else if (recurrenceType == RecurrenceType.WEEK) {
+            int daysToAdd = ((int) (daysBetween / 7)) * 7 + 7;
+            taskNewLocalDateTime = taskLocalDateTime.plusDays(daysToAdd);
+
+        } else {
+            // assume its + 4 weeks
+            int daysToAdd = ((int) (daysBetween / 28)) * 28 + 28;
+            taskNewLocalDateTime = taskLocalDateTime.plusDays(daysToAdd);
+        }
+        // time is fixed
+        return new DateTime(taskNewLocalDateTime.toLocalDate(), taskLocalDateTime.toLocalTime());
+    }
+
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
@@ -303,5 +346,16 @@ public abstract class Task implements Comparable<Task> {
     @Override
     public int compareTo(Task o) {
         return this.dateTime.compareTo(o.dateTime);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        Task other = (Task) obj;
+
+        return (other.desc).equals(desc)
+                && (other.dateTime).equals(dateTime)
+                && (other.relatedNames).equals(relatedNames)
+                && (other.status).equals(status)
+                && (other.recurrence).equals(recurrence);
     }
 }
