@@ -20,7 +20,7 @@ Class Person
 Class Elderly
 Class Nok
 
-Class TaskList
+Class UniqueTaskList
 Class Task
 }
 
@@ -40,9 +40,10 @@ AddressBook *--> "1" UniqueElderlyList
 UniqueElderlyList --> "~* all" Elderly
 Elderly -up-|> Person
 Nok -up-|> Person
+Elderly *--> Nok
 
-AddressBook *-> "1" TaskList
-TaskList -> "~* all" Task
+AddressBook *-> "1" UniqueTaskList
+UniqueTaskList -> "~* all" Task
 
 'Phone -[hidden]right-> Address
 'Address -[hidden]left-> Email

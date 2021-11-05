@@ -136,7 +136,9 @@ which is also exposed to outsiders as an unmodifiable `ObservableList<Task>`.
 More details regarding `Person`, `Elderly`, `Nok` and `Task` objects.
 
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Elderly` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Elderly` needing their own `Tag` objects.<br>
+<div markdown="span" class="alert alert-info">
+
+:information_source: **Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Elderly` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Elderly` needing their own `Tag` objects.<br>
 
 <img src="images/BetterModelClassDiagram.png" width="250" />
 
@@ -150,8 +152,8 @@ More details regarding `Person`, `Elderly`, `Nok` and `Task` objects.
 <img src="images/StorageClassDiagram.png" width="550" />
 
 The `Storage` component,
-* can save both address book data and user preference data in json format, and read them back into corresponding objects.
-* inherits from both `AddressBookStorage` and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
+* can save both NurseyBook data and user preference data in json format, and read them back into corresponding objects.
+* inherits from both `NurseyBookStorage` and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
 * depends on some classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects that belong to the `Model`)
 
 ### Common classes
@@ -248,6 +250,19 @@ If a user does not specify `Recurrence` when adding a new `Task`, it will defaul
 
 #### Implementation
 
+The logic for handling overdue and recurring tasks are handled in ModelManager#updateFilteredTaskList.
+
+```     java
+@Override
+public void updateFilteredTaskList(Predicate<Task> predicate) {
+    requireNonNull(predicate);
+    updateOverdueTaskList();
+    updateNotOverdueTaskList();
+    updateDateRecurringTaskList();
+    filteredTasks.setPredicate(predicate);
+}
+```
+
 Listed below are some situations and corresponding implementations where the overdue `Status`, and `DateTime` might be changed based on either a manual edit of the `Task` details or the passing of time.
 
 1. `DateTime` of non-recurring `Task` has passed current `DateTime`
@@ -255,7 +270,7 @@ Listed below are some situations and corresponding implementations where the ove
 2. `DateTime` of recurring `Task` has passed current `DateTime`
   - Update old `DateTime` to new `DateTime` according to its `Recurrence` type.
   - Mark `Status#isDone` to `False`
-  - Status#isOverdue remains 'False'
+  - Status#isOverdue remains `False`
 3. User edits non-recurring `Task` with a passed `DateTime` to a future `DateTime`
   - Mark `Status#isOverdue` to `False`
 4. User edits non-recurring `Task` with a future `DateTime` to a passed `DateTime`
@@ -568,7 +583,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 3a1. NurseyBook shows an error message.
 
       Use case resumes at step 2.
-
+    
 
 **UC2: Update an elderly’s details**
 
@@ -590,6 +605,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * 3a. The given index is invalid.
 
     * 3a1. NurseyBook shows an error message.
+
+      Use case resumes at step 2.
+
+* 3b. The elderly's name already exists in the elderly database.
+
+    * 3b1. NurseyBook shows an error message.
 
       Use case resumes at step 2.
 
@@ -666,7 +687,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1.  User requests to list tasks
+1.  User requests to list tasks (that the user has to do)
 2.  NurseyBook shows a list of tasks
 3.  User requests to delete a specific task in the list
 4.  NurseyBook deletes the task
@@ -726,6 +747,39 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   Use case ends.
 
 * *a. At any time, the user requests to view help.
+
+
+**UC9: Updates a task's details**
+
+**MSS**
+
+1. User requests to list tasks
+2. NurseyBook shows a list of tasks
+3. User requests to edit a specific task in the list
+4. NurseyBook edits the task
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. The list of tasks is empty.
+
+  Use case ends.
+
+* 3a. The names of the elderly entered are not in the elderly database. 
+    * 3a1. NurseyBook shows an error message.
+
+      Use case resumes at step 2.
+
+* 3b. The given index is invalid.
+    * 3b1. NurseyBook shows an error message.
+
+      Use case resumes at step 2.
+
+* 3c. The `desc`, `dateTime` and `relatedNames` fields of the task entered are the same as that of the task to be edited.
+    * 3c1. NurseyBook shows an error message.
+
+      Use case resumes at step 2.
 
 
    *{More to be added}*
