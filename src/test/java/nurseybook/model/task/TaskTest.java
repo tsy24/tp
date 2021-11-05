@@ -14,6 +14,7 @@ import static nurseybook.testutil.TypicalTasks.APPLY_LEAVE;
 import static nurseybook.testutil.TypicalTasks.APPLY_LEAVE_DAY_NEXT_RECURRENCE_GHOST;
 import static nurseybook.testutil.TypicalTasks.APPLY_LEAVE_LATE_TIME;
 import static nurseybook.testutil.TypicalTasks.APPLY_LEAVE_MONTH_RECURRENCE;
+import static nurseybook.testutil.TypicalTasks.APPLY_LEAVE_NEXT_DAY;
 import static nurseybook.testutil.TypicalTasks.APPLY_LEAVE_WEEK_RECURRENCE;
 import static nurseybook.testutil.TypicalTasks.DO_PAPERWORK;
 import static nurseybook.testutil.TypicalTasks.GEORGE_INSULIN;
@@ -204,7 +205,7 @@ public class TaskTest {
     }
 
     @Test
-    void checkIfTaskRecurring() {
+    void isTaskRecurring() {
         //recurring task
         Assertions.assertTrue(APPLY_LEAVE.isTaskRecurring());
 
@@ -213,7 +214,7 @@ public class TaskTest {
     }
 
     @Test
-    void checkIfRealTask() {
+    void isRealTask() {
         //real task
         assertTrue(georgeInsulin.isRealTask());
 
@@ -222,7 +223,7 @@ public class TaskTest {
     }
 
     @Test
-    void checkIfTaskFallsOnDate() {
+    void doesTaskFallOnDate() {
         //task falls on date
         LocalDate sameDate = LocalDate.parse("2020-11-01");
         assertTrue(georgeInsulin.doesTaskFallOnDate(sameDate));
@@ -230,6 +231,21 @@ public class TaskTest {
         //task does not fall on date
         LocalDate differentDate = LocalDate.parse("2020-11-02");
         assertFalse(georgeInsulin.doesTaskFallOnDate(differentDate));
+    }
+
+    @Test
+    public void getRecurrenceIntervalInDays() {
+        //daily recurrence
+        assertEquals(APPLY_LEAVE_NEXT_DAY.getRecurrenceIntervalInDays(), 1);
+
+        //weekly recurrence
+        assertEquals(APPLY_LEAVE_WEEK_RECURRENCE.getRecurrenceIntervalInDays(), 7);
+
+        //monthly recurrence
+        assertEquals(APPLY_LEAVE_MONTH_RECURRENCE.getRecurrenceIntervalInDays(), 28);
+
+        //no recurrence
+        assertEquals(georgeInsulin.getRecurrenceIntervalInDays(), 0);
     }
 
     @Test
