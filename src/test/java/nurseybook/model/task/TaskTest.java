@@ -35,7 +35,7 @@ import nurseybook.testutil.TaskBuilder;
 
 public class TaskTest {
 
-    private final Task keithInsulin = new TaskBuilder(GEORGE_INSULIN).build();
+    private final Task georgeInsulin = new TaskBuilder(GEORGE_INSULIN).build();
     private final Task applyLeave = new TaskBuilder(APPLY_LEAVE).build();
 
     @Test
@@ -95,45 +95,45 @@ public class TaskTest {
     @Test
     public void equals() {
         // same values -> returns true
-        assertTrue(keithInsulin.equals(GEORGE_INSULIN));
+        assertTrue(georgeInsulin.equals(GEORGE_INSULIN));
         Task alexToKeith = new TaskBuilder(ALICE_INSULIN).withNames(VALID_NAME_GEORGE).withDesc(VALID_DESC_MEDICINE)
                 .withDateTime(VALID_DATE_NOV, VALID_TIME_SEVENPM).withStatus("false", "true")
                 .withRecurrence(Recurrence.RecurrenceType.NONE.name()).build();
-        assertTrue(keithInsulin.equals(alexToKeith));
+        assertTrue(georgeInsulin.equals(alexToKeith));
 
         // same object -> returns true
-        assertTrue(keithInsulin.equals(keithInsulin));
+        assertTrue(georgeInsulin.equals(georgeInsulin));
 
         // null -> returns false
-        assertFalse(keithInsulin.equals(null));
+        assertFalse(georgeInsulin.equals(null));
 
         // different type -> returns false
-        assertFalse(keithInsulin.equals(5));
+        assertFalse(georgeInsulin.equals(5));
 
         // different name -> returns false
-        Task editedTask = new TaskBuilder(keithInsulin).withNames(VALID_NAME_ALICE).build();
-        assertFalse(keithInsulin.equals(editedTask));
-        editedTask = new TaskBuilder(keithInsulin).withNames(VALID_NAME_GEORGE, VALID_NAME_ALICE).build();
-        assertFalse(keithInsulin.equals(editedTask));
+        Task editedTask = new TaskBuilder(georgeInsulin).withNames(VALID_NAME_ALICE).build();
+        assertFalse(georgeInsulin.equals(editedTask));
+        editedTask = new TaskBuilder(georgeInsulin).withNames(VALID_NAME_GEORGE, VALID_NAME_ALICE).build();
+        assertFalse(georgeInsulin.equals(editedTask));
 
         // different date -> returns false
-        editedTask = new TaskBuilder(keithInsulin).withDateTime(VALID_DATE_JAN, VALID_TIME_SEVENPM).build();
-        assertFalse(keithInsulin.equals(editedTask));
+        editedTask = new TaskBuilder(georgeInsulin).withDateTime(VALID_DATE_JAN, VALID_TIME_SEVENPM).build();
+        assertFalse(georgeInsulin.equals(editedTask));
 
         // different time -> returns false
-        editedTask = new TaskBuilder(keithInsulin).withDateTime(VALID_DATE_NOV, VALID_TIME_TENAM).build();
-        assertFalse(keithInsulin.equals(editedTask));
+        editedTask = new TaskBuilder(georgeInsulin).withDateTime(VALID_DATE_NOV, VALID_TIME_TENAM).build();
+        assertFalse(georgeInsulin.equals(editedTask));
 
         // different status -> returns false
-        editedTask = new TaskBuilder(keithInsulin).withStatus("true", "false").build();
-        assertFalse(keithInsulin.equals(editedTask));
+        editedTask = new TaskBuilder(georgeInsulin).withStatus("true", "false").build();
+        assertFalse(georgeInsulin.equals(editedTask));
 
         // different recurrence -> returns false
-        editedTask = new TaskBuilder(keithInsulin).withRecurrence(Recurrence.RecurrenceType.MONTH.name()).build();
-        assertFalse(keithInsulin.equals(editedTask));
+        editedTask = new TaskBuilder(georgeInsulin).withRecurrence(Recurrence.RecurrenceType.MONTH.name()).build();
+        assertFalse(georgeInsulin.equals(editedTask));
 
         // different Task Type -> returns false
-        assertFalse(keithInsulin.equals(APPLY_LEAVE_DAY_NEXT_RECURRENCE_GHOST));
+        assertFalse(georgeInsulin.equals(APPLY_LEAVE_DAY_NEXT_RECURRENCE_GHOST));
     }
 
     @Test
@@ -142,14 +142,14 @@ public class TaskTest {
         DateTime november = new DateTime("2020-11-01", "19:45");
         DateTime december = new DateTime("2021-12-25", "12:00");
 
-        // keithInsulin on 2021-11-01, after 2021 October -> returns true
-        assertTrue(keithInsulin.isAfter(october));
+        // georgeInsulin on 2021-11-01, after 2021 October -> returns true
+        assertTrue(georgeInsulin.isAfter(october));
 
-        // keithInsulin on 2021-11-01, before 2021 December -> returns false
-        assertFalse(keithInsulin.isAfter(december));
+        // georgeInsulin on 2021-11-01, before 2021 December -> returns false
+        assertFalse(georgeInsulin.isAfter(december));
 
-        // keithInsulin on 2021-11-01, same time as november -> returns false
-        assertFalse(keithInsulin.isAfter(november));
+        // georgeInsulin on 2021-11-01, same time as november -> returns false
+        assertFalse(georgeInsulin.isAfter(november));
     }
 
     @Test
@@ -158,26 +158,26 @@ public class TaskTest {
         DateTime november = new DateTime("2020-11-01", "19:45");
         DateTime december = new DateTime("2021-12-25", "12:00");
 
-        // keithInsulin on 2021-11-01, after 2021 October -> returns false
-        assertFalse(keithInsulin.isBefore(october));
+        // georgeInsulin on 2021-11-01, after 2021 October -> returns false
+        assertFalse(georgeInsulin.isBefore(october));
 
-        // keithInsulin on 2021-11-01, before 2021 December -> returns true
-        assertTrue(keithInsulin.isBefore(december));
+        // georgeInsulin on 2021-11-01, before 2021 December -> returns true
+        assertTrue(georgeInsulin.isBefore(december));
 
-        // keithInsulin on 2021-11-01, same time as november -> returns false
-        assertFalse(keithInsulin.isBefore(november));
+        // georgeInsulin on 2021-11-01, same time as november -> returns false
+        assertFalse(georgeInsulin.isBefore(november));
     }
 
     @Test
     void isTaskDone() {
-        assertFalse(keithInsulin.isTaskDone()); // status: isDone = "false"
+        assertFalse(georgeInsulin.isTaskDone()); // status: isDone = "false"
         assertTrue(applyLeave.isTaskDone());
     }
 
     @Test
     void isTaskOverdue() {
         assertTrue(applyLeave.isTaskOverdue()); // status: isOverdue = "true"
-        assertTrue(keithInsulin.isTaskOverdue()); // status: isOverdue = "true"
+        assertTrue(georgeInsulin.isTaskOverdue()); // status: isOverdue = "true"
     }
 
     @Test
@@ -186,13 +186,13 @@ public class TaskTest {
         Assertions.assertTrue(APPLY_LEAVE.isTaskRecurring());
 
         //non-recurring task
-        assertFalse(keithInsulin.isTaskRecurring());
+        assertFalse(georgeInsulin.isTaskRecurring());
     }
 
     @Test
     void checkIfRealTask() {
         //real task
-        assertTrue(keithInsulin.isRealTask());
+        assertTrue(georgeInsulin.isRealTask());
 
         //ghost task
         Assertions.assertFalse(APPLY_LEAVE_DAY_NEXT_RECURRENCE_GHOST.isRealTask());
@@ -202,27 +202,27 @@ public class TaskTest {
     void checkIfTaskFallsOnDate() {
         //task falls on date
         LocalDate sameDate = LocalDate.parse("2020-11-01");
-        assertTrue(keithInsulin.doesTaskFallOnDate(sameDate));
+        assertTrue(georgeInsulin.doesTaskFallOnDate(sameDate));
 
         //task does not fall on date
         LocalDate differentDate = LocalDate.parse("2020-11-02");
-        assertFalse(keithInsulin.doesTaskFallOnDate(differentDate));
+        assertFalse(georgeInsulin.doesTaskFallOnDate(differentDate));
     }
 
     @Test
     public void compareTo() {
-        Task keithInsulin = new TaskBuilder(GEORGE_INSULIN).build(); // date = "2020-11-01"
+        Task georgeInsulin = new TaskBuilder(GEORGE_INSULIN).build(); // date = "2020-11-01"
         Task alexInsulin = new TaskBuilder(ALICE_INSULIN).build(); // date = "2022-01-31", time: "19:45" in 24 hrs time
         Task doPaperwork = new TaskBuilder(DO_PAPERWORK).build(); // date: "2022-01-31", time: "10:20" in 24 hrs time
 
-        // keithInsulin before alexInsulin -> returns negative value
-        assertTrue(keithInsulin.compareTo(alexInsulin) < 0);
+        // georgeInsulin before alexInsulin -> returns negative value
+        assertTrue(georgeInsulin.compareTo(alexInsulin) < 0);
 
         // alexInsulin after doPaperwork -> returns positive value
         assertTrue(alexInsulin.compareTo(doPaperwork) > 0);
 
         // doPaperwork before alexInsulin -> returns negative value
-        assertFalse(doPaperwork.compareTo(keithInsulin) == 0);
+        assertFalse(doPaperwork.compareTo(georgeInsulin) == 0);
     }
 
     @Test
