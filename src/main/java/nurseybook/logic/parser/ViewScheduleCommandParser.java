@@ -30,18 +30,9 @@ public class ViewScheduleCommandParser implements Parser<Command> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewScheduleCommand.MESSAGE_USAGE));
         }
 
-        try {
-            LocalDate keyDate = ParserUtil.parseDate(trimmedKeyDate);
-            isDateWithinBounds(keyDate);
-            return new ViewScheduleCommand(new DateTimeContainsDatePredicate(keyDate), keyDate);
-        } catch (ParseException pe) {
-            if (pe.getMessage().equals(MESSAGE_VIEWSCHEDULE_DAYS_SUPPORTED)) {
-                throw pe;
-            } else {
-                throw new ParseException(
-                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewScheduleCommand.MESSAGE_USAGE), pe);
-            }
-        }
+        LocalDate keyDate = ParserUtil.parseDate(trimmedKeyDate);
+        isDateWithinBounds(keyDate);
+        return new ViewScheduleCommand(new DateTimeContainsDatePredicate(keyDate), keyDate);
     }
 
     private void isDateWithinBounds(LocalDate keyDate) throws ParseException {

@@ -52,10 +52,10 @@ public class RealTaskTest {
     public void equals() {
         // same values -> returns true
         assertTrue(georgeInsulin.equals(GEORGE_INSULIN));
-        Task alexToKeith = new TaskBuilder(ALICE_INSULIN).withNames(VALID_NAME_GEORGE).withDesc(VALID_DESC_MEDICINE)
+        Task alexToGeorge = new TaskBuilder(ALICE_INSULIN).withNames(VALID_NAME_GEORGE).withDesc(VALID_DESC_MEDICINE)
                 .withDateTime(VALID_DATE_NOV, VALID_TIME_SEVENPM).withStatus("false", "true")
                 .withRecurrence(Recurrence.RecurrenceType.NONE.name()).build();
-        assertTrue(georgeInsulin.equals(alexToKeith));
+        assertTrue(georgeInsulin.equals(alexToGeorge));
 
         // same object -> returns true
         assertTrue(georgeInsulin.equals(georgeInsulin));

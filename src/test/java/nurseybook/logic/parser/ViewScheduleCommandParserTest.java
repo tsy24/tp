@@ -5,6 +5,7 @@ import static nurseybook.commons.core.Messages.MESSAGE_VIEWSCHEDULE_DAYS_SUPPORT
 import static nurseybook.logic.commands.ViewScheduleCommand.MESSAGE_USAGE;
 import static nurseybook.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static nurseybook.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static nurseybook.model.task.DateTime.MESSAGE_DATE_CONSTRAINTS;
 import static nurseybook.model.task.UniqueTaskList.MAX_DAYS_SCHEDULE_AHEAD;
 
 import java.time.LocalDate;
@@ -34,8 +35,7 @@ public class ViewScheduleCommandParserTest {
 
     @Test
     public void parse_invalidArgs_throwsParseException() {
-        assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                ViewScheduleCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "a", MESSAGE_DATE_CONSTRAINTS);
     }
 
 
@@ -47,5 +47,15 @@ public class ViewScheduleCommandParserTest {
         ViewScheduleCommand expectedViewScheduleCommand =
                 new ViewScheduleCommand(new DateTimeContainsDatePredicate(outOfBoundsDate), outOfBoundsDate);
         assertParseFailure(parser, outOfBoundsDateString, MESSAGE_VIEWSCHEDULE_DAYS_SUPPORTED);
+    }
+
+    @Test
+    public void parse_validDateBeforeCurrentDate_returnViewScheduleCommand() {
+        LocalDate todayDate = LocalDate.now();
+        LocalDate expiredDate = todayDate.minusDays(1);
+        String expiredDateString = expiredDate.toString();
+        ViewScheduleCommand expectedViewScheduleCommand =
+                new ViewScheduleCommand(new DateTimeContainsDatePredicate(expiredDate), expiredDate);
+        assertParseSuccess(parser, expiredDateString, expectedViewScheduleCommand);
     }
 }

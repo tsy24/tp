@@ -72,12 +72,14 @@ public class UniqueTaskListTest {
     public void mark_nullTask_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueTaskList.markTaskAsDone(null));
         assertThrows(NullPointerException.class, () -> uniqueTaskList.markTaskAsOverdue(null));
+        assertThrows(NullPointerException.class, () -> uniqueTaskList.markTaskAsNotOverdue(null));
     }
 
     @Test
     public void mark_taskDoesNotExist_throwsTaskNotFoundException() {
         assertThrows(TaskNotFoundException.class, () -> uniqueTaskList.markTaskAsDone(DO_PAPERWORK));
         assertThrows(TaskNotFoundException.class, () -> uniqueTaskList.markTaskAsOverdue(DO_PAPERWORK));
+        assertThrows(TaskNotFoundException.class, () -> uniqueTaskList.markTaskAsNotOverdue(DO_PAPERWORK));
     }
 
     @Test
@@ -162,7 +164,7 @@ public class UniqueTaskListTest {
                 nameSet, new Recurrence("DAY"));
 
         Task nextTaskRecurrence = testTask.copyToGhostTask();
-        nextTaskRecurrence.setDate(keyDate); //28 days after today
+        nextTaskRecurrence.setDate(keyDate); //1 day after today
 
         UniqueTaskList taskList = new UniqueTaskList();
         taskList.add(testTask);
@@ -184,7 +186,7 @@ public class UniqueTaskListTest {
                 nameSet, new Recurrence("WEEK"));
 
         Task nextTaskRecurrence = testTask.copyToGhostTask();
-        nextTaskRecurrence.setDate(keyDate); //28 days after today
+        nextTaskRecurrence.setDate(keyDate); //7 days after today
 
         UniqueTaskList taskList = new UniqueTaskList();
         taskList.add(testTask);
@@ -230,6 +232,27 @@ public class UniqueTaskListTest {
         Task taskOutOfBounds = testTask.copyToGhostTask();
         taskOutOfBounds.setDate(LocalDate.now().plusDays(70)); //70 days after today, out of recurrence dates
 
+
+        UniqueTaskList taskList = new UniqueTaskList();
+        taskList.add(testTask);
+        taskList.addPossibleGhostTasksWithMatchingDate(keyDate);
+
+        UniqueTaskList expectedTaskList = new UniqueTaskList();
+        expectedTaskList.add(testTask);
+
+        assertEquals(taskList, expectedTaskList);
+    }
+
+    @Test
+    public void addPossibleGhostTasksWithMatchingDate_forDateBeforeCurrentDate() {
+        Set<Name> nameSet = new HashSet<>();
+        LocalDate today = LocalDate.now();
+        LocalDate keyDate = LocalDate.now().minusDays(1);
+        RealTask testTask = new RealTask(new Description("Task"), new DateTime(today, LocalTime.now()),
+                nameSet, new Recurrence("DAY"));
+
+        Task nextTaskRecurrence = testTask.copyToGhostTask();
+        nextTaskRecurrence.setDate(keyDate);
 
         UniqueTaskList taskList = new UniqueTaskList();
         taskList.add(testTask);
