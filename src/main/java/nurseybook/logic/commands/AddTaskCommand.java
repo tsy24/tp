@@ -3,6 +3,7 @@ package nurseybook.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static nurseybook.commons.core.Messages.MESSAGE_DUPLICATE_TASK;
 import static nurseybook.commons.core.Messages.MESSAGE_INVALID_TASK_DATETIME_FOR_RECURRING_TASK;
+import static nurseybook.commons.core.Messages.MESSAGE_NO_SUCH_ELDERLY;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_NAME;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_TASK_DATE;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_TASK_DESC;
@@ -11,6 +12,7 @@ import static nurseybook.logic.parser.CliSyntax.PREFIX_TASK_TIME;
 
 import nurseybook.logic.commands.exceptions.CommandException;
 import nurseybook.model.Model;
+import nurseybook.model.person.Name;
 import nurseybook.model.task.Task;
 
 /**
@@ -18,15 +20,14 @@ import nurseybook.model.task.Task;
  */
 public class AddTaskCommand extends Command {
     public static final String COMMAND_WORD = "addTask";
+    public static final String[] PARAMETERS = { "[" + PREFIX_NAME + "NAME]...",
+        PREFIX_TASK_DESC + "DESCRIPTION", PREFIX_TASK_DATE + "DATE",
+        PREFIX_TASK_TIME + "TIME", "[" + PREFIX_TASK_RECURRING + "RECURRENCE_TYPE]" };
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the nursey book.\n"
             + "Parameters: "
-            + "[" + PREFIX_NAME + "NAME]..."
-            + PREFIX_TASK_DESC + "DESCRIPTION "
-            + PREFIX_TASK_DATE + "DATE "
-            + PREFIX_TASK_TIME + "TIME "
-            + "[" + PREFIX_TASK_RECURRING + "RECURRENCE_TYPE]\n"
-            + "Example: " + COMMAND_WORD + " "
+            + String.join(" ", PARAMETERS)
+            + "\nExample: " + COMMAND_WORD + " "
             + PREFIX_NAME + "Khong Guan "
             + PREFIX_NAME + "Swee Choon "
             + PREFIX_TASK_DESC + "Weekly Taiji "
@@ -56,6 +57,18 @@ public class AddTaskCommand extends Command {
 
         if (model.hasTask(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_TASK);
+        }
+
+        boolean isElderlyPresent = true;
+        for (Name name : toAdd.getRelatedNames()) {
+            if (!model.isElderlyPresent(name)) {
+                isElderlyPresent = false;
+                break;
+            }
+        }
+
+        if (!isElderlyPresent) {
+            throw new CommandException(MESSAGE_NO_SUCH_ELDERLY);
         }
 
         model.addTask(toAdd);

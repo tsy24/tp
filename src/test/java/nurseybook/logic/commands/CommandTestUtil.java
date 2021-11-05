@@ -8,6 +8,7 @@ import static nurseybook.logic.parser.CliSyntax.PREFIX_NAME;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_NOK_NAME;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_PHONE;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_RELATIONSHIP;
+import static nurseybook.logic.parser.CliSyntax.PREFIX_REMARK;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_ROOM_NUM;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_TAG;
 import static nurseybook.testutil.Assert.assertThrows;
@@ -55,6 +56,7 @@ public class CommandTestUtil {
     public static final String VALID_REMARK_BOB = "Favourite pastime: Eating";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friends";
+    public static final String VALID_TAG_FRIEND_DIFF_CASE = "fRienDs";
     public static final String VALID_TAG_DIABETES = "diabetes";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
@@ -79,6 +81,7 @@ public class CommandTestUtil {
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
     public static final String TAG_DESC_DIABETES = " " + PREFIX_TAG + VALID_TAG_DIABETES;
     public static final String TAG_EMPTY = " " + PREFIX_TAG;
+    public static final String REMARK_DESC_AMY = " " + PREFIX_REMARK + VALID_REMARK_AMY;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_AGE_DESC = " " + PREFIX_AGE + "2d7"; // 'd' not allowed in age
@@ -98,6 +101,7 @@ public class CommandTestUtil {
     public static final EditCommand.EditElderlyDescriptor DESC_AMY;
     public static final EditCommand.EditElderlyDescriptor DESC_BOB;
     public static final Set<Tag> SET_ONE_TAG;
+    public static final Set<Tag> SET_ONE_TAG_DIFFERENT_CASE;
     public static final Set<Tag> SET_TWO_TAGS;
 
     static {
@@ -113,6 +117,7 @@ public class CommandTestUtil {
                 .withAddress(VALID_NOK_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
 
         SET_ONE_TAG = Set.of(new Tag(VALID_TAG_DIABETES));
+        SET_ONE_TAG_DIFFERENT_CASE = Set.of(new Tag(VALID_TAG_FRIEND_DIFF_CASE));
         SET_TWO_TAGS = Set.of(new Tag(VALID_TAG_DIABETES), new Tag(VALID_TAG_FRIEND));
     }
 

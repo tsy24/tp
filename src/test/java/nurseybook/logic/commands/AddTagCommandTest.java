@@ -1,9 +1,12 @@
 package nurseybook.logic.commands;
 
 import static nurseybook.logic.commands.CommandTestUtil.SET_ONE_TAG;
+import static nurseybook.logic.commands.CommandTestUtil.SET_ONE_TAG_DIFFERENT_CASE;
 import static nurseybook.logic.commands.CommandTestUtil.SET_TWO_TAGS;
 import static nurseybook.logic.commands.CommandTestUtil.VALID_TAG_DIABETES;
 import static nurseybook.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
+import static nurseybook.logic.commands.CommandTestUtil.VALID_TAG_FRIEND_DIFF_CASE;
+import static nurseybook.logic.commands.CommandTestUtil.assertCommandFailure;
 import static nurseybook.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static nurseybook.testutil.TypicalElderlies.getTypicalNurseyBook;
 import static nurseybook.testutil.TypicalIndexes.INDEX_FIRST;
@@ -61,20 +64,21 @@ public class AddTagCommandTest {
     }
 
     @Test
-    public void execute_addExistingTagUnfilteredList_success() {
-        Elderly firstElderly = model.getFilteredElderlyList().get(INDEX_FIRST.getZeroBased());
-        Elderly tagAddedElderly = new ElderlyBuilder(firstElderly)
-                .withTags(VALID_TAG_FRIEND, VALID_TAG_DIABETES).build();
+    public void execute_addExistingTagUnfilteredList_failure() {
+        // Only one existing tag
+        AddTagCommand addTagCommand = new AddTagCommand(INDEX_SECOND, SET_ONE_TAG);
+        String expectedMessage = String.format(AddTagCommand.MESSAGE_TAG_EXISTS, VALID_TAG_DIABETES);
+        assertCommandFailure(addTagCommand, model, expectedMessage);
 
-        AddTagCommand addTagCommand = new AddTagCommand(INDEX_FIRST, SET_TWO_TAGS);
+        // Mix of new and existing tags
+        addTagCommand = new AddTagCommand(INDEX_FIRST, SET_TWO_TAGS);
+        expectedMessage = String.format(AddTagCommand.MESSAGE_TAG_EXISTS, VALID_TAG_FRIEND);
+        assertCommandFailure(addTagCommand, model, expectedMessage);
 
-        String expectedMessage = String.format(AddTagCommand.MESSAGE_ADD_TAG_SUCCESS, tagAddedElderly);
-
-        Model expectedModel = new ModelManager(new NurseyBook(model.getVersionedNurseyBook()), new UserPrefs());
-        expectedModel.setElderly(firstElderly, tagAddedElderly);
-        expectedModel.commitNurseyBook(new CommandResult(expectedMessage));
-
-        assertCommandSuccess(addTagCommand, model, expectedMessage, expectedModel);
+        // Different case existing tag
+        addTagCommand = new AddTagCommand(INDEX_SECOND, SET_ONE_TAG_DIFFERENT_CASE);
+        expectedMessage = String.format(AddTagCommand.MESSAGE_TAG_EXISTS, VALID_TAG_FRIEND_DIFF_CASE);
+        assertCommandFailure(addTagCommand, model, expectedMessage);
     }
 
     @Test
@@ -101,7 +105,7 @@ public class AddTagCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredElderlyList().size() + 1);
         AddTagCommand addTagCommand = new AddTagCommand(outOfBoundIndex, SET_ONE_TAG);
 
-        CommandTestUtil.assertCommandFailure(addTagCommand, model, Messages.MESSAGE_INVALID_ELDERLY_DISPLAYED_INDEX);
+        assertCommandFailure(addTagCommand, model, Messages.MESSAGE_INVALID_ELDERLY_DISPLAYED_INDEX);
     }
 
     /**
@@ -117,7 +121,7 @@ public class AddTagCommandTest {
 
         AddTagCommand addTagCommand = new AddTagCommand(outOfBoundIndex, SET_ONE_TAG);
 
-        CommandTestUtil.assertCommandFailure(addTagCommand, model, Messages.MESSAGE_INVALID_ELDERLY_DISPLAYED_INDEX);
+        assertCommandFailure(addTagCommand, model, Messages.MESSAGE_INVALID_ELDERLY_DISPLAYED_INDEX);
     }
 
     @Test

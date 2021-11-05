@@ -1,55 +1,71 @@
 package nurseybook.model.task;
 
-import static nurseybook.testutil.Assert.assertThrows;
+import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_DATE_JAN;
+import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_DATE_NOV;
+import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_NAME_ALICE;
+import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_NAME_GEORGE;
+import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_TIME_SEVENPM;
+import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_TIME_TENAM;
+import static nurseybook.testutil.TypicalTasks.APPLY_LEAVE_DAY_NEXT_RECURRENCE_GHOST;
+import static nurseybook.testutil.TypicalTasks.APPLY_LEAVE_NEXT_DAY;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+import nurseybook.testutil.TaskBuilder;
+
 public class GhostTaskTest {
-    @Test
-    public void constructor_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new GhostTask(null));
-    }
+
+    private final Task applyLeaveNextDayGhost = new TaskBuilder(APPLY_LEAVE_DAY_NEXT_RECURRENCE_GHOST).build();
 
     @Test
-    public void constructor_invalidGhostTask_throwsIllegalArgumentException() {
-        String invalidGhostTask = "a";
-        assertThrows(IllegalArgumentException.class, () -> new GhostTask(invalidGhostTask));
-    }
-
-    @Test
-    public void isValidGhostTask() {
-        // null ghostTask
-        assertThrows(NullPointerException.class, () -> GhostTask.isValidGhostTask(null));
-
-        // invalid ghostTasks
-        assertFalse(GhostTask.isValidGhostTask("abc"));
-        assertFalse(GhostTask.isValidGhostTask("2"));
-
-        // valid ghostTasks
-        assertTrue(GhostTask.isValidGhostTask("true"));
-        assertTrue(GhostTask.isValidGhostTask("TrUe")); // random upper cases
-        assertTrue(GhostTask.isValidGhostTask("false"));
-    }
-
-    @Test
-    public void checkIfGhostTask() {
-        // ghostTask
-        GhostTask ghostTask = new GhostTask("true");
-        assertTrue(ghostTask.checkIfGhostTask());
-
-        // realTask
-        GhostTask realTask = new GhostTask("false");
-        assertFalse(realTask.checkIfGhostTask());
+    void copyToGhostTask() {
+        RealTask realTask = (RealTask) APPLY_LEAVE_NEXT_DAY;
+        GhostTask ghostTask = realTask.copyToGhostTask();
+        assertEquals(new TaskBuilder(APPLY_LEAVE_NEXT_DAY, false).build(), ghostTask);
     }
 
     @Test
     public void equals() {
-        GhostTask ghostTask = new GhostTask("true");
-        assertTrue(ghostTask.equals(new GhostTask("true")));
-        assertTrue(ghostTask.equals(new GhostTask("TruE"))); // random upper cases
+        // same values -> returns true
+        assertTrue(applyLeaveNextDayGhost.equals(APPLY_LEAVE_DAY_NEXT_RECURRENCE_GHOST));
 
-        assertFalse(ghostTask.equals(new GhostTask("false")));
+        // same object -> returns true
+        assertTrue(applyLeaveNextDayGhost.equals(applyLeaveNextDayGhost));
+
+        // null -> returns false
+        assertFalse(applyLeaveNextDayGhost.equals(null));
+
+        // different type -> returns false
+        assertFalse(applyLeaveNextDayGhost.equals(5));
+
+        // different name -> returns false
+        Task editedTask = new TaskBuilder(applyLeaveNextDayGhost).withNames(VALID_NAME_GEORGE).build();
+        assertFalse(applyLeaveNextDayGhost.equals(editedTask));
+        editedTask = new TaskBuilder(applyLeaveNextDayGhost).withNames(VALID_NAME_GEORGE, VALID_NAME_ALICE).build();
+        assertFalse(applyLeaveNextDayGhost.equals(editedTask));
+
+        // different date -> returns false
+        editedTask = new TaskBuilder(applyLeaveNextDayGhost).withDateTime(VALID_DATE_JAN, VALID_TIME_SEVENPM).build();
+        assertFalse(applyLeaveNextDayGhost.equals(editedTask));
+
+        // different time -> returns false
+        editedTask = new TaskBuilder(applyLeaveNextDayGhost).withDateTime(VALID_DATE_NOV, VALID_TIME_TENAM).build();
+        assertFalse(applyLeaveNextDayGhost.equals(editedTask));
+
+        // different status -> returns false
+        editedTask = new TaskBuilder(applyLeaveNextDayGhost).withStatus("true", "false").build();
+        assertFalse(applyLeaveNextDayGhost.equals(editedTask));
+
+        // different recurrence -> returns false
+        editedTask = new TaskBuilder(applyLeaveNextDayGhost)
+                .withRecurrence(Recurrence.RecurrenceType.MONTH.name()).build();
+        assertFalse(applyLeaveNextDayGhost.equals(editedTask));
+
+        // different Task Type -> returns false
+        assertFalse(applyLeaveNextDayGhost.equals(APPLY_LEAVE_NEXT_DAY));
     }
 }
+

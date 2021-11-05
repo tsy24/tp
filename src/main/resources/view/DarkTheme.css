@@ -149,6 +149,21 @@
     -fx-text-fill: #202632;
 }
 
+.check-box .box {
+    -fx-background-color: gray;
+    -fx-border-radius:0;
+    -fx-padding: 6px;
+}
+
+.check-box:selected .box .mark {
+    -fx-background-color: white;
+    -fx-padding: 6px;
+}
+
+.check-box:selected .box {
+    -fx-background-color: derive(#2e4a8a, 50%);
+}
+
 .stack-pane {
      -fx-background-color: transparent;
 }
@@ -311,7 +326,6 @@
     -fx-font-size: 20px;
     -fx-text-fill: #202632;
     -fx-pref-height: 150;
-    -fx-text-alignment: center-left;
 }
 
 .pane-with-no-border {

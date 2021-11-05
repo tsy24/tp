@@ -48,7 +48,7 @@ public class JsonSerializableNurseyBookTest {
     }
 
     @Test
-    public void toModelType_typicalTasksFile_success() throws Exception {
+    public void toModelType_typicalTasksAndElderliesFile_success() throws Exception {
         JsonSerializableNurseyBook dataFromFile = JsonUtil.readJsonFile(TYPICAL_TASKS_FILE,
                 JsonSerializableNurseyBook.class).get();
         NurseyBook nurseyBookFromFile = dataFromFile.toModelType();

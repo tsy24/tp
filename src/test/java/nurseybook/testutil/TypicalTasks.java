@@ -6,8 +6,8 @@ import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_DESC_COVID;
 import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_DESC_MEDICINE;
 import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_DESC_PAPERWORK;
 import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_DESC_VACCINE;
-import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_NAME_ALEX;
-import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_NAME_KEITH;
+import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_NAME_ALICE;
+import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_NAME_GEORGE;
 import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_TIME_SEVENPM;
 import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_TIME_TENAM;
 
@@ -16,20 +16,21 @@ import java.util.Arrays;
 import java.util.List;
 
 import nurseybook.model.NurseyBook;
+import nurseybook.model.person.Elderly;
 import nurseybook.model.task.Recurrence;
 import nurseybook.model.task.Task;
 
 public class TypicalTasks {
 
-    public static final Task KEITH_INSULIN = new TaskBuilder().withDesc(VALID_DESC_MEDICINE)
-            .withDateTime(VALID_DATE_NOV, VALID_TIME_SEVENPM).withNames(VALID_NAME_KEITH)
+    public static final Task ALICE_INSULIN = new TaskBuilder().withDesc(VALID_DESC_COVID)
+            .withDateTime(VALID_DATE_JAN, VALID_TIME_SEVENPM).withNames(VALID_NAME_ALICE)
+            .withRecurrence(Recurrence.RecurrenceType.NONE.name()).build();
+
+    public static final Task GEORGE_INSULIN = new TaskBuilder().withDesc(VALID_DESC_MEDICINE)
+            .withDateTime(VALID_DATE_NOV, VALID_TIME_SEVENPM).withNames(VALID_NAME_GEORGE)
             .withStatus("false", "true")
             .withRecurrence(Recurrence.RecurrenceType.NONE.name())
             .build();
-
-    public static final Task ALEX_INSULIN = new TaskBuilder().withDesc(VALID_DESC_COVID)
-            .withDateTime(VALID_DATE_JAN, VALID_TIME_SEVENPM).withNames(VALID_NAME_ALEX)
-            .withRecurrence(Recurrence.RecurrenceType.NONE.name()).build();
 
     public static final Task DO_PAPERWORK = new TaskBuilder().withDesc(VALID_DESC_PAPERWORK)
             .withDateTime(VALID_DATE_JAN, VALID_TIME_TENAM)
@@ -44,13 +45,16 @@ public class TypicalTasks {
             .withRecurrence(Recurrence.RecurrenceType.DAY.name()).build();
 
     public static final Task KG_SC_VACCINE = new TaskBuilder().withDesc(VALID_DESC_VACCINE)
-            .withDateTime("2021-10-30", "18:00").withNames("Khong Guan", "Swee Choon")
+            .withDateTime("2021-10-30", "18:00").withNames("Elle Mayer", "Fiona Kunz")
             .withStatus("false", "true").withRecurrence(Recurrence.RecurrenceType.NONE.name()).build();
 
     // Extra test cases
-
     public static final Task APPLY_LEAVE_LATE_TIME = new TaskBuilder().withDesc("Apply leave with HR")
             .withDateTime("2021-10-01", "23:50").withStatus("true", "true")
+            .withRecurrence(Recurrence.RecurrenceType.DAY.name()).build();
+
+    public static final Task APPLY_LEAVE_NEXT_DAY = new TaskBuilder().withDesc("Apply leave with HR")
+            .withDateTime("2021-10-02", "23:50").withStatus("true", "true")
             .withRecurrence(Recurrence.RecurrenceType.DAY.name()).build();
 
     public static final Task APPLY_LEAVE_WEEK_RECURRENCE = new TaskBuilder().withDesc("Apply leave with HR")
@@ -61,34 +65,37 @@ public class TypicalTasks {
             .withDateTime("2021-07-30", "23:50").withStatus("true", "true")
             .withRecurrence(Recurrence.RecurrenceType.MONTH.name()).build();
 
-    public static final Task APPLY_LEAVE_DAY_NEXT_RECURRENCE_GHOST = new TaskBuilder()
-            .withDesc("Apply leave with HR Day")
-            .withDateTime("2021-10-02", "00:00").withStatus("true", "true")
-            .withRecurrence(Recurrence.RecurrenceType.DAY.name()).withGhostTask("true").build();
+    public static final Task APPLY_LEAVE_DAY_NEXT_RECURRENCE_GHOST = new TaskBuilder(false)
+            .withDesc("Apply leave with HR")
+            .withDateTime("2021-10-02", "23:50").withStatus("true", "true")
+            .withRecurrence(Recurrence.RecurrenceType.DAY.name()).build();
 
-    public static final Task APPLY_LEAVE_WEEK_NEXT_RECURRENCE_GHOST = new TaskBuilder()
-            .withDesc("Apply leave with HR Week")
+    public static final Task APPLY_LEAVE_WEEK_NEXT_RECURRENCE_GHOST = new TaskBuilder(false)
+            .withDesc("Apply leave with HR")
             .withDateTime("2021-10-07", "23:50").withStatus("true", "true")
-            .withRecurrence(Recurrence.RecurrenceType.WEEK.name()).withGhostTask("true").build();
+            .withRecurrence(Recurrence.RecurrenceType.WEEK.name()).build();
 
-    public static final Task APPLY_LEAVE_MONTH_NEXT_RECURRENCE_GHOST = new TaskBuilder()
-            .withDesc("Apply leave with HR Month")
+    public static final Task APPLY_LEAVE_MONTH_NEXT_RECURRENCE_GHOST = new TaskBuilder(false)
+            .withDesc("Apply leave with HR")
             .withDateTime("2021-08-27", "23:50").withStatus("true", "true")
-            .withRecurrence(Recurrence.RecurrenceType.MONTH.name()).withGhostTask("true").build();
+            .withRecurrence(Recurrence.RecurrenceType.MONTH.name()).build();
 
     /**
-     * Returns an {@code NurseyBook} with all the typical tasks.
+     * Returns an {@code NurseyBook} with all the typical tasks and elderlies.
      */
     public static NurseyBook getTypicalNurseyBook() {
         NurseyBook nb = new NurseyBook();
         for (Task t : getTypicalTasks()) {
             nb.addTask(t);
         }
+        for (Elderly elderly : TypicalElderlies.getTypicalElderlies()) {
+            nb.addElderly(elderly);
+        }
         return nb;
     }
 
     public static List<Task> getTypicalTasks() {
-        return new ArrayList<>(Arrays.asList(KEITH_INSULIN, ALEX_INSULIN, DO_PAPERWORK,
+        return new ArrayList<>(Arrays.asList(ALICE_INSULIN, GEORGE_INSULIN, DO_PAPERWORK,
                 YASMINE_PHYSIO, KG_SC_VACCINE));
     }
 }

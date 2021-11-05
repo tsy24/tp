@@ -12,6 +12,7 @@ import nurseybook.model.Model;
 import nurseybook.model.ModelManager;
 import nurseybook.model.UserPrefs;
 
+// Solution below adapted from https://github.com/se-edu/addressbook-level4
 public class RedoCommandTest {
     private Model model = new ModelManager(getTypicalNurseyBook(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalNurseyBook(), new UserPrefs());

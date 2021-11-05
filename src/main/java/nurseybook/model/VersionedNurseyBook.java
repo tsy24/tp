@@ -5,6 +5,7 @@ import java.util.List;
 
 import nurseybook.logic.commands.CommandResult;
 
+// Solution below adapted from https://github.com/se-edu/addressbook-level4
 /**
  * Tracks the state of the nurseybook
  */

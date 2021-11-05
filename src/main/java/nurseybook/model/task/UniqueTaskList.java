@@ -11,6 +11,8 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import nurseybook.model.person.Elderly;
+import nurseybook.model.person.Name;
 import nurseybook.model.task.Recurrence.RecurrenceType;
 import nurseybook.model.task.exceptions.DuplicateTaskException;
 import nurseybook.model.task.exceptions.TaskNotFoundException;
@@ -69,6 +71,14 @@ public class UniqueTaskList implements Iterable<Task> {
     }
 
     /**
+     * Updates the task {@code target} in the list as not overdue.
+     * {@code target} must exist in the list.
+     */
+    public void markTaskAsNotOverdue(Task toMark) {
+        setTask(toMark, toMark.markAsNotOverdue());
+    }
+
+    /**
      * Marks the task {@code target} in the list as overdue.
      * {@code target} must exist in the list.
      */
@@ -91,14 +101,6 @@ public class UniqueTaskList implements Iterable<Task> {
     }
 
     /**
-     * Updates the task {@code target} in the list as overdue.
-     * {@code target} must exist in the list.
-     */
-    public void markTaskAsNotOverdue(Task toMark) {
-        setTask(toMark, toMark.markAsNotOverdue());
-    }
-
-    /**
      * Replaces this list with the list from {@code replacement}.
      */
     public void setTasks(UniqueTaskList replacement) {
@@ -115,6 +117,37 @@ public class UniqueTaskList implements Iterable<Task> {
     }
 
     /**
+     * Updates the given elderly {@code target}'s name for all tasks in the list that contains that name
+     * with {@code editedElderly}'s name.
+     * {@code target} must exist in NurseyBook.
+     * The elderly identity of {@code editedElderly} must not be the same as another existing elderly in NurseyBook.
+     */
+    public void updateElderlyNameInTasks(Elderly target, Elderly editedElderly) {
+        for (Task task : internalList) {
+            for (Name name : task.getRelatedNames()) {
+                if (target.getName().equals(name)) {
+                    task.replaceName(name, editedElderly.getName());
+                }
+            }
+        }
+    }
+
+    /**
+     * Deletes the given elderly {@code elderlyToDelete}'s name for all tasks in the list that contains that name.
+     * {@code elderlyToDelete} must exist in NurseyBook.
+     * The elderly identity of {@code editedElderly} must not be the same as another existing elderly in NurseyBook.
+     */
+    public void deleteElderlyNameInTasks(Elderly elderlyToDelete) {
+        for (Task task : internalList) {
+            for (Name name : task.getRelatedNames()) {
+                if (elderlyToDelete.getName().equals(name)) {
+                    task.deleteName(name);
+                }
+            }
+        }
+    }
+
+    /**
      * Removes the equivalent task from the list.
      * The task must exist in the list.
      */
@@ -126,10 +159,27 @@ public class UniqueTaskList implements Iterable<Task> {
     }
 
     /**
+     * Creates and returns a UniqueTaskList consisting of only the real tasks within this task list.
+     *
+     * @returns New task List consisting of only the real tasks within this task list.
+     */
+    public UniqueTaskList getRealTaskList() {
+        UniqueTaskList realTaskList = new UniqueTaskList();
+        for (Task task : this.internalList) {
+            if (task.isRealTask()) {
+                realTaskList.add(task);
+            }
+        }
+
+        return realTaskList;
+    }
+
+
+    /**
      * Removes all tasks that are ghost tasks, if any.
      */
     public void deleteGhostTasks() {
-        this.internalList.removeIf(task -> !task.checkIfRealTask());
+        this.internalList.removeIf(task -> !task.isRealTask());
     }
 
     /**
@@ -138,26 +188,26 @@ public class UniqueTaskList implements Iterable<Task> {
      * the future task is added as a ghost task to the TaskList.
      */
     public void addPossibleGhostTasksWithMatchingDate(LocalDate keyDate) {
-        List<Task> ghostTaskList = new ArrayList<Task>();
+        List<GhostTask> ghostTaskList = new ArrayList<GhostTask>();
         for (Task task : this.internalList) {
-            if (task.checkIfTaskRecurring() && task.checkIfRealTask()) {
-                Task ghostTask = addFutureGhostTasksWithMatchingDate(task, keyDate);
+            if (task.isTaskRecurring() && task.isRealTask()) {
+                GhostTask ghostTask = createPossibleFutureTaskWithMatchingDate((RealTask) task, keyDate);
                 if (ghostTask != null) {
                     ghostTaskList.add(ghostTask);
                 }
             }
         }
 
-        for (Task task : ghostTaskList) {
-            this.add(task);
+        for (GhostTask ghostTask : ghostTaskList) {
+            this.add(ghostTask);
         }
     }
 
     /**
      * Checks if any of the given recurring task's future occurrences coincide with the given keyDate. If it does,
-     * the future task is added as a ghost task to the TaskList.
+     * a GhostTask is created and returned to represent the future task occurrence.
      */
-    private Task addFutureGhostTasksWithMatchingDate(Task task, LocalDate keyDate) {
+    private GhostTask createPossibleFutureTaskWithMatchingDate(RealTask task, LocalDate keyDate) {
         RecurrenceType taskRecurrenceType = task.getRecurrence().getRecurrenceType();
         int interval; //interval between task occurrences depending on RecurrenceType.
         if (taskRecurrenceType == RecurrenceType.DAY) {
@@ -168,15 +218,14 @@ public class UniqueTaskList implements Iterable<Task> {
             interval = 28;
         }
 
-        Task nextTaskOccurrence = task.createNextTaskOccurrence();
-        nextTaskOccurrence.setGhostTask();
-        Task currTask = nextTaskOccurrence;
+        GhostTask ghostTaskCopy = task.copyToGhostTask();
+        GhostTask currTask = ghostTaskCopy.createNextTaskOccurrence();
 
         //No. of days to check for recurring tasks in the future is set to 84 days, or 12 weeks.
         int daysLeftToCheck = 84 - interval;
 
         while (daysLeftToCheck > 0) {
-            if (currTask.checkIfTaskFallsOnDate(keyDate) && !this.contains(currTask)) {
+            if (currTask.doesTaskFallOnDate(keyDate) && !this.contains(currTask)) {
                 return currTask;
             }
 

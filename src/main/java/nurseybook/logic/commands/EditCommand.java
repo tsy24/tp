@@ -44,22 +44,18 @@ import nurseybook.model.tag.Tag;
 public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "editElderly";
+    public static final String[] PARAMETERS = { Index.VALID_INDEX_CRITERIA,
+        PREFIX_NAME + "NAME", PREFIX_AGE + "AGE", PREFIX_GENDER + "GENDER",
+        PREFIX_ROOM_NUM + "ROOM_NUMBER", "[" + PREFIX_NOK_NAME + "NOK_NAME]",
+        "[" + PREFIX_RELATIONSHIP + "NOK_RELATIONSHIP]", "[" + PREFIX_PHONE + "NOK_PHONE_NUMBER]",
+        "[" + PREFIX_EMAIL + "NOK_EMAIL]", "[" + PREFIX_ADDRESS + "NOK_ADDRESS]", "[" + PREFIX_TAG + "TAG]..." };
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the elderly identified "
             + "by the index number used in the displayed elderly list. "
             + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_NAME + "NAME] "
-            + "[" + PREFIX_AGE + "AGE] "
-            + "[" + PREFIX_GENDER + "GENDER] "
-            + "[" + PREFIX_ROOM_NUM + "ROOM_NUMBER] "
-            + "[" + PREFIX_NOK_NAME + "NOK NAME] "
-            + "[" + PREFIX_RELATIONSHIP + "RELATIONSHIP] "
-            + "[" + PREFIX_PHONE + "NOK PHONE] "
-            + "[" + PREFIX_EMAIL + "NOK EMAIL] "
-            + "[" + PREFIX_ADDRESS + "NOK ADDRESS] "
-            + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: " + COMMAND_WORD + " 1 "
+            + "Parameters: "
+            + String.join(" ", PARAMETERS)
+            + "\nExample: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
 
@@ -105,6 +101,10 @@ public class EditCommand extends Command {
         model.setElderly(elderlyToEdit, editedElderly);
         model.updateFilteredElderlyList(PREDICATE_SHOW_ALL_ELDERLIES);
         CommandResult result = new CommandResult(String.format(MESSAGE_EDIT_ELDERLY_SUCCESS, editedElderly));
+
+        // Update elderly name in tasks
+        model.updateElderlyNameInTasks(elderlyToEdit, editedElderly);
+
         model.commitNurseyBook(result);
         return result;
     }

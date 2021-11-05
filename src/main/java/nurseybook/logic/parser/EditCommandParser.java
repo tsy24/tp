@@ -4,11 +4,13 @@ import static java.util.Objects.requireNonNull;
 import static nurseybook.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_AGE;
+import static nurseybook.logic.parser.CliSyntax.PREFIX_ALL;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_GENDER;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_NAME;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_NOK_NAME;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_PHONE;
+import static nurseybook.logic.parser.CliSyntax.PREFIX_PREAMBLE;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_RELATIONSHIP;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_ROOM_NUM;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_TAG;
@@ -18,6 +20,7 @@ import static nurseybook.logic.parser.ParserUtil.MESSAGE_UNKNOWN_INDEX;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -32,6 +35,9 @@ import nurseybook.model.tag.Tag;
  */
 public class EditCommandParser implements Parser<EditCommand> {
 
+    private static final List<Prefix> EXPECTED_PREFIXES = List.of(PREFIX_PREAMBLE, PREFIX_NAME, PREFIX_AGE,
+            PREFIX_GENDER, PREFIX_ROOM_NUM, PREFIX_NOK_NAME, PREFIX_RELATIONSHIP, PREFIX_PHONE, PREFIX_EMAIL,
+            PREFIX_ADDRESS, PREFIX_TAG);
     /**
      * Parses the given {@code String} of arguments in the context of the EditCommand
      * and returns an EditCommand object for execution.
@@ -39,10 +45,7 @@ public class EditCommandParser implements Parser<EditCommand> {
      */
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_AGE, PREFIX_GENDER,
-                        PREFIX_ROOM_NUM, PREFIX_NOK_NAME, PREFIX_RELATIONSHIP,
-                        PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_ALL);
 
         Index index;
 
@@ -62,6 +65,10 @@ public class EditCommandParser implements Parser<EditCommand> {
                 throw new ParseException(
                         String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
             }
+        }
+
+        if (!onlyExpectedPrefixesPresent(argMultimap)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
 
         EditElderlyDescriptor editElderlyDescriptor = new EditElderlyDescriptor();
@@ -132,4 +139,11 @@ public class EditCommandParser implements Parser<EditCommand> {
         return Optional.of(ParserUtil.parseTags(tagSet));
     }
 
+    /**
+     * Returns true if all the prefixes in the {@code ArgumentMultimap} are
+     * expected prefixes for this command.
+     */
+    private static boolean onlyExpectedPrefixesPresent(ArgumentMultimap argumentMultimap) {
+        return argumentMultimap.getPrefixes().stream().allMatch(prefix -> EXPECTED_PREFIXES.contains(prefix));
+    }
 }

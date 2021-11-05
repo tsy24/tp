@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static nurseybook.commons.core.Messages.MESSAGE_DUPLICATE_TASK;
 import static nurseybook.commons.core.Messages.MESSAGE_INVALID_TASK_DATETIME_FOR_RECURRING_TASK;
 import static nurseybook.commons.core.Messages.MESSAGE_NO_CHANGES;
+import static nurseybook.commons.core.Messages.MESSAGE_NO_SUCH_ELDERLY;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_NAME;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_TASK_DATE;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_TASK_DESC;
@@ -27,6 +28,7 @@ import nurseybook.model.Model;
 import nurseybook.model.person.Name;
 import nurseybook.model.task.DateTime;
 import nurseybook.model.task.Description;
+import nurseybook.model.task.RealTask;
 import nurseybook.model.task.Recurrence;
 import nurseybook.model.task.Status;
 import nurseybook.model.task.Task;
@@ -36,17 +38,16 @@ import nurseybook.model.task.Task;
  */
 public class EditTaskCommand extends Command {
     public static final String COMMAND_WORD = "editTask";
+    public static final String[] PARAMETERS = { Index.VALID_INDEX_CRITERIA, "[" + PREFIX_NAME + "NAME]...",
+        PREFIX_TASK_DESC + "DESCRIPTION", PREFIX_TASK_DATE + "DATE",
+        PREFIX_TASK_TIME + "TIME", "[" + PREFIX_TASK_RECURRING + "RECURRENCE_TYPE]" };
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the task identified "
             + "by the index number used in the displayed task list. "
             + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_NAME + "NAME] "
-            + "[" + PREFIX_TASK_DESC + "DESCRIPTION] "
-            + "[" + PREFIX_TASK_DATE + "DATE] "
-            + "[" + PREFIX_TASK_TIME + "TIME] "
-            + "[" + PREFIX_TASK_RECURRING + "RECURRENCE_TYPE]\n"
-            + "Example: " + COMMAND_WORD + " 1 "
+            + "Parameters: "
+            + String.join(" ", PARAMETERS)
+            + "\nExample: " + COMMAND_WORD + " 1 "
             + PREFIX_NAME + "Khong Guan "
             + PREFIX_NAME + "John Doe "
             + PREFIX_TASK_RECURRING + "WEEK";
@@ -93,6 +94,18 @@ public class EditTaskCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_TASK);
         }
 
+        boolean isElderlyPresent = true;
+        for (Name name : editedTask.getRelatedNames()) {
+            if (!model.isElderlyPresent(name)) {
+                isElderlyPresent = false;
+                break;
+            }
+        }
+
+        if (!isElderlyPresent) {
+            throw new CommandException(MESSAGE_NO_SUCH_ELDERLY);
+        }
+
         model.setTask(taskToEdit, editedTask);
         model.updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
         CommandResult commandResult = new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, editedTask));
@@ -114,7 +127,7 @@ public class EditTaskCommand extends Command {
         Status updatedStatus = editTaskDescriptor.getStatus().orElse(taskToEdit.getStatus());
         Recurrence updatedRecurrence = editTaskDescriptor.getRecurrence().orElse(taskToEdit.getRecurrence());
 
-        return new Task(updatedDescription, new DateTime(updatedDate, updatedTime), updatedNames, updatedStatus,
+        return new RealTask(updatedDescription, new DateTime(updatedDate, updatedTime), updatedNames, updatedStatus,
                 updatedRecurrence);
     }
 

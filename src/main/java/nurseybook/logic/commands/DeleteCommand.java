@@ -16,11 +16,13 @@ import nurseybook.model.person.Elderly;
 public class DeleteCommand extends Command {
 
     public static final String COMMAND_WORD = "deleteElderly";
+    public static final String[] PARAMETERS = { Index.VALID_INDEX_CRITERIA };
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the elderly identified by the index number used in the displayed elderly list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + "Parameters: "
+            + String.join(" ", PARAMETERS)
+            + "\nExample: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_DELETE_ELDERLY_SUCCESS = "Deleted Elderly: %1$s";
 
@@ -42,6 +44,10 @@ public class DeleteCommand extends Command {
         Elderly elderlyToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteElderly(elderlyToDelete);
         CommandResult result = new CommandResult(String.format(MESSAGE_DELETE_ELDERLY_SUCCESS, elderlyToDelete));
+
+        // Delete elderly name in tasks
+        model.deleteElderlyNameInTasks(elderlyToDelete);
+
         model.commitNurseyBook(result);
         return result;
     }

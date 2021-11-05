@@ -20,4 +20,9 @@ public interface ReadOnlyNurseyBook {
      */
     ObservableList<Task> getTaskList();
 
+    /**
+     * Returns an unmodifiable view of real tasks within the task list.
+     */
+    ObservableList<Task> getRealTaskList();
+
 }

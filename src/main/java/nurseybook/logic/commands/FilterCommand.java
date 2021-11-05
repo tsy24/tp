@@ -14,11 +14,13 @@ import nurseybook.model.tag.ElderlyHasTagPredicate;
 public class FilterCommand extends Command {
 
     public static final String COMMAND_WORD = "filter";
+    public static final String[] PARAMETERS = { PREFIX_TAG + "TAG", "[" + PREFIX_TAG + "MORE_TAGS]..." };
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all elderly with all specified tags"
             + "(case-insensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: " + PREFIX_TAG + "TAG [" + PREFIX_TAG + "MORE_TAGS]...\n"
-            + "Example: " + COMMAND_WORD + " " + PREFIX_TAG + "diabetes";
+            + "Parameters: "
+            + String.join(" ", PARAMETERS)
+            + "\nExample: " + COMMAND_WORD + " " + PREFIX_TAG + "diabetes";
 
     private final ElderlyHasTagPredicate predicate;
 
