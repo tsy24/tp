@@ -71,7 +71,6 @@ public class RemarkCommand extends Command {
                 elderlyToEdit.getRoomNumber(), elderlyToEdit.getNok(), remark, elderlyToEdit.getTags());
 
         model.setElderly(elderlyToEdit, editedElderly);
-        model.updateFilteredElderlyList(PREDICATE_SHOW_ALL_ELDERLIES);
 
         CommandResult result = new CommandResult(generateSuccessMessage(editedElderly));
         model.commitNurseyBook(result);

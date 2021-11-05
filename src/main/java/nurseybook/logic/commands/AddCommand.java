@@ -11,6 +11,7 @@ import static nurseybook.logic.parser.CliSyntax.PREFIX_PHONE;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_RELATIONSHIP;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_ROOM_NUM;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_TAG;
+import static nurseybook.model.Model.PREDICATE_SHOW_ALL_ELDERLIES;
 
 import nurseybook.logic.commands.CommandResult.ListDisplayChange;
 import nurseybook.logic.commands.exceptions.CommandException;
@@ -68,6 +69,7 @@ public class AddCommand extends Command {
         }
 
         model.addElderly(toAdd);
+        model.updateFilteredElderlyList(PREDICATE_SHOW_ALL_ELDERLIES);
         CommandResult result = new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), ListDisplayChange.ELDERLY);
         model.commitNurseyBook(result);
         return result;

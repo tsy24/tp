@@ -68,7 +68,6 @@ public class AddTagCommand extends Command {
                 addTagsToSet(currentTags, tags));
 
         model.setElderly(elderlyToAddTag, addedElderly);
-        model.updateFilteredElderlyList(PREDICATE_SHOW_ALL_ELDERLIES);
 
         CommandResult result = new CommandResult(String.format(MESSAGE_ADD_TAG_SUCCESS, addedElderly));
         model.commitNurseyBook(result);

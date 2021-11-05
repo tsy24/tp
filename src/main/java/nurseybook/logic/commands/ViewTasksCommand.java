@@ -18,6 +18,7 @@ public class ViewTasksCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
+        model.updateTasksAccordingToTime();
         model.updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
         return new CommandResult(MESSAGE_SUCCESS, ListDisplayChange.TASK);
     }

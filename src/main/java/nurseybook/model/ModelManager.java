@@ -16,9 +16,6 @@ import nurseybook.logic.commands.CommandResult;
 import nurseybook.model.person.Elderly;
 import nurseybook.model.person.Name;
 import nurseybook.model.task.Task;
-import nurseybook.model.task.TaskIsNotOverduePredicate;
-import nurseybook.model.task.TaskIsOverduePredicate;
-import nurseybook.model.task.TaskIsRecurringAndOverduePredicate;
 
 /**
  * Represents the in-memory model of the nursey book data.
@@ -245,10 +242,14 @@ public class ModelManager implements Model {
     @Override
     public void updateFilteredTaskList(Predicate<Task> predicate) {
         requireNonNull(predicate);
+        filteredTasks.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateTasksAccordingToTime() {
         versionedNurseyBook.updateRecurringTasksDate();
         versionedNurseyBook.updateTasksOverdueStatus();
         versionedNurseyBook.reorderTasksChronologically();
-        filteredTasks.setPredicate(predicate);
     }
 
 

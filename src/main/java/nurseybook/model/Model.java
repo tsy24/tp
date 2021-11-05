@@ -84,7 +84,6 @@ public interface Model {
     void deleteElderlyNameInTasks(Elderly elderlyToDelete);
 
     /**
-     *
      * Deletes the given elderly.
      * The elderly must exist in the nursey book.
      */
@@ -149,6 +148,12 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredTaskList(Predicate<Task> predicate);
+
+    /**
+     * Updates all time sensitive data of tasks-
+     * this includes: updating recurring task dates, overdue statuses, ensuring tasklist is sorted chronologically
+     */
+    void updateTasksAccordingToTime();
 
     /**
      * Deletes the given task.
