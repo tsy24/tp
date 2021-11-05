@@ -18,8 +18,8 @@ public class Messages {
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the nursey book. \n"
             + "Hint: If you want to change the recurrence of a task, edit that specific task directly.";
     public static final String MESSAGE_NO_CHANGES = "Fields entered are the same as before.";
-    public static final String MESSAGE_NO_SUCH_ELDERLY = "Some of the elderly names are not found in your elderly "
-            + "database.\n"
+    public static final String MESSAGE_NO_SUCH_ELDERLY = "The elderly name you have entered is not found in your "
+            + "elderly database.\n"
             + "Please make sure all elderly names typed are already added into your database.";
 
 }

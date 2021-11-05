@@ -1,7 +1,7 @@
 package nurseybook.model.task;
 
+import static nurseybook.testutil.TypicalTasks.FIONA_PHYSIO;
 import static nurseybook.testutil.TypicalTasks.GEORGE_INSULIN;
-import static nurseybook.testutil.TypicalTasks.YASMINE_PHYSIO;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -14,7 +14,7 @@ import nurseybook.testutil.TaskBuilder;
 public class TaskIsOverduePredicateTest {
 
     private Task georgeInsulin = new TaskBuilder(GEORGE_INSULIN).build(); // date: 2021-10-01, time: 00:00
-    private Task yasminePhysio = new TaskBuilder(YASMINE_PHYSIO).build(); // date: 2021-09-13, time: 15:30
+    private Task fionaPhysio = new TaskBuilder(FIONA_PHYSIO).build(); // date: 2021-09-13, time: 15:30
 
     @Test
     public void test_overdueTasks_returnsTrue() {
@@ -30,8 +30,8 @@ public class TaskIsOverduePredicateTest {
         String date = dateTime[0];
         String time = dateTime[1].substring(0, 5);
 
-        Task overdueYasminePhysio = new TaskBuilder(yasminePhysio).withDateTime(date, time).build();
-        assertTrue(predicate.test(overdueYasminePhysio));
+        Task overdueFionaPhysio = new TaskBuilder(fionaPhysio).withDateTime(date, time).build();
+        assertTrue(predicate.test(overdueFionaPhysio));
 
     }
 
@@ -56,8 +56,8 @@ public class TaskIsOverduePredicateTest {
         date = dateTime[0];
         time = dateTime[1].substring(0, 5);
 
-        Task notOverdueYasminePhysio = new TaskBuilder(yasminePhysio).withDateTime(date, time).build();
-        assertFalse(predicate.test(notOverdueYasminePhysio));
+        Task notOverdueFionaPhysio = new TaskBuilder(fionaPhysio).withDateTime(date, time).build();
+        assertFalse(predicate.test(notOverdueFionaPhysio));
 
     }
 }

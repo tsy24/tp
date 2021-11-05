@@ -19,6 +19,8 @@ import static nurseybook.testutil.TypicalTasks.getTypicalNurseyBook;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.time.LocalDate;
+
 import org.junit.jupiter.api.Test;
 
 import nurseybook.commons.core.index.Index;
@@ -159,11 +161,69 @@ public class EditTaskCommandTest {
     @Test
     public void execute_elderlyNotInNurseyBook_throwsCommandException() {
         showTaskAtIndex(model, INDEX_FIRST);
+
         Task taskInFilteredList = model.getFilteredTaskList().get(INDEX_FIRST.getZeroBased());
         Task editedTask = new TaskBuilder(taskInFilteredList).withNames("Alex Yeoh").build();
+
         EditTaskCommand editTaskCommand = new EditTaskCommand(INDEX_FIRST,
                 new EditTaskDescriptorBuilder(editedTask).build());
         assertCommandFailure(editTaskCommand, model, MESSAGE_NO_SUCH_ELDERLY);
+    }
+
+    @Test
+    public void execute_elderlyInNurseyBook_executionSuccess() {
+        showTaskAtIndex(model, INDEX_FIRST);
+
+        Task taskInFilteredList = model.getFilteredTaskList().get(INDEX_FIRST.getZeroBased());
+        Task editedTask = new TaskBuilder(taskInFilteredList).withNames("Carl Kurz").build();
+
+        EditTaskCommand editTaskCommand = new EditTaskCommand(INDEX_FIRST,
+                new EditTaskDescriptorBuilder(editedTask).build());
+        String expectedMessage = String.format(MESSAGE_EDIT_TASK_SUCCESS, editedTask);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage);
+
+        Model expectedModel = new ModelManager(new NurseyBook(model.getVersionedNurseyBook()), new UserPrefs());
+        expectedModel.setTask(taskInFilteredList, editedTask);
+        expectedModel.commitNurseyBook(expectedCommandResult);
+
+        assertCommandSuccess(editTaskCommand, model, expectedCommandResult, expectedModel);
+    }
+
+    @Test
+    public void execute_editDateOfTask_reordersTaskList() {
+        Task firstTaskInFilteredList = model.getFilteredTaskList().get(INDEX_FIRST.getZeroBased());
+        Task secondTaskInFilteredList = model.getFilteredTaskList().get(INDEX_SECOND.getZeroBased());
+
+        // edits second task to have an earlier date compared to that of first task
+        LocalDate date = firstTaskInFilteredList.getDateTime().getDate();
+        LocalDate editedDate = date.minusDays(1);
+        Task editedTask = new TaskBuilder(secondTaskInFilteredList).withDate(editedDate.toString()).build();
+
+        EditTaskCommand editTaskCommand = new EditTaskCommand(INDEX_SECOND,
+                new EditTaskDescriptorBuilder(editedTask).build());
+        String expectedMessage = String.format(MESSAGE_EDIT_TASK_SUCCESS, editedTask);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage);
+
+        Model expectedModel = new ModelManager(new NurseyBook(model.getVersionedNurseyBook()), new UserPrefs());
+        expectedModel.setTask(secondTaskInFilteredList, editedTask);
+        expectedModel.commitNurseyBook(expectedCommandResult);
+
+        assertCommandSuccess(editTaskCommand, model, expectedCommandResult, expectedModel);
+
+        // edits the (initial) second task to have a later date compared to that of the (initial) first task
+        secondTaskInFilteredList = editedTask;
+        editedDate = date.plusDays(1);
+        editedTask = new TaskBuilder(secondTaskInFilteredList).withDate(editedDate.toString()).build();
+
+        editTaskCommand = new EditTaskCommand(INDEX_FIRST,
+                new EditTaskDescriptorBuilder(editedTask).build());
+        expectedMessage = String.format(MESSAGE_EDIT_TASK_SUCCESS, editedTask);
+        expectedCommandResult = new CommandResult(expectedMessage);
+
+        expectedModel.setTask(secondTaskInFilteredList, editedTask);
+        expectedModel.commitNurseyBook(expectedCommandResult);
+
+        assertCommandSuccess(editTaskCommand, model, expectedCommandResult, expectedModel);
     }
 
     @Test
