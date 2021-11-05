@@ -131,7 +131,7 @@ The `Model` component,
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * stores the states of the nursey book after the execution of commands that change the data in `NurseyBookState` objects.
 * depends on some classes in the `Logic` component because the `Model` component saves the result after the execution of commands that change the data of nursey book.
-* does not depend on the `Storage` and `Ui` components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on `Storage` and `Ui`)
+* does not depend on the `Storage` and `Ui` components (as the `Model` represents data entities of the domain, it should make sense on its own without depending on `Storage` and `Ui`)
 
 
 <img src="images/DetailedModelClassDiagram.png" width="800" /> 
@@ -595,15 +595,19 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 3. NurseyBook deletes the specified elderly.
 4. NurseyBook shows updated list of elderly and command success message.
 
- Use case ends.
+    Use case ends.
 
 **Extensions**
 * 2a. The given index is invalid.
     * 2a1. NurseyBook shows an error message.
 
       Use case resumes at step 1.
-    
-**UC4: Edit an elderly’s details**
+
+**UC4: Delete an elderly's Nok details**
+
+Similar to <u>deleting an elderly (UC3)</u> but only deleting an elderly's Nok details.
+
+**UC5: Edit an elderly’s details**
 
 **MSS**
 
@@ -634,7 +638,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 1.
 
-**UC5: Add remark about an elderly**
+**UC6: Add remark about an elderly**
 
 **MSS**
 
@@ -660,7 +664,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 1.
 
-**UC6: Add tags to an elderly**
+**UC7: Add tags to an elderly**
 
 **MSS**
 
@@ -688,7 +692,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 1.
 
-**UC7: Delete a tag from an elderly**
+**UC8: Delete a tag from an elderly**
 
 **MSS**
 
@@ -715,25 +719,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 2c1. NurseyBook shows an error message.
 
       Use case resumes at step 1.
-
-**UC8: Delete an elderly's Nok details**
-
-**MSS**
-
-1. User requests to <u>list elderly (UC1)</u>
-2. User requests to delete Nok details of a specific elderly in the list based on the index.
-3. NurseyBook deletes the Nok details of the specified elderly.
-4. NurseyBook shows updated list of elderly and command success message.
-
-Use case ends.
-
-**Extensions**
-
-* 2a. The given index is invalid.
-    * 2a1. NurseyBook shows an error message.
-
-      Use case resumes at step 1.
-
+    
 **UC9: View an elderly's details**
 
 **MSS**
@@ -742,7 +728,7 @@ Use case ends.
 2. User requests to view details of a specific elderly in the list based on the index.
 3. NurseyBook shows details of selected elderly and command success message.
 
-Use case ends.
+    Use case ends.
 
 **Extensions**
 * 2a. The given index is invalid.
@@ -755,7 +741,8 @@ Use case ends.
 **UC10: List tasks**
 1. User requests to list tasks.
 2. NurseyBook shows a list of tasks.
-   Use case ends.
+   
+    Use case ends.
 
 **Extensions**
 * 1a. User requests to find tasks with matching keywords
