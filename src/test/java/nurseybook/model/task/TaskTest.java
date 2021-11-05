@@ -58,12 +58,12 @@ public class TaskTest {
         assertTrue(YASMINE_PHYSIO.isSameTask(editedPhysio));
 
         // same description, all other attributes different -> returns false
-        Task fuck = new TaskBuilder(YASMINE_PHYSIO)
+        editedPhysio = new TaskBuilder(YASMINE_PHYSIO)
                 .withDate(VALID_DATE_JAN)
                 .withTime(VALID_TIME_TENAM).withStatus("false", "false")
                 .withRecurrence(Recurrence.RecurrenceType.WEEK.name()).build();
 
-        assertFalse(YASMINE_PHYSIO.isSameTask(fuck));
+        assertFalse(YASMINE_PHYSIO.isSameTask(editedPhysio));
 
         // same date, all other attributes different -> returns false
         editedPhysio = new TaskBuilder(YASMINE_PHYSIO).withDesc("Physiotherapy with yoga ball")

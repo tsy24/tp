@@ -26,8 +26,8 @@ public class TaskIsNotOverduePredicateTest {
         String date = dateTime[0];
         String time = dateTime[1].substring(0, 5);
 
-        Task overdueYasminEPhysio = new TaskBuilder(YASMINE_PHYSIO).withDateTime(date, time).build();
-        assertFalse(predicate.test(overdueYasminEPhysio));
+        Task overdueYasminePhysio = new TaskBuilder(YASMINE_PHYSIO).withDateTime(date, time).build();
+        assertFalse(predicate.test(overdueYasminePhysio));
     }
 
     @Test
