@@ -36,8 +36,8 @@ public class TypicalTasks {
             .withDateTime(VALID_DATE_JAN, VALID_TIME_TENAM)
             .withRecurrence(Recurrence.RecurrenceType.MONTH.name()).build();
 
-    public static final Task YASMINE_PHYSIO = new TaskBuilder().withDesc("Physiotherapy with yoga ball")
-            .withDateTime("2021-09-13", "15:30").withNames("Yasmine George")
+    public static final Task FIONA_PHYSIO = new TaskBuilder().withDesc("Physiotherapy with yoga ball")
+            .withDateTime("2021-09-13", "15:30").withNames("Fiona Kunz")
             .withStatus("true", "true").withRecurrence(Recurrence.RecurrenceType.NONE.name()).build();
 
     public static final Task APPLY_LEAVE = new TaskBuilder().withDesc("Apply leave with HR")
@@ -96,6 +96,6 @@ public class TypicalTasks {
 
     public static List<Task> getTypicalTasks() {
         return new ArrayList<>(Arrays.asList(ALICE_INSULIN, GEORGE_INSULIN, DO_PAPERWORK,
-                YASMINE_PHYSIO, KG_SC_VACCINE));
+                FIONA_PHYSIO, KG_SC_VACCINE));
     }
 }
