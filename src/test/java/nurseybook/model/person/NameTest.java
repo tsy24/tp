@@ -36,4 +36,16 @@ public class NameTest {
         assertTrue(Name.isValidName("peter jack")); // alphabets only
         assertTrue(Name.isValidName("Capital Tan")); // with capital letters
     }
+
+    @Test
+    public void caseInsensitiveEquals() {
+        Name testName = new Name("Hubert");
+
+        //different names
+        assertFalse(testName.caseInsensitiveEquals(new Name("george")));
+
+        //same name diff case
+        assertTrue(testName.caseInsensitiveEquals(new Name("hUbeRT")));
+
+    }
 }

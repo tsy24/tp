@@ -82,7 +82,7 @@ public class Elderly extends Person {
         }
 
         return otherElderly != null
-                && otherElderly.getName().equals(getName());
+                && this.getName().caseInsensitiveEquals(otherElderly.getName());
     }
 
     /**
