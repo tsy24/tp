@@ -69,6 +69,7 @@ public class RemindCommandTest {
         TaskIsReminderPredicate predicate = preparePredicate(2021, 10, 31, 10, 0);
         RemindCommand command = new RemindCommand(predicate);
         CommandResult expectedCommandResult = new CommandResult(MESSAGE_SUCCESS, TASK);
+        expectedModel.updateTasksAccordingToTime();
         expectedModel.updateFilteredTaskList(predicate);
         assertCommandSuccess(command, model, expectedCommandResult, expectedModel);
     }
@@ -79,6 +80,7 @@ public class RemindCommandTest {
         RemindCommand command = new RemindCommand(predicate);
         CommandResult expectedCommandResult = new CommandResult(MESSAGE_SUCCESS,
                 TASK);
+        expectedModel.updateTasksAccordingToTime();
         expectedModel.updateFilteredTaskList(predicate);
         assertCommandSuccess(command, model, expectedCommandResult, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredTaskList());
@@ -90,6 +92,7 @@ public class RemindCommandTest {
         RemindCommand command = new RemindCommand(predicate);
         CommandResult expectedCommandResult = new CommandResult(MESSAGE_SUCCESS,
                 TASK);
+        expectedModel.updateTasksAccordingToTime();
         expectedModel.updateFilteredTaskList(predicate);
         assertCommandSuccess(command, model, expectedCommandResult, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredTaskList());
@@ -101,6 +104,7 @@ public class RemindCommandTest {
         RemindCommand command = new RemindCommand(predicate);
         CommandResult expectedCommandResult = new CommandResult(MESSAGE_SUCCESS,
                 TASK);
+        expectedModel.updateTasksAccordingToTime();
         expectedModel.updateFilteredTaskList(predicate);
         assertCommandSuccess(command, model, expectedCommandResult, expectedModel);
         ObservableList<Task> temp = model.getFilteredTaskList();
@@ -114,6 +118,7 @@ public class RemindCommandTest {
         RemindCommand command = new RemindCommand(predicate);
         CommandResult expectedCommandResult = new CommandResult(MESSAGE_SUCCESS,
                 TASK);
+        expectedModel.updateTasksAccordingToTime();
         expectedModel.updateFilteredTaskList(predicate);
         assertCommandSuccess(command, model, expectedCommandResult, expectedModel);
 
