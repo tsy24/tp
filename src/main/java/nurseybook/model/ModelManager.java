@@ -262,7 +262,6 @@ public class ModelManager implements Model {
         updateNotOverdueTaskList();
         updateDateRecurringTaskList();
         filteredTasks.setPredicate(predicate);
-        filteredTasks.setPredicate(predicate);
     }
     @Override
     public void updateOverdueTaskList() {
@@ -310,11 +309,9 @@ public class ModelManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
 
-        boolean areElderlyOfInterestsEqual = elderlyOfInterest == null && other.elderlyOfInterest == null
-                ? true
-                : elderlyOfInterest == null || other.elderlyOfInterest == null
-                    ? false
-                    : elderlyOfInterest.equals(other.elderlyOfInterest);
+        boolean areElderlyOfInterestsEqual = elderlyOfInterest == null
+                ? other.elderlyOfInterest == null
+                : elderlyOfInterest.equals(other.elderlyOfInterest);
         return areElderlyOfInterestsEqual
                 && versionedNurseyBook.equals(other.versionedNurseyBook)
                 && userPrefs.equals(other.userPrefs)
