@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Predicate;
 
-import nurseybook.model.task.Task;
 import org.junit.jupiter.api.Test;
 
 import nurseybook.logic.commands.exceptions.CommandException;
@@ -19,6 +18,7 @@ import nurseybook.model.NurseyBook;
 import nurseybook.model.ReadOnlyNurseyBook;
 import nurseybook.model.VersionedNurseyBook;
 import nurseybook.model.person.Elderly;
+import nurseybook.model.task.Task;
 import nurseybook.testutil.ElderlyBuilder;
 import nurseybook.testutil.ModelStub;
 import nurseybook.testutil.NurseyBookBuilder;

@@ -77,8 +77,8 @@ public class RemarkCommandTest {
         Elderly editedElderly = new ElderlyBuilder(model.getFilteredElderlyList()
                 .get(INDEX_FIRST.getZeroBased())).withRemark(REMARK_STUB).build();
 
-        RemarkCommand remarkCommand = new RemarkCommand(
-                INDEX_FIRST, new Remark(editedElderly.getRemark().value));
+        RemarkCommand remarkCommand = new RemarkCommand(INDEX_FIRST,
+                new Remark(editedElderly.getRemark().value));
 
         String expectedMessage = String.format(MESSAGE_ADD_REMARK_SUCCESS, editedElderly);
 
@@ -96,7 +96,7 @@ public class RemarkCommandTest {
         RemarkCommand remarkCommand = new RemarkCommand(outOfBoundIndex, new Remark(VALID_REMARK_BOB));
 
         assertCommandFailure(remarkCommand, model, MESSAGE_INVALID_ELDERLY_DISPLAYED_INDEX);
-     }
+    }
 
     /**
      * Edit filtered list where index is larger than size of filtered list,

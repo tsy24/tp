@@ -14,10 +14,13 @@ import static nurseybook.logic.commands.CommandTestUtil.assertCommandFailure;
 import static nurseybook.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static nurseybook.logic.commands.CommandTestUtil.showElderlyAtIndex;
 import static nurseybook.logic.commands.EditCommand.MESSAGE_EDIT_ELDERLY_SUCCESS;
+import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_DATE_JAN;
+import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_DESC_COVID;
+import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_NAME_ALICE;
+import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_TIME_SEVENPM;
 import static nurseybook.testutil.TypicalElderlies.getTypicalNurseyBook;
 import static nurseybook.testutil.TypicalIndexes.INDEX_FIRST;
 import static nurseybook.testutil.TypicalIndexes.INDEX_SECOND;
-import static nurseybook.testutil.TypicalTasks.ALICE_INSULIN;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -30,9 +33,11 @@ import nurseybook.model.ModelManager;
 import nurseybook.model.NurseyBook;
 import nurseybook.model.UserPrefs;
 import nurseybook.model.person.Elderly;
+import nurseybook.model.task.Recurrence;
 import nurseybook.model.task.Task;
 import nurseybook.testutil.EditElderlyDescriptorBuilder;
 import nurseybook.testutil.ElderlyBuilder;
+import nurseybook.testutil.TaskBuilder;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for EditCommand.
@@ -99,10 +104,21 @@ public class EditCommandTest {
 
     @Test
     public void execute_editAllInstancesOfElderlyWithNameInTasks_success() throws CommandException {
-        Model model = new ModelManager(getTypicalNurseyBook(), new UserPrefs());
-        model.addTask(ALICE_INSULIN);
-        Elderly elderlyInFilteredList = model.getFilteredElderlyList().get(INDEX_FIRST.getZeroBased());
-        Elderly editedElderly = new ElderlyBuilder(elderlyInFilteredList).withName("Alex Yeoh").build();
+        Model model = new ModelManager();
+        // there is some issue with state when using the static final task and elderly when running all the tests
+        // together, so just leave the taskbuilder and elderlybuilder here- otherwise the test fails
+        Task t = new TaskBuilder().withDesc(VALID_DESC_COVID)
+                .withDateTime(VALID_DATE_JAN, VALID_TIME_SEVENPM).withNames(VALID_NAME_ALICE)
+                .withRecurrence(Recurrence.RecurrenceType.NONE.name()).build();
+        Elderly elderly = new ElderlyBuilder().withName("Alice Pauline")
+                .withAge("40").withGender("F").withRoomNumber("15").withNokName("Alice Johnson")
+                .withRelationship("Mother")
+                .withPhone("94351253").withEmail("alice@example.com")
+                .withAddress("123, Jurong West Ave 6, #08-111")
+                .withRemark("She likes aardvarks.").withTags("friends").build();
+        model.addElderly(elderly);
+        model.addTask(t);
+        Elderly editedElderly = new ElderlyBuilder(elderly).withName("Alex Yeoh").build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST, new EditElderlyDescriptorBuilder(editedElderly).build());
         editCommand.execute(model);
 

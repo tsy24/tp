@@ -52,8 +52,10 @@ public class JsonSerializableNurseyBookTest {
         JsonSerializableNurseyBook dataFromFile = JsonUtil.readJsonFile(TYPICAL_TASKS_FILE,
                 JsonSerializableNurseyBook.class).get();
         NurseyBook nurseyBookFromFile = dataFromFile.toModelType();
-        NurseyBook typicalTasksNurseyBook = TypicalTasks.getUnorderedTypicalNurseyBook();
-        assertEquals(typicalTasksNurseyBook, nurseyBookFromFile);
+        NurseyBook typicalTasksNurseyBook = new NurseyBook();
+        typicalTasksNurseyBook.setElderlies(TypicalElderlies.getTypicalElderlies());
+        typicalTasksNurseyBook.setTasks(TypicalTasks.getTypicalTasks());
+        assertEquals(nurseyBookFromFile, typicalTasksNurseyBook);
     }
 
     @Test

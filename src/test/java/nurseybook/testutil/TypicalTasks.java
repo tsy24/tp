@@ -94,12 +94,15 @@ public class TypicalTasks {
     }
 
     /**
-     * Returns an {@code NurseyBook} with all the typical tasks and elderlies but tasks are unordered.
+     * Returns an {@code NurseyBook} with all the typical tasks and elderlies.
      */
     public static NurseyBook getUnorderedTypicalNurseyBook() {
         NurseyBook nb = new NurseyBook();
-        nb.setElderlies(TypicalElderlies.getTypicalElderlies());
-        nb.setTasks(TypicalTasks.getTypicalTasks());
+        for (Elderly elderly : TypicalElderlies.getTypicalElderlies()) {
+            nb.addElderly(elderly);
+        }
+        nb.setTasks((Arrays.asList(ALICE_INSULIN, GEORGE_INSULIN, DO_PAPERWORK,
+                FIONA_PHYSIO, KG_SC_VACCINE)));
         return nb;
     }
 

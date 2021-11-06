@@ -1,7 +1,6 @@
 package nurseybook.model.task;
 
 import static nurseybook.testutil.Assert.assertThrows;
-import static nurseybook.testutil.TypicalTasks.ALICE_INSULIN;
 import static nurseybook.testutil.TypicalTasks.APPLY_LEAVE;
 import static nurseybook.testutil.TypicalTasks.APPLY_LEAVE_DAY_NEXT_RECURRENCE_GHOST;
 import static nurseybook.testutil.TypicalTasks.APPLY_LEAVE_LATE_TIME;
