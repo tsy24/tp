@@ -6,7 +6,7 @@ start
 
 partition Ui UI_COLOR_T1 {
 :Call the execute() method in LogicManager;
-:Return a new CommandResult, with the field ListDisplayChange.PERSON;
+:Return a new CommandResult, with the field ListDisplayChange.ELDERLY;
 if () then ([display list to change after command])
     if () then ([to display task list])
         :Clear list panel to display task list;
