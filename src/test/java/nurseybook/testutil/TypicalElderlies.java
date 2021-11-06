@@ -33,33 +33,40 @@ import nurseybook.model.person.Elderly;
  */
 public class TypicalElderlies {
 
-    public static final Elderly ALICE = new ElderlyBuilder().withName("Alice Pauline")
+    public static final ElderlyBuilder ALICE_BUILDER = new ElderlyBuilder().withName("Alice Pauline")
             .withAge("40").withGender("F").withRoomNumber("15").withNokName("Alice Johnson").withRelationship("Mother")
             .withPhone("94351253").withEmail("alice@example.com")
             .withAddress("123, Jurong West Ave 6, #08-111")
-            .withRemark("She likes aardvarks.").withTags("friends").build();
-    public static final Elderly BENSON = new ElderlyBuilder().withName("Benson Meier")
+            .withRemark("She likes aardvarks.").withTags("friends");
+    public static final ElderlyBuilder BENSON_BUILDER = new ElderlyBuilder().withName("Benson Meier")
             .withAge("40").withGender("M").withRoomNumber("21").withNokName("Benson Michael").withRelationship("Father")
             .withPhone("98765432").withEmail("johnd@example.com")
             .withAddress("311, Clementi Ave 2, #02-25").withRemark("He can't take beer!")
-            .withTags("diabetes", "friends").build();
-    public static final Elderly CARL = new ElderlyBuilder().withName("Carl Kurz")
+            .withTags("diabetes", "friends");
+    public static final ElderlyBuilder CARL_BUILDER = new ElderlyBuilder().withName("Carl Kurz")
             .withAge("40").withGender("M").withRoomNumber("9").withNokName("Carl Twain").withRelationship("Brother")
-            .withPhone("95352563").withEmail("heinz@example.com").withAddress("wall street").withRemark("").build();
-    public static final Elderly DANIEL = new ElderlyBuilder().withName("Daniel Meier")
+            .withPhone("95352563").withEmail("heinz@example.com").withAddress("wall street").withRemark("");
+    public static final ElderlyBuilder DANIEL_BUILDER = new ElderlyBuilder().withName("Daniel Meier")
             .withAge("40").withGender("M").withRoomNumber("27").withNokName("Daniel Mustafa").withRelationship("Sister")
             .withPhone("87652533").withEmail("cornelia@example.com")
-            .withAddress("10th street").withTags("friends").withRemark("").build();
-    public static final Elderly ELLE = new ElderlyBuilder().withName("Elle Meyer")
+            .withAddress("10th street").withTags("friends").withRemark("");
+    public static final ElderlyBuilder ELLE_BUILDER = new ElderlyBuilder().withName("Elle Meyer")
             .withAge("40").withGender("F").withRoomNumber("11").withNokName("Elle Salmon").withRelationship("Daughter")
-            .withPhone("94823224").withEmail("werner@example.com").withAddress("michegan ave").withRemark("").build();
-    public static final Elderly FIONA = new ElderlyBuilder().withName("Fiona Kunz")
+            .withPhone("94823224").withEmail("werner@example.com").withAddress("michegan ave").withRemark("");
+    public static final ElderlyBuilder FIONA_BUILDER = new ElderlyBuilder().withName("Fiona Kunz")
             .withAge("40").withGender("F").withRoomNumber("6").withNokName("Fiona James").withRelationship("Sister")
-            .withPhone("94822427").withEmail("lydia@example.com").withAddress("little tokyo").withRemark("").build();
-    public static final Elderly GEORGE = new ElderlyBuilder().withName("George Best")
+            .withPhone("94822427").withEmail("lydia@example.com").withAddress("little tokyo").withRemark("");
+    public static final ElderlyBuilder GEORGE_BUILDER = new ElderlyBuilder().withName("George Best")
             .withAge("40").withGender("M").withRoomNumber("299").withNokName("George Bestron")
             .withRelationship("Father").withPhone("94824042").withRemark("").withEmail("anna@example.com")
-            .withAddress("4th street").build();
+            .withAddress("4th street");
+    public static final Elderly ALICE = ALICE_BUILDER.build();
+    public static final Elderly BENSON = BENSON_BUILDER.build();
+    public static final Elderly CARL = CARL_BUILDER.build();
+    public static final Elderly DANIEL = DANIEL_BUILDER.build();
+    public static final Elderly ELLE = ELLE_BUILDER.build();
+    public static final Elderly FIONA = FIONA_BUILDER.build();
+    public static final Elderly GEORGE = GEORGE_BUILDER.build();
 
     // Manually added
     public static final Elderly HOON = new ElderlyBuilder().withName("Hoon Meier").withRoomNumber("77")
@@ -94,6 +101,14 @@ public class TypicalElderlies {
             nb.addElderly(elderly);
         }
         return nb;
+    }
+
+    /**
+     * Returns a list of elderly builders to build new elderly objects.
+     */
+    public static List<ElderlyBuilder> getTypicalElderlyBuilders() {
+        return new ArrayList<>(Arrays.asList(ALICE_BUILDER, BENSON_BUILDER,
+                CARL_BUILDER, DANIEL_BUILDER, ELLE_BUILDER, FIONA_BUILDER, GEORGE_BUILDER));
     }
 
     public static List<Elderly> getTypicalElderlies() {

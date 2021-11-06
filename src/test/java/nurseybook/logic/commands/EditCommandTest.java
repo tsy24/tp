@@ -18,12 +18,14 @@ import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_DATE_JAN;
 import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_DESC_COVID;
 import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_NAME_ALICE;
 import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_TIME_SEVENPM;
+import static nurseybook.testutil.TypicalElderlies.getTypicalElderlyBuilders;
 import static nurseybook.testutil.TypicalElderlies.getTypicalNurseyBook;
 import static nurseybook.testutil.TypicalIndexes.INDEX_FIRST;
 import static nurseybook.testutil.TypicalIndexes.INDEX_SECOND;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import nurseybook.testutil.TypicalTasks;
 import org.junit.jupiter.api.Test;
 
 import nurseybook.commons.core.index.Index;
@@ -39,15 +41,22 @@ import nurseybook.testutil.EditElderlyDescriptorBuilder;
 import nurseybook.testutil.ElderlyBuilder;
 import nurseybook.testutil.TaskBuilder;
 
+import java.util.stream.Collectors;
+
 /**
  * Contains integration tests (interaction with the Model) and unit tests for EditCommand.
  */
 public class EditCommandTest {
 
     private Model model = new ModelManager(getTypicalNurseyBook(), new UserPrefs());
+    //this can only be used for invalid tests as any modifications to the static final tasks/elderlies would affect
+    //other tests
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
+        NurseyBook nb = new NurseyBook();
+        nb.setElderlies(getTypicalElderlyBuilders().stream().map(s -> s.build()).collect(Collectors.toList()));
+        Model model = new ModelManager(nb, new UserPrefs());
         Elderly editedElderly = new ElderlyBuilder().build();
         EditCommand.EditElderlyDescriptor descriptor = new EditElderlyDescriptorBuilder(editedElderly).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST, descriptor);
@@ -63,6 +72,10 @@ public class EditCommandTest {
 
     @Test
     public void execute_someFieldsSpecifiedUnfilteredList_success() {
+        NurseyBook nb = new NurseyBook();
+        nb.setElderlies(getTypicalElderlyBuilders().stream().map(s -> s.build()).collect(Collectors.toList()));
+        Model model = new ModelManager(nb, new UserPrefs());
+
         Index indexLastElderly = Index.fromOneBased(model.getFilteredElderlyList().size());
         Elderly lastElderly = model.getFilteredElderlyList().get(indexLastElderly.getZeroBased());
 
@@ -86,6 +99,10 @@ public class EditCommandTest {
 
     @Test
     public void execute_filteredList_success() {
+        NurseyBook nb = new NurseyBook();
+        nb.setElderlies(getTypicalElderlyBuilders().stream().map(s -> s.build()).collect(Collectors.toList()));
+        Model model = new ModelManager(nb, new UserPrefs());
+
         showElderlyAtIndex(model, INDEX_FIRST);
 
         Elderly elderlyInFilteredList = model.getFilteredElderlyList().get(INDEX_FIRST.getZeroBased());
@@ -104,21 +121,17 @@ public class EditCommandTest {
 
     @Test
     public void execute_editAllInstancesOfElderlyWithNameInTasks_success() throws CommandException {
-        Model model = new ModelManager();
-        // there is some issue with state when using the static final task and elderly when running all the tests
-        // together, so just leave the taskbuilder and elderlybuilder here- otherwise the test fails
+        NurseyBook nb = new NurseyBook();
+        nb.setElderlies(getTypicalElderlyBuilders().stream().map(s -> s.build()).collect(Collectors.toList()));
+        Model model = new ModelManager(nb, new UserPrefs());
+        // there is some issue with state when using the static final task when running all the tests
+        // together, so just leave the taskbuilder here- otherwise the test fails
         Task t = new TaskBuilder().withDesc(VALID_DESC_COVID)
                 .withDateTime(VALID_DATE_JAN, VALID_TIME_SEVENPM).withNames(VALID_NAME_ALICE)
                 .withRecurrence(Recurrence.RecurrenceType.NONE.name()).build();
-        Elderly elderly = new ElderlyBuilder().withName("Alice Pauline")
-                .withAge("40").withGender("F").withRoomNumber("15").withNokName("Alice Johnson")
-                .withRelationship("Mother")
-                .withPhone("94351253").withEmail("alice@example.com")
-                .withAddress("123, Jurong West Ave 6, #08-111")
-                .withRemark("She likes aardvarks.").withTags("friends").build();
-        model.addElderly(elderly);
         model.addTask(t);
-        Elderly editedElderly = new ElderlyBuilder(elderly).withName("Alex Yeoh").build();
+        Elderly editedElderly = new ElderlyBuilder(nb.getElderlyList().get(INDEX_FIRST.getZeroBased()))
+                .withName("Alex Yeoh").build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST, new EditElderlyDescriptorBuilder(editedElderly).build());
         editCommand.execute(model);
 

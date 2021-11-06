@@ -20,6 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDate;
+import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
@@ -37,10 +38,13 @@ import nurseybook.testutil.TaskBuilder;
  */
 public class EditTaskCommandTest {
 
-    private final Model model = new ModelManager(getTypicalNurseyBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalNurseyBook(), new UserPrefs());
+
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
+        model.setVersionedNurseyBook(getTypicalNurseyBook());
+
         Task editedTask = new TaskBuilder().build();
         EditTaskCommand.EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder(editedTask).build();
         EditTaskCommand editTaskCommand = new EditTaskCommand(INDEX_FIRST, descriptor);
@@ -57,6 +61,8 @@ public class EditTaskCommandTest {
 
     @Test
     public void execute_someFieldsSpecifiedUnfilteredList_success() {
+        model.setVersionedNurseyBook(getTypicalNurseyBook());
+
         Index indexLastTask = Index.fromOneBased(model.getFilteredTaskList().size());
         Task lastTask = model.getFilteredTaskList().get(indexLastTask.getZeroBased());
 
@@ -80,7 +86,7 @@ public class EditTaskCommandTest {
 
     @Test
     public void execute_filteredList_success() {
-        showTaskAtIndex(model, INDEX_FIRST);
+        model.setVersionedNurseyBook(getTypicalNurseyBook());
 
         Task taskInFilteredList = model.getFilteredTaskList().get(INDEX_FIRST.getZeroBased());
         Task editedTask = new TaskBuilder(taskInFilteredList).withDesc(VALID_DESC_VACCINE).build();
@@ -89,7 +95,6 @@ public class EditTaskCommandTest {
         String expectedMessage = String.format(MESSAGE_EDIT_TASK_SUCCESS, editedTask);
 
         Model expectedModel = new ModelManager(new NurseyBook(model.getVersionedNurseyBook()), new UserPrefs());
-        showTaskAtIndex(expectedModel, INDEX_FIRST);
         expectedModel.setTask(model.getFilteredTaskList().get(INDEX_FIRST.getZeroBased()), editedTask);
         expectedModel.commitNurseyBook(new CommandResult(expectedMessage));
 
@@ -132,6 +137,7 @@ public class EditTaskCommandTest {
      */
     @Test
     public void execute_invalidTaskIndexFilteredList_failure() {
+
         showTaskAtIndex(model, INDEX_FIRST);
         Index outOfBoundIndex = INDEX_SECOND;
         // ensures that outOfBoundIndex is still in bounds of nursey book list
@@ -175,7 +181,7 @@ public class EditTaskCommandTest {
 
     @Test
     public void execute_elderlyInNurseyBook_executionSuccess() {
-        showTaskAtIndex(model, INDEX_FIRST);
+        model.setVersionedNurseyBook(getTypicalNurseyBook());
 
         Task taskInFilteredList = model.getFilteredTaskList().get(INDEX_FIRST.getZeroBased());
         Task editedTask = new TaskBuilder(taskInFilteredList).withNames("Carl Kurz").build();
@@ -186,8 +192,8 @@ public class EditTaskCommandTest {
         CommandResult expectedCommandResult = new CommandResult(expectedMessage);
 
         Model expectedModel = new ModelManager(new NurseyBook(model.getVersionedNurseyBook()), new UserPrefs());
-        showTaskAtIndex(expectedModel, INDEX_FIRST);
         expectedModel.setTask(taskInFilteredList, editedTask);
+        expectedModel.updateTasksAccordingToTime();
         expectedModel.commitNurseyBook(expectedCommandResult);
 
         assertCommandSuccess(editTaskCommand, model, expectedCommandResult, expectedModel);
@@ -195,6 +201,8 @@ public class EditTaskCommandTest {
 
     @Test
     public void execute_editDateOfTask_reordersTaskList() {
+        model.setVersionedNurseyBook(getTypicalNurseyBook());
+
         Task firstTaskInFilteredList = model.getFilteredTaskList().get(INDEX_FIRST.getZeroBased());
         Task secondTaskInFilteredList = model.getFilteredTaskList().get(INDEX_SECOND.getZeroBased());
 
