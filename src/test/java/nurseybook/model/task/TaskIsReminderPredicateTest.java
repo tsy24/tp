@@ -1,7 +1,7 @@
 package nurseybook.model.task;
 
 import static nurseybook.testutil.TypicalTasks.APPLY_LEAVE;
-import static nurseybook.testutil.TypicalTasks.KEITH_INSULIN;
+import static nurseybook.testutil.TypicalTasks.GEORGE_INSULIN;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -40,16 +40,16 @@ public class TaskIsReminderPredicateTest {
 
     @Test
     public void test_validTasks_returnsTrue() {
-        Task keithInsulin = new TaskBuilder(KEITH_INSULIN).build();
+        Task georgeInsulin = new TaskBuilder(GEORGE_INSULIN).build();
 
         // on the same day but later time -> returns true
         TaskIsReminderPredicate predicate =
                 new TaskIsReminderPredicate(LocalDateTime.of(2020, 11, 1, 10, 30));
-        assertTrue(predicate.test(keithInsulin));
+        assertTrue(predicate.test(georgeInsulin));
 
         // three days later -> returns true
         predicate = new TaskIsReminderPredicate(LocalDateTime.of(2020, 10, 29, 11, 45));
-        assertTrue(predicate.test(keithInsulin));
+        assertTrue(predicate.test(georgeInsulin));
 
         // task not yet completed -> returns true
         predicate = new TaskIsReminderPredicate(LocalDateTime.of(2021, 11, 11, 11, 45));
@@ -62,17 +62,17 @@ public class TaskIsReminderPredicateTest {
 
     @Test
     public void test_invalidTasks_returnsFalse() {
-        Task keithInsulin = new TaskBuilder(KEITH_INSULIN).build();
+        Task georgeInsulin = new TaskBuilder(GEORGE_INSULIN).build();
         Task applyLeave = new TaskBuilder(APPLY_LEAVE).build();
 
         // before the day -> returns false
         TaskIsReminderPredicate predicate =
                 new TaskIsReminderPredicate(LocalDateTime.of(2020, 11, 5, 10, 30));
-        assertFalse(predicate.test(keithInsulin));
+        assertFalse(predicate.test(georgeInsulin));
 
         // more than three days later -> returns false
         predicate = new TaskIsReminderPredicate(LocalDateTime.of(2020, 10, 27, 11, 45));
-        assertFalse(predicate.test(keithInsulin));
+        assertFalse(predicate.test(georgeInsulin));
 
         // valid date and time, but task is completed -> returns false
         predicate = new TaskIsReminderPredicate(LocalDateTime.of(2021, 9, 30, 11, 45));

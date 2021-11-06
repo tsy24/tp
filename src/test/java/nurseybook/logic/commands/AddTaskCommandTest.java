@@ -9,6 +9,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Set;
+import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
@@ -16,11 +18,16 @@ import nurseybook.logic.commands.exceptions.CommandException;
 import nurseybook.model.NurseyBook;
 import nurseybook.model.ReadOnlyNurseyBook;
 import nurseybook.model.VersionedNurseyBook;
+import nurseybook.model.person.Name;
 import nurseybook.model.task.Task;
 import nurseybook.testutil.ModelStub;
 import nurseybook.testutil.NurseyBookBuilder;
 import nurseybook.testutil.TaskBuilder;
 
+/**
+ * Testing AddTaskCommand's task aspect only, isolating it from elderly in this test class.
+ * Thus, all tasks tested should be without elderly names.
+ */
 public class AddTaskCommandTest {
     @Test
     public void constructor_nullTask_throwsNullPointerException() {
@@ -33,10 +40,10 @@ public class AddTaskCommandTest {
         Task validTask = new TaskBuilder().build();
 
         CommandResult commandResult = new AddTaskCommand(validTask).execute(modelStub);
-        CommandResult expectedCommand = new CommandResult(String.format(AddTaskCommand.MESSAGE_SUCCESS, validTask),
+        CommandResult expectedResult = new CommandResult(String.format(AddTaskCommand.MESSAGE_SUCCESS, validTask),
                 CommandResult.ListDisplayChange.TASK);
 
-        assertEquals(expectedCommand, commandResult);
+        assertEquals(expectedResult, commandResult);
         assertEquals(Arrays.asList(validTask), modelStub.tasksAdded);
     }
 
@@ -47,6 +54,7 @@ public class AddTaskCommandTest {
         ModelStub modelStub = new ModelStubWithTask(validTask);
         assertThrows(CommandException.class, MESSAGE_DUPLICATE_TASK, () -> addTaskCommand.execute(modelStub));
     }
+
 
     @Test
     public void equals() {
@@ -107,6 +115,21 @@ public class AddTaskCommandTest {
         public void addTask(Task t) {
             requireNonNull(t);
             tasksAdded.add(t);
+        }
+
+        @Override
+        public void updateFilteredTaskList(Predicate<Task> predicate) {
+            return; //do nothing
+        }
+
+        @Override
+        public void updateTasksAccordingToTime() {
+            return; //do nothing since only one task added
+        }
+
+        @Override
+        public boolean areAllElderliesPresent(Set<Name> names) {
+            return true;
         }
 
         @Override

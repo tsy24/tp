@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static nurseybook.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -11,7 +12,8 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import nurseybook.model.task.Recurrence.RecurrenceType;
+import nurseybook.model.person.Elderly;
+import nurseybook.model.person.Name;
 import nurseybook.model.task.exceptions.DuplicateTaskException;
 import nurseybook.model.task.exceptions.TaskNotFoundException;
 
@@ -22,6 +24,9 @@ import nurseybook.model.task.exceptions.TaskNotFoundException;
  *
  */
 public class UniqueTaskList implements Iterable<Task> {
+
+    //No. of days to check for recurring tasks in the future is set to 84 days, or 12 weeks.
+    public static final int MAX_DAYS_SCHEDULE_AHEAD = 84;
 
     private final ObservableList<Task> internalList = FXCollections.observableArrayList();
     private final ObservableList<Task> internalUnmodifiableList =
@@ -37,7 +42,6 @@ public class UniqueTaskList implements Iterable<Task> {
             throw new DuplicateTaskException();
         }
         internalList.add(toAdd);
-        internalList.sort(Comparator.naturalOrder());
     }
 
     /**
@@ -69,6 +73,14 @@ public class UniqueTaskList implements Iterable<Task> {
     }
 
     /**
+     * Updates the task {@code target} in the list as not overdue.
+     * {@code target} must exist in the list.
+     */
+    public void markTaskAsNotOverdue(Task toMark) {
+        setTask(toMark, toMark.markAsNotOverdue());
+    }
+
+    /**
      * Marks the task {@code target} in the list as overdue.
      * {@code target} must exist in the list.
      */
@@ -86,16 +98,6 @@ public class UniqueTaskList implements Iterable<Task> {
      */
     public void updateDateOfRecurringTask(Task toMark) {
         setTask(toMark, toMark.updateDateRecurringTask());
-        // Re-sorts task list when task date is changed
-        internalList.sort(Comparator.naturalOrder());
-    }
-
-    /**
-     * Updates the task {@code target} in the list as overdue.
-     * {@code target} must exist in the list.
-     */
-    public void markTaskAsNotOverdue(Task toMark) {
-        setTask(toMark, toMark.markAsNotOverdue());
     }
 
     /**
@@ -112,6 +114,37 @@ public class UniqueTaskList implements Iterable<Task> {
     public void setTasks(List<Task> tasks) {
         requireAllNonNull(tasks);
         internalList.setAll(tasks);
+    }
+
+    /**
+     * Updates the given elderly {@code target}'s name for all tasks in the list that contains that name
+     * with {@code editedElderly}'s name.
+     * {@code target} must exist in NurseyBook.
+     * The elderly identity of {@code editedElderly} must not be the same as another existing elderly in NurseyBook.
+     */
+    public void updateElderlyNameInTasks(Elderly target, Elderly editedElderly) {
+        for (Task task : internalList) {
+            for (Name name : task.getRelatedNames()) {
+                if (target.getName().caseInsensitiveEquals(name)) {
+                    task.replaceName(name, editedElderly.getName());
+                }
+            }
+        }
+    }
+
+    /**
+     * Deletes the given elderly {@code elderlyToDelete}'s name for all tasks in the list that contains that name.
+     * {@code elderlyToDelete} must exist in NurseyBook.
+     * The elderly identity of {@code editedElderly} must not be the same as another existing elderly in NurseyBook.
+     */
+    public void deleteElderlyNameInTasks(Elderly elderlyToDelete) {
+        for (Task task : internalList) {
+            for (Name name : task.getRelatedNames()) {
+                if (elderlyToDelete.getName().caseInsensitiveEquals(name)) {
+                    task.deleteName(name);
+                }
+            }
+        }
     }
 
     /**
@@ -137,7 +170,6 @@ public class UniqueTaskList implements Iterable<Task> {
                 realTaskList.add(task);
             }
         }
-
         return realTaskList;
     }
 
@@ -172,26 +204,25 @@ public class UniqueTaskList implements Iterable<Task> {
 
     /**
      * Checks if any of the given recurring task's future occurrences coincide with the given keyDate. If it does,
-     * a GhostTask is created and returned to represent the future task occurrence.
+     * a GhostTask is created and returned to represent the future task occurrence. Checks up to 84 days in advance,
+     * starting from current date.
      */
     private GhostTask createPossibleFutureTaskWithMatchingDate(RealTask task, LocalDate keyDate) {
-        RecurrenceType taskRecurrenceType = task.getRecurrence().getRecurrenceType();
-        int interval; //interval between task occurrences depending on RecurrenceType.
-        if (taskRecurrenceType == RecurrenceType.DAY) {
-            interval = 1;
-        } else if (taskRecurrenceType == RecurrenceType.WEEK) {
-            interval = 7;
-        } else { //taskRecurrenceType == RecurrenceType.MONTH
-            interval = 28;
-        }
+        //interval between task occurrences depending on RecurrenceType.
+        int interval = task.getRecurrenceIntervalInDays();
+
+        //No. of days to check for recurring tasks in the future is set to 84 days, or 12 weeks,
+        //starting from current date.
+        LocalDate dateToday = LocalDate.now();
+        LocalDate taskDate = task.getDate();
+        int daysLeftToCheck = MAX_DAYS_SCHEDULE_AHEAD - ((int) ChronoUnit.DAYS.between(dateToday, taskDate));
+
 
         GhostTask ghostTaskCopy = task.copyToGhostTask();
         GhostTask currTask = ghostTaskCopy.createNextTaskOccurrence();
+        daysLeftToCheck -= interval;
 
-        //No. of days to check for recurring tasks in the future is set to 84 days, or 12 weeks.
-        int daysLeftToCheck = 84 - interval;
-
-        while (daysLeftToCheck > 0) {
+        while (daysLeftToCheck >= 0) {
             if (currTask.doesTaskFallOnDate(keyDate) && !this.contains(currTask)) {
                 return currTask;
             }
@@ -232,5 +263,43 @@ public class UniqueTaskList implements Iterable<Task> {
     public boolean contains(Task t) {
         requireNonNull(t);
         return internalList.stream().anyMatch(t::isSameTask);
+    }
+
+    /**
+     * Updates tasks in list that should be overdue according to the current time.
+     */
+    public void updateOverdueStatuses() {
+        // modifying list contents within foreach loop not allowed. thus this for loop is used
+        int size = internalList.size();
+        for (int i = 0; i < size; i++) {
+            Task t = internalList.get(i);
+            if (t.isTaskOverdue() != t.shouldTaskBeOverdue()) {
+                if (t.shouldTaskBeOverdue()) {
+                    markTaskAsOverdue(t);
+                } else {
+                    markTaskAsNotOverdue(t);
+                }
+            }
+        }
+    }
+
+    /**
+     * Update the dates of all recurring tasks if their previous date/time has passed.
+     */
+    public void updateRecurringDates() {
+        int size = internalList.size();
+        for (int i = 0; i < size; i++) {
+            Task t = internalList.get(i);
+            if (t.isTaskRecurringAndOverdue()) {
+                setTask(t, t.updateDateRecurringTask());
+            }
+        }
+    }
+
+    /**
+     * Sorts the task list such that it is in chronological order.
+     */
+    public void reorderTasks() {
+        internalList.sort(Comparator.naturalOrder());
     }
 }

@@ -3,7 +3,7 @@ package nurseybook.logic.commands;
 import static nurseybook.commons.core.Messages.MESSAGE_TASKS_ON_DATE;
 import static nurseybook.logic.commands.CommandResult.ListDisplayChange.TASK;
 import static nurseybook.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static nurseybook.testutil.TypicalTasks.YASMINE_PHYSIO;
+import static nurseybook.testutil.TypicalTasks.FIONA_PHYSIO;
 import static nurseybook.testutil.TypicalTasks.getTypicalNurseyBook;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -65,7 +65,7 @@ public class ViewScheduleCommandTest {
         expectedModel.updateFilteredTaskList(predicate);
 
         assertCommandSuccess(command, model, expectedCommandResult, expectedModel);
-        assertEquals(Arrays.asList(YASMINE_PHYSIO), model.getFilteredTaskList());
+        assertEquals(Arrays.asList(FIONA_PHYSIO), model.getFilteredTaskList());
     }
 
     /**

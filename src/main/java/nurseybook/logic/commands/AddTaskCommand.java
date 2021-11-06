@@ -3,11 +3,13 @@ package nurseybook.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static nurseybook.commons.core.Messages.MESSAGE_DUPLICATE_TASK;
 import static nurseybook.commons.core.Messages.MESSAGE_INVALID_TASK_DATETIME_FOR_RECURRING_TASK;
+import static nurseybook.commons.core.Messages.MESSAGE_NO_SUCH_ELDERLY;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_NAME;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_TASK_DATE;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_TASK_DESC;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_TASK_RECURRING;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_TASK_TIME;
+import static nurseybook.model.Model.PREDICATE_SHOW_ALL_TASKS;
 
 import nurseybook.logic.commands.exceptions.CommandException;
 import nurseybook.model.Model;
@@ -57,7 +59,13 @@ public class AddTaskCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_TASK);
         }
 
+        if (!model.areAllElderliesPresent(toAdd.getRelatedNames())) {
+            throw new CommandException(MESSAGE_NO_SUCH_ELDERLY);
+        }
+
         model.addTask(toAdd);
+        model.updateTasksAccordingToTime();
+        model.updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
         CommandResult result = new CommandResult(String.format(MESSAGE_SUCCESS, toAdd),
                 CommandResult.ListDisplayChange.TASK);
         model.commitNurseyBook(result);

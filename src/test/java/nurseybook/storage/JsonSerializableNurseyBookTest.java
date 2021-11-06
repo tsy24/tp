@@ -1,6 +1,7 @@
 package nurseybook.storage;
 
 import static nurseybook.testutil.Assert.assertThrows;
+import static nurseybook.testutil.TypicalTasks.getTypicalUnorderedNurseyBook;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.nio.file.Path;
@@ -12,7 +13,6 @@ import nurseybook.commons.exceptions.IllegalValueException;
 import nurseybook.commons.util.JsonUtil;
 import nurseybook.model.NurseyBook;
 import nurseybook.testutil.TypicalElderlies;
-import nurseybook.testutil.TypicalTasks;
 
 public class JsonSerializableNurseyBookTest {
 
@@ -48,11 +48,11 @@ public class JsonSerializableNurseyBookTest {
     }
 
     @Test
-    public void toModelType_typicalTasksFile_success() throws Exception {
+    public void toModelType_typicalTasksAndElderliesFile_success() throws Exception {
         JsonSerializableNurseyBook dataFromFile = JsonUtil.readJsonFile(TYPICAL_TASKS_FILE,
                 JsonSerializableNurseyBook.class).get();
         NurseyBook nurseyBookFromFile = dataFromFile.toModelType();
-        NurseyBook typicalTasksNurseyBook = TypicalTasks.getTypicalNurseyBook();
+        NurseyBook typicalTasksNurseyBook = getTypicalUnorderedNurseyBook();
         assertEquals(nurseyBookFromFile, typicalTasksNurseyBook);
     }
 

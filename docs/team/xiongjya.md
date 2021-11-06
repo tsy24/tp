@@ -58,9 +58,8 @@ Given below are my contributions to the project.
     * Developer Guide:
         * Added implementation details of the `viewElderly` and `findTask` features (Pull requests [\#99](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/99), [\#107](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/107)).
         * Added user stories and use cases. (Pull requests [\#42](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/42), [\#95](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/95)).
-
+        
 
 * **Community**:
     * PRs reviewed (with non-trivial review comments): [\#61](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/61), [\#111](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/111), [\#115](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/115), [\#202](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/202), [\#237](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/237), [\#242](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/242)
     * Reported bugs and suggestions for other teams during mock practical examination (repository: [ped](https://github.com/xiongjya/ped))
-    

@@ -12,7 +12,6 @@ import static nurseybook.logic.parser.CliSyntax.PREFIX_PHONE;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_RELATIONSHIP;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_ROOM_NUM;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_TAG;
-import static nurseybook.model.Model.PREDICATE_SHOW_ALL_ELDERLIES;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -99,8 +98,11 @@ public class EditCommand extends Command {
         }
 
         model.setElderly(elderlyToEdit, editedElderly);
-        model.updateFilteredElderlyList(PREDICATE_SHOW_ALL_ELDERLIES);
         CommandResult result = new CommandResult(String.format(MESSAGE_EDIT_ELDERLY_SUCCESS, editedElderly));
+
+        // Update elderly name in tasks
+        model.updateElderlyNameInTasks(elderlyToEdit, editedElderly);
+
         model.commitNurseyBook(result);
         return result;
     }

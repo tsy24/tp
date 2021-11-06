@@ -31,6 +31,7 @@ public class FindTaskCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
+        model.updateTasksAccordingToTime();
         model.updateFilteredTaskList(predicate);
         return new CommandResult(
                 String.format(Messages.MESSAGE_TASKS_LISTED_OVERVIEW, model.getFilteredTaskList().size()),

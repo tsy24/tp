@@ -104,6 +104,7 @@ public class DeleteTagCommandTest {
         String expectedMessage = String.format(MESSAGE_DELETE_TAG_SUCCESS, tagDeletedElderly);
 
         Model expectedModel = new ModelManager(new NurseyBook(model.getVersionedNurseyBook()), new UserPrefs());
+        CommandTestUtil.showElderlyAtIndex(expectedModel, INDEX_SECOND);
         expectedModel.setElderly(firstElderly, tagDeletedElderly);
         expectedModel.commitNurseyBook(new CommandResult(expectedMessage));
 

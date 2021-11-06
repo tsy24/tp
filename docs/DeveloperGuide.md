@@ -9,7 +9,10 @@ title: Developer Guide
 
 ## **Acknowledgements**
 
-* {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
+* [JavaFX](https://openjfx.io/)
+* [Jackson](https://github.com/FasterXML/jackson)
+* [JUnit5](https://github.com/junit-team/junit5)
+* [Address Book Level 4](https://github.com/se-edu/addressbook-level4)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -23,7 +26,8 @@ Refer to the guide [_Setting up and getting started_](SettingUp.md).
 
 <div markdown="span" class="alert alert-primary">
 
-:bulb: **Tip:** The `.puml` files used to create diagrams in this document can be found in the [diagrams](https://github.com/se-edu/addressbook-level3/tree/master/docs/diagrams/) folder. Refer to the [_PlantUML Tutorial_ at se-edu/guides](https://se-education.org/guides/tutorials/plantUml.html) to learn how to create and edit diagrams.
+:bulb: **Tip:** The `.puml` files used to create diagrams in this document can be found in the [diagrams](https://github.com/AY2122S1-CS2103T-F13-2/tp/tree/master/docs/diagrams) folder. 
+Refer to the [_PlantUML Tutorial_ at se-edu/guides](https://se-education.org/guides/tutorials/plantUml.html) to learn how to create and edit diagrams.
 </div>
 
 ### Architecture
@@ -36,7 +40,7 @@ Given below is a quick overview of main components and how they interact with ea
 
 **Main components of the architecture**
 
-**`Main`** has two classes called [`Main`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/Main.java) and [`MainApp`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/MainApp.java). It is responsible for,
+**`Main`** has two classes called [`Main`](https://github.com/AY2122S1-CS2103T-F13-2/tp/blob/master/src/main/java/nurseybook/Main.java) and [`MainApp`](https://github.com/AY2122S1-CS2103T-F13-2/tp/blob/master/src/main/java/nurseybook/MainApp.java). It is responsible for,
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup methods where necessary.
 
@@ -59,7 +63,7 @@ The *Sequence Diagram* below shows how the components interact with each other f
 Each of the four main components (also shown in the diagram above),
 
 * defines its *API* in an `interface` with the same name as the Component.
-* implements its functionality using a concrete `{Component Name}Manager` class (which follows the corresponding API `interface` mentioned in the previous point.
+* implements its functionality using a concrete `{Component Name}Manager` class which follows the corresponding API `interface` mentioned in the previous point.
 
 For example, the `Logic` component defines its API in the `Logic.java` interface and implements its functionality using the `LogicManager.java` class which follows the `Logic` interface. Other components interact with a given component through its interface rather than the concrete class (reason: to prevent outside component's being coupled to the implementation of a component), as illustrated in the (partial) class diagram below.
 
@@ -69,13 +73,13 @@ The sections below give more details of each component.
 
 ### UI component
 
-The **API** of this component is specified in [`Ui.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/Ui.java)
+The **API** of this component is specified in [`Ui.java`](https://github.com/AY2122S1-CS2103T-F13-2/tp/blob/master/src/main/java/nurseybook/ui/Ui.java)
 
 ![Structure of the UI Component](images/UiClassDiagram.png)
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `ElderlyListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
 
-The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/resources/view/MainWindow.fxml)
+The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/AY2122S1-CS2103T-F13-2/tp/blob/master/src/main/java/nurseybook/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/se-edu/AY2122S1-CS2103T-F13-2/tp/tree/master/src/main/resources/view/MainWindow.fxml)
 
 The `UI` component,
 
@@ -86,16 +90,16 @@ The `UI` component,
 
 ### Logic component
 
-**API** : [`Logic.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/logic/Logic.java)
+**API** : [`Logic.java`](https://github.com/AY2122S1-CS2103T-F13-2/tp/blob/master/src/main/java/nurseybook/logic/Logic.java)
 
 Here's a (partial) class diagram of the `Logic` component:
 
 <img src="images/LogicClassDiagram.png" width="550"/>
 
 How the `Logic` component works:
-1. When `Logic` is called upon to execute a command, it uses the `AddressBookParser` class to parse the user command.
+1. When `Logic` is called upon to execute a command, it uses the `NurseyBookParser` class to parse the user command.
 1. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `AddCommand`) which is executed by the `LogicManager`.
-1. The command can communicate with the `Model` when it is executed (e.g. to add a elderly).
+1. The command can communicate with the `Model` when it is executed (e.g. to add an elderly).
 1. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
 
 The Sequence Diagram below illustrates the interactions within the `Logic` component for the `execute("deleteElderly 1")` API call.
@@ -110,53 +114,46 @@ Here are the other classes in `Logic` (omitted from the class diagram above) tha
 <img src="images/ParserClasses.png" width="600"/>
 
 How the parsing works:
-* When called upon to parse a user command, the `AddressBookParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `AddressBookParser` returns back as a `Command` object.
+* When called upon to parse a user command, the `NurseyBookParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `NurseyBookParser` returns back as a `Command` object.
 * All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
 
 ### Model component
-**API** : [`Model.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/model/Model.java)
+**API** : [`Model.java`](https://github.com/AY2122S1-CS2103T-F13-2/tp/blob/master/src/main/java/nurseybook/model/Model.java)
 
 <img src="images/ModelClassDiagram.png" width="400" />
 
 
 The `Model` component,
 
-* stores the address book data i.e., all `Elderly` objects (which are contained in a `UniqueElderlyList` object).
-* implicitly also stores `Nok` objects which is contained in `Elderly` objects
+* stores the nursey book data i.e., all `Elderly` objects (which are contained in a `UniqueElderlyList` object) and all `Task` objects (which are contained in a `UniqueTaskList` object).
 * stores the currently 'selected' `Elderly` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Elderly>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* stores the currently 'selected' `Task` objects in a similar way to `Elderly` objects
-which is also exposed to outsiders as an unmodifiable `ObservableList<Task>`.
+* stores the currently 'selected' `Task` objects in a similar way to `Elderly` objects which is also exposed to outsiders as an unmodifiable `ObservableList<Task>`.
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
-* does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
+* stores the states of the nursey book after the execution of commands that change the data in `NurseyBookState` objects.
+* depends on some classes in the `Logic` component because the `Model` component saves the result after the execution of commands that change the data of nursey book.
+* does not depend on the `Storage` and `Ui` components (as the `Model` represents data entities of the domain, it should make sense on its own without depending on `Storage` and `Ui`)
 
 
-<img src="images/DetailedModelClassDiagram.png" width="800" />
+<img src="images/DetailedModelClassDiagram.png" width="800" /> 
 
 
-More details regarding `Person`, `Elderly`, `Nok` and `Task` objects.
-
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Elderly` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Elderly` needing their own `Tag` objects.<br>
-
-<img src="images/BetterModelClassDiagram.png" width="250" />
-
-</div>
+More details regarding `Person`, `Elderly`, `Nok`(Next of kin) and `Task` objects.
 
 
 ### Storage component
 
-**API** : [`Storage.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/storage/Storage.java)
+**API** : [`Storage.java`](https://github.com/AY2122S1-CS2103T-F13-2/tp/blob/master/src/main/java/nurseybook/storage/Storage.java)
 
 <img src="images/StorageClassDiagram.png" width="550" />
 
 The `Storage` component,
-* can save both address book data and user preference data in json format, and read them back into corresponding objects.
-* inherits from both `AddressBookStorage` and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
+* can save both nursey book data and user preference data in json format, and read them back into corresponding objects.
+* inherits from both `NurseyBookStorage` and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
 * depends on some classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects that belong to the `Model`)
 
 ### Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `nurseybook.commons` package.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -186,7 +183,7 @@ As tags can only be alphanumeric, the `parse` method in FilterCommandParser chec
 If there is a tag that is invalid, an exception will be thrown.
 
 When executing the filter command, the `updateFilteredElderlyList` method of Model calls other methods that are omitted from the diagram.
-One of the methods then calls the `test` method of the ElderlyHasTagPredicate object with every Elderly saved in NurseyBook.
+One of the methods then calls the `test` method of the ElderlyHasTagPredicate object with every Elderly saved in nursey book. The checking for the presence of tags is case-insensitive. 
 The list of Elderly that return true for `test` is then assigned to `filteredElderlies` in ModelManager and displayed in the GUI.
 
 #### Design Considerations
@@ -240,7 +237,7 @@ If a user does not specify `Recurrence` when adding a new `Task`, it will defaul
     * Pros: User Experience could be more intuitive in the sense that the user can focus on the next deadline rather than the current completed task
     * Cons: There is an increase in coupling between the `Task`’s `Status`, `Recurrence` and `DateTime` because `DateTime` now needs to depend on `Status` and `Recurrence` to decide if its date and time needs to be changed. This can increase bugs and make testing harder as more functions would have side effects (reseting task’s completion `Status` and updating `Task`’s `DateTime`).
 
-* Alternative 2: Once a `DateTime` of a `Task` has been passed, this will trigger Nurseybook to update the new `DateTime` of the `Task` according to its `Recurrence` type.
+* Alternative 2: Once a `DateTime` of a `Task` has been passed, this will trigger nursey book to update the new `DateTime` of the `Task` according to its `Recurrence` type.
     * Pros: Easier to implement because there is only one condition that needs to be checked (if the `Task`’s `DateTime` is before the current `DateTime`) for the `Task`’s `DateTime` to be updated.
     * Cons: Restricted choice for users who would prefer seeing upcoming tasks to seeing completed tasks.
 
@@ -344,7 +341,7 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 * **Alternative 1:** Saves the entire nursey book.
   * Pros: Easy to implement.
-  * Cons: May have performance issues in terms of memory usage as copies of the entire nurseybook are saved.
+  * Cons: May have performance issues in terms of memory usage as copies of the entire nursey book are saved.
 
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
   * Pros: Will use less memory (e.g. for `deleteElderly`, just save the elderly being deleted).
@@ -377,9 +374,9 @@ Given below is an example usage scenario and how the delete Nok mechanism behave
 
 Step 1. The user and executes `deleteNok 1` command to delete the NoK details of the first elderly in the elderly list. This prompts the `LogicManager` to start its execution by calling its `execute()` command.
 
-Step 2. `LogicManager` calls the `AddressBookParser` to parse the command.
+Step 2. `LogicManager` calls the `NurseyBookParser` to parse the command.
 
-Step 3. The `AddressBookParser` creates a new `DeleteNokCommandParser` which will `parse()` the arguments. This creates and returns a new `DeleteNokCommand` which is ready to be executed, containing the index of the targetted elderly as one of its fields.
+Step 3. The `NurseyBookParser` creates a new `DeleteNokCommandParser` object and calls its `parse` method to parse the arguments. This creates and returns a new `DeleteNokCommand` which is ready to be executed, containing the index of the target elderly as one of its fields.
 
 Step 4. The `DeleteNokCommand` is executed by calling its `execute()` method. This calls the `Model#getFilteredElderlyList()` and retrieves the filtered elderly list, which should contain all elderlies.
 
@@ -397,8 +394,6 @@ The following sequence diagram shows how the find task operation works:
 
 </div>
 
-
-
 ### Find task feature
 
 #### Implementation
@@ -409,9 +404,9 @@ Given below is an example usage scenario and how the find task mechanism behaves
 
 Step 1. The user launches the application and executes `findTask Pfizer` command to search for a list of tasks whose `Description` contains the keyword `Pfizer`. This prompts the `LogicManager` to start its execution by calling its `execute()` command.
 
-Step 2. `LogicManager` calls the `AddressBookParser` to parse the command.
+Step 2. `LogicManager` calls the `NurseyBookParser` to parse the command.
 
-Step 3. The `AddressBookParser` creates a new `FindCommandParser` which will `parse()` the arguments. This creates a new `DescriptionContainsKeywordPredicate` that checks if a `Task`'s `Description` contains the keyword(s) - `Pfizer` in this case. A new `FindTaskCommand` which is ready to be executed is returned, containing the predicate as one of its fields.
+Step 3. The `NurseyBookParser` creates a new `FindCommandParser` which will `parse()` the arguments. This creates a new `DescriptionContainsKeywordPredicate` that checks if a `Task`'s `Description` contains the keyword(s) - `Pfizer` in this case. A new `FindTaskCommand` which is ready to be executed is returned, containing the predicate as one of its fields.
 
 Step 4. The `FindTaskCommand` is executed by calling its `execute()` method. This calls the `Model#updateFilteredTaskList()` and updates the filtered task list by checking the tasks with `DescriptionContainsKeywordPredicate`.
 
@@ -429,11 +424,11 @@ The following sequence diagram shows how the find task operation works:
 
 #### How `CommandResult` is changed
 
-As NurseyBook has to support the display of two different lists (contacts vs task), each `CommandResult` object will now store the information which list should be displayed to the user.
+As nursey book has to support the display of two different lists (contacts vs task), each `CommandResult` object will now store the information which list should be displayed to the user.
 
 The following class diagram shows the changes made to the `CommandResult` class. Each `CommandResult` has an enum that specifies the type of display.
 
-* `CommandResult#ListDisplayChange.PERSON` — Specifies the elderly/contact list to be displayed after the current command execution
+* `CommandResult#ListDisplayChange.ELDERLY` — Specifies the elderly list to be displayed after the current command execution
 * `CommandResult#ListDisplayChange.TASK` — Specifies the task list to be displayed after the current command execution
 * `CommandResult#ListDisplayChange.NONE` — Specifies the type of displayed list should not change after the current command execution
 
@@ -447,13 +442,13 @@ The following class diagram shows the changes made to the `CommandResult` class.
 
 Given below is an example usage scenario and how the display of elderly/task list mechanism behaves at each step. An example command is `viewElderly`, and the mechanism of `viewTasks` is similar.
 
-Step 1. The user launches the application for the first time. The default display of NurseyBook shows the list of all elderly contacts that were added in.
+Step 1. The user launches the application for the first time. The default display of nursey book shows the list of all elderly that were added in.
 
-Step 2. The user runs a few other available commands, and wants to switch back to the default display with the elderly contacts, thus executes the `viewElderly` command.
+Step 2. The user runs a few other available commands, and wants to switch back to the default display with the elderly, thus executes the `viewElderly` command.
 
 Step 3. `MainWindow#executeCommand("viewElderly")` is called. Within the method body, it calls the `LogicManager#execute()` which returns a new `CommandResult`.
 
-Step 4. `MainWindow#executeCommand()` processes the `CommandResult`. It calls `MainWindow#handleChange()` to change the display of the list, to show all elderly contacts.
+Step 4. `MainWindow#executeCommand()` processes the `CommandResult`. It calls `MainWindow#handleChange()` to change the display of the list, to show all elderly.
 
 The following activity diagram summarizes what happens in the `MainWindow` class when the user enters either the `viewElderly` or `viewTasks` command.
 
@@ -461,8 +456,8 @@ The following activity diagram summarizes what happens in the `MainWindow` class
 
 #### Design considerations:
 
-**Aspect: How to display contacts (elderlies) and tasks separately**
-* **Alternative 1 (current choice):** Using a commands `viewElderly` and `viewTasks`, switch the display in the main window between the elderly list and task list stored in `AddressBook`.
+**Aspect: How to display elderlies and tasks separately**
+* **Alternative 1 (current choice):** Using a commands `viewElderly` and `viewTasks`, switch the display in the main window between the elderly list and task list stored in `NurseyBook`.
   * Pros: Cleaner display, able to display the necessary information without cluttering the display window
   * Cons: The need to implement two new commands, `viewElderly` and `viewTask` for the user to view the two lists respectively. The code for the two commands might contain repetition due to the similarity in function.
 
@@ -503,41 +498,41 @@ The following activity diagram summarizes what happens in the `MainWindow` class
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                  | I want to …​                                               | So that I can…​                                                            |
-| -------- | ----------------------------| ------------------------------------------------------------- | ------------------------------------------------------------------------------|
-| `* * *`  | nurse                       | add a new elderly to the app                                  | search for his records in the future                                          |
-| `* * *`  | nurse                       | delete details/records of an elderly                          | remove incorrect entries                                                      |
-| `* * *`  | nurse                       | update the records of an elderly                              | the records are up to date without the need to delete and re-add the details  |
-| `* * *`  | nurse                       | add additional notes about an elderly                         | I can understand the elderly under my care better                             |
-| `* * *`  | nurse                       | archive the details of elderlies                              | not clutter the system with the details of elderlies who have left the nursing home, but still keep the records of their stay for legal purposes |
-| `* * *`  | nurse	                     | add tags of conditions of elderly                             | identify the conditions of elderly easily at a glance                         |
-| `* * *`  | nurse	                     | delete tags of conditions of elderly                          | remove tags that are no longer relevant                                       |
-| `* * *`  | nurse	                     | filter the elderly by their tags                              | filter elderly more easily, and plan group activities efficiently, such as ordering food for patients with diabetes |
-| `* * *`  | nurse                       | view all the elderly I am in charge of/added into NurseyBook  | have a full list of elderly for easy reference                                |
-| `* * *`  | nurse                       | view the details of each elderly individually                 | find the relevant information of a particular elderly without being cluttered by the details |
-| `* *`    | nurse with a new assignment | view the picture of my new assignment                         | know who I am taking care of                                                  |
-| `* *`    | nurse                       | easily search for an elderly by his/her name                  | get their details and contact their guardian quickly during emergencies       |
-| `* * *`  | nurse                       | add a one-off task                                            | keep track of what I have to do                                               |
-| `* * *`  | nurse                       | add a recurring task                                          | receive reminders for tasks regularly without having to re-add them each time |
-| `* * *`  | nurse                       | delete a task                                                 | have a cleaner workspace                                                      |
-| `* * *`  | nurse                       | edit a task                                                   | receive reminders for tasks that are up-to-date                               |
-| `* * *`  | nurse                       | mark a task as completed                                      | stop receiving reminders that are no longer relevant                          |
-| `* * *`  | forgetful/busy nurse        | get reminders of medical needs of those under my care         | ensure the tasks that I am keeping track of are up-to-date                    |
-| `* * *`  | nurse                       | view overdue tasks                                            | take note of the tasks that are overdue and try to complete them as soon as possible |
-| `* * *`  | nurse                       | view all tasks                                                | have an overview of all my tasks                                              |
-| `* * *`  | nurse                       | view tasks based on chronological order                       | know which tasks are my priority (have to be completed sooner)                |
-| `* * *`  | nurse                       | view my schedule on a particular day                          | make plans for that day in advance                                            |
-| `* * *`  | nurse                       | search a task up by its name                                  | quickly get the details of a task                                             |
-| `* * *`  | careless nurse              | undo my recent actions                                        | revert the database to previous changes in case I make a mistake              |
-| `* *`    | nurse                       | add a nurse (contact)                                         | reach out to a coworker if I am in need of assistance                         |
-| `* *`    | nurse                       | edit the details of a nurse                                   | update the information relevant to the nurse                                  |
-| `* *`    | nurse                       | delete a nurse                                                | remove records of nurses who are no longer relevant to me                     |
-| `* *`    | nurse                       | view nurses and elderly in separate sections                  | have better compartmentalization of information                               |
-| `* * *`  | new user                    | easily view the help guide                                    | know more about the product as and when I need to                             |
-| `* *`    | new nurse                   | easily understand how to view necessary information           | not feel overwhelmed and confused                                             |
-| `* `     | nurse                       | color-code my tasks                                           | differentiate between the tasks more easily                                   |
-| `* `     | user                        | alternate between light/dark mode                             | have an aesthetically pleasing UI                                             |
-*{More to be added}*
+| Priority | As a …​                  | I want to …​                                               | So that I can…​                                                                                                                               |
+| -------- | ----------------------------| ------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------|
+| `* * *`  | nurse                       | add a new elderly to the app                                  | search for his records in the future                                                                                                             |
+| `* * *`  | nurse                       | delete details/records of an elderly                          | remove incorrect entries                                                                                                                         |
+| `* * *`  | nurse                       | update the records of an elderly                              | the records are up to date without the need to delete and re-add the details                                                                     |
+| `* * *`  | nurse                       | add additional notes about an elderly                         | I can understand the elderly under my care better                                                                                                |
+| `* *`    | nurse                       | archive the details of elderlies                              | not clutter the system with the details of elderlies who have left the nursing home, but still keep the records of their stay for legal purposes |
+| `* * *`  | nurse	                     | add tags of conditions of elderly                             | identify the conditions of elderly easily at a glance                                                                                            |
+| `* * *`  | nurse	                     | delete tags of conditions of elderly                          | remove tags that are no longer relevant                                                                                                          |
+| `* * *`  | nurse	                     | filter the elderly by their tags                              | filter elderly more easily, and plan group activities efficiently, such as ordering food for patients with diabetes                              |
+| `* * *`  | nurse                       | view all the elderly I am in charge of/added into NurseyBook  | have a full list of elderly for easy reference                                                                                                   |
+| `* * *`  | nurse                       | view the details of each elderly individually                 | find the relevant information of a particular elderly without being cluttered by the details                                                     |
+| `* *`    | nurse with a new assignment | view the picture of my new assignment                         | know who I am taking care of                                                                                                                     |
+| `* *`    | nurse                       | easily search for an elderly by his/her name                  | get their details and contact their guardian quickly during emergencies                                                                          |
+| `* * *`  | nurse                       | add a one-off task                                            | keep track of what I have to do                                                                                                                  |
+| `* * *`  | nurse                       | add a recurring task                                          | receive reminders for tasks regularly without having to re-add them each time                                                                    |
+| `* * *`  | nurse                       | delete a task                                                 | have a cleaner workspace                                                                                                                         |
+| `* * *`  | nurse                       | edit a task                                                   | receive reminders for tasks that are up-to-date                                                                                                  |
+| `* * *`  | nurse                       | mark a task as completed                                      | stop receiving reminders that are no longer relevant                                                                                             |
+| `* * *`  | forgetful/busy nurse        | get reminders of medical needs of those under my care         | ensure the tasks that I am keeping track of are up-to-date                                                                                       |
+| `* * *`  | nurse                       | view overdue tasks                                            | take note of the tasks that are overdue and try to complete them as soon as possible                                                             |
+| `* * *`  | nurse                       | view all tasks                                                | have an overview of all my tasks                                                                                                                 |
+| `* * *`  | nurse                       | view tasks based on chronological order                       | know which tasks are my priority (have to be completed sooner)                                                                                   |
+| `* * *`  | nurse                       | view my schedule on a particular day                          | make plans for that day in advance                                                                                                               |
+| `* * *`  | nurse                       | search a task up by its name                                  | quickly get the details of a task                                                                                                                |
+| `* * *`  | careless nurse              | undo my recent actions                                        | revert the database to previous changes in case I make a mistake                                                                                 |
+| `* *`    | nurse                       | add a nurse (contact)                                         | reach out to a coworker if I am in need of assistance                                                                                            |
+| `* *`    | nurse                       | edit the details of a nurse                                   | update the information relevant to the nurse                                                                                                     |
+| `* *`    | nurse                       | delete a nurse                                                | remove records of nurses who are no longer relevant to me                                                                                        |
+| `* *`    | nurse                       | view nurses and elderly in separate sections                  | have better compartmentalization of information                                                                                                  |
+| `* * *`  | new user                    | easily view the help guide                                    | know more about the product as and when I need to                                                                                                |
+| `* *`    | new nurse                   | easily understand how to view necessary information           | not feel overwhelmed and confused                                                                                                                |
+| `* `     | nurse                       | color-code my tasks                                           | differentiate between the tasks more easily                                                                                                      |
+| `* `     | user                        | alternate between light/dark mode                             | have an aesthetically pleasing UI                                                                                                                |
+
 
 ### Use cases
 
@@ -546,208 +541,338 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Use cases of elderly commands**
 
-**UC1: Delete an elderly**
+**UC1: List elderly**
+1. User requests to list elderly.
+2. NurseyBook shows a list of elderly.
 
-**MSS**
-
-1.  User requests to list elderly (that the user is in-charge of)
-2.  NurseyBook shows a list of elderly
-3.  User requests to delete a specific elderly in the list
-4.  NurseyBook deletes the specified elderly.
-
- Use case ends.
+    Use case ends.
 
 **Extensions**
+* 1a. User requests to find elderly with matching keywords 
+  * 1a1. NurseyBook shows a list of elderly that matches the user's query (by name)
 
+    Use case ends.
+* 1b. Users request to <u>list elderly with queried tags (UC2)</u>
 * 2a. The list of elderly is empty.
 
   Use case ends.
 
-* 3a. The given index is invalid.
-
-    * 3a1. NurseyBook shows an error message.
-
-      Use case resumes at step 2.
-
-
-**UC2: Update an elderly’s details**
+**UC2: List elderly with queried tags**
 
 **MSS**
 
-1.  User requests to list elderly (that the user is in-charge of)
-2.  NurseyBook shows a list of elderly
-3.  User requests to update the details of a specific elderly in the list
-4.  NurseyBook updates the details for the elderly
+1. User requests to filter elderly based on queried tags
+2. NurseyBook shows a list of elderly that have all the tags queried.
+
+   Use case ends.
+
+**Extensions**
+* 1a. The given tag is invalid.
+    * 1a1. NurseyBook shows an error message.
+
+      Use case resumes at step 1.
+* 1b. There are extra parameters not accepted by the command.
+    * 1b1. NurseyBook shows an error message.
+
+      Use case resumes at step 1.
+* 2a. The list of elderly is empty.
+
+  Use case ends.
+  
+**UC3: Delete an elderly**
+
+**MSS**
+
+1. User requests to <u>list elderly (UC1)</u>
+2. User requests to delete a specific elderly in the list based on the index.
+3. NurseyBook deletes the specified elderly.
+4. NurseyBook shows updated list of elderly and command success message.
+
+    Use case ends.
+
+**Extensions**
+* 2a. The given index is invalid.
+    * 2a1. NurseyBook shows an error message.
+
+      Use case resumes at step 1.
+
+**UC4: Delete an elderly's Nok details**
+
+Similar to <u>deleting an elderly (UC3)</u> but only deleting an elderly's Nok details.
+
+**UC5: Edit an elderly’s details**
+
+**MSS**
+
+1. User requests to <u>list elderly (UC1)</u>
+2. User requests to edit the details of a specific elderly in the list
+3. NurseyBook edits the details for the elderly
+4. NurseyBook shows updated list of elderly and command success message.
+
+    Use case ends.
+
+**Extensions**
+* 2a. The given parameter is invalid.
+    * 2a1. NurseyBook shows an error message.
+
+      Use case resumes at step 1.
+
+* 2b. There are extra parameters not accepted by the command.
+    * 2b1. NurseyBook shows an error message.
+
+      Use case resumes at step 1.
+* 2c. The edit does not cause any change in elderly's details.
+    * 2c1. NurseyBook shows an error message.
+    
+      Use case resumes at step 1.
+
+* 2d. The name of the edited elderly is the same as another elderly saved in NurseyBook.
+    * 2d1. NurseyBook shows an error message.
+
+      Use case resumes at step 1.
+
+**UC6: Add remark about an elderly**
+
+**MSS**
+
+1. User requests to <u>list elderly (UC1)</u>
+2. User requests to add a remark to a specific elderly in the list
+3. NurseyBook adds the remark to the elderly
+4. NurseyBook shows updated list of elderly and command success message.
 
     Use case ends.
 
 **Extensions**
 
-* 2a. The list of elderly is empty.
+* 2a. The given parameter is invalid.
+    * 2a1. NurseyBook shows an error message.
 
-  Use case ends.
+      Use case resumes at step 1.
+* 2b. There are extra parameters not accepted by the command.
+    * 2b1. NurseyBook shows an error message.
 
-* 3a. The given index is invalid.
+      Use case resumes at step 1.
+* 2c. The edit does not cause any change in elderly's remark.
+    * 2c1. NurseyBook shows an error message.
 
-    * 3a1. NurseyBook shows an error message.
+      Use case resumes at step 1.
 
-      Use case resumes at step 2.
-
-
-**UC3: Add additional notes about an elderly**
-
-**MSS**
-
-1. User requests to list elderly (that the user is in-charge of)
-2. NurseyBook shows a list of elderly
-3. User requests to add a remark/additional notes to a specific elderly in the list
-4. NurseyBook adds the remark to the elderly
-
-    Use case ends.
-
-**Extensions**
-
-* 2a. The list of elderly is empty.
-
-  Use case ends.
-
-* 3a. The given index is invalid.
-
-    * 3a1. NurseyBook shows an error message.
-
-      Use case resumes at step 2.
-
-
-**UC4: Delete a tag from an elderly**
+**UC7: Add tags to an elderly**
 
 **MSS**
 
-1.  User requests to list elderly (that the user is in-charge of)
-2.  NurseyBook shows a list of elderly
-3.  User requests to delete tag from a specific elderly in the list
-4.  NurseyBook deletes the tag from the elderly
-
-    Use case ends.
-
-**Extensions**
-
-* 2a. The list of elderly is empty.
-
-  Use case ends.
-
-* 3a. Tag to delete from elderly does not exist.
-
-    * 3a1. NurseyBook shows an error message.
-
-      Use case resumes at step 2.
-
-
-**UC5: Find an elderly**
-
-**MSS**
-
-1. User requests to find an elderly
-2. NurseyBook shows a list of elderly that matches the user's query (by name)
+1. User requests to <u>list elderly (UC1)</u>
+2. User requests to add tag to a specific elderly in the list
+3. NurseyBook adds the tag to the elderly
+4. NurseyBook shows updated list of elderly and command success message.
 
    Use case ends.
 
 **Extensions**
 
-* 2a. The list of elderly is empty.
+* 2a. The given parameter is invalid.
+    * 2a1. NurseyBook shows an error message.
 
-  Use case ends.
+      Use case resumes at step 1.
 
-* *a. At any time, the user requests to view help.
+* 2b. There are extra parameters not accepted by the command.
+    * 2b1. NurseyBook shows an error message.
 
+      Use case resumes at step 1.
+
+* 2c. Tag to add to elderly already exists.
+    * 2c1. NurseyBook shows an error message.
+
+      Use case resumes at step 1.
+
+**UC8: Delete a tag from an elderly**
+
+**MSS**
+
+1. User requests to <u>list elderly (UC1)</u>
+2. User requests to delete tag from a specific elderly in the list
+3. NurseyBook deletes the tag from the elderly
+4. NurseyBook shows updated list of elderly and command success message.
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. The given parameter is invalid.
+    * 2a1. NurseyBook shows an error message.
+
+      Use case resumes at step 1.
+  
+* 2b. There are extra parameters not accepted by the command.
+    * 2b1. NurseyBook shows an error message.
+
+      Use case resumes at step 1.
+
+* 2c. Tag to delete from elderly does not exist.
+    * 2c1. NurseyBook shows an error message.
+
+      Use case resumes at step 1.
+    
+**UC9: View an elderly's details**
+
+**MSS**
+
+1. User requests to <u>list elderly (UC1)</u>
+2. User requests to view details of a specific elderly in the list based on the index.
+3. NurseyBook shows details of selected elderly and command success message.
+
+    Use case ends.
+
+**Extensions**
+* 2a. The given index is invalid.
+    * 2a1. NurseyBook shows an error message.
+
+      Use case resumes at step 1.
 
 **Use cases of task commands**
 
-**UC6: Delete a task**
-
-**MSS**
-
-1.  User requests to list tasks
-2.  NurseyBook shows a list of tasks
-3.  User requests to delete a specific task in the list
-4.  NurseyBook deletes the task
-
+**UC10: List tasks**
+1. User requests to list tasks.
+2. NurseyBook shows a list of tasks.
+   
     Use case ends.
 
 **Extensions**
+* 1a. User requests to find tasks with matching keywords
+    * 1a1. NurseyBook shows a list of tasks that matches the user's query (by description)
+
+      Use case ends.
 
 * 2a. The list of tasks is empty.
 
   Use case ends.
 
-* 3a. The given index is invalid.
-
-    * 3a1. NurseyBook shows an error message.
-
-      Use case resumes at step 2.
-
-
-**UC7: Mark a task as complete**
+**UC11: Delete a task**
 
 **MSS**
 
-1.  User requests to list tasks
-2.  NurseyBook shows a list of tasks
-3.  User requests to mark a specific task in the list as complete
-4.  NurseyBook marks task as complete
+1. User requests to <u>list tasks (UC10)</u>
+2. User requests to delete a specific task in the list
+3. NurseyBook deletes the task
+4. NurseyBook shows updated list of tasks and command success message.
 
     Use case ends.
 
 **Extensions**
 
-* 2a. The list of tasks is empty.
+* 2a. The given index is invalid.
+    * 2a1. NurseyBook shows an error message.
 
-  Use case ends.
+      Use case resumes at step 1.
 
-* 3a. The given index is invalid.
-
-    * 3a1. NurseyBook shows an error message.
-
-      Use case resumes at step 2.
-
-
-**UC8: Find a task**
+**UC12: Edit a task**
 
 **MSS**
 
-1. User requests to find a task
-2. NurseyBook shows a list of tasks that matches the user's query (by name)
+1. User requests to <u>list tasks (UC10)</u>
+2. User requests to edit the details of a specific task in the list
+3. NurseyBook edits the details for the task
+4. NurseyBook shows updated list of task and command success message.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. The given parameter is invalid.
+    * 2a1. NurseyBook shows an error message.
+
+      Use case resumes at step 1.
+
+* 2b. There are extra parameters not accepted by the command.
+    * 2b1. NurseyBook shows an error message.
+
+      Use case resumes at step 1.
+* 2c. The edit does not cause any change in task's details.
+    * 2c1. NurseyBook shows an error message.
+
+      Use case resumes at step 1.
+
+* 2d. The task after editing is the same as another task saved in NurseyBook.
+    * 2d1. NurseyBook shows an error message.
+
+      Use case resumes at step 1.
+* 2e. The task new date of the recurring task has passed.
+    * 2e1. NurseyBook shows an error message.
+
+      Use case resumes at step 1.
+
+**UC13: Mark a task as complete**
+
+**MSS**
+
+1. User requests to <u>list tasks (UC10)</u>
+2. User requests to mark a specific task in the list as complete
+3. NurseyBook marks task as complete
+4. NurseyBook shows updated list of tasks and command success message.
 
     Use case ends.
 
 **Extensions**
 
-* 2a. The list of tasks is empty.
+* 2a. The given index is invalid.
 
-  Use case ends.
+    * 2a1. NurseyBook shows an error message.
 
-* *a. At any time, the user requests to view help.
+      Use case resumes at step 1.
+* 2b. The task is already marked as completed.
 
+    * 2b1. NurseyBook shows an error message.
 
-   *{More to be added}*
+      Use case resumes at step 1.
+
+**Use cases of miscellaneous commands**
+
+**UC14: Undo a previous command**
+
+**MSS**
+1. User requests to undo a previous command.
+2. NurseyBook undoes the command and display the command success message.
+   
+    Use case ends.
+
+**Extensions**
+* 1a. There are no previous commands to be undone.
+  * 1a1. NurseyBook shows an error message.
+
+    Use case ends.
+
+**UC15: Redo a previously undone command**
+
+**MSS**
+1. User requests to redo a previous undone command.
+2. NurseyBook undoes the command and display the command success message.
+
+   Use case ends.
+
+**Extensions**
+* 1a. There are no commands that were undone.
+    * 1a1. NurseyBook shows an error message.
+
+      Use case ends.
+  
+*{More to be added}*
 
 ### Non-Functional Requirements
 
 1.  Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
-2.  Should be able to hold up to 1000 elderlies without a noticeable sluggishness in performance for typical usage.
+2.  Should be able to hold up to 1000 elderlies and 1000 tasks without a noticeable sluggishness in performance for typical usage.
 3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 4.  Data should be stored locally and without any DBMS.
 5.  Should be for a single user, not multiple users.
 6.  The system should respond within 2 seconds per search query.
 
-
-*{More to be added}*
-
 ### Glossary
 
-* **Mainstream OS**: Windows, Linux, Unix, OS-X
-* **Private contact detail**: A contact detail that is not meant to be shared with others
-* **CLI**: Command line interface where users interact with the system by typing in commands
-* **GUI driven application**: Graphical user interface where users interact with the system through visual representations such as buttons and icons
+* **DBMS**: Database management systems are software systems used to store, retrieve, and run queries on data.
+* **Mainstream OS**: Mainstream operating systems such as Windows, Linux, Unix, OS-X.
+* **Private contact detail**: A contact detail that is not meant to be shared with others.
+* **CLI**: Command line interface where users interact with the system by typing in commands.
+* **GUI driven application**: Graphical user interface where users interact with the system through visual representations such as buttons and icons.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -766,37 +891,44 @@ testers are expected to do more *exploratory* testing.
 
    1. Download the jar file and copy into an empty folder
 
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   2. Double-click the jar file Expected: Shows the GUI with a set of sample elderlies. The window size may not be optimum.
 
-1. Saving window preferences
+2. Saving window preferences
 
    1. Resize the window to an optimum size. Move the window to a different location. Close the window.
 
-   1. Re-launch the app by double-clicking the jar file.<br>
+   2. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
-
-1. _{ more test cases …​ }_
+   
 
 ### Deleting a elderly
 
-1. Deleting a elderly while all elderlies are being shown
+1. Deleting an elderly while all elderlies are being shown
 
    1. Prerequisites: List all elderlies using the `viewElderly` command. Multiple elderlies in the list.
 
    2. Test case: `deleteElderly 1`<br>
-      Expected: First elderly is deleted from the list. Details of the deleted elderly shown in the status message. Timestamp in the status bar is updated.
+      Expected: First elderly is deleted from the list. Details of the deleted elderly shown in the status message.
 
    3. Test case: `deleteElderly 0`<br>
-      Expected: No elderly is deleted. Error details shown in the status message. Status bar remains the same.
+      Expected: No elderly is deleted. Error details shown in the status message.
 
-   4. Other incorrect delete commands to try: `deleteElderly`, `deleteElderly x`, `...` (where x is larger than the list size)<br>
+   4. Other incorrect `deleteElderly` commands to try: `deleteElderly`, `deleteElderly x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
 
 ### Adding a task
 
-1. Test case: ``
-
-2. _{ more test cases …​ }_
+1. Adding a task to NurseyBook
+    
+    1. Prerequisites: Add an elderly with name 'Khong Guan' to NurseyBook
+    2. Test case: `addTask en/Khong Guan desc/Weekly Taiji date/2022-10-10 time/14:30 recur/week`<br>
+        Expected: New task with the parameters is created. It is a one-off task and recurrence is 'Week'.
+    3. Test case: `addTask en/Khong Guan desc/Weekly Taiji date/2021-10-10 time/14:30`<br>
+       Expected: New task with the parameters is created. It is a one-off task and recurrence is 'None'. Task has an 'Overdue' tag.
+    4. Test case: `addTask en/Benny desc/Weekly Taiji date/2022-10-10 time/14:30`<br>
+        Expected: No task is added. Error details shown in the status message.
+    5. Other incorrect `addTask` commands to try: `addTask en/Khong Guan desc/Weekly Taiji date/2021-10-10 time/14:30 recur/week`,`addTask`, `addTask desc/Weekly Taiji`, `...` (with missing compulsory parameters)<br>
+        Expected: Similar to previous
 
 ### Saving data
 

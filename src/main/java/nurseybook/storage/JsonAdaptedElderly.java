@@ -75,7 +75,7 @@ class JsonAdaptedElderly {
      */
     public JsonAdaptedElderly(Elderly source) {
         name = source.getName().fullName;
-        age = source.getAge().value;
+        age = Integer.toString(source.getAge().value);
         gender = source.getGender().value;
         roomNumber = source.getRoomNumber().value;
         nokName = source.getNok().getName().fullName;

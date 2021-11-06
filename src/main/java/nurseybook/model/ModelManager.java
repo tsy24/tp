@@ -5,6 +5,7 @@ import static nurseybook.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.time.LocalDate;
+import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -14,10 +15,8 @@ import nurseybook.commons.core.GuiSettings;
 import nurseybook.commons.core.LogsCenter;
 import nurseybook.logic.commands.CommandResult;
 import nurseybook.model.person.Elderly;
+import nurseybook.model.person.Name;
 import nurseybook.model.task.Task;
-import nurseybook.model.task.TaskIsNotOverduePredicate;
-import nurseybook.model.task.TaskIsOverduePredicate;
-import nurseybook.model.task.TaskIsRecurringAndOverduePredicate;
 
 /**
  * Represents the in-memory model of the nursey book data.
@@ -116,18 +115,15 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void markTaskAsOverdue(Task target) {
-        versionedNurseyBook.markTaskAsOverdue(target);
-    }
-
-    @Override
-    public void markTaskAsNotOverdue(Task target) {
-        versionedNurseyBook.markTaskAsNotOverdue(target);
-    }
-
-    @Override
-    public void updateDateRecurringTask(Task target) {
-        versionedNurseyBook.updateDateRecurringTask(target);
+    public boolean areAllElderliesPresent(Set<Name> names) {
+        for (Name name: names) {
+            boolean hasElderly = filteredElderlies.stream().anyMatch(
+                elderly -> elderly.getName().caseInsensitiveEquals(name));
+            if (!hasElderly) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override
@@ -157,6 +153,19 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedElderly);
         versionedNurseyBook.setElderly(target, editedElderly);
     }
+
+    @Override
+    public void updateElderlyNameInTasks(Elderly target, Elderly editedElderly) {
+        requireAllNonNull(target, editedElderly);
+        versionedNurseyBook.updateElderlyNameInTasks(target, editedElderly);
+    }
+
+    @Override
+    public void deleteElderlyNameInTasks(Elderly elderlyToDelete) {
+        requireNonNull(elderlyToDelete);
+        versionedNurseyBook.deleteElderlyNameInTasks(elderlyToDelete);
+    }
+
 
     @Override
     public void deleteGhostTasks() {
@@ -236,41 +245,16 @@ public class ModelManager implements Model {
     @Override
     public void updateFilteredTaskList(Predicate<Task> predicate) {
         requireNonNull(predicate);
-        updateOverdueTaskList();
-        updateNotOverdueTaskList();
-        updateDateRecurringTaskList();
         filteredTasks.setPredicate(predicate);
     }
 
     @Override
-    public void updateOverdueTaskList() {
-        Predicate<Task> predicate = new TaskIsOverduePredicate();
-        filteredTasks.setPredicate(predicate);
-        filteredTasks.forEach(this::markTaskAsOverdue);
-
+    public void updateTasksAccordingToTime() {
+        versionedNurseyBook.updateRecurringTasksDate();
+        versionedNurseyBook.updateTasksOverdueStatus();
+        versionedNurseyBook.reorderTasksChronologically();
     }
 
-    @Override
-    public void updateNotOverdueTaskList() {
-        Predicate<Task> predicate = new TaskIsNotOverduePredicate();
-        filteredTasks.setPredicate(predicate);
-        filteredTasks.forEach(this::markTaskAsNotOverdue);
-    }
-
-    @Override
-    public void updateDateRecurringTaskList() {
-        Predicate<Task> predicate = new TaskIsRecurringAndOverduePredicate();
-        filteredTasks.setPredicate(predicate);
-        // The below for loop is not replaceable with enhanced for loop because changes made to the datetime of the
-        // task will cause it to disappear from filteredTask, leading to some error.
-        // anyone is welcome to fix this bug :)
-        for (int i = 0; i < filteredTasks.size(); i++) {
-            Task t = filteredTasks.get(i);
-            if (t.isTaskRecurringAndOverdue()) {
-                versionedNurseyBook.updateDateRecurringTask(t);
-            }
-        }
-    }
 
     @Override
     public boolean equals(Object obj) {
@@ -287,18 +271,13 @@ public class ModelManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
 
-        if (elderlyOfInterest == null) {
-            return other.elderlyOfInterest == null
-                    && versionedNurseyBook.equals(other.versionedNurseyBook)
-                    && userPrefs.equals(other.userPrefs)
-                    && filteredElderlies.equals(other.filteredElderlies)
-                    && filteredTasks.equals(other.filteredTasks);
-        }
-        return other.elderlyOfInterest != null
+        boolean areElderlyOfInterestsEqual = elderlyOfInterest == null
+                ? other.elderlyOfInterest == null
+                : elderlyOfInterest.equals(other.elderlyOfInterest);
+        return areElderlyOfInterestsEqual
                 && versionedNurseyBook.equals(other.versionedNurseyBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredElderlies.equals(other.filteredElderlies)
-                && elderlyOfInterest.equals(other.elderlyOfInterest)
                 && filteredTasks.equals(other.filteredTasks);
     }
 

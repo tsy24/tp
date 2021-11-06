@@ -2,6 +2,7 @@ package nurseybook.testutil;
 
 import java.nio.file.Path;
 import java.time.LocalDate;
+import java.util.Set;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -11,10 +12,12 @@ import nurseybook.model.Model;
 import nurseybook.model.ReadOnlyNurseyBook;
 import nurseybook.model.ReadOnlyUserPrefs;
 import nurseybook.model.person.Elderly;
+import nurseybook.model.person.Name;
 import nurseybook.model.task.Task;
 
 /**
- * A default model stub that have all of the methods failing.
+ * A default model stub that have all of the methods failing except isElderlyPresent(),
+ * which returns false with the assumption that there are no elderlies present.
  */
 public class ModelStub implements Model {
     @Override
@@ -103,6 +106,16 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void updateElderlyNameInTasks(Elderly target, Elderly editedElderly) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void deleteElderlyNameInTasks(Elderly elderlyToDelete) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public void setTask(Task target, Task editedTask) {
         throw new AssertionError("This method should not be called.");
     }
@@ -112,18 +125,9 @@ public class ModelStub implements Model {
         throw new AssertionError("This method should not be called.");
     }
 
-    @Override
-    public void markTaskAsOverdue(Task target) {
-        throw new AssertionError("This method should not be called.");
-    }
 
     @Override
-    public void markTaskAsNotOverdue(Task target) {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
-    public void updateDateRecurringTask(Task target) {
+    public boolean areAllElderliesPresent(Set<Name> names) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -148,8 +152,8 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void updateOverdueTaskList() {
-        throw new ArithmeticException("This method should not be called.");
+    public void updateTasksAccordingToTime() {
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
@@ -187,13 +191,4 @@ public class ModelStub implements Model {
         throw new AssertionError("This method should not be called.");
     }
 
-    @Override
-    public void updateNotOverdueTaskList() {
-        throw new ArithmeticException("This method should not be called.");
-    }
-
-    @Override
-    public void updateDateRecurringTaskList() {
-        throw new ArithmeticException("This method should not be called.");
-    }
 }

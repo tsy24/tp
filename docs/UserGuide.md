@@ -4,7 +4,7 @@ title: User Guide
 ---
 
 * Table of Contents
-  {:toc}
+{:toc}
 
 --------------------------------------------------------------------------------------------------------------------
 ## 1. Introduction
@@ -49,16 +49,14 @@ Refer to the [4. Features](#4. Features) below for details of each command.
 
 This document is structured in a manner that lets you find what you need fast and easily. To jump to various sections, you can refer to the Table of Contents.
 
-In the following subsection, [3.2 Reading this document](#3.2 Reading this document), you can find several tips that could be beneficial when reading this guide. 
-The next section, documents the main features that **NurseyBook** offers and provides you with instructions on how to 
+In the following subsection, [3.2 Reading this document](#32-reading-this-document), you can find several tips that could be beneficial when reading this guide.
+The next section, documents the main features that **NurseyBook** offers and provides you with instructions on how to
 use each one of them!
-
 
 ### 3.2 Reading this document
 
-This subsection will introduce to you the symbols, syntax and technical terms that are used throughout this guide. 
+This subsection will introduce to you the symbols, syntax and technical terms that are used throughout this guide.
 Being familiar with this subsection will definitely help you out when looking through this guide.
-
 
 #### 3.2.1 Special symbols
 
@@ -75,7 +73,7 @@ Example additional information.
 
 **Caution**
 
-Text that appear in a caution box should be followed carefully, else unintended consequences might arise. 
+Text that appear in a caution box should be followed carefully, else unintended consequences might arise.
 
 <div markdown="block" class="alert alert-warning">
 
@@ -84,24 +82,22 @@ Example warnings.
 
 </div>
 
-**Tips**
+**Tip**
 
 Text that appear in a tip box are useful for improving your experience with NurseyBook.
 
 <div markdown="block" class="alert alert-primary">
 
-:bulb: **Tips:**
-Example tips.
+:bulb: **Tip:**
+Example tip.
 
 </div>
 
-
 #### 3.2.2 Sections of the Application Window
 
-You can refer to the image below for the names of the different sections in NurseyBook's application window. 
+You can refer to the image below for the names of the different sections in NurseyBook's application window.
 
 ![nurseybook_application_window](images/userGuide/application_window.png)
-
 
 #### 3.2.3 Navigating in NurseyBook
 
@@ -109,8 +105,7 @@ In NurseyBook, some buttons are clickable - such as the File and Help buttons at
 However, the User Interface (UI) is designed primarily to be navigated using the Command Line Interface (CLI).
 
 You can enter commands into the command box and press `Enter` to execute them. The result box will then provide a response on whether the command was successfully executed.
-The display panel will similarly update itself, based on the command executed. 
-
+The display panel will similarly update itself, based on the command executed.
 
 #### 3.2.4 Command Format
 
@@ -133,7 +128,7 @@ Commands in this guide follow such rules:
 
 <div markdown="block" class="alert alert-info">
 
-**:information_source: Information:**
+:information_source: **Information:**
 
 * If a parameter is expected only once in the command but you specified it multiple times, only the last occurrence of the parameter will be taken.<br>
   e.g. if you specify `p/12341234 p/56785678`, only `p/56785678` will be taken.
@@ -145,14 +140,13 @@ Commands in this guide follow such rules:
 
 <div markdown="block" class="alert alert-primary">
 
-**:bulb: Tips:**
+:bulb: **Tip:**
 
-* The _User Interface_ refers to the NurseyBook application window. 
-* _Command Line Interface_ refers to where you interact with the system by typing in commands - in this case, the command box. 
+* The _User Interface_ refers to the NurseyBook application window.
+* _Command Line Interface_ refers to where you interact with the system by typing in commands - in this case, the command box.
 * _Parameters_ refer to the information to be included as an input to a command.
 
 </div>
-
 
 #### 3.2.5 Command Parameters
 
@@ -160,23 +154,23 @@ The table below provides a summary on the command parameters that are mentioned 
 
 Parameter | Description
 :---------|:-----------
-`AGE` | Age of an elderly. A valid age is between 21 to 145. 
-`DATE` | Date that a task is scheduled to occur on. It should be in the format of yyyy-mm-dd. 
+`AGE` | Age of an elderly. A valid age is between 21 to 145.
+`DATE` | Date that a task is scheduled to occur on. It should be in the format of yyyy-mm-dd.
 `DESCRIPTION` | Description of a task. A description should not be blank.
 `ELDERLY_NAME` | Name of an elderly. No two elderly should have the same name.
 `GENDER` | Gender of an elderly. Gender is either `M` for males or `F` for females.
 `INDEX` | Index is the number shown beside an elderly/task when elderlies/tasks are displayed in the display panel respectively.
-`KEYWORD` | Keyword used to search for elderlies (by name) or tasks (by description). `MORE_KEYWORDS` are similarly defined. A keyword should not be blank. 
+`KEYWORD` | Keyword used to search for elderlies (by name) or tasks (by description). `MORE_KEYWORDS` are similarly defined. A keyword should not be blank.
 `NOK_ADDRESS` | Address of an elderly's next-of-kin.
 `NOK_EMAIL` | Email of an elderly's next-of-kin. An email should be in the format of local-part@domain.
 `NOK_NAME` | Name of an elderly's next-of-kin.
-`NOK_PHONE_NUMBER` | Phone number of an elderly's next-of-kin. A phone number should either be blank, or at least 8 digits long. 
-`NOK_RELATIONSHIP` | Relationship between an elderly and his/her next-of-kin. 
+`NOK_PHONE_NUMBER` | Phone number of an elderly's next-of-kin. A phone number should either be blank, or at least 8 digits long.
+`NOK_RELATIONSHIP` | Relationship between an elderly and his/her next-of-kin.
 `RECURRENCE_TYPE` | Indicates the recurrence period of a task. Can be either `NONE`, by `DAY`, `WEEK`, or `MONTH`.
 `REMARK` | Additional information that can be supplied to an elderly. It should only be used with elderlies, not tasks.
-`ROOMNO` | Room number that an elderly is staying in (the Nursing Home). It should be a non-negative integer. 
-`TAG` | Tag associated with an elderly. It should only be used with elderlies, not tasks. 
-`TIME` | Time that a task is scheduled to occur from. It should be in the format of hh:mm.
+`ROOMNO` | Room number that an elderly is staying in (the Nursing Home). It should be a non-negative integer.
+`TAG` | Tag associated with an elderly. It should only be used with elderlies, not tasks. It should be alphanumeric with no spacing.
+`TIME` | Time that a task is scheduled to occur from. It should be in the format of hh:mm in 24 hour clock.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -196,6 +190,7 @@ This section contains the documentation on NurseyBook's features and commands. I
 Shows the list of all added elderly.
 
 Format: `viewElderly`
+<br />
 
 #### Add an elderly: `addElderly`
 
@@ -203,27 +198,31 @@ Adds an elderly to NurseyBook.
 
 Format: `addElderly en/ELDERLY_NAME a/AGE g/GENDER r/ROOMNO [t/TAG]…​ [nn/NOK_NAME] [rs/NOK_RELATIONSHIP] [p/NOK_PHONE_NUMBER] [e/NOK_EMAIL] [addr/NOK_ADDRESS]`
 
-<div markdown="block" class="alert alert-info">
-
-:information_source: **Information:**
-* An elderly can have any number of tags (including 0).
-
-</div>
-
 Examples:
 * `addElderly en/Khong Guan a/80 g/M r/201 nn/Gong Kuan rs/Brother p/91234567 e/guanbro@gmail.com addr/London Street 11`
 * `addElderly en/John a/77 g/M r/420 t/diabetes`
 * `addElderly en/John a/77 g/M r/420 t/diabetes nn/Timothy rs/Son`
 
+<div markdown="block" class="alert alert-info">
+
+:information_source: **Information:**
+* An elderly can have any number of tags (including 0).
+* You can specify a Next-of-Kin's (NOK) details for each elderly, when adding an elderly.
+* NurseyBook does not support any two elderly with the same name, even if any other fields are different. A suggestion will be to save the full name of the elderly you are adding into NurseyBook.
+
+</div>
+
 ![](images/userGuide/add_elderly_0.png)
 ![](images/userGuide/add_elderly_1.png)
-
 
 #### Delete an elderly : `deleteElderly`
 
 Deletes an elderly from NurseyBook.
 
 Format: `deleteElderly INDEX`   
+
+Examples:
+* [`viewElderly`](#view-all-elderly-viewelderly) followed by `deleteElderly 2` deletes the 2nd elderly in NurseyBook.
 
 <div markdown="block" class="alert alert-info">
 
@@ -234,15 +233,20 @@ Format: `deleteElderly INDEX`
 
 </div>
 
-Examples:
-* `viewElderly` followed by `deleteElderly 2` deletes the 2nd elderly in NurseyBook.
+<div markdown="block" class="alert alert-warning">
 
+:exclamation: **Caution:**
+* Deleting an elderly's name will cause all occurrences of the elderly's name in tasks to be deleted.
+
+</div>
 
 #### Edit an elderly's details: `editElderly`
 
 Edits the details of a specific elderly.
 
 Format: `editElderly INDEX [en/ELDERLY_NAME] [a/AGE] [g/GENDER] [r/ROOMNO] [t/TAG]…​ [nn/NOK_NAME] [rs/NOK_RELATIONSHIP] [p/NOK_PHONE_NUMBER] [e/NOK_EMAIL] [addr/NOK_ADDRESS]`
+
+Examples: See [`addElderly`](#add-an-elderly-addelderly) for examples.
 
 <div markdown="block" class="alert alert-info">
 
@@ -251,31 +255,32 @@ Format: `editElderly INDEX [en/ELDERLY_NAME] [a/AGE] [g/GENDER] [r/ROOMNO] [t/TA
 
 </div>
 
-<div markdown="block" class="alert alert-primary">
-
-:bulb: **Tip:**  
-You can remove a remark by leaving the remark input empty!  
-e.g. `editElderly 1 re/`
-
-</div>
-
 <div markdown="block" class="alert alert-warning">
 
-:exclamation: **Caution**
+:exclamation: **Caution:**
 * By leaving the tag input empty, you will remove all the tags currently assigned to the elderly.
 * If you want to add a tag with `editElderly`, you have to include all the existing tags of the elderly in your command.
+* Editing an elderly's name will cause all occurrences of the elderly's name in tasks to be also edited.
 
-e.g. John has an existing tag `cancer`, and he is at index 1 in the current list of elderly displayed. To add a tag to John, your command should be `editElderly 1 t/overweight t/covid`.
+Example: John has an existing tag `cancer`, and he is at index 1 in the current list of elderly displayed. To add an `overweight` tag to John, your command should be `editElderly 1 t/cancer t/overweight`.
 
-* For more accessible tag related commands, do refer to the `addTag` and `deleteTag` commands.
 </div>
 
+<div markdown="block" class="alert alert-primary">
+
+:bulb: **Tip:**
+* For more accessible tag related commands, do refer to the [`addTag`](#add-tags-to-elderly-addtag) and [`deleteTag`](#delete-tags-of-elderly-deletetag) commands.
+</div>
 
 #### Find elderly: `findElderly`
 
 Finds elderlies whose names contain any of the given keywords.
 
 Format: `findElderly KEYWORD [MORE_KEYWORDS]`
+
+Examples:
+* `findElderly Elena` returns `elena` and `Elena Kro`
+* `findElderly Elena Jav` returns `Elena Kro`, `Jav Marsh`
 
 <div markdown="block" class="alert alert-info">
 
@@ -287,11 +292,6 @@ Format: `findElderly KEYWORD [MORE_KEYWORDS]`
 * Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Elena Kro` will return `Elena Grob`, `Kro Stanly`
 
 </div>
-
-Examples:
-* `findElderly Elena` returns `elena` and `Elena Kro`
-* `findElderly Elena Jav` returns `Elena Kro`, `Jav Marsh`
-
 
 #### View full details of an elderly: `viewDetails`
 
@@ -311,12 +311,14 @@ Format: `viewDetails INDEX`
 
 ![](images/userGuide/view_details.png)
 
-
 #### Delete an elderly's NoK details : `deleteNok`
 
 Deletes an elderly's Next-of-Kin details from NurseyBook.
 
 Format: `deleteNok INDEX`
+
+Examples:
+* [`viewElderly`](#view-all-elderly-viewelderly) followed by `deleteNok 2` deletes the NoK details of the 2nd elderly in NurseyBook.
 
 <div markdown="block" class="alert alert-info">
 
@@ -327,29 +329,23 @@ Format: `deleteNok INDEX`
 
 </div>
 
-Examples:
-* `viewElderly` followed by `deleteNok 2` deletes the NoK details of the 2nd elderly in NurseyBook.
-
-
 #### Add tags to elderly: `addTag`
 
 Adds one or more tags to a specific elderly.
 
 Format: `addTag INDEX t/TAG [t/TAG]…​`
 
+Examples:
+* `addTag 1 t/covid`
+
 <div markdown="block" class="alert alert-info">
 
 :information_source: **Information:**
 * There should be at least one tag.
-* Tags should be alphanumeric.
 * The index refers to the index number shown in the displayed elderly list.
 * The index **must be a positive integer** 1, 2, 3, …​
 
 </div>
-
-Example:
-* `addTag 1 t/covid`
-
 
 #### Delete tags of elderly: `deleteTag`
 
@@ -357,19 +353,17 @@ Deletes one or more tags of a specific elderly.
 
 Format: `deleteTag INDEX t/TAG [t/TAG]…​`
 
+Examples:
+* `deleteTag 1 t/covid`
+
 <div markdown="block" class="alert alert-info">
 
 :information_source: **Information:**
 * There should be at least one tag.
-* Tags should be alphanumeric.
 * The index refers to the index number shown in the displayed elderly list.
 * The index **must be a positive integer** 1, 2, 3, …​
 
 </div>
-
-Example:
-* `deleteTag 1 t/covid`
-
 
 #### Filter elderly: `filter`
 
@@ -377,25 +371,27 @@ Filters elderly based on one or more tags.
 
 Format: `filter t/TAG [t/TAG]…​`
 
+Examples:
+* `filter t/covid t/diabetes`
+
 <div markdown="block" class="alert alert-info">
 
 :information_source: **Information:**
 * There should be at least one tag.
-* Tags should be alphanumeric.
 
 </div>
 
-Example:
-* `filter t/covid t/diabetes`
-
 ![](images/userGuide/filter.png)
-
 
 #### Add remark to elderly: `remark`
 
 Adds a remark to a specific elderly.
 
 Format: `remark INDEX re/REMARK`
+
+Examples:
+* `remark 1 re/Medicine seems to be ineffective`
+* `remark 1 re/`
 
 <div markdown="block" class="alert alert-info">
 
@@ -405,17 +401,13 @@ Format: `remark INDEX re/REMARK`
 
 </div>
 
-Example:
-* `remark 1 re/Medicine seems to be ineffective`
-
 <div markdown="block" class="alert alert-primary">
 
 :bulb: **Tip:**  
-You can remove a remark by leaving the remark input empty!  
-e.g. `remark 1 re/`
+
+* You can remove a remark by leaving the remark input empty! Eg. `remark 1 re/`
 
 </div>
-
 
 ### 4.2 Task commands
 
@@ -425,20 +417,14 @@ Shows a list of all your tasks in NurseyBook.
 
 Format: `viewTasks`
 
-
 #### Add a task: `addTask`
 
 Adds a task to the task list.
 
-<div markdown="block" class="alert alert-primary">
+Format: `addTask [en/ELDERLY_NAME]... desc/DESCRIPTION date/DATE time/TIME [recur/RECURRENCE_TYPE]`
 
-:bulb: **Tip:**
-You can add a recurring task to the list! <br>
-There are a few recurring options available namely: `NONE`, `DAY`, `WEEK` and `MONTH` (4 weeks later from the previous date). Tasks that have passed their original date will have their date automatically updated to the new date based on the recurrence type of the task.
-
-If you want to create a non-recurring task, you can exclude the `recur` field. NurseyBook will automatically assume that the task is non-recurring.
-
-</div>
+Examples:
+`addTask en/John desc/check insulin level date/2022-01-25 time/19:22 recur/week`
 
 <div markdown="block" class="alert alert-info">
 
@@ -448,10 +434,22 @@ If you want to create a non-recurring task, you can exclude the `recur` field. N
 
 </div>
 
-Format: `addTask [en/ELDERLY_NAME]... desc/DESCRIPTION date/DATE time/TIME [recur/RECURRENCE_TYPE]`  
+<div markdown="block" class="alert alert-warning">
 
-Example:
-`addTask en/John desc/check insulin level date/2022-01-25 time/19:22 recur/week`
+:exclamation: **Caution:**
+* If you want to add an elderly to the task, you need to first make sure that the elderly is already registered in your elderly database.
+
+</div>
+
+<div markdown="block" class="alert alert-primary">
+
+:bulb: **Tip:**
+
+* You can add a recurring task to the list! <br>
+  * There are a few recurring options available namely: `NONE`, `DAY`, `WEEK` and `MONTH` (4 weeks later from the previous date). Tasks that have passed their original date will have their date automatically updated to the new date based on the recurrence type of the task.
+* If you want to create a non-recurring task, you can exclude the `recur` field. NurseyBook will automatically assume that the task is non-recurring.
+
+</div>
 
 ![](images/userGuide/add_task_0.png)
 ![](images/userGuide/add_task_1.png)
@@ -473,8 +471,7 @@ Format: `deleteTask INDEX`
 </div>
 
 Examples:
-* `viewTasks` followed by `deleteTask 2` deletes the 2nd task shown by NurseyBook.
-
+* [`viewTasks`](#view-all-tasks-viewtasks) followed by `deleteTask 2` deletes the 2nd task shown by NurseyBook.
 
 #### Edit a task: `editTask`
 
@@ -482,9 +479,12 @@ Edits the details of a specific task.
 
 Format: `editTask INDEX [en/ELDERLY_NAME]... [desc/DESCRIPTION] [date/DATE] [time/TIME] [recur/RECURRENCE_TYPE]`
 
+Examples:
+* [`viewTasks`](#view-all-tasks-viewtasks) followed by `editTask 1 date/2022-01-30` changes the date of the 1st task shown by NurseyBook to 30 January 2022.
+
 <div markdown="block" class="alert alert-info">
 
-:information_source: **Information**
+:information_source: **Information:**
 
 * If the date/recurrence type of a recurring task is edited, the updated date generated will be based on the most recently edited date.
 
@@ -492,9 +492,12 @@ e.g. Date of task is `2022-01-01` with `daily` recurrence. On `2022-01-03`, the 
 
 </div>
 
-Example:
-* `viewTasks` followed by `editTask 1 date/2022-01-30` changes the date of the 1st task shown by NurseyBook to 30 January 2022.
+<div markdown="block" class="alert alert-warning">
 
+:exclamation: **Caution:**
+* If you want to edit the names of any elderlies linked to a task, you need to first make sure all the elderlies' names are already registered in your elderly database.
+
+</div>
 
 #### Find a task: `findTask`
 
@@ -502,9 +505,13 @@ Finds tasks whose description contain any of the given keywords.
 
 Format: `findTask KEYWORD [MORE_KEYWORDS]`
 
+Examples:
+* `findTask Day` returns `day` and `Day routine`
+* `findTask Day shift` returns `Day routine`, `Shift items`
+
 <div markdown="block" class="alert alert-info">
 
-information_source: **Information:**
+:information_source: **Information:**
 
 * The search is case-insensitive. e.g. `shift` will match `Shift`
 * The order of the keywords does not matter. e.g. `Day shift` will match `shift Day`
@@ -514,18 +521,16 @@ information_source: **Information:**
 
 </div>
 
-Examples:
-* `findTask Day` returns `day` and `Day routine`
-* `findTask Day shift` returns `Day routine`, `Shift items`
-
 ![](images/userGuide/find_task.png)
-
 
 #### Mark a task as completed: `doneTask`
 
 Marks a particular task in the task list as completed.
 
 Format: `doneTask INDEX`
+
+Examples:
+* [`viewTasks`](#view-all-tasks-viewtasks) followed by `doneTask 2` marks the 2nd task shown by NurseyBook as completed.
 
 <div markdown="block" class="alert alert-info">
 
@@ -534,12 +539,9 @@ Format: `doneTask INDEX`
 * Marks the task at the specified `INDEX` as done.
 * The index refers to the index number shown in the displayed task list.
 * The index **must be a positive integer** 1, 2, 3, …​
+* After marking an overdue task is completed, the overdue tag will no longer be displayed.
 
 </div>
-
-Examples:
-* `viewTasks` followed by `doneTask 2` marks the 2nd task shown by NurseyBook as completed.
-
 
 #### View reminders: `remind`
 
@@ -550,46 +552,37 @@ Format: `remind`
 
 ![](images/userGuide/remind.png)
 
-
 #### View task schedule: `viewSchedule`
 
 Displays the list of tasks set to occur on the specified date.
-Recurring tasks that will take place on that date is also included.
+Future occurrences of recurring tasks that will take place on that date is also included.
 
 Format: `viewSchedule DATE`
+
+Example:
+`viewSchedule 2022-02-14`
 
 <div markdown="block" class="alert alert-info">
 
 :information_source: **Information:**
 * Date must be in yyyy-mm-dd form.
-* You can view schedule for up to 12 weeks in advance.
+* You can view schedule for up to 12 weeks in advance from the current date.
+* For recurring tasks, this is simply a tool to preview its future occurrences. You cannot modify (e.g. delete/edit/mark as done/etc.) any such future occurrences of recurring tasks shown in the task list. These future occurrences will be deleted from task view upon entering any next valid/invalid input.
 
 </div>
 
-Example:
-`viewSchedule 2022-02-14`
+![](images/userGuide/view_schedule.png)
 
-![](images/userGuide/viewSchedule.png)
+<div markdown="block" class="alert alert-warning">
 
-
-<div markdown="span" class="alert alert-warning">
-
-:exclamation: **Caution**
-* NurseyBook will not automatically refresh the displayed task list to reflect
-instantaneous changes, such as overdue tasks and new dates of recurring tasks.
-* However, you can manually trigger this refresh, and one way is to enter
- `viewTasks` in the command box.
-* This will update the overdue status of all tasks and new dates of all
-recurring tasks.
-  * E.g. If the time now is 9.01pm and there is an undone task which is due at
-    9.00pm the same day, you can enter `viewTasks`,
-    otherwise the red overdue tag will not show automatically.
-  * E.g. If the time now is 9.01pm and there is a recurring task due at 9.00pm,
-    you can enter `viewTasks`, otherwise the task's date will remain
-    unchanged.
+:exclamation: **Caution:**
+* NurseyBook will not automatically refresh the displayed task list to reflect instantaneous changes, such as overdue tasks and new dates of recurring tasks.
+* However, you can manually trigger this refresh, and one way is to enter [`viewTasks`](#view-all-tasks-viewtasks) in the command box.
+* This will update the overdue status of all tasks and new dates of all recurring tasks.
+  * E.g. If the time now is 9.01pm and there is an undone task which is due at 9.00pm the same day, you can enter `viewTasks`, otherwise the red overdue tag will not show automatically.
+  * E.g. If the time now is 9.01pm and there is a recurring task due at 9.00pm, you can enter `viewTasks`, otherwise the task's date will remain unchanged.
 
 </div>
-
 
 ### 4.3 Miscellaneous commands
 
@@ -598,7 +591,6 @@ recurring tasks.
 Clears all entries from NurseyBook.
 
 Format: `clear`
-
 
 #### Undo previous command : `undo`
 
@@ -613,7 +605,6 @@ Format: `undo`
 Example:
 * `deleteElderly 1` followed by `undo` causes the `deleteElderly 1` command to be undone and no elderly is deleted from the NurseyBook.
 
-
 #### Redo previously undone command : `redo`
 
 Reverses the previous undo command executed on the NurseyBook.
@@ -626,13 +617,11 @@ Example:
 * `deleteElderly 1` followed by `undo` causes the `deleteElderly 1` command to be undone and no elderly is deleted from the NurseyBook.
 Entering `redo` will reverse the previous undo command, causing the elderly to be deleted again.
 
-
 #### Exiting the program : `exit`
 
 Exits the program.
 
 Format: `exit`
-
 
 ### 4.4 Storage
 
@@ -640,16 +629,15 @@ Format: `exit`
 
 NurseyBook's data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
-
 #### Editing the data file
 
 NurseyBook data are saved as a JSON file `[JAR file location]/data/nurseybook.json`. If you are technologically savvy, you
 are also welcome to update data directly by editing that data file.
 
-<div markdown="span" class="alert alert-warning">
+<div markdown="block" class="alert alert-warning">
 
 :exclamation: **Caution:**
-If your changes to the data file makes its format invalid, NurseyBook will discard all data and start with an empty data file at the next run.
+* If your changes to the data file makes its format invalid, NurseyBook will discard all data and start with an empty data file at the next run.
 
 </div>
 
@@ -685,7 +673,6 @@ Action | Format, Examples
 **View elderly details** | `viewDetails INDEX`<br> <br> e.g., `viewDetails 2`
 **View all elderly** | `viewElderly`
 
-
 ### 6.2 Task
 
 Action | Format, Examples
@@ -699,7 +686,6 @@ Action | Format, Examples
 **View Schedule** | `viewSchedule DATE` <br> e.g., `viewSchedule 2022-02-14`
 **View all tasks** | `viewTasks`
 
-
 ### 6.3 Miscellaneous
 
 Action | Format, Examples
@@ -709,6 +695,7 @@ Action | Format, Examples
 **Redo** | `redo`
 **Exit** | `exit`
 
+--------------------------------------------------------------------------------------------------------------------
 
 ## 7. Glossary
 
