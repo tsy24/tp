@@ -30,14 +30,14 @@ NurseyBookParser -> FilterCommandParser: parse("t/diabetes")
 activate FilterCommandParser
 
 create ElderlyHasTagPredicate
-FilterCommandParser -> ElderlyHasTagPredicate
+FilterCommandParser -> ElderlyHasTagPredicate: ElderlyHasTagPredicate(tagSet)
 activate ElderlyHasTagPredicate
 
 ElderlyHasTagPredicate --> FilterCommandParser
 deactivate ElderlyHasTagPredicate
 
 create FilterCommand
-FilterCommandParser -> FilterCommand
+FilterCommandParser -> FilterCommand : FilterCommand(p)
 activate FilterCommand
 
 FilterCommand --> FilterCommandParser
@@ -56,7 +56,7 @@ FilterCommand -> Model : updateFilteredElderlyList(p)
 activate Model
 
 loop for every elderly
-Model -> ElderlyHasTagPredicate: test(Elderly)
+Model -> ElderlyHasTagPredicate: test(elderly)
 activate ElderlyHasTagPredicate
 
 ElderlyHasTagPredicate -> Model

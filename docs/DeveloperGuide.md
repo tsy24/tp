@@ -140,13 +140,6 @@ The `Model` component,
 More details regarding `Person`, `Elderly`, `Nok`(Next of kin) and `Task` objects.
 
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `NurseyBook`, which `Elderly` references. This allows `NurseyBook` to only require one `Tag` object per unique tag, instead of each `Elderly` needing their own `Tag` objects.<br>
-
-<img src="images/BetterModelClassDiagram.png" width="250" />
-
-</div>
-
-
 ### Storage component
 
 **API** : [`Storage.java`](https://github.com/AY2122S1-CS2103T-F13-2/tp/blob/master/src/main/java/nurseybook/storage/Storage.java)
