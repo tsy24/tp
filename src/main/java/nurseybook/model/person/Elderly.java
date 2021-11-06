@@ -89,7 +89,7 @@ public class Elderly extends Person {
      * Returns true if elderly has this name.
      */
     public boolean hasName(Name name) {
-        return this.getName().equals(name);
+        return this.getName().caseInsensitiveEquals(name);
     }
 
     /**
