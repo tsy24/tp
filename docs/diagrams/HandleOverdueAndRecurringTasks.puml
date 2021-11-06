@@ -15,7 +15,8 @@ if () then ([If DateTime of Tasks has not passed])
 else ([else])
 endif
 if () then ([If DateTime of recurring Tasks has passed])
-    :Update DateTime;
+    :Update to new DateTime
+    Mark as not completed;
 else ([else])
 endif
 }

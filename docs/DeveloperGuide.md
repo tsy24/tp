@@ -136,9 +136,7 @@ The `Model` component,
 
 <img src="images/DetailedModelClassDiagram.png" width="800" /> 
 
-
 More details regarding `Person`, `Elderly`, `Nok`(Next of kin) and `Task` objects.
-
 
 ### Storage component
 
@@ -147,7 +145,7 @@ More details regarding `Person`, `Elderly`, `Nok`(Next of kin) and `Task` object
 <img src="images/StorageClassDiagram.png" width="550" />
 
 The `Storage` component,
-* can save both nursey book data and user preference data in json format, and read them back into corresponding objects.
+* can save both NurseyBook data and user preference data in json format, and read them back into corresponding objects.
 * inherits from both `NurseyBookStorage` and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
 * depends on some classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects that belong to the `Model`)
 
@@ -245,14 +243,36 @@ If a user does not specify `Recurrence` when adding a new `Task`, it will defaul
 
 #### Implementation
 
-Listed below are some situations and corresponding implementations where the overdue `Status`, and `DateTime` might be changed based on either a manual edit of the `Task` details or the passing of time.
+The logic for handling overdue and recurring tasks are handled in ModelManager#updateFilteredTaskList.
+
+```     java
+@Override
+public void updateFilteredTaskList(Predicate<Task> predicate) {
+    requireNonNull(predicate);
+    updateOverdueTaskList();
+    updateNotOverdueTaskList();
+    updateDateRecurringTaskList();
+    filteredTasks.setPredicate(predicate);
+}
+```
+
+The implementation of these individual functions `updateOverdueTaskList()`, `updateNotOverdueTaskList()` and `updateDateRecurringTaskList()` are listed below.
+1. `updateOverdueTaskList()`
+    *  This function is facilitated by the `TaskIsOverduePredicate` class. `TaskIsOverduePredicate` has a method `test()` to test whether a `Task`'s `DateTime` is before the current `DateTime`.
+2. `updateNotOverdueTaskList()`
+    *  This function is facilitated by the `TaskIsNotOverduePredicate` class. `TaskIsNotOverduePredicate` has a method `test()` to test whether a `Task`'s `DateTime` is after the current `DateTime`.
+3. `updateDateRecurringTaskList()`
+    *  This function is facilitated by the `TaskIsRecurringAndOverduePredicate` class. `TaskIsRecurringAndOverduePredicate` has a method `test()` to test whether a `Task`'s `DateTime` is before the current `DateTime`
+         and if it is a recurring task (`Task#isRecurring` is `True`).
+    
+Listed below are some situations and corresponding implementations where the overdue `Status`, and `DateTime` might be changed based on either a manual edit of the `Task`'s `DateTime` and/or `Recurrence` type, or simply the passing of time.
 
 1. `DateTime` of non-recurring `Task` has passed current `DateTime`
   - Mark `Status#isOverdue` to `True`
 2. `DateTime` of recurring `Task` has passed current `DateTime`
   - Update old `DateTime` to new `DateTime` according to its `Recurrence` type.
   - Mark `Status#isDone` to `False`
-  - Status#isOverdue remains 'False'
+  - Status#isOverdue remains `False`
 3. User edits non-recurring `Task` with a passed `DateTime` to a future `DateTime`
   - Mark `Status#isOverdue` to `False`
 4. User edits non-recurring `Task` with a future `DateTime` to a passed `DateTime`
@@ -626,11 +646,11 @@ Similar to <u>deleting an elderly (UC3)</u> but only deleting an elderly's Nok d
     
       Use case resumes at step 1.
 
-* 2d. The name of the edited elderly is the same as another elderly saved in NurseyBook.
+* 2d. The elderly's name already exists in the elderly database.
     * 2d1. NurseyBook shows an error message.
 
       Use case resumes at step 1.
-
+    
 **UC6: Add remark about an elderly**
 
 **MSS**
@@ -765,7 +785,7 @@ Similar to <u>deleting an elderly (UC3)</u> but only deleting an elderly's Nok d
 
       Use case resumes at step 1.
 
-**UC12: Edit a task**
+**UC12: Edit a task's details**
 
 **MSS**
 
@@ -787,20 +807,22 @@ Similar to <u>deleting an elderly (UC3)</u> but only deleting an elderly's Nok d
     * 2b1. NurseyBook shows an error message.
 
       Use case resumes at step 1.
+    
 * 2c. The edit does not cause any change in task's details.
     * 2c1. NurseyBook shows an error message.
 
       Use case resumes at step 1.
 
-* 2d. The task after editing is the same as another task saved in NurseyBook.
+* 2d. The task with the same details already exists in the task database.
     * 2d1. NurseyBook shows an error message.
 
       Use case resumes at step 1.
-* 2e. The task new date of the recurring task has passed.
+    
+* 2e. For a recurring task, the new edited date and time is before the current date and time.
     * 2e1. NurseyBook shows an error message.
 
       Use case resumes at step 1.
-
+    
 **UC13: Mark a task as complete**
 
 **MSS**

@@ -41,7 +41,6 @@ NurseyBookState -down-> "1" NurseyBook
 
 NurseyBook *--> "1" UniqueElderlyList
 UniqueElderlyList --> "~* all" Elderly
-
 NurseyBook *-> "1" UniqueTaskList
 UniqueTaskList -> "~* all" Task
 
