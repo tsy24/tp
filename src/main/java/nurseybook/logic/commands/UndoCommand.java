@@ -24,7 +24,7 @@ public class UndoCommand extends Command {
         }
 
         CommandResult lastCommandResult = model.undoNurseyBook();
-        model.updateFilteredTaskList(Model.PREDICATE_SHOW_ALL_TASKS);
+        model.updateTasksAccordingToTime();
         return new CommandResult(MESSAGE_SUCCESS + lastCommandResult.getFeedbackToUser(),
                 lastCommandResult.getDisplayChange());
     }

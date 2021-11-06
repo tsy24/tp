@@ -4,8 +4,8 @@ import static nurseybook.logic.commands.CommandResult.ListDisplayChange.TASK;
 import static nurseybook.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static nurseybook.logic.commands.RemindCommand.MESSAGE_SUCCESS;
 import static nurseybook.testutil.TypicalIndexes.INDEX_FIRST;
-import static nurseybook.testutil.TypicalTasks.ALICE_INSULIN;
-import static nurseybook.testutil.TypicalTasks.DO_PAPERWORK;
+import static nurseybook.testutil.TypicalTasks.ALICE_INSULIN_BUILDER;
+import static nurseybook.testutil.TypicalTasks.DO_PAPERWORK_BUILDER;
 import static nurseybook.testutil.TypicalTasks.getTypicalNurseyBook;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -69,6 +69,7 @@ public class RemindCommandTest {
         TaskIsReminderPredicate predicate = preparePredicate(2021, 10, 31, 10, 0);
         RemindCommand command = new RemindCommand(predicate);
         CommandResult expectedCommandResult = new CommandResult(MESSAGE_SUCCESS, TASK);
+        expectedModel.updateTasksAccordingToTime();
         expectedModel.updateFilteredTaskList(predicate);
         assertCommandSuccess(command, model, expectedCommandResult, expectedModel);
     }
@@ -79,6 +80,7 @@ public class RemindCommandTest {
         RemindCommand command = new RemindCommand(predicate);
         CommandResult expectedCommandResult = new CommandResult(MESSAGE_SUCCESS,
                 TASK);
+        expectedModel.updateTasksAccordingToTime();
         expectedModel.updateFilteredTaskList(predicate);
         assertCommandSuccess(command, model, expectedCommandResult, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredTaskList());
@@ -90,6 +92,7 @@ public class RemindCommandTest {
         RemindCommand command = new RemindCommand(predicate);
         CommandResult expectedCommandResult = new CommandResult(MESSAGE_SUCCESS,
                 TASK);
+        expectedModel.updateTasksAccordingToTime();
         expectedModel.updateFilteredTaskList(predicate);
         assertCommandSuccess(command, model, expectedCommandResult, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredTaskList());
@@ -101,11 +104,12 @@ public class RemindCommandTest {
         RemindCommand command = new RemindCommand(predicate);
         CommandResult expectedCommandResult = new CommandResult(MESSAGE_SUCCESS,
                 TASK);
+        expectedModel.updateTasksAccordingToTime();
         expectedModel.updateFilteredTaskList(predicate);
         assertCommandSuccess(command, model, expectedCommandResult, expectedModel);
         ObservableList<Task> temp = model.getFilteredTaskList();
-        List<Task> list = Arrays.asList(DO_PAPERWORK, ALICE_INSULIN);
-        assertEquals(Arrays.asList(DO_PAPERWORK, ALICE_INSULIN), model.getFilteredTaskList());
+        List<Task> list = Arrays.asList(DO_PAPERWORK_BUILDER.build(), ALICE_INSULIN_BUILDER.build());
+        assertEquals(list, temp);
     }
 
     @Test
@@ -114,6 +118,7 @@ public class RemindCommandTest {
         RemindCommand command = new RemindCommand(predicate);
         CommandResult expectedCommandResult = new CommandResult(MESSAGE_SUCCESS,
                 TASK);
+        expectedModel.updateTasksAccordingToTime();
         expectedModel.updateFilteredTaskList(predicate);
         assertCommandSuccess(command, model, expectedCommandResult, expectedModel);
 

@@ -10,7 +10,6 @@ import static nurseybook.logic.parser.CliSyntax.PREFIX_TASK_DATE;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_TASK_DESC;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_TASK_RECURRING;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_TASK_TIME;
-import static nurseybook.model.Model.PREDICATE_SHOW_ALL_TASKS;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -100,8 +99,8 @@ public class EditTaskCommand extends Command {
         }
 
         model.setTask(taskToEdit, editedTask);
-        model.updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
         CommandResult commandResult = new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, editedTask));
+        model.updateTasksAccordingToTime();
         model.commitNurseyBook(commandResult);
         return commandResult;
     }

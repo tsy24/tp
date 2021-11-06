@@ -42,7 +42,6 @@ public class UniqueTaskList implements Iterable<Task> {
             throw new DuplicateTaskException();
         }
         internalList.add(toAdd);
-        internalList.sort(Comparator.naturalOrder());
     }
 
     /**
@@ -63,7 +62,6 @@ public class UniqueTaskList implements Iterable<Task> {
         }
 
         internalList.set(index, editedTask);
-        internalList.sort(Comparator.naturalOrder());
     }
 
     /**
@@ -100,9 +98,6 @@ public class UniqueTaskList implements Iterable<Task> {
      */
     public void updateDateOfRecurringTask(Task toMark) {
         setTask(toMark, toMark.updateDateRecurringTask());
-
-        // Re-sorts task list when task date is changed
-        internalList.sort(Comparator.naturalOrder());
     }
 
     /**
@@ -175,7 +170,6 @@ public class UniqueTaskList implements Iterable<Task> {
                 realTaskList.add(task);
             }
         }
-
         return realTaskList;
     }
 
@@ -269,5 +263,43 @@ public class UniqueTaskList implements Iterable<Task> {
     public boolean contains(Task t) {
         requireNonNull(t);
         return internalList.stream().anyMatch(t::isSameTask);
+    }
+
+    /**
+     * Updates tasks in list that should be overdue according to the current time.
+     */
+    public void updateOverdueStatuses() {
+        // modifying list contents within foreach loop not allowed. thus this for loop is used
+        int size = internalList.size();
+        for (int i = 0; i < size; i++) {
+            Task t = internalList.get(i);
+            if (t.isTaskOverdue() != t.shouldTaskBeOverdue()) {
+                if (t.shouldTaskBeOverdue()) {
+                    markTaskAsOverdue(t);
+                } else {
+                    markTaskAsNotOverdue(t);
+                }
+            }
+        }
+    }
+
+    /**
+     * Update the dates of all recurring tasks if their previous date/time has passed.
+     */
+    public void updateRecurringDates() {
+        int size = internalList.size();
+        for (int i = 0; i < size; i++) {
+            Task t = internalList.get(i);
+            if (t.isTaskRecurringAndOverdue()) {
+                setTask(t, t.updateDateRecurringTask());
+            }
+        }
+    }
+
+    /**
+     * Sorts the task list such that it is in chronological order.
+     */
+    public void reorderTasks() {
+        internalList.sort(Comparator.naturalOrder());
     }
 }

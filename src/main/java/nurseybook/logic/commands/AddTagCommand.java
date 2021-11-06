@@ -2,7 +2,6 @@ package nurseybook.logic.commands;
 
 import static nurseybook.commons.util.CollectionUtil.requireAllNonNull;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_TAG;
-import static nurseybook.model.Model.PREDICATE_SHOW_ALL_ELDERLIES;
 
 import java.util.HashSet;
 import java.util.List;
@@ -68,7 +67,6 @@ public class AddTagCommand extends Command {
                 addTagsToSet(currentTags, tags));
 
         model.setElderly(elderlyToAddTag, addedElderly);
-        model.updateFilteredElderlyList(PREDICATE_SHOW_ALL_ELDERLIES);
 
         CommandResult result = new CommandResult(String.format(MESSAGE_ADD_TAG_SUCCESS, addedElderly));
         model.commitNurseyBook(result);
