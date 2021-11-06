@@ -45,7 +45,7 @@ public class TypicalTasks {
             .withRecurrence(Recurrence.RecurrenceType.DAY.name()).build();
 
     public static final Task KG_SC_VACCINE = new TaskBuilder().withDesc(VALID_DESC_VACCINE)
-            .withDateTime("2021-10-30", "18:00").withNames("Elle Mayer", "Fiona Kunz")
+            .withDateTime("2021-10-30", "18:00").withNames("Elle Meyer", "Fiona Kunz")
             .withStatus("false", "true").withRecurrence(Recurrence.RecurrenceType.NONE.name()).build();
 
     // Extra test cases

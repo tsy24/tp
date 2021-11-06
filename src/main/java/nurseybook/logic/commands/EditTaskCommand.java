@@ -253,7 +253,6 @@ public class EditTaskCommand extends Command {
                     && getDescription().equals(e.getDescription())
                     && getDate().equals(e.getDate())
                     && getTime().equals(e.getTime())
-                    && getStatus().equals(e.getStatus())
                     && getRecurrence().equals(e.getRecurrence());
         }
     }

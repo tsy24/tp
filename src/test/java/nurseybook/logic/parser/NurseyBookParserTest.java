@@ -6,6 +6,7 @@ import static nurseybook.logic.commands.CommandTestUtil.SET_ONE_TAG;
 import static nurseybook.logic.commands.CommandTestUtil.TAG_DESC_DIABETES;
 import static nurseybook.testutil.Assert.assertThrows;
 import static nurseybook.testutil.ElderlyUtil.getEditElderlyDescriptorDetails;
+import static nurseybook.testutil.TaskUtil.getEditTaskDescriptorDetails;
 import static nurseybook.testutil.TypicalIndexes.INDEX_FIRST;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -15,6 +16,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import nurseybook.logic.commands.EditTaskCommand;
+import nurseybook.testutil.EditTaskDescriptorBuilder;
+import nurseybook.testutil.ModelStub;
 import org.junit.jupiter.api.Test;
 
 import nurseybook.logic.commands.AddCommand;
@@ -106,6 +110,16 @@ public class NurseyBookParserTest {
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
                 + INDEX_FIRST.getOneBased() + " " + getEditElderlyDescriptorDetails(descriptor));
         assertEquals(new EditCommand(INDEX_FIRST, descriptor), command);
+    }
+
+    @Test
+    public void parseCommand_editTask() throws Exception {
+        Task task = new TaskBuilder().build();
+        EditTaskCommand.EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder(task).build();
+        EditTaskCommand command = (EditTaskCommand) parser.parseCommand(EditTaskCommand.COMMAND_WORD + " "
+                + INDEX_FIRST.getOneBased() + " " + getEditTaskDescriptorDetails(descriptor));
+        EditTaskCommand test = new EditTaskCommand(INDEX_FIRST, descriptor);
+        assertEquals(command, test);
     }
 
     @Test

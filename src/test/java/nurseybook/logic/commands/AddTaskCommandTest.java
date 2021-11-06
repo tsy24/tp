@@ -2,7 +2,13 @@ package nurseybook.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static nurseybook.commons.core.Messages.MESSAGE_DUPLICATE_TASK;
+import static nurseybook.commons.core.Messages.MESSAGE_INVALID_TASK_DATETIME_FOR_RECURRING_TASK;
+import static nurseybook.logic.commands.CommandTestUtil.assertCommandFailure;
+import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_DATE_NOV;
+import static nurseybook.logic.commands.TaskCommandTestUtil.showTaskAtIndex;
 import static nurseybook.testutil.Assert.assertThrows;
+import static nurseybook.testutil.TypicalIndexes.INDEX_FIRST;
+import static nurseybook.testutil.TypicalIndexes.INDEX_FOURTH;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -11,6 +17,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Set;
 
+import nurseybook.model.task.Recurrence;
+import nurseybook.testutil.EditTaskDescriptorBuilder;
 import org.junit.jupiter.api.Test;
 
 import nurseybook.logic.commands.exceptions.CommandException;
@@ -54,6 +62,16 @@ public class AddTaskCommandTest {
         assertThrows(CommandException.class, MESSAGE_DUPLICATE_TASK, () -> addTaskCommand.execute(modelStub));
     }
 
+    @Test
+    public void execute_addRecurringTaskWithPastDate_throwsCommandsException() {
+        ModelStubAcceptingTaskAdded modelStub = new ModelStubAcceptingTaskAdded();
+        Task validTask = new TaskBuilder().withDate(VALID_DATE_NOV)
+                .withRecurrence(Recurrence.RecurrenceType.WEEK.name()).build();
+        AddTaskCommand addTaskCommand = new AddTaskCommand(validTask);
+
+        assertThrows(CommandException.class, MESSAGE_INVALID_TASK_DATETIME_FOR_RECURRING_TASK,
+                () -> addTaskCommand.execute(modelStub));
+    }
 
     @Test
     public void equals() {
