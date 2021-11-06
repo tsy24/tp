@@ -82,14 +82,14 @@ public class Elderly extends Person {
         }
 
         return otherElderly != null
-                && otherElderly.getName().equals(getName());
+                && this.getName().caseInsensitiveEquals(otherElderly.getName());
     }
 
     /**
      * Returns true if elderly has this name.
      */
     public boolean hasName(Name name) {
-        return this.getName().equals(name);
+        return this.getName().caseInsensitiveEquals(name);
     }
 
     /**

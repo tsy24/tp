@@ -185,12 +185,30 @@ public abstract class Task implements Comparable<Task> {
     }
 
     /**
-     * Returns the recurrence type of this task.
+     * Returns the recurrence of this task.
      *
      * @return The task's recurrence type
      */
     public Recurrence getRecurrence() {
         return recurrence;
+    }
+
+    /**
+     * Returns the recurrence type of this task.
+     *
+     * @return task recurrence type
+     */
+    public RecurrenceType getRecurrenceType() {
+        return recurrence.getRecurrenceType();
+    }
+
+    /**
+     * Returns the number of days between each recurrence of a task.
+     *
+     * @return Number of days between each recurrence of task.
+     */
+    public int getRecurrenceIntervalInDays() {
+        return recurrence.getRecurrenceIntervalInDays();
     }
 
     /**
@@ -212,7 +230,7 @@ public abstract class Task implements Comparable<Task> {
     }
 
     /**
-     * Copies the task and returns it.
+     * Copies the task and all it's fields and returns a new instance of it.
      *
      * @return A copy of the current task.
      */

@@ -5,6 +5,7 @@ import static nurseybook.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.time.LocalDate;
+import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -127,13 +128,15 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean isElderlyPresent(Name name) {
-        for (Elderly elderly : filteredElderlies) {
-            if (elderly.getName().equals(name)) {
-                return true;
+    public boolean areAllElderliesPresent(Set<Name> names) {
+        for (Name name: names) {
+            boolean hasElderly = filteredElderlies.stream().anyMatch(
+                elderly -> elderly.getName().caseInsensitiveEquals(name));
+            if (!hasElderly) {
+                return false;
             }
         }
-        return false;
+        return true;
     }
 
     @Override
@@ -260,7 +263,6 @@ public class ModelManager implements Model {
         updateDateRecurringTaskList();
         filteredTasks.setPredicate(predicate);
     }
-
     @Override
     public void updateOverdueTaskList() {
         Predicate<Task> predicate = new TaskIsOverduePredicate();
@@ -307,18 +309,13 @@ public class ModelManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
 
-        if (elderlyOfInterest == null) {
-            return other.elderlyOfInterest == null
-                    && versionedNurseyBook.equals(other.versionedNurseyBook)
-                    && userPrefs.equals(other.userPrefs)
-                    && filteredElderlies.equals(other.filteredElderlies)
-                    && filteredTasks.equals(other.filteredTasks);
-        }
-        return other.elderlyOfInterest != null
+        boolean areElderlyOfInterestsEqual = elderlyOfInterest == null
+                ? other.elderlyOfInterest == null
+                : elderlyOfInterest.equals(other.elderlyOfInterest);
+        return areElderlyOfInterestsEqual
                 && versionedNurseyBook.equals(other.versionedNurseyBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredElderlies.equals(other.filteredElderlies)
-                && elderlyOfInterest.equals(other.elderlyOfInterest)
                 && filteredTasks.equals(other.filteredTasks);
     }
 

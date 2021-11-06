@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import nurseybook.model.person.Name;
+import nurseybook.model.task.Recurrence.RecurrenceType;
 
 /**
  * Represents a Real Task in NurseyBook.
@@ -86,7 +87,7 @@ public class RealTask extends Task {
         LocalDateTime currentDateTime = LocalDateTime.now();
 
         if (getRecurrence().isRecurring()) {
-            Recurrence.RecurrenceType recurrenceType = getRecurrence().getRecurrenceType();
+            RecurrenceType recurrenceType = this.getRecurrenceType();
             assert(recurrenceType != Recurrence.RecurrenceType.NONE);
 
             DateTime dateTime = changeTaskDate(currentDateTime, recurrenceType);
@@ -98,7 +99,7 @@ public class RealTask extends Task {
     }
 
     /**
-     * Copies the task and returns it.
+     * Copies the task and all it's fields and returns a new instance of it.
      *
      * @return A copy of the current task.
      */

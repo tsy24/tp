@@ -86,7 +86,7 @@ public class EditTaskCommand extends Command {
             throw new CommandException(MESSAGE_INVALID_TASK_DATETIME_FOR_RECURRING_TASK);
         }
 
-        if (taskToEdit.isSameTask(editedTask)) {
+        if (taskToEdit.equals(editedTask)) {
             throw new CommandException(MESSAGE_NO_CHANGES);
         }
 
@@ -94,15 +94,8 @@ public class EditTaskCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_TASK);
         }
 
-        boolean isElderlyPresent = true;
-        for (Name name : editedTask.getRelatedNames()) {
-            if (!model.isElderlyPresent(name)) {
-                isElderlyPresent = false;
-                break;
-            }
-        }
 
-        if (!isElderlyPresent) {
+        if (!model.areAllElderliesPresent(editedTask.getRelatedNames())) {
             throw new CommandException(MESSAGE_NO_SUCH_ELDERLY);
         }
 
