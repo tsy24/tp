@@ -94,6 +94,8 @@ public class AddTagCommandTest {
         String expectedMessage = String.format(AddTagCommand.MESSAGE_ADD_TAG_SUCCESS, tagAddedElderly);
 
         Model expectedModel = new ModelManager(new NurseyBook(model.getVersionedNurseyBook()), new UserPrefs());
+
+        CommandTestUtil.showElderlyAtIndex(expectedModel, INDEX_FIRST);
         expectedModel.setElderly(firstElderly, tagAddedElderly);
         expectedModel.commitNurseyBook(new CommandResult(expectedMessage));
 

@@ -44,10 +44,8 @@ public class RealTask extends Task {
      */
     @Override
     public RealTask markAsDone() {
-        String overdueStatus = Boolean.toString(isTaskOverdue());
-
         return new RealTask(this.getDesc(),
-                this.getDateTime(), super.getRelatedNames(), new Status("true", overdueStatus), super.getRecurrence());
+                this.getDateTime(), super.getRelatedNames(), new Status(true, isTaskOverdue()), super.getRecurrence());
     }
 
     /**
@@ -57,10 +55,8 @@ public class RealTask extends Task {
      */
     @Override
     public RealTask markAsOverdue() {
-        String completedStatus = Boolean.toString(isTaskDone());
-
         return new RealTask(this.getDesc(), this.getDateTime(),
-                super.getRelatedNames(), new Status(completedStatus, "true"), super.getRecurrence());
+                super.getRelatedNames(), new Status(isTaskDone(), true), super.getRecurrence());
     }
 
 
@@ -71,10 +67,9 @@ public class RealTask extends Task {
      */
     @Override
     public RealTask markAsNotOverdue() {
-        String completedStatus = Boolean.toString(isTaskDone());
 
         return new RealTask(this.getDesc(), this.getDateTime(),
-                super.getRelatedNames(), new Status(completedStatus, "false"), super.getRecurrence());
+                super.getRelatedNames(), new Status(isTaskDone(), false), super.getRecurrence());
     }
 
     /**

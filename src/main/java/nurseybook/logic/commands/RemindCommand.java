@@ -24,6 +24,7 @@ public class RemindCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        model.updateTasksAccordingToTime();
         model.updateFilteredTaskList(predicate);
 
         return new CommandResult(MESSAGE_SUCCESS, CommandResult.ListDisplayChange.TASK);
