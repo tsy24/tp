@@ -256,7 +256,16 @@ public void updateFilteredTaskList(Predicate<Task> predicate) {
 }
 ```
 
-Listed below are some situations and corresponding implementations where the overdue `Status`, and `DateTime` might be changed based on either a manual edit of the `Task` details or the passing of time.
+The implementation of these individual functions `updateOverdueTaskList()`, `updateNotOverdueTaskList()` and `updateDateRecurringTaskList()` are listed below.
+1. `updateOverdueTaskList()`
+    *  This function is facilitated by the `TaskIsOverduePredicate` class. `TaskIsOverduePredicate` has a method `test()` to test whether a `Task`'s `DateTime` is before the current `DateTime`.
+2. `updateNotOverdueTaskList()`
+    *  This function is facilitated by the `TaskIsNotOverduePredicate` class. `TaskIsNotOverduePredicate` has a method `test()` to test whether a `Task`'s `DateTime` is after the current `DateTime`.
+3. `updateDateRecurringTaskList()`
+    *  This function is facilitated by the `TaskIsRecurringAndOverduePredicate` class. `TaskIsRecurringAndOverduePredicate` has a method `test()` to test whether a `Task`'s `DateTime` is before the current `DateTime`
+         and if it is a recurring task (`Task#isRecurring` is `True`).
+    
+Listed below are some situations and corresponding implementations where the overdue `Status`, and `DateTime` might be changed based on either a manual edit of the `Task`'s `DateTime` and/or `Recurrence` type, or simply the passing of time.
 
 1. `DateTime` of non-recurring `Task` has passed current `DateTime`
   - Mark `Status#isOverdue` to `True`
