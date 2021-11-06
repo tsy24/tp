@@ -2,7 +2,6 @@ package nurseybook.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static nurseybook.commons.core.Messages.MESSAGE_DUPLICATE_TASK;
-import static nurseybook.commons.core.Messages.MESSAGE_NO_SUCH_ELDERLY;
 import static nurseybook.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -11,6 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Predicate;
+import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
@@ -18,11 +18,16 @@ import nurseybook.logic.commands.exceptions.CommandException;
 import nurseybook.model.NurseyBook;
 import nurseybook.model.ReadOnlyNurseyBook;
 import nurseybook.model.VersionedNurseyBook;
+import nurseybook.model.person.Name;
 import nurseybook.model.task.Task;
 import nurseybook.testutil.ModelStub;
 import nurseybook.testutil.NurseyBookBuilder;
 import nurseybook.testutil.TaskBuilder;
 
+/**
+ * Testing AddTaskCommand's task aspect only, isolating it from elderly in this test class.
+ * Thus, all tasks tested should be without elderly names.
+ */
 public class AddTaskCommandTest {
     @Test
     public void constructor_nullTask_throwsNullPointerException() {
@@ -35,10 +40,10 @@ public class AddTaskCommandTest {
         Task validTask = new TaskBuilder().build();
 
         CommandResult commandResult = new AddTaskCommand(validTask).execute(modelStub);
-        CommandResult expectedCommand = new CommandResult(String.format(AddTaskCommand.MESSAGE_SUCCESS, validTask),
+        CommandResult expectedResult = new CommandResult(String.format(AddTaskCommand.MESSAGE_SUCCESS, validTask),
                 CommandResult.ListDisplayChange.TASK);
 
-        assertEquals(expectedCommand, commandResult);
+        assertEquals(expectedResult, commandResult);
         assertEquals(Arrays.asList(validTask), modelStub.tasksAdded);
     }
 
@@ -50,13 +55,6 @@ public class AddTaskCommandTest {
         assertThrows(CommandException.class, MESSAGE_DUPLICATE_TASK, () -> addTaskCommand.execute(modelStub));
     }
 
-    @Test
-    public void execute_elderlyNotInNurseyBook_throwsCommandException() {
-        ModelStubAcceptingTaskAdded modelStub = new ModelStubAcceptingTaskAdded();
-        Task validTask = new TaskBuilder().withNames("Alex Yeoh").build();
-        AddTaskCommand addTaskCommand = new AddTaskCommand(validTask);
-        assertThrows(CommandException.class, MESSAGE_NO_SUCH_ELDERLY, () -> addTaskCommand.execute(modelStub));
-    }
 
     @Test
     public void equals() {
@@ -127,6 +125,11 @@ public class AddTaskCommandTest {
         @Override
         public void updateTasksAccordingToTime() {
             return; //do nothing since only one task added
+        }
+      
+        @Override
+        public boolean areAllElderliesPresent(Set<Name> names) {
+            return true;
         }
 
         @Override

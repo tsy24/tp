@@ -12,7 +12,7 @@ Class CommandResult {
 
 }
 Enum ListDisplayChange <<Enumeration>> {
-    <color:White>PERSON;
+    <color:White>ELDERLY;
     <color:White>TASK
     <color:White>NONE;
 }

@@ -3,7 +3,7 @@
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":NurseyBookParser" as NurseyBookParser LOGIC_COLOR
 participant ":FilterCommandParser" as FilterCommandParser LOGIC_COLOR
 participant "f:FilterCommand" as FilterCommand LOGIC_COLOR
 end box
@@ -16,38 +16,38 @@ end box
 [-> LogicManager : execute("filter t/diabetes")
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand("filter t/diabetes")
-activate AddressBookParser
+LogicManager -> NurseyBookParser : parseCommand("filter t/diabetes")
+activate NurseyBookParser
 
 create FilterCommandParser
-AddressBookParser -> FilterCommandParser
+NurseyBookParser -> FilterCommandParser
 activate FilterCommandParser
 
-FilterCommandParser --> AddressBookParser
+FilterCommandParser --> NurseyBookParser
 deactivate FilterCommandParser
 
-AddressBookParser -> FilterCommandParser: parse("t/diabetes")
+NurseyBookParser -> FilterCommandParser: parse("t/diabetes")
 activate FilterCommandParser
 
 create ElderlyHasTagPredicate
-FilterCommandParser -> ElderlyHasTagPredicate
+FilterCommandParser -> ElderlyHasTagPredicate: ElderlyHasTagPredicate(tagSet)
 activate ElderlyHasTagPredicate
 
 ElderlyHasTagPredicate --> FilterCommandParser
 deactivate ElderlyHasTagPredicate
 
 create FilterCommand
-FilterCommandParser -> FilterCommand
+FilterCommandParser -> FilterCommand : FilterCommand(p)
 activate FilterCommand
 
 FilterCommand --> FilterCommandParser
 deactivate FilterCommand
 
-FilterCommandParser --> AddressBookParser
+FilterCommandParser --> NurseyBookParser
 deactivate FilterCommandParser
 
-AddressBookParser --> LogicManager : f
-deactivate AddressBookParser
+NurseyBookParser --> LogicManager : f
+deactivate NurseyBookParser
 
 LogicManager -> FilterCommand : execute()
 activate FilterCommand
@@ -56,7 +56,7 @@ FilterCommand -> Model : updateFilteredElderlyList(p)
 activate Model
 
 loop for every elderly
-Model -> ElderlyHasTagPredicate: test(Elderly)
+Model -> ElderlyHasTagPredicate: test(elderly)
 activate ElderlyHasTagPredicate
 
 ElderlyHasTagPredicate -> Model

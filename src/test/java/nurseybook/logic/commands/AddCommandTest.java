@@ -53,6 +53,16 @@ public class AddCommandTest {
     }
 
     @Test
+    public void execute_duplicateElderlyCaseInsensitive_throwsCommandException() {
+        Elderly randomCaseAlice = new ElderlyBuilder().withName("alICe").build();
+        Elderly existingAlice = new ElderlyBuilder().withName("Alice").build();
+        AddCommand addCommand = new AddCommand(randomCaseAlice);
+        ModelStub modelStub = new ModelStubWithElderly(existingAlice);
+
+        assertThrows(CommandException.class, MESSAGE_DUPLICATE_ELDERLY, () -> addCommand.execute(modelStub));
+    }
+
+    @Test
     public void equals() {
         Elderly alice = new ElderlyBuilder().withName("Alice").build();
         Elderly bob = new ElderlyBuilder().withName("Bob").build();

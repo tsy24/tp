@@ -2,6 +2,7 @@ package nurseybook.model;
 
 import java.nio.file.Path;
 import java.time.LocalDate;
+import java.util.Set;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -77,7 +78,11 @@ public interface Model {
      */
     void markTaskAsDone(Task target);
 
-    boolean isElderlyPresent(Name name);
+    /**
+     * Returns true if all the names in {@code names} are of some
+     * elderly present currently in NurseyBook.
+     */
+    boolean areAllElderliesPresent(Set<Name> names);
 
     void updateElderlyNameInTasks(Elderly target, Elderly editedElderly);
 

@@ -2,6 +2,7 @@ package nurseybook.testutil;
 
 import java.nio.file.Path;
 import java.time.LocalDate;
+import java.util.Set;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -105,11 +106,6 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public boolean isElderlyPresent(Name name) {
-        return false;
-    }
-
-    @Override
     public void updateElderlyNameInTasks(Elderly target, Elderly editedElderly) {
         throw new AssertionError("This method should not be called.");
     }
@@ -126,6 +122,12 @@ public class ModelStub implements Model {
 
     @Override
     public void markTaskAsDone(Task target) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+
+    @Override
+    public boolean areAllElderliesPresent(Set<Name> names) {
         throw new AssertionError("This method should not be called.");
     }
 
