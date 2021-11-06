@@ -2,6 +2,7 @@ package nurseybook.testutil;
 
 import java.nio.file.Path;
 import java.time.LocalDate;
+import java.util.Set;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -105,11 +106,6 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public boolean isElderlyPresent(Name name) {
-        return false;
-    }
-
-    @Override
     public void updateElderlyNameInTasks(Elderly target, Elderly editedElderly) {
         throw new AssertionError("This method should not be called.");
     }
@@ -129,13 +125,9 @@ public class ModelStub implements Model {
         throw new AssertionError("This method should not be called.");
     }
 
-    @Override
-    public void markTaskAsOverdue(Task target) {
-        throw new AssertionError("This method should not be called.");
-    }
 
     @Override
-    public void markTaskAsNotOverdue(Task target) {
+    public boolean areAllElderliesPresent(Set<Name> names) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -160,8 +152,8 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void updateOverdueTaskList() {
-        throw new ArithmeticException("This method should not be called.");
+    public void updateTasksAccordingToTime() {
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
@@ -199,13 +191,4 @@ public class ModelStub implements Model {
         throw new AssertionError("This method should not be called.");
     }
 
-    @Override
-    public void updateNotOverdueTaskList() {
-        throw new ArithmeticException("This method should not be called.");
-    }
-
-    @Override
-    public void updateDateRecurringTaskList() {
-        throw new ArithmeticException("This method should not be called.");
-    }
 }

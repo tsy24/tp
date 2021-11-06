@@ -67,6 +67,7 @@ public class DeleteNokCommandTest {
                 MESSAGE_DELETE_ELDERLY_NOK_SUCCESS, nokDeletedElderly);
 
         Model expectedModel = new ModelManager(model.getVersionedNurseyBook(), new UserPrefs());
+        CommandTestUtil.showElderlyAtIndex(expectedModel, INDEX_FIRST);
         expectedModel.setElderly(elderlyToDeleteNokFrom, nokDeletedElderly);
         expectedModel.commitNurseyBook(new CommandResult(expectedMessage));
 

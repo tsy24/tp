@@ -44,13 +44,13 @@ public class ElderlyTest {
                 .withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSameElderly(editedAlice));
 
+        // name differs in case, all other attributes same -> returns true
+        Elderly editedBob = new ElderlyBuilder(BOB).withName(VALID_NAME_BOB.toLowerCase()).build();
+        assertTrue(BOB.isSameElderly(editedBob));
+
         // different name, all other attributes same -> returns false
         editedAlice = new ElderlyBuilder(ALICE).withName(VALID_NAME_BOB).build();
         assertFalse(ALICE.isSameElderly(editedAlice));
-
-        // name differs in case, all other attributes same -> returns false
-        Elderly editedBob = new ElderlyBuilder(BOB).withName(VALID_NAME_BOB.toLowerCase()).build();
-        assertFalse(BOB.isSameElderly(editedBob));
 
         // name has trailing spaces, all other attributes same -> returns false
         String nameWithTrailingSpaces = VALID_NAME_BOB + " ";

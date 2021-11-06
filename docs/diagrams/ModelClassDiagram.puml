@@ -5,49 +5,50 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 Package Model <<Rectangle>>{
-Interface ReadOnlyAddressBook <<Interface>>
+Interface ReadOnlyNurseyBook <<Interface>>
 Interface ReadOnlyUserPrefs <<Interface>>
 Interface Model <<Interface>>
-Class AddressBook
-Class ReadOnlyAddressBook
+Class NurseyBook
+Class VersionedNurseyBook
+Class NurseyBookState
+Class ReadOnlyNurseyBook
 Class Model
 Class ModelManager
 Class UserPrefs
 Class ReadOnlyUserPrefs
 
 Class UniqueElderlyList
-Class Person
 Class Elderly
-Class Nok
 
-Class TaskList
+Class UniqueTaskList
 Class Task
 }
 
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
-AddressBook .up.|> ReadOnlyAddressBook
+NurseyBook .up..|> ReadOnlyNurseyBook
 
-ModelManager .up.|> Model
-Model .right.> ReadOnlyUserPrefs
-Model .left.> ReadOnlyAddressBook
-ModelManager -left-> "1" AddressBook
+ModelManager .up..|> Model
+Model .right..> ReadOnlyUserPrefs
+Model .left..> ReadOnlyNurseyBook
+ModelManager -left-> "1" VersionedNurseyBook
 ModelManager -right-> "1" UserPrefs
-UserPrefs .up.|> ReadOnlyUserPrefs
+UserPrefs .up..|> ReadOnlyUserPrefs
+VersionedNurseyBook -left|> NurseyBook
+VersionedNurseyBook -up> "*" NurseyBookState
+NurseyBookState -down-> "1" NurseyBook
 
-AddressBook *--> "1" UniqueElderlyList
+NurseyBook *--> "1" UniqueElderlyList
 UniqueElderlyList --> "~* all" Elderly
-Elderly -up-|> Person
-Nok -up-|> Person
+NurseyBook *-> "1" UniqueTaskList
+UniqueTaskList -> "~* all" Task
 
-AddressBook *-> "1" TaskList
-TaskList -> "~* all" Task
-
-'Phone -[hidden]right-> Address
-'Address -[hidden]left-> Email
+'Phone -[hidden]right-> Nursey
+'Nursey -[hidden]left-> Email
 'Relationship -[hidden]right-> Phone
 
 ModelManager -->"~* filtered" Elderly
-ModelManager --->"~* filtered" Task
+ModelManager -->"~* filtered" Task
+ModelManager --> "0...1 of interest" Elderly
 @enduml

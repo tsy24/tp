@@ -2,7 +2,6 @@ package nurseybook.logic.commands;
 
 import static nurseybook.commons.util.CollectionUtil.requireAllNonNull;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_TAG;
-import static nurseybook.model.Model.PREDICATE_SHOW_ALL_ELDERLIES;
 
 import java.util.HashSet;
 import java.util.List;
@@ -65,7 +64,6 @@ public class DeleteTagCommand extends Command {
                 elderlyToDeleteTag.getRemark(), updatedTags);
 
         model.setElderly(elderlyToDeleteTag, updatedElderly);
-        model.updateFilteredElderlyList(PREDICATE_SHOW_ALL_ELDERLIES);
 
         CommandResult result = new CommandResult(String.format(MESSAGE_DELETE_TAG_SUCCESS, updatedElderly));
         model.commitNurseyBook(result);

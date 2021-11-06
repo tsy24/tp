@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import nurseybook.model.person.Name;
+import nurseybook.model.task.Recurrence.RecurrenceType;
 
 /**
  * Represents a Real Task in NurseyBook.
@@ -43,10 +44,8 @@ public class RealTask extends Task {
      */
     @Override
     public RealTask markAsDone() {
-        String overdueStatus = Boolean.toString(isTaskOverdue());
-
         return new RealTask(this.getDesc(),
-                this.getDateTime(), super.getRelatedNames(), new Status("true", overdueStatus), super.getRecurrence());
+                this.getDateTime(), super.getRelatedNames(), new Status(true, isTaskOverdue()), super.getRecurrence());
     }
 
     /**
@@ -56,10 +55,8 @@ public class RealTask extends Task {
      */
     @Override
     public RealTask markAsOverdue() {
-        String completedStatus = Boolean.toString(isTaskDone());
-
         return new RealTask(this.getDesc(), this.getDateTime(),
-                super.getRelatedNames(), new Status(completedStatus, "true"), super.getRecurrence());
+                super.getRelatedNames(), new Status(isTaskDone(), true), super.getRecurrence());
     }
 
 
@@ -70,10 +67,9 @@ public class RealTask extends Task {
      */
     @Override
     public RealTask markAsNotOverdue() {
-        String completedStatus = Boolean.toString(isTaskDone());
 
         return new RealTask(this.getDesc(), this.getDateTime(),
-                super.getRelatedNames(), new Status(completedStatus, "false"), super.getRecurrence());
+                super.getRelatedNames(), new Status(isTaskDone(), false), super.getRecurrence());
     }
 
     /**
@@ -86,7 +82,7 @@ public class RealTask extends Task {
         LocalDateTime currentDateTime = LocalDateTime.now();
 
         if (getRecurrence().isRecurring()) {
-            Recurrence.RecurrenceType recurrenceType = getRecurrence().getRecurrenceType();
+            RecurrenceType recurrenceType = this.getRecurrenceType();
             assert(recurrenceType != Recurrence.RecurrenceType.NONE);
 
             DateTime dateTime = changeTaskDate(currentDateTime, recurrenceType);
@@ -98,7 +94,7 @@ public class RealTask extends Task {
     }
 
     /**
-     * Copies the task and returns it.
+     * Copies the task and all it's fields and returns a new instance of it.
      *
      * @return A copy of the current task.
      */

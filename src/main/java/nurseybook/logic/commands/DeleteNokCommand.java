@@ -1,7 +1,6 @@
 package nurseybook.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static nurseybook.model.Model.PREDICATE_SHOW_ALL_ELDERLIES;
 
 import java.util.List;
 
@@ -51,7 +50,6 @@ public class DeleteNokCommand extends Command {
                 elderlyToDeleteNokFrom.getRemark(), elderlyToDeleteNokFrom.getTags());
 
         model.setElderly(elderlyToDeleteNokFrom, updatedElderly);
-        model.updateFilteredElderlyList(PREDICATE_SHOW_ALL_ELDERLIES);
         CommandResult result = new CommandResult(String.format(MESSAGE_DELETE_ELDERLY_NOK_SUCCESS, updatedElderly));
         model.commitNurseyBook(result);
         return result;

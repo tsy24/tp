@@ -14,13 +14,18 @@ import static nurseybook.logic.commands.CommandTestUtil.assertCommandFailure;
 import static nurseybook.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static nurseybook.logic.commands.CommandTestUtil.showElderlyAtIndex;
 import static nurseybook.logic.commands.EditCommand.MESSAGE_EDIT_ELDERLY_SUCCESS;
-import static nurseybook.logic.commands.TaskCommandTestUtil.showTaskAtIndex;
+import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_DATE_JAN;
+import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_DESC_COVID;
+import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_NAME_ALICE;
+import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_TIME_SEVENPM;
+import static nurseybook.testutil.TypicalElderlies.getTypicalElderlyBuilders;
 import static nurseybook.testutil.TypicalElderlies.getTypicalNurseyBook;
 import static nurseybook.testutil.TypicalIndexes.INDEX_FIRST;
 import static nurseybook.testutil.TypicalIndexes.INDEX_SECOND;
-import static nurseybook.testutil.TypicalTasks.ALICE_INSULIN;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
@@ -31,9 +36,11 @@ import nurseybook.model.ModelManager;
 import nurseybook.model.NurseyBook;
 import nurseybook.model.UserPrefs;
 import nurseybook.model.person.Elderly;
+import nurseybook.model.task.Recurrence;
 import nurseybook.model.task.Task;
 import nurseybook.testutil.EditElderlyDescriptorBuilder;
 import nurseybook.testutil.ElderlyBuilder;
+import nurseybook.testutil.TaskBuilder;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for EditCommand.
@@ -41,9 +48,14 @@ import nurseybook.testutil.ElderlyBuilder;
 public class EditCommandTest {
 
     private Model model = new ModelManager(getTypicalNurseyBook(), new UserPrefs());
+    //this can only be used for invalid tests as any modifications to the static final tasks/elderlies would affect
+    //other tests
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
+        NurseyBook nb = new NurseyBook();
+        nb.setElderlies(getTypicalElderlyBuilders().stream().map(s -> s.build()).collect(Collectors.toList()));
+        Model model = new ModelManager(nb, new UserPrefs());
         Elderly editedElderly = new ElderlyBuilder().build();
         EditCommand.EditElderlyDescriptor descriptor = new EditElderlyDescriptorBuilder(editedElderly).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST, descriptor);
@@ -59,6 +71,10 @@ public class EditCommandTest {
 
     @Test
     public void execute_someFieldsSpecifiedUnfilteredList_success() {
+        NurseyBook nb = new NurseyBook();
+        nb.setElderlies(getTypicalElderlyBuilders().stream().map(s -> s.build()).collect(Collectors.toList()));
+        Model model = new ModelManager(nb, new UserPrefs());
+
         Index indexLastElderly = Index.fromOneBased(model.getFilteredElderlyList().size());
         Elderly lastElderly = model.getFilteredElderlyList().get(indexLastElderly.getZeroBased());
 
@@ -82,6 +98,10 @@ public class EditCommandTest {
 
     @Test
     public void execute_filteredList_success() {
+        NurseyBook nb = new NurseyBook();
+        nb.setElderlies(getTypicalElderlyBuilders().stream().map(s -> s.build()).collect(Collectors.toList()));
+        Model model = new ModelManager(nb, new UserPrefs());
+
         showElderlyAtIndex(model, INDEX_FIRST);
 
         Elderly elderlyInFilteredList = model.getFilteredElderlyList().get(INDEX_FIRST.getZeroBased());
@@ -91,6 +111,26 @@ public class EditCommandTest {
         String expectedMessage = String.format(MESSAGE_EDIT_ELDERLY_SUCCESS, editedElderly);
 
         Model expectedModel = new ModelManager(new NurseyBook(model.getVersionedNurseyBook()), new UserPrefs());
+        showElderlyAtIndex(expectedModel, INDEX_FIRST);
+        expectedModel.setElderly(expectedModel.getFilteredElderlyList().get(INDEX_FIRST.getZeroBased()), editedElderly);
+        expectedModel.commitNurseyBook(new CommandResult(expectedMessage));
+
+        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_editElderlyNameCaseChange_success() {
+        showElderlyAtIndex(model, INDEX_FIRST);
+
+        Elderly elderlyInFilteredList = model.getFilteredElderlyList().get(INDEX_FIRST.getZeroBased());
+        Elderly editedElderly = new ElderlyBuilder(elderlyInFilteredList)
+                .withName(VALID_NAME_ALICE.toLowerCase()).build();
+        EditCommand editCommand = new EditCommand(INDEX_FIRST,
+                new EditElderlyDescriptorBuilder().withName(VALID_NAME_ALICE.toLowerCase()).build());
+        String expectedMessage = String.format(MESSAGE_EDIT_ELDERLY_SUCCESS, editedElderly);
+
+        Model expectedModel = new ModelManager(new NurseyBook(model.getVersionedNurseyBook()), new UserPrefs());
+        showElderlyAtIndex(expectedModel, INDEX_FIRST);
         expectedModel.setElderly(model.getFilteredElderlyList().get(INDEX_FIRST.getZeroBased()), editedElderly);
         expectedModel.commitNurseyBook(new CommandResult(expectedMessage));
 
@@ -99,23 +139,37 @@ public class EditCommandTest {
 
     @Test
     public void execute_editAllInstancesOfElderlyWithNameInTasks_success() throws CommandException {
-        showElderlyAtIndex(model, INDEX_FIRST);
-        model.addTask(ALICE_INSULIN);
-        Elderly elderlyInFilteredList = model.getFilteredElderlyList().get(INDEX_FIRST.getZeroBased());
-        Elderly editedElderly = new ElderlyBuilder(elderlyInFilteredList).withName("Alex Yeoh").build();
+        NurseyBook nb = new NurseyBook();
+        nb.setElderlies(getTypicalElderlyBuilders().stream().map(s -> s.build()).collect(Collectors.toList()));
+        Model model = new ModelManager(nb, new UserPrefs());
+        // there is some issue with state when using the static final task when running all the tests
+        // together, so just leave the taskbuilder here- otherwise the test fails
+        Task t = new TaskBuilder().withDesc(VALID_DESC_COVID)
+                .withDateTime(VALID_DATE_JAN, VALID_TIME_SEVENPM).withNames(VALID_NAME_ALICE)
+                .withRecurrence(Recurrence.RecurrenceType.NONE.name()).build();
+        model.addTask(t);
+        Elderly editedElderly = new ElderlyBuilder(nb.getElderlyList().get(INDEX_FIRST.getZeroBased()))
+                .withName("Alex Yeoh").build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST, new EditElderlyDescriptorBuilder(editedElderly).build());
         editCommand.execute(model);
 
-        showTaskAtIndex(model, INDEX_FIRST);
         Task taskInFilteredList = model.getFilteredTaskList().get(INDEX_FIRST.getZeroBased());
         assertTrue(taskInFilteredList.getRelatedNames().contains(editedElderly.getName()));
     }
 
     @Test
     public void execute_duplicateElderlyUnfilteredList_failure() {
+        //name case all the same
         Elderly firstElderly = model.getFilteredElderlyList().get(INDEX_FIRST.getZeroBased());
         EditCommand.EditElderlyDescriptor descriptor = new EditElderlyDescriptorBuilder(firstElderly).build();
         EditCommand editCommand = new EditCommand(INDEX_SECOND, descriptor);
+
+        assertCommandFailure(editCommand, model, MESSAGE_DUPLICATE_ELDERLY);
+
+        //name case different
+        descriptor = new EditElderlyDescriptorBuilder(firstElderly)
+                .withName("alIcE pauline").build(); //first elderly is Alice Pauline
+        editCommand = new EditCommand(INDEX_SECOND, descriptor);
 
         assertCommandFailure(editCommand, model, MESSAGE_DUPLICATE_ELDERLY);
     }
@@ -126,6 +180,11 @@ public class EditCommandTest {
         Elderly elderlyInList = model.getFilteredElderlyList().get(INDEX_SECOND.getZeroBased());
         EditCommand editCommand = new EditCommand(INDEX_FIRST,
                 new EditElderlyDescriptorBuilder(elderlyInList).build());
+        assertCommandFailure(editCommand, model, MESSAGE_DUPLICATE_ELDERLY);
+
+        // still editing into duplicate but name casing is different
+        editCommand = new EditCommand(INDEX_FIRST,
+                new EditElderlyDescriptorBuilder(elderlyInList).withName("benson meier").build());
         assertCommandFailure(editCommand, model, MESSAGE_DUPLICATE_ELDERLY);
     }
 

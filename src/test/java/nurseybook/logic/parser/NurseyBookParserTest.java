@@ -6,6 +6,7 @@ import static nurseybook.logic.commands.CommandTestUtil.SET_ONE_TAG;
 import static nurseybook.logic.commands.CommandTestUtil.TAG_DESC_DIABETES;
 import static nurseybook.testutil.Assert.assertThrows;
 import static nurseybook.testutil.ElderlyUtil.getEditElderlyDescriptorDetails;
+import static nurseybook.testutil.TaskUtil.getEditTaskDescriptorDetails;
 import static nurseybook.testutil.TypicalIndexes.INDEX_FIRST;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -27,6 +28,7 @@ import nurseybook.logic.commands.DeleteTagCommand;
 import nurseybook.logic.commands.DeleteTaskCommand;
 import nurseybook.logic.commands.DoneTaskCommand;
 import nurseybook.logic.commands.EditCommand;
+import nurseybook.logic.commands.EditTaskCommand;
 import nurseybook.logic.commands.ExitCommand;
 import nurseybook.logic.commands.FilterCommand;
 import nurseybook.logic.commands.FindElderlyCommand;
@@ -49,6 +51,7 @@ import nurseybook.model.task.DateTimeContainsDatePredicate;
 import nurseybook.model.task.DescriptionContainsKeywordPredicate;
 import nurseybook.model.task.Task;
 import nurseybook.testutil.EditElderlyDescriptorBuilder;
+import nurseybook.testutil.EditTaskDescriptorBuilder;
 import nurseybook.testutil.ElderlyBuilder;
 import nurseybook.testutil.ElderlyUtil;
 import nurseybook.testutil.TaskBuilder;
@@ -106,6 +109,16 @@ public class NurseyBookParserTest {
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
                 + INDEX_FIRST.getOneBased() + " " + getEditElderlyDescriptorDetails(descriptor));
         assertEquals(new EditCommand(INDEX_FIRST, descriptor), command);
+    }
+
+    @Test
+    public void parseCommand_editTask() throws Exception {
+        Task task = new TaskBuilder().build();
+        EditTaskCommand.EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder(task).build();
+        EditTaskCommand command = (EditTaskCommand) parser.parseCommand(EditTaskCommand.COMMAND_WORD + " "
+                + INDEX_FIRST.getOneBased() + " " + getEditTaskDescriptorDetails(descriptor));
+        EditTaskCommand test = new EditTaskCommand(INDEX_FIRST, descriptor);
+        assertEquals(command, test);
     }
 
     @Test
@@ -200,9 +213,15 @@ public class NurseyBookParserTest {
 
     @Test
     public void parseCommand_viewSchedule() throws Exception {
+        LocalDate todayDate = LocalDate.now();
+        String todayDateString = todayDate.toString();
+
+        //check that regex of todayDateString is in the form of yyyy-mm-dd
+        assert todayDateString.matches("^\\d{4}\\-(0[1-9]|1[012])\\-(0[1-9]|[12][0-9]|3[01])$");
+
         ViewScheduleCommand viewScheduleCommand = (ViewScheduleCommand) parser.parseCommand(
-                ViewScheduleCommand.COMMAND_WORD + " " + "2021-11-02");
-        LocalDate keyDate = LocalDate.parse("2021-11-02");
+                ViewScheduleCommand.COMMAND_WORD + " " + todayDateString);
+        LocalDate keyDate = LocalDate.parse(todayDateString);
         assertEquals(new ViewScheduleCommand(new DateTimeContainsDatePredicate(keyDate), keyDate), viewScheduleCommand);
     }
 

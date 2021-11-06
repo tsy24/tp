@@ -8,8 +8,6 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import nurseybook.model.NurseyBook;
-import nurseybook.model.person.Elderly;
 import nurseybook.model.person.Name;
 import nurseybook.model.task.Recurrence.RecurrenceType;
 
@@ -187,12 +185,30 @@ public abstract class Task implements Comparable<Task> {
     }
 
     /**
-     * Returns the recurrence type of this task.
+     * Returns the recurrence of this task.
      *
      * @return The task's recurrence type
      */
     public Recurrence getRecurrence() {
         return recurrence;
+    }
+
+    /**
+     * Returns the recurrence type of this task.
+     *
+     * @return task recurrence type
+     */
+    public RecurrenceType getRecurrenceType() {
+        return recurrence.getRecurrenceType();
+    }
+
+    /**
+     * Returns the number of days between each recurrence of a task.
+     *
+     * @return Number of days between each recurrence of task.
+     */
+    public int getRecurrenceIntervalInDays() {
+        return recurrence.getRecurrenceIntervalInDays();
     }
 
     /**
@@ -214,7 +230,7 @@ public abstract class Task implements Comparable<Task> {
     }
 
     /**
-     * Copies the task and returns it.
+     * Copies the task and all it's fields and returns a new instance of it.
      *
      * @return A copy of the current task.
      */
@@ -248,31 +264,25 @@ public abstract class Task implements Comparable<Task> {
     }
 
     /**
-     * Returns true if task is overdue
+     * Returns true if task is marked overdue
      */
     public boolean isTaskOverdue() {
         return status.isOverdue;
     }
 
     /**
+     * Returns true if task should be marked overdue
+     */
+    public boolean shouldTaskBeOverdue() {
+        return DateTime.isOverdue(this.dateTime);
+    }
+
+
+    /**
      * Returns true if task is recurring and overdue
      */
     public boolean isTaskRecurringAndOverdue() {
         return getRecurrence().isRecurring() && DateTime.isOverdue(getDateTime());
-    }
-
-    /**
-     * Returns set of elderly objects related to this task.
-     *
-     * @param book                      nursey book that stores this task
-     * @return                          task description
-     */
-    public Set<Elderly> getRelatedPeople(NurseyBook book) {
-        Set<Elderly> relatedPeople = new HashSet<>();
-        for (Name name: relatedNames) {
-            relatedPeople.add(book.getElderly(name));
-        }
-        return relatedPeople;
     }
 
     /**
@@ -336,9 +346,7 @@ public abstract class Task implements Comparable<Task> {
                 .append(getDateTime());
         if (!relatedNames.isEmpty()) {
             builder.append("; People: ");
-            relatedNames.forEach(name -> {
-                builder.append(name + " ");
-            });
+            relatedNames.forEach(name -> builder.append(name + " "));
         }
         return builder.toString();
     }

@@ -25,7 +25,7 @@ public class ViewScheduleCommand extends Command {
             + "Parameters: "
             + String.join(" ", PARAMETERS)
             + "\nExample: " + COMMAND_WORD + " "
-            + "2021-10-10";
+            + "2021-11-20";
 
     private final DateTimeContainsDatePredicate predicate;
     private final LocalDate keyDate;
@@ -47,7 +47,8 @@ public class ViewScheduleCommand extends Command {
 
         model.addPossibleGhostTasksWithMatchingDate(keyDate);
 
-        model.updateFilteredTaskList(predicate); // to change
+        model.updateTasksAccordingToTime();
+        model.updateFilteredTaskList(predicate);
         return new CommandResult(String.format(Messages.MESSAGE_TASKS_ON_DATE, model.getFilteredTaskList().size()),
                 CommandResult.ListDisplayChange.TASK);
     }
@@ -58,4 +59,5 @@ public class ViewScheduleCommand extends Command {
                 || (other instanceof ViewScheduleCommand // instanceof handles nulls
                 && predicate.equals(((ViewScheduleCommand) other).predicate)); // state check
     }
+
 }

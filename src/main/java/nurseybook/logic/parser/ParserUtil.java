@@ -131,10 +131,11 @@ public class ParserUtil {
     public static Age parseAge(String age) throws ParseException {
         requireNonNull(age);
         String trimmedAge = age.trim();
-        if (!Age.isValidAge(trimmedAge)) {
+        String trimmedZeroAge = trimmedAge.replaceFirst("^0+(?!$)", "");
+        if (!Age.isValidAge(trimmedZeroAge)) {
             throw new ParseException(Age.MESSAGE_CONSTRAINTS);
         }
-        return new Age(trimmedAge);
+        return new Age(trimmedZeroAge);
     }
 
     /**
@@ -161,10 +162,11 @@ public class ParserUtil {
     public static RoomNumber parseRoomNumber(String roomNumber) throws ParseException {
         requireNonNull(roomNumber);
         String trimmedRoomNumber = roomNumber.trim();
-        if (!RoomNumber.isValidRoomNumber(trimmedRoomNumber)) {
+        String trimmedZeroRoomNumber = trimmedRoomNumber.replaceFirst("^0+(?!$)", "");
+        if (!RoomNumber.isValidRoomNumber(trimmedZeroRoomNumber)) {
             throw new ParseException(RoomNumber.MESSAGE_CONSTRAINTS);
         }
-        return new RoomNumber(trimmedRoomNumber);
+        return new RoomNumber(trimmedZeroRoomNumber);
     }
 
     /**
@@ -192,6 +194,7 @@ public class ParserUtil {
         requireNonNull(nursey);
         String trimmedAddress = nursey.trim();
         if (!Address.isValidAddress(trimmedAddress)) {
+            // Should never get called
             throw new ParseException(Address.MESSAGE_CONSTRAINTS);
         }
         return new Address(trimmedAddress);

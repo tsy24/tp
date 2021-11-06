@@ -14,11 +14,12 @@ import static nurseybook.testutil.TypicalTasks.APPLY_LEAVE;
 import static nurseybook.testutil.TypicalTasks.APPLY_LEAVE_DAY_NEXT_RECURRENCE_GHOST;
 import static nurseybook.testutil.TypicalTasks.APPLY_LEAVE_LATE_TIME;
 import static nurseybook.testutil.TypicalTasks.APPLY_LEAVE_MONTH_RECURRENCE;
+import static nurseybook.testutil.TypicalTasks.APPLY_LEAVE_NEXT_DAY;
 import static nurseybook.testutil.TypicalTasks.APPLY_LEAVE_WEEK_RECURRENCE;
 import static nurseybook.testutil.TypicalTasks.DO_PAPERWORK;
+import static nurseybook.testutil.TypicalTasks.FIONA_PHYSIO;
 import static nurseybook.testutil.TypicalTasks.GEORGE_INSULIN;
 import static nurseybook.testutil.TypicalTasks.KG_SC_VACCINE;
-import static nurseybook.testutil.TypicalTasks.YASMINE_PHYSIO;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -47,40 +48,40 @@ public class TaskTest {
     @Test
     public void isSameTask() {
         // same object -> returns true
-        assertTrue(YASMINE_PHYSIO.isSameTask(YASMINE_PHYSIO));
+        assertTrue(FIONA_PHYSIO.isSameTask(FIONA_PHYSIO));
 
         // null -> returns false
-        assertFalse(YASMINE_PHYSIO.isSameTask(null));
+        assertFalse(FIONA_PHYSIO.isSameTask(null));
 
         // same description, date and time, all other attributes different -> returns true
-        Task editedPhysio = new TaskBuilder(YASMINE_PHYSIO).withStatus("false", "false")
+        Task editedPhysio = new TaskBuilder(FIONA_PHYSIO).withStatus("false", "false")
                 .withRecurrence(Recurrence.RecurrenceType.WEEK.name()).build();
-        assertTrue(YASMINE_PHYSIO.isSameTask(editedPhysio));
+        assertTrue(FIONA_PHYSIO.isSameTask(editedPhysio));
 
         // same description, all other attributes different -> returns false
-        editedPhysio = new TaskBuilder(YASMINE_PHYSIO)
+        editedPhysio = new TaskBuilder(FIONA_PHYSIO)
                 .withDate(VALID_DATE_JAN)
                 .withTime(VALID_TIME_TENAM).withStatus("false", "false")
                 .withRecurrence(Recurrence.RecurrenceType.WEEK.name()).build();
 
-        assertFalse(YASMINE_PHYSIO.isSameTask(editedPhysio));
+        assertFalse(FIONA_PHYSIO.isSameTask(editedPhysio));
 
         // same date, all other attributes different -> returns false
-        editedPhysio = new TaskBuilder(YASMINE_PHYSIO).withDesc("Physiotherapy with yoga ball")
+        editedPhysio = new TaskBuilder(FIONA_PHYSIO).withDesc("Physiotherapy with yoga ball")
                 .withTime(VALID_TIME_TENAM).withStatus("false", "false")
                 .withRecurrence(Recurrence.RecurrenceType.WEEK.name()).build();
-        assertFalse(YASMINE_PHYSIO.isSameTask(editedPhysio));
+        assertFalse(FIONA_PHYSIO.isSameTask(editedPhysio));
 
         // same time, all other attributes different -> returns false
-        editedPhysio = new TaskBuilder(YASMINE_PHYSIO).withDesc("Physiotherapy with yoga ball")
+        editedPhysio = new TaskBuilder(FIONA_PHYSIO).withDesc("Physiotherapy with yoga ball")
                 .withDate(VALID_DATE_JAN).withStatus("false", "false")
                 .withRecurrence(Recurrence.RecurrenceType.WEEK.name()).build();
-        assertFalse(YASMINE_PHYSIO.isSameTask(editedPhysio));
+        assertFalse(FIONA_PHYSIO.isSameTask(editedPhysio));
 
         // different description, date and time, all other attributes same -> returns false
-        editedPhysio = new TaskBuilder(YASMINE_PHYSIO).withDesc(VALID_DESC_MEDICINE).withDate(VALID_DATE_JAN)
+        editedPhysio = new TaskBuilder(FIONA_PHYSIO).withDesc(VALID_DESC_MEDICINE).withDate(VALID_DATE_JAN)
                 .withTime(VALID_TIME_TENAM).build();
-        assertFalse(YASMINE_PHYSIO.isSameTask(editedPhysio));
+        assertFalse(FIONA_PHYSIO.isSameTask(editedPhysio));
 
         // description differs in case, all other attributes same -> returns false
         Task editedVaccine = new TaskBuilder(KG_SC_VACCINE).withDesc(VALID_DESC_VACCINE.toLowerCase()).build();
@@ -204,7 +205,7 @@ public class TaskTest {
     }
 
     @Test
-    void checkIfTaskRecurring() {
+    void isTaskRecurring() {
         //recurring task
         Assertions.assertTrue(APPLY_LEAVE.isTaskRecurring());
 
@@ -213,7 +214,7 @@ public class TaskTest {
     }
 
     @Test
-    void checkIfRealTask() {
+    void isRealTask() {
         //real task
         assertTrue(georgeInsulin.isRealTask());
 
@@ -222,7 +223,7 @@ public class TaskTest {
     }
 
     @Test
-    void checkIfTaskFallsOnDate() {
+    void doesTaskFallOnDate() {
         //task falls on date
         LocalDate sameDate = LocalDate.parse("2020-11-01");
         assertTrue(georgeInsulin.doesTaskFallOnDate(sameDate));
@@ -230,6 +231,21 @@ public class TaskTest {
         //task does not fall on date
         LocalDate differentDate = LocalDate.parse("2020-11-02");
         assertFalse(georgeInsulin.doesTaskFallOnDate(differentDate));
+    }
+
+    @Test
+    public void getRecurrenceIntervalInDays() {
+        //daily recurrence
+        assertEquals(APPLY_LEAVE_NEXT_DAY.getRecurrenceIntervalInDays(), 1);
+
+        //weekly recurrence
+        assertEquals(APPLY_LEAVE_WEEK_RECURRENCE.getRecurrenceIntervalInDays(), 7);
+
+        //monthly recurrence
+        assertEquals(APPLY_LEAVE_MONTH_RECURRENCE.getRecurrenceIntervalInDays(), 28);
+
+        //no recurrence
+        assertEquals(georgeInsulin.getRecurrenceIntervalInDays(), 0);
     }
 
     @Test

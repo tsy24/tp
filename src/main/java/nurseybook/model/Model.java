@@ -2,6 +2,7 @@ package nurseybook.model;
 
 import java.nio.file.Path;
 import java.time.LocalDate;
+import java.util.Set;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -78,26 +79,16 @@ public interface Model {
     void markTaskAsDone(Task target);
 
     /**
-     * Marks the given task {@code target} as overdue.
-     * {@code target} must exist in the nursey book.
+     * Returns true if all the names in {@code names} are of some
+     * elderly present currently in NurseyBook.
      */
-    void markTaskAsOverdue(Task target);
-
-    /**
-     * Marks the given task {@code target} as not overdue.
-     * {@code target} must exist in the nursey book.
-     */
-    void markTaskAsNotOverdue(Task target);
-
-
-    boolean isElderlyPresent(Name name);
+    boolean areAllElderliesPresent(Set<Name> names);
 
     void updateElderlyNameInTasks(Elderly target, Elderly editedElderly);
 
     void deleteElderlyNameInTasks(Elderly elderlyToDelete);
 
     /**
-     *
      * Deletes the given elderly.
      * The elderly must exist in the nursey book.
      */
@@ -164,6 +155,12 @@ public interface Model {
     void updateFilteredTaskList(Predicate<Task> predicate);
 
     /**
+     * Updates all time sensitive data of tasks-
+     * this includes: updating recurring task dates, overdue statuses, ensuring tasklist is sorted chronologically
+     */
+    void updateTasksAccordingToTime();
+
+    /**
      * Deletes the given task.
      * The task must exist in the nursey book.
      */
@@ -195,11 +192,6 @@ public interface Model {
     boolean canRedoNurseyBook();
 
     /**
-     * Updates the overdue status of the tasks in the task list.
-     */
-    void updateOverdueTaskList();
-
-    /**
      * Adds ghost tasks on the specified keyDate, if any of the current recurring tasks' future occurrences
      * coincide with the given keydate.
      *
@@ -207,13 +199,4 @@ public interface Model {
      */
     void addPossibleGhostTasksWithMatchingDate(LocalDate keyDate);
 
-    /**
-     * Updates the not overdue status of the tasks in the task list.
-     */
-    void updateNotOverdueTaskList();
-
-    /**
-     * Updates the not overdue status of the tasks in the task list.
-     */
-    void updateDateRecurringTaskList();
 }

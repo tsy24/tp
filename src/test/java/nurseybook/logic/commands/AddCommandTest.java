@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
@@ -17,6 +18,7 @@ import nurseybook.model.NurseyBook;
 import nurseybook.model.ReadOnlyNurseyBook;
 import nurseybook.model.VersionedNurseyBook;
 import nurseybook.model.person.Elderly;
+import nurseybook.model.task.Task;
 import nurseybook.testutil.ElderlyBuilder;
 import nurseybook.testutil.ModelStub;
 import nurseybook.testutil.NurseyBookBuilder;
@@ -46,6 +48,16 @@ public class AddCommandTest {
         Elderly validElderly = new ElderlyBuilder().build();
         AddCommand addCommand = new AddCommand(validElderly);
         ModelStub modelStub = new ModelStubWithElderly(validElderly);
+
+        assertThrows(CommandException.class, MESSAGE_DUPLICATE_ELDERLY, () -> addCommand.execute(modelStub));
+    }
+
+    @Test
+    public void execute_duplicateElderlyCaseInsensitive_throwsCommandException() {
+        Elderly randomCaseAlice = new ElderlyBuilder().withName("alICe").build();
+        Elderly existingAlice = new ElderlyBuilder().withName("Alice").build();
+        AddCommand addCommand = new AddCommand(randomCaseAlice);
+        ModelStub modelStub = new ModelStubWithElderly(existingAlice);
 
         assertThrows(CommandException.class, MESSAGE_DUPLICATE_ELDERLY, () -> addCommand.execute(modelStub));
     }
@@ -110,6 +122,22 @@ public class AddCommandTest {
             requireNonNull(elderly);
             elderliesAdded.add(elderly);
         }
+
+        @Override
+        public void updateFilteredTaskList(Predicate<Task> predicate) {
+            return; //do nothing
+        }
+
+        @Override
+        public void updateFilteredElderlyList(Predicate<Elderly> predicate) {
+            return; //do nothing
+        }
+
+        @Override
+        public void updateTasksAccordingToTime() {
+            return; //do nothing since only one task added
+        }
+
 
         @Override
         public void commitNurseyBook(CommandResult commandResult) {

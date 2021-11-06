@@ -14,7 +14,7 @@ public class UndoCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Undo command: ";
 
-    public static final String MESSAGE_FAILURE = "There are no changes to the data of Nursey Book that can be undone";
+    public static final String MESSAGE_FAILURE = "There are no changes to the data of NurseyBook that can be undone";
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
@@ -24,7 +24,7 @@ public class UndoCommand extends Command {
         }
 
         CommandResult lastCommandResult = model.undoNurseyBook();
-        model.updateFilteredTaskList(Model.PREDICATE_SHOW_ALL_TASKS);
+        model.updateTasksAccordingToTime();
         return new CommandResult(MESSAGE_SUCCESS + lastCommandResult.getFeedbackToUser(),
                 lastCommandResult.getDisplayChange());
     }

@@ -10,7 +10,6 @@ import static nurseybook.logic.parser.CliSyntax.PREFIX_TASK_DATE;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_TASK_DESC;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_TASK_RECURRING;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_TASK_TIME;
-import static nurseybook.model.Model.PREDICATE_SHOW_ALL_TASKS;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -48,9 +47,9 @@ public class EditTaskCommand extends Command {
             + "Parameters: "
             + String.join(" ", PARAMETERS)
             + "\nExample: " + COMMAND_WORD + " 1 "
-            + PREFIX_NAME + "Khong Guan "
-            + PREFIX_NAME + "John Doe "
-            + PREFIX_TASK_RECURRING + "WEEK";
+            + PREFIX_NAME + "Charlotte Oliveiro "
+            + PREFIX_NAME + "David Li "
+            + PREFIX_TASK_RECURRING + "week";
 
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited Task: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -86,7 +85,7 @@ public class EditTaskCommand extends Command {
             throw new CommandException(MESSAGE_INVALID_TASK_DATETIME_FOR_RECURRING_TASK);
         }
 
-        if (taskToEdit.isSameTask(editedTask)) {
+        if (taskToEdit.equals(editedTask)) {
             throw new CommandException(MESSAGE_NO_CHANGES);
         }
 
@@ -94,21 +93,14 @@ public class EditTaskCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_TASK);
         }
 
-        boolean isElderlyPresent = true;
-        for (Name name : editedTask.getRelatedNames()) {
-            if (!model.isElderlyPresent(name)) {
-                isElderlyPresent = false;
-                break;
-            }
-        }
 
-        if (!isElderlyPresent) {
+        if (!model.areAllElderliesPresent(editedTask.getRelatedNames())) {
             throw new CommandException(MESSAGE_NO_SUCH_ELDERLY);
         }
 
         model.setTask(taskToEdit, editedTask);
-        model.updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
         CommandResult commandResult = new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, editedTask));
+        model.updateTasksAccordingToTime();
         model.commitNurseyBook(commandResult);
         return commandResult;
     }
@@ -260,7 +252,6 @@ public class EditTaskCommand extends Command {
                     && getDescription().equals(e.getDescription())
                     && getDate().equals(e.getDate())
                     && getTime().equals(e.getTime())
-                    && getStatus().equals(e.getStatus())
                     && getRecurrence().equals(e.getRecurrence());
         }
     }
