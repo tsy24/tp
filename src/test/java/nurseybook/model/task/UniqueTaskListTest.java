@@ -112,18 +112,6 @@ public class UniqueTaskListTest {
     }
 
     @Test
-    public void sortsAddedTasks_byDateTime() {
-        uniqueTaskList.add(ALICE_INSULIN); // date: "2022-01-31", time: "19:45"
-        uniqueTaskList.add(DO_PAPERWORK); // date: "2022-01-31", time: "10:20"
-        uniqueTaskList.add(APPLY_LEAVE); // date: "2021-10-01", time: "00:00"
-        UniqueTaskList expectedUniqueTaskList = new UniqueTaskList();
-        expectedUniqueTaskList.add(APPLY_LEAVE);
-        expectedUniqueTaskList.add(DO_PAPERWORK);
-        expectedUniqueTaskList.add(ALICE_INSULIN);
-        assertEquals(expectedUniqueTaskList, uniqueTaskList);
-    }
-
-    @Test
     public void updateDateOfRecurringTask_nullTask_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueTaskList.updateDateOfRecurringTask(null));
     }

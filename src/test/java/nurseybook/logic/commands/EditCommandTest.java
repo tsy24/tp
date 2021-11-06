@@ -14,7 +14,6 @@ import static nurseybook.logic.commands.CommandTestUtil.assertCommandFailure;
 import static nurseybook.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static nurseybook.logic.commands.CommandTestUtil.showElderlyAtIndex;
 import static nurseybook.logic.commands.EditCommand.MESSAGE_EDIT_ELDERLY_SUCCESS;
-import static nurseybook.logic.commands.TaskCommandTestUtil.showTaskAtIndex;
 import static nurseybook.testutil.TypicalElderlies.getTypicalNurseyBook;
 import static nurseybook.testutil.TypicalIndexes.INDEX_FIRST;
 import static nurseybook.testutil.TypicalIndexes.INDEX_SECOND;
@@ -91,7 +90,8 @@ public class EditCommandTest {
         String expectedMessage = String.format(MESSAGE_EDIT_ELDERLY_SUCCESS, editedElderly);
 
         Model expectedModel = new ModelManager(new NurseyBook(model.getVersionedNurseyBook()), new UserPrefs());
-        expectedModel.setElderly(model.getFilteredElderlyList().get(INDEX_FIRST.getZeroBased()), editedElderly);
+        showElderlyAtIndex(expectedModel, INDEX_FIRST);
+        expectedModel.setElderly(expectedModel.getFilteredElderlyList().get(INDEX_FIRST.getZeroBased()), editedElderly);
         expectedModel.commitNurseyBook(new CommandResult(expectedMessage));
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -99,14 +99,13 @@ public class EditCommandTest {
 
     @Test
     public void execute_editAllInstancesOfElderlyWithNameInTasks_success() throws CommandException {
-        showElderlyAtIndex(model, INDEX_FIRST);
+        Model model = new ModelManager(getTypicalNurseyBook(), new UserPrefs());
         model.addTask(ALICE_INSULIN);
         Elderly elderlyInFilteredList = model.getFilteredElderlyList().get(INDEX_FIRST.getZeroBased());
         Elderly editedElderly = new ElderlyBuilder(elderlyInFilteredList).withName("Alex Yeoh").build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST, new EditElderlyDescriptorBuilder(editedElderly).build());
         editCommand.execute(model);
 
-        showTaskAtIndex(model, INDEX_FIRST);
         Task taskInFilteredList = model.getFilteredTaskList().get(INDEX_FIRST.getZeroBased());
         assertTrue(taskInFilteredList.getRelatedNames().contains(editedElderly.getName()));
     }

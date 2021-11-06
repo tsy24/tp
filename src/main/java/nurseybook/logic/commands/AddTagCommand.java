@@ -2,7 +2,6 @@ package nurseybook.logic.commands;
 
 import static nurseybook.commons.util.CollectionUtil.requireAllNonNull;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_TAG;
-import static nurseybook.model.Model.PREDICATE_SHOW_ALL_ELDERLIES;
 
 import java.util.HashSet;
 import java.util.List;

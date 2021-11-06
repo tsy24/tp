@@ -49,6 +49,7 @@ public class EditTaskCommandTest {
 
         Model expectedModel = new ModelManager(new NurseyBook(model.getVersionedNurseyBook()), new UserPrefs());
         expectedModel.setTask(model.getFilteredTaskList().get(0), editedTask);
+        expectedModel.updateTasksAccordingToTime();
         expectedModel.commitNurseyBook(new CommandResult(expectedMessage));
 
         assertCommandSuccess(editTaskCommand, model, expectedMessage, expectedModel);
@@ -71,6 +72,7 @@ public class EditTaskCommandTest {
 
         Model expectedModel = new ModelManager(new NurseyBook(model.getVersionedNurseyBook()), new UserPrefs());
         expectedModel.setTask(lastTask, editedTask);
+        expectedModel.updateTasksAccordingToTime();
         expectedModel.commitNurseyBook(new CommandResult(expectedMessage));
 
         assertCommandSuccess(editTaskCommand, model, expectedMessage, expectedModel);
@@ -87,6 +89,7 @@ public class EditTaskCommandTest {
         String expectedMessage = String.format(MESSAGE_EDIT_TASK_SUCCESS, editedTask);
 
         Model expectedModel = new ModelManager(new NurseyBook(model.getVersionedNurseyBook()), new UserPrefs());
+        showTaskAtIndex(expectedModel, INDEX_FIRST);
         expectedModel.setTask(model.getFilteredTaskList().get(INDEX_FIRST.getZeroBased()), editedTask);
         expectedModel.commitNurseyBook(new CommandResult(expectedMessage));
 
@@ -183,6 +186,7 @@ public class EditTaskCommandTest {
         CommandResult expectedCommandResult = new CommandResult(expectedMessage);
 
         Model expectedModel = new ModelManager(new NurseyBook(model.getVersionedNurseyBook()), new UserPrefs());
+        showTaskAtIndex(expectedModel, INDEX_FIRST);
         expectedModel.setTask(taskInFilteredList, editedTask);
         expectedModel.commitNurseyBook(expectedCommandResult);
 
@@ -206,6 +210,7 @@ public class EditTaskCommandTest {
 
         Model expectedModel = new ModelManager(new NurseyBook(model.getVersionedNurseyBook()), new UserPrefs());
         expectedModel.setTask(secondTaskInFilteredList, editedTask);
+        expectedModel.updateTasksAccordingToTime();
         expectedModel.commitNurseyBook(expectedCommandResult);
 
         assertCommandSuccess(editTaskCommand, model, expectedCommandResult, expectedModel);
@@ -221,6 +226,7 @@ public class EditTaskCommandTest {
         expectedCommandResult = new CommandResult(expectedMessage);
 
         expectedModel.setTask(secondTaskInFilteredList, editedTask);
+        expectedModel.updateTasksAccordingToTime();
         expectedModel.commitNurseyBook(expectedCommandResult);
 
         assertCommandSuccess(editTaskCommand, model, expectedCommandResult, expectedModel);

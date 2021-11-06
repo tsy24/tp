@@ -9,7 +9,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.function.Predicate;
 
+import nurseybook.model.task.Task;
 import org.junit.jupiter.api.Test;
 
 import nurseybook.logic.commands.exceptions.CommandException;
@@ -110,6 +112,22 @@ public class AddCommandTest {
             requireNonNull(elderly);
             elderliesAdded.add(elderly);
         }
+
+        @Override
+        public void updateFilteredTaskList(Predicate<Task> predicate) {
+            return; //do nothing
+        }
+
+        @Override
+        public void updateFilteredElderlyList(Predicate<Elderly> predicate) {
+            return; //do nothing
+        }
+
+        @Override
+        public void updateTasksAccordingToTime() {
+            return; //do nothing since only one task added
+        }
+
 
         @Override
         public void commitNurseyBook(CommandResult commandResult) {

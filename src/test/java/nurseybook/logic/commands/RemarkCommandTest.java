@@ -83,6 +83,7 @@ public class RemarkCommandTest {
         String expectedMessage = String.format(MESSAGE_ADD_REMARK_SUCCESS, editedElderly);
 
         Model expectedModel = new ModelManager(new NurseyBook(model.getVersionedNurseyBook()), new UserPrefs());
+        CommandTestUtil.showElderlyAtIndex(expectedModel, INDEX_FIRST);
         expectedModel.setElderly(firstElderly, editedElderly);
         expectedModel.commitNurseyBook(new CommandResult(expectedMessage));
 
@@ -95,7 +96,7 @@ public class RemarkCommandTest {
         RemarkCommand remarkCommand = new RemarkCommand(outOfBoundIndex, new Remark(VALID_REMARK_BOB));
 
         assertCommandFailure(remarkCommand, model, MESSAGE_INVALID_ELDERLY_DISPLAYED_INDEX);
-    }
+     }
 
     /**
      * Edit filtered list where index is larger than size of filtered list,

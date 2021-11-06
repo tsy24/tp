@@ -12,7 +12,6 @@ import static nurseybook.logic.parser.CliSyntax.PREFIX_PHONE;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_RELATIONSHIP;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_ROOM_NUM;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_TAG;
-import static nurseybook.model.Model.PREDICATE_SHOW_ALL_ELDERLIES;
 
 import java.util.Collections;
 import java.util.HashSet;

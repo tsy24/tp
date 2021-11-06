@@ -265,6 +265,9 @@ public class UniqueTaskList implements Iterable<Task> {
         return internalList.stream().anyMatch(t::isSameTask);
     }
 
+    /**
+     * Updates tasks in list that should be overdue according to the current time.
+     */
     public void updateOverdueStatuses() {
         // modifying list contents within foreach loop not allowed. thus this for loop is used
         int size = internalList.size();
@@ -280,6 +283,9 @@ public class UniqueTaskList implements Iterable<Task> {
         }
     }
 
+    /**
+     * Update the dates of all recurring tasks if their previous date/time has passed.
+     */
     public void updateRecurringDates() {
         int size = internalList.size();
         for (int i = 0; i < size; i++) {
@@ -290,6 +296,9 @@ public class UniqueTaskList implements Iterable<Task> {
         }
     }
 
+    /**
+     * Sorts the task list such that it is in chronological order.
+     */
     public void reorderTasks() {
         internalList.sort(Comparator.naturalOrder());
     }
