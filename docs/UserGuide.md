@@ -39,7 +39,7 @@ NurseyBook is a **desktop app made for nurses in nursing homes to aid them in ma
 
    * **`exit`** : Exits the app.
 
-Refer to the [4. Features](#4. Features) below for details of each command.
+Refer to the [4. Features](#4-features) below for details of each command.
 
 
 --------------------------------------------------------------------------------------------------------------------
@@ -405,7 +405,7 @@ Examples:
 
 :bulb: **Tip:**  
 
-* You can remove a remark by leaving the remark input empty! Eg. `remark 1 re/`
+* You can remove a remark by leaving the remark input empty! eg. `remark 1 re/`
 
 </div>
 
@@ -623,13 +623,15 @@ Exits the program.
 
 Format: `exit`
 
-### 4.4 Storage
+--------------------------------------------------------------------------------------------------------------------
 
-#### Saving the data
+## 5. Storage
+
+### 5.1 Saving the data
 
 NurseyBook's data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
-#### Editing the data file
+### 5.2 Editing the data file
 
 NurseyBook data are saved as a JSON file `[JAR file location]/data/nurseybook.json`. If you are technologically savvy, you
 are also welcome to update data directly by editing that data file.
@@ -643,7 +645,7 @@ are also welcome to update data directly by editing that data file.
 
 --------------------------------------------------------------------------------------------------------------------
 
-## 5. FAQ
+## 6. FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file NurseyBook creates with the file, with the file
@@ -655,9 +657,9 @@ There is no need to save manually.
 
 --------------------------------------------------------------------------------------------------------------------
 
-## 6. Command summary
+## 7. Command summary
 
-### 6.1 Elderly
+### 7.1 Elderly
 
 Action | Format, Examples
 --------|------------------
@@ -673,7 +675,7 @@ Action | Format, Examples
 **View elderly details** | `viewDetails INDEX`<br> <br> e.g., `viewDetails 2`
 **View all elderly** | `viewElderly`
 
-### 6.2 Task
+### 7.2 Task
 
 Action | Format, Examples
 --------|------------------
@@ -686,7 +688,7 @@ Action | Format, Examples
 **View Schedule** | `viewSchedule DATE` <br> e.g., `viewSchedule 2022-02-14`
 **View all tasks** | `viewTasks`
 
-### 6.3 Miscellaneous
+### 7.3 Miscellaneous
 
 Action | Format, Examples
 --------|------------------
@@ -697,7 +699,7 @@ Action | Format, Examples
 
 --------------------------------------------------------------------------------------------------------------------
 
-## 7. Glossary
+## 8. Glossary
 
 Term | Definition
 --------|------------------
