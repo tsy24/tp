@@ -1,7 +1,6 @@
 package nurseybook.model.task;
 
 import static nurseybook.testutil.Assert.assertThrows;
-import static nurseybook.testutil.TypicalTasks.ALICE_INSULIN;
 import static nurseybook.testutil.TypicalTasks.APPLY_LEAVE;
 import static nurseybook.testutil.TypicalTasks.APPLY_LEAVE_DAY_NEXT_RECURRENCE_GHOST;
 import static nurseybook.testutil.TypicalTasks.APPLY_LEAVE_LATE_TIME;
@@ -108,18 +107,6 @@ public class UniqueTaskListTest {
         uniqueTaskList.setTasks(tList);
         UniqueTaskList expectedUniqueTaskList = new UniqueTaskList();
         expectedUniqueTaskList.add(DO_PAPERWORK);
-        assertEquals(expectedUniqueTaskList, uniqueTaskList);
-    }
-
-    @Test
-    public void sortsAddedTasks_byDateTime() {
-        uniqueTaskList.add(ALICE_INSULIN); // date: "2022-01-31", time: "19:45"
-        uniqueTaskList.add(DO_PAPERWORK); // date: "2022-01-31", time: "10:20"
-        uniqueTaskList.add(APPLY_LEAVE); // date: "2021-10-01", time: "00:00"
-        UniqueTaskList expectedUniqueTaskList = new UniqueTaskList();
-        expectedUniqueTaskList.add(APPLY_LEAVE);
-        expectedUniqueTaskList.add(DO_PAPERWORK);
-        expectedUniqueTaskList.add(ALICE_INSULIN);
         assertEquals(expectedUniqueTaskList, uniqueTaskList);
     }
 

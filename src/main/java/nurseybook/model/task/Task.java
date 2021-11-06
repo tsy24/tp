@@ -266,11 +266,19 @@ public abstract class Task implements Comparable<Task> {
     }
 
     /**
-     * Returns true if task is overdue
+     * Returns true if task is marked overdue
      */
     public boolean isTaskOverdue() {
         return status.isOverdue;
     }
+
+    /**
+     * Returns true if task should be marked overdue
+     */
+    public boolean shouldTaskBeOverdue() {
+        return DateTime.isOverdue(this.dateTime);
+    }
+
 
     /**
      * Returns true if task is recurring and overdue
