@@ -24,7 +24,6 @@ import nurseybook.model.person.RoomNumber;
 import nurseybook.model.tag.Tag;
 
 public class ParserUtilTest {
-    private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_AGE = "88a";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_NAME = "R@chel";

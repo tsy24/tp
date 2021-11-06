@@ -9,6 +9,7 @@ import static nurseybook.logic.parser.CliSyntax.PREFIX_TASK_DATE;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_TASK_DESC;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_TASK_RECURRING;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_TASK_TIME;
+import static nurseybook.model.Model.PREDICATE_SHOW_ALL_TASKS;
 
 import nurseybook.logic.commands.exceptions.CommandException;
 import nurseybook.model.Model;
@@ -27,10 +28,10 @@ public class AddTaskCommand extends Command {
             + "Parameters: "
             + String.join(" ", PARAMETERS)
             + "\nExample: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "Khong Guan "
-            + PREFIX_NAME + "Swee Choon "
+            + PREFIX_NAME + "Alex Yeoh "
+            + PREFIX_NAME + "Bernice Yu "
             + PREFIX_TASK_DESC + "Weekly Taiji "
-            + PREFIX_TASK_DATE + "2021-10-10 "
+            + PREFIX_TASK_DATE + "2021-11-20 "
             + PREFIX_TASK_TIME + "14:30 "
             + PREFIX_TASK_RECURRING + "week";
 
@@ -63,6 +64,8 @@ public class AddTaskCommand extends Command {
         }
 
         model.addTask(toAdd);
+        model.updateTasksAccordingToTime();
+        model.updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
         CommandResult result = new CommandResult(String.format(MESSAGE_SUCCESS, toAdd),
                 CommandResult.ListDisplayChange.TASK);
         model.commitNurseyBook(result);

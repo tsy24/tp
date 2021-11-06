@@ -19,7 +19,7 @@ public class FindElderlyCommand extends Command {
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
             + "Parameters: "
             + String.join(" ", PARAMETERS)
-            + "\nExample: " + COMMAND_WORD + " alice bob charlie";
+            + "\nExample: " + COMMAND_WORD + " alex bernice charlotte";
 
     private final NameContainsKeywordsPredicate predicate;
 

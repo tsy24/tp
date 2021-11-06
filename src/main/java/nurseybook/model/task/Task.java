@@ -8,8 +8,6 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import nurseybook.model.NurseyBook;
-import nurseybook.model.person.Elderly;
 import nurseybook.model.person.Name;
 import nurseybook.model.task.Recurrence.RecurrenceType;
 
@@ -266,31 +264,25 @@ public abstract class Task implements Comparable<Task> {
     }
 
     /**
-     * Returns true if task is overdue
+     * Returns true if task is marked overdue
      */
     public boolean isTaskOverdue() {
         return status.isOverdue;
     }
 
     /**
+     * Returns true if task should be marked overdue
+     */
+    public boolean shouldTaskBeOverdue() {
+        return DateTime.isOverdue(this.dateTime);
+    }
+
+
+    /**
      * Returns true if task is recurring and overdue
      */
     public boolean isTaskRecurringAndOverdue() {
         return getRecurrence().isRecurring() && DateTime.isOverdue(getDateTime());
-    }
-
-    /**
-     * Returns set of elderly objects related to this task.
-     *
-     * @param book                      nursey book that stores this task
-     * @return                          task description
-     */
-    public Set<Elderly> getRelatedPeople(NurseyBook book) {
-        Set<Elderly> relatedPeople = new HashSet<>();
-        for (Name name: relatedNames) {
-            relatedPeople.add(book.getElderly(name));
-        }
-        return relatedPeople;
     }
 
     /**
@@ -354,9 +346,7 @@ public abstract class Task implements Comparable<Task> {
                 .append(getDateTime());
         if (!relatedNames.isEmpty()) {
             builder.append("; People: ");
-            relatedNames.forEach(name -> {
-                builder.append(name + " ");
-            });
+            relatedNames.forEach(name -> builder.append(name + " "));
         }
         return builder.toString();
     }

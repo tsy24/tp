@@ -77,12 +77,13 @@ public class RemarkCommandTest {
         Elderly editedElderly = new ElderlyBuilder(model.getFilteredElderlyList()
                 .get(INDEX_FIRST.getZeroBased())).withRemark(REMARK_STUB).build();
 
-        RemarkCommand remarkCommand = new RemarkCommand(
-                INDEX_FIRST, new Remark(editedElderly.getRemark().value));
+        RemarkCommand remarkCommand = new RemarkCommand(INDEX_FIRST,
+                new Remark(editedElderly.getRemark().value));
 
         String expectedMessage = String.format(MESSAGE_ADD_REMARK_SUCCESS, editedElderly);
 
         Model expectedModel = new ModelManager(new NurseyBook(model.getVersionedNurseyBook()), new UserPrefs());
+        CommandTestUtil.showElderlyAtIndex(expectedModel, INDEX_FIRST);
         expectedModel.setElderly(firstElderly, editedElderly);
         expectedModel.commitNurseyBook(new CommandResult(expectedMessage));
 
