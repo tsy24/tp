@@ -9,8 +9,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.function.Predicate;
 import java.util.Set;
+import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
@@ -126,7 +126,7 @@ public class AddTaskCommandTest {
         public void updateTasksAccordingToTime() {
             return; //do nothing since only one task added
         }
-      
+
         @Override
         public boolean areAllElderliesPresent(Set<Name> names) {
             return true;

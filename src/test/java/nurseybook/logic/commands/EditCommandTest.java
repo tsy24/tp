@@ -13,7 +13,6 @@ import static nurseybook.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static nurseybook.logic.commands.CommandTestUtil.assertCommandFailure;
 import static nurseybook.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static nurseybook.logic.commands.CommandTestUtil.showElderlyAtIndex;
-import static nurseybook.logic.commands.TaskCommandTestUtil.showTaskAtIndex;
 import static nurseybook.logic.commands.EditCommand.MESSAGE_EDIT_ELDERLY_SUCCESS;
 import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_DATE_JAN;
 import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_DESC_COVID;
@@ -131,6 +130,7 @@ public class EditCommandTest {
         String expectedMessage = String.format(MESSAGE_EDIT_ELDERLY_SUCCESS, editedElderly);
 
         Model expectedModel = new ModelManager(new NurseyBook(model.getVersionedNurseyBook()), new UserPrefs());
+        showElderlyAtIndex(expectedModel, INDEX_FIRST);
         expectedModel.setElderly(model.getFilteredElderlyList().get(INDEX_FIRST.getZeroBased()), editedElderly);
         expectedModel.commitNurseyBook(new CommandResult(expectedMessage));
 

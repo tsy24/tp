@@ -245,9 +245,6 @@ public class ModelManager implements Model {
     @Override
     public void updateFilteredTaskList(Predicate<Task> predicate) {
         requireNonNull(predicate);
-        updateOverdueTaskList();
-        updateNotOverdueTaskList();
-        updateDateRecurringTaskList();
         filteredTasks.setPredicate(predicate);
     }
 
