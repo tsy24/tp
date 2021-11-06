@@ -14,7 +14,7 @@ public class UndoCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Undo command: ";
 
-    public static final String MESSAGE_FAILURE = "There are no changes to the data of Nursey Book that can be undone";
+    public static final String MESSAGE_FAILURE = "There are no changes to the data of NurseyBook that can be undone";
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
