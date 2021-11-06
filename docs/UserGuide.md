@@ -159,7 +159,7 @@ Parameter | Description
 `DESCRIPTION` | Description of a task. A description should not be blank.
 `ELDERLY_NAME` | Name of an elderly. No two elderly should have the same name.
 `GENDER` | Gender of an elderly. Gender is either `M` for males or `F` for females.
-`INDEX` | Index is the number shown beside an elderly/task when elderlies/tasks are displayed in the display panel respectively.
+`INDEX` | Index is the number shown beside an elderly/task in the **currently displayed** elderly/task list.
 `KEYWORD` | Keyword used to search for elderlies (by name) or tasks (by description). `MORE_KEYWORDS` are similarly defined. A keyword should not be blank.
 `NOK_ADDRESS` | Address of an elderly's next-of-kin.
 `NOK_EMAIL` | Email of an elderly's next-of-kin. An email should be in the format of local-part@domain.
@@ -209,7 +209,7 @@ Examples:
    
 * An elderly can have any number of tags (including 0).
 * You can specify a Next-of-Kin's (NOK) details for each elderly, when adding an elderly.
-* NurseyBook does not support any two elderly with the same name, even if any other fields are different. The casing of the name does not matter either as long as they are the same name. A suggestion will be to save the full name of the elderly you are adding into NurseyBook.
+* NurseyBook does not support any two elderly with the same name, even if any other fields are different. The casing of the name does not matter either. A suggestion will be to save the full name of the elderly you are adding into NurseyBook.
 * Executing the command will automatically change the display view to your full elderly list, so that you can see the elderly you added.
 
 </div>
