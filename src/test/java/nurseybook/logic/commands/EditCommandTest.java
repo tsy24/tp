@@ -25,7 +25,8 @@ import static nurseybook.testutil.TypicalIndexes.INDEX_SECOND;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import nurseybook.testutil.TypicalTasks;
+import java.util.stream.Collectors;
+
 import org.junit.jupiter.api.Test;
 
 import nurseybook.commons.core.index.Index;
@@ -40,8 +41,6 @@ import nurseybook.model.task.Task;
 import nurseybook.testutil.EditElderlyDescriptorBuilder;
 import nurseybook.testutil.ElderlyBuilder;
 import nurseybook.testutil.TaskBuilder;
-
-import java.util.stream.Collectors;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for EditCommand.

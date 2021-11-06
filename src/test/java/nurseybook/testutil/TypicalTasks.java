@@ -18,7 +18,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import nurseybook.model.NurseyBook;
-import nurseybook.model.person.Elderly;
 import nurseybook.model.task.Recurrence;
 import nurseybook.model.task.Task;
 
