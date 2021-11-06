@@ -6,9 +6,7 @@ import static nurseybook.testutil.TypicalTasks.APPLY_LEAVE;
 import static nurseybook.testutil.TypicalTasks.APPLY_LEAVE_DAY_NEXT_RECURRENCE_GHOST;
 import static nurseybook.testutil.TypicalTasks.APPLY_LEAVE_LATE_TIME;
 import static nurseybook.testutil.TypicalTasks.APPLY_LEAVE_MONTH_NEXT_RECURRENCE_GHOST;
-import static nurseybook.testutil.TypicalTasks.APPLY_LEAVE_MONTH_RECURRENCE;
 import static nurseybook.testutil.TypicalTasks.APPLY_LEAVE_WEEK_NEXT_RECURRENCE_GHOST;
-import static nurseybook.testutil.TypicalTasks.APPLY_LEAVE_WEEK_RECURRENCE;
 import static nurseybook.testutil.TypicalTasks.DO_PAPERWORK;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -16,11 +14,15 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
+import nurseybook.model.person.Name;
 import nurseybook.model.task.exceptions.TaskNotFoundException;
 import nurseybook.testutil.TaskBuilder;
 
@@ -155,47 +157,89 @@ public class UniqueTaskListTest {
 
     @Test
     public void addPossibleGhostTasksWithMatchingDate_forDayRecurring() {
-        UniqueTaskList taskList = new UniqueTaskList();
-        taskList.add(APPLY_LEAVE_LATE_TIME); // date: "2021-10-01"
-        LocalDate keyDate = LocalDate.parse("2021-10-02"); //next day date
+        Set<Name> nameSet = new HashSet<>();
+        LocalDate today = LocalDate.now();
+        LocalDate keyDate = LocalDate.now().plusDays(1);
+        RealTask testTask = new RealTask(new Description("Task"), new DateTime(today, LocalTime.now()),
+                nameSet, new Recurrence("DAY"));
 
+        Task nextTaskRecurrence = testTask.copyToGhostTask();
+        nextTaskRecurrence.setDate(keyDate); //1 day after today
+
+        UniqueTaskList taskList = new UniqueTaskList();
+        taskList.add(testTask);
         taskList.addPossibleGhostTasksWithMatchingDate(keyDate);
 
         UniqueTaskList expectedTaskList = new UniqueTaskList();
-        expectedTaskList.add(APPLY_LEAVE_LATE_TIME);
-        expectedTaskList.add(APPLY_LEAVE_DAY_NEXT_RECURRENCE_GHOST);
+        expectedTaskList.add(testTask);
+        expectedTaskList.add(nextTaskRecurrence);
 
         assertEquals(taskList, expectedTaskList);
     }
 
     @Test
     public void addPossibleGhostTasksWithMatchingDate_forWeekRecurring() {
-        UniqueTaskList taskList = new UniqueTaskList();
-        taskList.add(APPLY_LEAVE_WEEK_RECURRENCE); // date: "2021-09-30"
-        LocalDate keyDate = LocalDate.parse ("2021-10-07"); //next week date
+        Set<Name> nameSet = new HashSet<>();
+        LocalDate today = LocalDate.now();
+        LocalDate keyDate = LocalDate.now().plusDays(7);
+        RealTask testTask = new RealTask(new Description("Task"), new DateTime(today, LocalTime.now()),
+                nameSet, new Recurrence("WEEK"));
 
+        Task nextTaskRecurrence = testTask.copyToGhostTask();
+        nextTaskRecurrence.setDate(keyDate); //7 days after today
+
+        UniqueTaskList taskList = new UniqueTaskList();
+        taskList.add(testTask);
         taskList.addPossibleGhostTasksWithMatchingDate(keyDate);
 
         UniqueTaskList expectedTaskList = new UniqueTaskList();
-        expectedTaskList.add(APPLY_LEAVE_WEEK_RECURRENCE);
-        expectedTaskList.add(APPLY_LEAVE_WEEK_NEXT_RECURRENCE_GHOST);
+        expectedTaskList.add(testTask);
+        expectedTaskList.add(nextTaskRecurrence);
 
         assertEquals(taskList, expectedTaskList);
     }
 
     @Test
     public void addPossibleGhostTasksWithMatchingDate_forMonthRecurring() {
-        UniqueTaskList taskList = new UniqueTaskList();
-        taskList.add(APPLY_LEAVE_MONTH_RECURRENCE); // date: "2021-08-27"
-        LocalDate keyDate = LocalDate.parse("2021-08-27"); //next week date
+        Set<Name> nameSet = new HashSet<>();
+        LocalDate today = LocalDate.now();
+        LocalDate keyDate = LocalDate.now().plusDays(28);
+        RealTask testTask = new RealTask(new Description("Task"), new DateTime(today, LocalTime.now()),
+                nameSet, new Recurrence("MONTH"));
 
+        Task nextTaskRecurrence = testTask.copyToGhostTask();
+        nextTaskRecurrence.setDate(keyDate); //28 days after today
+
+        UniqueTaskList taskList = new UniqueTaskList();
+        taskList.add(testTask);
         taskList.addPossibleGhostTasksWithMatchingDate(keyDate);
 
         UniqueTaskList expectedTaskList = new UniqueTaskList();
-        expectedTaskList.add(APPLY_LEAVE_MONTH_RECURRENCE);
-        expectedTaskList.add(APPLY_LEAVE_MONTH_NEXT_RECURRENCE_GHOST);
+        expectedTaskList.add(testTask);
+        expectedTaskList.add(nextTaskRecurrence);
 
         assertEquals(taskList, expectedTaskList);
     }
 
+    @Test
+    public void addPossibleGhostTasksWithMatchingDate_withNoMatchingDate() {
+        Set<Name> nameSet = new HashSet<>();
+        LocalDate today = LocalDate.now();
+        LocalDate keyDate = LocalDate.now().plusDays(70);
+        RealTask testTask = new RealTask(new Description("Task"), new DateTime(today, LocalTime.now()),
+                nameSet, new Recurrence("MONTH"));
+
+        Task taskOutOfBounds = testTask.copyToGhostTask();
+        taskOutOfBounds.setDate(LocalDate.now().plusDays(70)); //70 days after today, out of recurrence dates
+
+
+        UniqueTaskList taskList = new UniqueTaskList();
+        taskList.add(testTask);
+        taskList.addPossibleGhostTasksWithMatchingDate(keyDate);
+
+        UniqueTaskList expectedTaskList = new UniqueTaskList();
+        expectedTaskList.add(testTask);
+
+        assertEquals(taskList, expectedTaskList);
+    }
 }

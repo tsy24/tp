@@ -55,6 +55,21 @@ public class Recurrence {
         return recurrenceType;
     }
 
+    /**
+     * Returns the number of days between each recurrence, with respect to RecurrenceType.
+     */
+    public int getRecurrenceIntervalInDays() {
+        if (recurrenceType == RecurrenceType.DAY) {
+            return 1;
+        } else if (recurrenceType == RecurrenceType.WEEK) {
+            return 7;
+        } else if (recurrenceType == RecurrenceType.MONTH) {
+            return 28;
+        } else { //recurrenceType == RecurrenceType.NONE
+            return 0;
+        }
+    }
+
     @Override
     public String toString() {
         return recurrenceType.name();

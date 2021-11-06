@@ -12,7 +12,6 @@ import static nurseybook.logic.parser.CliSyntax.PREFIX_TASK_TIME;
 
 import nurseybook.logic.commands.exceptions.CommandException;
 import nurseybook.model.Model;
-import nurseybook.model.person.Name;
 import nurseybook.model.task.Task;
 
 /**
@@ -59,15 +58,7 @@ public class AddTaskCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_TASK);
         }
 
-        boolean isElderlyPresent = true;
-        for (Name name : toAdd.getRelatedNames()) {
-            if (!model.isElderlyPresent(name)) {
-                isElderlyPresent = false;
-                break;
-            }
-        }
-
-        if (!isElderlyPresent) {
+        if (!model.areAllElderliesPresent(toAdd.getRelatedNames())) {
             throw new CommandException(MESSAGE_NO_SUCH_ELDERLY);
         }
 

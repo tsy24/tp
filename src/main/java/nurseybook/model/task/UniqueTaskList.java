@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static nurseybook.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -13,7 +14,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import nurseybook.model.person.Elderly;
 import nurseybook.model.person.Name;
-import nurseybook.model.task.Recurrence.RecurrenceType;
 import nurseybook.model.task.exceptions.DuplicateTaskException;
 import nurseybook.model.task.exceptions.TaskNotFoundException;
 
@@ -24,6 +24,9 @@ import nurseybook.model.task.exceptions.TaskNotFoundException;
  *
  */
 public class UniqueTaskList implements Iterable<Task> {
+
+    //No. of days to check for recurring tasks in the future is set to 84 days, or 12 weeks.
+    public static final int MAX_DAYS_SCHEDULE_AHEAD = 84;
 
     private final ObservableList<Task> internalList = FXCollections.observableArrayList();
     private final ObservableList<Task> internalUnmodifiableList =
@@ -60,6 +63,7 @@ public class UniqueTaskList implements Iterable<Task> {
         }
 
         internalList.set(index, editedTask);
+        internalList.sort(Comparator.naturalOrder());
     }
 
     /**
@@ -96,6 +100,7 @@ public class UniqueTaskList implements Iterable<Task> {
      */
     public void updateDateOfRecurringTask(Task toMark) {
         setTask(toMark, toMark.updateDateRecurringTask());
+
         // Re-sorts task list when task date is changed
         internalList.sort(Comparator.naturalOrder());
     }
@@ -125,7 +130,7 @@ public class UniqueTaskList implements Iterable<Task> {
     public void updateElderlyNameInTasks(Elderly target, Elderly editedElderly) {
         for (Task task : internalList) {
             for (Name name : task.getRelatedNames()) {
-                if (target.getName().equals(name)) {
+                if (target.getName().caseInsensitiveEquals(name)) {
                     task.replaceName(name, editedElderly.getName());
                 }
             }
@@ -140,7 +145,7 @@ public class UniqueTaskList implements Iterable<Task> {
     public void deleteElderlyNameInTasks(Elderly elderlyToDelete) {
         for (Task task : internalList) {
             for (Name name : task.getRelatedNames()) {
-                if (elderlyToDelete.getName().equals(name)) {
+                if (elderlyToDelete.getName().caseInsensitiveEquals(name)) {
                     task.deleteName(name);
                 }
             }
@@ -205,26 +210,25 @@ public class UniqueTaskList implements Iterable<Task> {
 
     /**
      * Checks if any of the given recurring task's future occurrences coincide with the given keyDate. If it does,
-     * a GhostTask is created and returned to represent the future task occurrence.
+     * a GhostTask is created and returned to represent the future task occurrence. Checks up to 84 days in advance,
+     * starting from current date.
      */
     private GhostTask createPossibleFutureTaskWithMatchingDate(RealTask task, LocalDate keyDate) {
-        RecurrenceType taskRecurrenceType = task.getRecurrence().getRecurrenceType();
-        int interval; //interval between task occurrences depending on RecurrenceType.
-        if (taskRecurrenceType == RecurrenceType.DAY) {
-            interval = 1;
-        } else if (taskRecurrenceType == RecurrenceType.WEEK) {
-            interval = 7;
-        } else { //taskRecurrenceType == RecurrenceType.MONTH
-            interval = 28;
-        }
+        //interval between task occurrences depending on RecurrenceType.
+        int interval = task.getRecurrenceIntervalInDays();
+
+        //No. of days to check for recurring tasks in the future is set to 84 days, or 12 weeks,
+        //starting from current date.
+        LocalDate dateToday = LocalDate.now();
+        LocalDate taskDate = task.getDate();
+        int daysLeftToCheck = MAX_DAYS_SCHEDULE_AHEAD - ((int) ChronoUnit.DAYS.between(dateToday, taskDate));
+
 
         GhostTask ghostTaskCopy = task.copyToGhostTask();
         GhostTask currTask = ghostTaskCopy.createNextTaskOccurrence();
+        daysLeftToCheck -= interval;
 
-        //No. of days to check for recurring tasks in the future is set to 84 days, or 12 weeks.
-        int daysLeftToCheck = 84 - interval;
-
-        while (daysLeftToCheck > 0) {
+        while (daysLeftToCheck >= 0) {
             if (currTask.doesTaskFallOnDate(keyDate) && !this.contains(currTask)) {
                 return currTask;
             }
