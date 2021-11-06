@@ -177,12 +177,32 @@ public class NurseyBook implements ReadOnlyNurseyBook {
         tasks.addPossibleGhostTasksWithMatchingDate(keyDate);
     }
 
+    ///time-related methods
+
+    /**
+     * Recurring tasks' DateTime changes to its next occurrence once its previous DateTime has arrived/passed.
+     * This functions updates recurring tasks' DateTime as needed at the current time.
+     * @see UniqueTaskList#updateRecurringDates()
+     */
+    public void updateRecurringTasksDate() {
+        tasks.updateRecurringDates();
+    }
+
+    /**
+     * Check if tasks' overdue status is correct when comparing to the current time and update them accordingly.
+     * @see UniqueTaskList#updateOverdueStatuses()
+     */
     public void updateTasksOverdueStatus() {
         tasks.updateOverdueStatuses();
     }
 
-    public void updateRecurringTasksDate() {
-        tasks.updateRecurringDates();
+
+    /**
+     * Sorts tasks chronologically by DateTime with the earliest task at the front.
+     * @see UniqueTaskList#reorderTasks()
+     */
+    public void reorderTasksChronologically() {
+        tasks.reorderTasks();
     }
 
     //// util methods
@@ -235,8 +255,4 @@ public class NurseyBook implements ReadOnlyNurseyBook {
         tasks.markTaskAsDone(target);
     }
 
-
-    public void reorderTasksChronologically() {
-        tasks.reorderTasks();
-    }
 }

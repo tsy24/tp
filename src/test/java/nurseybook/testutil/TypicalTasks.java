@@ -94,12 +94,16 @@ public class TypicalTasks {
             .withRecurrence(Recurrence.RecurrenceType.MONTH.name()).build();
 
     /**
-     * Returns an {@code NurseyBook} with all the typical tasks and elderlies.
+     * Returns an {@code NurseyBook} with all the typical tasks and elderlies (newly created).
      */
     public static NurseyBook getTypicalNurseyBook() {
         NurseyBook nb = new NurseyBook();
+
+        //This returns NurseyBook objects that create new copies of those default Elderly and Task objects.
+        //This is to prevent state modifications from leaking from one test to another
         nb.setElderlies(getTypicalElderlyBuilders().stream().map(s -> s.build()).collect(Collectors.toList()));
         nb.setTasks(getTypicalTaskBuilders().stream().map(s -> s.build()).collect(Collectors.toList()));
+
         nb.updateRecurringTasksDate();
         nb.updateTasksOverdueStatus();
         nb.reorderTasksChronologically();
