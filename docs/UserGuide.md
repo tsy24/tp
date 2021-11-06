@@ -49,7 +49,7 @@ Refer to the [4. Features](#4. Features) below for details of each command.
 
 This document is structured in a manner that lets you find what you need fast and easily. To jump to various sections, you can refer to the Table of Contents.
 
-In the following subsection, [3.2 Reading this document](#3.2 Reading this document), you can find several tips that could be beneficial when reading this guide.
+In the following subsection, [3.2 Reading this document](#32-reading-this-document), you can find several tips that could be beneficial when reading this guide.
 The next section, documents the main features that **NurseyBook** offers and provides you with instructions on how to
 use each one of them!
 
@@ -169,8 +169,8 @@ Parameter | Description
 `RECURRENCE_TYPE` | Indicates the recurrence period of a task. Can be either `NONE`, by `DAY`, `WEEK`, or `MONTH`.
 `REMARK` | Additional information that can be supplied to an elderly. It should only be used with elderlies, not tasks.
 `ROOMNO` | Room number that an elderly is staying in (the Nursing Home). It should be a non-negative integer.
-`TAG` | Tag associated with an elderly. It should only be used with elderlies, not tasks.
-`TIME` | Time that a task is scheduled to occur from. It should be in the format of hh:mm.
+`TAG` | Tag associated with an elderly. It should only be used with elderlies, not tasks. It should be alphanumeric with no spacing.
+`TIME` | Time that a task is scheduled to occur from. It should be in the format of hh:mm in 24 hour clock.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -222,7 +222,7 @@ Deletes an elderly from NurseyBook.
 Format: `deleteElderly INDEX`   
 
 Examples:
-* [`viewElderly`](#view-full-details-of-an-elderly) followed by `deleteElderly 2` deletes the 2nd elderly in NurseyBook.
+* [`viewElderly`](#view-all-elderly-viewelderly) followed by `deleteElderly 2` deletes the 2nd elderly in NurseyBook.
 
 <div markdown="block" class="alert alert-info">
 
@@ -235,7 +235,7 @@ Examples:
 
 <div markdown="block" class="alert alert-warning">
 
-:exclamation: **Caution**
+:exclamation: **Caution:**
 * Deleting an elderly's name will cause all occurrences of the elderly's name in tasks to be deleted.
 
 </div>
@@ -246,7 +246,7 @@ Edits the details of a specific elderly.
 
 Format: `editElderly INDEX [en/ELDERLY_NAME] [a/AGE] [g/GENDER] [r/ROOMNO] [t/TAG]…​ [nn/NOK_NAME] [rs/NOK_RELATIONSHIP] [p/NOK_PHONE_NUMBER] [e/NOK_EMAIL] [addr/NOK_ADDRESS]`
 
-Examples: See [`addElderly`](#add-an-elderly) for examples.
+Examples: See [`addElderly`](#add-an-elderly-addelderly) for examples.
 
 <div markdown="block" class="alert alert-info">
 
@@ -262,16 +262,14 @@ Examples: See [`addElderly`](#add-an-elderly) for examples.
 * If you want to add a tag with `editElderly`, you have to include all the existing tags of the elderly in your command.
 * Editing an elderly's name will cause all occurrences of the elderly's name in tasks to be also edited.
 
-Example: John has an existing `Tag` cancer, and he is at index 1 in the current list of elderly displayed. To add a tag to John, your command should be `editElderly 1 t/overweight t/covid`.
+Example: John has an existing tag `cancer`, and he is at index 1 in the current list of elderly displayed. To add an `overweight` tag to John, your command should be `editElderly 1 t/cancer t/overweight`.
 
 </div>
 
 <div markdown="block" class="alert alert-primary">
 
-:bulb: **Tip:**  
-* You can remove a remark by leaving the remark input empty!  
-e.g. `editElderly 1 re/`
-* For more accessible tag related commands, do refer to the `addTag` and `deleteTag` commands.
+:bulb: **Tip:**
+* For more accessible tag related commands, do refer to the [`addTag`](#add-tags-to-elderly-addtag) and [`deleteTag`](#delete-tags-of-elderly-deletetag) commands.
 </div>
 
 #### Find elderly: `findElderly`
@@ -320,7 +318,7 @@ Deletes an elderly's Next-of-Kin details from NurseyBook.
 Format: `deleteNok INDEX`
 
 Examples:
-* `viewElderly` followed by `deleteNok 2` deletes the NoK details of the 2nd elderly in NurseyBook.
+* [`viewElderly`](#view-all-elderly-viewelderly) followed by `deleteNok 2` deletes the NoK details of the 2nd elderly in NurseyBook.
 
 <div markdown="block" class="alert alert-info">
 
@@ -344,7 +342,6 @@ Examples:
 
 :information_source: **Information:**
 * There should be at least one tag.
-* Tags should be alphanumeric.
 * The index refers to the index number shown in the displayed elderly list.
 * The index **must be a positive integer** 1, 2, 3, …​
 
@@ -363,7 +360,6 @@ Examples:
 
 :information_source: **Information:**
 * There should be at least one tag.
-* Tags should be alphanumeric.
 * The index refers to the index number shown in the displayed elderly list.
 * The index **must be a positive integer** 1, 2, 3, …​
 
@@ -382,7 +378,6 @@ Examples:
 
 :information_source: **Information:**
 * There should be at least one tag.
-* Tags should be alphanumeric.
 
 </div>
 
@@ -409,7 +404,8 @@ Examples:
 <div markdown="block" class="alert alert-primary">
 
 :bulb: **Tip:**  
-You can remove a remark by leaving the remark input empty!  
+
+* You can remove a remark by leaving the remark input empty! Eg. `remark 1 re/`
 
 </div>
 
@@ -440,7 +436,7 @@ Examples:
 
 <div markdown="block" class="alert alert-warning">
 
-:exclamation: **Caution**
+:exclamation: **Caution:**
 * If you want to add an elderly to the task, you need to first make sure that the elderly is already registered in your elderly database.
 
 </div>
@@ -448,10 +444,10 @@ Examples:
 <div markdown="block" class="alert alert-primary">
 
 :bulb: **Tip:**
-You can add a recurring task to the list! <br>
-There are a few recurring options available namely: `NONE`, `DAY`, `WEEK` and `MONTH` (4 weeks later from the previous date). Tasks that have passed their original date will have their date automatically updated to the new date based on the recurrence type of the task.
 
-If you want to create a non-recurring task, you can exclude the `recur` field. NurseyBook will automatically assume that the task is non-recurring.
+* You can add a recurring task to the list! <br>
+  * There are a few recurring options available namely: `NONE`, `DAY`, `WEEK` and `MONTH` (4 weeks later from the previous date). Tasks that have passed their original date will have their date automatically updated to the new date based on the recurrence type of the task.
+* If you want to create a non-recurring task, you can exclude the `recur` field. NurseyBook will automatically assume that the task is non-recurring.
 
 </div>
 
@@ -475,7 +471,7 @@ Format: `deleteTask INDEX`
 </div>
 
 Examples:
-* `viewTasks` followed by `deleteTask 2` deletes the 2nd task shown by NurseyBook.
+* [`viewTasks`](#view-all-tasks-viewtasks) followed by `deleteTask 2` deletes the 2nd task shown by NurseyBook.
 
 #### Edit a task: `editTask`
 
@@ -484,7 +480,7 @@ Edits the details of a specific task.
 Format: `editTask INDEX [en/ELDERLY_NAME]... [desc/DESCRIPTION] [date/DATE] [time/TIME] [recur/RECURRENCE_TYPE]`
 
 Examples:
-* `viewTasks` followed by `editTask 1 date/2022-01-30` changes the date of the 1st task shown by NurseyBook to 30 January 2022.
+* [`viewTasks`](#view-all-tasks-viewtasks) followed by `editTask 1 date/2022-01-30` changes the date of the 1st task shown by NurseyBook to 30 January 2022.
 
 <div markdown="block" class="alert alert-info">
 
@@ -498,7 +494,7 @@ e.g. Date of task is `2022-01-01` with `daily` recurrence. On `2022-01-03`, the 
 
 <div markdown="block" class="alert alert-warning">
 
-:exclamation: **Caution**
+:exclamation: **Caution:**
 * If you want to edit the names of any elderlies linked to a task, you need to first make sure all the elderlies' names are already registered in your elderly database.
 
 </div>
@@ -534,7 +530,7 @@ Marks a particular task in the task list as completed.
 Format: `doneTask INDEX`
 
 Examples:
-* [`viewTasks`](#view-all-tasks) followed by `doneTask 2` marks the 2nd task shown by NurseyBook as completed.
+* [`viewTasks`](#view-all-tasks-viewtasks) followed by `doneTask 2` marks the 2nd task shown by NurseyBook as completed.
 
 <div markdown="block" class="alert alert-info">
 
@@ -575,24 +571,16 @@ Example:
 
 </div>
 
-![](images/userGuide/viewSchedule.png)
+![](images/userGuide/view_schedule.png)
 
-
-<div markdown="span" class="alert alert-warning">
+<div markdown="block" class="alert alert-warning">
 
 :exclamation: **Caution:**
-* NurseyBook will not automatically refresh the displayed task list to reflect
-instantaneous changes, such as overdue tasks and new dates of recurring tasks.
-* However, you can manually trigger this refresh, and one way is to enter
- [`viewTasks`](#view-all-tasks) in the command box.
-* This will update the overdue status of all tasks and new dates of all
-recurring tasks.
-  * E.g. If the time now is 9.01pm and there is an undone task which is due at
-    9.00pm the same day, you can enter `viewTasks`,
-    otherwise the red overdue tag will not show automatically.
-  * E.g. If the time now is 9.01pm and there is a recurring task due at 9.00pm,
-    you can enter `viewTasks`, otherwise the task's date will remain
-    unchanged.
+* NurseyBook will not automatically refresh the displayed task list to reflect instantaneous changes, such as overdue tasks and new dates of recurring tasks.
+* However, you can manually trigger this refresh, and one way is to enter [`viewTasks`](#view-all-tasks-viewtasks) in the command box.
+* This will update the overdue status of all tasks and new dates of all recurring tasks.
+  * E.g. If the time now is 9.01pm and there is an undone task which is due at 9.00pm the same day, you can enter `viewTasks`, otherwise the red overdue tag will not show automatically.
+  * E.g. If the time now is 9.01pm and there is a recurring task due at 9.00pm, you can enter `viewTasks`, otherwise the task's date will remain unchanged.
 
 </div>
 
@@ -646,10 +634,10 @@ NurseyBook's data are saved in the hard disk automatically after any command tha
 NurseyBook data are saved as a JSON file `[JAR file location]/data/nurseybook.json`. If you are technologically savvy, you
 are also welcome to update data directly by editing that data file.
 
-<div markdown="span" class="alert alert-warning">
+<div markdown="block" class="alert alert-warning">
 
 :exclamation: **Caution:**
-If your changes to the data file makes its format invalid, NurseyBook will discard all data and start with an empty data file at the next run.
+* If your changes to the data file makes its format invalid, NurseyBook will discard all data and start with an empty data file at the next run.
 
 </div>
 
@@ -684,7 +672,6 @@ Action | Format, Examples
 **Remark** | `remark INDEX re/REMARK`
 **View elderly details** | `viewDetails INDEX`<br> <br> e.g., `viewDetails 2`
 **View all elderly** | `viewElderly`
-<br />
 
 ### 6.2 Task
 
@@ -698,7 +685,6 @@ Action | Format, Examples
 **Remind** | `remind`
 **View Schedule** | `viewSchedule DATE` <br> e.g., `viewSchedule 2022-02-14`
 **View all tasks** | `viewTasks`
-<br />
 
 ### 6.3 Miscellaneous
 
