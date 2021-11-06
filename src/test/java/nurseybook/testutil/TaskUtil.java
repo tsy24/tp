@@ -1,28 +1,18 @@
 package nurseybook.testutil;
 
-import static nurseybook.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static nurseybook.logic.parser.CliSyntax.PREFIX_AGE;
-import static nurseybook.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static nurseybook.logic.parser.CliSyntax.PREFIX_GENDER;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_NAME;
-import static nurseybook.logic.parser.CliSyntax.PREFIX_NOK_NAME;
-import static nurseybook.logic.parser.CliSyntax.PREFIX_PHONE;
-import static nurseybook.logic.parser.CliSyntax.PREFIX_RELATIONSHIP;
-import static nurseybook.logic.parser.CliSyntax.PREFIX_ROOM_NUM;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_TAG;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_TASK_DATE;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_TASK_DESC;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_TASK_RECURRING;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_TASK_TIME;
 
+import java.util.Set;
+
 import nurseybook.logic.commands.AddTaskCommand;
-import nurseybook.logic.commands.EditCommand;
 import nurseybook.logic.commands.EditTaskCommand;
 import nurseybook.model.person.Name;
-import nurseybook.model.tag.Tag;
 import nurseybook.model.task.Task;
-
-import java.util.Set;
 
 /**
  * A utility class for Task.

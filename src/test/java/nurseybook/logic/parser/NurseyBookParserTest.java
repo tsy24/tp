@@ -16,9 +16,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import nurseybook.logic.commands.EditTaskCommand;
-import nurseybook.testutil.EditTaskDescriptorBuilder;
-import nurseybook.testutil.ModelStub;
 import org.junit.jupiter.api.Test;
 
 import nurseybook.logic.commands.AddCommand;
@@ -31,6 +28,7 @@ import nurseybook.logic.commands.DeleteTagCommand;
 import nurseybook.logic.commands.DeleteTaskCommand;
 import nurseybook.logic.commands.DoneTaskCommand;
 import nurseybook.logic.commands.EditCommand;
+import nurseybook.logic.commands.EditTaskCommand;
 import nurseybook.logic.commands.ExitCommand;
 import nurseybook.logic.commands.FilterCommand;
 import nurseybook.logic.commands.FindElderlyCommand;
@@ -53,6 +51,7 @@ import nurseybook.model.task.DateTimeContainsDatePredicate;
 import nurseybook.model.task.DescriptionContainsKeywordPredicate;
 import nurseybook.model.task.Task;
 import nurseybook.testutil.EditElderlyDescriptorBuilder;
+import nurseybook.testutil.EditTaskDescriptorBuilder;
 import nurseybook.testutil.ElderlyBuilder;
 import nurseybook.testutil.ElderlyUtil;
 import nurseybook.testutil.TaskBuilder;

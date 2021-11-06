@@ -8,9 +8,10 @@ import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_TIME_TENAM;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.junit.jupiter.api.Test;
+
 import nurseybook.model.task.Recurrence;
 import nurseybook.testutil.EditTaskDescriptorBuilder;
-import org.junit.jupiter.api.Test;
 
 public class EditTaskDescriptorTest {
 
