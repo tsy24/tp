@@ -57,11 +57,13 @@ skinparam Sequence {
     BoxPadding 0
     BoxFontColor #FFFFFF
     FontName Arial
+    ArrowFontSize 15
 }
 
 skinparam Participant {
     FontColor #FFFFFFF
     Padding 20
+    FontSize 15
 }
 
 skinparam MinClassWidth 50
