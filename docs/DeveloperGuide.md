@@ -527,7 +527,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* * *`  | nurse                       | update the records of an elderly                              | the records are up to date without the need to delete and re-add the details                                                                     |
 | `* * *`  | nurse                       | add additional notes about an elderly                         | I can understand the elderly under my care better                                                                                                |
 | `* *`    | nurse                       | archive the details of elderlies                              | not clutter the system with the details of elderlies who have left the nursing home, but still keep the records of their stay for legal purposes |
-| `* * *`  | nurse                       | delete the next-of-kin information of an elderly              | easily update the next-of-kin information of an elderly easily, if the elderly's next-of-kin (hence point of contact) has changed                |
+| `* * *`  | nurse                       | delete the next-of-kin information of an elderly              | easily delete the next-of-kin information of an elderly that is no longer relevant                                                               |
 | `* * *`  | nurse	                     | add tags of conditions of elderly                             | identify the conditions of elderly easily at a glance                                                                                            |
 | `* * *`  | nurse	                     | delete tags of conditions of elderly                          | remove tags that are no longer relevant                                                                                                          |
 | `* * *`  | nurse	                     | filter the elderly by their tags                              | filter elderly more easily, and plan group activities efficiently, such as ordering food for patients with diabetes                              |
@@ -547,7 +547,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* * *`  | nurse                       | view my schedule on a particular day                          | make plans for that day in advance                                                                                                               |
 | `* * *`  | nurse                       | search a task up by its name                                  | quickly get the details of a task                                                                                                                |
 | `* * *`  | careless nurse              | undo my recent actions                                        | revert the database to previous changes in case I make a mistake                                                                                 |
-| `* * *`  | careless nurse              | redo my recent actions                                        | re-execute the actions that I have `undo`(ne) recently                                                                                           |
+| `* * *`  | careless nurse              | redo previously undone commands                               | reverse the previous `undo` commands and re-execute the actions                                                                                  |
 | `* *`    | nurse                       | add a nurse (contact)                                         | reach out to a coworker if I am in need of assistance                                                                                            |
 | `* *`    | nurse                       | edit the details of a nurse                                   | update the information relevant to the nurse                                                                                                     |
 | `* *`    | nurse                       | delete a nurse                                                | remove records of nurses who are no longer relevant to me                                                                                        |
@@ -574,10 +574,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions**
 * 1a. User requests to <u>find elderlies with matching keywords(<a href="#uc5-find-an-elderly">UC5</a>)</u>.
-  * 1a1. NurseyBook shows a list of elderly that matches the user's query (by name).
-
-    Use case ends.
-* 1b. Users request to <u>list elderly with queried tags (<a href="#uc10-list-elderly-with-queried-tags">UC19</a>)</u>.
+* 1b. Users request to <u>list elderly with queried tags (<a href="#uc10-list-elderly-with-queried-tags">UC10</a>)</u>.
 * 2a. The list of elderly is empty.
 
   Use case ends.
@@ -773,8 +770,9 @@ Similar to <u>deleting an elderly (<a href="#uc3-delete-an-elderly">UC3</a>)</u>
     * 1b1. NurseyBook shows an error message.
 
       Use case resumes at step 1.
-* 2a. The list of elderly is empty. <br>
-     Use case ends.
+* 2a. The list of elderly is empty. 
+
+  Use case ends.
 * *a. At any time, user requests to <u>view help (<a href="#uc19-viewing-help">UC19</a>)</u>.
 
 ##### UC11: Add remark about an elderly
@@ -812,7 +810,7 @@ Similar to <u>deleting an elderly (<a href="#uc3-delete-an-elderly">UC3</a>)</u>
    Use case ends.
 
 **Extensions**
-* 1a. User requests to find tasks with matching keywords.
+* 1a. User requests to <u>find tasks with matching keywords(<a href="#uc17-find-a-task">UC17</a>)</u>.
     * 1a1. NurseyBook shows a list of tasks that matches the user's query (by description)
 
       Use case ends.
@@ -906,7 +904,7 @@ Similar to <u>finding an elderly (<a href="#uc5-find-an-elderly">UC5</a>)</u> bu
       Use case resumes at step 1.
 * 2a. There are no tasks scheduled on that date.
 
-     Use case ends.
+  Use case ends.
 * *a. At any time, user requests to <u>view help (<a href="#uc19-viewing-help">UC19</a>)</u>.
 
 #### Use cases of miscellaneous commands
@@ -1012,8 +1010,9 @@ testers are expected to do more *exploratory* testing.
       Note: This test case must be executed only after you have executed test case 1.
    
    5. Invalid commands to try (Error details shown in the status message):
-      * Invalid index >= size of task list or <= 0: `editTask 5` or `editTask -1`
-      * Added name is same as another elderly `editElderly 1 en/Alice` (assuming there is another Alice in the elderly database)
+      * Required parameters are not entered: `addElderly en/Mark Lee r/10 a/70`
+      * Age entered is not within the valid range: `addElderly en/Mark Lee r/10 a/15 g/M`
+      * Additional parameters are entered: `addElderly en/Mark Lee r/10 a/70 g/M desc/needs to visit the dentist every week`
 
 ### Deleting an elderly
 
@@ -1028,7 +1027,7 @@ testers are expected to do more *exploratory* testing.
       Expected: No elderly is deleted. Error details shown in the status message.
 
    4. Invalid commands to try (Error details shown in the status message):
-      * Invalid index >= size of elderly list or <= 0: `editElderly 5` or `editElderly -1`
+      * Invalid index >= size of elderly list or <= 0: `deleteElderly 5` or `deleteElderly -1`
 
 ### Adding a task
 
@@ -1047,7 +1046,6 @@ testers are expected to do more *exploratory* testing.
        Expected: No task is added. Error details shown in the status message. 
    
     5. Invalid commands to try (Error details shown in the status message): <br>
-       * Invalid index >= size of task list or <= 0: `addTask 5` or `addTask -1` <br>
        * Elderly does not exist in elderly database: `addTask 1 desc/Covid Shot en/Charlotte` (assuming Charlotte does not exist in the elderly database) <br>
        * Fields are the same as another task: `addTask 1 desc/Covid Shot date/2022-10-31 time/18:00 en/Bernice Yu` (assuming there is another task with the exact same description, date, time and elderly names) <br>
        * Date of a recurring task is past current date and time: `addTask 1 date/2021-10-10 recur/week`
