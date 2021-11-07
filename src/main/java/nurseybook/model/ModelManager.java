@@ -127,6 +127,14 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public Elderly findElderlyWithName(Name name) {
+        return filteredElderlies.stream()
+                .filter(elderly -> elderly.getName().caseInsensitiveEquals(name))
+                .findFirst()
+                .orElse(null);
+    }
+
+    @Override
     public void deleteElderly(Elderly target) {
         versionedNurseyBook.removeElderly(target);
     }

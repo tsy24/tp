@@ -21,7 +21,7 @@ public class AddTaskCommandIntegrationTest {
         Model model = new ModelManager();
         Task validTask = new TaskBuilder().withNames("Alex Yeoh", "George Tan").build();
         Elderly firstElderly = new ElderlyBuilder().withName("Alex Yeoh").build();
-        Elderly secondElderly = new ElderlyBuilder().withName("george taN").build();
+        Elderly secondElderly = new ElderlyBuilder().withName("George Tan").build();
 
         model.addElderly(firstElderly);
         model.addElderly(secondElderly);
