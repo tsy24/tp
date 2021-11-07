@@ -133,7 +133,7 @@ Commands in this guide follow such rules:
 * If a parameter is expected only once in the command but you specified it multiple times, only the last occurrence of the parameter will be taken.<br>
   e.g. if you specify `p/12341234 p/56785678`, only `p/56785678` will be taken.
 
-* Commands that do not take in parameters (such as `viewElderly`, `viewTasks`, `clear`, `exit`, `help`) will ignore the additional parameters that are added to the back of it.
+* Commands that do not take in parameters (such as `viewElderly`, `viewTasks`, `clear`, `help`, `exit`) will ignore the additional parameters that are added to the back of it.
   e.g. if the command specifies `viewTasks 123`, it will be interpreted as `viewTasks`.
 
 </div>
@@ -594,20 +594,28 @@ Clears all entries from NurseyBook.
 
 Format: `clear`
 
-#### 4.3.2 Undo previous command : `undo`
+#### 4.3.2 Viewing help : `help`
+
+A new window that contains a summary of the commands (with the necessary command parameters) as well as a link to this user guide will appear. The link can be copied to the system's clipboard by clicking on the `Copy` button.
+
+Format: `help`
+
+![](images/userGuide/help_expanded.png)
+
+#### 4.3.3 Undo previous command : `undo`
 
 Undoes the previous undoable command executed on the NurseyBook.
 
 Format: `undo`
 
-* Undoable commands(i.e. any command that modifies NurseyBook's data): `addElderly`, `editElderly`, `deleteElderly`, `deleteNok`, `addTag`, `deleteTag`, `addTask`, `editTask`, `deleteTask`, `doneTask`, `clear`
+* Undoable commands(i.e. any command that modifies NurseyBook's data): `addElderly`, `editElderly`, `deleteElderly`, `deleteNok`, `addTag`, `deleteTag`, `addTask`, `editTask`, `deleteTask`, `doneTask`, `clear`, `help`
 * Non-undoable commands: `findElderly`, `filter`, `viewDetails`, `viewElderly`, `findTask`, `remind`, `viewTasks`, `viewSchedule`
 * If there are no undoable commands executed previously, the undo command will fail and an error message will be shown.
 
 Example:
 * `deleteElderly 1` followed by `undo` causes the `deleteElderly 1` command to be undone and no elderly is deleted from the NurseyBook.
 
-#### 4.3.3 Redo previously undone command : `redo`
+#### 4.3.4 Redo previously undone command : `redo`
 
 Reverses the previous undo command executed on the NurseyBook.
 
@@ -619,7 +627,7 @@ Example:
 * `deleteElderly 1` followed by `undo` causes the `deleteElderly 1` command to be undone and no elderly is deleted from the NurseyBook.
 Entering `redo` will reverse the previous undo command, causing the elderly to be deleted again.
 
-#### 4.3.4 Exiting the program : `exit`
+#### 4.3.5 Exiting the program : `exit`
 
 Exits the program.
 
@@ -695,6 +703,7 @@ Action | Format, Examples
 Action | Format, Examples
 --------|------------------
 **Clear** | `clear`
+**Help** | `help`
 **Undo** | `undo`
 **Redo** | `redo`
 **Exit** | `exit`
