@@ -24,7 +24,7 @@ NurseyBook is a **desktop app made for nurses in nursing homes to aid them in ma
 4. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
 
-5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
+5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing `Enter` will open the help window.<br>
    Some example commands you can try:
 
    * **`viewElderly`** : Lists all elderly contacts.
@@ -159,7 +159,7 @@ Parameter | Description
 `DESCRIPTION` | Description of a task. A description should not be blank.
 `ELDERLY_NAME` | Name of an elderly. No two elderly should have the same name.
 `GENDER` | Gender of an elderly. Gender is either `M` for males or `F` for females.
-`INDEX` | Index is the number shown beside an elderly/task when elderlies/tasks are displayed in the display panel respectively.
+`INDEX` | Index is the number shown beside an elderly/task in the **currently displayed** elderly/task list.
 `KEYWORD` | Keyword used to search for elderlies (by name) or tasks (by description). `MORE_KEYWORDS` are similarly defined. A keyword should not be blank.
 `NOK_ADDRESS` | Address of an elderly's next-of-kin.
 `NOK_EMAIL` | Email of an elderly's next-of-kin. An email should be in the format of local-part@domain.
@@ -206,9 +206,11 @@ Examples:
 <div markdown="block" class="alert alert-info">
 
 :information_source: **Information:**
+   
 * An elderly can have any number of tags (including 0).
 * You can specify a Next-of-Kin's (NOK) details for each elderly, when adding an elderly.
-* NurseyBook does not support any two elderly with the same name, even if any other fields are different. A suggestion will be to save the full name of the elderly you are adding into NurseyBook.
+* NurseyBook does not support any two elderly with the same name, even if any other fields are different. The casing of the name does not matter either. A suggestion will be to save the full name of the elderly you are adding into NurseyBook.
+* Executing the command will automatically change the display view to your full elderly list, so that you can see the elderly you added.
 
 </div>
 
@@ -381,6 +383,7 @@ Examples:
 
 :information_source: **Information:**
 * There should be at least one tag.
+* The matching of tags is case-insensitive. e.g. `t/Diabetic` will match `diabetic`, `DIABETIC`.
 
 </div>
 
@@ -419,6 +422,14 @@ Shows a list of all your tasks in NurseyBook.
 
 Format: `viewTasks`
 
+<div markdown="block" class="alert alert-info">
+
+:information_source: **Information:**
+
+* The task list shown is always sorted chronologically with earliest tasks at the top.
+
+</div>
+
 #### 4.2.2 Add a task: `addTask`
 
 Adds a task to the task list.
@@ -432,7 +443,8 @@ Examples:
 
 :information_source: **Information:**
 
-* Executing the command will automatically change the display view to your task list, so that you can see the task you added.
+* Executing the command will automatically change the display view to your full task list, so that you can see the task you added.
+* The name entered can be different letter case as the name of the existing elderly. e.g. `en/herman lim` is accepted if `Herman Lim` is a registered elderly.
 
 </div>
 
@@ -579,7 +591,7 @@ Example:
 
 :exclamation: **Caution:**
 * NurseyBook will not automatically refresh the displayed task list to reflect instantaneous changes, such as overdue tasks and new dates of recurring tasks.
-* However, you can manually trigger this refresh, and one way is to enter [`viewTasks`](#421-view-all-tasks-viewtasks) in the command box.
+* However, you can manually trigger this refresh, and one way is to enter [`viewTasks`](#421-view-all-tasks-viewtasks) in the command box. Entering any task-related command would trigger this refresh.
 * This will update the overdue status of all tasks and new dates of all recurring tasks.
   * e.g. If the time now is 9.01pm and there is an undone task which is due at 9.00pm the same day, you can enter `viewTasks`, otherwise the red overdue tag will not show automatically.
   * e.g. If the time now is 9.01pm and there is a recurring task due at 9.00pm, you can enter `viewTasks`, otherwise the task's date will remain unchanged.
@@ -599,6 +611,13 @@ Format: `clear`
 A new window that contains a summary of the commands (with the necessary command parameters) as well as a link to this user guide will appear. The link can be copied to the system's clipboard by clicking on the `Copy` button.
 
 Format: `help`
+
+<div markdown="block" class="alert alert-primary">
+
+:bulb: **Tip:**
+* The help window is more optimized for viewing if the command is entered when NurseyBook is not in full screen mode.
+
+</div>
 
 ![](images/userGuide/help_expanded.png)
 
