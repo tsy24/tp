@@ -84,6 +84,12 @@ public interface Model {
      */
     boolean areAllElderliesPresent(Set<Name> names);
 
+    /**
+     * Returns first and only elderly in NurseyBook whose name matches {@code name} (case-insensitive matching).
+     * Since only one elderly in NurseyBook is allowed to have a particular name, this returns only one elderly.
+     */
+    public Elderly findElderlyWithName(Name name);
+
     void updateElderlyNameInTasks(Elderly target, Elderly editedElderly);
 
     void deleteElderlyNameInTasks(Elderly elderlyToDelete);

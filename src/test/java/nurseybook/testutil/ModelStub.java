@@ -132,6 +132,11 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public Elderly findElderlyWithName(Name name) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public ObservableList<Elderly> getFilteredElderlyList() {
         throw new AssertionError("This method should not be called.");
     }

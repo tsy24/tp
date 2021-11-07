@@ -31,6 +31,7 @@ import nurseybook.model.Model;
 import nurseybook.model.ModelManager;
 import nurseybook.model.NurseyBook;
 import nurseybook.model.UserPrefs;
+import nurseybook.model.person.Name;
 import nurseybook.model.task.Task;
 import nurseybook.testutil.EditTaskDescriptorBuilder;
 import nurseybook.testutil.TaskBuilder;
@@ -199,6 +200,30 @@ public class EditTaskCommandTest {
         expectedModel.commitNurseyBook(expectedCommandResult);
 
         assertCommandSuccess(editTaskCommand, model, expectedCommandResult, expectedModel);
+    }
+
+    @Test
+    public void execute_sameValidNameDiffCasing_executionSuccess() {
+        model.setVersionedNurseyBook(getTypicalNurseyBook());
+
+        Task taskInFilteredList = model.getFilteredTaskList().get(INDEX_FIRST.getZeroBased());
+        Task editedTask = new TaskBuilder(taskInFilteredList).withNames("Carl Kurz").build();
+
+        EditTaskCommand editTaskCommand = new EditTaskCommand(INDEX_FIRST,
+                new EditTaskDescriptorBuilder(editedTask).withNames("carl kurz", "caRL kuRZ", "CARL KURZ").build());
+        String expectedMessage = String.format(MESSAGE_EDIT_TASK_SUCCESS, editedTask);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage);
+
+        Model expectedModel = new ModelManager(new NurseyBook(model.getVersionedNurseyBook()), new UserPrefs());
+        expectedModel.setTask(taskInFilteredList, editedTask);
+        expectedModel.updateTasksAccordingToTime();
+        expectedModel.commitNurseyBook(expectedCommandResult);
+
+        assertCommandSuccess(editTaskCommand, model, expectedCommandResult, expectedModel);
+
+        Task newTask = model.getFilteredTaskList().get(INDEX_FIRST.getZeroBased());
+        assertTrue(newTask.getRelatedNames().size() == 1
+                && newTask.getRelatedNames().contains(new Name("Carl Kurz")));
     }
 
     @Test

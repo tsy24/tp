@@ -4,6 +4,7 @@ import static nurseybook.model.Model.PREDICATE_SHOW_ALL_ELDERLIES;
 import static nurseybook.testutil.Assert.assertThrows;
 import static nurseybook.testutil.TypicalElderlies.ALICE;
 import static nurseybook.testutil.TypicalElderlies.BENSON;
+import static nurseybook.testutil.TypicalElderlies.BOB;
 import static nurseybook.testutil.TypicalTasks.GEORGE_INSULIN;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -12,10 +13,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
 import nurseybook.commons.core.GuiSettings;
+import nurseybook.model.person.Name;
 import nurseybook.model.person.NameContainsKeywordsPredicate;
 import nurseybook.testutil.NurseyBookBuilder;
 
@@ -95,6 +99,7 @@ public class ModelManagerTest {
 
     @Test
     public void hasElderly_elderlyInNurseyBook_returnsTrue() {
+        modelManager = new ModelManager();
         modelManager.addElderly(ALICE);
         assertTrue(modelManager.hasElderly(ALICE));
     }
@@ -103,6 +108,43 @@ public class ModelManagerTest {
     public void hasTask_taskInNurseyBook_returnsTrue() {
         modelManager.addTask(GEORGE_INSULIN);
         assertTrue(modelManager.hasTask(GEORGE_INSULIN));
+    }
+
+    @Test
+    public void areAllElderliesPresent_elderliesPresent_returnsTrue() {
+        //name is different casing as the elderly entry
+        modelManager = new ModelManager();
+        modelManager.addElderly(ALICE);
+        modelManager.addElderly(BOB);
+
+        Set<Name> namesToTest = new HashSet<>();
+        namesToTest.add(new Name("alICE paULIne"));
+        namesToTest.add(new Name("bob CHOO"));
+        assertTrue(modelManager.areAllElderliesPresent(namesToTest));
+    }
+
+    @Test
+    public void areAllElderliesPresent_elderliesAbsent_returnsFalse() {
+        //name is different casing as the elderly entry
+        modelManager = new ModelManager();
+        Set<Name> namesToTest = new HashSet<>();
+        namesToTest.add(new Name("claire"));
+        assertFalse(modelManager.areAllElderliesPresent(namesToTest));
+    }
+
+    @Test
+    public void findElderlyWithName_nameDiffCase_returnsElderly() {
+        //name is different casing as the elderly entry
+        modelManager = new ModelManager();
+        modelManager.addElderly(ALICE);
+        assertTrue(modelManager.findElderlyWithName(new Name("alICe paULine")).equals(ALICE));
+    }
+
+    @Test
+    public void findElderlyWithName_differentName_returnsNull() {
+        //name is does not match any elderly
+        modelManager = new ModelManager();
+        assertTrue(modelManager.findElderlyWithName(new Name("george")) == null);
     }
 
     @Test
