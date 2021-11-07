@@ -213,6 +213,8 @@ Examples:
 
 </div>
 
+`addElderly en/Khong Guan a/80 g/M r/201 nn/Gong Kuan rs/Brother p/91234567 e/guanbro@gmail.com addr/London Street 11` used:
+
 ![](images/userGuide/add_elderly_0.png)
 ![](images/userGuide/add_elderly_1.png)
 
@@ -313,6 +315,8 @@ Examples:
 
 </div>
 
+`viewDetails 1` used:
+
 ![](images/userGuide/view_details.png)
 
 #### 4.1.7 Delete an elderly's NoK details : `deleteNok`
@@ -391,6 +395,8 @@ Examples:
 * The matching of tags is case-insensitive. e.g. `t/Diabetic` will match `diabetic`, `DIABETIC`
 
 </div>
+
+`filter t/vegetarian` used:
 
 ![](images/userGuide/filter.png)
 
@@ -483,6 +489,8 @@ Examples:
 
 </div>
 
+`addTask en/Khong Guan desc/check insulin level date/2022-01-25 time/19:22 recur/week` used :
+
 ![](images/userGuide/add_task_0.png)
 ![](images/userGuide/add_task_1.png)
 
@@ -555,6 +563,8 @@ Examples:
 
 </div>
 
+`findTask report` used:
+
 ![](images/userGuide/find_task.png)
 
 #### 4.2.6 Mark a task as completed: `doneTask`
@@ -584,9 +594,9 @@ those under your care.
 
 Format: `remind`
 
-![](images/userGuide/remind.png)
-
 Screenshot taken on 2021-11-04.
+
+![](images/userGuide/remind.png)
 
 #### 4.2.8 View task schedule: `viewSchedule`
 
@@ -607,6 +617,8 @@ Example:
 * For recurring tasks, this is simply a tool to preview its future occurrences. You cannot modify (e.g. delete/edit/mark as done/etc.) any such future occurrences of recurring tasks shown in the task list. These future occurrences will be deleted from your task view upon entering any next valid or invalid input.
 
 </div>
+
+`viewSchedule 2021-12-20` used:
 
 ![](images/userGuide/view_schedule.png)
 
