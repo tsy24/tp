@@ -27,12 +27,14 @@ Given below are my contributions to the project.
 * **Enhancements to existing features**:
   * Performed a major refactor of `Person` class to include `Elderly` and `Nok` classes. (Pull requests [\#64](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/64), [\#78](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/78))
 
-* **Documentation**: (not updated yet)
+* **Documentation**:
   * User Guide:
-    * Added documentation for the features `delete` and `find` [\#72]()
+    * Added documentation for the features `editElderly`, `viewDetails`, `addTask` and `editTask` [\#40](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/40), [\#212](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/212)
     * Did cosmetic tweaks to existing documentation of features `clear`, `exit`: [\#74]()
   * Developer Guide:
-    * Added implementation details of the `delete` feature.
+    * Updated use cases [\#46](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/46), [\#243](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/243)
+    * Added implementation details of the sections "Add Recurring Task feature" and "Handling of Overdue and Recurring Tasks". [\#212](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/212) 
+    * Improved section on Model architecture with new model class diagrams ModelClassDiagram.png and DetailedModelClassDiagram.png[\#104](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/104), [\#105](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/105)
 
 * **Community**:
-  * PRs reviewed (with non-trivial review comments): [\#107](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/107)
+  * PRs reviewed (with non-trivial review comments): [\#77](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/77), [\#107](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/107)
