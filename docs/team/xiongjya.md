@@ -24,12 +24,12 @@ Given below are my contributions to the project.
 
 
 * **New Feature**: Sort newly added tasks into NurseyBook in chronological order.
-    * What it does: When the user adds a task into NurseyBook, the task will not be added to the end of the list. Instead, it will be slotted into a position in the task list, to make sure that the task list displays tasks in a chronological order.
+    * What it does: When the user adds a task into NurseyBook, the task is positioned in the list according to its date and time, such that the tasks in the list are always chronologically ordered.
     * Justification: As the user will be more likely to start on tasks that are due sooner, he/she will prefer to view such tasks in a more accessible manner. Thus, tasks that are due sooner are displayed at the top of the task list. 
   
 
 * **New Feature**: Added a remind command that allows the user to view the tasks coming up in the next 3 days.
-    * What it does: Detects whether the tasks added to NurseyBook have dates that are scheduled for the next 3 days (in comparison to the time of running the command), and displays the result to the user.
+    * What it does: Detects tasks added to NurseyBook that are scheduled within the next 3 days (in comparison to the time of running the command), and displays the result to the user.
     * Justification: This feature improves the user experience. If a user has a task list cluttered up with multiple irrelevant and undeleted tasks, the command assists the user in detecting tasks of higher priority (in less than a second).
     * Highlights: This implementation marks the start of incorporating the usage of time and duration into NurseyBook.
 
@@ -44,11 +44,6 @@ Given below are my contributions to the project.
     * What it does: Allows the user to look for tasks with matching keywords in the task description.
     * Justification: This feature boosts the speed and efficiency of the user. The user no longer has to scroll through multiple tasks to search for the one they need, but simply type in a keyword to filter out the unrelated tasks. 
     
-
-* **Enhancements to existing features**:
-    * Updated the GUI color scheme (Pull requests [\#33](), [\#34]()).
-    * Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests [\#36](), [\#38]()).
-
 
 * **Documentation**:
     * User Guide:
