@@ -380,7 +380,7 @@ Examples:
 
 :information_source: **Information:**
 * There should be at least one tag.
-* The matching of tags is case-insensitive. e.g. `t/Diabetic` will match `diabetic`, `DIABETIC`
+* The matching of tags is case-insensitive. e.g. `t/Diabetic` will match `diabetic`, `DIABETIC`.
 
 </div>
 
@@ -589,7 +589,7 @@ Example:
 
 :exclamation: **Caution:**
 * NurseyBook will not automatically refresh the displayed task list to reflect instantaneous changes, such as overdue tasks and new dates of recurring tasks.
-* However, you can manually trigger this refresh, and one way is to enter [`viewTasks`](#view-all-tasks-viewtasks) in the command box. Entering task-related command would trigger this refresh.
+* However, you can manually trigger this refresh, and one way is to enter [`viewTasks`](#view-all-tasks-viewtasks) in the command box. Entering any task-related command would trigger this refresh.
 * This will update the overdue status of all tasks and new dates of all recurring tasks.
   * e.g. If the time now is 9.01pm and there is an undone task which is due at 9.00pm the same day, you can enter `viewTasks`, otherwise the red overdue tag will not show automatically.
   * e.g. If the time now is 9.01pm and there is a recurring task due at 9.00pm, you can enter `viewTasks`, otherwise the task's date will remain unchanged.
