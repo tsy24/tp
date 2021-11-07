@@ -123,11 +123,14 @@ public class UniqueTaskList implements Iterable<Task> {
      * The elderly identity of {@code editedElderly} must not be the same as another existing elderly in NurseyBook.
      */
     public void updateElderlyNameInTasks(Elderly target, Elderly editedElderly) {
-        for (Task task : internalList) {
+        // modifying list contents within foreach loop not allowed. Thus, this for loop is used
+        int size = internalList.size();
+        for (int i = 0; i < size; i++) {
+            Task task = internalList.get(i);
             for (Name name : task.getRelatedNames()) {
                 if (target.getName().caseInsensitiveEquals(name)) {
-                    int index = internalList.indexOf(task);
-                    internalList.set(index, task.replaceName(name, editedElderly.getName()));
+                    internalList.remove(task);
+                    internalList.add(task.replaceName(name, editedElderly.getName()));
                 }
             }
         }
@@ -139,11 +142,14 @@ public class UniqueTaskList implements Iterable<Task> {
      * The elderly identity of {@code editedElderly} must not be the same as another existing elderly in NurseyBook.
      */
     public void deleteElderlyNameInTasks(Elderly elderlyToDelete) {
-        for (Task task : internalList) {
+        // modifying list contents within foreach loop not allowed. Thus, this for loop is used
+        int size = internalList.size();
+        for (int i = 0; i < size; i++) {
+            Task task = internalList.get(i);
             for (Name name : task.getRelatedNames()) {
                 if (elderlyToDelete.getName().caseInsensitiveEquals(name)) {
-                    int index = internalList.indexOf(task);
-                    internalList.set(index, task.deleteName(name));
+                    internalList.remove(task);
+                    internalList.add(task.deleteName(name));
                 }
             }
         }
