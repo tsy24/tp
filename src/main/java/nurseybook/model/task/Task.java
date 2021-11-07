@@ -16,7 +16,7 @@ public abstract class Task implements Comparable<Task> {
     private final Description desc;
     private DateTime dateTime;
     private final Status status;
-    private Set<Name> relatedNames = new HashSet<>();
+    private final Set<Name> relatedNames = new HashSet<>();
     private final Recurrence recurrence;
 
     /**
@@ -154,6 +154,16 @@ public abstract class Task implements Comparable<Task> {
     }
 
     /**
+     * Changes the related names of the task to the intended set of names
+     *
+     * @param names The intended set of names
+     */
+    public void setRelatedNames(Set<Name> names) {
+        this.relatedNames.clear();
+        this.relatedNames.addAll(names);
+    }
+
+    /**
      * Returns a copy of the task with the name {@code target} replaced with {@code editedName}
      * in {@code relatedNames} of the task.
      */
@@ -235,14 +245,6 @@ public abstract class Task implements Comparable<Task> {
         this.dateTime = new DateTime(newDate, this.dateTime.getTime());
     }
 
-    /**
-     * Changes the related names of the task to the intended set of names
-     *
-     * @param newNames The intended set of names
-     */
-    public void setRelatedNames(Set<Name> newNames) {
-        this.relatedNames = newNames;
-    }
     /**
      * Copies the task and all it's fields and returns a new instance of it.
      *

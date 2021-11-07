@@ -1036,7 +1036,7 @@ testers are expected to do more *exploratory* testing.
 
    4. Invalid commands to try (Error details shown in the status message):
       * Invalid index >= size of elderly list or <= 0: `deleteElderly 5` or `deleteElderly -1`
-
+      
 ### Adding tags to an elderly
 
 1. Add one or more tags to an elderly in NurseyBook
@@ -1087,6 +1087,19 @@ testers are expected to do more *exploratory* testing.
         * Missing parameters: `filter`
         * Additional parameters: `filter en/Alex Yeoh`
 
+### Delete all NoK details of an elderly.
+
+1. Deleting all NoK details of an elderly.
+
+    1. Prerequisites: List all elderlies using the `viewElderly` command. Multiple elderlies in the list.
+
+    2. Test case: `deleteNok 1` <br>
+       Expected: All NoK details of the first elderly in the list are deleted. Updated details of the elderly whose NoK details were deleted are shown in the status message.
+
+    3. Invalid commands to try (Error details shown in the status message):
+         * Invalid index >= size of elderly list, or <= 0: `deleteNok 5` or `deleteNok -1`
+         
+
 ### Adding a task
 
 1. Adding a task to NurseyBook
@@ -1094,7 +1107,7 @@ testers are expected to do more *exploratory* testing.
     1. Prerequisites: Add an elderly with name 'Khong Guan' to NurseyBook.
     
     2. Test case: `addTask en/Khong Guan desc/Weekly Taiji date/2022-10-10 time/14:30 recur/week` <br>
-       Expected: New task with the parameters is created. It is a one-off task and recurrence is 'Week'.
+       Expected: New task with the parameters is created. It is a recurring task and recurrence is 'Week'.
    
     3. Test case: `addTask en/Khong Guan desc/Weekly Taiji date/2021-10-10 time/14:30` <br>
        Expected: New task with the parameters is created. It is a one-off task and recurrence is 'None'. Task has an 'Overdue' tag. <br>
@@ -1159,8 +1172,32 @@ testers are expected to do more *exploratory* testing.
     
 ### Remind
 
+
+
+
 ### View Schedule
 
+1. Viewing task schedule on a specific date in NurseyBook. For illustration purposes, current date is assumed to be `2021-11-12`. You should use the actual current date, and the corresponding future or past dates during your testing.
+
+    1. Prerequisites: User is currently viewing the task list page. Only the following 3 tasks are be added to NurseyBook. We shall call them Tasks A, B and C.
+        * Task A: A non-recurring task, the date of which is current date. <br> Assume this date is `2021-11-12` for illustration purposes.
+        * Task B: A daily recurring task, the initial date of which is current date + 2 days. <br> Assume this date is `2021-11-14` for illustration purposes.
+        * Task C: A non-recurring task, the date of which is current date + 4 days. <br> Assume this date is `2021-11-16` for illustration purposes.
+    2. Test case - today:`viewSchedule 2021-11-12` <br>
+       Expected: Task A should be displayed.
+
+    3. Test case - one day ahead:`viewSchedule 2021-11-13` <br>
+       Expected: No tasks should be displayed.
+
+    4. Test case - four days ahead:`viewSchedule 2021-11-16` <br>
+       Expected: Tasks B and C should be displayed. Date of Task B in this display should be `2021-11-16`.
+
+    5. Test case - a week ahead:`viewSchedule 2021-11-19` <br>
+       Expected: Task B should be displayed. Date of Task B in this display should be `2021-11-19`.
+
+    6. Invalid commands to try (Error details shown in the status message):
+        * Date input has already passed: `viewSchedule 2021-11-11`
+        * Not formatting the date correctly in yyyy-mm-dd format: `viewSchedule 16-12-2021`
 
 ### Undo
 
@@ -1194,7 +1231,7 @@ testers are expected to do more *exploratory* testing.
 
     4. Test case: enter `addElderly en/Khong Guan a/80 g/M r/10` and then `redo`<br>
        Expected: No change in data of NurseyBook as there are no previously undone commands. Error details shown in the status message.
-      
+    
 ### Saving data
 
 1. Dealing with missing/corrupted data files
