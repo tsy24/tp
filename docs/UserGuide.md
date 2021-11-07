@@ -579,7 +579,7 @@ Example:
 
 :exclamation: **Caution:**
 * NurseyBook will not automatically refresh the displayed task list to reflect instantaneous changes, such as overdue tasks and new dates of recurring tasks.
-* However, you can manually trigger this refresh, and one way is to enter [`viewTasks`](#view-all-tasks-viewtasks) in the command box.
+* However, you can manually trigger this refresh, and one way is to enter [`viewTasks`](#421-view-all-tasks-viewtasks) in the command box.
 * This will update the overdue status of all tasks and new dates of all recurring tasks.
   * e.g. If the time now is 9.01pm and there is an undone task which is due at 9.00pm the same day, you can enter `viewTasks`, otherwise the red overdue tag will not show automatically.
   * e.g. If the time now is 9.01pm and there is a recurring task due at 9.00pm, you can enter `viewTasks`, otherwise the task's date will remain unchanged.
@@ -670,7 +670,7 @@ Action | Format, Examples
 **Edit an elderly** | `editElderly INDEX [en/ELDERLY_NAME] [a/AGE] [g/GENDER] [r/ROOMNO] [t/TAG]…​ [nn/NOK_NAME] [rs/NOK_RELATIONSHIP] [p/NOK_PHONE_NUMBER] [e/NOK_EMAIL] [addr/NOK_ADDRESS] [re/REMARK]`
 **Find an elderly** | `findElderly KEYWORD [MORE_KEYWORDS]`
 **Delete next-of-kin of elderly** | `deleteNok INDEX`<br> <br> e.g., `deleteNok 3`
-**Add tag(s)** | `addTagINDEX t/TAG [t/TAG]…​` <br> <br> e.g., `addTag 1 t/diabetes`
+**Add tag(s)** | `addTag INDEX t/TAG [t/TAG]…​` <br> <br> e.g., `addTag 1 t/diabetes`
 **Delete tag(s)** | `deleteTag INDEX t/TAG [t/TAG]…​`
 **Filter** | `filter t/TAG [t/TAG]…​`
 **Remark** | `remark INDEX re/REMARK`
