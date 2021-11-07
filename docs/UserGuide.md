@@ -600,6 +600,13 @@ A new window that contains a summary of the commands (with the necessary command
 
 Format: `help`
 
+<div markdown="block" class="alert alert-primary">
+
+:bulb: **Tip:**
+* The help window is more optimized for viewing if the command is entered when NurseyBook is not in full screen mode.
+
+</div>
+
 ![](images/userGuide/help_expanded.png)
 
 #### 4.3.3 Undo previous command : `undo`
