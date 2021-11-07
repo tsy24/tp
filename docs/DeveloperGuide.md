@@ -925,36 +925,93 @@ testers are expected to do more *exploratory* testing.
 
    2. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
-   
 
-### Deleting a elderly
+### Adding an elderly
 
-1. Deleting an elderly while all elderlies are being shown
+1. Adding an elderly to NurseyBook
 
-   1. Prerequisites: List all elderlies using the `viewElderly` command. Multiple elderlies in the list.
+    1. Test case: `addElderly en/Khong Guan a/80 g/M r/201 nn/Gong Kuan rs/Brother p/91234567 e/guanbro@gmail.com addr/London Street 11` <br>
+       Expected: New elderly with the parameters is created. His name is Khong Guan, 80 years old, male, in room number 201, with his Nok's (brother) name Gong Kuan, phone number 91234567, email guanbro@gmail.com and address London Street 11.
+    2. Test case: `addElderly en/John a/77 g/M r/420 t/diabetes nn/Timothy rs/Son`<br>
+       Expected: New elderly with the parameters is created. His name is John, 77 years old, male, in room number 420, has a tag 'diabetes', with his Nok's (son) name Timothy.
 
-   2. Test case: `deleteElderly 1`<br>
-      Expected: First elderly is deleted from the list. Details of the deleted elderly shown in the status message.
+   Invalid commands to try (Error details shown in the status message):
+    1. Invalid index >= size of task list or <= 0: `editTask 5` or `editTask -1`
+    2. Added name is same as another elderly `editElderly 1 en/Alice` (assuming there is another Alice in the elderly database)
 
-   3. Test case: `deleteElderly 0`<br>
-      Expected: No elderly is deleted. Error details shown in the status message.
+### Deleting an elderly
 
-   4. Other incorrect `deleteElderly` commands to try: `deleteElderly`, `deleteElderly x`, `...` (where x is larger than the list size)<br>
-      Expected: Similar to previous.
+1. Deleting a task while all tasks are being shown
+
+    1. Prerequisites: List all elderlies using the `viewElderly` command. Multiple elderlies in the list.
+    2. Test case: `deleteElderly 1`<br>
+       Expected: First elderly is deleted from the list. Details of the deleted elderly shown in the status message.
+
+   Invalid commands to try (Error details shown in the status message):
+    1. Invalid index >= size of elderly list or <= 0: `editElderly 5` or `editElderly -1`
 
 ### Adding a task
 
 1. Adding a task to NurseyBook
-    
-    1. Prerequisites: Add an elderly with name 'Khong Guan' to NurseyBook
-    2. Test case: `addTask en/Khong Guan desc/Weekly Taiji date/2022-10-10 time/14:30 recur/week`<br>
+
+    1. Test case: `addTask en/Khong Guan desc/Weekly Taiji date/2022-10-10 time/14:30 recur/week`<br>
         Expected: New task with the parameters is created. It is a one-off task and recurrence is 'Week'.
-    3. Test case: `addTask en/Khong Guan desc/Weekly Taiji date/2021-10-10 time/14:30`<br>
-       Expected: New task with the parameters is created. It is a one-off task and recurrence is 'None'. Task has an 'Overdue' tag.
-    4. Test case: `addTask en/Benny desc/Weekly Taiji date/2022-10-10 time/14:30`<br>
-        Expected: No task is added. Error details shown in the status message.
-    5. Other incorrect `addTask` commands to try: `addTask en/Khong Guan desc/Weekly Taiji date/2021-10-10 time/14:30 recur/week`,`addTask`, `addTask desc/Weekly Taiji`, `...` (with missing compulsory parameters)<br>
-        Expected: Similar to previous
+    2. Test case: `addTask en/Khong Guan desc/Weekly Taiji date/2021-10-10 time/14:30`<br>
+        Expected: New task with the parameters is created. It is a one-off task and recurrence is 'None'. Task has an 'Overdue' tag.
+
+   Invalid commands to try (Error details shown in the status message):
+    1. Invalid index >= size of task list or <= 0: `addTask 5` or `addTask -1`
+    2. Elderly does not exist in elderly database: `addTask 1 desc/Covid Shot en/Charlotte` (assuming Charlotte does not exist in the elderly database)
+    3. Fields are the same as another task: `addTask 1 desc/Covid Shot date/2022-10-31 time/18:00 en/Bernice Yu` (assuming there is another task with the exact same description, date, time and elderly names)
+    4. Date of a recurring task is past current date and time: `addTask 1 date/2021-10-10 recur/week`
+       
+### Deleting a task
+
+1. Deleting a task while all tasks are being shown
+
+    1. Prerequisites: List all tasks using the `viewTasks` command. Multiple tasks in the list.
+    2. Test case: `deleteTask 1`<br>
+        Expected: First task is deleted from the list. Details of the deleted task shown in the status message.
+       
+    Invalid commands to try (Error details shown in the status message):
+    1. Invalid index >= size of task list or <= 0: `deleteTask 5` or `deleteTask -1`
+
+### Editing a task
+
+1. Editing a task already present in NurseyBook
+
+    1. Prerequisites: There is a task with description 'Covid Jab', date '2021-11-30', time '14:00' and elderly names 'Alex Yeoh' in the task database. There are elderlies named 'Alex Yeoh' and 'Bernice Yu' present in the elderly database.
+    2. Test case: `editTask 1 desc/Covid Shot`<br>
+        Expected: Task's description is replaced with 'Covid Shot'.
+    3. Test case: `editTask 1 desc/Covid Shot en/Bernice Yu`<br>
+        Expected: Task's description and elderly names is replaced with 'Covid Shot' and 'Bernice Yu' respectively.
+    4. Test case: `editTask 1 recur/day`<br>
+        Expected: Task's recurrence type is changed from none to day.
+    
+    Invalid commands to try (Error details shown in the status message):
+    1. Invalid index >= size of task list or <= 0: `editTask 5` or `editTask -1`
+    2. Edited elderly does not exist in database: `editTask 1 en/Charlotte`
+    3. Edited fields are the same as the original fields or of another task: `editTask 1 desc/Covid Shot`
+    4. Edited date of a recurring task is past current date and time: `editTask 1 date/2021-10-10 recur/week`
+    
+### Find a task
+
+1. Finding a task in NurseyBook
+
+### Mark a task as complete
+
+1. Marking a task as complete in NurseyBook
+
+    1. Prerequisites: List all tasks using the `viewTasks` command. Multiple tasks in the list.
+    2. Test case: `doneTask 1` <br>
+        Expected: First task is mark as completed. Details of the deleted task shown in the status message. The to-do box on the right of the task will be ticked.
+       
+    Invalid commands to try (Error details shown in the status message):
+    1. Invalid index >= size of task list or <= 0: `doneTask 5` or `doneTask -1`
+    
+### Remind
+
+### View Schedule
 
 ### Saving data
 
