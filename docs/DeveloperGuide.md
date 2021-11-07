@@ -174,7 +174,7 @@ This diagram shows how the FilterCommand object is created:
 
 ![FilterSequenceDiagram](images/FilterSequenceDiagram.png)
 
-This diagram shows how the FilterCommand is executed:
+This diagram shows how the FilterCommand object is executed:
 
 ![FilterSequenceDiagramPart2](images/FilterSequenceDiagramPart2.png)
 
@@ -1080,10 +1080,10 @@ testers are expected to do more *exploratory* testing.
     1. Test case: `filter t/diabetes`<br>
        Expected: list of elderlies with `diabetes` tag is displayed.
 
-    3. Test case: `filter t/diabetes t/fever`<br>
-       Expected: list of elderlies with both `diabetes` and `fever` tags is displayed.
+    2. Test case: `filter t/diabetes t/fever`<br>
+        Expected: list of elderlies with both `diabetes` and `fever` tags is displayed.
 
-    4. Invalid commands to try (Error details shown in the status message):
+    3. Invalid commands to try (Error details shown in the status message):
         * Missing parameters: `filter`
         * Additional parameters: `filter en/Alex Yeoh`
 
@@ -1206,10 +1206,10 @@ testers are expected to do more *exploratory* testing.
    1. Prerequisites: NurseyBook is just launched with no commands entered yet. 
 
    2. Test case: enter `addElderly en/Khong Guan a/80 g/M r/10` and then `undo`<br>
-      Expected: Addition of elderly `Khong Guan` is undone. List of elderly displayed does not contain `Khong Guan`.
+      Expected: Addition of elderly `Khong Guan` is undone. No elderly is added and list of elderly displayed does not contain `Khong Guan`.
 
    3. Test case: enter `addElderly en/Khong Guan a/80 g/M r/10` then `addElderly en/Swee Choon a/70 g/M r/15`, `undo` and then `undo`<br>
-      Expected: Addition of both `Khong Guan` and `Swee Choon` is undone. List of elderly displayed does not contain `Khong Guan` and `Swee Choon`.
+      Expected: Addition of both `Khong Guan` and `Swee Choon` is undone. No elderly is added and list of elderly displayed does not contain `Khong Guan` and `Swee Choon`.
 
    4. Test case: `undo`<br>
       Expected: No change in data of NurseyBook. Error details shown in the status message.
