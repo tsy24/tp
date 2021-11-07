@@ -200,9 +200,9 @@ Thus, the methods provided in Java Util Set are sufficient and there is no need 
 #### How task status is changed
 `Task` now contains `Status`, which stores the completion status of the task. `Task` now implements the following operations:
 
-* `Task#markAsDone()` — Sets the task status as done
+* `Task#markAsDone()` — Sets the task's completion status as done
 
-`TaskList` uses the method above to mark the specified task as done in `TaskList#markTaskAsDone(Task toMark)`. This operation is exposed in the `Model` interface as `Model#markTaskAsDone(Task target)`.
+`UniqueTaskList` uses the method above to mark the specified task as done in `UniqueTaskList#markTaskAsDone(Task toMark)`. This operation is exposed in the `Model` interface as `Model#markTaskAsDone(Task target)`.
 
 #### How the target task is identified
 First, the `DoneTaskCommandParser` parses the `Index` which is passed to the `DoneTaskCommand`.  The `Index` identifies the task to be marked as done.
@@ -215,36 +215,69 @@ The following activity diagram summarizes what happens when a user enters the co
 
 ![DoneTaskActivityDiagram](images/DoneTaskActivityDiagram.png)
 
-### Add Recurring Task feature
+### Overdue tasks
+
+#### How task status is changed
+`Status` under `Task` does not only store the completion status of the task, but the overdue status as well. A task is "overdue" if its scheduled date and time passes the current date and time.
+
+* `Task#markAsOverdue()` — Sets the task's overdue status as done
+
+`UniqueTaskList` uses the method above to mark the specified task as overdue in `UniqueTaskList#markTaskAsOverdue(Task toMark)`. This operation occurs in the `Model` interface under the `Model#updateTasksAccordingToTime()`, which is defined in `ModelManager#updateTasksAccordingToTime()`. The method in `ModelManager` then calls `NurseyBook#updateTasksOverdueStatus()`.
+
+#### How a task is identified as overdue
+The `DateTime` of a task is checked in the functions `Task#shouldTaskBeOverdue()` and `Task#isPastCurrentDateAndRecurringTask()`. Under the definition for both functions, the `DateTime` is passed into the static method `DateTime#isOverdue(DateTime dt)` to check if the scheduled date and time of the task is past th crrent date and time.
+
+More implementation details on the updating of a task's overdue status can be referred to under a later section, [handling of overdue and recurring tasks](#handling-of-overdue-and-recurring-tasks).
+
+#### Design considerations
+**Aspect: How to display the status of a task being overdue to users**
+
+Note: This section is relevant to one-off, overdue tasks. For more details on recurring tasks, refer to later sections, [add recurring task feature](#add-recurring-task-feature) and [handling of overdue and recurring tasks](#handling-of-overdue-and-recurring-tasks).
+
+When a task is overdue, its overdue status is `true`. In the user interface, it will have a red overdue tag attached to it. The red tag was implemented to be eye-catching, highlighting the task's incomplete status. However, the issue arises when the task is overdue (past curren date and time) and completed. The red tag no longer needs to be present to distract the user from other overdue yet incomplete tasks.
+
+* **Alternative 1:** When a task is marked as done, toggle the overdue status of the task to `false`. In this case, when the date and time of the task has passed, the completion and overdue status of a task will always be opposite. (When the date and time of a task has not yet passed, both completion and overdue statuses are `false`.)
+    * Pros: Marking a task as overdue, and displaying the results will not involve the `UI` component, keeping the implementation and changes within the `Model` component.
+    * Cons: This suggested implementation will overcomplicate the operation. Furthermore, if a task is marked as done, it is still considered as overdue by its date and time. It does not make sense to change the overdue status to `false`.
+
+* **Alternative 2 (current choice) :** When a task is marked as done, hide the display of the overdue tag in the `TaskListCard.java`.
+    * Pros: An easier implementation, by just checking if a task is both completed and overdue, we hide the overdue tag when displaying the task in the task list.
+
+Alternative 2 is chosen as `UI` class has the duty to listen to changes to `Model` data so the UI can be updated with the modified data. As the second implementation is easier and is more logical, it is chosen.
+
+The following sequence diagram shows how this operation works:
+
+
+### Add recurring task feature
 
 #### Implementation
 Task now contains `Recurrence`,  which encapsulates the recurrence type of the task. There are 4 recurrence types:
-1. `NONE` -> Non-recurring `Task`
-2. `DAY` -> Recurring `Task` that repeats daily
-3. `WEEKLY` -> Recurring `Task` that repeats weekly (every 7 days)
-4. `MONTHLY` -> Recurring `Task` that repeats every 4 weeks
+1. `NONE`: Non-recurring `Task`
+2. `DAY`: Recurring `Task` that repeats daily
+3. `WEEKLY`: Recurring `Task` that repeats weekly (every 7 days)
+4. `MONTHLY`: Recurring `Task` that repeats every 4 weeks
 
-If a user does not specify `Recurrence` when adding a new `Task`, it will default to a `NONE` `Recurrence` type.
+If a user does not specify the `Recurrence` when adding a new `Task`, it will default to a `NONE` `Recurrence` type.
 
 #### Design considerations
-##### Aspect: When should the task date be changed based on its `Recurrence` type
+**Aspect: When should the task date be changed based on its `Recurrence` type**
 
-* Alternative 1: Once a user has marked a recurring `Task` as done, the date of the `Task` will be automatically changed to the next date according to its `Recurrence` type, with its completion status reset to be undone.
-    * Pros: User Experience could be more intuitive in the sense that the user can focus on the next deadline rather than the current completed task
-    * Cons: There is an increase in coupling between the `Task`’s `Status`, `Recurrence` and `DateTime` because `DateTime` now needs to depend on `Status` and `Recurrence` to decide if its date and time needs to be changed. This can increase bugs and make testing harder, as more functions would have side effects (resetting task’s completion `Status` and updating `Task`’s `DateTime`).
+* **Alternative 1:** Once a user has marked a recurring `Task` as done, the date of the `Task` will be automatically changed to the next date according to its `Recurrence` type, with its completion status reset to be undone.
+    * Pros: User experience could be more intuitive, as the user can focus on the next deadline rather than the current completed task.
+    * Cons: There is an increase in coupling between the `Task`’s `Status`, `Recurrence` and `DateTime`. `DateTime` now needs to depend on `Status` and `Recurrence` to decide if its date and time needs to be changed. This can increase bugs and make testing harder, as more functions would have side effects (resetting task’s completion `Status` and updating `Task`’s `DateTime`).
 
-* Alternative 2: Once a `DateTime` of a `Task` has been passed, this will trigger nursey book to update the new `DateTime` of the `Task` according to its `Recurrence` type.
-    * Pros: Easier to implement because there is only one condition that needs to be checked (if the `Task`’s `DateTime` is before the current `DateTime`) for the `Task`’s `DateTime` to be updated.
+* **Alternative 2 (current choice):** Once a `DateTime` of a `Task` has been passed, it will trigger nursey book to update to the new `DateTime` of the `Task`, according to its `Recurrence` type.
+    * Pros: Easier to implement, because there is only one condition that needs to be checked (if the `Task`’s `DateTime` is before the current `DateTime`) for the `Task`’s `DateTime` to be updated.
     * Cons: Restricted choice for users who would prefer seeing upcoming tasks to seeing completed tasks.
 
-### Handling of Overdue and Recurring tasks
+### Handling of overdue and recurring tasks
 
 #### Implementation
 
 The logic for handling overdue and recurring tasks are handled in `ModelManager#updateTasksAccordingToTime()`.
 
 ```     java
-@Override
+    @Override
     public void updateTasksAccordingToTime() {
         versionedNurseyBook.updateRecurringTasksDate();
         versionedNurseyBook.updateTasksOverdueStatus();
@@ -252,31 +285,31 @@ The logic for handling overdue and recurring tasks are handled in `ModelManager#
     }
 ```
 
-The implementation of these individual functions `updateRecurringTasksDate()`, `updateTasksOverdueStatus()` and `reorderTasksChronologically()` are listed below.
+These individual functions, `updateRecurringTasksDate()`, `updateTasksOverdueStatus()` and `reorderTasksChronologically()` are defined in `NurseyBook.java` and their implementations are listed before.
 1. `updateRecurringTasksDate()`
-    *  This function checks whether a `Task` is overdue (`Task`'s `DateTime` is before the current `DateTime`) and if it is a recurring task (`Task#isRecurring` is `True`), before updating recurring tasks' DateTime as needed at the current time.
-2. `updateNotOverdueTaskList()`
+    *  This function checks whether a `Task` is overdue (`Task`'s `DateTime` is before the current `DateTime`) and if it is a recurring task (`Task#isRecurring` is `true`), before updating recurring tasks' `DateTime` as needed at the current time.
+2. `updateTasksOverdueStatus()`
     *  This function first checks for either of 2 cases:
-        * Whether it is overdue (`Status#isOverdue` is `True`) and should not be overdue
-        * Whether it is not overdue and should be overdue
-    *  Then updates overdue statuses accordingly
-        * For first case, it marks the task as overdue
-        * For second case, it marks the task as not overdue
+        * Whether a task is overdue (`Status#isOverdue` is `true`) and should not be overdue after the change of its `DateTime` under `updateRecurringTasksDate()`.
+        * Whether a task is not overdue and should be overdue.
+    *  Then updates overdue statuses accordingly:
+        * For first case, it marks the task as overdue.
+        * For second case, it marks the task as not overdue.
 3. `reorderTasksChronologically()`
-    * This function sorts the tasks according to chronological order, whose order might be disrupted due to changes in `DateTime` of tasks due to `updateRecurringTasksDate()`.
+    * This function sorts the tasks in chronological order, whose order might be disrupted due to changes in `DateTime` of tasks due to `updateRecurringTasksDate()`.
     
-Listed below are some situations and corresponding implementations where the overdue `Status`, and `DateTime` might be changed based on either a manual edit of the `Task`'s `DateTime` and/or `Recurrence` type, or simply the passing of time.
+Listed below are some situations and corresponding implementations where the overdue `Status` and `DateTime` might be changed, based on either a manual edit of the `Task`'s `DateTime` and/or `Recurrence` type, or simply the passing of time.
 
 1. `DateTime` of non-recurring `Task` has passed current `DateTime`
-  - Mark `Status#isOverdue` to `True`
+    * Mark `Status#isOverdue` to `true`.
 2. `DateTime` of recurring `Task` has passed current `DateTime`
-  - Update old `DateTime` to new `DateTime` according to its `Recurrence` type.
-  - Mark `Status#isDone` to `False`
-  - Status#isOverdue remains `False`
+    * Update the old `DateTime` to a new `DateTime` according to its `Recurrence` type.
+    * Mark `Status#isDone` to `false`.
+    * `Status#isOverdue` remains `false`.
 3. User edits non-recurring `Task` with a passed `DateTime` to a future `DateTime`
-  - Mark `Status#isOverdue` to `False`
+    * Mark `Status#isOverdue` to `false`.
 4. User edits non-recurring `Task` with a future `DateTime` to a passed `DateTime`
-  - Mark `Status#isOverdue` to `True`
+    * Mark `Status#isOverdue` to `true`.
 
 <img src="images/HandleOverdueAndRecurringTasksActivityDiagram.png" width="350"/>
 
@@ -1100,6 +1133,8 @@ testers are expected to do more *exploratory* testing.
        * Invalid index >= size of task list or <= 0: `doneTask 5` or `doneTask -1`
     
 ### Remind
+
+1
 
 ### View Schedule
 
