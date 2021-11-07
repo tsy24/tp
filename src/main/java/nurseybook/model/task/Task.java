@@ -9,6 +9,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import nurseybook.model.person.Name;
+import nurseybook.model.person.UniqueElderlyList;
 import nurseybook.model.task.Recurrence.RecurrenceType;
 
 public abstract class Task implements Comparable<Task> {
@@ -322,6 +323,13 @@ public abstract class Task implements Comparable<Task> {
         return otherTask != null
                 && otherTask.getDesc().equals(getDesc()) && otherTask.getDateTime().equals(getDateTime())
                 && otherTask.getRelatedNames().equals(getRelatedNames());
+    }
+
+    /**
+     * Returns true if related names are all of existing elderlies in NurseyBook.
+     */
+    public boolean isRelatedNamesValid(UniqueElderlyList elderlies) {
+        return relatedNames.stream().allMatch(name -> elderlies.hasElderly(name));
     }
 
     //@@ Superbestron
