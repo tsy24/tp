@@ -540,29 +540,202 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 (For all use cases below, the **System** is the `NurseyBook` the **Actor** is the `User`, and the **Person** is the
 `Nurse` unless specified otherwise)
 
-**Use cases of elderly commands**
+#### Use cases of elderly commands
 
-**UC1: List elderly**
+##### UC1: List elderly
 1. User requests to list elderly.
 2. NurseyBook shows a list of elderly.
 
     Use case ends.
 
 **Extensions**
-* 1a. User requests to find elderly with matching keywords 
-  * 1a1. NurseyBook shows a list of elderly that matches the user's query (by name)
+* 1a. User requests to <u>find elderlies with matching keywords([UC5](#uc5-find-an-elderly))</u>.
+  * 1a1. NurseyBook shows a list of elderly that matches the user's query (by name).
 
     Use case ends.
-* 1b. Users request to <u>list elderly with queried tags (UC2)</u>
+* 1b. Users request to <u>list elderly with queried tags ([UC2]())</u>.
 * 2a. The list of elderly is empty.
 
   Use case ends.
+* *a. At any time, user requests to <u>view help ([UC19](#uc19-viewing-help))</u>.
 
-**UC2: List elderly with queried tags**
+##### UC2: Add an elderly
 
 **MSS**
 
-1. User requests to filter elderly based on queried tags
+1. User requests to add an elderly.
+2. NurseyBook adds the elderly.
+
+   Use case ends.
+
+**Extensions**
+* 1a. All required parameter identifiers are present, but entered arguments are invalid.
+    * 1a1. NurseyBook shows an error message.
+
+      Use case resumes at step 1.
+* 1b. Not all required parameter identifiers are present (e.g. Gender (`r/`) of the elderly is not entered).
+    * 1b1. NurseyBook shows an error message.
+
+      Use case resumes at step 1.
+* 1c. Additional parameter identifiers that should not be present are entered.
+    * 1c1. NurseyBook shows an error message.
+
+      Use case resumes at step 1.
+* 1d. An elderly with the same name (inclusive of names in different casing) already exists.
+    * 1d1. NurseyBook shows an error message.
+
+      Use case resumes at step 1.
+* 2a. User decides to undo the add action.
+    * NurseyBook reverses the changes made by the command.
+
+      Use case ends.
+* *a. At any time, user requests to <u>view help ([UC19](#uc19-viewing-help))</u>.
+
+##### UC3: Delete an elderly
+
+**MSS**
+
+1. User requests to <u>list elderly ([UC1](#uc1-list-elderly))</u>.
+2. User requests to delete a specific elderly in the list based on index.
+3. NurseyBook deletes the specified elderly.
+4. NurseyBook shows updated list of elderly and command success message.
+
+   Use case ends.
+
+**Extensions**
+* 2a. The given index is invalid.
+    * 2a1. NurseyBook shows an error message.
+
+      Use case resumes at step 1.
+* *a. At any time, user requests to <u>view help ([UC19](#uc19-viewing-help))</u>.
+
+##### UC4: Edit an elderly’s details
+
+**MSS**
+
+1. User requests to <u>list elderly ([UC1](#uc1-list-elderly))</u>.
+2. User requests to edit the details of a specific elderly in the list based on index.
+3. NurseyBook edits the details for the elderly.
+4. NurseyBook shows updated list of elderly and command success message.
+
+   Use case ends.
+
+**Extensions**
+* 2a. The given parameter is invalid.
+    * 2a1. NurseyBook shows an error message.
+
+      Use case resumes at step 1.
+
+* 2b. There are extra parameters not accepted by the command.
+    * 2b1. NurseyBook shows an error message.
+
+      Use case resumes at step 1.
+* 2c. The edit does not cause any change in the elderly's details.
+    * 2c1. NurseyBook shows an error message.
+
+      Use case resumes at step 1.
+* 2d. The name of the edited elderly is the same as another elderly saved in NurseyBook.
+    * 2d1. NurseyBook shows an error message.
+
+      Use case resumes at step 1.
+* *a. At any time, user requests to <u>view help ([UC19](#uc19-viewing-help))</u>.
+
+##### UC5: Find an elderly
+
+**MSS**
+
+1. User requests to find an elderly based on a few keywords.
+2. NurseyBook shows a list of elderly with names that matches the keywords.
+   Use case ends.
+
+**Extensions**
+* 2a. The list of elderly is empty.
+
+  Use case ends.
+* *a. At any time, user requests to <u>view help ([UC19](#uc19-viewing-help))</u>.
+
+##### UC6: View an elderly's details
+
+**MSS**
+
+1. User requests to <u>list elderly ([UC1](#uc1-list-elderly))</u>.
+2. User requests to view details of a specific elderly in the list based on index.
+3. NurseyBook shows details of selected elderly and command success message.
+
+   Use case ends.
+
+**Extensions**
+* 2a. The given index is invalid.
+    * 2a1. NurseyBook shows an error message.
+
+      Use case resumes at step 1.
+* *a. At any time, user requests to <u>view help ([UC19](#uc19-viewing-help))</u>.
+
+##### UC7: Delete an elderly's Nok details
+
+Similar to <u>deleting an elderly ([UC3](#uc3-delete-an-elderly))</u> but only deleting an elderly's Nok details.
+
+##### UC8: Add tags to an elderly
+
+**MSS**
+
+1. User requests to <u>list elderly ([UC1](#uc1-list-elderly))</u>.
+2. User requests to add tag to a specific elderly in the list based on index.
+3. NurseyBook adds the tag to the elderly.
+4. NurseyBook shows updated list of elderly and command success message.
+
+   Use case ends.
+
+**Extensions**
+* 2a. The given parameter is invalid.
+    * 2a1. NurseyBook shows an error message.
+
+      Use case resumes at step 1.
+
+* 2b. There are extra parameters not accepted by the command.
+    * 2b1. NurseyBook shows an error message.
+
+      Use case resumes at step 1.
+
+* 2c. Tag to add to elderly already exists.
+    * 2c1. NurseyBook shows an error message.
+
+      Use case resumes at step 1.
+* *a. At any time, user requests to <u>view help ([UC19](#uc19-viewing-help))</u>.
+
+##### UC9: Delete a tag from an elderly
+
+**MSS**
+
+1. User requests to <u>list elderly ([UC1](#uc1-list-elderly))</u>.
+2. User requests to delete tag from a specific elderly in the list based on index.
+3. NurseyBook deletes the tag from the elderly.
+4. NurseyBook shows updated list of elderly and command success message.
+
+   Use case ends.
+
+**Extensions**
+* 2a. The given parameter is invalid.
+    * 2a1. NurseyBook shows an error message.
+
+      Use case resumes at step 1.
+
+* 2b. There are extra parameters not accepted by the command.
+    * 2b1. NurseyBook shows an error message.
+
+      Use case resumes at step 1.
+
+* 2c. Tag to delete from elderly does not exist.
+    * 2c1. NurseyBook shows an error message.
+
+      Use case resumes at step 1.
+* *a. At any time, user requests to <u>view help ([UC19](#uc19-viewing-help))</u>.
+
+##### UC10: List elderly with queried tags
+
+**MSS**
+
+1. User requests to filter elderly based on queried tags.
 2. NurseyBook shows a list of elderly that have all the tags queried.
 
    Use case ends.
@@ -579,72 +752,20 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * 2a. The list of elderly is empty.
 
   Use case ends.
-  
-**UC3: Delete an elderly**
+* *a. At any time, user requests to <u>view help ([UC19](#uc19-viewing-help))</u>.
+
+##### UC11: Add remark about an elderly
 
 **MSS**
 
-1. User requests to <u>list elderly (UC1)</u>
-2. User requests to delete a specific elderly in the list based on the index.
-3. NurseyBook deletes the specified elderly.
+1. User requests to <u>list elderly ([UC1](#uc1-list-elderly))</u>.
+2. User requests to add a remark to a specific elderly in the list based on index.
+3. NurseyBook adds the remark to the elderly.
 4. NurseyBook shows updated list of elderly and command success message.
 
-    Use case ends.
+   Use case ends.
 
 **Extensions**
-* 2a. The given index is invalid.
-    * 2a1. NurseyBook shows an error message.
-
-      Use case resumes at step 1.
-
-**UC4: Delete an elderly's Nok details**
-
-Similar to <u>deleting an elderly (UC3)</u> but only deleting an elderly's Nok details.
-
-**UC5: Edit an elderly’s details**
-
-**MSS**
-
-1. User requests to <u>list elderly (UC1)</u>
-2. User requests to edit the details of a specific elderly in the list
-3. NurseyBook edits the details for the elderly
-4. NurseyBook shows updated list of elderly and command success message.
-
-    Use case ends.
-
-**Extensions**
-* 2a. The given parameter is invalid.
-    * 2a1. NurseyBook shows an error message.
-
-      Use case resumes at step 1.
-
-* 2b. There are extra parameters not accepted by the command.
-    * 2b1. NurseyBook shows an error message.
-
-      Use case resumes at step 1.
-* 2c. The edit does not cause any change in elderly's details.
-    * 2c1. NurseyBook shows an error message.
-    
-      Use case resumes at step 1.
-
-* 2d. The name of the edited elderly is the same as another elderly saved in NurseyBook.
-    * 2d1. NurseyBook shows an error message.
-
-      Use case resumes at step 1.
-
-**UC6: Add remark about an elderly**
-
-**MSS**
-
-1. User requests to <u>list elderly (UC1)</u>
-2. User requests to add a remark to a specific elderly in the list
-3. NurseyBook adds the remark to the elderly
-4. NurseyBook shows updated list of elderly and command success message.
-
-    Use case ends.
-
-**Extensions**
-
 * 2a. The given parameter is invalid.
     * 2a1. NurseyBook shows an error message.
 
@@ -657,89 +778,18 @@ Similar to <u>deleting an elderly (UC3)</u> but only deleting an elderly's Nok d
     * 2c1. NurseyBook shows an error message.
 
       Use case resumes at step 1.
+* *a. At any time, user requests to <u>view help ([UC19](#uc19-viewing-help))</u>.
 
-**UC7: Add tags to an elderly**
+#### Use cases of task commands
 
-**MSS**
-
-1. User requests to <u>list elderly (UC1)</u>
-2. User requests to add tag to a specific elderly in the list
-3. NurseyBook adds the tag to the elderly
-4. NurseyBook shows updated list of elderly and command success message.
-
-   Use case ends.
-
-**Extensions**
-
-* 2a. The given parameter is invalid.
-    * 2a1. NurseyBook shows an error message.
-
-      Use case resumes at step 1.
-
-* 2b. There are extra parameters not accepted by the command.
-    * 2b1. NurseyBook shows an error message.
-
-      Use case resumes at step 1.
-
-* 2c. Tag to add to elderly already exists.
-    * 2c1. NurseyBook shows an error message.
-
-      Use case resumes at step 1.
-
-**UC8: Delete a tag from an elderly**
-
-**MSS**
-
-1. User requests to <u>list elderly (UC1)</u>
-2. User requests to delete tag from a specific elderly in the list
-3. NurseyBook deletes the tag from the elderly
-4. NurseyBook shows updated list of elderly and command success message.
-
-    Use case ends.
-
-**Extensions**
-
-* 2a. The given parameter is invalid.
-    * 2a1. NurseyBook shows an error message.
-
-      Use case resumes at step 1.
-  
-* 2b. There are extra parameters not accepted by the command.
-    * 2b1. NurseyBook shows an error message.
-
-      Use case resumes at step 1.
-
-* 2c. Tag to delete from elderly does not exist.
-    * 2c1. NurseyBook shows an error message.
-
-      Use case resumes at step 1.
-    
-**UC9: View an elderly's details**
-
-**MSS**
-
-1. User requests to <u>list elderly (UC1)</u>
-2. User requests to view details of a specific elderly in the list based on the index.
-3. NurseyBook shows details of selected elderly and command success message.
-
-    Use case ends.
-
-**Extensions**
-* 2a. The given index is invalid.
-    * 2a1. NurseyBook shows an error message.
-
-      Use case resumes at step 1.
-
-**Use cases of task commands**
-
-**UC10: List tasks**
+##### UC12: List tasks
 1. User requests to list tasks.
 2. NurseyBook shows a list of tasks.
    
-    Use case ends.
+   Use case ends.
 
 **Extensions**
-* 1a. User requests to find tasks with matching keywords
+* 1a. User requests to find tasks with matching keywords.
     * 1a1. NurseyBook shows a list of tasks that matches the user's query (by description)
 
       Use case ends.
@@ -747,38 +797,42 @@ Similar to <u>deleting an elderly (UC3)</u> but only deleting an elderly's Nok d
 * 2a. The list of tasks is empty.
 
   Use case ends.
+* *a. At any time, user requests to <u>view help ([UC19](#uc19-viewing-help))</u>.
 
-**UC11: Delete a task**
+##### UC13: Add a task
+
+Similar to <u>adding an elderly ([UC2](#uc2-add-an-elderly))</u> but adding a task instead. A task takes in different parameters from adding an elderly.
+
+##### UC14: Delete a task
 
 **MSS**
 
-1. User requests to <u>list tasks (UC10)</u>
-2. User requests to delete a specific task in the list
-3. NurseyBook deletes the task
+1. User requests to <u>list tasks ([UC12](#uc12-list-tasks))</u>.
+2. User requests to delete a specific task in the list based on index.
+3. NurseyBook deletes the specified task.
 4. NurseyBook shows updated list of tasks and command success message.
 
     Use case ends.
 
 **Extensions**
-
 * 2a. The given index is invalid.
     * 2a1. NurseyBook shows an error message.
 
       Use case resumes at step 1.
+* *a. At any time, user requests to <u>view help ([UC19](#uc19-viewing-help))</u>.
 
-**UC12: Edit a task**
+##### UC15: Edit a task
 
 **MSS**
 
-1. User requests to <u>list tasks (UC10)</u>
-2. User requests to edit the details of a specific task in the list
-3. NurseyBook edits the details for the task
+1. User requests to <u>list tasks ([UC12](#uc12-list-tasks))</u>.
+2. User requests to edit the details of a specific task in the list based on index.
+3. NurseyBook edits the details for the task.
 4. NurseyBook shows updated list of task and command success message.
 
    Use case ends.
 
 **Extensions**
-
 * 2a. The given parameter is invalid.
     * 2a1. NurseyBook shows an error message.
 
@@ -801,34 +855,65 @@ Similar to <u>deleting an elderly (UC3)</u> but only deleting an elderly's Nok d
     * 2e1. NurseyBook shows an error message.
 
       Use case resumes at step 1.
+* *a. At any time, user requests to <u>view help ([UC19](#uc19-viewing-help))</u>.
 
-**UC13: Mark a task as complete**
+##### UC16: Mark a task as complete
 
 **MSS**
 
-1. User requests to <u>list tasks (UC10)</u>
-2. User requests to mark a specific task in the list as complete
-3. NurseyBook marks task as complete
+1. User requests to <u>list tasks ([UC12](#uc12-list-tasks))</u>.
+2. User requests to mark a specific task in the list as complete based on index.
+3. NurseyBook marks task as complete.
 4. NurseyBook shows updated list of tasks and command success message.
 
     Use case ends.
 
 **Extensions**
-
 * 2a. The given index is invalid.
-
     * 2a1. NurseyBook shows an error message.
 
       Use case resumes at step 1.
 * 2b. The task is already marked as completed.
-
     * 2b1. NurseyBook shows an error message.
 
       Use case resumes at step 1.
+* *a. At any time, user requests to <u>view help ([UC19](#uc19-viewing-help))</u>.
 
-**Use cases of miscellaneous commands**
+##### UC17: Find a task
 
-**UC14: Undo a previous command**
+Similar to <u>finding an elderly ([UC5](#uc5-find-an-elderly))</u> but finding a task instead. A task will be shown (as part of the filtered task list) if its description contains the entered keywords.
+
+##### UC18: View the schedule on a day
+
+**MSS**
+
+1. User requests to view his/her schedule on a date.
+2. NurseyBook shows the list of tasks scheduled to happen on the date.
+
+   Use case ends.
+
+**Extensions**
+* 1a. The given date is in an invalid format.
+    * 1a1. NurseyBook shows an error message.
+
+      Use case resumes at step 1.
+* 2a. There are no tasks scheduled on that date.
+
+     Use case ends.
+* *a. At any time, user requests to <u>view help ([UC19](#uc19-viewing-help))</u>.
+
+#### Use cases of miscellaneous commands
+
+##### UC19: Viewing help
+
+**MSS**
+
+1. User requests for help.
+2. NurseyBook opens a new window that contains a summary of the commands as well as a link to the online user guide.
+
+   Use case ends.
+
+##### UC20: Undo a previous command
 
 **MSS**
 1. User requests to undo a previous command.
@@ -841,8 +926,9 @@ Similar to <u>deleting an elderly (UC3)</u> but only deleting an elderly's Nok d
   * 1a1. NurseyBook shows an error message.
 
     Use case ends.
+* *a. At any time, user requests to <u>view help ([UC19](#uc19-viewing-help))</u>.
 
-**UC15: Redo a previously undone command**
+##### UC21: Redo a previously undone command
 
 **MSS**
 1. User requests to redo a previous undone command.
@@ -855,8 +941,7 @@ Similar to <u>deleting an elderly (UC3)</u> but only deleting an elderly's Nok d
     * 1a1. NurseyBook shows an error message.
 
       Use case ends.
-  
-*{More to be added}*
+* *a. At any time, user requests to <u>view help ([UC19](#uc19-viewing-help))</u>.
 
 ### Non-Functional Requirements
 
