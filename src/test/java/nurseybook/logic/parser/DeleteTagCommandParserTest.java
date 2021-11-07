@@ -12,6 +12,7 @@ import static nurseybook.logic.commands.CommandTestUtil.VALID_TAG_DIABETES;
 import static nurseybook.logic.commands.DeleteTagCommand.MESSAGE_USAGE;
 import static nurseybook.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static nurseybook.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static nurseybook.logic.parser.ParserUtil.MESSAGE_INDEX_TOO_EXTREME;
 import static nurseybook.model.tag.Tag.MESSAGE_CONSTRAINTS;
 import static nurseybook.testutil.TypicalIndexes.INDEX_FIRST;
 
@@ -57,11 +58,18 @@ public class DeleteTagCommandParserTest {
         // zero index
         assertParseFailure(parser, "0" + " " + VALID_TAG_DIABETES, expectedMessage);
 
+        // non-integer being parsed as preamble
+        assertParseFailure(parser, "ad" + TAG_DESC_DIABETES, expectedMessage);
+
         // invalid arguments being parsed as preamble
         assertParseFailure(parser, "1 some random string", expectedMessage);
 
         // invalid prefix being parsed as preamble
         assertParseFailure(parser, "1 i/ string", expectedMessage);
+
+        // Extreme indices
+        assertParseFailure(parser, "9999999999" + " " + TAG_DESC_DIABETES, MESSAGE_INDEX_TOO_EXTREME);
+        assertParseFailure(parser, "-999999999" + " " + TAG_DESC_DIABETES, MESSAGE_INDEX_TOO_EXTREME);
     }
 
     @Test
