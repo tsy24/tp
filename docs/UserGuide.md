@@ -665,7 +665,7 @@ Example:
 
 :information_source: **Information:**
 
-* If there are no undoable commands executed previously, the redo command will fail and an error message will be shown.
+* If there are no undo commands executed previously, the redo command will fail and an error message will be shown.
 * Redo-ing an `editElderly` command would restore the elderly's name in relevant tasks but the order of names may be different.
 
 </div>
