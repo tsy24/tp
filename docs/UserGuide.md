@@ -185,14 +185,14 @@ This section contains the documentation on NurseyBook's features and commands. I
 
 ### 4.1 Elderly commands
 
-#### View all elderly: `viewElderly`
+#### 4.1.1 View all elderly: `viewElderly`
 
 Shows the list of all added elderly.
 
 Format: `viewElderly`
 <br />
 
-#### Add an elderly: `addElderly`
+#### 4.1.2 Add an elderly: `addElderly`
 
 Adds an elderly to NurseyBook.
 
@@ -215,14 +215,14 @@ Examples:
 ![](images/userGuide/add_elderly_0.png)
 ![](images/userGuide/add_elderly_1.png)
 
-#### Delete an elderly : `deleteElderly`
+#### 4.1.3 Delete an elderly : `deleteElderly`
 
 Deletes an elderly from NurseyBook.
 
 Format: `deleteElderly INDEX`   
 
 Examples:
-* [`viewElderly`](#view-all-elderly-viewelderly) followed by `deleteElderly 2` deletes the 2nd elderly in NurseyBook.
+* [`viewElderly`](#411-view-all-elderly-viewelderly) followed by `deleteElderly 2` deletes the 2nd elderly in NurseyBook.
 
 <div markdown="block" class="alert alert-info">
 
@@ -240,13 +240,13 @@ Examples:
 
 </div>
 
-#### Edit an elderly's details: `editElderly`
+#### 4.1.4 Edit an elderly's details: `editElderly`
 
 Edits the details of a specific elderly.
 
 Format: `editElderly INDEX [en/ELDERLY_NAME] [a/AGE] [g/GENDER] [r/ROOMNO] [t/TAG]…​ [nn/NOK_NAME] [rs/NOK_RELATIONSHIP] [p/NOK_PHONE_NUMBER] [e/NOK_EMAIL] [addr/NOK_ADDRESS]`
 
-Examples: See [`addElderly`](#add-an-elderly-addelderly) for examples.
+Examples: See [`addElderly`](#412-add-an-elderly-addelderly) for examples.
 
 <div markdown="block" class="alert alert-info">
 
@@ -269,10 +269,10 @@ Example: John has an existing tag `cancer`, and he is at index 1 in the current 
 <div markdown="block" class="alert alert-primary">
 
 :bulb: **Tip:**
-* For more accessible tag related commands, do refer to the [`addTag`](#add-tags-to-elderly-addtag) and [`deleteTag`](#delete-tags-of-elderly-deletetag) commands.
+* For more accessible tag related commands, do refer to the [`addTag`](#418-add-tags-to-elderly-addtag) and [`deleteTag`](#419-delete-tags-of-elderly-deletetag) commands.
 </div>
 
-#### Find elderly: `findElderly`
+#### 4.1.5 Find elderly: `findElderly`
 
 Finds elderlies whose names contain any of the given keywords.
 
@@ -293,11 +293,14 @@ Examples:
 
 </div>
 
-#### View full details of an elderly: `viewDetails`
+#### 4.1.6 View full details of an elderly: `viewDetails`
 
 Displays full details of a specific elderly
 
 Format: `viewDetails INDEX`
+
+Examples:
+* [`viewElderly`](#411-view-all-elderly-viewelderly) followed by `viewDetails 1` displays the details of the 1st elderly in NurseyBook.
 
 <div markdown="block" class="alert alert-info">
 
@@ -311,14 +314,14 @@ Format: `viewDetails INDEX`
 
 ![](images/userGuide/view_details.png)
 
-#### Delete an elderly's NoK details : `deleteNok`
+#### 4.1.7 Delete an elderly's NoK details : `deleteNok`
 
 Deletes an elderly's Next-of-Kin details from NurseyBook.
 
 Format: `deleteNok INDEX`
 
 Examples:
-* [`viewElderly`](#view-all-elderly-viewelderly) followed by `deleteNok 2` deletes the NoK details of the 2nd elderly in NurseyBook.
+* [`viewElderly`](#411-view-all-elderly-viewelderly) followed by `deleteNok 2` deletes the NoK details of the 2nd elderly in NurseyBook.
 
 <div markdown="block" class="alert alert-info">
 
@@ -329,14 +332,14 @@ Examples:
 
 </div>
 
-#### Add tags to elderly: `addTag`
+#### 4.1.8 Add tags to elderly: `addTag`
 
 Adds one or more tags to a specific elderly.
 
 Format: `addTag INDEX t/TAG [t/TAG]…​`
 
 Examples:
-* `addTag 1 t/covid`
+* [`viewElderly`](#411-view-all-elderly-viewelderly) followed by `addTag 1 t/covid` adds the tag `covid` to the 1st elderly in NurseyBook.
 
 <div markdown="block" class="alert alert-info">
 
@@ -347,14 +350,14 @@ Examples:
 
 </div>
 
-#### Delete tags of elderly: `deleteTag`
+#### 4.1.9 Delete tags of elderly: `deleteTag`
 
 Deletes one or more tags of a specific elderly.
 
 Format: `deleteTag INDEX t/TAG [t/TAG]…​`
 
 Examples:
-* `deleteTag 1 t/covid`
+* [`viewElderly`](#411-view-all-elderly-viewelderly) followed by `deleteTag 1 t/covid` deletes the tag `covid` from the 1st elderly in NurseyBook.
 
 <div markdown="block" class="alert alert-info">
 
@@ -365,7 +368,7 @@ Examples:
 
 </div>
 
-#### Filter elderly: `filter`
+#### 4.1.10 Filter elderly: `filter`
 
 Filters elderly based on one or more tags.
 
@@ -383,15 +386,14 @@ Examples:
 
 ![](images/userGuide/filter.png)
 
-#### Add remark to elderly: `remark`
+#### 4.1.11 Add remark to elderly: `remark`
 
 Adds a remark to a specific elderly.
 
 Format: `remark INDEX re/REMARK`
 
 Examples:
-* `remark 1 re/Medicine seems to be ineffective`
-* `remark 1 re/`
+* [`viewElderly`](#411-view-all-elderly-viewelderly) followed by `remark 1 re/Medicine seems to be ineffective` adds the remark to the 1st elderly in Nurseybook.
 
 <div markdown="block" class="alert alert-info">
 
@@ -405,19 +407,19 @@ Examples:
 
 :bulb: **Tip:**  
 
-* You can remove a remark by leaving the remark input empty! e.g. `remark 1 re/`
+* You can remove a remark by leaving the remark input empty! e.g. [`viewElderly`](#411-view-all-elderly-viewelderly) followed by `remark 1 re/` removes the remark for the 1st elderly in NurseyBook.
 
 </div>
 
 ### 4.2 Task commands
 
-#### View all tasks: `viewTasks`
+#### 4.2.1 View all tasks: `viewTasks`
 
 Shows a list of all your tasks in NurseyBook.
 
 Format: `viewTasks`
 
-#### Add a task: `addTask`
+#### 4.2.2 Add a task: `addTask`
 
 Adds a task to the task list.
 
@@ -454,7 +456,7 @@ Examples:
 ![](images/userGuide/add_task_0.png)
 ![](images/userGuide/add_task_1.png)
 
-#### Delete a task: `deleteTask`
+#### 4.2.3 Delete a task: `deleteTask`
 
 Deletes a particular task in the task list from NurseyBook.
 
@@ -471,16 +473,16 @@ Format: `deleteTask INDEX`
 </div>
 
 Examples:
-* [`viewTasks`](#view-all-tasks-viewtasks) followed by `deleteTask 2` deletes the 2nd task shown by NurseyBook.
+* [`viewTasks`](#421-view-all-tasks-viewtasks) followed by `deleteTask 2` deletes the 2nd task shown by NurseyBook.
 
-#### Edit a task: `editTask`
+#### 4.2.4 Edit a task: `editTask`
 
 Edits the details of a specific task.
 
 Format: `editTask INDEX [en/ELDERLY_NAME]... [desc/DESCRIPTION] [date/DATE] [time/TIME] [recur/RECURRENCE_TYPE]`
 
 Examples:
-* [`viewTasks`](#view-all-tasks-viewtasks) followed by `editTask 1 date/2022-01-30` changes the date of the 1st task shown by NurseyBook to 30 January 2022.
+* [`viewTasks`](#421-view-all-tasks-viewtasks) followed by `editTask 1 date/2022-01-30` changes the date of the 1st task shown by NurseyBook to 30 January 2022.
 
 <div markdown="block" class="alert alert-info">
 
@@ -499,7 +501,7 @@ e.g. Date of task is `2022-01-01` with `daily` recurrence. On `2022-01-03`, the 
 
 </div>
 
-#### Find a task: `findTask`
+#### 4.2.5 Find a task: `findTask`
 
 Finds tasks whose description contain any of the given keywords.
 
@@ -523,14 +525,14 @@ Examples:
 
 ![](images/userGuide/find_task.png)
 
-#### Mark a task as completed: `doneTask`
+#### 4.2.6 Mark a task as completed: `doneTask`
 
 Marks a particular task in the task list as completed.
 
 Format: `doneTask INDEX`
 
 Examples:
-* [`viewTasks`](#view-all-tasks-viewtasks) followed by `doneTask 2` marks the 2nd task shown by NurseyBook as completed.
+* [`viewTasks`](#421-view-all-tasks-viewtasks) followed by `doneTask 2` marks the 2nd task shown by NurseyBook as completed.
 
 <div markdown="block" class="alert alert-info">
 
@@ -543,7 +545,7 @@ Examples:
 
 </div>
 
-#### View reminders: `remind`
+#### 4.2.7 View reminders: `remind`
 
 Shows the list of upcoming tasks (that are coming up in the next three days), such as the required medical needs for
 those under your care.
@@ -552,7 +554,7 @@ Format: `remind`
 
 ![](images/userGuide/remind.png)
 
-#### View task schedule: `viewSchedule`
+#### 4.2.8 View task schedule: `viewSchedule`
 
 Displays the list of tasks set to occur on the specified date.
 Future occurrences of recurring tasks that will take place on that date is also included.
@@ -586,13 +588,13 @@ Example:
 
 ### 4.3 Miscellaneous commands
 
-#### Clearing all entries : `clear`
+#### 4.3.1 Clearing all entries : `clear`
 
 Clears all entries from NurseyBook.
 
 Format: `clear`
 
-#### Undo previous command : `undo`
+#### 4.3.2 Undo previous command : `undo`
 
 Undoes the previous undoable command executed on the NurseyBook.
 
@@ -605,7 +607,7 @@ Format: `undo`
 Example:
 * `deleteElderly 1` followed by `undo` causes the `deleteElderly 1` command to be undone and no elderly is deleted from the NurseyBook.
 
-#### Redo previously undone command : `redo`
+#### 4.3.3 Redo previously undone command : `redo`
 
 Reverses the previous undo command executed on the NurseyBook.
 
@@ -617,7 +619,7 @@ Example:
 * `deleteElderly 1` followed by `undo` causes the `deleteElderly 1` command to be undone and no elderly is deleted from the NurseyBook.
 Entering `redo` will reverse the previous undo command, causing the elderly to be deleted again.
 
-#### Exiting the program : `exit`
+#### 4.3.4 Exiting the program : `exit`
 
 Exits the program.
 
