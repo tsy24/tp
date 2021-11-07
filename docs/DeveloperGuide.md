@@ -1221,3 +1221,42 @@ testers are expected to do more *exploratory* testing.
    
    4. Launch the app by running `java -jar NurseyBook.jar` in the console. <br>
       Expected: The GUI should pop up with no entries. The console should give warnings about incorrect data format (due to the removal of the `{` character at the start of the `nurseybook.json` file).
+
+
+
+## **Appendix: Effort**
+
+Assuming the effort taken to create AB3 is rated at 100, we would estimate our project to have taken an effort of ___. Numerically, we have over 18000 lines of code contributed for version 1.4 of NurseyBook, with over 550 test cases to achieve high code coverage. 
+Below, we have detailed the major time-consuming factors to justify our effort estimation.
+
+### Notable Changes
+
+#### 1. Refactoring of Person and Adding of Task models
+In order to support the `Elderly` and `Nok` classes, a refactoring of the `Person` class is needed to accommodate these two kinds of persons.
+
+Moreover, to support task management, our team had to add a model for `Task` objects. While some sections of the code could be adapted from AB3’s Person model, the majority had to be redesigned to accommodate complex task creation.
+
+The implementation of AB3’s command processing and display of elements, in an UniqueElementList, to the user, means that all elements within that list will be displayed to the user, based on a given predicate. However, for certain commands such as `viewSchedule`, we would want to show the user a preview of future occurrences of recurring tasks. These temporary tasks need to be differentiated from normal concrete tasks. Thus, this necessitated the further refactoring of  `Task` into an abstract class, with concrete `GhostTask` and `RealTask` child classes. This restructuring of how task objects are represented gives our program the capacity to accommodate for previewing of tasks, without saving them to the hard disk or flooding the `UniqueTaskList`.
+
+As a result, we had to integrate all these models with the existing code to save persons and tasks to a data file in NurseyBook. This required the creation of many classes and major refactoring of existing classes to support multiple models.
+
+<br>
+
+#### 2. Redesigned GUI
+Compared to AB3, NurseyBook has nearly double the number of UI components.
+
+We had played around with multiple colour schemes, to find something that could strike a perfect balance between 1) healthcare related, 2) matching colours, 3) colours to stand out for our tags (e.g. tags added to each elderly, overdue tags for tasks).
+
+Next, though we wanted to keep NurseyBook as close to a command line interface (CLI) as possible, we had added a few listeners to allow navigation within NurseyBook with a mouse. One example will be the expandable details for an elderly, when the user is on the elderly list view.
+
+Additionally, each of the UI components is responsive and works on a large range of screen sizes. We took multiple tries to make sure that the display of elderly contacts could be easily viewed despite the variation in the window size of the application used.
+
+Furthermore, to allow for a better user experience, we restricted the scrolling of components to be either horizontal or vertical. We wanted to offer a cleaner user interface and better user experience through easy to use features, especially for our busy target users - nurses working in nursing homes. 
+
+<br>
+
+#### 3. Undo/Redo
+The implementation of the `undo` and `redo` features in NurseyBook was adapted from the [SE-EDU AddressBook Level 4](https://github.com/se-edu/addressbook-level4). However, we wanted our undo/redo feature to show users what command is being undone/redone. This meant that we had to modify the implementation such that the command result of the commands are also saved. The modification allows NurseyBook to display the command message of the command being undone or redone, giving users more information on what is the change in data. Furthermore, for commands that switch to display a particular list, we have implemented it such that undoing or redoing such commands will also change the list displayed. For example, undoing an `addTask` command will cause the task list to be displayed.
+
+In addition, as the undo/redo feature was implemented at a later stage, there were many changes to be made to existing commands and test cases. Methods to save the changes to the data of the NurseyBook had to be added to the execution of commands that change the data and their test cases.
+
