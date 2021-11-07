@@ -9,7 +9,7 @@ title: User Guide
 --------------------------------------------------------------------------------------------------------------------
 ## 1. Introduction
 
-NurseyBook is a **desktop app made for nurses in nursing homes to aid them in managing contacts and tasks in their busy lives. It is optimized for use via a Command Line Interface** (CLI) while still **having the benefits of a Graphical User Interface** (GUI). If you can type fast, NurseyBook can manage your contacts & tasks done faster than traditional GUI apps! :smile:
+NurseyBook is a **desktop app made for nurses in nursing homes to aid them in managing contacts and tasks in their busy lives. It is optimized for use via a Command Line Interface** (CLI) while still **having the benefits of a Graphical User Interface** (GUI). If you can type fast, NurseyBook can help you manage your contacts & tasks faster than traditional GUI apps! :smile:
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -39,7 +39,7 @@ NurseyBook is a **desktop app made for nurses in nursing homes to aid them in ma
 
    * **`exit`** : Exits the app.
 
-Refer to the [4. Features](#4-features) below for details of each command.
+Refer to the [4. Features](#4-features) below for in-depth details of all available commands.
 
 
 --------------------------------------------------------------------------------------------------------------------
@@ -573,7 +573,7 @@ Examples:
 * Marks the task at the specified `INDEX` as done.
 * The index refers to the index number shown in the displayed task list.
 * The index **must be a positive integer** 1, 2, 3, …​
-* After marking an overdue task is completed, the overdue tag will no longer be displayed.
+* After marking an overdue task as completed, the overdue tag will no longer be displayed.
 
 </div>
 
@@ -588,8 +588,8 @@ Format: `remind`
 
 #### 4.2.8 View task schedule: `viewSchedule`
 
-Displays the list of tasks set to occur on the specified date.
-Future occurrences of recurring tasks that will take place on that date is also included.
+Displays a preview of the list of tasks set to occur on the specified current or future date.
+Future occurrences of recurring tasks that will take place on that date are also included.
 
 Format: `viewSchedule DATE`
 
@@ -600,8 +600,9 @@ Example:
 
 :information_source: **Information:**
 * Date must be in yyyy-mm-dd form.
-* You can view schedule for up to 12 weeks in advance from the current date.
-* For recurring tasks, this is simply a tool to preview its future occurrences. You cannot modify (e.g. delete/edit/mark as done/etc.) any such future occurrences of recurring tasks shown in the task list. These future occurrences will be deleted from task view upon entering any next valid/invalid input.
+* You can view your schedule for up to 12 weeks, or 84 days, in advance from the current date. Viewing schedule beyond that is not supported.
+* You cannot view the schedule on a day that has already passed.
+* For recurring tasks, this is simply a tool to preview its future occurrences. You cannot modify (e.g. delete/edit/mark as done/etc.) any such future occurrences of recurring tasks shown in the task list. These future occurrences will be deleted from your task view upon entering any next valid or invalid input.
 
 </div>
 
@@ -700,7 +701,7 @@ are also welcome to update data directly by editing that data file.
 ## 6. FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file NurseyBook creates with the file, with the file
+**A**: Install the app in the other computer and overwrite the empty data file NurseyBook creates, with the file
 that contains the data of your previous NurseyBook home folder.
 
 **Q**: How do I save my data?<br>
