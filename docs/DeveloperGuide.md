@@ -34,9 +34,7 @@ Refer to the [_PlantUML Tutorial_ at se-edu/guides](https://se-education.org/gui
 
 <img src="images/ArchitectureDiagram.png" width="280" />
 
-The ***Architecture Diagram*** given above explains the high-level design of the App.
-
-Given below is a quick overview of main components and how they interact with each other.
+The ***Architecture Diagram*** given above explains the high-level design of the App. Given below is a quick overview of main components and how they interact with each other.
 
 **Main components of the architecture**
 
@@ -891,14 +889,32 @@ testers are expected to do more *exploratory* testing.
 
    1. Download the jar file and copy into an empty folder
 
-   2. Double-click the jar file Expected: Shows the GUI with a set of sample elderlies. The window size may not be optimum.
+   2. Double-click the jar file <br>
+      Expected: Shows the GUI with a set of sample elderlies. The window size may not be optimum.
 
 2. Saving window preferences
 
    1. Resize the window to an optimum size. Move the window to a different location. Close the window.
 
-   2. Re-launch the app by double-clicking the jar file.<br>
+   2. Re-launch the app by double-clicking the jar file. <br>
        Expected: The most recent window size and location is retained.
+
+### Adding a elderly
+
+1. Adding an elderly to NurseyBook
+
+   1. Test case: `addElderly en/Khong Guan a/80 g/M r/10` <br>
+      Expected: Display (switches to) the full list of elderly added to NurseyBook. New elderly with parameters is created.
+   
+   2. Test case: `addElderly en/Alice John a/85 r/2 g/F nn/Mary John rs/Sister e/mj@example.com t/diabetes` <br>
+      Expected: Display (switches to) the full list of elderly added to NurseyBook. New elderly with parameters is created.
+   
+   3. Test case: `addElderly en/khong guan a/55 g/M r/15` <br>
+      Expected: No elderly is added, and the display within NurseyBook stays the same (i.e. If the current display is a list of tasks, it stays on the same list of tasks.). Error details shown in the status message. <br>
+      Note: This test case must be executed only after you have executed test case 1. 
+   
+   4. Other incorrect `addElderly` commands to try: `addElderly en/Desmond Lim r/30 a/10 g/M`, `addElderly en/John Wick r/30 a/50 g/W`, `addElderly`, `...` (with missing compulsory parameters or unaccepted values entered) <br>
+      Expected: Similar to previous
    
 
 ### Deleting a elderly
@@ -907,33 +923,44 @@ testers are expected to do more *exploratory* testing.
 
    1. Prerequisites: List all elderlies using the `viewElderly` command. Multiple elderlies in the list.
 
-   2. Test case: `deleteElderly 1`<br>
-      Expected: First elderly is deleted from the list. Details of the deleted elderly shown in the status message.
+   2. Test case: `deleteElderly 1` <br>
+      Expected: First elderly is deleted from the list. Details of the deleted elderly are shown in the status message.
 
-   3. Test case: `deleteElderly 0`<br>
+   3. Test case: `deleteElderly 0` <br>
       Expected: No elderly is deleted. Error details shown in the status message.
 
-   4. Other incorrect `deleteElderly` commands to try: `deleteElderly`, `deleteElderly x`, `...` (where x is larger than the list size)<br>
+   4. Other incorrect `deleteElderly` commands to try: `deleteElderly`, `deleteElderly x`, `...` (where x is larger than the list size) <br>
       Expected: Similar to previous.
 
 ### Adding a task
 
 1. Adding a task to NurseyBook
     
-    1. Prerequisites: Add an elderly with name 'Khong Guan' to NurseyBook
-    2. Test case: `addTask en/Khong Guan desc/Weekly Taiji date/2022-10-10 time/14:30 recur/week`<br>
-        Expected: New task with the parameters is created. It is a one-off task and recurrence is 'Week'.
-    3. Test case: `addTask en/Khong Guan desc/Weekly Taiji date/2021-10-10 time/14:30`<br>
-       Expected: New task with the parameters is created. It is a one-off task and recurrence is 'None'. Task has an 'Overdue' tag.
-    4. Test case: `addTask en/Benny desc/Weekly Taiji date/2022-10-10 time/14:30`<br>
-        Expected: No task is added. Error details shown in the status message.
-    5. Other incorrect `addTask` commands to try: `addTask en/Khong Guan desc/Weekly Taiji date/2021-10-10 time/14:30 recur/week`,`addTask`, `addTask desc/Weekly Taiji`, `...` (with missing compulsory parameters)<br>
-        Expected: Similar to previous
+    1. Prerequisites: Add an elderly with name 'Khong Guan' to NurseyBook.
+    
+    2. Test case: `addTask en/Khong Guan desc/Weekly Taiji date/2022-10-10 time/14:30 recur/week` <br>
+       Expected: New task with the parameters is created. It is a one-off task and recurrence is 'Week'.
+   
+    3. Test case: `addTask en/Khong Guan desc/Weekly Taiji date/2021-10-10 time/14:30` <br>
+       Expected: New task with the parameters is created. It is a one-off task and recurrence is 'None'. Task has an 'Overdue' tag. <br>
+       Test case 2 has a different date and type of recurrence compared to that in test case 1, thus is added.
+   
+    4. Test case: `addTask en/Benny desc/Weekly Taiji date/2022-10-10 time/14:30` <br>
+       Expected: No task is added. Error details shown in the status message.
+   
+    5. Other incorrect `addTask` commands to try: `addTask en/Khong Guan desc/Weekly Taiji date/2021-10-10 time/14:30 recur/week`,`addTask`, `addTask desc/Weekly Taiji`, `...` (with missing compulsory parameters) <br>
+       Expected: Similar to previous
 
 ### Saving data
 
 1. Dealing with missing/corrupted data files
 
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
-
-1. _{ more test cases …​ }_
+   1. Make sure that there is a `./data/nurseybook.json` file. <br>
+      If not, open the application (the jar file) and make some changes (e.g. `addTask desc/visit the dentist date/2022-01-01 time/12:00`) and close the app (by typing in the `exit` command or clicking on the close button).
+   
+   2. Open `./data/nurseybook.json` in a text editor.
+   
+   3. Remove the starting `{` character of the JSON file and save the file.
+   
+   4. Launch the app by running `java -jar NurseyBook.jar` in the console. <br>
+      Expected: The GUI should pop up with no entries. The console should give warnings about incorrect data format (due to the removal of the `{` character at the start of the `nurseybook.json` file).
