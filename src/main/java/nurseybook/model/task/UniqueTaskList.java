@@ -126,7 +126,8 @@ public class UniqueTaskList implements Iterable<Task> {
         for (Task task : internalList) {
             for (Name name : task.getRelatedNames()) {
                 if (target.getName().caseInsensitiveEquals(name)) {
-                    task.replaceName(name, editedElderly.getName());
+                    internalList.remove(task);
+                    internalList.add(task.replaceName(name, editedElderly.getName()));
                 }
             }
         }
@@ -141,7 +142,8 @@ public class UniqueTaskList implements Iterable<Task> {
         for (Task task : internalList) {
             for (Name name : task.getRelatedNames()) {
                 if (elderlyToDelete.getName().caseInsensitiveEquals(name)) {
-                    task.deleteName(name);
+                    internalList.remove(task);
+                    internalList.add(task.deleteName(name));
                 }
             }
         }
