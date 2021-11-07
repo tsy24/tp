@@ -98,7 +98,7 @@ How the `Logic` component works:
 1. When `Logic` is called upon to execute a command, it uses the `NurseyBookParser` class to parse the user command.
 1. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `AddCommand`) which is executed by the `LogicManager`.
 1. The command can communicate with the `Model` when it is executed (e.g. to add an elderly).
-1. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
+1. The result of the command execution is encapsulated as a `CommandResult` object which is returned from `Logic`.
 
 The Sequence Diagram below illustrates the interactions within the `Logic` component for the `execute("deleteElderly 1")` API call.
 
@@ -134,9 +134,7 @@ The `Model` component,
 
 <img src="images/DetailedModelClassDiagram.png" width="800" /> 
 
-
 More details regarding `Person`, `Elderly`, `Nok`(Next of kin) and `Task` objects.
-
 
 ### Storage component
 
@@ -145,7 +143,7 @@ More details regarding `Person`, `Elderly`, `Nok`(Next of kin) and `Task` object
 <img src="images/StorageClassDiagram.png" width="550" />
 
 The `Storage` component,
-* can save both nursey book data and user preference data in json format, and read them back into corresponding objects.
+* can save both NurseyBook data and user preference data in json format, and read them back into corresponding objects.
 * inherits from both `NurseyBookStorage` and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
 * depends on some classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects that belong to the `Model`)
 
@@ -197,7 +195,7 @@ The list of Elderly that return true for `test` is then assigned to `filteredEld
 Only the simple operations such as checking whether a Tag is in the Set and changing the Tags in the set are needed.
 Thus, the methods provided in Java Util Set are sufficient and there is no need to implement custom methods.
 
-### Mark task as done feature
+### Mark a task as done feature
 
 #### How task status is changed
 `Task` now contains `Status`, which stores the completion status of the task. `Task` now implements the following operations:
@@ -233,7 +231,7 @@ If a user does not specify `Recurrence` when adding a new `Task`, it will defaul
 
 * Alternative 1: Once a user has marked a recurring `Task` as done, the date of the `Task` will be automatically changed to the next date according to its `Recurrence` type, with its completion status reset to be undone.
     * Pros: User Experience could be more intuitive in the sense that the user can focus on the next deadline rather than the current completed task
-    * Cons: There is an increase in coupling between the `Task`’s `Status`, `Recurrence` and `DateTime` because `DateTime` now needs to depend on `Status` and `Recurrence` to decide if its date and time needs to be changed. This can increase bugs and make testing harder as more functions would have side effects (reseting task’s completion `Status` and updating `Task`’s `DateTime`).
+    * Cons: There is an increase in coupling between the `Task`’s `Status`, `Recurrence` and `DateTime` because `DateTime` now needs to depend on `Status` and `Recurrence` to decide if its date and time needs to be changed. This can increase bugs and make testing harder, as more functions would have side effects (resetting task’s completion `Status` and updating `Task`’s `DateTime`).
 
 * Alternative 2: Once a `DateTime` of a `Task` has been passed, this will trigger nursey book to update the new `DateTime` of the `Task` according to its `Recurrence` type.
     * Pros: Easier to implement because there is only one condition that needs to be checked (if the `Task`’s `DateTime` is before the current `DateTime`) for the `Task`’s `DateTime` to be updated.
@@ -243,14 +241,36 @@ If a user does not specify `Recurrence` when adding a new `Task`, it will defaul
 
 #### Implementation
 
-Listed below are some situations and corresponding implementations where the overdue `Status`, and `DateTime` might be changed based on either a manual edit of the `Task` details or the passing of time.
+The logic for handling overdue and recurring tasks are handled in ModelManager#updateFilteredTaskList.
+
+```     java
+@Override
+public void updateFilteredTaskList(Predicate<Task> predicate) {
+    requireNonNull(predicate);
+    updateOverdueTaskList();
+    updateNotOverdueTaskList();
+    updateDateRecurringTaskList();
+    filteredTasks.setPredicate(predicate);
+}
+```
+
+The implementation of these individual functions `updateOverdueTaskList()`, `updateNotOverdueTaskList()` and `updateDateRecurringTaskList()` are listed below.
+1. `updateOverdueTaskList()`
+    *  This function is facilitated by the `TaskIsOverduePredicate` class. `TaskIsOverduePredicate` has a method `test()` to test whether a `Task`'s `DateTime` is before the current `DateTime`.
+2. `updateNotOverdueTaskList()`
+    *  This function is facilitated by the `TaskIsNotOverduePredicate` class. `TaskIsNotOverduePredicate` has a method `test()` to test whether a `Task`'s `DateTime` is after the current `DateTime`.
+3. `updateDateRecurringTaskList()`
+    *  This function is facilitated by the `TaskIsRecurringAndOverduePredicate` class. `TaskIsRecurringAndOverduePredicate` has a method `test()` to test whether a `Task`'s `DateTime` is before the current `DateTime`
+         and if it is a recurring task (`Task#isRecurring` is `True`).
+    
+Listed below are some situations and corresponding implementations where the overdue `Status`, and `DateTime` might be changed based on either a manual edit of the `Task`'s `DateTime` and/or `Recurrence` type, or simply the passing of time.
 
 1. `DateTime` of non-recurring `Task` has passed current `DateTime`
   - Mark `Status#isOverdue` to `True`
 2. `DateTime` of recurring `Task` has passed current `DateTime`
   - Update old `DateTime` to new `DateTime` according to its `Recurrence` type.
   - Mark `Status#isDone` to `False`
-  - Status#isOverdue remains 'False'
+  - Status#isOverdue remains `False`
 3. User edits non-recurring `Task` with a passed `DateTime` to a future `DateTime`
   - Mark `Status#isOverdue` to `False`
 4. User edits non-recurring `Task` with a future `DateTime` to a passed `DateTime`
@@ -633,6 +653,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * 2c. The edit does not cause any change in the elderly's details.
     * 2c1. NurseyBook shows an error message.
 
+<<<<<<< HEAD
       Use case resumes at step 1.
 * 2d. The name of the edited elderly is the same as another elderly saved in NurseyBook.
     * 2d1. NurseyBook shows an error message.
@@ -641,6 +662,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * *a. At any time, user requests to <u>view help ([UC19](#uc19-viewing-help))</u>.
 
 ##### UC5: Find an elderly
+=======
+* 2d. The elderly's name already exists in the elderly database.
+    * 2d1. NurseyBook shows an error message.
+
+      Use case resumes at step 1.
+    
+**UC6: Add remark about an elderly**
+>>>>>>> 7b3d9fec528065ad73c27e17432dc35e7ee3d337
 
 **MSS**
 
@@ -821,7 +850,7 @@ Similar to <u>adding an elderly ([UC2](#uc2-add-an-elderly))</u> but adding a ta
       Use case resumes at step 1.
 * *a. At any time, user requests to <u>view help ([UC19](#uc19-viewing-help))</u>.
 
-##### UC15: Edit a task
+##### UC15: Edit a task's details
 
 **MSS**
 
@@ -842,16 +871,18 @@ Similar to <u>adding an elderly ([UC2](#uc2-add-an-elderly))</u> but adding a ta
     * 2b1. NurseyBook shows an error message.
 
       Use case resumes at step 1.
+    
 * 2c. The edit does not cause any change in task's details.
     * 2c1. NurseyBook shows an error message.
 
       Use case resumes at step 1.
 
-* 2d. The task after editing is the same as another task saved in NurseyBook.
+* 2d. The task with the same details already exists in the task database.
     * 2d1. NurseyBook shows an error message.
 
       Use case resumes at step 1.
-* 2e. The task new date of the recurring task has passed.
+    
+* 2e. For a recurring task, the new edited date and time is before the current date and time.
     * 2e1. NurseyBook shows an error message.
 
       Use case resumes at step 1.

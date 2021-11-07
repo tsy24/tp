@@ -8,8 +8,6 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import nurseybook.model.NurseyBook;
-import nurseybook.model.person.Elderly;
 import nurseybook.model.person.Name;
 import nurseybook.model.task.Recurrence.RecurrenceType;
 
@@ -288,20 +286,6 @@ public abstract class Task implements Comparable<Task> {
     }
 
     /**
-     * Returns set of elderly objects related to this task.
-     *
-     * @param book                      nursey book that stores this task
-     * @return                          task description
-     */
-    public Set<Elderly> getRelatedPeople(NurseyBook book) {
-        Set<Elderly> relatedPeople = new HashSet<>();
-        for (Name name: relatedNames) {
-            relatedPeople.add(book.getElderly(name));
-        }
-        return relatedPeople;
-    }
-
-    /**
      * Returns true if the task is past the current date and time, and it is a recurring task.
      *
      * @return true if its past and is a recurring task
@@ -362,9 +346,7 @@ public abstract class Task implements Comparable<Task> {
                 .append(getDateTime());
         if (!relatedNames.isEmpty()) {
             builder.append("; People: ");
-            relatedNames.forEach(name -> {
-                builder.append(name + " ");
-            });
+            relatedNames.forEach(name -> builder.append(name + " "));
         }
         return builder.toString();
     }

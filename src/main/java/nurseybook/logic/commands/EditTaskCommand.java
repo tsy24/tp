@@ -47,9 +47,9 @@ public class EditTaskCommand extends Command {
             + "Parameters: "
             + String.join(" ", PARAMETERS)
             + "\nExample: " + COMMAND_WORD + " 1 "
-            + PREFIX_NAME + "Khong Guan "
-            + PREFIX_NAME + "John Doe "
-            + PREFIX_TASK_RECURRING + "WEEK";
+            + PREFIX_NAME + "Charlotte Oliveiro "
+            + PREFIX_NAME + "David Li "
+            + PREFIX_TASK_RECURRING + "week";
 
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited Task: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -252,7 +252,6 @@ public class EditTaskCommand extends Command {
                     && getDescription().equals(e.getDescription())
                     && getDate().equals(e.getDate())
                     && getTime().equals(e.getTime())
-                    && getStatus().equals(e.getStatus())
                     && getRecurrence().equals(e.getRecurrence());
         }
     }
