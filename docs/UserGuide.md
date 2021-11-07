@@ -442,7 +442,6 @@ Format: `viewTasks`
 </div>
 
 #### 4.2.2 Add a task: `addTask`
->>>>>>> 96cba0b589bd1ba2e5e8187baae09b5633709240
 
 Adds a task to the task list.
 
