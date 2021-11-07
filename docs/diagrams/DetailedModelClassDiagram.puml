@@ -5,7 +5,7 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 Package Model <<Rectangle>>{
-Class Person
+Abstract Class Person
 Class Elderly
 Class Nok
 
@@ -19,7 +19,7 @@ Class Address
 Class Name
 Class Tag
 
-Class Task
+Abstract Class Task
 Class Description
 Class DateTime
 Class Status

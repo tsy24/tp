@@ -394,7 +394,7 @@ The implementation of `DeleteNokCommand` is highly similar to that of `DeleteCom
 
 Given below is an example usage scenario and how the delete Nok mechanism behaves at each step. The example command is `deleteNok 1`.
 
-Step 1. The user and executes `deleteNok 1` command to delete the NoK details of the first elderly in the elderly list. This prompts the `LogicManager` to start its execution by calling its `execute()` command.
+Step 1. The user executes `deleteNok 1` command to delete the NoK details of the first elderly in the elderly list. This prompts the `LogicManager` to start its execution by calling its `execute()` command.
 
 Step 2. `LogicManager` calls the `NurseyBookParser` to parse the command.
 
@@ -487,7 +487,72 @@ The following activity diagram summarizes what happens in the `MainWindow` class
 * **Alternative 2:** Display the list of elderly and list of tasks side by side in the same display window.
   * Pros: Implementation/Creation of new commands are not needed. The user is able to type less yet still view what he/she is interested in.
   * Cons: With two different lists (that contain different objects) displayed side by side, the display might seem cluttered and hard to read from. It negatively impacts the user experience.
+  
 
+### ViewSchedule Feature
+
+#### Implications on representation of `Task` objects
+The `viewSchedule` command introduced a need for certain tasks, specifically future occurrences of recurring tasks, to be visible to the user only when this command is called. Such temporary tasks need to be not visible once the next command is entered.
+
+To achieve this functionality, `Task` objects had to be refactored into`RealTask` and `GhostTask` objects as shown in the diagram below.
+
+![DetailedTaskClassDiagram](./images/DetailedTaskClassDiagram.png)
+
+RealTasks represent concrete tasks, which are either non-recurring tasks, or the current occurrence of recurring tasks.
+GhostTasks are temporary tasks that exist for the purpose of allowing the user to preview future occurrences of recurring tasks.
+By default, `viewTasks` will only show RealTasks.
+
+
+Since `UniqueTaskList` contains `Task` objects, it can be either `GhostTask` or `RealTask` objects. Naturally, this implies that calling two commands that both have dependencies on GhostTask objects would cause conflicts, as earlier created GhostTasks
+would still persist in the task list. This necessitates a cleanup of `GhostTask` objects between execution of each command. Such deletion of old GhostTasks in the `model` is achieved just prior to the execution of each new command in `LogicManager`, via the `deleteGhostTasks()` method.
+
+Code Snippet of the `execute(String commandText)` method in `LogicManager`:
+```
+@Override
+public CommandResult execute(String commandText) throws CommandException, ParseException {
+    logger.info("----------------[USER COMMAND][" + commandText + "]");
+    //deletes all previous ghost tasks from the model as they are no longer relevant
+    model.deleteGhostTasks();
+    //parsing and execution of command
+    CommandResult commandResult;
+    Command command = nurseyBookParser.parseCommand(commandText);
+    commandResult = command.execute(model);
+```
+
+
+
+#### Implementation of ViewSchedule
+
+`ViewScheduleCommand` leverages on this ability to create GhostTasks. The other unique aspect in the implementation of this feature, is how the program figures out which GhostTasks to create and show to the user upon execution of this command.
+When a `ViewScheduleCommand` is executed with a given `keyDate`, where `keyDate` refers to the date on which the user wants to view schedule, `addPossibleGhostTasksWithMatchingDate(keyDate)` is responsible for this addition of relevant GhostTasks.
+Given below is an activity diagram that summarizes the sequence of actions which guides how this method functions.
+
+![AddPossibleGhostTasksWithMatchingDateActivityDiagram](./images/AddPossibleGhostTasksWithMatchingDateActivityDiagram.png)
+
+Since the remaining general mechanisms by which the view schedule operation occurs is similar to other previously elaborated commands, a step-by-step elaboration is not given for the overall execution.
+
+<br>
+
+#### Design Considerations
+**Aspect: How to differentiate `RealTask` and `GhostTask` Objects:**
+* **Alternative 1:** Add a new field to `Task` objects that determine whether a task is a real task or not.
+    * Pros: Easier to implement and integrate with existing AB3 code
+    * Cons: Increased failure points, as an additional field has to be stored in the hard disk to determine if tasks are real or not. This field has to be kept track of in between different commands, but not exposed to the user.
+* **Alternative 2:** Make `Task` abstract and add concrete `RealTask` and `GhostTask` subclasses to it.
+    * Pros: Clearer classification of Task types. Polymorphism can be used to handle `RealTask` and `GhostTask` objects respectively.
+    * Cons: All code for existing `Task` objects needs to be refactored. More code needs to be written, which could result in more room for bugs.
+
+**Decision:** Alternative 2 was chosen as although Alternative 1 is simpler to implement, Alternative 1 has poor encapsulation of real and temporary task objects. `GhostTasks` need to be handled differently
+from `RealTasks`, as we do not want to expose them to the user. Hence, it makes more sense to encapsulate it as a separate class, even though more code needs to be refactored, written and tested.
+This also keeps the data stored in the hard disk smaller, as there is no unnecessary field to keep track of whether a task is real or not.
+
+<br>
+
+**Aspect: Searching of future occurrences of recurring tasks :**
+
+With recurring tasks, they can imply the existence of infinite potential future occurrences. Consequently, users could input dates well beyond reasonable amounts, such as centuries into
+the future. However, it is not sensible nor feasible to search for such extraneous lengths of time. Hence, the maximum number of time that a user can view schedule on a future date has been
+capped to 12 weeks, or 84 days, from the current date.
 
 --------------------------------------------------------------------------------------------------------------------
 
