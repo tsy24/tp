@@ -18,6 +18,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import nurseybook.commons.core.Messages;
 import nurseybook.commons.core.index.Index;
@@ -69,6 +70,24 @@ public class EditTaskCommand extends Command {
         this.editTaskDescriptor = new EditTaskDescriptor(editTaskDescriptor);
     }
 
+    /**
+     * Check if entered names are valid and match the casing of the name to be the same as elderly name
+     * in NurseyBook's elderly list
+     * @param model
+     * @throws CommandException if some elderly names entered are not found in NurseyBook
+     */
+    private void checkAndMatchNames(Model model) throws CommandException {
+        Set<Name> enteredNames = editTaskDescriptor.getNames().orElse(new HashSet<>());
+
+        if (!model.areAllElderliesPresent(enteredNames)) {
+            throw new CommandException(MESSAGE_NO_SUCH_ELDERLY);
+        } else if (!enteredNames.isEmpty()) {
+            Set<Name> namesWithCasesMatched = enteredNames.stream()
+                    .map(n -> model.findElderlyWithName(n).getName()).collect(Collectors.toSet());
+            editTaskDescriptor.setNames(namesWithCasesMatched);
+        }
+    }
+
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
@@ -77,6 +96,8 @@ public class EditTaskCommand extends Command {
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
+
+        checkAndMatchNames(model);
 
         Task taskToEdit = lastShownList.get(index.getZeroBased());
         Task editedTask = createEditedTask(taskToEdit, editTaskDescriptor);
@@ -91,11 +112,6 @@ public class EditTaskCommand extends Command {
 
         if (!taskToEdit.isSameTask(editedTask) && model.hasTask(editedTask)) {
             throw new CommandException(MESSAGE_DUPLICATE_TASK);
-        }
-
-
-        if (!model.areAllElderliesPresent(editedTask.getRelatedNames())) {
-            throw new CommandException(MESSAGE_NO_SUCH_ELDERLY);
         }
 
         model.setTask(taskToEdit, editedTask);
