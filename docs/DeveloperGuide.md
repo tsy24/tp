@@ -1039,8 +1039,8 @@ testers are expected to do more *exploratory* testing.
     2. Test case: `deleteNok 1` <br>
        Expected: All NoK details of the first elderly in the list are deleted. Updated details of the elderly whose NoK details were deleted are shown in the status message.
 
-    4. Invalid commands to try (Error details shown in the status message):
-        * Invalid index >= size of elderly list, or <= 0: `deleteElderly 5` or `deleteElderly -1`
+    3. Invalid commands to try (Error details shown in the status message):
+         * Invalid index >= size of elderly list, or <= 0: `deleteNok 5` or `deleteNok -1`
 
 
 ### Adding a task
@@ -1139,8 +1139,8 @@ testers are expected to do more *exploratory* testing.
        Expected: Task B should be displayed. Date of Task B in this display should be `2021-11-19`.
    
     6. Some other incorrect `viewSchedule` commands to try (error details shown in status message): 
-        * Date that has already passed: `viewSchedule 2021-11-11` <br> Expected: Program should output error that the date has already passed.
-        * Not formatting the date correctly: `viewSchedule 16-12-2021` <br> Expected: Program should output error that date should be in yyyy-mm-dd format.
+        * Date input has already passed: `viewSchedule 2021-11-11`
+        * Not formatting the date correctly in yyyy-mm-dd format: `viewSchedule 16-12-2021`
 
 
 ### Saving data
