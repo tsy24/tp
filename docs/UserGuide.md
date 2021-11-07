@@ -133,7 +133,7 @@ Commands in this guide follow such rules:
 * If a parameter is expected only once in the command but you specified it multiple times, only the last occurrence of the parameter will be taken.<br>
   e.g. if you specify `p/12341234 p/56785678`, only `p/56785678` will be taken.
 
-* Commands that do not take in parameters (such as `viewElderly`, `viewTasks`, `clear`, `exit`, `help`) will ignore the additional parameters that are added to the back of it.
+* Commands that do not take in parameters (such as `viewElderly`, `viewTasks`, `clear`, `help`, `exit`) will ignore the additional parameters that are added to the back of it.
   e.g. if the command specifies `viewTasks 123`, it will be interpreted as `viewTasks`.
 
 </div>
@@ -579,7 +579,7 @@ Example:
 
 :exclamation: **Caution:**
 * NurseyBook will not automatically refresh the displayed task list to reflect instantaneous changes, such as overdue tasks and new dates of recurring tasks.
-* However, you can manually trigger this refresh, and one way is to enter [`viewTasks`](#view-all-tasks-viewtasks) in the command box.
+* However, you can manually trigger this refresh, and one way is to enter [`viewTasks`](#421-view-all-tasks-viewtasks) in the command box.
 * This will update the overdue status of all tasks and new dates of all recurring tasks.
   * e.g. If the time now is 9.01pm and there is an undone task which is due at 9.00pm the same day, you can enter `viewTasks`, otherwise the red overdue tag will not show automatically.
   * e.g. If the time now is 9.01pm and there is a recurring task due at 9.00pm, you can enter `viewTasks`, otherwise the task's date will remain unchanged.
@@ -594,20 +594,28 @@ Clears all entries from NurseyBook.
 
 Format: `clear`
 
-#### 4.3.2 Undo previous command : `undo`
+#### 4.3.2 Viewing help : `help`
+
+A new window that contains a summary of the commands (with the necessary command parameters) as well as a link to this user guide will appear. The link can be copied to the system's clipboard by clicking on the `Copy` button.
+
+Format: `help`
+
+![](images/userGuide/help_expanded.png)
+
+#### 4.3.3 Undo previous command : `undo`
 
 Undoes the previous undoable command executed on the NurseyBook.
 
 Format: `undo`
 
-* Undoable commands(i.e. any command that modifies NurseyBook's data): `addElderly`, `editElderly`, `deleteElderly`, `deleteNok`, `addTag`, `deleteTag`, `addTask`, `editTask`, `deleteTask`, `doneTask`, `clear`
+* Undoable commands(i.e. any command that modifies NurseyBook's data): `addElderly`, `editElderly`, `deleteElderly`, `deleteNok`, `addTag`, `deleteTag`, `addTask`, `editTask`, `deleteTask`, `doneTask`, `clear`, `help`
 * Non-undoable commands: `findElderly`, `filter`, `viewDetails`, `viewElderly`, `findTask`, `remind`, `viewTasks`, `viewSchedule`
 * If there are no undoable commands executed previously, the undo command will fail and an error message will be shown.
 
 Example:
 * `deleteElderly 1` followed by `undo` causes the `deleteElderly 1` command to be undone and no elderly is deleted from the NurseyBook.
 
-#### 4.3.3 Redo previously undone command : `redo`
+#### 4.3.4 Redo previously undone command : `redo`
 
 Reverses the previous undo command executed on the NurseyBook.
 
@@ -619,7 +627,7 @@ Example:
 * `deleteElderly 1` followed by `undo` causes the `deleteElderly 1` command to be undone and no elderly is deleted from the NurseyBook.
 Entering `redo` will reverse the previous undo command, causing the elderly to be deleted again.
 
-#### 4.3.4 Exiting the program : `exit`
+#### 4.3.5 Exiting the program : `exit`
 
 Exits the program.
 
@@ -670,7 +678,7 @@ Action | Format, Examples
 **Edit an elderly** | `editElderly INDEX [en/ELDERLY_NAME] [a/AGE] [g/GENDER] [r/ROOMNO] [t/TAG]…​ [nn/NOK_NAME] [rs/NOK_RELATIONSHIP] [p/NOK_PHONE_NUMBER] [e/NOK_EMAIL] [addr/NOK_ADDRESS] [re/REMARK]`
 **Find an elderly** | `findElderly KEYWORD [MORE_KEYWORDS]`
 **Delete next-of-kin of elderly** | `deleteNok INDEX`<br> <br> e.g., `deleteNok 3`
-**Add tag(s)** | `addTagINDEX t/TAG [t/TAG]…​` <br> <br> e.g., `addTag 1 t/diabetes`
+**Add tag(s)** | `addTag INDEX t/TAG [t/TAG]…​` <br> <br> e.g., `addTag 1 t/diabetes`
 **Delete tag(s)** | `deleteTag INDEX t/TAG [t/TAG]…​`
 **Filter** | `filter t/TAG [t/TAG]…​`
 **Remark** | `remark INDEX re/REMARK`
@@ -695,6 +703,7 @@ Action | Format, Examples
 Action | Format, Examples
 --------|------------------
 **Clear** | `clear`
+**Help** | `help`
 **Undo** | `undo`
 **Redo** | `redo`
 **Exit** | `exit`
