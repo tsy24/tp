@@ -1124,7 +1124,7 @@ testers are expected to do more *exploratory* testing.
 
     1. Prerequisites: User is currently viewing the task list page. Only the following 3 tasks are be added to NurseyBook. We shall call them Tasks A, B and C.
         * Task A: A non-recurring task, the date of which is current date. <br> Assume this date is `2021-11-12` for illustration purposes.
-        * Task B: A daily recurring task, the date of which is current date + 2 days. <br> Assume this date is `2021-11-14` for illustration purposes.
+        * Task B: A daily recurring task, the initial date of which is current date + 2 days. <br> Assume this date is `2021-11-14` for illustration purposes.
         * Task C: A non-recurring task, the date of which is current date + 4 days. <br> Assume this date is `2021-11-16` for illustration purposes. 
     2. Test case - today:`viewSchedule 2021-11-12` <br>
        Expected: Task A should be displayed.
