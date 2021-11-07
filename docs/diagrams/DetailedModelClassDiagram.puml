@@ -37,7 +37,7 @@ Elderly *---> Age
 Elderly *---> Gender
 Elderly *---> RoomNumber
 Elderly *---> Remark
-Elderly --> Nok
+Elderly *--> Nok
 Nok *--> Phone
 Nok *--> Email
 Nok *--> Address

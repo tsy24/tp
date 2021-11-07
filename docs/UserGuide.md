@@ -24,7 +24,7 @@ NurseyBook is a **desktop app made for nurses in nursing homes to aid them in ma
 4. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
 
-5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
+5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing `Enter` will open the help window.<br>
    Some example commands you can try:
 
    * **`viewElderly`** : Lists all elderly contacts.
@@ -133,7 +133,7 @@ Commands in this guide follow such rules:
 * If a parameter is expected only once in the command but you specified it multiple times, only the last occurrence of the parameter will be taken.<br>
   e.g. if you specify `p/12341234 p/56785678`, only `p/56785678` will be taken.
 
-* Commands that do not take in parameters (such as `viewElderly`, `viewTasks`, `clear`, `exit`, `help`) will ignore the additional parameters that are added to the back of it.
+* Commands that do not take in parameters (such as `viewElderly`, `viewTasks`, `clear`, `help`, `exit`) will ignore the additional parameters that are added to the back of it.
   e.g. if the command specifies `viewTasks 123`, it will be interpreted as `viewTasks`.
 
 </div>
@@ -185,14 +185,14 @@ This section contains the documentation on NurseyBook's features and commands. I
 
 ### 4.1 Elderly commands
 
-#### View all elderly: `viewElderly`
+#### 4.1.1 View all elderly: `viewElderly`
 
 Shows the list of all added elderly.
 
 Format: `viewElderly`
 <br />
 
-#### Add an elderly: `addElderly`
+#### 4.1.2 Add an elderly: `addElderly`
 
 Adds an elderly to NurseyBook.
 
@@ -217,14 +217,14 @@ Examples:
 ![](images/userGuide/add_elderly_0.png)
 ![](images/userGuide/add_elderly_1.png)
 
-#### Delete an elderly : `deleteElderly`
+#### 4.1.3 Delete an elderly : `deleteElderly`
 
 Deletes an elderly from NurseyBook.
 
 Format: `deleteElderly INDEX`   
 
 Examples:
-* [`viewElderly`](#view-all-elderly-viewelderly) followed by `deleteElderly 2` deletes the 2nd elderly in NurseyBook.
+* [`viewElderly`](#411-view-all-elderly-viewelderly) followed by `deleteElderly 2` deletes the 2nd elderly in NurseyBook.
 
 <div markdown="block" class="alert alert-info">
 
@@ -242,13 +242,13 @@ Examples:
 
 </div>
 
-#### Edit an elderly's details: `editElderly`
+#### 4.1.4 Edit an elderly's details: `editElderly`
 
 Edits the details of a specific elderly.
 
 Format: `editElderly INDEX [en/ELDERLY_NAME] [a/AGE] [g/GENDER] [r/ROOMNO] [t/TAG]…​ [nn/NOK_NAME] [rs/NOK_RELATIONSHIP] [p/NOK_PHONE_NUMBER] [e/NOK_EMAIL] [addr/NOK_ADDRESS]`
 
-Examples: See [`addElderly`](#add-an-elderly-addelderly) for examples.
+Examples: See [`addElderly`](#412-add-an-elderly-addelderly) for examples.
 
 <div markdown="block" class="alert alert-info">
 
@@ -271,10 +271,10 @@ Example: John has an existing tag `cancer`, and he is at index 1 in the current 
 <div markdown="block" class="alert alert-primary">
 
 :bulb: **Tip:**
-* For more accessible tag related commands, do refer to the [`addTag`](#add-tags-to-elderly-addtag) and [`deleteTag`](#delete-tags-of-elderly-deletetag) commands.
+* For more accessible tag related commands, do refer to the [`addTag`](#418-add-tags-to-elderly-addtag) and [`deleteTag`](#419-delete-tags-of-elderly-deletetag) commands.
 </div>
 
-#### Find elderly: `findElderly`
+#### 4.1.5 Find elderly: `findElderly`
 
 Finds elderlies whose names contain any of the given keywords.
 
@@ -295,11 +295,14 @@ Examples:
 
 </div>
 
-#### View full details of an elderly: `viewDetails`
+#### 4.1.6 View full details of an elderly: `viewDetails`
 
 Displays full details of a specific elderly
 
 Format: `viewDetails INDEX`
+
+Examples:
+* [`viewElderly`](#411-view-all-elderly-viewelderly) followed by `viewDetails 1` displays the details of the 1st elderly in NurseyBook.
 
 <div markdown="block" class="alert alert-info">
 
@@ -313,14 +316,14 @@ Format: `viewDetails INDEX`
 
 ![](images/userGuide/view_details.png)
 
-#### Delete an elderly's NoK details : `deleteNok`
+#### 4.1.7 Delete an elderly's NoK details : `deleteNok`
 
 Deletes an elderly's Next-of-Kin details from NurseyBook.
 
 Format: `deleteNok INDEX`
 
 Examples:
-* [`viewElderly`](#view-all-elderly-viewelderly) followed by `deleteNok 2` deletes the NoK details of the 2nd elderly in NurseyBook.
+* [`viewElderly`](#411-view-all-elderly-viewelderly) followed by `deleteNok 2` deletes the NoK details of the 2nd elderly in NurseyBook.
 
 <div markdown="block" class="alert alert-info">
 
@@ -331,14 +334,14 @@ Examples:
 
 </div>
 
-#### Add tags to elderly: `addTag`
+#### 4.1.8 Add tags to elderly: `addTag`
 
 Adds one or more tags to a specific elderly.
 
 Format: `addTag INDEX t/TAG [t/TAG]…​`
 
 Examples:
-* `addTag 1 t/covid`
+* [`viewElderly`](#411-view-all-elderly-viewelderly) followed by `addTag 1 t/covid` adds the tag `covid` to the 1st elderly in NurseyBook.
 
 <div markdown="block" class="alert alert-info">
 
@@ -349,14 +352,14 @@ Examples:
 
 </div>
 
-#### Delete tags of elderly: `deleteTag`
+#### 4.1.9 Delete tags of elderly: `deleteTag`
 
 Deletes one or more tags of a specific elderly.
 
 Format: `deleteTag INDEX t/TAG [t/TAG]…​`
 
 Examples:
-* `deleteTag 1 t/covid`
+* [`viewElderly`](#411-view-all-elderly-viewelderly) followed by `deleteTag 1 t/covid` deletes the tag `covid` from the 1st elderly in NurseyBook.
 
 <div markdown="block" class="alert alert-info">
 
@@ -367,7 +370,7 @@ Examples:
 
 </div>
 
-#### Filter elderly: `filter`
+#### 4.1.10 Filter elderly: `filter`
 
 Filters elderly based on one or more tags.
 
@@ -386,15 +389,14 @@ Examples:
 
 ![](images/userGuide/filter.png)
 
-#### Add remark to elderly: `remark`
+#### 4.1.11 Add remark to elderly: `remark`
 
 Adds a remark to a specific elderly.
 
 Format: `remark INDEX re/REMARK`
 
 Examples:
-* `remark 1 re/Medicine seems to be ineffective`
-* `remark 1 re/`
+* [`viewElderly`](#411-view-all-elderly-viewelderly) followed by `remark 1 re/Medicine seems to be ineffective` adds the remark to the 1st elderly in Nurseybook.
 
 <div markdown="block" class="alert alert-info">
 
@@ -408,13 +410,13 @@ Examples:
 
 :bulb: **Tip:**  
 
-* You can remove a remark by leaving the remark input empty! e.g. `remark 1 re/`
+* You can remove a remark by leaving the remark input empty! e.g. [`viewElderly`](#411-view-all-elderly-viewelderly) followed by `remark 1 re/` removes the remark for the 1st elderly in NurseyBook.
 
 </div>
 
 ### 4.2 Task commands
 
-#### View all tasks: `viewTasks`
+#### 4.2.1 View all tasks: `viewTasks`
 
 Shows a list of all your tasks in NurseyBook.
 
@@ -428,7 +430,7 @@ Format: `viewTasks`
 
 </div>
 
-#### Add a task: `addTask`
+#### 4.2.2 Add a task: `addTask`
 
 Adds a task to the task list.
 
@@ -466,7 +468,7 @@ Examples:
 ![](images/userGuide/add_task_0.png)
 ![](images/userGuide/add_task_1.png)
 
-#### Delete a task: `deleteTask`
+#### 4.2.3 Delete a task: `deleteTask`
 
 Deletes a particular task in the task list from NurseyBook.
 
@@ -483,16 +485,16 @@ Format: `deleteTask INDEX`
 </div>
 
 Examples:
-* [`viewTasks`](#view-all-tasks-viewtasks) followed by `deleteTask 2` deletes the 2nd task shown by NurseyBook.
+* [`viewTasks`](#421-view-all-tasks-viewtasks) followed by `deleteTask 2` deletes the 2nd task shown by NurseyBook.
 
-#### Edit a task: `editTask`
+#### 4.2.4 Edit a task: `editTask`
 
 Edits the details of a specific task.
 
 Format: `editTask INDEX [en/ELDERLY_NAME]... [desc/DESCRIPTION] [date/DATE] [time/TIME] [recur/RECURRENCE_TYPE]`
 
 Examples:
-* [`viewTasks`](#view-all-tasks-viewtasks) followed by `editTask 1 date/2022-01-30` changes the date of the 1st task shown by NurseyBook to 30 January 2022.
+* [`viewTasks`](#421-view-all-tasks-viewtasks) followed by `editTask 1 date/2022-01-30` changes the date of the 1st task shown by NurseyBook to 30 January 2022.
 
 <div markdown="block" class="alert alert-info">
 
@@ -511,7 +513,7 @@ e.g. Date of task is `2022-01-01` with `daily` recurrence. On `2022-01-03`, the 
 
 </div>
 
-#### Find a task: `findTask`
+#### 4.2.5 Find a task: `findTask`
 
 Finds tasks whose description contain any of the given keywords.
 
@@ -535,14 +537,14 @@ Examples:
 
 ![](images/userGuide/find_task.png)
 
-#### Mark a task as completed: `doneTask`
+#### 4.2.6 Mark a task as completed: `doneTask`
 
 Marks a particular task in the task list as completed.
 
 Format: `doneTask INDEX`
 
 Examples:
-* [`viewTasks`](#view-all-tasks-viewtasks) followed by `doneTask 2` marks the 2nd task shown by NurseyBook as completed.
+* [`viewTasks`](#421-view-all-tasks-viewtasks) followed by `doneTask 2` marks the 2nd task shown by NurseyBook as completed.
 
 <div markdown="block" class="alert alert-info">
 
@@ -555,7 +557,7 @@ Examples:
 
 </div>
 
-#### View reminders: `remind`
+#### 4.2.7 View reminders: `remind`
 
 Shows the list of upcoming tasks (that are coming up in the next three days), such as the required medical needs for
 those under your care.
@@ -564,7 +566,7 @@ Format: `remind`
 
 ![](images/userGuide/remind.png)
 
-#### View task schedule: `viewSchedule`
+#### 4.2.8 View task schedule: `viewSchedule`
 
 Displays the list of tasks set to occur on the specified date.
 Future occurrences of recurring tasks that will take place on that date is also included.
@@ -589,7 +591,7 @@ Example:
 
 :exclamation: **Caution:**
 * NurseyBook will not automatically refresh the displayed task list to reflect instantaneous changes, such as overdue tasks and new dates of recurring tasks.
-* However, you can manually trigger this refresh, and one way is to enter [`viewTasks`](#view-all-tasks-viewtasks) in the command box. Entering any task-related command would trigger this refresh.
+* However, you can manually trigger this refresh, and one way is to enter [`viewTasks`](#421-view-all-tasks-viewtasks) in the command box. Entering any task-related command would trigger this refresh.
 * This will update the overdue status of all tasks and new dates of all recurring tasks.
   * e.g. If the time now is 9.01pm and there is an undone task which is due at 9.00pm the same day, you can enter `viewTasks`, otherwise the red overdue tag will not show automatically.
   * e.g. If the time now is 9.01pm and there is a recurring task due at 9.00pm, you can enter `viewTasks`, otherwise the task's date will remain unchanged.
@@ -598,26 +600,41 @@ Example:
 
 ### 4.3 Miscellaneous commands
 
-#### Clearing all entries : `clear`
+#### 4.3.1 Clearing all entries : `clear`
 
 Clears all entries from NurseyBook.
 
 Format: `clear`
 
-#### Undo previous command : `undo`
+#### 4.3.2 Viewing help : `help`
+
+A new window that contains a summary of the commands (with the necessary command parameters) as well as a link to this user guide will appear. The link can be copied to the system's clipboard by clicking on the `Copy` button.
+
+Format: `help`
+
+<div markdown="block" class="alert alert-primary">
+
+:bulb: **Tip:**
+* The help window is more optimized for viewing if the command is entered when NurseyBook is not in full screen mode.
+
+</div>
+
+![](images/userGuide/help_expanded.png)
+
+#### 4.3.3 Undo previous command : `undo`
 
 Undoes the previous undoable command executed on the NurseyBook.
 
 Format: `undo`
 
-* Undoable commands(i.e. any command that modifies NurseyBook's data): `addElderly`, `editElderly`, `deleteElderly`, `deleteNok`, `addTag`, `deleteTag`, `addTask`, `editTask`, `deleteTask`, `doneTask`, `clear`
+* Undoable commands(i.e. any command that modifies NurseyBook's data): `addElderly`, `editElderly`, `deleteElderly`, `deleteNok`, `addTag`, `deleteTag`, `addTask`, `editTask`, `deleteTask`, `doneTask`, `clear`, `help`
 * Non-undoable commands: `findElderly`, `filter`, `viewDetails`, `viewElderly`, `findTask`, `remind`, `viewTasks`, `viewSchedule`
 * If there are no undoable commands executed previously, the undo command will fail and an error message will be shown.
 
 Example:
 * `deleteElderly 1` followed by `undo` causes the `deleteElderly 1` command to be undone and no elderly is deleted from the NurseyBook.
 
-#### Redo previously undone command : `redo`
+#### 4.3.4 Redo previously undone command : `redo`
 
 Reverses the previous undo command executed on the NurseyBook.
 
@@ -629,7 +646,7 @@ Example:
 * `deleteElderly 1` followed by `undo` causes the `deleteElderly 1` command to be undone and no elderly is deleted from the NurseyBook.
 Entering `redo` will reverse the previous undo command, causing the elderly to be deleted again.
 
-#### Exiting the program : `exit`
+#### 4.3.5 Exiting the program : `exit`
 
 Exits the program.
 
@@ -680,7 +697,7 @@ Action | Format, Examples
 **Edit an elderly** | `editElderly INDEX [en/ELDERLY_NAME] [a/AGE] [g/GENDER] [r/ROOMNO] [t/TAG]…​ [nn/NOK_NAME] [rs/NOK_RELATIONSHIP] [p/NOK_PHONE_NUMBER] [e/NOK_EMAIL] [addr/NOK_ADDRESS] [re/REMARK]`
 **Find an elderly** | `findElderly KEYWORD [MORE_KEYWORDS]`
 **Delete next-of-kin of elderly** | `deleteNok INDEX`<br> <br> e.g., `deleteNok 3`
-**Add tag(s)** | `addTagINDEX t/TAG [t/TAG]…​` <br> <br> e.g., `addTag 1 t/diabetes`
+**Add tag(s)** | `addTag INDEX t/TAG [t/TAG]…​` <br> <br> e.g., `addTag 1 t/diabetes`
 **Delete tag(s)** | `deleteTag INDEX t/TAG [t/TAG]…​`
 **Filter** | `filter t/TAG [t/TAG]…​`
 **Remark** | `remark INDEX re/REMARK`
@@ -705,6 +722,7 @@ Action | Format, Examples
 Action | Format, Examples
 --------|------------------
 **Clear** | `clear`
+**Help** | `help`
 **Undo** | `undo`
 **Redo** | `redo`
 **Exit** | `exit`
