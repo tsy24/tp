@@ -952,6 +952,21 @@ testers are expected to do more *exploratory* testing.
     5. Other incorrect `addTask` commands to try: `addTask en/Khong Guan desc/Weekly Taiji date/2021-10-10 time/14:30 recur/week`,`addTask`, `addTask desc/Weekly Taiji`, `...` (with missing compulsory parameters)<br>
         Expected: Similar to previous
 
+
+### View task schedule on a specific date.
+
+1. Adding a task to NurseyBook
+
+    1. Prerequisites: Add an elderly with name 'Khong Guan' to NurseyBook
+    2. Test case: `addTask en/Khong Guan desc/Weekly Taiji date/2022-10-10 time/14:30 recur/week`<br>
+       Expected: New task with the parameters is created. It is a one-off task and recurrence is 'Week'.
+    3. Test case: `addTask en/Khong Guan desc/Weekly Taiji date/2021-10-10 time/14:30`<br>
+       Expected: New task with the parameters is created. It is a one-off task and recurrence is 'None'. Task has an 'Overdue' tag.
+    4. Test case: `addTask en/Benny desc/Weekly Taiji date/2022-10-10 time/14:30`<br>
+       Expected: No task is added. Error details shown in the status message.
+    5. Other incorrect `addTask` commands to try: `addTask en/Khong Guan desc/Weekly Taiji date/2021-10-10 time/14:30 recur/week`,`addTask`, `addTask desc/Weekly Taiji`, `...` (with missing compulsory parameters)<br>
+       Expected: Similar to previous
+
 ### Saving data
 
 1. Dealing with missing/corrupted data files
