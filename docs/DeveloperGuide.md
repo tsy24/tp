@@ -166,11 +166,15 @@ to test whether an Elderly has all the tags in the set.
 
 Given below is the class diagram of the FilterCommand and the ElderlyHasTagPredicate.
 
-![](images/FilterClassDiagram.png)
+![FilterClassDiagram](images/FilterClassDiagram.png)
 
-The following sequence diagram shows how the filter command works:
+The following sequence diagrams show how the filter command works:
 
+This diagram shows how the FilterCommand object is created:
 ![FilterSequenceDiagram](images/FilterSequenceDiagram.png)
+
+This diagram shows how the FilterCommand is executed:
+![FilterSequenceDiagramPart2](images/FilterSequenceDiagramPart2.png)
 <div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `FilterCommand` and `ElderlyHasTagPredicate` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 </div>
