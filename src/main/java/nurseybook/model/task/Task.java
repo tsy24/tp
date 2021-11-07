@@ -8,9 +8,8 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import javafx.collections.ObservableList;
-import nurseybook.model.person.Elderly;
 import nurseybook.model.person.Name;
+import nurseybook.model.person.UniqueElderlyList;
 import nurseybook.model.task.Recurrence.RecurrenceType;
 
 public abstract class Task implements Comparable<Task> {
@@ -329,14 +328,8 @@ public abstract class Task implements Comparable<Task> {
     /**
      * Returns true if related names are all of existing elderlies in NurseyBook.
      */
-    public boolean isRelatedNamesValid(ObservableList<Elderly> elderlies) {
-        for (Name name : relatedNames) {
-            boolean hasElderly = elderlies.stream().anyMatch(elderly -> elderly.getName().caseInsensitiveEquals(name));
-            if (!hasElderly) {
-                return false;
-            }
-        }
-        return true;
+    public boolean isRelatedNamesValid(UniqueElderlyList elderlies) {
+        return relatedNames.stream().allMatch(name -> elderlies.hasElderly(name));
     }
 
     //@@ Superbestron

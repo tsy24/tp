@@ -245,7 +245,7 @@ public class NurseyBook implements ReadOnlyNurseyBook {
 
     @Override
     public boolean doTasksContainValidNames() {
-        return tasks.doTasksContainValidNames(elderlies.asUnmodifiableObservableList());
+        return tasks.doTasksContainValidNames(elderlies);
     }
 
     /**
