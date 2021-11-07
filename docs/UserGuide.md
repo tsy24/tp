@@ -344,6 +344,7 @@ Examples:
 
 :information_source: **Information:**
 * There should be at least one tag.
+* Multiple tags that are the same or have different casing are treated as one tag.
 * The index refers to the index number shown in the displayed elderly list.
 * The index **must be a positive integer** 1, 2, 3, …​
 
@@ -362,6 +363,8 @@ Examples:
 
 :information_source: **Information:**
 * There should be at least one tag.
+* The deletion of tags is case-insensitive.
+* Multiple tags that are the same or have different casing are treated as one tag.
 * The index refers to the index number shown in the displayed elderly list.
 * The index **must be a positive integer** 1, 2, 3, …​
 
@@ -382,6 +385,7 @@ Examples:
 * There should be at least one tag.
 * The tag matching is case-insensitive. 
 * Only complete tags will be matched. e.g. `diab` will not match `diabetes`
+* Multiple tags that are the same or have different casing are treated as one tag.
 * Elderlies matching all tags will be returned (i.e.`AND` search). e.g. For `filter t/covid t/diabetes`, if the elderly only has the 'diabetes' tag, he will not be returned.
 
 </div>
@@ -632,7 +636,7 @@ Example:
 
 #### 4.3.4 Redo previously undone command : `redo`
 
-Reverses the previous undo command executed on the NurseyBook.
+Reverses the previous `undo` command executed on the NurseyBook.
 
 Format: `redo`
 
