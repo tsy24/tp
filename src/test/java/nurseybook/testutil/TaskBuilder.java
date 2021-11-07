@@ -133,7 +133,7 @@ public class TaskBuilder {
      */
     public TaskBuilder withNames(String... names) {
         this.names = Arrays.stream(names)
-                .map(name -> new Name(name))
+                .map(Name::new)
                 .collect(Collectors.toSet());
         return this;
     }
