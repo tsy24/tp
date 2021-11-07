@@ -82,11 +82,6 @@ public class NurseyBook implements ReadOnlyNurseyBook {
         return elderlies.contains(elderly);
     }
 
-    public Elderly getElderly(Name name) {
-        requireNonNull(name);
-        return elderlies.getElderly(name);
-    }
-
     /**
      * Adds a elderly to NurseyBook.
      * The elderly must not already exist in NurseyBook.
@@ -266,11 +261,8 @@ public class NurseyBook implements ReadOnlyNurseyBook {
      * elderly present currently in NurseyBook.
      */
     public boolean areAllElderliesPresent(Set<Name> names) {
-        ObservableList<Elderly> unmodifiableElderlies = elderlies.asUnmodifiableObservableList();
         for (Name name: names) {
-            boolean hasElderly = unmodifiableElderlies.stream().anyMatch(
-                elderly -> elderly.getName().caseInsensitiveEquals(name));
-            if (!hasElderly) {
+            if (!elderlies.hasElderly(name)) {
                 return false;
             }
         }
@@ -282,10 +274,6 @@ public class NurseyBook implements ReadOnlyNurseyBook {
      * Since only one elderly in NurseyBook is allowed to have a particular name, this returns only one elderly.
      */
     public Elderly findElderlyWithName(Name name) {
-        return elderlies.asUnmodifiableObservableList()
-                .stream()
-                .filter(elderly -> elderly.getName().caseInsensitiveEquals(name))
-                .findFirst()
-                .orElse(null);
+        return elderlies.getElderly(name);
     }
 }
