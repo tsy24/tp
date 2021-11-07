@@ -243,27 +243,29 @@ If a user does not specify `Recurrence` when adding a new `Task`, it will defaul
 
 #### Implementation
 
-The logic for handling overdue and recurring tasks are handled in ModelManager#updateFilteredTaskList.
+The logic for handling overdue and recurring tasks are handled in `ModelManager#updateTasksAccordingToTime()`.
 
 ```     java
 @Override
-public void updateFilteredTaskList(Predicate<Task> predicate) {
-    requireNonNull(predicate);
-    updateOverdueTaskList();
-    updateNotOverdueTaskList();
-    updateDateRecurringTaskList();
-    filteredTasks.setPredicate(predicate);
-}
+    public void updateTasksAccordingToTime() {
+        versionedNurseyBook.updateRecurringTasksDate();
+        versionedNurseyBook.updateTasksOverdueStatus();
+        versionedNurseyBook.reorderTasksChronologically();
+    }
 ```
 
-The implementation of these individual functions `updateOverdueTaskList()`, `updateNotOverdueTaskList()` and `updateDateRecurringTaskList()` are listed below.
-1. `updateOverdueTaskList()`
-    *  This function is facilitated by the `TaskIsOverduePredicate` class. `TaskIsOverduePredicate` has a method `test()` to test whether a `Task`'s `DateTime` is before the current `DateTime`.
+The implementation of these individual functions `updateRecurringTasksDate()`, `updateTasksOverdueStatus()` and `reorderTasksChronologically()` are listed below.
+1. `updateRecurringTasksDate()`
+    *  This function checks whether a `Task` is overdue (`Task`'s `DateTime` is before the current `DateTime`) and if it is a recurring task (`Task#isRecurring` is `True`), before updating recurring tasks' DateTime as needed at the current time.
 2. `updateNotOverdueTaskList()`
-    *  This function is facilitated by the `TaskIsNotOverduePredicate` class. `TaskIsNotOverduePredicate` has a method `test()` to test whether a `Task`'s `DateTime` is after the current `DateTime`.
-3. `updateDateRecurringTaskList()`
-    *  This function is facilitated by the `TaskIsRecurringAndOverduePredicate` class. `TaskIsRecurringAndOverduePredicate` has a method `test()` to test whether a `Task`'s `DateTime` is before the current `DateTime`
-         and if it is a recurring task (`Task#isRecurring` is `True`).
+    *  This function first checks for either of 2 cases:
+        * Whether it is overdue (`Status#isOverdue` is `True`) and should not be overdue
+        * Whether it is not overdue and should be overdue
+    *  Then updates overdue statuses accordingly
+        * For first case, it marks the task as overdue
+        * For second case, it marks the task as not overdue
+3. `reorderTasksChronologically()`
+    * This function sorts the tasks according to chronological order, whose order might be disrupted due to changes in `DateTime` of tasks due to `updateRecurringTasksDate()`.
     
 Listed below are some situations and corresponding implementations where the overdue `Status`, and `DateTime` might be changed based on either a manual edit of the `Task`'s `DateTime` and/or `Recurrence` type, or simply the passing of time.
 
@@ -279,6 +281,8 @@ Listed below are some situations and corresponding implementations where the ove
   - Mark `Status#isOverdue` to `True`
 
 <img src="images/HandleOverdueAndRecurringTasksActivityDiagram.png" width="350"/>
+
+For each `Task` in NurseyBook, it will go through this cycle of checks to ensure their `DateTime` and `Status` are updated accordingly.
 
 ### Undo/redo feature
 

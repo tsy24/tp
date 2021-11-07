@@ -417,6 +417,17 @@ Shows a list of all your tasks in NurseyBook.
 
 Format: `viewTasks`
 
+<div markdown="block" class="alert alert-warning">
+
+:exclamation: **Caution:**
+* NurseyBook will not automatically refresh the displayed task list to reflect instantaneous changes, such as overdue tasks and new dates of recurring tasks. *Refer to the tips section [here](#add-a-task) to learn how to create recurring tasks.
+* However, you can manually trigger this refresh, and one way is to enter `viewTasks`in the command box.
+* This will update the overdue status of all tasks and new dates of all recurring tasks.
+    * e.g. If the time now is 9.01pm and there is an undone task which is due at 9.00pm the same day, you can enter `viewTasks`, otherwise the red overdue tag will not show automatically.
+    * e.g. If the time now is 9.01pm and there is a recurring task due at 9.00pm, you can enter `viewTasks`, otherwise the task's date will remain unchanged.
+
+</div>
+
 #### Add a task: `addTask`
 
 Adds a task to the task list.
@@ -572,17 +583,6 @@ Example:
 </div>
 
 ![](images/userGuide/view_schedule.png)
-
-<div markdown="block" class="alert alert-warning">
-
-:exclamation: **Caution:**
-* NurseyBook will not automatically refresh the displayed task list to reflect instantaneous changes, such as overdue tasks and new dates of recurring tasks.
-* However, you can manually trigger this refresh, and one way is to enter [`viewTasks`](#view-all-tasks-viewtasks) in the command box.
-* This will update the overdue status of all tasks and new dates of all recurring tasks.
-  * e.g. If the time now is 9.01pm and there is an undone task which is due at 9.00pm the same day, you can enter `viewTasks`, otherwise the red overdue tag will not show automatically.
-  * e.g. If the time now is 9.01pm and there is a recurring task due at 9.00pm, you can enter `viewTasks`, otherwise the task's date will remain unchanged.
-
-</div>
 
 ### 4.3 Miscellaneous commands
 
