@@ -578,6 +578,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
   Use case ends.
 * *a. At any time, user requests to <u>view help ([UC19](#uc19-viewing-help))</u>.
+* *a. At any time, user requests to <u>view help (<a href="#uc19---viewing-help">UC19</a>)</u>.
 
 ##### UC2: Add an elderly
 
@@ -593,7 +594,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 1a1. NurseyBook shows an error message.
 
       Use case resumes at step 1.
-* 1b. Not all required parameter identifiers are present (e.g. Gender (`r/`) of the elderly is not entered).
+* 1b. Not all required parameter identifiers are present (e.g. Gender (`g/`) of the elderly is not entered).
     * 1b1. NurseyBook shows an error message.
 
       Use case resumes at step 1.
