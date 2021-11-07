@@ -569,16 +569,15 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     Use case ends.
 
 **Extensions**
-* 1a. User requests to <u>find elderlies with matching keywords([UC5](#uc5-find-an-elderly))</u>.
+* 1a. User requests to <u>find elderlies with matching keywords(<a href="#uc5-find-an-elderly">UC5</a>)</u>.
   * 1a1. NurseyBook shows a list of elderly that matches the user's query (by name).
 
     Use case ends.
-* 1b. Users request to <u>list elderly with queried tags ([UC10](#uc10-list-elderly-with-queried-tags))</u>.
+* 1b. Users request to <u>list elderly with queried tags (<a href="#uc10-list-elderly-with-queried-tags">UC19</a>)</u>.
 * 2a. The list of elderly is empty.
 
   Use case ends.
-* *a. At any time, user requests to <u>view help ([UC19](#uc19-viewing-help))</u>.
-* *a. At any time, user requests to <u>view help (<a href="#uc19---viewing-help">UC19</a>)</u>.
+* *a. At any time, user requests to <u>view help (<a href="#uc19-viewing-help">UC19</a>)</u>.
 
 ##### UC2: Add an elderly
 
@@ -610,13 +609,13 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * NurseyBook reverses the changes made by the command.
 
       Use case ends.
-* *a. At any time, user requests to <u>view help ([UC19](#uc19-viewing-help))</u>.
+* *a. At any time, user requests to <u>view help (<a href="#uc19-viewing-help">UC19</a>)</u>.
 
 ##### UC3: Delete an elderly
 
 **MSS**
 
-1. User requests to <u>list elderly ([UC1](#uc1-list-elderly))</u>.
+1. User requests to <u>list elderly (<a href="#uc1-list-elderly">UC1</a>)</u>.
 2. User requests to delete a specific elderly in the list based on index.
 3. NurseyBook deletes the specified elderly.
 4. NurseyBook shows updated list of elderly and command success message.
@@ -628,13 +627,13 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 2a1. NurseyBook shows an error message.
 
       Use case resumes at step 1.
-* *a. At any time, user requests to <u>view help ([UC19](#uc19-viewing-help))</u>.
+* *a. At any time, user requests to <u>view help (<a href="#uc19-viewing-help">UC19</a>)</u>.
 
 ##### UC4: Edit an elderly’s details
 
 **MSS**
 
-1. User requests to <u>list elderly ([UC1](#uc1-list-elderly))</u>.
+1. User requests to <u>list elderly (<a href="#uc1-list-elderly">UC1</a>)</u>.
 2. User requests to edit the details of a specific elderly in the list based on index.
 3. NurseyBook edits the details for the elderly.
 4. NurseyBook shows updated list of elderly and command success message.
@@ -659,7 +658,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 2d1. NurseyBook shows an error message.
 
       Use case resumes at step 1.
-* *a. At any time, user requests to <u>view help ([UC19](#uc19-viewing-help))</u>.
+* *a. At any time, user requests to <u>view help (<a href="#uc19-viewing-help">UC19</a>)</u>.
 
 ##### UC5: Find an elderly
 
@@ -673,13 +672,13 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * 2a. The list of elderly is empty.
 
   Use case ends.
-* *a. At any time, user requests to <u>view help ([UC19](#uc19-viewing-help))</u>.
+* *a. At any time, user requests to <u>view help (<a href="#uc19-viewing-help">UC19</a>)</u>.
 
 ##### UC6: View an elderly's details
 
 **MSS**
 
-1. User requests to <u>list elderly ([UC1](#uc1-list-elderly))</u>.
+1. User requests to <u>list elderly (<a href="#uc1-list-elderly">UC1</a>)</u>.
 2. User requests to view details of a specific elderly in the list based on index.
 3. NurseyBook shows details of selected elderly and command success message.
 
@@ -690,17 +689,17 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 2a1. NurseyBook shows an error message.
 
       Use case resumes at step 1.
-* *a. At any time, user requests to <u>view help ([UC19](#uc19-viewing-help))</u>.
+* *a. At any time, user requests to <u>view help (<a href="#uc19-viewing-help">UC19</a>)</u>.
 
 ##### UC7: Delete an elderly's Nok details
 
-Similar to <u>deleting an elderly ([UC3](#uc3-delete-an-elderly))</u> but only deleting an elderly's Nok details.
+Similar to <u>deleting an elderly (<a href="#uc3-delete-an-elderly">UC3</a>)</u> but only deleting an elderly's Nok details.
 
 ##### UC8: Add tags to an elderly
 
 **MSS**
 
-1. User requests to <u>list elderly ([UC1](#uc1-list-elderly))</u>.
+1. User requests to <u>list elderly (<a href="#uc1-list-elderly">UC1</a>)</u>.
 2. User requests to add tag to a specific elderly in the list based on index.
 3. NurseyBook adds the tag to the elderly.
 4. NurseyBook shows updated list of elderly and command success message.
@@ -722,13 +721,13 @@ Similar to <u>deleting an elderly ([UC3](#uc3-delete-an-elderly))</u> but only d
     * 2c1. NurseyBook shows an error message.
 
       Use case resumes at step 1.
-* *a. At any time, user requests to <u>view help ([UC19](#uc19-viewing-help))</u>.
+* *a. At any time, user requests to <u>view help (<a href="#uc19-viewing-help">UC19</a>)</u>.
 
 ##### UC9: Delete a tag from an elderly
 
 **MSS**
 
-1. User requests to <u>list elderly ([UC1](#uc1-list-elderly))</u>.
+1. User requests to <u>list elderly (<a href="#uc1-list-elderly">UC1</a>)</u>.
 2. User requests to delete tag from a specific elderly in the list based on index.
 3. NurseyBook deletes the tag from the elderly.
 4. NurseyBook shows updated list of elderly and command success message.
@@ -750,7 +749,7 @@ Similar to <u>deleting an elderly ([UC3](#uc3-delete-an-elderly))</u> but only d
     * 2c1. NurseyBook shows an error message.
 
       Use case resumes at step 1.
-* *a. At any time, user requests to <u>view help ([UC19](#uc19-viewing-help))</u>.
+* *a. At any time, user requests to <u>view help (<a href="#uc19-viewing-help">UC19</a>)</u>.
 
 ##### UC10: List elderly with queried tags
 
@@ -773,13 +772,13 @@ Similar to <u>deleting an elderly ([UC3](#uc3-delete-an-elderly))</u> but only d
 * 2a. The list of elderly is empty.
 
   Use case ends.
-* *a. At any time, user requests to <u>view help ([UC19](#uc19-viewing-help))</u>.
+* *a. At any time, user requests to <u>view help (<a href="#uc19-viewing-help">UC19</a>)</u>.
 
 ##### UC11: Add remark about an elderly
 
 **MSS**
 
-1. User requests to <u>list elderly ([UC1](#uc1-list-elderly))</u>.
+1. User requests to <u>list elderly (<a href="#uc1-list-elderly">UC1</a>)</u>.
 2. User requests to add a remark to a specific elderly in the list based on index.
 3. NurseyBook adds the remark to the elderly.
 4. NurseyBook shows updated list of elderly and command success message.
@@ -799,7 +798,7 @@ Similar to <u>deleting an elderly ([UC3](#uc3-delete-an-elderly))</u> but only d
     * 2c1. NurseyBook shows an error message.
 
       Use case resumes at step 1.
-* *a. At any time, user requests to <u>view help ([UC19](#uc19-viewing-help))</u>.
+* *a. At any time, user requests to <u>view help (<a href="#uc19-viewing-help">UC19</a>)</u>.
 
 #### Use cases of task commands
 
@@ -818,17 +817,17 @@ Similar to <u>deleting an elderly ([UC3](#uc3-delete-an-elderly))</u> but only d
 * 2a. The list of tasks is empty.
 
   Use case ends.
-* *a. At any time, user requests to <u>view help ([UC19](#uc19-viewing-help))</u>.
+* *a. At any time, user requests to <u>view help (<a href="#uc19-viewing-help">UC19</a>)</u>.
 
 ##### UC13: Add a task
 
-Similar to <u>adding an elderly ([UC2](#uc2-add-an-elderly))</u> but adding a task instead. A task takes in different parameters from adding an elderly.
+Similar to <u>adding an elderly (<a href="#uc2-add-an-elderly">UC2</a>)</u> but adding a task instead. A task takes in different parameters from adding an elderly.
 
 ##### UC14: Delete a task
 
 **MSS**
 
-1. User requests to <u>list tasks ([UC12](#uc12-list-tasks))</u>.
+1. User requests to <u>list tasks (<a href="#uc12-list-tasks">UC12</a>)</u>.
 2. User requests to delete a specific task in the list based on index.
 3. NurseyBook deletes the specified task.
 4. NurseyBook shows updated list of tasks and command success message.
@@ -840,13 +839,13 @@ Similar to <u>adding an elderly ([UC2](#uc2-add-an-elderly))</u> but adding a ta
     * 2a1. NurseyBook shows an error message.
 
       Use case resumes at step 1.
-* *a. At any time, user requests to <u>view help ([UC19](#uc19-viewing-help))</u>.
+* *a. At any time, user requests to <u>view help (<a href="#uc19-viewing-help">UC19</a>)</u>.
 
 ##### UC15: Edit a task's details
 
 **MSS**
 
-1. User requests to <u>list tasks ([UC12](#uc12-list-tasks))</u>.
+1. User requests to <u>list tasks (<a href="#uc12-list-tasks">UC12</a>)</u>.
 2. User requests to edit the details of a specific task in the list based on index.
 3. NurseyBook edits the details for the task.
 4. NurseyBook shows updated list of task and command success message.
@@ -878,7 +877,7 @@ Similar to <u>adding an elderly ([UC2](#uc2-add-an-elderly))</u> but adding a ta
     * 2e1. NurseyBook shows an error message.
 
       Use case resumes at step 1.
-* *a. At any time, user requests to <u>view help ([UC19](#uc19-viewing-help))</u>.
+* *a. At any time, user requests to <u>view help (<a href="#uc19-viewing-help">UC19</a>)</u>.
 
 ##### UC16: Mark a task as complete
 
@@ -900,11 +899,11 @@ Similar to <u>adding an elderly ([UC2](#uc2-add-an-elderly))</u> but adding a ta
     * 2b1. NurseyBook shows an error message.
 
       Use case resumes at step 1.
-* *a. At any time, user requests to <u>view help ([UC19](#uc19-viewing-help))</u>.
+* *a. At any time, user requests to <u>view help (<a href="#uc19-viewing-help">UC19</a>)</u>.
 
 ##### UC17: Find a task
 
-Similar to <u>finding an elderly ([UC5](#uc5-find-an-elderly))</u> but finding a task instead. A task will be shown (as part of the filtered task list) if its description contains the entered keywords.
+Similar to <u>finding an elderly (<a href="#uc5-find-an-elderly">UC5</a>)</u> but finding a task instead. A task will be shown (as part of the filtered task list) if its description contains the entered keywords.
 
 ##### UC18: View the schedule on a day
 
@@ -923,7 +922,7 @@ Similar to <u>finding an elderly ([UC5](#uc5-find-an-elderly))</u> but finding a
 * 2a. There are no tasks scheduled on that date.
 
      Use case ends.
-* *a. At any time, user requests to <u>view help ([UC19](#uc19-viewing-help))</u>.
+* *a. At any time, user requests to <u>view help (<a href="#uc19-viewing-help">UC19</a>)</u>.
 
 #### Use cases of miscellaneous commands
 
@@ -949,7 +948,7 @@ Similar to <u>finding an elderly ([UC5](#uc5-find-an-elderly))</u> but finding a
   * 1a1. NurseyBook shows an error message.
 
     Use case ends.
-* *a. At any time, user requests to <u>view help ([UC19](#uc19-viewing-help))</u>.
+* *a. At any time, user requests to <u>view help (<a href="#uc19-viewing-help">UC19</a>)</u>.
 
 ##### UC21: Redo a previously undone command
 
@@ -964,7 +963,7 @@ Similar to <u>finding an elderly ([UC5](#uc5-find-an-elderly))</u> but finding a
     * 1a1. NurseyBook shows an error message.
 
       Use case ends.
-* *a. At any time, user requests to <u>view help ([UC19](#uc19-viewing-help))</u>.
+* *a. At any time, user requests to <u>view help (<a href="#uc19-viewing-help">UC19</a>)</u>.
 
 ### Non-Functional Requirements
 
