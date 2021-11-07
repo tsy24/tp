@@ -70,7 +70,7 @@ dependencies {
 }
 
 shadowJar {
-    archiveName = 'NurseyBook.jar'
+    archiveName = 'nurseybook.jar'
 }
 
 defaultTasks 'clean', 'test'
