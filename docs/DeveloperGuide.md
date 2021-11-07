@@ -171,10 +171,13 @@ Given below is the class diagram of the FilterCommand and the ElderlyHasTagPredi
 The following sequence diagrams show how the filter command works:
 
 This diagram shows how the FilterCommand object is created:
+
 ![FilterSequenceDiagram](images/FilterSequenceDiagram.png)
 
 This diagram shows how the FilterCommand is executed:
+
 ![FilterSequenceDiagramPart2](images/FilterSequenceDiagramPart2.png)
+
 <div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `FilterCommand` and `ElderlyHasTagPredicate` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 </div>
@@ -359,7 +362,7 @@ Reason: It no longer makes sense to redo the `addTag 1 t/diabetes` command. This
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
-<img src="images/CommitActivityDiagram.png" width="250" />
+<img src="images/CommitActivityDiagram.png" width="300" />
 
 #### Design considerations:
 
