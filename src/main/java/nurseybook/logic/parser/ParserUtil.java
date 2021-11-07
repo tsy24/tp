@@ -194,6 +194,7 @@ public class ParserUtil {
         requireNonNull(nursey);
         String trimmedAddress = nursey.trim();
         if (!Address.isValidAddress(trimmedAddress)) {
+            // Should never get called
             throw new ParseException(Address.MESSAGE_CONSTRAINTS);
         }
         return new Address(trimmedAddress);

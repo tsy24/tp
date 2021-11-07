@@ -8,8 +8,6 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import nurseybook.model.NurseyBook;
-import nurseybook.model.person.Elderly;
 import nurseybook.model.person.Name;
 import nurseybook.model.task.Recurrence.RecurrenceType;
 
@@ -156,8 +154,9 @@ public abstract class Task implements Comparable<Task> {
     }
 
     /**
-     * Returns the task's related immutable name set, which throws {@code UnsupportedOperationException}
-     * if modification is attempted.
+     * Changes the related names of the task to the intended set of names
+     *
+     * @param names The intended set of names
      */
     public void setRelatedNames(Set<Name> names) {
         this.relatedNames.clear();
@@ -165,18 +164,24 @@ public abstract class Task implements Comparable<Task> {
     }
 
     /**
-     * Replaces the name {@code target} of the task with {@code editedName}.
+     * Returns a copy of the task with the name {@code target} replaced with {@code editedName}
+     * in {@code relatedNames} of the task.
      */
-    public void replaceName(Name target, Name editedName) {
-        deleteName(target);
-        addName(editedName);
+    public Task replaceName(Name target, Name editedName) {
+        Task updatedTask = deleteName(target);
+        updatedTask.addName(editedName);
+        return updatedTask;
     }
 
     /**
-     * Deletes the name {@code target} of the task.
+     * Returns a copy of the task with the name {@code target} deleted from {@code relatedNames} of the task.
      */
-    public void deleteName(Name target) {
-        relatedNames.remove(target);
+    public Task deleteName(Name target) {
+        Set<Name> updatedNames = new HashSet<>(relatedNames);
+        updatedNames.remove(target);
+        Task updatedTask = copyTask();
+        updatedTask.setRelatedNames(updatedNames);
+        return updatedTask;
     }
 
     /**
@@ -297,20 +302,6 @@ public abstract class Task implements Comparable<Task> {
     }
 
     /**
-     * Returns set of elderly objects related to this task.
-     *
-     * @param book                      nursey book that stores this task
-     * @return                          task description
-     */
-    public Set<Elderly> getRelatedPeople(NurseyBook book) {
-        Set<Elderly> relatedPeople = new HashSet<>();
-        for (Name name: relatedNames) {
-            relatedPeople.add(book.getElderly(name));
-        }
-        return relatedPeople;
-    }
-
-    /**
      * Returns true if the task is past the current date and time, and it is a recurring task.
      *
      * @return true if its past and is a recurring task
@@ -333,6 +324,7 @@ public abstract class Task implements Comparable<Task> {
                 && otherTask.getRelatedNames().equals(getRelatedNames());
     }
 
+    //@@ Superbestron
     protected DateTime changeTaskDate(LocalDateTime currentDateTime, RecurrenceType recurrenceType) {
         LocalDate taskDate = getDateTime().date;
         LocalTime taskTime = getDateTime().time;
@@ -363,6 +355,7 @@ public abstract class Task implements Comparable<Task> {
         return new DateTime(taskNewLocalDateTime.toLocalDate(), taskLocalDateTime.toLocalTime());
     }
 
+    //@@ CraveToCode
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
@@ -371,9 +364,7 @@ public abstract class Task implements Comparable<Task> {
                 .append(getDateTime());
         if (!relatedNames.isEmpty()) {
             builder.append("; People: ");
-            relatedNames.forEach(name -> {
-                builder.append(name + " ");
-            });
+            relatedNames.forEach(name -> builder.append(name + " "));
         }
         return builder.toString();
     }

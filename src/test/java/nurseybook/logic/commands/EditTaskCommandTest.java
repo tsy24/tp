@@ -1,6 +1,7 @@
 package nurseybook.logic.commands;
 
 import static nurseybook.commons.core.Messages.MESSAGE_DUPLICATE_TASK;
+import static nurseybook.commons.core.Messages.MESSAGE_INVALID_TASK_DATETIME_FOR_RECURRING_TASK;
 import static nurseybook.commons.core.Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
 import static nurseybook.commons.core.Messages.MESSAGE_NO_CHANGES;
 import static nurseybook.commons.core.Messages.MESSAGE_NO_SUCH_ELDERLY;
@@ -10,10 +11,12 @@ import static nurseybook.logic.commands.EditTaskCommand.MESSAGE_EDIT_TASK_SUCCES
 import static nurseybook.logic.commands.TaskCommandTestUtil.PAPERWORK_TASK;
 import static nurseybook.logic.commands.TaskCommandTestUtil.VACCINE_TASK;
 import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_DATE_JAN;
+import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_DATE_NOV;
 import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_DESC_VACCINE;
 import static nurseybook.logic.commands.TaskCommandTestUtil.VALID_TIME_SEVENPM;
 import static nurseybook.logic.commands.TaskCommandTestUtil.showTaskAtIndex;
 import static nurseybook.testutil.TypicalIndexes.INDEX_FIRST;
+import static nurseybook.testutil.TypicalIndexes.INDEX_FOURTH;
 import static nurseybook.testutil.TypicalIndexes.INDEX_SECOND;
 import static nurseybook.testutil.TypicalTasks.getTypicalNurseyBook;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -262,6 +265,18 @@ public class EditTaskCommandTest {
         expectedModel.commitNurseyBook(expectedCommandResult);
 
         assertCommandSuccess(editTaskCommand, model, expectedCommandResult, expectedModel);
+    }
+
+    @Test
+    public void execute_editDateOfRecurringTaskToPastDate_throwsCommandsException() {
+        showTaskAtIndex(model, INDEX_FOURTH);
+
+        Task taskInFilteredList = model.getFilteredTaskList().get(INDEX_FIRST.getZeroBased());
+        Task editedTask = new TaskBuilder(taskInFilteredList).withDate(VALID_DATE_NOV).build(); // past current date
+
+        EditTaskCommand editTaskCommand = new EditTaskCommand(INDEX_FIRST,
+                new EditTaskDescriptorBuilder(editedTask).build());
+        assertCommandFailure(editTaskCommand, model, MESSAGE_INVALID_TASK_DATETIME_FOR_RECURRING_TASK);
     }
 
     @Test

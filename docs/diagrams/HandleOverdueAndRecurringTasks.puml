@@ -2,22 +2,29 @@
 !include style.puml
 
 start
-:User enters any Elderly or Task command;
-
 partition Model UI_COLOR_T1 {
-:Command is executed;
-if () then ([If DateTime of Tasks has passed])
-    :Mark as overdue;
+if () then ([If it's a
+ recurring task])
+    if () then ([If its DateTime
+has passed]\n)
+        :Update task's DateTime
+        Mark task as not completed;
+    else ([else])
+    endif
 else ([else])
 endif
-if () then ([If DateTime of Tasks has not passed])
-    :Mark as not overdue;
+if () then ([If it's overdue])
+    if () then ([If it should be overdue])
+    else ([else]\n\n)
+        :Mark task as not overdue;
+    endif
 else ([else])
-endif
-if () then ([If DateTime of recurring Tasks has passed])
-    :Update DateTime;
-else ([else])
-endif
+    if () then ([If it should
+be overdue]\n)
+        :Mark task as overdue;
+    else ([else])
+    endif
+    endif
 }
 
 stop

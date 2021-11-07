@@ -25,7 +25,7 @@ public class ViewScheduleCommand extends Command {
             + "Parameters: "
             + String.join(" ", PARAMETERS)
             + "\nExample: " + COMMAND_WORD + " "
-            + "2021-10-10";
+            + "2021-11-20";
 
     private final DateTimeContainsDatePredicate predicate;
     private final LocalDate keyDate;
