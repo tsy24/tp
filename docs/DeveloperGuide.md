@@ -501,7 +501,7 @@ The following activity diagram summarizes what happens in the `MainWindow` class
 
 --------------------------------------------------------------------------------------------------------------------
 
-## **Appendix: Requirements**
+## **Appendix A: Requirements**
 
 ### Product scope
 
@@ -811,9 +811,6 @@ Similar to <u>deleting an elderly (<a href="#uc3-delete-an-elderly">UC3</a>)</u>
 
 **Extensions**
 * 1a. User requests to <u>find tasks with matching keywords(<a href="#uc17-find-a-task">UC17</a>)</u>.
-    * 1a1. NurseyBook shows a list of tasks that matches the user's query (by description)
-
-      Use case ends.
 
 * 2a. The list of tasks is empty.
 
@@ -902,6 +899,10 @@ Similar to <u>finding an elderly (<a href="#uc5-find-an-elderly">UC5</a>)</u> bu
     * 1a1. NurseyBook shows an error message.
 
       Use case resumes at step 1.
+* 1b. The given date is not within 12 weeks from today's date.
+    * 1b1. NurseyBook shows an error message.
+
+      Use case resumes at step 1.
 * 2a. There are no tasks scheduled on that date.
 
   Use case ends.
@@ -967,7 +968,7 @@ Similar to <u>finding an elderly (<a href="#uc5-find-an-elderly">UC5</a>)</u> bu
 
 --------------------------------------------------------------------------------------------------------------------
 
-## **Appendix: Instructions for manual testing**
+## **Appendix B: Instructions for manual testing**
 
 Given below are instructions to test the app manually.
 
@@ -1028,6 +1029,56 @@ testers are expected to do more *exploratory* testing.
 
    4. Invalid commands to try (Error details shown in the status message):
       * Invalid index >= size of elderly list or <= 0: `deleteElderly 5` or `deleteElderly -1`
+
+### Adding tags to an elderly
+
+1. Add one or more tags to an elderly in NurseyBook
+
+    1. Prerequisites: List all elderlies using the `viewElderly` command. Multiple elderlies in the list. The first elderly in the list has one `diabetes` tag.
+
+    2. Test case: `addTag 1 t/hypertension`<br>
+       Expected: `hypertension` tag is added to the first elderly in the list.
+   
+    3. Test case: `addTag 1 t/vegetarian t/flu`<br>
+       Expected: `vegetarian` and `flu` tags are added to the first elderly in the list. 
+   
+    4. Invalid commands to try (Error details shown in the status message):
+       * Invalid index >= size of elderly list or <= 0: `addTag 5 t/flu` or `addTag -1 t/flu`
+       * Adding an existing tag: `addTag 1 t/diabetes`
+       * Missing parameters: `addTag` or `addTag 1`
+       * Additional parameters: `addTag 1 en/Alex Yeoh`
+
+### Deleting tags from an elderly
+
+1. Deleting one or more tags from an elderly in NurseyBook
+
+    1. Prerequisites: List all elderlies using the `viewElderly` command. Multiple elderlies in the list. The second elderly in the list has `diabetes` and `fever` tags.
+
+    2. Test case: `deleteTag 2 t/diabetes`<br>
+       Expected: `diabetes` tag is deleted from the second elderly in the list.
+
+    3. Test case: `deleteTag 2 t/diabetes t/fever`<br>
+       Expected: `diabetes` and `fever` tags are deleted from the second elderly in the list.
+
+    4. Invalid commands to try (Error details shown in the status message):
+        * Invalid index >= size of elderly list or <= 0: `deleteTag 5 t/diabetes` or `deleteTag -1 t/diabetes`
+        * Deleting a tag that the elderly does not have: `deleteTag 2 t/hypertension`
+        * Missing parameters: `deleteTag` or `deleteTag 1`
+        * Additional parameters: `deleteTag 1 en/Alex Yeoh`
+        
+### Filter elderlies based on tags
+
+1. Filtering elderlies in NurseyBook based on their tags
+
+    1. Test case: `filter t/diabetes`<br>
+       Expected: list of elderlies with `diabetes` tag is displayed.
+
+    3. Test case: `filter t/diabetes t/fever`<br>
+       Expected: list of elderlies with both `diabetes` and `fever` tags is displayed.
+
+    4. Invalid commands to try (Error details shown in the status message):
+        * Missing parameters: `filter`
+        * Additional parameters: `filter en/Alex Yeoh`
 
 ### Adding a task
 
@@ -1103,6 +1154,40 @@ testers are expected to do more *exploratory* testing.
 
 ### View Schedule
 
+
+### Undo
+
+1. Undoing a previous command
+
+   1. Prerequisites: NurseyBook is just launched with no commands entered yet. 
+
+   2. Test case: enter `addElderly en/Khong Guan a/80 g/M r/10` and then `undo`<br>
+      Expected: Addition of elderly `Khong Guan` is undone. List of elderly displayed does not contain `Khong Guan`.
+
+   3. Test case: enter `addElderly en/Khong Guan a/80 g/M r/10` then `addElderly en/Swee Choon a/70 g/M r/15`, `undo` and then `undo`<br>
+      Expected: Addition of both `Khong Guan` and `Swee Choon` is undone. List of elderly displayed does not contain `Khong Guan` and `Swee Choon`.
+
+   4. Test case: `undo`<br>
+      Expected: No change in data of NurseyBook. Error details shown in the status message.
+
+   5. Test case: enter `remind` and then `undo`<br>
+      Expected: No change in data of NurseyBook as commands that do not change the data of NurseyBook cannot be undone. Error details shown in the status message.
+
+### Redo
+
+1. Redoing a previously undone command
+
+    1. Prerequisites: NurseyBook is just launched with no commands entered yet.
+
+    2. Test case: enter `addElderly en/Khong Guan a/80 g/M r/10` then `undo` and then `redo`<br>
+       Expected: Addition of elderly `Khong Guan` is executed again. List of elderly displayed contains `Khong Guan`.
+
+    3. Test case: `redo`<br>
+       Expected: No change in data of NurseyBook. Error details shown in the status message.
+
+    4. Test case: enter `addElderly en/Khong Guan a/80 g/M r/10` and then `redo`<br>
+       Expected: No change in data of NurseyBook as there are no previously undone commands. Error details shown in the status message.
+      
 ### Saving data
 
 1. Dealing with missing/corrupted data files
