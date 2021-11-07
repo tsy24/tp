@@ -881,25 +881,7 @@ Similar to <u>adding an elderly (<a href="#uc2-add-an-elderly">UC2</a>)</u> but 
 
 ##### UC16: Mark a task as complete
 
-**MSS**
-
-1. User requests to <u>list tasks ([UC12](#uc12-list-tasks))</u>.
-2. User requests to mark a specific task in the list as complete based on index.
-3. NurseyBook marks task as complete.
-4. NurseyBook shows updated list of tasks and command success message.
-
-    Use case ends.
-
-**Extensions**
-* 2a. The given index is invalid.
-    * 2a1. NurseyBook shows an error message.
-
-      Use case resumes at step 1.
-* 2b. The task is already marked as completed.
-    * 2b1. NurseyBook shows an error message.
-
-      Use case resumes at step 1.
-* *a. At any time, user requests to <u>view help (<a href="#uc19-viewing-help">UC19</a>)</u>.
+Similar to <u>deleting a task (<a href="#uc14-delete-a-task">UC14</a>)</u> but marking a task as done instead. The `doneTask` command success message will appear instead.
 
 ##### UC17: Find a task
 
