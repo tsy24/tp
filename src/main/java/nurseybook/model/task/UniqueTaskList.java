@@ -122,6 +122,21 @@ public class UniqueTaskList implements Iterable<Task> {
      * {@code target} must exist in NurseyBook.
      * The elderly identity of {@code editedElderly} must not be the same as another existing elderly in NurseyBook.
      */
+    public boolean doTasksContainValidNames(ObservableList<Elderly> elderlies) {
+        for (Task t: internalList) {
+            if (!t.isRelatedNamesValid(elderlies)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Updates the given elderly {@code target}'s name for all tasks in the list that contains that name
+     * with {@code editedElderly}'s name.
+     * {@code target} must exist in NurseyBook.
+     * The elderly identity of {@code editedElderly} must not be the same as another existing elderly in NurseyBook.
+     */
     public void updateElderlyNameInTasks(Elderly target, Elderly editedElderly) {
         for (Task task : internalList) {
             for (Name name : task.getRelatedNames()) {

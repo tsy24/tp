@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import javafx.collections.ObservableList;
 import nurseybook.model.person.Elderly;
@@ -247,6 +248,11 @@ public class NurseyBook implements ReadOnlyNurseyBook {
         return realTaskList.asUnmodifiableObservableList();
     }
 
+    @Override
+    public boolean doTasksContainValidNames() {
+        return tasks.doTasksContainValidNames(elderlies.asUnmodifiableObservableList());
+    }
+
     /**
      * Marks the given task {@code target} as done.
      * {@code target} must exist in NurseyBook.
@@ -255,4 +261,31 @@ public class NurseyBook implements ReadOnlyNurseyBook {
         tasks.markTaskAsDone(target);
     }
 
+    /**
+     * Returns true if all the names in {@code names} are of some
+     * elderly present currently in NurseyBook.
+     */
+    public boolean areAllElderliesPresent(Set<Name> names) {
+        ObservableList<Elderly> unmodifiableElderlies = elderlies.asUnmodifiableObservableList();
+        for (Name name: names) {
+            boolean hasElderly = unmodifiableElderlies.stream().anyMatch(
+                elderly -> elderly.getName().caseInsensitiveEquals(name));
+            if (!hasElderly) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Returns first and only elderly in NurseyBook whose name matches {@code name} (case-insensitive matching).
+     * Since only one elderly in NurseyBook is allowed to have a particular name, this returns only one elderly.
+     */
+    public Elderly findElderlyWithName(Name name) {
+        return elderlies.asUnmodifiableObservableList()
+                .stream()
+                .filter(elderly -> elderly.getName().caseInsensitiveEquals(name))
+                .findFirst()
+                .orElse(null);
+    }
 }

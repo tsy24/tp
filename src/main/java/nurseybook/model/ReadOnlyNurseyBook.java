@@ -25,4 +25,8 @@ public interface ReadOnlyNurseyBook {
      */
     ObservableList<Task> getRealTaskList();
 
+    /**
+     * Returns true if all tasks contain only names of existing elderly in NurseyBook.
+     */
+    boolean doTasksContainValidNames();
 }
