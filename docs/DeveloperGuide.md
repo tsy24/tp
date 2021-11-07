@@ -573,7 +573,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   * 1a1. NurseyBook shows a list of elderly that matches the user's query (by name).
 
     Use case ends.
-* 1b. Users request to <u>list elderly with queried tags ([UC2]())</u>.
+* 1b. Users request to <u>list elderly with queried tags ([UC10](#uc10-list-elderly-with-queried-tags))</u>.
 * 2a. The list of elderly is empty.
 
   Use case ends.
@@ -652,24 +652,15 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
       Use case resumes at step 1.
 * 2c. The edit does not cause any change in the elderly's details.
     * 2c1. NurseyBook shows an error message.
-
-<<<<<<< HEAD
+    
       Use case resumes at step 1.
-* 2d. The name of the edited elderly is the same as another elderly saved in NurseyBook.
+* 2d. The edited elderly's name already exists in the elderly database. 
     * 2d1. NurseyBook shows an error message.
 
       Use case resumes at step 1.
 * *a. At any time, user requests to <u>view help ([UC19](#uc19-viewing-help))</u>.
 
 ##### UC5: Find an elderly
-=======
-* 2d. The elderly's name already exists in the elderly database.
-    * 2d1. NurseyBook shows an error message.
-
-      Use case resumes at step 1.
-    
-**UC6: Add remark about an elderly**
->>>>>>> 7b3d9fec528065ad73c27e17432dc35e7ee3d337
 
 **MSS**
 
