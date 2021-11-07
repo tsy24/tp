@@ -241,27 +241,29 @@ If a user does not specify `Recurrence` when adding a new `Task`, it will defaul
 
 #### Implementation
 
-The logic for handling overdue and recurring tasks are handled in ModelManager#updateFilteredTaskList.
+The logic for handling overdue and recurring tasks are handled in `ModelManager#updateTasksAccordingToTime()`.
 
 ```     java
 @Override
-public void updateFilteredTaskList(Predicate<Task> predicate) {
-    requireNonNull(predicate);
-    updateOverdueTaskList();
-    updateNotOverdueTaskList();
-    updateDateRecurringTaskList();
-    filteredTasks.setPredicate(predicate);
-}
+    public void updateTasksAccordingToTime() {
+        versionedNurseyBook.updateRecurringTasksDate();
+        versionedNurseyBook.updateTasksOverdueStatus();
+        versionedNurseyBook.reorderTasksChronologically();
+    }
 ```
 
-The implementation of these individual functions `updateOverdueTaskList()`, `updateNotOverdueTaskList()` and `updateDateRecurringTaskList()` are listed below.
-1. `updateOverdueTaskList()`
-    *  This function is facilitated by the `TaskIsOverduePredicate` class. `TaskIsOverduePredicate` has a method `test()` to test whether a `Task`'s `DateTime` is before the current `DateTime`.
+The implementation of these individual functions `updateRecurringTasksDate()`, `updateTasksOverdueStatus()` and `reorderTasksChronologically()` are listed below.
+1. `updateRecurringTasksDate()`
+    *  This function checks whether a `Task` is overdue (`Task`'s `DateTime` is before the current `DateTime`) and if it is a recurring task (`Task#isRecurring` is `True`), before updating recurring tasks' DateTime as needed at the current time.
 2. `updateNotOverdueTaskList()`
-    *  This function is facilitated by the `TaskIsNotOverduePredicate` class. `TaskIsNotOverduePredicate` has a method `test()` to test whether a `Task`'s `DateTime` is after the current `DateTime`.
-3. `updateDateRecurringTaskList()`
-    *  This function is facilitated by the `TaskIsRecurringAndOverduePredicate` class. `TaskIsRecurringAndOverduePredicate` has a method `test()` to test whether a `Task`'s `DateTime` is before the current `DateTime`
-         and if it is a recurring task (`Task#isRecurring` is `True`).
+    *  This function first checks for either of 2 cases:
+        * Whether it is overdue (`Status#isOverdue` is `True`) and should not be overdue
+        * Whether it is not overdue and should be overdue
+    *  Then updates overdue statuses accordingly
+        * For first case, it marks the task as overdue
+        * For second case, it marks the task as not overdue
+3. `reorderTasksChronologically()`
+    * This function sorts the tasks according to chronological order, whose order might be disrupted due to changes in `DateTime` of tasks due to `updateRecurringTasksDate()`.
     
 Listed below are some situations and corresponding implementations where the overdue `Status`, and `DateTime` might be changed based on either a manual edit of the `Task`'s `DateTime` and/or `Recurrence` type, or simply the passing of time.
 
@@ -277,6 +279,8 @@ Listed below are some situations and corresponding implementations where the ove
   - Mark `Status#isOverdue` to `True`
 
 <img src="images/HandleOverdueAndRecurringTasksActivityDiagram.png" width="350"/>
+
+For each `Task` in NurseyBook, it will go through this cycle of checks to ensure their `DateTime` and `Status` are updated accordingly.
 
 ### Undo/redo feature
 
@@ -769,9 +773,8 @@ Similar to <u>deleting an elderly (<a href="#uc3-delete-an-elderly">UC3</a>)</u>
     * 1b1. NurseyBook shows an error message.
 
       Use case resumes at step 1.
-* 2a. The list of elderly is empty.
-
-  Use case ends.
+* 2a. The list of elderly is empty. <br>
+     Use case ends.
 * *a. At any time, user requests to <u>view help (<a href="#uc19-viewing-help">UC19</a>)</u>.
 
 ##### UC11: Add remark about an elderly
@@ -998,20 +1001,23 @@ testers are expected to do more *exploratory* testing.
    1. Test case: `addElderly en/Khong Guan a/80 g/M r/10` <br>
       Expected: Display (switches to) the full list of elderly added to NurseyBook. New elderly with parameters is created.
    
-   2. Test case: `addElderly en/Alice John a/85 r/2 g/F nn/Mary John rs/Sister e/mj@example.com t/diabetes` <br>
+   2. Test case: `addElderly en/Alice John a/85 r/2 g/F nn/Mary John rs/Sister p/91234567 e/mj@example.com addr/London Street 11 t/diabetes` <br>
       Expected: Display (switches to) the full list of elderly added to NurseyBook. New elderly with parameters is created.
    
-   3. Test case: `addElderly en/khong guan a/55 g/M r/15` <br>
+   3. Test case: `addElderly en/Sharon Lim a/50 r/20 g/F nn/John Lim rs/Husband`
+      Expected: Display (switches to) the full list of elderly added to NurseyBook. New elderly with parameters is created.
+
+   4. Test case: `addElderly en/khong guan a/55 g/M r/15` <br>
       Expected: No elderly is added, and the display within NurseyBook stays the same (i.e. If the current display is a list of tasks, it stays on the same list of tasks.). Error details shown in the status message. <br>
-      Note: This test case must be executed only after you have executed test case 1. 
+      Note: This test case must be executed only after you have executed test case 1.
    
-   4. Other incorrect `addElderly` commands to try: `addElderly en/Desmond Lim r/30 a/10 g/M`, `addElderly en/John Wick r/30 a/50 g/W`, `addElderly`, `...` (with missing compulsory parameters or unaccepted values entered) <br>
-      Expected: Similar to previous
-   
+   5. Invalid commands to try (Error details shown in the status message):
+      * Invalid index >= size of task list or <= 0: `editTask 5` or `editTask -1`
+      * Added name is same as another elderly `editElderly 1 en/Alice` (assuming there is another Alice in the elderly database)
 
-### Deleting a elderly
+### Deleting an elderly
 
-1. Deleting an elderly while all elderlies are being shown
+1. Deleting an elderly from NurseyBook
 
    1. Prerequisites: List all elderlies using the `viewElderly` command. Multiple elderlies in the list.
 
@@ -1021,8 +1027,8 @@ testers are expected to do more *exploratory* testing.
    3. Test case: `deleteElderly 0` <br>
       Expected: No elderly is deleted. Error details shown in the status message.
 
-   4. Other incorrect `deleteElderly` commands to try: `deleteElderly`, `deleteElderly x`, `...` (where x is larger than the list size) <br>
-      Expected: Similar to previous.
+   4. Invalid commands to try (Error details shown in the status message):
+      * Invalid index >= size of elderly list or <= 0: `editElderly 5` or `editElderly -1`
 
 ### Adding a task
 
@@ -1038,10 +1044,66 @@ testers are expected to do more *exploratory* testing.
        Test case 2 has a different date and type of recurrence compared to that in test case 1, thus is added.
    
     4. Test case: `addTask en/Benny desc/Weekly Taiji date/2022-10-10 time/14:30` <br>
-       Expected: No task is added. Error details shown in the status message.
+       Expected: No task is added. Error details shown in the status message. 
    
-    5. Other incorrect `addTask` commands to try: `addTask en/Khong Guan desc/Weekly Taiji date/2021-10-10 time/14:30 recur/week`,`addTask`, `addTask desc/Weekly Taiji`, `...` (with missing compulsory parameters) <br>
-       Expected: Similar to previous
+    5. Invalid commands to try (Error details shown in the status message): <br>
+       * Invalid index >= size of task list or <= 0: `addTask 5` or `addTask -1` <br>
+       * Elderly does not exist in elderly database: `addTask 1 desc/Covid Shot en/Charlotte` (assuming Charlotte does not exist in the elderly database) <br>
+       * Fields are the same as another task: `addTask 1 desc/Covid Shot date/2022-10-31 time/18:00 en/Bernice Yu` (assuming there is another task with the exact same description, date, time and elderly names) <br>
+       * Date of a recurring task is past current date and time: `addTask 1 date/2021-10-10 recur/week`
+       
+### Deleting a task
+
+1. Deleting a task while all tasks are being shown
+
+    1. Prerequisites: List all tasks using the `viewTasks` command. Multiple tasks in the list.
+   
+    2. Test case: `deleteTask 1`<br>
+       Expected: First task is deleted from the list. Details of the deleted task shown in the status message.
+   
+    3. Invalid commands to try (Error details shown in the status message): <br>
+       * Invalid index >= size of task list or <= 0: `deleteTask 5` or `deleteTask -1`
+
+### Editing a task
+
+1. Editing a task already present in NurseyBook
+
+    1. Prerequisites: There is a task with description 'Covid Jab', date '2021-11-30', time '14:00' and elderly names 'Alex Yeoh' in the task database. There are elderlies named 'Alex Yeoh' and 'Bernice Yu' present in the elderly database.
+   
+    2. Test case: `editTask 1 desc/Covid Shot`<br>
+        Expected: Task's description is replaced with 'Covid Shot'.
+   
+    3. Test case: `editTask 1 desc/Covid Shot en/Bernice Yu`<br>
+        Expected: Task's description and elderly names is replaced with 'Covid Shot' and 'Bernice Yu' respectively.
+   
+    4. Test case: `editTask 1 recur/day`<br>
+        Expected: Task's recurrence type is changed from none to day. 
+   
+    5. Invalid commands to try (Error details shown in the status message): <br>
+       * Invalid index >= size of task list or <= 0: `editTask 5` or `editTask -1` <br>
+       * Edited elderly does not exist in database: `editTask 1 en/Charlotte` <br>
+       * Edited fields are the same as the original fields or of another task: `editTask 1 desc/Covid Shot` <br>
+       * Edited date of a recurring task is past current date and time: `editTask 1 date/2021-10-10 recur/week`
+    
+### Find a task
+
+1. Finding a task in NurseyBook
+
+### Mark a task as complete
+
+1. Marking a task as complete in NurseyBook
+
+    1. Prerequisites: List all tasks using the `viewTasks` command. Multiple tasks in the list.
+   
+    2. Test case: `doneTask 1` <br>
+        Expected: First task is mark as completed. Details of the deleted task shown in the status message. The to-do box on the right of the task will be ticked. 
+   
+    3. Invalid commands to try (Error details shown in the status message):
+       * Invalid index >= size of task list or <= 0: `doneTask 5` or `doneTask -1`
+    
+### Remind
+
+### View Schedule
 
 ### Saving data
 

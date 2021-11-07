@@ -72,6 +72,7 @@ public class RealTask extends Task {
                 super.getRelatedNames(), new Status(isTaskDone(), false), super.getRecurrence());
     }
 
+    //@@author Superbestron
     /**
      * Updates the date of the recurring task such that it is not overdue.
      *
@@ -93,6 +94,7 @@ public class RealTask extends Task {
         }
     }
 
+    //@@author CraveToCode
     /**
      * Copies the task and all it's fields and returns a new instance of it.
      *
