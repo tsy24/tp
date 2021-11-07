@@ -308,6 +308,7 @@ public abstract class Task implements Comparable<Task> {
                 && otherTask.getRelatedNames().equals(getRelatedNames());
     }
 
+    //@@ Superbestron
     protected DateTime changeTaskDate(LocalDateTime currentDateTime, RecurrenceType recurrenceType) {
         LocalDate taskDate = getDateTime().date;
         LocalTime taskTime = getDateTime().time;
@@ -338,6 +339,7 @@ public abstract class Task implements Comparable<Task> {
         return new DateTime(taskNewLocalDateTime.toLocalDate(), taskLocalDateTime.toLocalTime());
     }
 
+    //@@ CraveToCode
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
