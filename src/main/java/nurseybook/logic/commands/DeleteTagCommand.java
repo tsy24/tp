@@ -1,5 +1,6 @@
 package nurseybook.logic.commands;
 
+import static java.util.Objects.requireNonNull;
 import static nurseybook.commons.util.CollectionUtil.requireAllNonNull;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_TAG;
 
@@ -50,6 +51,7 @@ public class DeleteTagCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        requireNonNull(model);
         List<Elderly> lastShownList = model.getFilteredElderlyList();
 
         if (index.getZeroBased() >= lastShownList.size()) {

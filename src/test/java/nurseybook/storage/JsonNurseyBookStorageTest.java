@@ -64,6 +64,12 @@ public class JsonNurseyBookStorageTest {
     }
 
     @Test
+    public void readNurseyBook_tasksWithInvalidElderlyNurseyBook_throwDataConversionException() {
+        assertThrows(DataConversionException.class, () -> readNurseyBook(
+                "tasksWithInvalidElderlyNurseyBook.json"));
+    }
+
+    @Test
     public void readAndSavePeopleInNurseyBook_allInOrder_success() throws Exception {
         Path filePath = testFolder.resolve("TempNurseyBook.json");
         NurseyBook original = TypicalElderlies.getTypicalNurseyBook();

@@ -21,6 +21,8 @@ public class JsonNurseyBookStorage implements NurseyBookStorage {
 
     private static final Logger logger = LogsCenter.getLogger(JsonNurseyBookStorage.class);
 
+    private static final String INVALID_NAMES_IN_TASKS = "Tasks contain invalid elderly names";
+
     private Path filePath;
 
     public JsonNurseyBookStorage(Path filePath) {
@@ -30,6 +32,7 @@ public class JsonNurseyBookStorage implements NurseyBookStorage {
     public Path getNurseyBookFilePath() {
         return filePath;
     }
+
 
     @Override
     public Optional<ReadOnlyNurseyBook> readNurseyBook() throws DataConversionException {
@@ -52,7 +55,12 @@ public class JsonNurseyBookStorage implements NurseyBookStorage {
         }
 
         try {
-            return Optional.of(jsonNurseyBook.get().toModelType());
+            Optional<ReadOnlyNurseyBook> nb = Optional.of(jsonNurseyBook.get().toModelType());
+            if (nb.isPresent() && !nb.get().doTasksContainValidNames()) {
+                logger.info("Illegal values found in " + filePath + ": " + INVALID_NAMES_IN_TASKS);
+                throw new DataConversionException(new IllegalValueException(INVALID_NAMES_IN_TASKS));
+            }
+            return nb;
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);

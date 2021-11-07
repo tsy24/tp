@@ -1,6 +1,6 @@
 package nurseybook.model;
 
-import static java.util.Objects.requireNonNull;
+import static nurseybook.commons.util.CollectionUtil.requireAllNonNull;
 
 import nurseybook.logic.commands.CommandResult;
 
@@ -18,7 +18,7 @@ public class NurseyBookState {
      * Creates a NurseyBookState using the copied {@code nurseyBook} and the {@code commandResult}.
      */
     public NurseyBookState(ReadOnlyNurseyBook nurseyBook, CommandResult commandResult) {
-        requireNonNull(nurseyBook);
+        requireAllNonNull(nurseyBook, commandResult);
         this.nurseyBook = nurseyBook;
         this.commandResult = commandResult;
     }

@@ -4,6 +4,8 @@ import static nurseybook.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_ALL;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_PREAMBLE;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_TAG;
+import static nurseybook.logic.parser.ParserUtil.MESSAGE_INDEX_TOO_EXTREME;
+import static nurseybook.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 
 import java.util.List;
 import java.util.Set;
@@ -35,7 +37,18 @@ public class DeleteTagCommandParser implements Parser<DeleteTagCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteTagCommand.MESSAGE_USAGE));
         }
 
-        Index index = ParserUtil.parseIndex(argMultimap.getPreamble());
+        Index index;
+
+        try {
+            index = ParserUtil.parseIndex(argMultimap.getPreamble());
+        } catch (ParseException pe) {
+            if (pe.getMessage().equals(MESSAGE_INDEX_TOO_EXTREME) || pe.getMessage().equals(MESSAGE_INVALID_INDEX)) {
+                throw pe;
+            } else {
+                throw new ParseException(
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteTagCommand.MESSAGE_USAGE), pe);
+            }
+        }
         Set<Tag> tagSet = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
         return new DeleteTagCommand(index, tagSet);

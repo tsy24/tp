@@ -1061,7 +1061,19 @@ testers are expected to do more *exploratory* testing.
 
    4. Invalid commands to try (Error details shown in the status message):
       * Invalid index >= size of elderly list or <= 0: `deleteElderly 5` or `deleteElderly -1`
+      
+### Delete all Nok details of an elderly.
 
+1. Deleting all Nok details of an elderly
+
+    1. Prerequisites: List all elderlies using the `viewElderly` command. Multiple elderlies in the list.
+
+    2. Test case: `deleteNok 1` <br>
+       Expected: All Nok details of the first elderly in the list are deleted. Updated details of the elderly whose Nok details were deleted are shown in the status message.
+
+    3. Invalid commands to try (Error details shown in the status message):
+         * Invalid index >= size of elderly list, or <= 0: `deleteNok 5` or `deleteNok -1`
+         
 ### Adding a task
 
 1. Adding a task to NurseyBook
@@ -1069,10 +1081,10 @@ testers are expected to do more *exploratory* testing.
     1. Prerequisites: Add an elderly with name 'Khong Guan' to NurseyBook.
     
     2. Test case: `addTask en/Khong Guan desc/Weekly Taiji date/2022-10-10 time/14:30 recur/week` <br>
-       Expected: New task with the parameters is created. It is a one-off task and recurrence is 'Week'.
+       Expected: New task with the parameters is created. Details of the added task is shown in the status message. It is a recurring task and recurrence is 'Week'.
    
     3. Test case: `addTask en/Khong Guan desc/Weekly Taiji date/2021-10-10 time/14:30` <br>
-       Expected: New task with the parameters is created. It is a one-off task and recurrence is 'None'. Task has an 'Overdue' tag. <br>
+       Expected: New task with the parameters is created. Details of the added task is shown in the status message. It is a one-off task and recurrence is 'None'. Task has an 'Overdue' tag. <br>
        Test case 2 has a different date and type of recurrence compared to that in test case 1, thus is added.
    
     4. Test case: `addTask en/Benny desc/Weekly Taiji date/2022-10-10 time/14:30` <br>
@@ -1090,7 +1102,7 @@ testers are expected to do more *exploratory* testing.
     1. Prerequisites: List all tasks using the `viewTasks` command. Multiple tasks in the list.
    
     2. Test case: `deleteTask 1`<br>
-       Expected: First task is deleted from the list. Details of the deleted task shown in the status message.
+       Expected: First task is deleted from the list. Details of the deleted task is shown in the status message.
    
     3. Invalid commands to try (Error details shown in the status message): <br>
        * Invalid index >= size of task list or <= 0: `deleteTask 5` or `deleteTask -1`
@@ -1102,13 +1114,13 @@ testers are expected to do more *exploratory* testing.
     1. Prerequisites: There is a task with description 'Covid Jab', date '2021-11-30', time '14:00' and elderly names 'Alex Yeoh' in the task database. There are elderlies named 'Alex Yeoh' and 'Bernice Yu' present in the elderly database.
    
     2. Test case: `editTask 1 desc/Covid Shot`<br>
-        Expected: Task's description is replaced with 'Covid Shot'.
+       Expected: Task's description is replaced with 'Covid Shot'. Details of the edited task is shown in the status message.
    
     3. Test case: `editTask 1 desc/Covid Shot en/Bernice Yu`<br>
-        Expected: Task's description and elderly names is replaced with 'Covid Shot' and 'Bernice Yu' respectively.
+       Expected: Task's description and elderly names is replaced with 'Covid Shot' and 'Bernice Yu' respectively. Details of the edited task is shown in the status message.
    
     4. Test case: `editTask 1 recur/day`<br>
-        Expected: Task's recurrence type is changed from none to day. 
+       Expected: Task's recurrence type is changed from none to day. Details of the edited task is shown in the status message.
    
     5. Invalid commands to try (Error details shown in the status message): <br>
        * Invalid index >= size of task list or <= 0: `editTask 5` or `editTask -1` <br>
@@ -1120,6 +1132,15 @@ testers are expected to do more *exploratory* testing.
 
 1. Finding a task in NurseyBook
 
+    1. Test case: `findTask dentist` <br>
+       Expected: Lists all tasks with the keyword "dentist" in its description. Number of tasks found is shown in the status message.
+   
+    2. Test case: `findTask dentist visit` <br>
+       Expected: Lists all tasks with the keywords "dentist", or "visit", or both words in its description. Number of tasks found is shown in the status message.
+   
+    3. Invalid commands to try (Error details shown in the status message):
+       * 
+
 ### Mark a task as complete
 
 1. Marking a task as complete in NurseyBook
@@ -1127,17 +1148,78 @@ testers are expected to do more *exploratory* testing.
     1. Prerequisites: List all tasks using the `viewTasks` command. Multiple tasks in the list.
    
     2. Test case: `doneTask 1` <br>
-        Expected: First task is mark as completed. Details of the deleted task shown in the status message. The to-do box on the right of the task will be ticked. 
+       Expected: First task is mark as completed. Details of the completed task shown in the status message. The to-do box on the right of the task will be ticked. 
    
     3. Invalid commands to try (Error details shown in the status message):
        * Invalid index >= size of task list or <= 0: `doneTask 5` or `doneTask -1`
+
+### Adding a remark
+
+1. Adding a remark to an elderly in NurseyBook
+
+    1. Prerequisites: List all elderly using the `viewElderly` command. Multiple elderlies in the list.
+
+    2. Test case: `remark 1 re/hates vegetables` <br>
+       Expected: Adds the remark "hates vegetables" to the first elderly in the elderly list. Details of the elderly after the addition of the remark is shown in the status message.
+   
+    3. Test case: `remark 1 re/` <br>
+       Expected: Clears the previously added remark to the first elderly in the list. Details of the elderly after the removal of the remark is shown in the status message.
+   
+    4. Invalid commands to try (Error details shown in the status message):
+       * `remark 1 re/` again after removing the remark of the first elderly in the list
+       * Invalid index >= size of elderly list or <= 0: `remark 0 re/loves eggs` or `remark -1 re/loves eggs`
+       * `remark 1 desc/hates vegetables` is an invalid command format.
+
+### View all tasks
+
+1. Viewing all the tasks that has been added into NurseyBook
+
+    1. Test case: `viewTasks` <br>
+       Expected: All the tasks that have been added into NurseyBook are shown. If user is previously viewing the elderly list, switches from elderly list to task list display.
+   
+    2. Test case: `viewTasks 1` <br>.
+       Expected: Similar to previous. Additional invalid parameters are ignored.
+
+    3. Test case: `viewTasks r/30` <br>
+       Expected: Similar to previous.
     
 ### Remind
 
-1
+1. Viewing tasks that are coming up within the next three days. e.g. If today is 2021-11-12, tasks up to and including 2021-11-15 will be displayed.
+
+    1. Test case: `remind` <br>
+       Expected: Tasks that are coming up within the next three days are shown.
+   
+    2. Test case: `remind 1`
+       Expected: Tasks that are coming up within the next three days are shown. Additional invalid parameters are ignored.
+   
+    3. Test case: `remind desc/medicine` <br>
+       Expected: Similar to previous.
 
 ### View Schedule
 
+1. Viewing task schedule on a specific date in NurseyBook. For illustration purposes, current date is assumed to be `2021-11-12`. You should use the actual current date, and the corresponding future or past dates during your testing.
+
+    1. Prerequisites: User is currently viewing the task list page. Only the following 3 tasks are be added to NurseyBook. We shall call them Tasks A, B and C.
+        * Task A: A non-recurring task, the date of which is current date. <br> Assume this date is `2021-11-12` for illustration purposes.
+        * Task B: A daily recurring task, the initial date of which is current date + 2 days. <br> Assume this date is `2021-11-14` for illustration purposes.
+        * Task C: A non-recurring task, the date of which is current date + 4 days. <br> Assume this date is `2021-11-16` for illustration purposes. 
+    2. Test case - today:`viewSchedule 2021-11-12` <br>
+       Expected: Task A should be displayed.
+   
+    3. Test case - one day ahead:`viewSchedule 2021-11-13` <br>
+       Expected: No tasks should be displayed.
+   
+    4. Test case - four days ahead:`viewSchedule 2021-11-16` <br>
+       Expected: Tasks B and C should be displayed. Date of Task B in this display should be `2021-11-16`.
+   
+    5. Test case - a week ahead:`viewSchedule 2021-11-19` <br>
+       Expected: Task B should be displayed. Date of Task B in this display should be `2021-11-19`.
+   
+    6. Invalid commands to try (Error details shown in the status message):
+        * Date input has already passed: `viewSchedule 2021-11-11`
+        * Not formatting the date correctly in yyyy-mm-dd format: `viewSchedule 16-12-2021`
+        
 ### Saving data
 
 1. Dealing with missing/corrupted data files
