@@ -453,7 +453,7 @@ Adds a task to the task list.
 Format: `addTask [en/ELDERLY_NAME]…​ desc/DESCRIPTION date/DATE time/TIME [recur/RECURRENCE_TYPE]`
 
 Examples:
-`addTask en/John desc/check insulin level date/2022-01-25 time/19:22 recur/week`
+`addTask en/Khong Guan desc/check insulin level date/2022-01-25 time/19:22 recur/week`
 
 <div markdown="block" class="alert alert-info">
 
@@ -585,6 +585,8 @@ those under your care.
 Format: `remind`
 
 ![](images/userGuide/remind.png)
+
+Screenshot taken on 2021-11-04.
 
 #### 4.2.8 View task schedule: `viewSchedule`
 
