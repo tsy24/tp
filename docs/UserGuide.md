@@ -31,9 +31,9 @@ NurseyBook is a **desktop app made for nurses in nursing homes to aid them in ma
 
    * **`viewTasks`** : Lists all tasks.
 
-   * **`addElderly`**`addElderly en/John a/77 g/M r/420 t/diabetes` : Adds an elderly named `John` to NurseyBook.
+   * **`addElderly`**` en/John a/77 g/M r/420 t/diabetes` : Adds an elderly named `John` to NurseyBook.
 
-   * **`deleteElderly`**`3` : Deletes the records of the 3rd elderly shown in the current list.
+   * **`deleteElderly`**` 3` : Deletes the records of the 3rd elderly shown in the current list.
 
    * **`clear`** : Deletes all contacts.
 
@@ -115,7 +115,7 @@ e.g. `viewTasks`
 Commands in this guide follow such rules:
 
 * Words in `UPPER_CASE` are the parameters to be supplied by you.<br>
-  e.g. in `addElderly en/ELDERLY_NAME`, `NAME` is a parameter which can be used as `addElderly en/Swee Choon`.
+  e.g. in `addElderly en/ELDERLY_NAME`, `ELDERLY_NAME` is a parameter which can be used as `addElderly en/Swee Choon`.
 
 * Items in square brackets are optional.<br>
   e.g. `en/ELDERLY_NAME [t/TAG]` can be used as `en/Swee Choon t/vegan` or as `en/Swee Choon`.
@@ -178,10 +178,9 @@ Parameter | Description
 
 This section contains the documentation on NurseyBook's features and commands. It is split into the following subsections:
 
-1. Elderly commands
-2. Task commands
-3. Miscellaneous commands
-4. Storage
+1. [Elderly commands](#41-elderly-commands)
+2. [Task commands](#42-task-commands)
+3. [Miscellaneous commands](#43-miscellaneous-commands)
 
 ### 4.1 Elderly commands
 
@@ -207,7 +206,7 @@ Examples:
 
 :information_source: **Information:**
 * An elderly can have any number of tags (including 0).
-* You can specify a Next-of-Kin's (NOK) details for each elderly, when adding an elderly.
+* You can specify a Next-of-Kin's (NoK) details for each elderly, when adding an elderly.
 * NurseyBook does not support any two elderly with the same name, even if any other fields are different. A suggestion will be to save the full name of the elderly you are adding into NurseyBook.
 
 </div>
@@ -260,7 +259,7 @@ Examples: See [`addElderly`](#412-add-an-elderly-addelderly) for examples.
 :exclamation: **Caution:**
 * By leaving the tag input empty, you will remove all the tags currently assigned to the elderly.
 * If you want to add a tag with `editElderly`, you have to include all the existing tags of the elderly in your command.
-* Editing an elderly's name will cause all occurrences of the elderly's name in tasks to be also edited.
+* Editing an elderly's name will cause all occurrences of the elderly's name in tasks to be edited.
 
 Example: John has an existing tag `cancer`, and he is at index 1 in the current list of elderly displayed. To add an `overweight` tag to John, your command should be `editElderly 1 t/cancer t/overweight`.
 
@@ -289,7 +288,7 @@ Examples:
 * The order of the keywords does not matter. e.g. `Elena Kro` will match `Kro Elena`
 * Only the name is searched.
 * Only full words will be matched. e.g. `Ele` will not match `Elena`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Elena Kro` will return `Elena Grob`, `Kro Stanly`
+* Elderlies matching at least one keyword will be returned (i.e. `OR` search). e.g. `Elena Kro` will return `Elena Grob`, `Kro Stanly`
 
 </div>
 
@@ -381,6 +380,9 @@ Examples:
 
 :information_source: **Information:**
 * There should be at least one tag.
+* The tag matching is case-insensitive. 
+* Only complete tags will be matched. e.g. `diab` will not match `diabetes`
+* Elderlies matching all tags will be returned (i.e.`AND` search). e.g. For `filter t/covid t/diabetes`, if the elderly only has the 'diabetes' tag, he will not be returned.
 
 </div>
 
@@ -423,7 +425,7 @@ Format: `viewTasks`
 
 Adds a task to the task list.
 
-Format: `addTask [en/ELDERLY_NAME]... desc/DESCRIPTION date/DATE time/TIME [recur/RECURRENCE_TYPE]`
+Format: `addTask [en/ELDERLY_NAME]…​ desc/DESCRIPTION date/DATE time/TIME [recur/RECURRENCE_TYPE]`
 
 Examples:
 `addTask en/John desc/check insulin level date/2022-01-25 time/19:22 recur/week`
@@ -462,6 +464,9 @@ Deletes a particular task in the task list from NurseyBook.
 
 Format: `deleteTask INDEX`
 
+Examples:
+* [`viewTasks`](#421-view-all-tasks-viewtasks) followed by `deleteTask 2` deletes the 2nd task shown by NurseyBook.
+
 <div markdown="block" class="alert alert-info">
 
 :information_source: **Information:**
@@ -471,9 +476,6 @@ Format: `deleteTask INDEX`
 * The index **must be a positive integer** 1, 2, 3, …​
 
 </div>
-
-Examples:
-* [`viewTasks`](#421-view-all-tasks-viewtasks) followed by `deleteTask 2` deletes the 2nd task shown by NurseyBook.
 
 #### 4.2.4 Edit a task: `editTask`
 
@@ -615,12 +617,18 @@ Undoes the previous undoable command executed on the NurseyBook.
 
 Format: `undo`
 
-* Undoable commands(i.e. any command that modifies NurseyBook's data): `addElderly`, `editElderly`, `deleteElderly`, `deleteNok`, `addTag`, `deleteTag`, `addTask`, `editTask`, `deleteTask`, `doneTask`, `clear`, `help`
-* Non-undoable commands: `findElderly`, `filter`, `viewDetails`, `viewElderly`, `findTask`, `remind`, `viewTasks`, `viewSchedule`
-* If there are no undoable commands executed previously, the undo command will fail and an error message will be shown.
-
 Example:
 * `deleteElderly 1` followed by `undo` causes the `deleteElderly 1` command to be undone and no elderly is deleted from the NurseyBook.
+
+<div markdown="block" class="alert alert-info">
+
+:information_source: **Information:**
+
+* Undoable commands(i.e. any command that modifies NurseyBook's data): `addElderly`, `editElderly`, `deleteElderly`, `deleteNok`, `addTag`, `deleteTag`, `addTask`, `editTask`, `deleteTask`, `doneTask`, `clear`
+* Non-undoable commands: `findElderly`, `filter`, `viewDetails`, `viewElderly`, `findTask`, `remind`, `viewTasks`, `viewSchedule`, `help`
+* If there are no undoable commands executed previously, the undo command will fail and an error message will be shown.
+
+</div>
 
 #### 4.3.4 Redo previously undone command : `redo`
 
@@ -628,11 +636,17 @@ Reverses the previous undo command executed on the NurseyBook.
 
 Format: `redo`
 
-* If there are no undo commands executed previously, the redo command will fail and an error message will be shown.
-
 Example:
 * `deleteElderly 1` followed by `undo` causes the `deleteElderly 1` command to be undone and no elderly is deleted from the NurseyBook.
-Entering `redo` will reverse the previous undo command, causing the elderly to be deleted again.
+  Entering `redo` will reverse the previous undo command, causing the elderly to be deleted again.
+
+<div markdown="block" class="alert alert-info">
+
+:information_source: **Information:**
+
+* If there are no undo commands executed previously, the redo command will fail and an error message will be shown.
+
+</div>
 
 #### 4.3.5 Exiting the program : `exit`
 
@@ -696,7 +710,7 @@ Action | Format, Examples
 
 Action | Format, Examples
 --------|------------------
-**Add a task** | `addTask [en/ELDERLY_NAME] desc/DESCRIPTION date/DATE time/TIME [recur/RECURRENCE_TYPE]` <br> <br> e.g., `addTask en/John desc/check insulin level date/2022-01-25 time/10:00 recur/week`
+**Add a task** | `addTask [en/ELDERLY_NAME] desc/DESCRIPTION date/DATE time/TIME [recur/RECURRENCE_TYPE]` <br> <br> e.g., `addTask en/Alex Yeoh desc/check insulin level date/2022-01-25 time/10:00 recur/week`
 **Delete a task** | `deleteTask INDEX`<br> e.g., `deleteTask 3`
 **Edit a task** | `editTask INDEX [en/ELDERLY_NAME] [desc/DESCRIPTION] [date/DATE] [time/TIME] [recur/RECURRENCE_TYPE]` <br> <br> e.g., `editTask 2 desc/Meeting with head nurse`
 **Find a task** | `findTask KEYWORD [MORE_KEYWORDS]`
