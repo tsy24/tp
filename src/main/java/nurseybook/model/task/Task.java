@@ -16,7 +16,7 @@ public abstract class Task implements Comparable<Task> {
     private final Description desc;
     private DateTime dateTime;
     private final Status status;
-    private final Set<Name> relatedNames = new HashSet<>();
+    private Set<Name> relatedNames = new HashSet<>();
     private final Recurrence recurrence;
 
     /**
@@ -154,18 +154,24 @@ public abstract class Task implements Comparable<Task> {
     }
 
     /**
-     * Replaces the name {@code target} of the task with {@code editedName}.
+     * Returns a copy of the task with the name {@code target} replaced with {@code editedName}
+     * in {@code relatedNames} of the task.
      */
-    public void replaceName(Name target, Name editedName) {
-        deleteName(target);
-        addName(editedName);
+    public Task replaceName(Name target, Name editedName) {
+        Task updatedTask = deleteName(target);
+        updatedTask.addName(editedName);
+        return updatedTask;
     }
 
     /**
-     * Deletes the name {@code target} of the task.
+     * Returns a copy of the task with the name {@code target} deleted from {@code relatedNames} of the task.
      */
-    public void deleteName(Name target) {
-        relatedNames.remove(target);
+    public Task deleteName(Name target) {
+        Set<Name> updatedNames = new HashSet<>(relatedNames);
+        updatedNames.remove(target);
+        Task updatedTask = copyTask();
+        updatedTask.setRelatedNames(updatedNames);
+        return updatedTask;
     }
 
     /**
@@ -229,6 +235,14 @@ public abstract class Task implements Comparable<Task> {
         this.dateTime = new DateTime(newDate, this.dateTime.getTime());
     }
 
+    /**
+     * Changes the related names of the task to the intended set of names
+     *
+     * @param newNames The intended set of names
+     */
+    public void setRelatedNames(Set<Name> newNames) {
+        this.relatedNames = newNames;
+    }
     /**
      * Copies the task and all it's fields and returns a new instance of it.
      *
@@ -308,6 +322,7 @@ public abstract class Task implements Comparable<Task> {
                 && otherTask.getRelatedNames().equals(getRelatedNames());
     }
 
+    //@@ Superbestron
     protected DateTime changeTaskDate(LocalDateTime currentDateTime, RecurrenceType recurrenceType) {
         LocalDate taskDate = getDateTime().date;
         LocalTime taskTime = getDateTime().time;
@@ -338,6 +353,7 @@ public abstract class Task implements Comparable<Task> {
         return new DateTime(taskNewLocalDateTime.toLocalDate(), taskLocalDateTime.toLocalTime());
     }
 
+    //@@ CraveToCode
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
