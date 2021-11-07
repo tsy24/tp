@@ -156,6 +156,15 @@ public abstract class Task implements Comparable<Task> {
     }
 
     /**
+     * Returns the task's related immutable name set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public void setRelatedNames(Set<Name> names) {
+        this.relatedNames.clear();
+        this.relatedNames.addAll(names);
+    }
+
+    /**
      * Replaces the name {@code target} of the task with {@code editedName}.
      */
     public void replaceName(Name target, Name editedName) {

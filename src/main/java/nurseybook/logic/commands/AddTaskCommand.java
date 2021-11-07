@@ -13,7 +13,12 @@ import static nurseybook.model.Model.PREDICATE_SHOW_ALL_TASKS;
 
 import nurseybook.logic.commands.exceptions.CommandException;
 import nurseybook.model.Model;
+import nurseybook.model.person.Name;
 import nurseybook.model.task.Task;
+
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Adds a task to the nursey book.
@@ -47,6 +52,24 @@ public class AddTaskCommand extends Command {
         toAdd = t;
     }
 
+    /**
+     * Check if entered names are valid and match the casing of the name to be the same as elderly name
+     * in NurseyBook's elderly list
+     * @param model
+     * @throws CommandException if some elderly names entered are not found in NurseyBook
+     */
+    private void checkAndMatchNames(Model model) throws CommandException {
+        Set<Name> enteredNames = toAdd.getRelatedNames();
+
+        if (!model.areAllElderliesPresent(enteredNames)) {
+            throw new CommandException(MESSAGE_NO_SUCH_ELDERLY);
+        } else if (!enteredNames.isEmpty()) {
+            Set<Name> namesWithCasesMatched = enteredNames.stream()
+                    .map(n -> model.findElderlyWithName(n).getName()).collect(Collectors.toSet());
+            toAdd.setRelatedNames(namesWithCasesMatched);
+        }
+    }
+
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
@@ -59,9 +82,7 @@ public class AddTaskCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_TASK);
         }
 
-        if (!model.areAllElderliesPresent(toAdd.getRelatedNames())) {
-            throw new CommandException(MESSAGE_NO_SUCH_ELDERLY);
-        }
+        checkAndMatchNames(model);
 
         model.addTask(toAdd);
         model.updateTasksAccordingToTime();
