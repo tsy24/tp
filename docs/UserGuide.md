@@ -296,7 +296,7 @@ Examples:
 
 #### 4.1.6 View full details of an elderly: `viewDetails`
 
-Displays full details of a specific elderly
+Displays full details of a specific elderly.
 
 Format: `viewDetails INDEX`
 
@@ -388,7 +388,7 @@ Examples:
 * Only complete tags will be matched. e.g. `diab` will not match `diabetes`
 * Multiple tags that are the same or have different casing are treated as one tag.
 * Elderlies matching all tags will be returned (i.e.`AND` search). e.g. For `filter t/covid t/diabetes`, if the elderly only has the 'diabetes' tag, he will not be returned.
-* The matching of tags is case-insensitive. e.g. `t/Diabetic` will match `diabetic`, `DIABETIC`.
+* The matching of tags is case-insensitive. e.g. `t/Diabetic` will match `diabetic`, `DIABETIC`
 
 </div>
 
@@ -460,7 +460,7 @@ Examples:
 :information_source: **Information:**
 
 * Executing the command will automatically change the display view to your full task list, so that you can see the task you added.
-* The name entered can be different letter case as the name of the existing elderly. e.g. `en/herman lim` is accepted if `Herman Lim` is a registered elderly.
+* The name entered can be different letter case as the name of the existing elderly. e.g. `en/herman lim` is accepted if `Herman Lim` is a registered elderly
 * Multiple of the same elderly name in same/different casing will be treated as one elderly.
 * The full name has to be entered so that the identity of the elderly is unambiguous.
 
@@ -643,7 +643,7 @@ Example:
 
 :information_source: **Information:**
 
-* Undoable commands (i.e. any command that modifies NurseyBook's data): `addElderly`, `editElderly`, `deleteElderly`, `deleteNok`, `addTag`, `deleteTag`, `addTask`, `editTask`, `deleteTask`, `doneTask`, `clear`
+* Undoable commands (i.e. any command that modifies NurseyBook's data): `addElderly`, `editElderly`, `deleteElderly`, `deleteNok`, `addTag`, `deleteTag`, `remark`, `addTask`, `editTask`, `deleteTask`, `doneTask`, `clear`
 * Non-undoable commands: `findElderly`, `filter`, `viewDetails`, `viewElderly`, `findTask`, `remind`, `viewTasks`, `viewSchedule`, `help`
 * If there are no undoable commands executed previously, the undo command will fail and an error message will be shown.
 * Undo-ing a `deleteElderly` or an `editElderly` command would restore the elderly's name in relevant tasks but the order of names may be different.
