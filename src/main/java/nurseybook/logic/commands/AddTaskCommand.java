@@ -11,14 +11,13 @@ import static nurseybook.logic.parser.CliSyntax.PREFIX_TASK_RECURRING;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_TASK_TIME;
 import static nurseybook.model.Model.PREDICATE_SHOW_ALL_TASKS;
 
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import nurseybook.logic.commands.exceptions.CommandException;
 import nurseybook.model.Model;
 import nurseybook.model.person.Name;
 import nurseybook.model.task.Task;
-
-import java.util.HashSet;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * Adds a task to the nursey book.
