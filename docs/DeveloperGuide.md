@@ -511,8 +511,10 @@ Code Snippet of the `execute(String commandText)` method in `LogicManager`:
 @Override
 public CommandResult execute(String commandText) throws CommandException, ParseException {
     logger.info("----------------[USER COMMAND][" + commandText + "]");
+    
     //deletes all previous ghost tasks from the model as they are no longer relevant
     model.deleteGhostTasks();
+    
     //parsing and execution of command
     CommandResult commandResult;
     Command command = nurseyBookParser.parseCommand(commandText);
@@ -525,7 +527,9 @@ public CommandResult execute(String commandText) throws CommandException, ParseE
 
 `ViewScheduleCommand` leverages on this ability to create GhostTasks. The other unique aspect in the implementation of this feature, is how the program figures out which GhostTasks to create and show to the user upon execution of this command.
 When a `ViewScheduleCommand` is executed with a given `keyDate`, where `keyDate` refers to the date on which the user wants to view schedule, `addPossibleGhostTasksWithMatchingDate(keyDate)` is responsible for this addition of relevant GhostTasks.
-Given below is an activity diagram that summarizes the sequence of actions which guides how this method functions.
+
+Each task in the task list goes through a series of checks and actions before a GhostTask is created.
+Given below is an activity diagram that summarizes the sequence of  checks and actions taken for each task in the task list upon calling the above-mentioned method.
 
 ![AddPossibleGhostTasksWithMatchingDateActivityDiagram](./images/AddPossibleGhostTasksWithMatchingDateActivityDiagram.png)
 
@@ -534,7 +538,7 @@ Since the remaining general mechanisms by which the view schedule operation occu
 <br>
 
 #### Design Considerations
-**Aspect: How to differentiate `RealTask` and `GhostTask` Objects:**
+**Aspect: Differentiating `RealTask` and `GhostTask` Objects:**
 * **Alternative 1:** Add a new field to `Task` objects that determine whether a task is a real task or not.
     * Pros: Easier to implement and integrate with existing AB3 code
     * Cons: Increased failure points, as an additional field has to be stored in the hard disk to determine if tasks are real or not. This field has to be kept track of in between different commands, but not exposed to the user.
