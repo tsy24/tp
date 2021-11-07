@@ -34,9 +34,7 @@ Refer to the [_PlantUML Tutorial_ at se-edu/guides](https://se-education.org/gui
 
 <img src="images/ArchitectureDiagram.png" width="280" />
 
-The ***Architecture Diagram*** given above explains the high-level design of the App.
-
-Given below is a quick overview of main components and how they interact with each other.
+The ***Architecture Diagram*** given above explains the high-level design of the App. Given below is a quick overview of main components and how they interact with each other.
 
 **Main components of the architecture**
 
@@ -100,7 +98,7 @@ How the `Logic` component works:
 1. When `Logic` is called upon to execute a command, it uses the `NurseyBookParser` class to parse the user command.
 1. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `AddCommand`) which is executed by the `LogicManager`.
 1. The command can communicate with the `Model` when it is executed (e.g. to add an elderly).
-1. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
+1. The result of the command execution is encapsulated as a `CommandResult` object which is returned from `Logic`.
 
 The Sequence Diagram below illustrates the interactions within the `Logic` component for the `execute("deleteElderly 1")` API call.
 
@@ -197,7 +195,7 @@ The list of Elderly that return true for `test` is then assigned to `filteredEld
 Only the simple operations such as checking whether a Tag is in the Set and changing the Tags in the set are needed.
 Thus, the methods provided in Java Util Set are sufficient and there is no need to implement custom methods.
 
-### Mark task as done feature
+### Mark a task as done feature
 
 #### How task status is changed
 `Task` now contains `Status`, which stores the completion status of the task. `Task` now implements the following operations:
@@ -233,7 +231,7 @@ If a user does not specify `Recurrence` when adding a new `Task`, it will defaul
 
 * Alternative 1: Once a user has marked a recurring `Task` as done, the date of the `Task` will be automatically changed to the next date according to its `Recurrence` type, with its completion status reset to be undone.
     * Pros: User Experience could be more intuitive in the sense that the user can focus on the next deadline rather than the current completed task
-    * Cons: There is an increase in coupling between the `Task`’s `Status`, `Recurrence` and `DateTime` because `DateTime` now needs to depend on `Status` and `Recurrence` to decide if its date and time needs to be changed. This can increase bugs and make testing harder as more functions would have side effects (reseting task’s completion `Status` and updating `Task`’s `DateTime`).
+    * Cons: There is an increase in coupling between the `Task`’s `Status`, `Recurrence` and `DateTime` because `DateTime` now needs to depend on `Status` and `Recurrence` to decide if its date and time needs to be changed. This can increase bugs and make testing harder, as more functions would have side effects (resetting task’s completion `Status` and updating `Task`’s `DateTime`).
 
 * Alternative 2: Once a `DateTime` of a `Task` has been passed, this will trigger nursey book to update the new `DateTime` of the `Task` according to its `Recurrence` type.
     * Pros: Easier to implement because there is only one condition that needs to be checked (if the `Task`’s `DateTime` is before the current `DateTime`) for the `Task`’s `DateTime` to be updated.
@@ -525,6 +523,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* * *`  | nurse                       | update the records of an elderly                              | the records are up to date without the need to delete and re-add the details                                                                     |
 | `* * *`  | nurse                       | add additional notes about an elderly                         | I can understand the elderly under my care better                                                                                                |
 | `* *`    | nurse                       | archive the details of elderlies                              | not clutter the system with the details of elderlies who have left the nursing home, but still keep the records of their stay for legal purposes |
+| `* * *`  | nurse                       | delete the next-of-kin information of an elderly              | easily update the next-of-kin information of an elderly easily, if the elderly's next-of-kin (hence point of contact) has changed                |
 | `* * *`  | nurse	                     | add tags of conditions of elderly                             | identify the conditions of elderly easily at a glance                                                                                            |
 | `* * *`  | nurse	                     | delete tags of conditions of elderly                          | remove tags that are no longer relevant                                                                                                          |
 | `* * *`  | nurse	                     | filter the elderly by their tags                              | filter elderly more easily, and plan group activities efficiently, such as ordering food for patients with diabetes                              |
@@ -544,10 +543,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* * *`  | nurse                       | view my schedule on a particular day                          | make plans for that day in advance                                                                                                               |
 | `* * *`  | nurse                       | search a task up by its name                                  | quickly get the details of a task                                                                                                                |
 | `* * *`  | careless nurse              | undo my recent actions                                        | revert the database to previous changes in case I make a mistake                                                                                 |
+| `* * *`  | careless nurse              | redo my recent actions                                        | re-execute the actions that I have `undo`(ne) recently                                                                                           |
 | `* *`    | nurse                       | add a nurse (contact)                                         | reach out to a coworker if I am in need of assistance                                                                                            |
 | `* *`    | nurse                       | edit the details of a nurse                                   | update the information relevant to the nurse                                                                                                     |
 | `* *`    | nurse                       | delete a nurse                                                | remove records of nurses who are no longer relevant to me                                                                                        |
 | `* *`    | nurse                       | view nurses and elderly in separate sections                  | have better compartmentalization of information                                                                                                  |
+| `* * *`  | new user                    | easily clear the information stored in NurseyBook             | set up NurseyBook for use in my next work place (e.g. another ward I am in charge of, or moving to another nursing home)                         |
 | `* * *`  | new user                    | easily view the help guide                                    | know more about the product as and when I need to                                                                                                |
 | `* *`    | new nurse                   | easily understand how to view necessary information           | not feel overwhelmed and confused                                                                                                                |
 | `* `     | nurse                       | color-code my tasks                                           | differentiate between the tasks more easily                                                                                                      |
@@ -559,29 +560,211 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 (For all use cases below, the **System** is the `NurseyBook` the **Actor** is the `User`, and the **Person** is the
 `Nurse` unless specified otherwise)
 
-**Use cases of elderly commands**
+#### Use cases of elderly commands
 
-**UC1: List elderly**
+##### UC1: List elderly
 1. User requests to list elderly.
 2. NurseyBook shows a list of elderly.
 
     Use case ends.
 
 **Extensions**
-* 1a. User requests to find elderly with matching keywords 
-  * 1a1. NurseyBook shows a list of elderly that matches the user's query (by name)
+* 1a. User requests to <u>find elderlies with matching keywords([UC5](#uc5-find-an-elderly))</u>.
+  * 1a1. NurseyBook shows a list of elderly that matches the user's query (by name).
 
     Use case ends.
-* 1b. Users request to <u>list elderly with queried tags (UC2)</u>
+* 1b. Users request to <u>list elderly with queried tags ([UC2]())</u>.
 * 2a. The list of elderly is empty.
 
   Use case ends.
+* *a. At any time, user requests to <u>view help ([UC19](#uc19-viewing-help))</u>.
 
-**UC2: List elderly with queried tags**
+##### UC2: Add an elderly
 
 **MSS**
 
-1. User requests to filter elderly based on queried tags
+1. User requests to add an elderly.
+2. NurseyBook adds the elderly.
+
+   Use case ends.
+
+**Extensions**
+* 1a. All required parameter identifiers are present, but entered arguments are invalid.
+    * 1a1. NurseyBook shows an error message.
+
+      Use case resumes at step 1.
+* 1b. Not all required parameter identifiers are present (e.g. Gender (`r/`) of the elderly is not entered).
+    * 1b1. NurseyBook shows an error message.
+
+      Use case resumes at step 1.
+* 1c. Additional parameter identifiers that should not be present are entered.
+    * 1c1. NurseyBook shows an error message.
+
+      Use case resumes at step 1.
+* 1d. An elderly with the same name (inclusive of names in different casing) already exists.
+    * 1d1. NurseyBook shows an error message.
+
+      Use case resumes at step 1.
+* 2a. User decides to undo the add action.
+    * NurseyBook reverses the changes made by the command.
+
+      Use case ends.
+* *a. At any time, user requests to <u>view help ([UC19](#uc19-viewing-help))</u>.
+
+##### UC3: Delete an elderly
+
+**MSS**
+
+1. User requests to <u>list elderly ([UC1](#uc1-list-elderly))</u>.
+2. User requests to delete a specific elderly in the list based on index.
+3. NurseyBook deletes the specified elderly.
+4. NurseyBook shows updated list of elderly and command success message.
+
+   Use case ends.
+
+**Extensions**
+* 2a. The given index is invalid.
+    * 2a1. NurseyBook shows an error message.
+
+      Use case resumes at step 1.
+* *a. At any time, user requests to <u>view help ([UC19](#uc19-viewing-help))</u>.
+
+##### UC4: Edit an elderly’s details
+
+**MSS**
+
+1. User requests to <u>list elderly ([UC1](#uc1-list-elderly))</u>.
+2. User requests to edit the details of a specific elderly in the list based on index.
+3. NurseyBook edits the details for the elderly.
+4. NurseyBook shows updated list of elderly and command success message.
+
+   Use case ends.
+
+**Extensions**
+* 2a. The given parameter is invalid.
+    * 2a1. NurseyBook shows an error message.
+
+      Use case resumes at step 1.
+
+* 2b. There are extra parameters not accepted by the command.
+    * 2b1. NurseyBook shows an error message.
+
+      Use case resumes at step 1.
+* 2c. The edit does not cause any change in the elderly's details.
+    * 2c1. NurseyBook shows an error message.
+
+<<<<<<< HEAD
+      Use case resumes at step 1.
+* 2d. The name of the edited elderly is the same as another elderly saved in NurseyBook.
+    * 2d1. NurseyBook shows an error message.
+
+      Use case resumes at step 1.
+* *a. At any time, user requests to <u>view help ([UC19](#uc19-viewing-help))</u>.
+
+##### UC5: Find an elderly
+=======
+* 2d. The elderly's name already exists in the elderly database.
+    * 2d1. NurseyBook shows an error message.
+
+      Use case resumes at step 1.
+    
+**UC6: Add remark about an elderly**
+>>>>>>> 7b3d9fec528065ad73c27e17432dc35e7ee3d337
+
+**MSS**
+
+1. User requests to find an elderly based on a few keywords.
+2. NurseyBook shows a list of elderly with names that matches the keywords.
+   Use case ends.
+
+**Extensions**
+* 2a. The list of elderly is empty.
+
+  Use case ends.
+* *a. At any time, user requests to <u>view help ([UC19](#uc19-viewing-help))</u>.
+
+##### UC6: View an elderly's details
+
+**MSS**
+
+1. User requests to <u>list elderly ([UC1](#uc1-list-elderly))</u>.
+2. User requests to view details of a specific elderly in the list based on index.
+3. NurseyBook shows details of selected elderly and command success message.
+
+   Use case ends.
+
+**Extensions**
+* 2a. The given index is invalid.
+    * 2a1. NurseyBook shows an error message.
+
+      Use case resumes at step 1.
+* *a. At any time, user requests to <u>view help ([UC19](#uc19-viewing-help))</u>.
+
+##### UC7: Delete an elderly's Nok details
+
+Similar to <u>deleting an elderly ([UC3](#uc3-delete-an-elderly))</u> but only deleting an elderly's Nok details.
+
+##### UC8: Add tags to an elderly
+
+**MSS**
+
+1. User requests to <u>list elderly ([UC1](#uc1-list-elderly))</u>.
+2. User requests to add tag to a specific elderly in the list based on index.
+3. NurseyBook adds the tag to the elderly.
+4. NurseyBook shows updated list of elderly and command success message.
+
+   Use case ends.
+
+**Extensions**
+* 2a. The given parameter is invalid.
+    * 2a1. NurseyBook shows an error message.
+
+      Use case resumes at step 1.
+
+* 2b. There are extra parameters not accepted by the command.
+    * 2b1. NurseyBook shows an error message.
+
+      Use case resumes at step 1.
+
+* 2c. Tag to add to elderly already exists.
+    * 2c1. NurseyBook shows an error message.
+
+      Use case resumes at step 1.
+* *a. At any time, user requests to <u>view help ([UC19](#uc19-viewing-help))</u>.
+
+##### UC9: Delete a tag from an elderly
+
+**MSS**
+
+1. User requests to <u>list elderly ([UC1](#uc1-list-elderly))</u>.
+2. User requests to delete tag from a specific elderly in the list based on index.
+3. NurseyBook deletes the tag from the elderly.
+4. NurseyBook shows updated list of elderly and command success message.
+
+   Use case ends.
+
+**Extensions**
+* 2a. The given parameter is invalid.
+    * 2a1. NurseyBook shows an error message.
+
+      Use case resumes at step 1.
+
+* 2b. There are extra parameters not accepted by the command.
+    * 2b1. NurseyBook shows an error message.
+
+      Use case resumes at step 1.
+
+* 2c. Tag to delete from elderly does not exist.
+    * 2c1. NurseyBook shows an error message.
+
+      Use case resumes at step 1.
+* *a. At any time, user requests to <u>view help ([UC19](#uc19-viewing-help))</u>.
+
+##### UC10: List elderly with queried tags
+
+**MSS**
+
+1. User requests to filter elderly based on queried tags.
 2. NurseyBook shows a list of elderly that have all the tags queried.
 
    Use case ends.
@@ -598,72 +781,20 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * 2a. The list of elderly is empty.
 
   Use case ends.
-  
-**UC3: Delete an elderly**
+* *a. At any time, user requests to <u>view help ([UC19](#uc19-viewing-help))</u>.
+
+##### UC11: Add remark about an elderly
 
 **MSS**
 
-1. User requests to <u>list elderly (UC1)</u>
-2. User requests to delete a specific elderly in the list based on the index.
-3. NurseyBook deletes the specified elderly.
+1. User requests to <u>list elderly ([UC1](#uc1-list-elderly))</u>.
+2. User requests to add a remark to a specific elderly in the list based on index.
+3. NurseyBook adds the remark to the elderly.
 4. NurseyBook shows updated list of elderly and command success message.
 
-    Use case ends.
+   Use case ends.
 
 **Extensions**
-* 2a. The given index is invalid.
-    * 2a1. NurseyBook shows an error message.
-
-      Use case resumes at step 1.
-
-**UC4: Delete an elderly's Nok details**
-
-Similar to <u>deleting an elderly (UC3)</u> but only deleting an elderly's Nok details.
-
-**UC5: Edit an elderly’s details**
-
-**MSS**
-
-1. User requests to <u>list elderly (UC1)</u>
-2. User requests to edit the details of a specific elderly in the list
-3. NurseyBook edits the details for the elderly
-4. NurseyBook shows updated list of elderly and command success message.
-
-    Use case ends.
-
-**Extensions**
-* 2a. The given parameter is invalid.
-    * 2a1. NurseyBook shows an error message.
-
-      Use case resumes at step 1.
-
-* 2b. There are extra parameters not accepted by the command.
-    * 2b1. NurseyBook shows an error message.
-
-      Use case resumes at step 1.
-* 2c. The edit does not cause any change in elderly's details.
-    * 2c1. NurseyBook shows an error message.
-    
-      Use case resumes at step 1.
-
-* 2d. The elderly's name already exists in the elderly database.
-    * 2d1. NurseyBook shows an error message.
-
-      Use case resumes at step 1.
-    
-**UC6: Add remark about an elderly**
-
-**MSS**
-
-1. User requests to <u>list elderly (UC1)</u>
-2. User requests to add a remark to a specific elderly in the list
-3. NurseyBook adds the remark to the elderly
-4. NurseyBook shows updated list of elderly and command success message.
-
-    Use case ends.
-
-**Extensions**
-
 * 2a. The given parameter is invalid.
     * 2a1. NurseyBook shows an error message.
 
@@ -676,89 +807,18 @@ Similar to <u>deleting an elderly (UC3)</u> but only deleting an elderly's Nok d
     * 2c1. NurseyBook shows an error message.
 
       Use case resumes at step 1.
+* *a. At any time, user requests to <u>view help ([UC19](#uc19-viewing-help))</u>.
 
-**UC7: Add tags to an elderly**
+#### Use cases of task commands
 
-**MSS**
-
-1. User requests to <u>list elderly (UC1)</u>
-2. User requests to add tag to a specific elderly in the list
-3. NurseyBook adds the tag to the elderly
-4. NurseyBook shows updated list of elderly and command success message.
-
-   Use case ends.
-
-**Extensions**
-
-* 2a. The given parameter is invalid.
-    * 2a1. NurseyBook shows an error message.
-
-      Use case resumes at step 1.
-
-* 2b. There are extra parameters not accepted by the command.
-    * 2b1. NurseyBook shows an error message.
-
-      Use case resumes at step 1.
-
-* 2c. Tag to add to elderly already exists.
-    * 2c1. NurseyBook shows an error message.
-
-      Use case resumes at step 1.
-
-**UC8: Delete a tag from an elderly**
-
-**MSS**
-
-1. User requests to <u>list elderly (UC1)</u>
-2. User requests to delete tag from a specific elderly in the list
-3. NurseyBook deletes the tag from the elderly
-4. NurseyBook shows updated list of elderly and command success message.
-
-    Use case ends.
-
-**Extensions**
-
-* 2a. The given parameter is invalid.
-    * 2a1. NurseyBook shows an error message.
-
-      Use case resumes at step 1.
-  
-* 2b. There are extra parameters not accepted by the command.
-    * 2b1. NurseyBook shows an error message.
-
-      Use case resumes at step 1.
-
-* 2c. Tag to delete from elderly does not exist.
-    * 2c1. NurseyBook shows an error message.
-
-      Use case resumes at step 1.
-    
-**UC9: View an elderly's details**
-
-**MSS**
-
-1. User requests to <u>list elderly (UC1)</u>
-2. User requests to view details of a specific elderly in the list based on the index.
-3. NurseyBook shows details of selected elderly and command success message.
-
-    Use case ends.
-
-**Extensions**
-* 2a. The given index is invalid.
-    * 2a1. NurseyBook shows an error message.
-
-      Use case resumes at step 1.
-
-**Use cases of task commands**
-
-**UC10: List tasks**
+##### UC12: List tasks
 1. User requests to list tasks.
 2. NurseyBook shows a list of tasks.
    
-    Use case ends.
+   Use case ends.
 
 **Extensions**
-* 1a. User requests to find tasks with matching keywords
+* 1a. User requests to find tasks with matching keywords.
     * 1a1. NurseyBook shows a list of tasks that matches the user's query (by description)
 
       Use case ends.
@@ -766,38 +826,42 @@ Similar to <u>deleting an elderly (UC3)</u> but only deleting an elderly's Nok d
 * 2a. The list of tasks is empty.
 
   Use case ends.
+* *a. At any time, user requests to <u>view help ([UC19](#uc19-viewing-help))</u>.
 
-**UC11: Delete a task**
+##### UC13: Add a task
+
+Similar to <u>adding an elderly ([UC2](#uc2-add-an-elderly))</u> but adding a task instead. A task takes in different parameters from adding an elderly.
+
+##### UC14: Delete a task
 
 **MSS**
 
-1. User requests to <u>list tasks (UC10)</u>
-2. User requests to delete a specific task in the list
-3. NurseyBook deletes the task
+1. User requests to <u>list tasks ([UC12](#uc12-list-tasks))</u>.
+2. User requests to delete a specific task in the list based on index.
+3. NurseyBook deletes the specified task.
 4. NurseyBook shows updated list of tasks and command success message.
 
     Use case ends.
 
 **Extensions**
-
 * 2a. The given index is invalid.
     * 2a1. NurseyBook shows an error message.
 
       Use case resumes at step 1.
+* *a. At any time, user requests to <u>view help ([UC19](#uc19-viewing-help))</u>.
 
-**UC12: Edit a task's details**
+##### UC15: Edit a task's details
 
 **MSS**
 
-1. User requests to <u>list tasks (UC10)</u>
-2. User requests to edit the details of a specific task in the list
-3. NurseyBook edits the details for the task
+1. User requests to <u>list tasks ([UC12](#uc12-list-tasks))</u>.
+2. User requests to edit the details of a specific task in the list based on index.
+3. NurseyBook edits the details for the task.
 4. NurseyBook shows updated list of task and command success message.
 
    Use case ends.
 
 **Extensions**
-
 * 2a. The given parameter is invalid.
     * 2a1. NurseyBook shows an error message.
 
@@ -822,34 +886,65 @@ Similar to <u>deleting an elderly (UC3)</u> but only deleting an elderly's Nok d
     * 2e1. NurseyBook shows an error message.
 
       Use case resumes at step 1.
-    
-**UC13: Mark a task as complete**
+* *a. At any time, user requests to <u>view help ([UC19](#uc19-viewing-help))</u>.
+
+##### UC16: Mark a task as complete
 
 **MSS**
 
-1. User requests to <u>list tasks (UC10)</u>
-2. User requests to mark a specific task in the list as complete
-3. NurseyBook marks task as complete
+1. User requests to <u>list tasks ([UC12](#uc12-list-tasks))</u>.
+2. User requests to mark a specific task in the list as complete based on index.
+3. NurseyBook marks task as complete.
 4. NurseyBook shows updated list of tasks and command success message.
 
     Use case ends.
 
 **Extensions**
-
 * 2a. The given index is invalid.
-
     * 2a1. NurseyBook shows an error message.
 
       Use case resumes at step 1.
 * 2b. The task is already marked as completed.
-
     * 2b1. NurseyBook shows an error message.
 
       Use case resumes at step 1.
+* *a. At any time, user requests to <u>view help ([UC19](#uc19-viewing-help))</u>.
 
-**Use cases of miscellaneous commands**
+##### UC17: Find a task
 
-**UC14: Undo a previous command**
+Similar to <u>finding an elderly ([UC5](#uc5-find-an-elderly))</u> but finding a task instead. A task will be shown (as part of the filtered task list) if its description contains the entered keywords.
+
+##### UC18: View the schedule on a day
+
+**MSS**
+
+1. User requests to view his/her schedule on a date.
+2. NurseyBook shows the list of tasks scheduled to happen on the date.
+
+   Use case ends.
+
+**Extensions**
+* 1a. The given date is in an invalid format.
+    * 1a1. NurseyBook shows an error message.
+
+      Use case resumes at step 1.
+* 2a. There are no tasks scheduled on that date.
+
+     Use case ends.
+* *a. At any time, user requests to <u>view help ([UC19](#uc19-viewing-help))</u>.
+
+#### Use cases of miscellaneous commands
+
+##### UC19: Viewing help
+
+**MSS**
+
+1. User requests for help.
+2. NurseyBook opens a new window that contains a summary of the commands as well as a link to the online user guide.
+
+   Use case ends.
+
+##### UC20: Undo a previous command
 
 **MSS**
 1. User requests to undo a previous command.
@@ -862,8 +957,9 @@ Similar to <u>deleting an elderly (UC3)</u> but only deleting an elderly's Nok d
   * 1a1. NurseyBook shows an error message.
 
     Use case ends.
+* *a. At any time, user requests to <u>view help ([UC19](#uc19-viewing-help))</u>.
 
-**UC15: Redo a previously undone command**
+##### UC21: Redo a previously undone command
 
 **MSS**
 1. User requests to redo a previous undone command.
@@ -876,8 +972,7 @@ Similar to <u>deleting an elderly (UC3)</u> but only deleting an elderly's Nok d
     * 1a1. NurseyBook shows an error message.
 
       Use case ends.
-  
-*{More to be added}*
+* *a. At any time, user requests to <u>view help ([UC19](#uc19-viewing-help))</u>.
 
 ### Non-Functional Requirements
 
@@ -913,14 +1008,32 @@ testers are expected to do more *exploratory* testing.
 
    1. Download the jar file and copy into an empty folder
 
-   2. Double-click the jar file Expected: Shows the GUI with a set of sample elderlies. The window size may not be optimum.
+   2. Double-click the jar file <br>
+      Expected: Shows the GUI with a set of sample elderlies. The window size may not be optimum.
 
 2. Saving window preferences
 
    1. Resize the window to an optimum size. Move the window to a different location. Close the window.
 
-   2. Re-launch the app by double-clicking the jar file.<br>
+   2. Re-launch the app by double-clicking the jar file. <br>
        Expected: The most recent window size and location is retained.
+
+### Adding a elderly
+
+1. Adding an elderly to NurseyBook
+
+   1. Test case: `addElderly en/Khong Guan a/80 g/M r/10` <br>
+      Expected: Display (switches to) the full list of elderly added to NurseyBook. New elderly with parameters is created.
+   
+   2. Test case: `addElderly en/Alice John a/85 r/2 g/F nn/Mary John rs/Sister e/mj@example.com t/diabetes` <br>
+      Expected: Display (switches to) the full list of elderly added to NurseyBook. New elderly with parameters is created.
+   
+   3. Test case: `addElderly en/khong guan a/55 g/M r/15` <br>
+      Expected: No elderly is added, and the display within NurseyBook stays the same (i.e. If the current display is a list of tasks, it stays on the same list of tasks.). Error details shown in the status message. <br>
+      Note: This test case must be executed only after you have executed test case 1. 
+   
+   4. Other incorrect `addElderly` commands to try: `addElderly en/Desmond Lim r/30 a/10 g/M`, `addElderly en/John Wick r/30 a/50 g/W`, `addElderly`, `...` (with missing compulsory parameters or unaccepted values entered) <br>
+      Expected: Similar to previous
    
 
 ### Deleting a elderly
@@ -929,33 +1042,44 @@ testers are expected to do more *exploratory* testing.
 
    1. Prerequisites: List all elderlies using the `viewElderly` command. Multiple elderlies in the list.
 
-   2. Test case: `deleteElderly 1`<br>
-      Expected: First elderly is deleted from the list. Details of the deleted elderly shown in the status message.
+   2. Test case: `deleteElderly 1` <br>
+      Expected: First elderly is deleted from the list. Details of the deleted elderly are shown in the status message.
 
-   3. Test case: `deleteElderly 0`<br>
+   3. Test case: `deleteElderly 0` <br>
       Expected: No elderly is deleted. Error details shown in the status message.
 
-   4. Other incorrect `deleteElderly` commands to try: `deleteElderly`, `deleteElderly x`, `...` (where x is larger than the list size)<br>
+   4. Other incorrect `deleteElderly` commands to try: `deleteElderly`, `deleteElderly x`, `...` (where x is larger than the list size) <br>
       Expected: Similar to previous.
 
 ### Adding a task
 
 1. Adding a task to NurseyBook
     
-    1. Prerequisites: Add an elderly with name 'Khong Guan' to NurseyBook
-    2. Test case: `addTask en/Khong Guan desc/Weekly Taiji date/2022-10-10 time/14:30 recur/week`<br>
-        Expected: New task with the parameters is created. It is a one-off task and recurrence is 'Week'.
-    3. Test case: `addTask en/Khong Guan desc/Weekly Taiji date/2021-10-10 time/14:30`<br>
-       Expected: New task with the parameters is created. It is a one-off task and recurrence is 'None'. Task has an 'Overdue' tag.
-    4. Test case: `addTask en/Benny desc/Weekly Taiji date/2022-10-10 time/14:30`<br>
-        Expected: No task is added. Error details shown in the status message.
-    5. Other incorrect `addTask` commands to try: `addTask en/Khong Guan desc/Weekly Taiji date/2021-10-10 time/14:30 recur/week`,`addTask`, `addTask desc/Weekly Taiji`, `...` (with missing compulsory parameters)<br>
-        Expected: Similar to previous
+    1. Prerequisites: Add an elderly with name 'Khong Guan' to NurseyBook.
+    
+    2. Test case: `addTask en/Khong Guan desc/Weekly Taiji date/2022-10-10 time/14:30 recur/week` <br>
+       Expected: New task with the parameters is created. It is a one-off task and recurrence is 'Week'.
+   
+    3. Test case: `addTask en/Khong Guan desc/Weekly Taiji date/2021-10-10 time/14:30` <br>
+       Expected: New task with the parameters is created. It is a one-off task and recurrence is 'None'. Task has an 'Overdue' tag. <br>
+       Test case 2 has a different date and type of recurrence compared to that in test case 1, thus is added.
+   
+    4. Test case: `addTask en/Benny desc/Weekly Taiji date/2022-10-10 time/14:30` <br>
+       Expected: No task is added. Error details shown in the status message.
+   
+    5. Other incorrect `addTask` commands to try: `addTask en/Khong Guan desc/Weekly Taiji date/2021-10-10 time/14:30 recur/week`,`addTask`, `addTask desc/Weekly Taiji`, `...` (with missing compulsory parameters) <br>
+       Expected: Similar to previous
 
 ### Saving data
 
 1. Dealing with missing/corrupted data files
 
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
-
-1. _{ more test cases …​ }_
+   1. Make sure that there is a `./data/nurseybook.json` file. <br>
+      If not, open the application (the jar file) and make some changes (e.g. `addTask desc/visit the dentist date/2022-01-01 time/12:00`) and close the app (by typing in the `exit` command or clicking on the close button).
+   
+   2. Open `./data/nurseybook.json` in a text editor.
+   
+   3. Remove the starting `{` character of the JSON file and save the file.
+   
+   4. Launch the app by running `java -jar NurseyBook.jar` in the console. <br>
+      Expected: The GUI should pop up with no entries. The console should give warnings about incorrect data format (due to the removal of the `{` character at the start of the `nurseybook.json` file).
