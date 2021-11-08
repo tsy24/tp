@@ -14,6 +14,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import nurseybook.model.person.Elderly;
 import nurseybook.model.person.Name;
+import nurseybook.model.person.UniqueElderlyList;
 import nurseybook.model.task.exceptions.DuplicateTaskException;
 import nurseybook.model.task.exceptions.TaskNotFoundException;
 
@@ -122,6 +123,21 @@ public class UniqueTaskList implements Iterable<Task> {
      * {@code target} must exist in NurseyBook.
      * The elderly identity of {@code editedElderly} must not be the same as another existing elderly in NurseyBook.
      */
+    public boolean doTasksContainValidNames(UniqueElderlyList elderlies) {
+        for (Task t: internalList) {
+            if (!t.isRelatedNamesValid(elderlies)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Updates the given elderly {@code target}'s name for all tasks in the list that contains that name
+     * with {@code editedElderly}'s name.
+     * {@code target} must exist in NurseyBook.
+     * The elderly identity of {@code editedElderly} must not be the same as another existing elderly in NurseyBook.
+     */
     public void updateElderlyNameInTasks(Elderly target, Elderly editedElderly) {
         // modifying list contents within foreach loop not allowed. Thus, this for loop is used
         int size = internalList.size();
@@ -216,6 +232,8 @@ public class UniqueTaskList implements Iterable<Task> {
      * starting from current date.
      */
     private GhostTask createPossibleFutureTaskWithMatchingDate(RealTask task, LocalDate keyDate) {
+        assert task.isTaskRecurring();
+
         //interval between task occurrences depending on RecurrenceType.
         int interval = task.getRecurrenceIntervalInDays();
 

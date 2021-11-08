@@ -7,8 +7,8 @@ title: tsy24's Project Portfolio Page
 
 #### Overview
 
-NurseyBook is a desktop application made for nurses in nursing homes to aid them in managing contacts and tasks in their busy lives. The user interacts with it using Command Line Interface (CLI),
-and it still has the benefits of a Graphical User Interface (GUI) created with JavaFX. It is written in Java, and has about 17 kLoC.
+NurseyBook is a desktop application made for nurses in nursing homes to aid them in managing contacts and tasks in their busy lives.
+It is part of a team project for CS2103T Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 19 kLoC.
 
 #### Summary of Contributions
 
@@ -38,6 +38,7 @@ Given below are my contributions to the project.
     * User Guide:
         * Added documentation for the features `filter`, `addTag`, `deleteTag`, `undo` and `redo` (Pull requests [\#43](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/43), [\#113](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/113))
         * Did cosmetic tweaks to existing documentation (Pull requests [\#233](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/233), [\#240](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/240))
+        * Added page breaks to format the user guide for PDF conversion (Pull request [\#267](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/267))
     * Developer Guide:
         * Added implementation details of the `filter`, `undo` and `redo` feature. (Pull requests [\#102](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/102), [\#113](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/113))
         * Updated the UML diagrams and description of the architecture of the application (Pull request [\#236](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/236))
