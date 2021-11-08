@@ -17,7 +17,6 @@ Given below are my contributions to the project.
 * **Code contributed**: Around 5 kLoC contribution to the project. [Reposense link](https://nus-cs2103-ay2122s1.github.io/tp-dashboard/?search=f13&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code~other&since=2021-09-17&tabOpen=true&tabType=authorship&tabAuthor=xiongjya&tabRepo=AY2122S1-CS2103T-F13-2%2Ftp%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=docs~functional-code~test-code~other&authorshipIsBinaryFileTypeChecked=false)
 
 
-
 * **New Feature**: Added the ability to add remarks to elderly contacts.
     * What it does: Allows the user to add additional notes in the form of a remark, to each elderly contact that has been added into NurseyBook.
     * Justification: Instead of using other applications/pen or paper to take down additional notes for each elderly, the user can keep track of such information within the application itself. There will be no need for the user to switch between different applications.
@@ -53,6 +52,7 @@ Given below are my contributions to the project.
     * Developer Guide:
         * Added implementation details of the `viewElderly` and `findTask` features (Pull requests [\#99](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/99), [\#107](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/107)).
         * Added user stories and use cases. (Pull requests [\#42](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/42), [\#95](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/95)).
+        * Main in-charge and reviewer of the Developer Guide
         
 
 * **Community**:

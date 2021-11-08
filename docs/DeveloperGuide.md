@@ -335,9 +335,7 @@ Listed below are some situations and corresponding implementations where the ove
 4. User edits non-recurring `Task` with a future `DateTime` to a passed `DateTime`
     * Mark `Status#isOverdue` to `true`.
 
-<p align="center">
-    <img src="images/HandleOverdueAndRecurringTasksActivityDiagram.png" width="450"/>
-</p>
+<img src="images/HandleOverdueAndRecurringTasksActivityDiagram.png" width="450"/>
 
 For each `Task` in NurseyBook, it will go through this cycle of checks to ensure their `DateTime` and `Status` are updated accordingly.
 
