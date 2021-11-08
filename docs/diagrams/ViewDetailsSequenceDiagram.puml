@@ -7,65 +7,57 @@ participant ":ElderlyDetailsPanel" as ElderlyDetailsPanel LOGIC_COLOR
 end box
 
 box Logic LOGIC_COLOR_T1
-participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant "d:ViewDetailsCommand" as ViewDetailsCommand LOGIC_COLOR
-participant ":CommandResult" as CommandResult LOGIC_COLOR
+participant ":Logic" as Logic LOGIC_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
 end box
 
-[-> MainWindow : new ActionEvent()
+[-> MainWindow : executeCommand("viewDetails 1")
 activate MainWindow
 
-MainWindow -> LogicManager : execute("viewDetails 1")
-activate LogicManager
+MainWindow -> Logic : execute("viewDetails 1")
+activate Logic
 
-create ViewDetailsCommand
-LogicManager -> ViewDetailsCommand : parseCommand()
-activate ViewDetailsCommand
-
-ViewDetailsCommand --> LogicManager
-deactivate ViewDetailsCommand
-
-LogicManager -> ViewDetailsCommand : execute()
-activate ViewDetailsCommand
-
-ViewDetailsCommand -> Model : setElderlyOfInterest(elderly)
+Logic -> Model : setElderlyOfInterest(elderly)
 activate Model
 
-Model --> ViewDetailsCommand
+Model --> Logic
 deactivate Model
 
 create CommandResult
-ViewDetailsCommand -> CommandResult
+Logic -> CommandResult
 activate CommandResult
 
-CommandResult --> ViewDetailsCommand : result
+CommandResult --> Logic
 deactivate CommandResult
 
-ViewDetailsCommand --> LogicManager : result
-deactivate ViewDetailsCommand
-destroy ViewDetailsCommand
+Logic --> MainWindow : result
+deactivate Logic
 
-LogicManager --> MainWindow
-deactivate LogicManager
+MainWindow --> CommandResult : isViewDetails()
+activate CommandResult
+
+CommandResult --> MainWindow : true
+deactivate CommandResult
+destroy CommandResult
 
 MainWindow --> MainWindow : handleViewDetails()
 activate MainWindow
 
-MainWindow -> LogicManager : getElderlyOfInterest()
-activate LogicManager
+MainWindow -> Logic : getElderlyOfInterest()
+activate Logic
 
-LogicManager -> Model : getElderlyOfInterest()
+Logic -> Model : getElderlyOfInterest()
 activate Model
 
-Model --> LogicManager : elderly
+Model --> Logic : elderly
 deactivate Model
 
-LogicManager -> MainWindow : elderly
-deactivate LogicManager
+Logic -> MainWindow : elderly
+deactivate Logic
 
 create ElderlyDetailsPanel
 MainWindow --> ElderlyDetailsPanel : elderly
