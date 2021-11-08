@@ -831,6 +831,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
    Use case ends.
 
+<div style="page-break-after: always;"></div>
+
 **Extensions**
 * 2a. The given parameter is invalid.
     * 2a1. NurseyBook shows an error message.
@@ -875,6 +877,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
    Use case ends.
 
+<div style="page-break-after: always;"></div>
+
 **Extensions**
 * 2a. The given index is invalid.
     * 2a1. NurseyBook shows an error message.
@@ -913,6 +917,8 @@ Similar to <u>deleting an elderly (<a href="#uc3-delete-an-elderly">UC3</a>)</u>
 
       Use case resumes at step 1.
 * *a. At any time, user requests to <u>view help (<a href="#uc19-viewing-help">UC19</a>)</u>.
+
+<div style="page-break-after: always;"></div>
 
 ##### UC9: Delete a tag from an elderly
 
@@ -956,6 +962,9 @@ Similar to <u>deleting an elderly (<a href="#uc3-delete-an-elderly">UC3</a>)</u>
     * 1a1. NurseyBook shows an error message.
 
       Use case resumes at step 1.
+
+<div style="page-break-after: always;"></div>
+
 * 1b. There are extra parameters not accepted by the command.
     * 1b1. NurseyBook shows an error message.
 
@@ -999,6 +1008,8 @@ Similar to <u>deleting an elderly (<a href="#uc3-delete-an-elderly">UC3</a>)</u>
    
    Use case ends.
 
+<div style="page-break-after: always;"></div>
+
 **Extensions**
 * 1a. User requests to <u>find tasks with matching keywords(<a href="#uc17-find-a-task">UC17</a>)</u>.
 
@@ -1039,6 +1050,8 @@ Similar to <u>adding an elderly (<a href="#uc2-add-an-elderly">UC2</a>)</u> but 
 4. NurseyBook shows updated list of task and command success message.
 
    Use case ends.
+
+<div style="page-break-after: always;"></div>
 
 **Extensions**
 * 2a. The given parameter is invalid.
@@ -1084,6 +1097,8 @@ Similar to <u>finding an elderly (<a href="#uc5-find-an-elderly">UC5</a>)</u> bu
 
    Use case ends.
 
+<div style="page-break-after: always;"></div>
+
 **Extensions**
 * 1a. The given date is in an invalid format.
     * 1a1. NurseyBook shows an error message.
@@ -1123,6 +1138,8 @@ Similar to <u>finding an elderly (<a href="#uc5-find-an-elderly">UC5</a>)</u> bu
 
     Use case ends.
 * *a. At any time, user requests to <u>view help (<a href="#uc19-viewing-help">UC19</a>)</u>.
+
+<div style="page-break-after: always;"></div>
 
 ##### UC21: Redo a previously undone command
 
@@ -1237,8 +1254,6 @@ testers are expected to do more *exploratory* testing.
    4. Invalid commands to try (Error details shown in the status message):
       * Invalid index >= size of elderly list or <= 0: `deleteElderly 5` or `deleteElderly -1`
 
-<div style="page-break-after: always;"></div>
-
 ### Edit an elderly
 
 1. Editing an elderly from NurseyBook
@@ -1299,14 +1314,12 @@ testers are expected to do more *exploratory* testing.
     3. Invalid commands to try (Error details shown in the status message):
         * Invalid index >= size of elderly list, or <= 0: `deleteNok 5` or `deleteNok -1`
 
-<div style="page-break-after: always;"></div>
-
 ### Add tags to an elderly
 
 1. Add one or more tags to an elderly in NurseyBook
 
     1. Prerequisites: List all elderlies using the `viewElderly` command. Multiple elderlies in the list. The first elderly in the list has one `diabetes` tag.
-
+    <div style="page-break-after: always;"></div>
     2. Test case: `addTag 1 t/hypertension`<br>
        Expected: `hypertension` tag is added to the first elderly in the list.
    
@@ -1399,17 +1412,16 @@ testers are expected to do more *exploratory* testing.
    
     3. Test case: `addTask en/Khong Guan desc/Weekly Taiji date/2021-10-10 time/14:30` <br>
        Expected: New task with the parameters is created. Details of the added task is shown in the status message. It is a one-off task and recurrence is 'None'. Task has an 'Overdue' tag. <br>
+   
        Test case 2 has a different date and type of recurrence compared to that in test case 1, thus is added.
    
     4. Test case: `addTask en/Benny desc/Weekly Taiji date/2022-10-10 time/14:30` <br>
        Expected: No task is added. Error details shown in the status message. 
-   
+   <div style="page-break-after: always;"></div>
     5. Invalid commands to try (Error details shown in the status message): <br>
        * Elderly does not exist in elderly database: `addTask 1 desc/Covid Shot en/Charlotte` (assuming Charlotte does not exist in the elderly database) <br>
        * Fields are the same as another task: `addTask 1 desc/Covid Shot date/2022-10-31 time/18:00 en/Bernice Yu` (assuming there is another task with the exact same description, date, time and elderly names) <br>
        * Date of a recurring task is past current date and time: `addTask 1 date/2021-10-10 recur/week`
-
-<div style="page-break-after: always;"></div>
 
 ### Delete a task
 
@@ -1437,14 +1449,12 @@ testers are expected to do more *exploratory* testing.
    
     4. Test case: `editTask 1 recur/day`<br>
        Expected: Task's recurrence type is changed from none to day. Details of the edited task is shown in the status message.
-   
+   <div style="page-break-after: always;"></div>
     5. Invalid commands to try (Error details shown in the status message): <br>
        * Invalid index >= size of task list or <= 0: `editTask 5` or `editTask -1` <br>
        * Edited elderly does not exist in database: `editTask 1 en/Charlotte` <br>
        * Edited fields are the same as the original fields or of another task: `editTask 1 desc/Covid Shot` <br>
        * Edited date of a recurring task is past current date and time: `editTask 1 date/2021-10-10 recur/week`
-
-<div style="page-break-after: always;"></div>
 
 ### Find a task
 
@@ -1467,7 +1477,9 @@ testers are expected to do more *exploratory* testing.
    
     3. Invalid commands to try (Error details shown in the status message):
        * Invalid index >= size of task list or <= 0: `doneTask 5` or `doneTask -1`
-       
+
+<div style="page-break-after: always;"></div>
+
 ### Remind
 
 1. Viewing tasks that are coming up within the next three days. e.g. If today is 2021-11-12, tasks up to and including 2021-11-15 will be displayed.
@@ -1503,7 +1515,7 @@ testers are expected to do more *exploratory* testing.
 
     5. Test case - a week ahead:`viewSchedule 2021-11-19` <br>
        Expected: Task B should be displayed. Date of Task B in this display should be `2021-11-19`.
-
+<div style="page-break-after: always;"></div>
     6. Invalid commands to try (Error details shown in the status message):
         * Date input has already passed: `viewSchedule 2021-11-11`
         * Date input is beyond 12 weeks from today's date: `viewSchedule 2022-10-11`
@@ -1605,8 +1617,6 @@ Apart from simply evolving the address book from AB3 into an address book for nu
 those of the address book, such as being able to link elderlies from the address book to tasks created. This was an effort made to make our product truly unique and effective in solving the problems faced by our target market. Hence, in effect, we had to develop two
 systems within the timeframe, and integrate them to make NurseyBook what it is today.
 
-<br>
-
 #### 2. Refactoring of Person and Adding of Task models
 In order to support the `Elderly` and `Nok` classes, a refactoring of the `Person` class is needed to accommodate these two kinds of persons.
 
@@ -1618,8 +1628,6 @@ The implementation of AB3’s command processing and display of elements, in an 
 
 As a result, we had to integrate all these models with the existing code to save persons and tasks to a data file in NurseyBook. This required the creation of many classes and major refactoring of existing classes to support multiple models.
 
-<br>
-
 #### 3. Redesigned GUI
 Compared to AB3, NurseyBook has nearly double the number of UI components.
 
@@ -1629,9 +1637,7 @@ Next, though we wanted to keep NurseyBook as close to a command line interface (
 
 Additionally, each of the UI components is responsive and works on a large range of screen sizes. We took multiple tries to make sure that the display of elderly contacts could be easily viewed despite the variation in the window size of the application used.
 
-Furthermore, to allow for a better user experience, we restricted the scrolling of components to be either horizontal or vertical. We wanted to offer a cleaner user interface and better user experience through easy to use features, especially for our busy target users - nurses working in nursing homes. 
-
-<br>
+Furthermore, to allow for a better user experience, we restricted the scrolling of components to be either horizontal or vertical. We wanted to offer a cleaner user interface and better user experience through easy to use features, especially for our busy target users - nurses working in nursing homes.
 
 #### 4. Undo/Redo
 The implementation of the `undo` and `redo` features in NurseyBook was adapted from the [SE-EDU AddressBook Level 4](https://github.com/se-edu/addressbook-level4). However, we wanted our undo/redo feature to show users what command is being undone/redone. This meant that we had to modify the implementation such that the command result of the commands are also saved. The modification allows NurseyBook to display the command message of the command being undone or redone, giving users more information on what is the change in data. Furthermore, for commands that switch to display a particular list, we have implemented it such that undoing or redoing such commands will also change the list displayed. For example, undoing an `addTask` command will cause the task list to be displayed.
