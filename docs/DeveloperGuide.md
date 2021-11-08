@@ -433,7 +433,7 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 **Aspect: How undo & redo executes:**
 
-* **Alternative 1:** Saves the entire nursey book.
+* **Alternative 1 (current choice):** Saves the entire nursey book.
   * Pros: Easy to implement.
   * Cons: May have performance issues in terms of memory usage as copies of the entire nursey book are saved.
 
@@ -441,7 +441,7 @@ The following activity diagram summarizes what happens when a user executes a ne
   * Pros: Will use less memory (e.g. for `deleteElderly`, just save the elderly being deleted).
   * Cons: We must ensure that the implementation of each individual command are correct.
 
-**Decision:** Alternative 1 was chosen as there are many commands that change the data of the nursey book. 
+Alternative 1 was chosen as there are many commands that change the data of the nursey book. 
 With alternative 1, all these commands will go through the same activity of saving the nursey book state instead of having different activity flow for undoing or redoing each command, making it easier to maintain.
 
 **Aspect: What to save:**
@@ -450,11 +450,11 @@ With alternative 1, all these commands will go through the same activity of savi
     * Pros: Easy to implement.
     * Cons: No information on the commands that changed the data of the nursey book.
 
-* **Alternative 2:** Save the nursey book and the command result.
+* **Alternative 2 (current choice):** Save the nursey book and the command result.
     * Pros: Information on the command that changed the data of the nursey book is saved.
     * Cons: More memory usage as more information needs to be saved and increases dependency between classes.
 
-**Decision:** Alternative 2 was chosen as we feel that it is helpful to store information on the command that changed the data of the nursey book.
+Alternative 2 was chosen as we feel that it is helpful to store information on the command that changed the data of the nursey book.
 This way, when users execute the undo/redo command, information on the command that is being undone/redone is also available and can be shown to the user. 
 The relevant user interface is also displayed to the user as the `ListDisplayChange` is in the command result saved. 
 For example, when a user undoes an `addElderly` command, the user interface will toggle to the list of elderly based on the command result saved, showing the user the change.
@@ -537,7 +537,7 @@ The following class diagram shows the changes made to the `CommandResult` class.
 * `CommandResult#ListDisplayChange.TASK` — Specifies the task list to be displayed after the current command execution
 * `CommandResult#ListDisplayChange.NONE` — Specifies the type of displayed list should not change after the current command execution
 
-<img src="images/ViewElderlyClassDiagram.png" alt="View Elderly Class Diagram" width="280" />
+<img src="images/ViewElderlyClassDiagram.png" alt="View Elderly Class Diagram" width="200" />
 
 #### How `MainWindow` processes `CommandResult`
 
@@ -598,6 +598,7 @@ The following sequence diagram shows how this operation works but leaves out the
 ![ViewDetailsSequenceDiagram](./images/ViewDetailsSequenceDiagram.png)
 
 Parsing works similar to [`doneTask`](#mark-a-task-as-done-feature) feature above: a `ViewDetailsCommandParser` parses the Index which is passed to the `ViewDetailsCommand`. The Index identifies the elderly whose full details should be shown.
+
 #### Design considerations:
 
 **Aspect: How to display pass an elderly object to UI**
