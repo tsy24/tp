@@ -503,10 +503,10 @@ GhostTasks are temporary tasks that exist for the purpose of allowing the user t
 By default, `viewTasks` will only show RealTasks.
 
 
-Since `UniqueTaskList` contains `Task` objects, it can be either `GhostTask` or `RealTask` objects. Naturally, this implies that calling two commands that both have dependencies on GhostTask objects would cause conflicts, as earlier created GhostTasks
-would still persist in the task list. This necessitates a cleanup of `GhostTask` objects between execution of each command. Such deletion of old GhostTasks in the `model` is achieved just prior to the execution of each new command in `LogicManager`, via the `deleteGhostTasks()` method.
+Since `UniqueTaskList` contains `Task` objects, it can be either `GhostTask` or `RealTask` objects. Naturally, this implies that calling two commands that both create and display GhostTasks would cause the latter command to incorrectly display GhostTasks created by the first command as well,
+since all GhostTasks would still persist in the main `UniqueTaskList`. This necessitates a cleanup of `GhostTask` objects between execution of each command. Such deletion of old GhostTasks in the `Model` is achieved just prior to the execution of each new command in `LogicManager`, via the `deleteGhostTasks()` method.
 
-Code Snippet of the `execute(String commandText)` method in `LogicManager`:
+Code snippet of the `execute(String commandText)` method in `LogicManager`:
 ```
 @Override
 public CommandResult execute(String commandText) throws CommandException, ParseException {
@@ -533,7 +533,7 @@ Given below is an activity diagram that summarizes the sequence of  checks and a
 
 ![AddPossibleGhostTasksWithMatchingDateActivityDiagram](./images/AddPossibleGhostTasksWithMatchingDateActivityDiagram.png)
 
-Since the remaining general mechanisms by which the view schedule operation occurs is similar to other previously elaborated commands, a step-by-step elaboration is not given for the overall execution.
+Since the remaining general mechanisms by which the view schedule operation occurs, such as how the command is parsed and how the `ViewScheduleCommand` is created,  is similar to other previously elaborated commands, a step-by-step elaboration is not given for the overall execution.
 
 <br>
 
@@ -546,17 +546,26 @@ Since the remaining general mechanisms by which the view schedule operation occu
     * Pros: Clearer classification of Task types. Polymorphism can be used to handle `RealTask` and `GhostTask` objects respectively.
     * Cons: All code for existing `Task` objects needs to be refactored. More code needs to be written, which could result in more room for bugs.
 
-**Decision:** Alternative 2 was chosen as although Alternative 1 is simpler to implement, Alternative 1 has poor encapsulation of real and temporary task objects. `GhostTasks` need to be handled differently
+**Decision:**
+Alternative 2 was chosen as although Alternative 1 is simpler to implement, Alternative 1 has poor encapsulation of real and temporary task objects. `GhostTasks` need to be handled differently
 from `RealTasks`, as we do not want to expose them to the user. Hence, it makes more sense to encapsulate it as a separate class, even though more code needs to be refactored, written and tested.
 This also keeps the data stored in the hard disk smaller, as there is no unnecessary field to keep track of whether a task is real or not.
 
 <br>
 
-**Aspect: Searching of future occurrences of recurring tasks :**
-
+**Aspect: Searching of future occurrences of recurring tasks:**
 With recurring tasks, they can imply the existence of infinite potential future occurrences. Consequently, users could input dates well beyond reasonable amounts, such as centuries into
 the future. However, it is not sensible nor feasible to search for such extraneous lengths of time. Hence, the maximum number of time that a user can view schedule on a future date has been
 capped to 12 weeks, or 84 days, from the current date.
+
+<br>
+
+**Aspect: Viewing of schedule on dates that have passed already:**
+For viewing schedule on a date that has passed already, there is no issue if the tasks that fall on the date are only non-recurring. The complication arises when recurring tasks are involved.
+If we were to potentially implement checking of recurring tasks into the past, that would raise concerns such as whether the task should be marked as overdue or not, and whether it should be marked
+as done. Due to too much ambiguity involving the representation of recurring tasks in the past, we have decided to disable the option to view schedule of past dates entirely. In any case,
+it does not have much value for the context of NurseyBook's purposes as well.
+
 
 --------------------------------------------------------------------------------------------------------------------
 
