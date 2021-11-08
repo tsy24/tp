@@ -7,6 +7,8 @@ title: User Guide
 {:toc}
 
 --------------------------------------------------------------------------------------------------------------------
+<div style="page-break-after: always;"></div>
+
 ## 1. Introduction
 
 NurseyBook is a **desktop app made for nurses in nursing homes to aid them in managing contacts and tasks in their busy lives. It is optimized for use via a Command Line Interface** (CLI) while still **having the benefits of a Graphical User Interface** (GUI). If you can type fast, NurseyBook can help you manage your contacts & tasks faster than traditional GUI apps! :smile:
@@ -43,6 +45,8 @@ Refer to the [4. Features](#4-features) below for in-depth details of all availa
 
 
 --------------------------------------------------------------------------------------------------------------------
+<div style="page-break-after: always;"></div>
+
 ## 3. About
 
 ### 3.1 Structure of this document
@@ -173,6 +177,7 @@ Parameter | Description
 `TIME` | Time that a task is scheduled to occur from. It should be in the format of hh:mm in 24 hour clock.
 
 --------------------------------------------------------------------------------------------------------------------
+<div style="page-break-after: always;"></div>
 
 ## 4. Features
 
@@ -691,6 +696,7 @@ Exits the program.
 Format: `exit`
 
 --------------------------------------------------------------------------------------------------------------------
+<div style="page-break-after: always;"></div>
 
 ## 5. Storage
 
@@ -726,6 +732,7 @@ that contains the data of your previous NurseyBook home folder.
 There is no need to save manually.
 
 --------------------------------------------------------------------------------------------------------------------
+<div style="page-break-after: always;"></div>
 
 ## 7. Command summary
 
