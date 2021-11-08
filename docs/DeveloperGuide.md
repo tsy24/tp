@@ -689,6 +689,7 @@ For example, when a user undoes an `addElderly` command, the user interface will
 * [DevOps guide](DevOps.md)
 
 --------------------------------------------------------------------------------------------------------------------
+<div style="page-break-after: always;"></div>
 
 ## **Appendix A: Requirements**
 
@@ -745,6 +746,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* *`    | new nurse                   | easily understand how to view necessary information           | not feel overwhelmed and confused                                                                                                                |
 | `* `     | nurse                       | color-code my tasks                                           | differentiate between the tasks more easily                                                                                                      |
 | `* `     | user                        | alternate between light/dark mode                             | have an aesthetically pleasing UI                                                                                                                |
+
+<div style="page-break-after: always;"></div>
 
 ### Use cases
 
@@ -1154,6 +1157,7 @@ Similar to <u>finding an elderly (<a href="#uc5-find-an-elderly">UC5</a>)</u> bu
 * **GUI driven application**: Graphical user interface where users interact with the system through visual representations such as buttons and icons.
 
 --------------------------------------------------------------------------------------------------------------------
+<div style="page-break-after: always;"></div>
 
 ## **Appendix B: Instructions for manual testing**
 
@@ -1233,6 +1237,8 @@ testers are expected to do more *exploratory* testing.
    4. Invalid commands to try (Error details shown in the status message):
       * Invalid index >= size of elderly list or <= 0: `deleteElderly 5` or `deleteElderly -1`
 
+<div style="page-break-after: always;"></div>
+
 ### Edit an elderly
 
 1. Editing an elderly from NurseyBook
@@ -1264,6 +1270,8 @@ testers are expected to do more *exploratory* testing.
     2. Test case: `findElderly charlotte yu` <br>
        Expected: Lists all elderlies whose names contain the keywords "charlotte", or "yu", or both. Number of elderlies found is shown in the status message.
 
+<div style="page-break-after: always;"></div>
+
 ### View full details of an elderly.
 
 1. Viewing full details of an elderly.
@@ -1290,6 +1298,8 @@ testers are expected to do more *exploratory* testing.
 
     3. Invalid commands to try (Error details shown in the status message):
         * Invalid index >= size of elderly list, or <= 0: `deleteNok 5` or `deleteNok -1`
+
+<div style="page-break-after: always;"></div>
 
 ### Add tags to an elderly
 
@@ -1329,7 +1339,9 @@ testers are expected to do more *exploratory* testing.
         * Deleting a tag that the elderly does not have: `deleteTag 2 t/hypertension`
         * Missing parameters: `deleteTag` or `deleteTag 1`
         * Additional parameters: `deleteTag 1 en/Alex Yeoh`
-        
+
+<div style="page-break-after: always;"></div>
+
 ### Filter elderlies based on tags
 
 1. Filtering elderlies in NurseyBook based on their tags
@@ -1360,6 +1372,8 @@ testers are expected to do more *exploratory* testing.
         * `remark 1 re/` again after removing the remark of the first elderly in the list
         * Invalid index >= size of elderly list or <= 0: `remark 0 re/loves eggs` or `remark -1 re/loves eggs`
         * `remark 1 desc/hates vegetables` is an invalid command format.
+
+<div style="page-break-after: always;"></div>
 
 ### View all tasks
 
@@ -1394,7 +1408,9 @@ testers are expected to do more *exploratory* testing.
        * Elderly does not exist in elderly database: `addTask 1 desc/Covid Shot en/Charlotte` (assuming Charlotte does not exist in the elderly database) <br>
        * Fields are the same as another task: `addTask 1 desc/Covid Shot date/2022-10-31 time/18:00 en/Bernice Yu` (assuming there is another task with the exact same description, date, time and elderly names) <br>
        * Date of a recurring task is past current date and time: `addTask 1 date/2021-10-10 recur/week`
-       
+
+<div style="page-break-after: always;"></div>
+
 ### Delete a task
 
 1. Deleting a task while all tasks are being shown
@@ -1427,7 +1443,9 @@ testers are expected to do more *exploratory* testing.
        * Edited elderly does not exist in database: `editTask 1 en/Charlotte` <br>
        * Edited fields are the same as the original fields or of another task: `editTask 1 desc/Covid Shot` <br>
        * Edited date of a recurring task is past current date and time: `editTask 1 date/2021-10-10 recur/week`
-    
+
+<div style="page-break-after: always;"></div>
+
 ### Find a task
 
 1. Finding a task in NurseyBook
@@ -1463,6 +1481,8 @@ testers are expected to do more *exploratory* testing.
     3. Test case: `remind desc/medicine` <br>
        Expected: Similar to previous.
 
+<div style="page-break-after: always;"></div>
+
 ### View Schedule
 
 1. Viewing task schedule on a specific date in NurseyBook. For illustration purposes, current date is assumed to be `2021-11-12`. You should use the actual current date, and the corresponding future or past dates during your testing.
@@ -1488,6 +1508,8 @@ testers are expected to do more *exploratory* testing.
         * Date input has already passed: `viewSchedule 2021-11-11`
         * Date input is beyond 12 weeks from today's date: `viewSchedule 2022-10-11`
         * Not formatting the date correctly in yyyy-mm-dd format: `viewSchedule 16-12-2021`
+
+<div style="page-break-after: always;"></div>
 
 ### Clear
 
@@ -1516,7 +1538,9 @@ testers are expected to do more *exploratory* testing.
 
     4. Test case: `help r/30` <br>
        Expected: Similar to previous.
-    
+
+<div style="page-break-after: always;"></div>
+
 ### Undo
 
 1. Undoing a previous command
@@ -1550,6 +1574,8 @@ testers are expected to do more *exploratory* testing.
     4. Test case: enter `addElderly en/Khong Guan a/80 g/M r/10` and then `redo`<br>
        Expected: No change in data of NurseyBook as there are no previously undone commands. Error details shown in the status message.
 
+<div style="page-break-after: always;"></div>
+
 ### Saving data
 
 1. Dealing with missing/corrupted data files
@@ -1565,6 +1591,7 @@ testers are expected to do more *exploratory* testing.
       Expected: The GUI should pop up with no entries. The console should give warnings about incorrect data format (due to the removal of the `{` character at the start of the `nurseybook.json` file).
 
 --------------------------------------------------------------------------------------------------------------------
+<div style="page-break-after: always;"></div>
 
 ## **Appendix C: Effort**
 
@@ -1586,6 +1613,8 @@ In order to support the `Elderly` and `Nok` classes, a refactoring of the `Perso
 Moreover, to support task management, our team had to add a model for `Task` objects. While some sections of the code could be adapted from AB3’s Person model, the majority had to be redesigned to accommodate complex task creation.
 
 The implementation of AB3’s command processing and display of elements, in an UniqueElementList, to the user, means that all elements within that list will be displayed to the user, based on a given predicate. However, for certain commands such as `viewSchedule`, we would want to show the user a preview of future occurrences of recurring tasks. These temporary tasks need to be differentiated from normal concrete tasks. Thus, this necessitated the further refactoring of  `Task` into an abstract class, with concrete `GhostTask` and `RealTask` child classes. This restructuring of how task objects are represented gives our program the capacity to accommodate for previewing of tasks, without saving them to the hard disk or flooding the `UniqueTaskList`.
+
+<div style="page-break-after: always;"></div>
 
 As a result, we had to integrate all these models with the existing code to save persons and tasks to a data file in NurseyBook. This required the creation of many classes and major refactoring of existing classes to support multiple models.
 
