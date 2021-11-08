@@ -14,6 +14,7 @@ title: User Guide
 NurseyBook is a **desktop app made for nurses in nursing homes to aid them in managing contacts and tasks in their busy lives. It is optimized for use via a Command Line Interface** (CLI) while still **having the benefits of a Graphical User Interface** (GUI). If you can type fast, NurseyBook can help you manage your contacts & tasks faster than traditional GUI apps! :smile:
 
 --------------------------------------------------------------------------------------------------------------------
+<div style="page-break-after: always;"></div>
 
 ## 2. Quick start
 
@@ -48,7 +49,6 @@ Refer to the [4. Features](#4-features) below for in-depth details of all availa
 <div style="page-break-after: always;"></div>
 
 ## 3. About
-
 ### 3.1 Structure of this document
 
 This document is structured in a manner that lets you find what you need fast and easily. To jump to various sections, you can refer to the Table of Contents.
@@ -56,7 +56,6 @@ This document is structured in a manner that lets you find what you need fast an
 In the following subsection, [3.2 Reading this document](#32-reading-this-document), you can find several tips that could be beneficial when reading this guide.
 The next section, documents the main features that **NurseyBook** offers and provides you with instructions on how to
 use each one of them!
-
 ### 3.2 Reading this document
 
 This subsection will introduce to you the symbols, syntax and technical terms that are used throughout this guide.
@@ -85,6 +84,9 @@ Text that appear in a caution box should be followed carefully, else unintended 
 Example warnings.
 
 </div>
+
+
+
 
 **Tip**
 
@@ -152,6 +154,8 @@ Commands in this guide follow such rules:
 
 </div>
 
+<div style="page-break-after: always;"></div>
+
 #### 3.2.5 Command Parameters
 
 The table below provides a summary on the command parameters that are mentioned in this guide.
@@ -186,7 +190,6 @@ This section contains the documentation on NurseyBook's features and commands. I
 1. [Elderly commands](#41-elderly-commands)
 2. [Task commands](#42-task-commands)
 3. [Miscellaneous commands](#43-miscellaneous-commands)
-
 ### 4.1 Elderly commands
 
 #### 4.1.1 View all elderly: `viewElderly`
@@ -206,6 +209,8 @@ Examples:
 * `addElderly en/Khong Guan a/80 g/M r/201 nn/Gong Kuan rs/Brother p/91234567 e/guanbro@gmail.com addr/London Street 11`
 * `addElderly en/John a/77 g/M r/420 t/diabetes`
 * `addElderly en/John a/77 g/M r/420 t/diabetes nn/Timothy rs/Son`
+
+<div style="page-break-after: always;"></div>
 
 <div markdown="block" class="alert alert-info">
 
@@ -720,6 +725,7 @@ are also welcome to update data directly by editing that data file.
 </div>
 
 --------------------------------------------------------------------------------------------------------------------
+<div style="page-break-after: always;"></div>
 
 ## 6. FAQ
 
@@ -776,6 +782,7 @@ Action | Format, Examples
 **Exit** | `exit`
 
 --------------------------------------------------------------------------------------------------------------------
+<div style="page-break-after: always;"></div>
 
 ## 8. Glossary
 
