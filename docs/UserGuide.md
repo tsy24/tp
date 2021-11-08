@@ -7,11 +7,14 @@ title: User Guide
 {:toc}
 
 --------------------------------------------------------------------------------------------------------------------
+<div style="page-break-after: always;"></div>
+
 ## 1. Introduction
 
 NurseyBook is a **desktop app made for nurses in nursing homes to aid them in managing contacts and tasks in their busy lives. It is optimized for use via a Command Line Interface** (CLI) while still **having the benefits of a Graphical User Interface** (GUI). If you can type fast, NurseyBook can help you manage your contacts & tasks faster than traditional GUI apps! :smile:
 
 --------------------------------------------------------------------------------------------------------------------
+<div style="page-break-after: always;"></div>
 
 ## 2. Quick start
 
@@ -31,7 +34,7 @@ NurseyBook is a **desktop app made for nurses in nursing homes to aid them in ma
 
    * **`viewTasks`** : Lists all tasks.
 
-   * **`addElderly`**` en/John a/77 g/M r/420 t/diabetes` : Adds an elderly named `John` to NurseyBook.
+   * **`addElderly`**` en/John a/77 g/M r/420 t/diabetes` : Adds an elderly named `John`.
 
    * **`deleteElderly`**` 3` : Deletes the records of the 3rd elderly shown in the current list.
 
@@ -43,8 +46,9 @@ Refer to the [4. Features](#4-features) below for in-depth details of all availa
 
 
 --------------------------------------------------------------------------------------------------------------------
-## 3. About
+<div style="page-break-after: always;"></div>
 
+## 3. About
 ### 3.1 Structure of this document
 
 This document is structured in a manner that lets you find what you need fast and easily. To jump to various sections, you can refer to the Table of Contents.
@@ -52,7 +56,6 @@ This document is structured in a manner that lets you find what you need fast an
 In the following subsection, [3.2 Reading this document](#32-reading-this-document), you can find several tips that could be beneficial when reading this guide.
 The next section, documents the main features that **NurseyBook** offers and provides you with instructions on how to
 use each one of them!
-
 ### 3.2 Reading this document
 
 This subsection will introduce to you the symbols, syntax and technical terms that are used throughout this guide.
@@ -82,6 +85,8 @@ Example warnings.
 
 </div>
 
+<div style="page-break-after: always;"></div>
+
 **Tip**
 
 Text that appear in a tip box are useful for improving your experience with NurseyBook.
@@ -106,6 +111,8 @@ However, the User Interface (UI) is designed primarily to be navigated using the
 
 You can enter commands into the command box and press `Enter` to execute them. The result box will then provide a response on whether the command was successfully executed.
 The display panel will similarly update itself, based on the command executed.
+
+<div style="page-break-after: always;"></div>
 
 #### 3.2.4 Command Format
 
@@ -148,6 +155,8 @@ Commands in this guide follow such rules:
 
 </div>
 
+<div style="page-break-after: always;"></div>
+
 #### 3.2.5 Command Parameters
 
 The table below provides a summary on the command parameters that are mentioned in this guide.
@@ -173,6 +182,7 @@ Parameter | Description
 `TIME` | Time that a task is scheduled to occur from. It should be in the format of hh:mm in 24 hour clock.
 
 --------------------------------------------------------------------------------------------------------------------
+<div style="page-break-after: always;"></div>
 
 ## 4. Features
 
@@ -201,6 +211,8 @@ Examples:
 * `addElderly en/Khong Guan a/80 g/M r/201 nn/Gong Kuan rs/Brother p/91234567 e/guanbro@gmail.com addr/London Street 11`
 * `addElderly en/John a/77 g/M r/420 t/diabetes`
 * `addElderly en/John a/77 g/M r/420 t/diabetes nn/Timothy rs/Son`
+
+<div style="page-break-after: always;"></div>
 
 <div markdown="block" class="alert alert-info">
 
@@ -275,6 +287,8 @@ Example: John has an existing tag `cancer`, and he is at index 1 in the current 
 * For more accessible tag related commands, do refer to the [`addTag`](#418-add-tags-to-elderly-addtag) and [`deleteTag`](#419-delete-tags-of-elderly-deletetag) commands.
 </div>
 
+<div style="page-break-after: always;"></div>
+
 #### 4.1.5 Find elderly: `findElderly`
 
 Finds elderlies whose names contain any of the given keywords.
@@ -315,6 +329,8 @@ Examples:
 
 </div>
 
+<div style="page-break-after: always;"></div>
+
 `viewDetails 1` used:
 
 ![](images/userGuide/view_details.png)
@@ -336,6 +352,8 @@ Examples:
 * The index **must be a positive integer** 1, 2, 3, …​
 
 </div>
+
+<div style="page-break-after: always;"></div>
 
 #### 4.1.8 Add tags to elderly: `addTag`
 
@@ -376,6 +394,8 @@ Examples:
 
 </div>
 
+<div style="page-break-after: always;"></div>
+
 #### 4.1.10 Filter elderly: `filter`
 
 Filters elderly based on one or more tags.
@@ -399,6 +419,8 @@ Examples:
 `filter t/vegetarian` used:
 
 ![](images/userGuide/filter.png)
+
+<div style="page-break-after: always;"></div>
 
 #### 4.1.11 Add remark to elderly: `remark`
 
@@ -424,6 +446,8 @@ Examples:
 * You can remove a remark by leaving the remark input empty! e.g. [`viewElderly`](#411-view-all-elderly-viewelderly) followed by `remark 1 re/` or `remark 1` removes the remark for the 1st elderly in NurseyBook.
 
 </div>
+
+<div style="page-break-after: always;"></div>
 
 ### 4.2 Task commands
 
@@ -461,6 +485,8 @@ Format: `addTask [en/ELDERLY_NAME]…​ desc/DESCRIPTION date/DATE time/TIME [r
 Examples:
 `addTask en/Khong Guan desc/check insulin level date/2022-01-25 time/19:22 recur/week`
 
+<div style="page-break-after: always;"></div>
+
 <div markdown="block" class="alert alert-info">
 
 :information_source: **Information:**
@@ -493,6 +519,8 @@ Examples:
 
 ![](images/userGuide/add_task_0.png)
 ![](images/userGuide/add_task_1.png)
+
+<div style="page-break-after: always;"></div>
 
 #### 4.2.3 Delete a task: `deleteTask`
 
@@ -532,6 +560,8 @@ Examples:
 
 e.g. Date of task is `2022-01-01` with `daily` recurrence. On `2022-01-03`, the task is edited to be `weekly` recurring. When the next occurrence of the task is generated by NurseyBook, the date of the task will be `2022-01-10`.
 
+<div style="page-break-after: always;"></div>
+
 </div>
 
 <div markdown="block" class="alert alert-warning">
@@ -567,6 +597,8 @@ Examples:
 
 ![](images/userGuide/find_task.png)
 
+<div style="page-break-after: always;"></div>
+
 #### 4.2.6 Mark a task as completed: `doneTask`
 
 Marks a particular task in the task list as completed.
@@ -598,6 +630,8 @@ Screenshot taken on 2021-11-04.
 
 ![](images/userGuide/remind.png)
 
+<div style="page-break-after: always;"></div>
+
 #### 4.2.8 View task schedule: `viewSchedule`
 
 Displays a preview of the list of tasks set to occur on the specified current or future date.
@@ -622,6 +656,8 @@ Example:
 
 ![](images/userGuide/view_schedule.png)
 
+<div style="page-break-after: always;"></div>
+
 ### 4.3 Miscellaneous commands
 
 #### 4.3.1 Clearing all entries : `clear`
@@ -644,6 +680,8 @@ Format: `help`
 </div>
 
 ![](images/userGuide/help_expanded.png)
+
+<div style="page-break-after: always;"></div>
 
 #### 4.3.3 Undo previous command : `undo`
 
@@ -684,6 +722,8 @@ Example:
 
 </div>
 
+<div style="page-break-after: always;"></div>
+
 #### 4.3.5 Exiting the program : `exit`
 
 Exits the program.
@@ -691,6 +731,7 @@ Exits the program.
 Format: `exit`
 
 --------------------------------------------------------------------------------------------------------------------
+<div style="page-break-after: always;"></div>
 
 ## 5. Storage
 
@@ -714,6 +755,7 @@ are also welcome to update data directly by editing that data file.
 </div>
 
 --------------------------------------------------------------------------------------------------------------------
+<div style="page-break-after: always;"></div>
 
 ## 6. FAQ
 
@@ -726,6 +768,7 @@ that contains the data of your previous NurseyBook home folder.
 There is no need to save manually.
 
 --------------------------------------------------------------------------------------------------------------------
+<div style="page-break-after: always;"></div>
 
 ## 7. Command summary
 
@@ -769,6 +812,7 @@ Action | Format, Examples
 **Exit** | `exit`
 
 --------------------------------------------------------------------------------------------------------------------
+<div style="page-break-after: always;"></div>
 
 ## 8. Glossary
 

@@ -320,7 +320,10 @@ These individual functions, `updateRecurringTasksDate()`, `updateTasksOverdueSta
         * For first case, it marks the task as overdue.
         * For second case, it marks the task as not overdue.
 3. `reorderTasksChronologically()`
-    * This function sorts the tasks in chronological order, whose order might be disrupted due to changes in `DateTime` of tasks due to `updateRecurringTasksDate()`.
+    * This function sorts the tasks in chronological order, whose order might be disrupted due to changes in `DateTime` of tasks due to `updateRecurringTasksDate()`. Causes could be
+        * `updateRecurringTasksDate()`
+        * execution of an `editTask` command
+        * undo-ing/redo-ing an `editTask` command
     
 Listed below are some situations and corresponding implementations where the overdue `Status` and `DateTime` might be changed, based on either a manual edit of the `Task`'s `DateTime` and/or `Recurrence` type, or simply the passing of time.
 
@@ -330,7 +333,7 @@ Listed below are some situations and corresponding implementations where the ove
     * Update the old `DateTime` to a new `DateTime` according to its `Recurrence` type.
     * Mark `Status#isDone` to `false`.
     * `Status#isOverdue` remains `false`.
-3. User edits non-recurring `Task` with a passed `DateTime` to a future `DateTime`
+3. User edits non-recurring overdue `Task` with a passed `DateTime` to a future `DateTime`
     * Mark `Status#isOverdue` to `false`.
 4. User edits non-recurring `Task` with a future `DateTime` to a passed `DateTime`
     * Mark `Status#isOverdue` to `true`.
@@ -466,7 +469,7 @@ The implementation of `DeleteNokCommand` is highly similar to that of `DeleteCom
 
 Given below is an example usage scenario and how the delete NoK mechanism behaves at each step. The example command is `deleteNok 1`.
 
-Step 1. The user and executes `deleteNok 1` command to delete the NoK details of the first elderly in the elderly list. This prompts the `LogicManager` to start its execution by calling its `execute()` command.
+Step 1. The user lists all elderlies with `viewElderly` and executes `deleteNok 1` command to delete the NoK details of the first elderly in the elderly list. This prompts the `LogicManager` to start its execution by calling its `execute()` command.
 
 Step 2. `LogicManager` calls the `NurseyBookParser` to parse the command.
 
@@ -565,7 +568,46 @@ The following activity diagram summarizes what happens in the `MainWindow` class
 * **Alternative 2:** Display the list of elderly and list of tasks side by side in the same display window.
   * Pros: Implementation/Creation of new commands are not needed. The user is able to type less yet still view what he/she is interested in.
   * Cons: With two different lists (that contain different objects) displayed side by side, the display might seem cluttered and hard to read from. It negatively impacts the user experience.
+
+### ViewDetails feature
+
+#### How `CommandResult` is changed
+
+Similar to `help`, `viewElderly` and `viewTasks`, this features requires a UI-specific operation (i.e. opening/closing the details panel). As the main method of communication between logic and
+UI lies within `CommandResult`, the following additions have been made to the `CommandResult` class:
+
+* `CommandResult#isViewDetails` — Specifies the elderly list to be displayed after the current command execution
+
+#### How `MainWindow` processes `CommandResult`
+
+`MainWindow#handleViewDetails()` is a new method that handles the opening of the details panel and populating with the details of the specified elderly. It is called whenever a `viewDetails` command has been executed successfully.
+`MainWindow#handleNonViewDetails()` is a new method that handles the closing of the details panel. It is called whenever any command except `viewDetails` command has been executed successfully.
+
+#### How `Model` is changed
+
+Model now also has at most one `Elderly` object chosen to be displayed in full.
+
+#### Execution
+
+Given below is an example usage scenario and how the ViewDetails features work.
+
+The following sequence diagram shows how this operation works but leaves out the details regarding parsing:
+
+![ViewDetailsSequenceDiagram](./images/ViewDetailsSequenceDiagram.png)
+
+Parsing works similar to [`doneTask`](#mark-a-task-as-done-feature) feature above: a `ViewDetailsCommandParser` parses the Index which is passed to the `ViewDetailsCommand`. The Index identifies the elderly whose full details should be shown.
+#### Design considerations:
+
+**Aspect: How to display pass an elderly object to UI**
+* **Alternative 1 (current choice):** Using a new field in Model to indicate which elderly to be displayed
+    * Pros: Better abstraction between each high-level component.
+    * Cons: There might not always be an elderly to display, thus the field may sometimes be null, which require extra checks to prevent errors.
   
+
+* **Alternative 2:**  CommandResult storing an elderly
+    * Pros: Simpler implementation, elderly can be passed to MainWindow through the CommandResult without auxiliary methods.
+    * Cons: Does not make logical sense for `CommandResult` to have an elderly field as not all commands (and by extension: command result) involve an elderly.
+   
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
@@ -1073,7 +1115,7 @@ testers are expected to do more *exploratory* testing.
    2. Re-launch the app by double-clicking the jar file. <br>
        Expected: The most recent window size and location is retained.
 
-### Adding a elderly
+### Add an elderly
 
 1. Adding an elderly to NurseyBook
 
@@ -1095,7 +1137,7 @@ testers are expected to do more *exploratory* testing.
       * Age entered is not within the valid range: `addElderly en/Mark Lee r/10 a/15 g/M`
       * Additional parameters are entered: `addElderly en/Mark Lee r/10 a/70 g/M desc/needs to visit the dentist every week`
 
-### Deleting an elderly
+### Delete an elderly
 
 1. Deleting an elderly from NurseyBook
 
@@ -1174,8 +1216,54 @@ testers are expected to do more *exploratory* testing.
 
     3. Invalid commands to try (Error details shown in the status message):
          * Invalid index >= size of elderly list, or <= 0: `deleteNok 5` or `deleteNok -1`
-         
-### Adding a task
+
+### Edit an elderly
+
+1. Editing an elderly from NurseyBook
+
+    1. Prerequisites: List all elderlies using the `viewElderly` command. There is an elderly in NurseyBook with the name 'Bernice Yu' whose age is 42 at the second index and some tasks she is mentioned in. 
+
+    2. Test case: `editElderly 2 a/45`<br>
+       Expected: Elderly's age is replaced with 45.
+
+    3. Test case: `editElderly 2 en/Bernice Yu a/45 `<br>
+       Expected: Elderly's age is replaced with 45.
+
+    4. Test case: `editElderly 2 en/Bernice Yew`<br>
+       Expected: Elderly's name is replaced with 'Bernice Yew' in the elderly list and within all the tasks she is mentioned in.
+
+    5. Invalid commands to try (Error details shown in the status message): <br>
+        * Invalid index >= size of task list or <= 0: `editElderly 5` or `editElderly -1` <br>
+        * Edited elderly has the same name as another existing elderly in the database: `editElderly 2 en/Alex Yeoh` <br>
+        * Edited fields are all the same as the original fields: `editElderly 2 a/42` <br>
+        * Edited fields have incorrect formats: `editElderly 2 p/!34djsf` <br>
+
+### Find an elderly
+
+1. Finding an elderly in NurseyBook
+
+    1. Test case: `findElderly yu` <br>
+       Expected: Lists all elderlies whose names contain the keyword "yu". The keyword matching should be case-insensitive. Number of elderlies found is shown in the status message.
+
+    2. Test case: `findElderly charlotte yu` <br>
+       Expected: Lists all elderlies whose names contain the keywords "charlotte", or "yu", or both. Number of elderlies found is shown in the status message.
+
+### View full details of an elderly.
+
+1. Viewing full details of an elderly.
+
+    1. Prerequisites: List all elderlies using the `viewElderly` command. Multiple elderlies in the list.
+
+    2. Test case: `viewDetails 1` <br>
+       Expected: A side panel containing all the details of the elderly appears. Name of the elderly chosen appears in status message.
+
+    3. Test case: `viewDetails 0` <br>
+       Expected: No side panel appears. Error details shown in the status message.
+
+    4. Invalid commands to try (Error details shown in the status message):
+        * Invalid index >= size of elderly list or <= 0: `viewDetails 5` or `viewDetails -1`
+
+### Add a task
 
 1. Adding a task to NurseyBook
     
@@ -1196,7 +1284,7 @@ testers are expected to do more *exploratory* testing.
        * Fields are the same as another task: `addTask 1 desc/Covid Shot date/2022-10-31 time/18:00 en/Bernice Yu` (assuming there is another task with the exact same description, date, time and elderly names) <br>
        * Date of a recurring task is past current date and time: `addTask 1 date/2021-10-10 recur/week`
        
-### Deleting a task
+### Delete a task
 
 1. Deleting a task while all tasks are being shown
 
@@ -1208,7 +1296,7 @@ testers are expected to do more *exploratory* testing.
     3. Invalid commands to try (Error details shown in the status message): <br>
        * Invalid index >= size of task list or <= 0: `deleteTask 5` or `deleteTask -1`
 
-### Editing a task
+### Edit a task
 
 1. Editing a task already present in NurseyBook
 
@@ -1380,7 +1468,7 @@ testers are expected to do more *exploratory* testing.
 
     4. Test case: enter `addElderly en/Khong Guan a/80 g/M r/10` and then `redo`<br>
        Expected: No change in data of NurseyBook as there are no previously undone commands. Error details shown in the status message.
-    
+
 ### Saving data
 
 1. Dealing with missing/corrupted data files
