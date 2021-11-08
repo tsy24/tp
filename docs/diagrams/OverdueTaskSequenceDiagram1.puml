@@ -1,0 +1,28 @@
+@startuml
+!include style.puml
+
+box Model MODEL_COLOR_T1
+participant ":ModelManager" as ModelManager MODEL_COLOR
+participant "versionedNurseyBook:NurseyBook" as NurseyBook MODEL_COLOR
+participant "tasks:UniqueTaskList" as UniqueTaskList MODEL_COLOR
+participant ":Task" as Task MODEL_COLOR
+end box
+
+[-> ModelManager : updateTasksAccordingToTime()
+activate ModelManager
+
+ModelManager -> NurseyBook : updateTasksOverdueStatus()
+activate NurseyBook
+
+NurseyBook -> UniqueTaskList : updateOverdueStatuses()
+activate UniqueTaskList
+
+group ref [overdue tasks for-loop]
+
+loop for every task
+UniqueTaskList -> Task
+end
+
+end ref
+
+@enduml
