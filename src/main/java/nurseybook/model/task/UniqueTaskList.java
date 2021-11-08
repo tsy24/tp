@@ -232,6 +232,8 @@ public class UniqueTaskList implements Iterable<Task> {
      * starting from current date.
      */
     private GhostTask createPossibleFutureTaskWithMatchingDate(RealTask task, LocalDate keyDate) {
+        assert task.isTaskRecurring();
+
         //interval between task occurrences depending on RecurrenceType.
         int interval = task.getRecurrenceIntervalInDays();
 

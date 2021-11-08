@@ -8,7 +8,7 @@ title: Xiong Jingya's Project Portfolio Page
 #### Overview
 
 NurseyBook is a desktop application made for nurses in nursing homes to aid them in managing contacts and tasks in their busy lives. The user interacts with it using Command Line Interface (CLI), 
-and it still has the benefits of a Graphical User Interface (GUI) created with JavaFX. It is written in Java, and has about 17 kLoC. 
+and it still has the benefits of a Graphical User Interface (GUI) created with JavaFX. It is written in Java, and has about 19 kLoC. 
 
 #### Summary of Contributions
 
