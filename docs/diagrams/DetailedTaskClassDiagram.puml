@@ -1,0 +1,28 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Package Model <<Rectangle>>{
+
+Class RealTask
+Class GhostTask
+
+Class Description
+Class DateTime
+Class Status
+Class Recurrence
+Class Name
+
+
+"{asbtract}\nTask" *-up-> Description
+"{asbtract}\nTask" *-up-> DateTime
+"{asbtract}\nTask" *-up-> Status
+"{asbtract}\nTask" *-up-> Recurrence
+"{asbtract}\nTask" *-up-> "*" Name
+RealTask -up-|> "{asbtract}\nTask"
+GhostTask -up-|> "{asbtract}\nTask"
+}
+
+@enduml
