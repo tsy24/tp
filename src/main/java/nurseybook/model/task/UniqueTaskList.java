@@ -14,6 +14,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import nurseybook.model.person.Elderly;
 import nurseybook.model.person.Name;
+import nurseybook.model.person.UniqueElderlyList;
 import nurseybook.model.task.exceptions.DuplicateTaskException;
 import nurseybook.model.task.exceptions.TaskNotFoundException;
 
@@ -114,6 +115,21 @@ public class UniqueTaskList implements Iterable<Task> {
     public void setTasks(List<Task> tasks) {
         requireAllNonNull(tasks);
         internalList.setAll(tasks);
+    }
+
+    /**
+     * Updates the given elderly {@code target}'s name for all tasks in the list that contains that name
+     * with {@code editedElderly}'s name.
+     * {@code target} must exist in NurseyBook.
+     * The elderly identity of {@code editedElderly} must not be the same as another existing elderly in NurseyBook.
+     */
+    public boolean doTasksContainValidNames(UniqueElderlyList elderlies) {
+        for (Task t: internalList) {
+            if (!t.isRelatedNamesValid(elderlies)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**

@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import nurseybook.commons.core.GuiSettings;
 import nurseybook.model.person.Name;
 import nurseybook.model.person.NameContainsKeywordsPredicate;
+import nurseybook.model.person.exceptions.ElderlyNotFoundException;
 import nurseybook.testutil.NurseyBookBuilder;
 
 public class ModelManagerTest {
@@ -144,7 +145,7 @@ public class ModelManagerTest {
     public void findElderlyWithName_differentName_returnsNull() {
         //name is does not match any elderly
         modelManager = new ModelManager();
-        assertTrue(modelManager.findElderlyWithName(new Name("george")) == null);
+        assertThrows(ElderlyNotFoundException.class, () -> modelManager.findElderlyWithName(new Name("george")));
     }
 
     @Test

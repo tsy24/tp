@@ -54,6 +54,16 @@ public class UniqueElderlyList implements Iterable<Elderly> {
     }
 
     /**
+     * Returns elderly with {@code name}
+     * Elderly with {@code name} must exist in list.
+     */
+    public boolean hasElderly(Name name) {
+        requireNonNull(name);
+        return internalList.stream()
+                .anyMatch(p -> p.hasName(name));
+    }
+
+    /**
      * Adds a elderly to the list.
      * The elderly must not already exist in the list.
      */
