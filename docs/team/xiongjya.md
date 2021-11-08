@@ -50,7 +50,7 @@ Given below are my contributions to the project.
         * Wrote the whole section, 'About' (Pull request [\#219](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/219)).
         * Included more screenshots for better user viewing (Pull request [\#219](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/219)).
     * Developer Guide:
-        * Added implementation details of the `viewElderly` and `findTask` features (Pull requests [\#99](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/99), [\#107](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/107)).
+        * Added implementation details of the `findTask`, `viewElderly` and overdue tasks features (Pull requests [\#99](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/99), [\#107](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/107), [Overdue tasks Developer Guide commit](https://github.com/AY2122S1-CS2103T-F13-2/tp/commit/686e8c44093045e2a6272cb1006d8a1bd1d5ad5b)).
         * Added user stories and use cases. (Pull requests [\#42](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/42), [\#95](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/95)).
         * Main in-charge and reviewer of the Developer Guide, including the reordering of documentation, resizing of images
         
