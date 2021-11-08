@@ -255,7 +255,7 @@ The logic for handling overdue and recurring tasks are handled in `ModelManager#
 The implementation of these individual functions `updateRecurringTasksDate()`, `updateTasksOverdueStatus()` and `reorderTasksChronologically()` are listed below.
 1. `updateRecurringTasksDate()`
     *  This function checks whether a `Task` is overdue (`Task`'s `DateTime` is before the current `DateTime`) and if it is a recurring task (`Task#isRecurring` is `True`), before updating recurring tasks' DateTime as needed at the current time.
-2. `updateNotOverdueTaskList()`
+2. `updateTasksOverdueStatus()`
     *  This function first checks for either of 2 cases:
         * Whether it is overdue (`Status#isOverdue` is `True`) and should not be overdue
         * Whether it is not overdue and should be overdue
