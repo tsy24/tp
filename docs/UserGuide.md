@@ -707,7 +707,7 @@ are also welcome to update data directly by editing that data file.
 
 :exclamation: **Caution:**
 * If your changes to the data file makes its format invalid, NurseyBook will discard all data and start with an empty data file at the next run.
-
+* This includes adding non-existent elderly names to any tasks or failing to remove/edit all instances of an elderly you deleted/edited within the tasks.
 </div>
 
 --------------------------------------------------------------------------------------------------------------------
