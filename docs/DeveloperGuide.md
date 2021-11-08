@@ -1253,7 +1253,7 @@ testers are expected to do more *exploratory* testing.
 
 ## **Appendix: Effort**
 
-Assuming the effort taken to create AB3 is rated at 100, we would estimate our project to have taken an effort of 200. Numerically, we have over 18000 lines of code contributed for version 1.4 of NurseyBook, with over 550 test cases to achieve high code coverage. 
+Assuming the effort taken to create AB3 is rated at 100, we would estimate our project to have taken an effort of 200. Numerically, we have over 19000 lines of code contributed for version 1.4 of NurseyBook, with over 550 test cases to achieve high code coverage. 
 Below, we have detailed the major time-consuming factors to justify our effort estimation.
 
 ### Notable Changes
