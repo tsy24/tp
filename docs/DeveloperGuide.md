@@ -52,7 +52,6 @@ The rest of the App consists of four components.
 * [**`Model`**](#model-component): Holds the data of the App in memory.
 * [**`Storage`**](#storage-component): Reads data from, and writes data to, the hard disk.
 
-
 **How the architecture components interact with each other**
 
 The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues the command `deleteElderly 1`.
@@ -121,10 +120,10 @@ How the parsing works:
 * All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
 
 ### Model component
+
 **API** : [`Model.java`](https://github.com/AY2122S1-CS2103T-F13-2/tp/blob/master/src/main/java/nurseybook/model/Model.java)
 
 <img src="images/ModelClassDiagram.png"/>
-
 
 The `Model` component,
 
@@ -135,7 +134,6 @@ The `Model` component,
 * stores the states of the nursey book after the execution of commands that change the data in `NurseyBookState` objects.
 * depends on some classes in the `Logic` component because the `Model` component saves the result after the execution of commands that change the data of nursey book.
 * does not depend on the `Storage` and `Ui` components (as the `Model` represents data entities of the domain, it should make sense on its own without depending on `Storage` and `Ui`)
-
 
 <img src="images/DetailedModelClassDiagram.png" width="800" /> 
 
@@ -195,11 +193,11 @@ The following activity diagram summarizes what happens in the `MainWindow` class
 
 #### Design considerations
 **Aspect: How to display elderlies and tasks separately**
+
 * **Alternative 1 (current choice):** Using a commands `viewElderly` and `viewTasks`, switch the display in the main window between the elderly list and task list stored in `NurseyBook`.
     * Pros: Cleaner display, able to display the necessary information without cluttering the display window
     * Cons: The need to implement two new commands, `viewElderly` and `viewTask` for the user to view the two lists respectively. The code for the two commands might contain repetition due to the similarity in function.
-
-
+    
 * **Alternative 2:** Display the list of elderly and list of tasks side by side in the same display window.
     * Pros: Implementation/Creation of new commands are not needed. The user is able to type less yet still view what he/she is interested in.
     * Cons: With two different lists (that contain different objects) displayed side by side, the display might seem cluttered and hard to read from. It negatively impacts the user experience.
@@ -235,7 +233,6 @@ Parsing works similar to [`doneTask`](#mark-a-task-as-done-feature) feature abov
     * Pros: Better abstraction between each high-level component.
     * Cons: There might not always be an elderly to display, thus the field may sometimes be null, which require extra checks to prevent errors.
 
-
 * **Alternative 2:**  CommandResult storing an elderly
     * Pros: Simpler implementation, elderly can be passed to MainWindow through the CommandResult without auxiliary methods.
     * Cons: Does not make logical sense for `CommandResult` to have an elderly field as not all commands (and by extension: command result) involve an elderly.
@@ -246,7 +243,6 @@ Parsing works similar to [`doneTask`](#mark-a-task-as-done-feature) feature abov
 The implementation of `DeleteNokCommand` is highly similar to that of `DeleteCommand`. Major differences are in how the steps 5 and 6 below are handled.
 
 Given below is an example usage scenario and how the delete NoK mechanism behaves at each step. The example command is `deleteNok 1`.
-
 
 Step 1. The user lists all elderlies with `viewElderly` and executes `deleteNok 1` command to delete the NoK details of the first elderly in the elderly list. This prompts the `LogicManager` to start its execution by calling its `execute()` command.
 
@@ -309,7 +305,7 @@ One of the methods then calls the `test` method of the `ElderlyHasTagPredicate` 
 The list of `Elderly` that return true for `test` is then assigned to `filteredElderlies` in `ModelManager` and displayed in the GUI.
 
 #### Design Considerations
-**Aspect: How to store tags:** 
+**Aspect: How to store tags** 
 
 * **Alternative 1:** Create a new class `TagSet` to store tags
     * Pros: Can add custom methods
@@ -468,7 +464,7 @@ The following sequence diagrams shows how the find task operation works:
 Diagram showing how the findTaskCommand object is created:
 ![FindTaskSequenceDiagram1](images/FindTaskSequenceDiagram1.png)
 
-Diagram showing how the findTaskCommand object is executed:
+Diagram showing how the findTaskCommand object is executed, and is a continuation from the previous diagram:
 ![FindTaskSequenceDiagram2](images/FindTaskSequenceDiagram2.png)
 
 <div markdown="span" class="alert alert-info">
@@ -536,10 +532,8 @@ Given below is an activity diagram that summarizes the sequence of checks and ac
 
 Since the remaining general mechanisms by which the view schedule operation occurs, such as how the command is parsed and how the `ViewScheduleCommand` is created,  is similar to other previously elaborated commands, a step-by-step elaboration is not given for the overall execution.
 
-<br>
-
 #### Design Considerations
-**Aspect: Differentiating `RealTask` and `GhostTask` Objects:**
+**Aspect: Differentiating `RealTask` and `GhostTask` Objects**
 
 * **Alternative 1:** Add a new field to `Task` objects that determine whether a task is a real task or not.
     * Pros: Easier to implement and integrate with existing AB3 code
@@ -555,13 +549,13 @@ This also keeps the data stored in the hard disk smaller, as there is no unneces
 
 <br>
 
-**Aspect: Searching of future occurrences of recurring tasks:**
+**Aspect: Searching of future occurrences of recurring tasks**
 
 With recurring tasks, they imply the existence of infinite potential future occurrences. Consequently, users could input dates well beyond reasonable amounts, such as centuries into
 the future. However, it is not sensible nor feasible to search for such extraneous lengths of time. Hence, the maximum amount of time that a user can view schedule on a future date has been
 capped at 12 weeks, or 84 days, from the current date. This number was derived based on our estimations on how many weeks nurses would most likely have to plan ahead for in nursing homes, along with some extra leeway.
 
-**Aspect: Viewing of schedule on dates that have passed already:**
+**Aspect: Viewing of schedule on dates that have passed already**
 
 For viewing schedule on a date that has passed already, there is no issue if the tasks that fall on the date are only non-recurring. The complication arises when recurring tasks are involved.
 If we were to potentially implement checking of recurring tasks into the past, that would raise concerns such as whether the task should be marked as overdue or not, and whether it should be marked
@@ -655,7 +649,7 @@ The following activity diagram summarizes what happens when a user executes a ne
 <img src="images/CommitActivityDiagram.png" width="300" />
 
 #### Design considerations
-**Aspect: How undo & redo executes:**
+**Aspect: How undo & redo executes**
 
 * **Alternative 1 (current choice):** Saves the entire nursey book.
   * Pros: Easy to implement.
@@ -668,7 +662,7 @@ The following activity diagram summarizes what happens when a user executes a ne
 Alternative 1 was chosen as there are many commands that change the data of the nursey book. 
 With alternative 1, all these commands will go through the same activity of saving the nursey book state instead of having different activity flow for undoing or redoing each command, making it easier to maintain.
 
-**Aspect: What to save:**
+**Aspect: What to save**
 
 * **Alternative 1:** Save only the nursey book.
     * Pros: Easy to implement.
