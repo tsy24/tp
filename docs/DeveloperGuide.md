@@ -84,7 +84,7 @@ The `UI` component,
 * executes user commands using the `Logic` component.
 * listens for changes to `Model` data so that the UI can be updated with the modified data.
 * keeps a reference to the `Logic` component, because the `UI` relies on the `Logic` to execute commands.
-* depends on some classes in the `Model` component, as it displays `Elderly` object residing in the `Model`.
+* depends on some classes in the `Model` component, as it displays `Elderly` and `Task` objects residing in the `Model`.
 
 ### Logic component
 
@@ -104,7 +104,11 @@ The Sequence Diagram below illustrates the interactions within the `Logic` compo
 
 ![Interactions Inside the Logic Component for the `deleteElderly 1` Command](images/DeleteSequenceDiagram.png)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+<div markdown="span" class="alert alert-info">
+
+:information_source: **Note:** 
+The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
 </div>
 
 Here are the other classes in `Logic` (omitted from the class diagram above) that are used for parsing a user command:
@@ -160,40 +164,44 @@ This section describes some noteworthy details on how certain features are imple
 ### Filter command
 
 #### Implementation
-The implementation of the filter command is facilitated by the FilterCommand class and ElderlyHasTagPredicate class.
-ElderlyHasTagPredicate contains a set of tags that was queried in the filter command and has a method `test`
+The implementation of the filter command is facilitated by the `FilterCommand` class and `ElderlyHasTagPredicate` class.
+`ElderlyHasTagPredicate` contains a set of tags that was queried in the filter command and has a method `test`
 to test whether an Elderly has all the tags in the set.
 
-Given below is the class diagram of the FilterCommand and the ElderlyHasTagPredicate.
+Given below is the class diagram of the `FilterCommand` and the `ElderlyHasTagPredicate`.
 
 ![](images/FilterClassDiagram.png)
 
 The following sequence diagram shows how the filter command works:
 
 ![FilterSequenceDiagram](images/FilterSequenceDiagram.png)
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `FilterCommand` and `ElderlyHasTagPredicate` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+<div markdown="span" class="alert alert-info">
+
+:information_source: **Note:** 
+The lifeline for `FilterCommand` and `ElderlyHasTagPredicate` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 </div>
 
-As tags can only be alphanumeric, the `parse` method in FilterCommandParser checks that the all the tags queried are valid first before creating the FilterCommand and ElderlyHasTagPredicate objects.
+As tags can only be alphanumeric, the `parse` method in `FilterCommandParser` checks that the all the tags queried are valid first before creating the `FilterCommand` and `ElderlyHasTagPredicate` objects.
 If there is a tag that is invalid, an exception will be thrown.
 
-When executing the filter command, the `updateFilteredElderlyList` method of Model calls other methods that are omitted from the diagram.
-One of the methods then calls the `test` method of the ElderlyHasTagPredicate object with every Elderly saved in nursey book. The checking for the presence of tags is case-insensitive. 
-The list of Elderly that return true for `test` is then assigned to `filteredElderlies` in ModelManager and displayed in the GUI.
+When executing the filter command, the `updateFilteredElderlyList` method of `Model` calls other methods that are omitted from the diagram.
+One of the methods then calls the `test` method of the `ElderlyHasTagPredicate` object with every `Elderly` saved in nursey book. The checking for the presence of tags is case-insensitive. 
+The list of `Elderly` that return true for `test` is then assigned to `filteredElderlies` in `ModelManager` and displayed in the GUI.
 
 #### Design Considerations
 **Aspect: How to store tags:** 
-* **Alternative 1:** Create a new class TagSet to store tags
+* **Alternative 1:** Create a new class `TagSet` to store tags
     * Pros: Can add custom methods
     * Cons: More code needs to be written and more room for bugs
-* **Alternative 2:** Use Java Util Set to store tags
+* **Alternative 2 (current choice):** Use `java.util.Set` to store tags
     * Pros: Easy to import and use
-    * Cons: Methods that can be used are limited to the methods in Set
+    * Cons: Methods that can be used are limited to the methods in `Set`
 
-**Decision:** Alternative 2 was chosen as the tags are simply kept as a collection.
-Only the simple operations such as checking whether a Tag is in the Set and changing the Tags in the set are needed.
-Thus, the methods provided in Java Util Set are sufficient and there is no need to implement custom methods.
+Alternative 2 was chosen as the tags are simply kept as a collection.
+Only the simple operations such as checking whether a `Tag` is in the `Set` and changing the `Tag`s in the set are needed.
+Thus, the methods provided in `java.util.Set` are sufficient and there is no need to implement custom methods.
 
 ### Mark a task as done feature
 
@@ -247,6 +255,7 @@ Alternative 2 is chosen as `UI` class has the duty to listen to changes to `Mode
 
 The following sequence diagram shows how this operation works:
 
+![OverdueTasksSequenceDiagram](images/OverdueTaskSequenceDiagram.png)
 
 ### Add recurring task feature
 
@@ -346,7 +355,10 @@ Step 3. The user executes `addTag 1 t/diabetes` to add a tag to the first elderl
 
 ![UndoRedoState2](images/UndoRedoState2.png)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If a command fails its execution, it will not call `Model#commitNurseyBook()`, so the nursey book state will not be saved into the `nurseyBookStateList`.
+<div markdown="span" class="alert alert-info">
+
+:information_source: **Note:** 
+If a command fails its execution, it will not call `Model#commitNurseyBook()`, so the nursey book state will not be saved into the `nurseyBookStateList`.
 
 </div>
 
@@ -355,7 +367,10 @@ The `undo` command will call `Model#undoNurseyBook()`, which will decrease the `
 
 ![UndoRedoState3](images/UndoRedoState3.png)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStateIndex` is 0, referring to the initial nursey book state, then there are no previous states to restore. 
+<div markdown="span" class="alert alert-info">
+
+:information_source: **Note:** 
+If the `currentStateIndex` is 0, referring to the initial nursey book state, then there are no previous states to restore. 
 The `undo` command uses `Model#canUndoNurseyBook()` to check if this is the case. If so, it will return an error to the user rather than attempt to perform the undo.
 
 </div>
@@ -364,13 +379,19 @@ The following sequence diagram shows how the undo operation works:
 
 ![UndoSequenceDiagram](images/UndoSequenceDiagram.png)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+<div markdown="span" class="alert alert-info">
+
+:information_source: **Note:** 
+The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 </div>
 
 The `redo` command does the opposite — it calls `Model#redoNurseyBook()`, which increases the `currentStateIndex` by one to refer to the previously undone state, and restores the nursey book to that state.
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStateIndex` is equal to `nurseyBookStateList.size() - 1`, it is referring to the latest nursey book state, then there are no undone nursey book states to restore. 
+<div markdown="span" class="alert alert-info">
+
+:information_source: **Note:** 
+If the `currentStateIndex` is equal to `nurseyBookStateList.size() - 1`, it is referring to the latest nursey book state, then there are no undone nursey book states to restore. 
 The `redo` command uses `Model#canRedoNurseyBook()` to check if this is the case. If so, it will return an error to the user rather than attempt to perform the redo.
 
 </div>
@@ -406,6 +427,7 @@ The following activity diagram summarizes what happens when a user executes a ne
 With alternative 1, all these commands will go through the same activity of saving the nursey book state instead of having different activity flow for undoing or redoing each command, making it easier to maintain.
 
 **Aspect: What to save:**
+
 * **Alternative 1:** Save only the nursey book.
     * Pros: Easy to implement.
     * Cons: No information on the commands that changed the data of the nursey book.
@@ -445,7 +467,10 @@ The following sequence diagram shows how the find task operation works:
 
 ![DeleteNokSequenceDiagram](images/DeleteNokSequenceDiagram.png)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `DeleteNokCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+<div markdown="span" class="alert alert-info">
+
+:information_source: **Note:** 
+The lifeline for `DeleteNokCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 </div>
 
@@ -471,7 +496,10 @@ The following sequence diagram shows how the find task operation works:
 
 ![FindTaskSequenceDiagram](images/FindTaskSequenceDiagram.png)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `FindTaskCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+<div markdown="span" class="alert alert-info">
+
+:information_source: **Note:** 
+The lifeline for `FindTaskCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 </div>
 
@@ -1004,7 +1032,10 @@ Similar to <u>finding an elderly (<a href="#uc5-find-an-elderly">UC5</a>)</u> bu
 
 Given below are instructions to test the app manually.
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** These instructions only provide a starting point for testers to work on;
+<div markdown="span" class="alert alert-info">
+
+:information_source: **Note:** 
+These instructions only provide a starting point for testers to work on;
 testers are expected to do more *exploratory* testing.
 
 </div>
