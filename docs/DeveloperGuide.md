@@ -84,7 +84,7 @@ The `UI` component,
 * executes user commands using the `Logic` component.
 * listens for changes to `Model` data so that the UI can be updated with the modified data.
 * keeps a reference to the `Logic` component, because the `UI` relies on the `Logic` to execute commands.
-* depends on some classes in the `Model` component, as it displays `Elderly` object residing in the `Model`.
+* depends on some classes in the `Model` component, as it displays `Elderly` and `Task` objects residing in the `Model`.
 
 ### Logic component
 
@@ -166,11 +166,18 @@ to test whether an Elderly has all the tags in the set.
 
 Given below is the class diagram of the FilterCommand and the ElderlyHasTagPredicate.
 
-![](images/FilterClassDiagram.png)
+![FilterClassDiagram](images/FilterClassDiagram.png)
 
-The following sequence diagram shows how the filter command works:
+The following sequence diagrams show how the filter command works:
+
+This diagram shows how the FilterCommand object is created:
 
 ![FilterSequenceDiagram](images/FilterSequenceDiagram.png)
+
+This diagram shows how the FilterCommand object is executed:
+
+![FilterSequenceDiagramPart2](images/FilterSequenceDiagramPart2.png)
+
 <div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `FilterCommand` and `ElderlyHasTagPredicate` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 </div>
@@ -254,16 +261,19 @@ The logic for handling overdue and recurring tasks are handled in `ModelManager#
 
 The implementation of these individual functions `updateRecurringTasksDate()`, `updateTasksOverdueStatus()` and `reorderTasksChronologically()` are listed below.
 1. `updateRecurringTasksDate()`
-    *  This function checks whether a `Task` is overdue (`Task`'s `DateTime` is before the current `DateTime`) and if it is a recurring task (`Task#isRecurring` is `True`), before updating recurring tasks' DateTime as needed at the current time.
+    *  This function checks whether a `Task`'s `DateTime` is before the current `DateTime` and if it is a recurring task (`Task#isRecurring` is `True`), before updating recurring tasks' `DateTime` as needed at the current time.
 2. `updateNotOverdueTaskList()`
-    *  This function first checks for either of 2 cases:
-        * Whether it is overdue (`Status#isOverdue` is `True`) and should not be overdue
-        * Whether it is not overdue and should be overdue
+    *  This function first checks if a task's overdue status (`Status#isOverdue`) is outdated. This can be either a task that is
+        * overdue (`Status#isOverdue` is `True`) but should not be overdue
+        * not overdue but should be overdue
     *  Then updates overdue statuses accordingly
-        * For first case, it marks the task as overdue
-        * For second case, it marks the task as not overdue
+        * For first case, it marks the task as not overdue
+        * For second case, it marks the task as overdue
 3. `reorderTasksChronologically()`
-    * This function sorts the tasks according to chronological order, whose order might be disrupted due to changes in `DateTime` of tasks due to `updateRecurringTasksDate()`.
+    * This function sorts the tasks according to chronological order, whose order might be disrupted due to changes in `DateTime` of tasks. Causes could be
+      * `updateRecurringTasksDate()`
+      * execution of an `editTask` command
+      * undo-ing/redo-ing an `editTask` command
     
 Listed below are some situations and corresponding implementations where the overdue `Status`, and `DateTime` might be changed based on either a manual edit of the `Task`'s `DateTime` and/or `Recurrence` type, or simply the passing of time.
 
@@ -272,8 +282,8 @@ Listed below are some situations and corresponding implementations where the ove
 2. `DateTime` of recurring `Task` has passed current `DateTime`
   - Update old `DateTime` to new `DateTime` according to its `Recurrence` type.
   - Mark `Status#isDone` to `False`
-  - Status#isOverdue remains `False`
-3. User edits non-recurring `Task` with a passed `DateTime` to a future `DateTime`
+  - `Status#isOverdue` remains `False`
+3. User edits non-recurring overdue `Task` with a passed `DateTime` to a future `DateTime`
   - Mark `Status#isOverdue` to `False`
 4. User edits non-recurring `Task` with a future `DateTime` to a passed `DateTime`
   - Mark `Status#isOverdue` to `True`
@@ -355,7 +365,7 @@ Reason: It no longer makes sense to redo the `addTag 1 t/diabetes` command. This
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
-<img src="images/CommitActivityDiagram.png" width="250" />
+<img src="images/CommitActivityDiagram.png" width="300" />
 
 #### Design considerations:
 
@@ -394,7 +404,7 @@ The implementation of `DeleteNokCommand` is highly similar to that of `DeleteCom
 
 Given below is an example usage scenario and how the delete Nok mechanism behaves at each step. The example command is `deleteNok 1`.
 
-Step 1. The user and executes `deleteNok 1` command to delete the NoK details of the first elderly in the elderly list. This prompts the `LogicManager` to start its execution by calling its `execute()` command.
+Step 1. The user lists all elderlies with `viewElderly` and executes `deleteNok 1` command to delete the NoK details of the first elderly in the elderly list. This prompts the `LogicManager` to start its execution by calling its `execute()` command.
 
 Step 2. `LogicManager` calls the `NurseyBookParser` to parse the command.
 
@@ -488,6 +498,45 @@ The following activity diagram summarizes what happens in the `MainWindow` class
   * Pros: Implementation/Creation of new commands are not needed. The user is able to type less yet still view what he/she is interested in.
   * Cons: With two different lists (that contain different objects) displayed side by side, the display might seem cluttered and hard to read from. It negatively impacts the user experience.
 
+### ViewDetails feature
+
+#### How `CommandResult` is changed
+
+Similar to `help`, `viewElderly` and `viewTasks`, this features requires a UI-specific operation (i.e. opening/closing the details panel). As the main method of communication between logic and
+UI lies within `CommandResult`, the following additions have been made to the `CommandResult` class:
+
+* `CommandResult#isViewDetails` — Specifies the elderly list to be displayed after the current command execution
+
+#### How `MainWindow` processes `CommandResult`
+
+`MainWindow#handleViewDetails()` is a new method that handles the opening of the details panel and populating with the details of the specified elderly. It is called whenever a `viewDetails` command has been executed successfully.
+`MainWindow#handleNonViewDetails()` is a new method that handles the closing of the details panel. It is called whenever any command except `viewDetails` command has been executed successfully.
+
+#### How `Model` is changed
+
+Model now also has at most one `Elderly` object chosen to be displayed in full.
+
+#### Execution
+
+Given below is an example usage scenario and how the ViewDetails features work.
+
+The following sequence diagram shows how this operation works but leaves out the details regarding parsing:
+
+![ViewDetailsSequenceDiagram](./images/ViewDetailsSequenceDiagram.png)
+
+Parsing works similar to [`doneTask`](#mark-a-task-as-done-feature) feature above: a `ViewDetailsCommandParser` parses the Index which is passed to the `ViewDetailsCommand`. The Index identifies the elderly whose full details should be shown.
+#### Design considerations:
+
+**Aspect: How to display pass an elderly object to UI**
+* **Alternative 1 (current choice):** Using a new field in Model to indicate which elderly to be displayed
+    * Pros: Better abstraction between each high-level component.
+    * Cons: There might not always be an elderly to display, thus the field may sometimes be null, which require extra checks to prevent errors.
+  
+
+* **Alternative 2:**  CommandResult storing an elderly
+    * Pros: Simpler implementation, elderly can be passed to MainWindow through the CommandResult without auxiliary methods.
+    * Cons: Does not make logical sense for `CommandResult` to have an elderly field as not all commands (and by extension: command result) involve an elderly.
+
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -501,7 +550,7 @@ The following activity diagram summarizes what happens in the `MainWindow` class
 
 --------------------------------------------------------------------------------------------------------------------
 
-## **Appendix: Requirements**
+## **Appendix A: Requirements**
 
 ### Product scope
 
@@ -811,9 +860,6 @@ Similar to <u>deleting an elderly (<a href="#uc3-delete-an-elderly">UC3</a>)</u>
 
 **Extensions**
 * 1a. User requests to <u>find tasks with matching keywords(<a href="#uc17-find-a-task">UC17</a>)</u>.
-    * 1a1. NurseyBook shows a list of tasks that matches the user's query (by description)
-
-      Use case ends.
 
 * 2a. The list of tasks is empty.
 
@@ -902,6 +948,10 @@ Similar to <u>finding an elderly (<a href="#uc5-find-an-elderly">UC5</a>)</u> bu
     * 1a1. NurseyBook shows an error message.
 
       Use case resumes at step 1.
+* 1b. The given date is not within 12 weeks from today's date.
+    * 1b1. NurseyBook shows an error message.
+
+      Use case resumes at step 1.
 * 2a. There are no tasks scheduled on that date.
 
   Use case ends.
@@ -967,7 +1017,7 @@ Similar to <u>finding an elderly (<a href="#uc5-find-an-elderly">UC5</a>)</u> bu
 
 --------------------------------------------------------------------------------------------------------------------
 
-## **Appendix: Instructions for manual testing**
+## **Appendix B: Instructions for manual testing**
 
 Given below are instructions to test the app manually.
 
@@ -992,7 +1042,7 @@ testers are expected to do more *exploratory* testing.
    2. Re-launch the app by double-clicking the jar file. <br>
        Expected: The most recent window size and location is retained.
 
-### Adding a elderly
+### Add an elderly
 
 1. Adding an elderly to NurseyBook
 
@@ -1014,7 +1064,7 @@ testers are expected to do more *exploratory* testing.
       * Age entered is not within the valid range: `addElderly en/Mark Lee r/10 a/15 g/M`
       * Additional parameters are entered: `addElderly en/Mark Lee r/10 a/70 g/M desc/needs to visit the dentist every week`
 
-### Deleting an elderly
+### Delete an elderly
 
 1. Deleting an elderly from NurseyBook
 
@@ -1028,7 +1078,59 @@ testers are expected to do more *exploratory* testing.
 
    4. Invalid commands to try (Error details shown in the status message):
       * Invalid index >= size of elderly list or <= 0: `deleteElderly 5` or `deleteElderly -1`
+      
+### Adding tags to an elderly
 
+1. Add one or more tags to an elderly in NurseyBook
+
+    1. Prerequisites: List all elderlies using the `viewElderly` command. Multiple elderlies in the list. The first elderly in the list has one `diabetes` tag.
+
+    2. Test case: `addTag 1 t/hypertension`<br>
+       Expected: `hypertension` tag is added to the first elderly in the list.
+   
+    3. Test case: `addTag 1 t/vegetarian t/flu`<br>
+       Expected: `vegetarian` and `flu` tags are added to the first elderly in the list. 
+   
+    4. Test case: `addTag 1 t/flu t/Flu`<br>
+       Expected: The two tags are taken to be the same tag and only the `flu` tag is added to the first elderly in the list.
+   
+    5. Invalid commands to try (Error details shown in the status message):
+       * Invalid index >= size of elderly list or <= 0: `addTag 5 t/flu` or `addTag -1 t/flu`
+       * Adding an existing tag: `addTag 1 t/diabetes`
+       * Missing parameters: `addTag` or `addTag 1`
+       * Additional parameters: `addTag 1 en/Alex Yeoh`
+
+### Deleting tags from an elderly
+
+1. Deleting one or more tags from an elderly in NurseyBook
+
+    1. Prerequisites: List all elderlies using the `viewElderly` command. Multiple elderlies in the list. The second elderly in the list has `diabetes` and `fever` tags.
+
+    2. Test case: `deleteTag 2 t/diabetes`<br>
+       Expected: `diabetes` tag is deleted from the second elderly in the list.
+
+    3. Test case: `deleteTag 2 t/diabetes t/fever`<br>
+       Expected: `diabetes` and `fever` tags are deleted from the second elderly in the list.
+
+    4. Invalid commands to try (Error details shown in the status message):
+        * Invalid index >= size of elderly list or <= 0: `deleteTag 5 t/diabetes` or `deleteTag -1 t/diabetes`
+        * Deleting a tag that the elderly does not have: `deleteTag 2 t/hypertension`
+        * Missing parameters: `deleteTag` or `deleteTag 1`
+        * Additional parameters: `deleteTag 1 en/Alex Yeoh`
+        
+### Filter elderlies based on tags
+
+1. Filtering elderlies in NurseyBook based on their tags
+
+    1. Test case: `filter t/diabetes`<br>
+       Expected: list of elderlies with `diabetes` tag is displayed.
+
+    2. Test case: `filter t/diabetes t/fever`<br>
+        Expected: list of elderlies with both `diabetes` and `fever` tags is displayed.
+
+    3. Invalid commands to try (Error details shown in the status message):
+        * Missing parameters: `filter`
+        * Additional parameters: `filter en/Alex Yeoh`
 
 ### Delete all NoK details of an elderly.
 
@@ -1043,7 +1145,53 @@ testers are expected to do more *exploratory* testing.
          * Invalid index >= size of elderly list, or <= 0: `deleteNok 5` or `deleteNok -1`
 
 
-### Adding a task
+### Edit an elderly
+
+1. Editing an elderly from NurseyBook
+
+    1. Prerequisites: List all elderlies using the `viewElderly` command. There is an elderly in NurseyBook with the name 'Bernice Yu' whose age is 42 at the second index and some tasks she is mentioned in. 
+
+    2. Test case: `editElderly 2 a/45`<br>
+       Expected: Elderly's age is replaced with 45.
+
+    3. Test case: `editElderly 2 en/Bernice Yu a/45 `<br>
+       Expected: Elderly's age is replaced with 45.
+
+    4. Test case: `editElderly 2 en/Bernice Yew`<br>
+       Expected: Elderly's name is replaced with 'Bernice Yew' in the elderly list and within all the tasks she is mentioned in.
+
+    5. Invalid commands to try (Error details shown in the status message): <br>
+        * Invalid index >= size of task list or <= 0: `editElderly 5` or `editElderly -1` <br>
+        * Edited elderly has the same name as another existing elderly in the database: `editElderly 2 en/Alex Yeoh` <br>
+        * Edited fields are all the same as the original fields: `editElderly 2 a/42` <br>
+        * Edited fields have incorrect formats: `editElderly 2 p/!34djsf` <br>
+
+### Find an elderly
+
+1. Finding an elderly in NurseyBook
+
+    1. Test case: `findElderly yu` <br>
+       Expected: Lists all elderlies whose names contain the keyword "yu". The keyword matching should be case-insensitive. Number of elderlies found is shown in the status message.
+
+    2. Test case: `findElderly charlotte yu` <br>
+       Expected: Lists all elderlies whose names contain the keywords "charlotte", or "yu", or both. Number of elderlies found is shown in the status message.
+
+### View full details of an elderly.
+
+1. Viewing full details of an elderly.
+
+    1. Prerequisites: List all elderlies using the `viewElderly` command. Multiple elderlies in the list.
+
+    2. Test case: `viewDetails 1` <br>
+       Expected: A side panel containing all the details of the elderly appears. Name of the elderly chosen appears in status message.
+
+    3. Test case: `viewDetails 0` <br>
+       Expected: No side panel appears. Error details shown in the status message.
+
+    4. Invalid commands to try (Error details shown in the status message):
+        * Invalid index >= size of elderly list or <= 0: `viewDetails 5` or `viewDetails -1`
+
+### Add a task
 
 1. Adding a task to NurseyBook
     
@@ -1064,7 +1212,7 @@ testers are expected to do more *exploratory* testing.
        * Fields are the same as another task: `addTask 1 desc/Covid Shot date/2022-10-31 time/18:00 en/Bernice Yu` (assuming there is another task with the exact same description, date, time and elderly names) <br>
        * Date of a recurring task is past current date and time: `addTask 1 date/2021-10-10 recur/week`
        
-### Deleting a task
+### Delete a task
 
 1. Deleting a task while all tasks are being shown
 
@@ -1076,7 +1224,7 @@ testers are expected to do more *exploratory* testing.
     3. Invalid commands to try (Error details shown in the status message): <br>
        * Invalid index >= size of task list or <= 0: `deleteTask 5` or `deleteTask -1`
 
-### Editing a task
+### Edit a task
 
 1. Editing a task already present in NurseyBook
 
@@ -1125,23 +1273,56 @@ testers are expected to do more *exploratory* testing.
     1. Prerequisites: User is currently viewing the task list page. Only the following 3 tasks are be added to NurseyBook. We shall call them Tasks A, B and C.
         * Task A: A non-recurring task, the date of which is current date. <br> Assume this date is `2021-11-12` for illustration purposes.
         * Task B: A daily recurring task, the initial date of which is current date + 2 days. <br> Assume this date is `2021-11-14` for illustration purposes.
-        * Task C: A non-recurring task, the date of which is current date + 4 days. <br> Assume this date is `2021-11-16` for illustration purposes. 
+        * Task C: A non-recurring task, the date of which is current date + 4 days. <br> Assume this date is `2021-11-16` for illustration purposes.
     2. Test case - today:`viewSchedule 2021-11-12` <br>
        Expected: Task A should be displayed.
-   
+
     3. Test case - one day ahead:`viewSchedule 2021-11-13` <br>
        Expected: No tasks should be displayed.
-   
+
     4. Test case - four days ahead:`viewSchedule 2021-11-16` <br>
        Expected: Tasks B and C should be displayed. Date of Task B in this display should be `2021-11-16`.
-   
+
     5. Test case - a week ahead:`viewSchedule 2021-11-19` <br>
        Expected: Task B should be displayed. Date of Task B in this display should be `2021-11-19`.
-   
-    6. Some other incorrect `viewSchedule` commands to try (error details shown in status message): 
+
+    6. Invalid commands to try (Error details shown in the status message):
         * Date input has already passed: `viewSchedule 2021-11-11`
+        * Date input is beyond 12 weeks from today's date: `viewSchedule 2022-10-11`
         * Not formatting the date correctly in yyyy-mm-dd format: `viewSchedule 16-12-2021`
 
+### Undo
+
+1. Undoing a previous command
+
+   1. Prerequisites: NurseyBook is just launched with no commands entered yet. 
+
+   2. Test case: enter `addElderly en/Khong Guan a/80 g/M r/10` and then `undo`<br>
+      Expected: Addition of elderly `Khong Guan` is undone. No elderly is added and list of elderly displayed does not contain `Khong Guan`.
+
+   3. Test case: enter `addElderly en/Khong Guan a/80 g/M r/10` then `addElderly en/Swee Choon a/70 g/M r/15`, `undo` and then `undo`<br>
+      Expected: Addition of both `Khong Guan` and `Swee Choon` is undone. No elderly is added and list of elderly displayed does not contain `Khong Guan` and `Swee Choon`.
+
+   4. Test case: `undo`<br>
+      Expected: No change in data of NurseyBook. Error details shown in the status message.
+
+   5. Test case: enter `remind` and then `undo`<br>
+      Expected: No change in data of NurseyBook as commands that do not change the data of NurseyBook cannot be undone. Error details shown in the status message.
+
+### Redo
+
+1. Redoing a previously undone command
+
+    1. Prerequisites: NurseyBook is just launched with no commands entered yet.
+
+    2. Test case: enter `addElderly en/Khong Guan a/80 g/M r/10` then `undo` and then `redo`<br>
+       Expected: Addition of elderly `Khong Guan` is executed again. List of elderly displayed contains `Khong Guan`.
+
+    3. Test case: `redo`<br>
+       Expected: No change in data of NurseyBook. Error details shown in the status message.
+
+    4. Test case: enter `addElderly en/Khong Guan a/80 g/M r/10` and then `redo`<br>
+       Expected: No change in data of NurseyBook as there are no previously undone commands. Error details shown in the status message.
 
 ### Saving data
 
