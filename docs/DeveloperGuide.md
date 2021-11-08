@@ -69,6 +69,8 @@ For example, the `Logic` component defines its API in the `Logic.java` interface
 
 The sections below give more details of each component.
 
+<div style="page-break-after: always;"></div>
+
 ### UI component
 
 The **API** of this component is specified in [`Ui.java`](https://github.com/AY2122S1-CS2103T-F13-2/tp/blob/master/src/main/java/nurseybook/ui/Ui.java)
@@ -85,6 +87,8 @@ The `UI` component,
 * listens for changes to `Model` data so that the UI can be updated with the modified data.
 * keeps a reference to the `Logic` component, because the `UI` relies on the `Logic` to execute commands.
 * depends on some classes in the `Model` component, as it displays `Elderly` and `Task` objects residing in the `Model`.
+
+<div style="page-break-after: always;"></div>
 
 ### Logic component
 
@@ -119,6 +123,8 @@ How the parsing works:
 * When called upon to parse a user command, the `NurseyBookParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `NurseyBookParser` returns back as a `Command` object.
 * All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
 
+<div style="page-break-after: always;"></div>
+
 ### Model component
 
 **API** : [`Model.java`](https://github.com/AY2122S1-CS2103T-F13-2/tp/blob/master/src/main/java/nurseybook/model/Model.java)
@@ -139,6 +145,8 @@ The class diagram below shows more details regarding `Person`, `Elderly`, `NoK`(
 
 <img src="images/DetailedModelClassDiagram.png" width="800" />
 
+<div style="page-break-after: always;"></div>
+
 ### Storage component
 
 **API** : [`Storage.java`](https://github.com/AY2122S1-CS2103T-F13-2/tp/blob/master/src/main/java/nurseybook/storage/Storage.java)
@@ -150,11 +158,15 @@ The `Storage` component,
 * inherits from both `NurseyBookStorage` and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
 * depends on some classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects that belong to the `Model`)
 
+<div style="page-break-after: always;"></div>
+
 ### Common classes
 
 Classes used by multiple components are in the `nurseybook.commons` package.
 
 --------------------------------------------------------------------------------------------------------------------
+
+<div style="page-break-after: always;"></div>
 
 ## **Implementation**
 
@@ -202,6 +214,8 @@ The following activity diagram summarizes what happens in the `MainWindow` class
     * Pros: Implementation/Creation of new commands are not needed. The user is able to type less yet still view what he/she is interested in.
     * Cons: With two different lists (that contain different objects) displayed side by side, the display might seem cluttered and hard to read from. It negatively impacts the user experience.
 
+<div style="page-break-after: always;"></div>
+
 ### ViewDetails feature
 
 #### How `CommandResult` is changed
@@ -238,6 +252,8 @@ Parsing works similar to [`doneTask`](#mark-a-task-as-done-feature) feature abov
     * Pros: Simpler implementation, elderly can be passed to MainWindow through the CommandResult without auxiliary methods.
     * Cons: Does not make logical sense for `CommandResult` to have an elderly field as not all commands (and by extension: command result) involve an elderly.
 
+<div style="page-break-after: always;"></div>
+
 ### Delete NoK feature
 
 #### Implementation
@@ -269,6 +285,8 @@ The following sequence diagram shows how the find task operation works:
 The lifeline for `DeleteNokCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 </div>
+
+<div style="page-break-after: always;"></div>
 
 ### Filter feature
 
@@ -319,6 +337,8 @@ Alternative 2 was chosen as the tags are simply kept as a collection.
 Only the simple operations such as checking whether a `Tag` is in the `Set` and changing the `Tag`s in the set are needed.
 Thus, the methods provided in `java.util.Set` are sufficient and there is no need to implement custom methods.
 
+<div style="page-break-after: always;"></div>
+
 ### Mark a task as done feature
 
 #### How task status is changed
@@ -338,6 +358,8 @@ The following sequence diagram shows how this operation works:
 The following activity diagram summarizes what happens when a user enters the command for this feature:
 
 ![DoneTaskActivityDiagram](images/DoneTaskActivityDiagram.png)
+
+<div style="page-break-after: always;"></div>
 
 ### Overdue tasks
 
@@ -371,8 +393,15 @@ Alternative 2 is chosen as `UI` class has the duty to listen to changes to `Mode
 
 The following sequence diagram shows how this operation works:
 
+Diagram 1:
+
 ![OverdueTasksSequenceDiagram1](images/OverdueTaskSequenceDiagram1.png)
+
+Diagram 2:
+
 ![OverdueTasksSequenceDiagram2](images/OverdueTaskSequenceDiagram2.png)
+
+<div style="page-break-after: always;"></div>
 
 ### Add recurring task feature
 
@@ -395,6 +424,8 @@ If a user does not specify the `Recurrence` when adding a new `Task`, it will de
 * **Alternative 2 (current choice):** Once a `DateTime` of a `Task` has been passed, it will trigger nursey book to update to the new `DateTime` of the `Task`, according to its `Recurrence` type.
     * Pros: Easier to implement, because there is only one condition that needs to be checked (if the `Task`’s `DateTime` is before the current `DateTime`) for the `Task`’s `DateTime` to be updated.
     * Cons: Restricted choice for users who would prefer seeing upcoming tasks to seeing completed tasks.
+
+<div style="page-break-after: always;"></div>
 
 ### Handling of overdue and recurring tasks
 
@@ -443,6 +474,8 @@ Listed below are some situations and corresponding implementations where the ove
 
 For each `Task` in NurseyBook, it will go through this cycle of checks to ensure their `DateTime` and `Status` are updated accordingly.
 
+<div style="page-break-after: always;"></div>
+
 ### Find task feature
 
 #### Implementation
@@ -475,6 +508,8 @@ The lifeline for `FindTaskCommandParser` should end at the destroy marker (X) bu
 
 </div>
 
+<div style="page-break-after: always;"></div>
+
 ### ViewSchedule Feature
 
 #### Implications on representation of `Task` objects
@@ -487,8 +522,6 @@ To achieve this functionality, `Task` objects had to be refactored into`RealTask
 RealTasks represent concrete tasks, which are either non-recurring tasks, or the current occurrence of recurring tasks.
 GhostTasks are temporary tasks that exist for the purpose of allowing the user to preview future occurrences of recurring tasks.
 By default, `viewTasks` will only show RealTasks.
-
-<br>
 
 #### Handling persistence of `GhostTask` objects
 Since `UniqueTaskList` contains `Task` type objects, these objects can be either `GhostTask` or `RealTask` objects. A natural implication of `UniqueTaskList` containing all `Task` type objects would be the persistence of
@@ -548,8 +581,6 @@ Alternative 2 was chosen as although Alternative 1 is simpler to implement, Alte
 from `RealTasks`, as we do not want to expose them to the user. Hence, it makes more sense to encapsulate it as a separate class, even though more code needs to be refactored, written and tested.
 This also keeps the data stored in the hard disk smaller, as there is no unnecessary field to keep track of whether a task is real or not.
 
-<br>
-
 **Aspect: Searching of future occurrences of recurring tasks**
 
 With recurring tasks, they imply the existence of infinite potential future occurrences. Consequently, users could input dates well beyond reasonable amounts, such as centuries into
@@ -562,6 +593,8 @@ For viewing schedule on a date that has passed already, there is no issue if the
 If we were to potentially implement checking of recurring tasks into the past, that would raise concerns such as whether the task should be marked as overdue or not, and whether it should be marked
 as done. Due to too much ambiguity involving the representation of recurring tasks in the past, we have decided to disable the option to view schedule of past dates entirely. In any case,
 it does not have much value for the context of NurseyBook's purposes as well.
+
+<div style="page-break-after: always;"></div>
 
 ### Undo/redo feature
 
@@ -678,6 +711,8 @@ This way, when users execute the undo/redo command, information on the command t
 The relevant user interface is also displayed to the user as the `ListDisplayChange` is in the command result saved. 
 For example, when a user undoes an `addElderly` command, the user interface will toggle to the list of elderly based on the command result saved, showing the user the change.
 
+<div style="page-break-after: always;"></div>
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
@@ -703,6 +738,8 @@ For example, when a user undoes an `addElderly` command, the user interface will
 * is reasonably comfortable using CLI apps
 
 **Value proposition**: manage elderly details and tasks faster than a typical mouse/GUI driven application
+
+<div style="page-break-after: always;"></div>
 
 ### User stories
 
@@ -745,6 +782,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* *`    | new nurse                   | easily understand how to view necessary information           | not feel overwhelmed and confused                                                                                                                |
 | `* `     | nurse                       | color-code my tasks                                           | differentiate between the tasks more easily                                                                                                      |
 | `* `     | user                        | alternate between light/dark mode                             | have an aesthetically pleasing UI                                                                                                                |
+
+<div style="page-break-after: always;"></div>
 
 ### Use cases
 
@@ -817,6 +856,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
       Use case resumes at step 1.
 * *a. At any time, user requests to <u>view help (<a href="#uc19-viewing-help">UC19</a>)</u>.
 
+<div style="page-break-after: always;"></div>
+
 ##### UC4: Edit an elderly’s details
 
 **MSS**
@@ -861,6 +902,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
   Use case ends.
 * *a. At any time, user requests to <u>view help (<a href="#uc19-viewing-help">UC19</a>)</u>.
+
+<div style="page-break-after: always;"></div>
 
 ##### UC6: View an elderly's details
 
@@ -939,6 +982,8 @@ Similar to <u>deleting an elderly (<a href="#uc3-delete-an-elderly">UC3</a>)</u>
       Use case resumes at step 1.
 * *a. At any time, user requests to <u>view help (<a href="#uc19-viewing-help">UC19</a>)</u>.
 
+<div style="page-break-after: always;"></div>
+
 ##### UC10: List elderly with queried tags
 
 **MSS**
@@ -961,6 +1006,8 @@ Similar to <u>deleting an elderly (<a href="#uc3-delete-an-elderly">UC3</a>)</u>
 
   Use case ends.
 * *a. At any time, user requests to <u>view help (<a href="#uc19-viewing-help">UC19</a>)</u>.
+
+<div style="page-break-after: always;"></div>
 
 ##### UC11: Add remark about an elderly
 
@@ -987,6 +1034,8 @@ Similar to <u>deleting an elderly (<a href="#uc3-delete-an-elderly">UC3</a>)</u>
 
       Use case resumes at step 1.
 * *a. At any time, user requests to <u>view help (<a href="#uc19-viewing-help">UC19</a>)</u>.
+
+<div style="page-break-after: always;"></div>
 
 #### Use cases of task commands
 
@@ -1026,6 +1075,8 @@ Similar to <u>adding an elderly (<a href="#uc2-add-an-elderly">UC2</a>)</u> but 
       Use case resumes at step 1.
 * *a. At any time, user requests to <u>view help (<a href="#uc19-viewing-help">UC19</a>)</u>.
 
+<div style="page-break-after: always;"></div>
+
 ##### UC15: Edit a task's details
 
 **MSS**
@@ -1064,9 +1115,13 @@ Similar to <u>adding an elderly (<a href="#uc2-add-an-elderly">UC2</a>)</u> but 
       Use case resumes at step 1.
 * *a. At any time, user requests to <u>view help (<a href="#uc19-viewing-help">UC19</a>)</u>.
 
+<div style="page-break-after: always;"></div>
+
 ##### UC16: Mark a task as complete
 
 Similar to <u>deleting a task (<a href="#uc14-delete-a-task">UC14</a>)</u> but marking a task as done instead. The `doneTask` command success message will appear instead.
+
+<div style="page-break-after: always;"></div>
 
 ##### UC17: Find a task
 
@@ -1094,6 +1149,8 @@ Similar to <u>finding an elderly (<a href="#uc5-find-an-elderly">UC5</a>)</u> bu
 
   Use case ends.
 * *a. At any time, user requests to <u>view help (<a href="#uc19-viewing-help">UC19</a>)</u>.
+
+<div style="page-break-after: always;"></div>
 
 #### Use cases of miscellaneous commands
 
@@ -1136,6 +1193,8 @@ Similar to <u>finding an elderly (<a href="#uc5-find-an-elderly">UC5</a>)</u> bu
       Use case ends.
 * *a. At any time, user requests to <u>view help (<a href="#uc19-viewing-help">UC19</a>)</u>.
 
+<div style="page-break-after: always;"></div>
+
 ### Non-Functional Requirements
 
 1.  Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
@@ -1154,6 +1213,8 @@ Similar to <u>finding an elderly (<a href="#uc5-find-an-elderly">UC5</a>)</u> bu
 * **GUI driven application**: Graphical user interface where users interact with the system through visual representations such as buttons and icons.
 
 --------------------------------------------------------------------------------------------------------------------
+
+<div style="page-break-after: always;"></div>
 
 ## **Appendix B: Instructions for manual testing**
 
@@ -1374,6 +1435,8 @@ testers are expected to do more *exploratory* testing.
     3. Test case: `viewTasks r/30` <br>
        Expected: Similar to previous.
 
+<div style="page-break-after: always;"></div>
+
 ### Add a task
 
 1. Adding a task to NurseyBook
@@ -1437,6 +1500,8 @@ testers are expected to do more *exploratory* testing.
    
     2. Test case: `findTask dentist visit` <br>
        Expected: Lists all tasks with the keywords "dentist", or "visit", or both words in its description. Number of tasks found is shown in the status message.
+
+<div style="page-break-after: always;"></div>
 
 ### Mark a task as complete
 
@@ -1504,6 +1569,8 @@ testers are expected to do more *exploratory* testing.
     4. Test case: `clear r/30` <br>
        Expected: Similar to previous.
 
+<div style="page-break-after: always;"></div>
+
 ### Help
 
 1. Showing the help window that contains a summary of the commands (with the necessary command parameters)
@@ -1534,6 +1601,8 @@ testers are expected to do more *exploratory* testing.
 
    5. Test case: enter `remind` and then `undo`<br>
       Expected: No change in data of NurseyBook as commands that do not change the data of NurseyBook cannot be undone. Error details shown in the status message.
+
+<div style="page-break-after: always;"></div>
 
 ### Redo
 
@@ -1566,6 +1635,8 @@ testers are expected to do more *exploratory* testing.
 
 --------------------------------------------------------------------------------------------------------------------
 
+<div style="page-break-after: always;"></div>
+
 ## **Appendix C: Effort**
 
 Assuming the effort taken to create AB3 is rated at 100, we would estimate our project to have taken an effort of 200. Numerically, we have over 19000 lines of code contributed for version 1.4 of NurseyBook, with over 550 test cases to achieve high code coverage. 
@@ -1578,8 +1649,6 @@ Apart from simply evolving the address book from AB3 into an address book for nu
 those of the address book, such as being able to link elderlies from the address book to tasks created. This was an effort made to make our product truly unique and effective in solving the problems faced by our target market. Hence, in effect, we had to develop two
 systems within the timeframe, and integrate them to make NurseyBook what it is today.
 
-<br>
-
 #### 2. Refactoring of Person and Adding of Task models
 In order to support the `Elderly` and `Nok` classes, a refactoring of the `Person` class is needed to accommodate these two kinds of persons.
 
@@ -1588,8 +1657,6 @@ Moreover, to support task management, our team had to add a model for `Task` obj
 The implementation of AB3’s command processing and display of elements, in an UniqueElementList, to the user, means that all elements within that list will be displayed to the user, based on a given predicate. However, for certain commands such as `viewSchedule`, we would want to show the user a preview of future occurrences of recurring tasks. These temporary tasks need to be differentiated from normal concrete tasks. Thus, this necessitated the further refactoring of  `Task` into an abstract class, with concrete `GhostTask` and `RealTask` child classes. This restructuring of how task objects are represented gives our program the capacity to accommodate for previewing of tasks, without saving them to the hard disk or flooding the `UniqueTaskList`.
 
 As a result, we had to integrate all these models with the existing code to save persons and tasks to a data file in NurseyBook. This required the creation of many classes and major refactoring of existing classes to support multiple models.
-
-<br>
 
 #### 3. Redesigned GUI
 Compared to AB3, NurseyBook has nearly double the number of UI components.
@@ -1600,9 +1667,7 @@ Next, though we wanted to keep NurseyBook as close to a command line interface (
 
 Additionally, each of the UI components is responsive and works on a large range of screen sizes. We took multiple tries to make sure that the display of elderly contacts could be easily viewed despite the variation in the window size of the application used.
 
-Furthermore, to allow for a better user experience, we restricted the scrolling of components to be either horizontal or vertical. We wanted to offer a cleaner user interface and better user experience through easy to use features, especially for our busy target users - nurses working in nursing homes. 
-
-<br>
+Furthermore, to allow for a better user experience, we restricted the scrolling of components to be either horizontal or vertical. We wanted to offer a cleaner user interface and better user experience through easy to use features, especially for our busy target users - nurses working in nursing homes.
 
 #### 4. Undo/Redo
 The implementation of the `undo` and `redo` features in NurseyBook was adapted from the [SE-EDU AddressBook Level 4](https://github.com/se-edu/addressbook-level4). However, we wanted our undo/redo feature to show users what command is being undone/redone. This meant that we had to modify the implementation such that the command result of the commands are also saved. The modification allows NurseyBook to display the command message of the command being undone or redone, giving users more information on what is the change in data. Furthermore, for commands that switch to display a particular list, we have implemented it such that undoing or redoing such commands will also change the list displayed. For example, undoing an `addTask` command will cause the task list to be displayed.

@@ -1,6 +1,6 @@
 ---
 layout: page
-title: CraveToCode's Project Portfolio Page
+title: Ramkumar Madur Malliah's Project Portfolio Page
 ---
 
 ### Project: NurseyBook
@@ -29,12 +29,12 @@ Given below are my key contributions to the project.
 * **New Feature**: Added the ability to delete Next-of-Kin (NoK) details
   * What it does: Allows the user to quickly wipe all Next-of-Kin details by using a shortcut command.
   * Justification: A good Quality-Of-Life feature for users to instantly get rid of outdated NoK details, without having to go through the hassle of editting field by field.
-  * Highlights: Instead of merely deleting NoK fields, the command sets all NoK fields to a default value. _This means_ in the future, developers can choose a different default value they would like to set each NoK field to, or even open this functionality to the user through a new command that enables users to set default values.  
+  * Highlights: Instead of merely deleting NoK fields, the command sets all NoK fields to a default value. This means in the future, developers can choose a different default value they would like to set each NoK field to, or even open this functionality to the user through a new command that enables users to set default values.  
   
 * **Code contributed**: [RepoSense link](https://nus-cs2103-ay2122s1.github.io/tp-dashboard/?search=&sort=groupTitle&sortWithin=title&since=2021-09-17&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=CraveToCode&tabRepo=AY2122S1-CS2103T-F13-2%2Ftp%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=docs~functional-code~test-code~other&authorshipIsBinaryFileTypeChecked=false)
 
 * **Project management**:
-  * Managed releases `v1.1` - `v1.4c` (6 releases) on GitHub
+  * Managed releases `v1.1` - `v1.4b` (5 releases) on GitHub
   * Setup GitHub Team Organisation and Repository
   * Setup Project Website: Set up GitHub pages, updated settings, changed names and links from AddressBook to NurseyBook
   * Maintained issue tracker: Handled creation of new issues for milestones, managed milestones and assignees, cleaned up closed issues
@@ -48,9 +48,8 @@ Given below are my key contributions to the project.
     * Added documentation for the features `viewSchedule`, `deleteNok`, `addElderly`, and `deleteElderly`. (Pull Requests [\#117](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/117), [\#79](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/79), [\#48](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/48))
   * Developer Guide:
     * Added implementation details for the features `viewSchedule`, `deleteNok`, `addElderly`, and `deleteElderly`. (Pull Requests [\#265](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/265), [\#106](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/106), [\#47](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/47))
-    * Added class diagram for better representation of `Task` objects, sequence diagram to illustrate how `deleteNok` command is executed, 
-    activity diagram to visualize the addition of GhostTasks during `viewSchedule` command, and updated DetailedModelClassDiagram to reflect our implementation more accurately. (Pull Requests [\#265](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/265), [\#106](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/106))
+    * Added class diagram for better representation of `Task` objects, sequence diagram to illustrate how `deleteNok` command is executed, and an
+    activity diagram to visualize the addition of GhostTasks during `viewSchedule` command (Pull Requests [\#265](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/265), [\#106](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/106))
 * **Community**:
   * PRs reviewed (with non-trivial review comments): (Pull Requests [\#203](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/203), [\#93](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/93))
-  * Reported bugs and suggestions for other teams in the class (examples: [1](https://github.com/AY2122S1-CS2103T-F12-3/tp/issues/147), [2](https://github.com/AY2122S1-CS2103T-F12-3/tp/issues/125), [3](https://github.com/AY2122S1-CS2103T-F12-3/tp/issues/120))
-  
+  * Reported bugs and suggestions for other teams in the class during PE-D. (Issues created: [PED](https://github.com/CraveToCode/ped/issues))

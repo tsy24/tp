@@ -7,7 +7,7 @@ We are a team based in the [School of Computing, National University of Singapor
 
 ## Project team
 
-### CraveToCode
+### Ramkumar Madur Malliah
 
 <img src="images/cravetocode.png" width="200px">
 
