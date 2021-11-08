@@ -507,9 +507,13 @@ Step 4. The `FindTaskCommand` is executed by calling its `execute()` method. Thi
 
 Step 5. A new `CommandResult` is returned which switches the display to the filtered task list. The result is returned to `LogicManager`.
 
-The following sequence diagram shows how the find task operation works:
+The following sequence diagrams shows how the find task operation works:
 
-![FindTaskSequenceDiagram](images/FindTaskSequenceDiagram.png)
+Diagram showing how the findTaskCommand object is created:
+![FindTaskSequenceDiagram1](images/FindTaskSequenceDiagram1.png)
+
+Diagram showing how the findTaskCommand object is executed:
+![FindTaskSequenceDiagram2](images/FindTaskSequenceDiagram2.png)
 
 <div markdown="span" class="alert alert-info">
 
@@ -530,7 +534,7 @@ The following class diagram shows the changes made to the `CommandResult` class.
 * `CommandResult#ListDisplayChange.TASK` — Specifies the task list to be displayed after the current command execution
 * `CommandResult#ListDisplayChange.NONE` — Specifies the type of displayed list should not change after the current command execution
 
-![](./images/ViewElderlyClassDiagram.png)
+<img src="images/ViewElderlyClassDiagram.png" alt="View Elderly Class Diagram" width="280" />
 
 #### How `MainWindow` processes `CommandResult`
 

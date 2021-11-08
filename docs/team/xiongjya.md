@@ -8,13 +8,13 @@ title: Xiong Jingya's Project Portfolio Page
 #### Overview
 
 NurseyBook is a desktop application made for nurses in nursing homes to aid them in managing contacts and tasks in their busy lives. The user interacts with it using Command Line Interface (CLI), 
-and it still has the benefits of a Graphical User Interface (GUI) created with JavaFX. It is written in Java, and has about 17 kLoC. 
+and it still has the benefits of a Graphical User Interface (GUI) created with JavaFX. It is written in Java, and has about 20 kLoC. 
 
 #### Summary of Contributions
 
 Given below are my contributions to the project.
 
-* **Code contributed**: Around 5 kLoC contribution to the project. [Reposense link](https://nus-cs2103-ay2122s1.github.io/tp-dashboard/?search=f13&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code~other&since=2021-09-17&tabOpen=true&tabType=authorship&tabAuthor=xiongjya&tabRepo=AY2122S1-CS2103T-F13-2%2Ftp%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=docs~functional-code~test-code~other&authorshipIsBinaryFileTypeChecked=false)
+* **Code contributed**: Around 4.9 kLoC contribution to the project. [Reposense link](https://nus-cs2103-ay2122s1.github.io/tp-dashboard/?search=f13&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code~other&since=2021-09-17&tabOpen=true&tabType=authorship&tabAuthor=xiongjya&tabRepo=AY2122S1-CS2103T-F13-2%2Ftp%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=docs~functional-code~test-code~other&authorshipIsBinaryFileTypeChecked=false)
 
 
 * **New Feature**: Added the ability to add remarks to elderly contacts.
@@ -57,4 +57,5 @@ Given below are my contributions to the project.
 
 * **Community**:
     * PRs reviewed (with non-trivial review comments): [\#61](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/61), [\#111](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/111), [\#115](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/115), [\#202](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/202), [\#237](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/237), [\#242](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/242)
+    * Contributed to forum discussions (example: [1](https://github.com/nus-cs2103-AY2122S1/forum/issues/203))
     * Reported bugs and suggestions for other teams during mock practical examination (repository: [ped](https://github.com/xiongjya/ped))
