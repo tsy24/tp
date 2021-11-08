@@ -134,7 +134,7 @@ The `Model` component,
 
 <img src="images/DetailedModelClassDiagram.png" width="800" /> 
 
-More details regarding `Person`, `Elderly`, `Nok`(Next of kin) and `Task` objects.
+More details regarding `Person`, `Elderly`, `NoK`(Next of kin) and `Task` objects.
 
 ### Storage component
 
@@ -419,13 +419,13 @@ This way, when users execute the undo/redo command, information on the command t
 The relevant user interface is also displayed to the user as the `ListDisplayChange` is in the command result saved. 
 For example, when a user undoes an `addElderly` command, the user interface will toggle to the list of elderly based on the command result saved, showing the user the change.
 
-### Delete Nok feature
+### Delete NoK feature
 
 #### Implementation
 
 The implementation of `DeleteNokCommand` is highly similar to that of `DeleteCommand`. Major differences are in how the steps 5 and 6 below are handled.
 
-Given below is an example usage scenario and how the delete Nok mechanism behaves at each step. The example command is `deleteNok 1`.
+Given below is an example usage scenario and how the delete NoK mechanism behaves at each step. The example command is `deleteNok 1`.
 
 Step 1. The user and executes `deleteNok 1` command to delete the NoK details of the first elderly in the elderly list. This prompts the `LogicManager` to start its execution by calling its `execute()` command.
 
@@ -435,7 +435,7 @@ Step 3. The `NurseyBookParser` creates a new `DeleteNokCommandParser` object and
 
 Step 4. The `DeleteNokCommand` is executed by calling its `execute()` method. This calls the `Model#getFilteredElderlyList()` and retrieves the filtered elderly list, which should contain all elderlies.
 
-Step 5. A new updated Elderly object is created with all fields equivalent to the targeted Elderly object, apart from the Nok fields which are wiped. This process has been omitted from the sequence diagram below.
+Step 5. A new updated Elderly object is created with all fields equivalent to the targeted Elderly object, apart from the NoK fields which are wiped. This process has been omitted from the sequence diagram below.
 
 Step 6. The `Model#setElderly()` method is then called to replace the targeted Elderly with the updated Elderly object.
 
@@ -725,9 +725,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
       Use case resumes at step 1.
 * *a. At any time, user requests to <u>view help (<a href="#uc19-viewing-help">UC19</a>)</u>.
 
-##### UC7: Delete an elderly's Nok details
+##### UC7: Delete an elderly's NoK details
 
-Similar to <u>deleting an elderly (<a href="#uc3-delete-an-elderly">UC3</a>)</u> but only deleting an elderly's Nok details.
+Similar to <u>deleting an elderly (<a href="#uc3-delete-an-elderly">UC3</a>)</u> but only deleting an elderly's NoK details.
 
 ##### UC8: Add tags to an elderly
 
@@ -1062,14 +1062,14 @@ testers are expected to do more *exploratory* testing.
    4. Invalid commands to try (Error details shown in the status message):
       * Invalid index >= size of elderly list or <= 0: `deleteElderly 5` or `deleteElderly -1`
       
-### Delete all Nok details of an elderly.
+### Delete all NoK details of an elderly.
 
-1. Deleting all Nok details of an elderly
+1. Deleting all NoK details of an elderly
 
     1. Prerequisites: List all elderlies using the `viewElderly` command. Multiple elderlies in the list.
 
     2. Test case: `deleteNok 1` <br>
-       Expected: All Nok details of the first elderly in the list are deleted. Updated details of the elderly whose Nok details were deleted are shown in the status message.
+       Expected: All NoK details of the first elderly in the list are deleted. Updated details of the elderly whose NoK details were deleted are shown in the status message.
 
     3. Invalid commands to try (Error details shown in the status message):
          * Invalid index >= size of elderly list, or <= 0: `deleteNok 5` or `deleteNok -1`
@@ -1137,9 +1137,6 @@ testers are expected to do more *exploratory* testing.
    
     2. Test case: `findTask dentist visit` <br>
        Expected: Lists all tasks with the keywords "dentist", or "visit", or both words in its description. Number of tasks found is shown in the status message.
-   
-    3. Invalid commands to try (Error details shown in the status message):
-       * 
 
 ### Mark a task as complete
 
@@ -1196,6 +1193,34 @@ testers are expected to do more *exploratory* testing.
     3. Test case: `remind desc/medicine` <br>
        Expected: Similar to previous.
 
+### Clear
+
+1. Clearing all stored data in NurseyBook (elderlies and tasks)
+
+    1. Prerequisites: NurseyBook is populated with data (elderlies, tasks, or both).
+
+    2. Test case: `clear` <br>
+       Expected: Clears all stored data in NurseyBook.
+   
+    3. Test case: `clear 1` <br>
+       Expected: Clears all stored data in NurseyBook. Clear is successful even if NurseyBook is not populated with data. Additional invalid parameters are ignored.
+   
+    4. Test case: `clear r/30` <br>
+       Expected: Similar to previous.
+
+### Help
+
+1. Showing the help window that contains a summary of the commands (with the necessary command parameters)
+
+    1. Test case: `help` <br>
+       Expected: Shows the help window successfully.
+
+    3. Test case: `help 1` <br>
+       Expected: Shows the help window successfully. Additional invalid parameters are ignored.
+
+    4. Test case: `help r/30` <br>
+       Expected: Similar to previous.
+
 ### View Schedule
 
 1. Viewing task schedule on a specific date in NurseyBook. For illustration purposes, current date is assumed to be `2021-11-12`. You should use the actual current date, and the corresponding future or past dates during your testing.
@@ -1204,6 +1229,7 @@ testers are expected to do more *exploratory* testing.
         * Task A: A non-recurring task, the date of which is current date. <br> Assume this date is `2021-11-12` for illustration purposes.
         * Task B: A daily recurring task, the initial date of which is current date + 2 days. <br> Assume this date is `2021-11-14` for illustration purposes.
         * Task C: A non-recurring task, the date of which is current date + 4 days. <br> Assume this date is `2021-11-16` for illustration purposes. 
+       
     2. Test case - today:`viewSchedule 2021-11-12` <br>
        Expected: Task A should be displayed.
    
