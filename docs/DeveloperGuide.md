@@ -255,7 +255,8 @@ Alternative 2 is chosen as `UI` class has the duty to listen to changes to `Mode
 
 The following sequence diagram shows how this operation works:
 
-![OverdueTasksSequenceDiagram](images/OverdueTaskSequenceDiagram.png)
+![OverdueTasksSequenceDiagram1](images/OverdueTaskSequenceDiagram1.png)
+![OverdueTasksSequenceDiagram2](images/OverdueTaskSequenceDiagram2.png)
 
 ### Add recurring task feature
 
@@ -320,7 +321,9 @@ Listed below are some situations and corresponding implementations where the ove
 4. User edits non-recurring `Task` with a future `DateTime` to a passed `DateTime`
     * Mark `Status#isOverdue` to `true`.
 
-<img src="images/HandleOverdueAndRecurringTasksActivityDiagram.png" width="350"/>
+<p align="center">
+    <img src="images/HandleOverdueAndRecurringTasksActivityDiagram.png" width="450"/>
+</p>
 
 For each `Task` in NurseyBook, it will go through this cycle of checks to ensure their `DateTime` and `Status` are updated accordingly.
 
