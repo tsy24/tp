@@ -582,7 +582,7 @@ By default, `viewTasks` will only show RealTasks.
 <br>
 
 #### Handling persistence of `GhostTask` objects
-Since `UniqueTaskList` contains `Task` objects, it can be either `GhostTask` or `RealTask` objects. A natural implication of `UniqueTaskList` containing all `Task` type objects would be the persistence of
+Since `UniqueTaskList` contains `Task` type objects, these objects can be either `GhostTask` or `RealTask` objects. A natural implication of `UniqueTaskList` containing all `Task` type objects would be the persistence of
 GhostTasks between different command calls. This becomes a problem in certain situations, as detailed below.
 
 Let us assume that two commands, A and B, are executed, both of which create GhostTasks during their execution, and then display the task list to show the user the GhostTasks created during execution. The following will be observed.
@@ -617,7 +617,7 @@ public CommandResult execute(String commandText) throws CommandException, ParseE
 #### Implementation of ViewSchedule
 
 `ViewScheduleCommand` leverages on this ability to create GhostTasks. The other unique aspect in the implementation of this feature, is how the program figures out which GhostTasks to create and show to the user upon execution of this command.
-When a `ViewScheduleCommand` is executed with a given `keyDate`, where `keyDate` refers to the date on which the user wants to view schedule, `addPossibleGhostTasksWithMatchingDate(keyDate)` is responsible for this addition of relevant GhostTasks.
+When a `ViewScheduleCommand` is executed with a given `keyDate`, where `keyDate` refers to the date on which the user wants to view schedule, the method `addPossibleGhostTasksWithMatchingDate(keyDate)` is responsible for this addition of relevant GhostTasks.
 
 Each task in the task list goes through a series of checks and actions before a GhostTask is created. 
 Given below is an activity diagram that summarizes the sequence of checks and actions taken for each task in the task list upon calling the above-mentioned method.
@@ -646,7 +646,7 @@ This also keeps the data stored in the hard disk smaller, as there is no unneces
 
 **Aspect: Searching of future occurrences of recurring tasks:**
 With recurring tasks, they imply the existence of infinite potential future occurrences. Consequently, users could input dates well beyond reasonable amounts, such as centuries into
-the future. However, it is not sensible nor feasible to search for such extraneous lengths of time. Hence, the maximum amount of time that a user can view schedule on a future date has been
+the future. However, it is not sensible nor feasible to search for such extraordinary lengths of time. Hence, the maximum amount of time that a user can view schedule on a future date has been
 capped at 12 weeks, or 84 days, from the current date. This number was derived based on our estimations on how many weeks nurses would most likely have to plan ahead for in nursing homes, along with some extra leeway.
 
 <br>
@@ -1580,7 +1580,14 @@ Below, we have detailed the major time-consuming factors to justify our effort e
 
 ### Notable Changes
 
-#### 1. Refactoring of Person and Adding of Task models
+#### 1. Implementation of Task Management System
+Apart from simply evolving the address book from AB3 into an address book for nursing homes, we went the extra mile to implement a task management system to complement the address book. Furthermore, we integrated the features of the task management system with
+those of the address book, such as being able to link elderlies from the address book to tasks created. This was an effort made to make our product truly unique and effective in solving the problems faced by our target market. Hence, in effect, we had to develop two
+systems within the timeframe, and integrate them to make NurseyBook what it is today.
+
+<br>
+
+#### 2. Refactoring of Person and Adding of Task models
 In order to support the `Elderly` and `Nok` classes, a refactoring of the `Person` class is needed to accommodate these two kinds of persons.
 
 Moreover, to support task management, our team had to add a model for `Task` objects. While some sections of the code could be adapted from AB3’s Person model, the majority had to be redesigned to accommodate complex task creation.
@@ -1591,7 +1598,7 @@ As a result, we had to integrate all these models with the existing code to save
 
 <br>
 
-#### 2. Redesigned GUI
+#### 3. Redesigned GUI
 Compared to AB3, NurseyBook has nearly double the number of UI components.
 
 We had played around with multiple colour schemes, to find something that could strike a perfect balance between 1) healthcare related, 2) matching colours, 3) colours to stand out for our tags (e.g. tags added to each elderly, overdue tags for tasks).
@@ -1604,7 +1611,7 @@ Furthermore, to allow for a better user experience, we restricted the scrolling 
 
 <br>
 
-#### 3. Undo/Redo
+#### 4. Undo/Redo
 The implementation of the `undo` and `redo` features in NurseyBook was adapted from the [SE-EDU AddressBook Level 4](https://github.com/se-edu/addressbook-level4). However, we wanted our undo/redo feature to show users what command is being undone/redone. This meant that we had to modify the implementation such that the command result of the commands are also saved. The modification allows NurseyBook to display the command message of the command being undone or redone, giving users more information on what is the change in data. Furthermore, for commands that switch to display a particular list, we have implemented it such that undoing or redoing such commands will also change the list displayed. For example, undoing an `addTask` command will cause the task list to be displayed.
 
 In addition, as the undo/redo feature was implemented at a later stage, there were many changes to be made to existing commands and test cases. Methods to save the changes to the data of the NurseyBook had to be added to the execution of commands that change the data and their test cases.

@@ -5,7 +5,7 @@ title: Tze Henn's Project Portfolio Page
 
 ### Project: AddressBook Level 3
 
-NurseyBook is a desktop address book application designed to help nurses manage their contacts and tasks. The user primarily interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 19 kLoC.
+NurseyBook is a desktop address book application designed to help nurses manage their contacts and tasks. The user primarily interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 20 kLoC.
 
 Given below are my contributions to the project.
 
