@@ -1143,7 +1143,7 @@ testers are expected to do more *exploratory* testing.
 
     3. Invalid commands to try (Error details shown in the status message):
          * Invalid index >= size of elderly list, or <= 0: `deleteNok 5` or `deleteNok -1`
-<<<<<<< HEAD
+
 
 ### Edit an elderly
 
@@ -1190,9 +1190,6 @@ testers are expected to do more *exploratory* testing.
 
     4. Invalid commands to try (Error details shown in the status message):
         * Invalid index >= size of elderly list or <= 0: `viewDetails 5` or `viewDetails -1`
-=======
-         
->>>>>>> fbfa70d3f88b4f6c2521d709ae99f63823eb2d6d
 
 ### Add a task
 
@@ -1298,9 +1295,6 @@ testers are expected to do more *exploratory* testing.
 
 1. Undoing a previous command
 
-<<<<<<< HEAD
-### Save data
-=======
    1. Prerequisites: NurseyBook is just launched with no commands entered yet. 
 
    2. Test case: enter `addElderly en/Khong Guan a/80 g/M r/10` and then `undo`<br>
@@ -1329,9 +1323,8 @@ testers are expected to do more *exploratory* testing.
 
     4. Test case: enter `addElderly en/Khong Guan a/80 g/M r/10` and then `redo`<br>
        Expected: No change in data of NurseyBook as there are no previously undone commands. Error details shown in the status message.
-    
+
 ### Saving data
->>>>>>> fbfa70d3f88b4f6c2521d709ae99f63823eb2d6d
 
 1. Dealing with missing/corrupted data files
 
