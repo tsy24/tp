@@ -34,7 +34,7 @@ NurseyBook is a **desktop app made for nurses in nursing homes to aid them in ma
 
    * **`viewTasks`** : Lists all tasks.
 
-   * **`addElderly`**` en/John a/77 g/M r/420 t/diabetes` : Adds an elderly named `John` to NurseyBook.
+   * **`addElderly`**` en/John a/77 g/M r/420 t/diabetes` : Adds an elderly named `John`.
 
    * **`deleteElderly`**` 3` : Deletes the records of the 3rd elderly shown in the current list.
 
@@ -85,8 +85,7 @@ Example warnings.
 
 </div>
 
-
-
+<div style="page-break-after: always;"></div>
 
 **Tip**
 
@@ -112,6 +111,8 @@ However, the User Interface (UI) is designed primarily to be navigated using the
 
 You can enter commands into the command box and press `Enter` to execute them. The result box will then provide a response on whether the command was successfully executed.
 The display panel will similarly update itself, based on the command executed.
+
+<div style="page-break-after: always;"></div>
 
 #### 3.2.4 Command Format
 
@@ -190,6 +191,7 @@ This section contains the documentation on NurseyBook's features and commands. I
 1. [Elderly commands](#41-elderly-commands)
 2. [Task commands](#42-task-commands)
 3. [Miscellaneous commands](#43-miscellaneous-commands)
+
 ### 4.1 Elderly commands
 
 #### 4.1.1 View all elderly: `viewElderly`
@@ -285,6 +287,8 @@ Example: John has an existing tag `cancer`, and he is at index 1 in the current 
 * For more accessible tag related commands, do refer to the [`addTag`](#418-add-tags-to-elderly-addtag) and [`deleteTag`](#419-delete-tags-of-elderly-deletetag) commands.
 </div>
 
+<div style="page-break-after: always;"></div>
+
 #### 4.1.5 Find elderly: `findElderly`
 
 Finds elderlies whose names contain any of the given keywords.
@@ -325,6 +329,8 @@ Examples:
 
 </div>
 
+<div style="page-break-after: always;"></div>
+
 `viewDetails 1` used:
 
 ![](images/userGuide/view_details.png)
@@ -346,6 +352,8 @@ Examples:
 * The index **must be a positive integer** 1, 2, 3, …​
 
 </div>
+
+<div style="page-break-after: always;"></div>
 
 #### 4.1.8 Add tags to elderly: `addTag`
 
@@ -385,6 +393,8 @@ Examples:
 * The index **must be a positive integer** 1, 2, 3, …​
 
 </div>
+
+<div style="page-break-after: always;"></div>
 
 #### 4.1.10 Filter elderly: `filter`
 
@@ -435,6 +445,8 @@ Examples:
 
 </div>
 
+<div style="page-break-after: always;"></div>
+
 ### 4.2 Task commands
 
 #### 4.2.1 View all tasks: `viewTasks`
@@ -471,6 +483,8 @@ Format: `addTask [en/ELDERLY_NAME]…​ desc/DESCRIPTION date/DATE time/TIME [r
 Examples:
 `addTask en/Khong Guan desc/check insulin level date/2022-01-25 time/19:22 recur/week`
 
+<div style="page-break-after: always;"></div>
+
 <div markdown="block" class="alert alert-info">
 
 :information_source: **Information:**
@@ -503,6 +517,8 @@ Examples:
 
 ![](images/userGuide/add_task_0.png)
 ![](images/userGuide/add_task_1.png)
+
+<div style="page-break-after: always;"></div>
 
 #### 4.2.3 Delete a task: `deleteTask`
 
@@ -550,6 +566,8 @@ e.g. Date of task is `2022-01-01` with `daily` recurrence. On `2022-01-03`, the 
 * If you want to edit the names of any elderlies linked to a task, you need to first make sure all the elderlies' names are already registered in your elderly database.
 
 </div>
+
+<div style="page-break-after: always;"></div>
 
 #### 4.2.5 Find a task: `findTask`
 
