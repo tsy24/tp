@@ -1255,7 +1255,7 @@ testers are expected to do more *exploratory* testing.
       Expected: No elderly is deleted. Error details shown in the status message.
 
    4. Invalid commands to try (Error details shown in the status message):
-      * Invalid index >= size of elderly list or <= 0: `deleteElderly 5` or `deleteElderly -1`
+      * Invalid index >= size of elderly list or <= 0:`deleteElderly 5`or`deleteElderly 0`
 
 ### Edit an elderly
 
