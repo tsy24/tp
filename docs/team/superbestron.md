@@ -24,6 +24,7 @@ Given below are my contributions to the project.
 * **Project management**:
   * Managed releases `v1.1` - `v1.4` (4 releases) on GitHub
 
+<div style="page-break-after: always;"></div>
 * **Enhancements to existing features**:
   * Performed a major refactor of `Person` class to include `Elderly` and `Nok` classes. (Pull requests [\#64](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/64), [\#78](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/78))
   * Made the relationships between elderly and task more intuitive. (Pull requests [\#220](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/220))
