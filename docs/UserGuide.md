@@ -421,7 +421,7 @@ Examples:
 
 :bulb: **Tip:**  
 
-* You can remove a remark by leaving the remark input empty! e.g. [`viewElderly`](#411-view-all-elderly-viewelderly) followed by `remark 1 re/` removes the remark for the 1st elderly in NurseyBook.
+* You can remove a remark by leaving the remark input empty! e.g. [`viewElderly`](#411-view-all-elderly-viewelderly) followed by `remark 1 re/` or `remark 1` removes the remark for the 1st elderly in NurseyBook.
 
 </div>
 
@@ -590,7 +590,7 @@ Examples:
 #### 4.2.7 View reminders: `remind`
 
 Shows the list of upcoming tasks (that are coming up in the next three days), such as the required medical needs for
-those under your care.
+those under your care. e.g. If the current date is 2021-11-12, the tasks that are scheduled to happen up to and including 2021-11-15 will be shown. Tasks schduled for 2021-11-16 and onwards will not be shown.
 
 Format: `remind`
 
@@ -707,7 +707,10 @@ are also welcome to update data directly by editing that data file.
 
 :exclamation: **Caution:**
 * If your changes to the data file makes its format invalid, NurseyBook will discard all data and start with an empty data file at the next run.
-* This includes adding non-existent elderly names to any tasks or failing to remove/edit all instances of an elderly you deleted/edited within the tasks.
+* This includes:
+  * adding non-existent elderly names to tasks,
+  * adding elderly names in a different case to tasks (e.g. Elderly `Khong Guan` within elderlies but a task's elderly names contain `khong guan`),
+  * failing to remove/edit all instances of an elderly name you have deleted/edited within the tasks.
 </div>
 
 --------------------------------------------------------------------------------------------------------------------
