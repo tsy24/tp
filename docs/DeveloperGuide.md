@@ -1240,6 +1240,8 @@ testers are expected to do more *exploratory* testing.
       * Age entered is not within the valid range: `addElderly en/Mark Lee r/10 a/15 g/M`
       * Additional parameters are entered: `addElderly en/Mark Lee r/10 a/70 g/M desc/needs to visit the dentist every week`
 
+<div style="page-break-after: always;"></div>
+
 ### Delete an elderly
 
 1. Deleting an elderly from NurseyBook
@@ -1276,6 +1278,8 @@ testers are expected to do more *exploratory* testing.
         * Edited fields are all the same as the original fields: `editElderly 2 a/42` <br>
         * Edited fields have incorrect formats: `editElderly 2 p/!34djsf` <br>
 
+<div style="page-break-after: always;"></div>
+
 ### Find an elderly
 
 1. Finding an elderly in NurseyBook
@@ -1285,8 +1289,6 @@ testers are expected to do more *exploratory* testing.
 
     2. Test case: `findElderly charlotte yu` <br>
        Expected: Lists all elderlies whose names contain the keywords "charlotte", or "yu", or both. Number of elderlies found is shown in the status message.
-
-<div style="page-break-after: always;"></div>
 
 ### View full details of an elderly.
 
@@ -1303,6 +1305,8 @@ testers are expected to do more *exploratory* testing.
     4. Invalid commands to try (Error details shown in the status message):
         * Invalid index >= size of elderly list or <= 0: `viewDetails 5` or `viewDetails -1`
 
+<div style="page-break-after: always;"></div>
+
 ### Delete all NoK details of an elderly.
 
 1. Deleting all NoK details of an elderly
@@ -1314,8 +1318,6 @@ testers are expected to do more *exploratory* testing.
 
     3. Invalid commands to try (Error details shown in the status message):
         * Invalid index >= size of elderly list, or <= 0: `deleteNok 5` or `deleteNok -1`
-
-    <div style="page-break-after: always;"></div>
 
 ### Add tags to an elderly
 
@@ -1338,6 +1340,8 @@ testers are expected to do more *exploratory* testing.
        * Missing parameters: `addTag` or `addTag 1`
        * Additional parameters: `addTag 1 en/Alex Yeoh`
 
+<div style="page-break-after: always;"></div>
+
 ### Delete tags from an elderly
 
 1. Deleting one or more tags from an elderly in NurseyBook
@@ -1356,8 +1360,6 @@ testers are expected to do more *exploratory* testing.
         * Missing parameters: `deleteTag` or `deleteTag 1`
         * Additional parameters: `deleteTag 1 en/Alex Yeoh`
 
-<div style="page-break-after: always;"></div>
-
 ### Filter elderlies based on tags
 
 1. Filtering elderlies in NurseyBook based on their tags
@@ -1371,6 +1373,8 @@ testers are expected to do more *exploratory* testing.
     3. Invalid commands to try (Error details shown in the status message):
         * Missing parameters: `filter`
         * Additional parameters: `filter en/Alex Yeoh`
+
+<div style="page-break-after: always;"></div>
 
 ### Add a remark
 
@@ -1389,8 +1393,6 @@ testers are expected to do more *exploratory* testing.
         * Invalid index >= size of elderly list or <= 0: `remark 0 re/loves eggs` or `remark -1 re/loves eggs`
         * `remark 1 desc/hates vegetables` is an invalid command format.
 
-<div style="page-break-after: always;"></div>
-
 ### View all tasks
 
 1. Viewing all the tasks that has been added into NurseyBook
@@ -1403,6 +1405,8 @@ testers are expected to do more *exploratory* testing.
 
     3. Test case: `viewTasks r/30` <br>
        Expected: Similar to previous.
+
+<div style="page-break-after: always;"></div>
 
 ### Add a task
 
@@ -1419,14 +1423,14 @@ testers are expected to do more *exploratory* testing.
        Test case 2 has a different date and type of recurrence compared to that in test case 1, thus is added.
    
     4. Test case: `addTask en/Benny desc/Weekly Taiji date/2022-10-10 time/14:30` <br>
-       Expected: No task is added. Error details shown in the status message. 
-
-   <div style="page-break-after: always;"></div>
+       Expected: No task is added. Error details shown in the status message.
     
     5. Invalid commands to try (Error details shown in the status message): <br>
        * Elderly does not exist in elderly database: `addTask 1 desc/Covid Shot en/Charlotte` (assuming Charlotte does not exist in the elderly database) <br>
        * Fields are the same as another task: `addTask 1 desc/Covid Shot date/2022-10-31 time/18:00 en/Bernice Yu` (assuming there is another task with the exact same description, date, time and elderly names) <br>
        * Date of a recurring task is past current date and time: `addTask 1 date/2021-10-10 recur/week`
+
+<div style="page-break-after: always;"></div>
 
 ### Delete a task
 
@@ -1454,14 +1458,14 @@ testers are expected to do more *exploratory* testing.
    
     4. Test case: `editTask 1 recur/day`<br>
        Expected: Task's recurrence type is changed from none to day. Details of the edited task is shown in the status message.
-   
-   <div style="page-break-after: always;"></div>
     
     5. Invalid commands to try (Error details shown in the status message): <br>
        * Invalid index >= size of task list or <= 0: `editTask 5` or `editTask -1` <br>
        * Edited elderly does not exist in database: `editTask 1 en/Charlotte` <br>
        * Edited fields are the same as the original fields or of another task: `editTask 1 desc/Covid Shot` <br>
        * Edited date of a recurring task is past current date and time: `editTask 1 date/2021-10-10 recur/week`
+
+<div style="page-break-after: always;"></div>
 
 ### Find a task
 
@@ -1485,8 +1489,6 @@ testers are expected to do more *exploratory* testing.
     3. Invalid commands to try (Error details shown in the status message):
        * Invalid index >= size of task list or <= 0: `doneTask 5` or `doneTask -1`
 
-<div style="page-break-after: always;"></div>
-
 ### Remind
 
 1. Viewing tasks that are coming up within the next three days. e.g. If today is 2021-11-12, tasks up to and including 2021-11-15 will be displayed.
@@ -1499,6 +1501,8 @@ testers are expected to do more *exploratory* testing.
    
     3. Test case: `remind desc/medicine` <br>
        Expected: Similar to previous.
+
+<div style="page-break-after: always;"></div>
 
 ### View Schedule
 
@@ -1521,12 +1525,12 @@ testers are expected to do more *exploratory* testing.
     5. Test case - a week ahead:`viewSchedule 2021-11-19` <br>
        Expected: Task B should be displayed. Date of Task B in this display should be `2021-11-19`.
     
-   <div style="page-break-after: always;"></div>
-    
     6. Invalid commands to try (Error details shown in the status message):
         * Date input has already passed: `viewSchedule 2021-11-11`
         * Date input is beyond 12 weeks from today's date: `viewSchedule 2022-10-11`
         * Not formatting the date correctly in yyyy-mm-dd format: `viewSchedule 16-12-2021`
+
+<div style="page-break-after: always;"></div>
 
 ### Clear
 
