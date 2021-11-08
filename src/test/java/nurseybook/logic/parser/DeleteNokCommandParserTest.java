@@ -1,4 +1,4 @@
-//@@author Superbestron
+//@@author CraveToCode
 package nurseybook.logic.parser;
 
 import static nurseybook.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
@@ -28,6 +28,7 @@ public class DeleteNokCommandParserTest {
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
     }
 
+    //@@author Superbestron
     @Test
     public void parse_indexIsNotNonZeroUnsignedInteger_throwsParseException() {
         assertParseFailure(parser, "0", String.format(MESSAGE_INVALID_INDEX,
