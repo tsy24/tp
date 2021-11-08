@@ -241,7 +241,7 @@ The following sequence diagram shows how this operation works but leaves out the
 
 ![ViewDetailsSequenceDiagram](./images/ViewDetailsSequenceDiagram.png)
 
-Parsing works similar to [`doneTask`](#mark-a-task-as-done-feature) feature above: a `ViewDetailsCommandParser` parses the Index which is passed to the `ViewDetailsCommand`. The Index identifies the elderly whose full details should be shown.
+Parsing works similar to [`doneTask`](#mark-a-task-as-done-feature) feature below: a `ViewDetailsCommandParser` parses the Index which is passed to the `ViewDetailsCommand`. The Index identifies the elderly whose full details should be shown.
 
 #### Design considerations
 **Aspect: How to pass an elderly object to UI**
