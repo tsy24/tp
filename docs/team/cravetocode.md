@@ -34,7 +34,7 @@ Given below are my key contributions to the project.
 * **Code contributed**: [RepoSense link](https://nus-cs2103-ay2122s1.github.io/tp-dashboard/?search=&sort=groupTitle&sortWithin=title&since=2021-09-17&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=CraveToCode&tabRepo=AY2122S1-CS2103T-F13-2%2Ftp%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=docs~functional-code~test-code~other&authorshipIsBinaryFileTypeChecked=false)
 
 * **Project management**:
-  * Managed releases `v1.1` - `v1.4c` (6 releases) on GitHub
+  * Managed releases `v1.1` - `v1.4b` (5 releases) on GitHub
   * Setup GitHub Team Organisation and Repository
   * Setup Project Website: Set up GitHub pages, updated settings, changed names and links from AddressBook to NurseyBook
   * Maintained issue tracker: Handled creation of new issues for milestones, managed milestones and assignees, cleaned up closed issues
