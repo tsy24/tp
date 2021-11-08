@@ -597,6 +597,8 @@ Examples:
 
 ![](images/userGuide/find_task.png)
 
+<div style="page-break-after: always;"></div>
+
 #### 4.2.6 Mark a task as completed: `doneTask`
 
 Marks a particular task in the task list as completed.
@@ -605,8 +607,6 @@ Format: `doneTask INDEX`
 
 Examples:
 * [`viewTasks`](#421-view-all-tasks-viewtasks) followed by `doneTask 2` marks the 2nd task shown by NurseyBook as completed.
-
-<div style="page-break-after: always;"></div>
 
 <div markdown="block" class="alert alert-info">
 
