@@ -1,0 +1,27 @@
+@startuml
+!include style.puml
+
+start
+partition Model #Technology {
+if () then (\n[If recurring task]\n\n)
+    if () then (\n[If real task]\n)
+        :Clone RealTask into
+        a new GhostTask;
+        :Check if there are any future
+        occurrences of this GhostTask
+        that fall on the keydate;
+        if () then ([else])
+        else (\n[if a future\n occurrence \n falls on\n keydate] \n\n\n\n\n)
+        :Set GhostTask date
+        to given keydate;
+        :Add GhostTask to
+        UniqueTaskList;
+        endif
+    else ([else])
+    endif
+else ([else])
+endif
+}
+
+stop
+@enduml
