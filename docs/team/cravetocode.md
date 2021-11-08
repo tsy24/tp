@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Ramkumar Madur Malliah's Project Portfolio Page
+title: Madur's Project Portfolio Page
 ---
 
 ### Project: NurseyBook
