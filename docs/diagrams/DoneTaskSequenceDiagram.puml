@@ -48,12 +48,6 @@ deactivate NurseyBookParser
 LogicManager -> DoneTaskCommand : execute()
 activate DoneTaskCommand
 
-DoneTaskCommand -> Model : getFilteredTaskList()
-activate Model
-
-Model --> DoneTaskCommand : filteredTaskList
-deactivate Model
-
 DoneTaskCommand -> Model : markTaskAsDone(task)
 activate Model
 
