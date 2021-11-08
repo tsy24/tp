@@ -1000,6 +1000,8 @@ Similar to <u>deleting an elderly (<a href="#uc3-delete-an-elderly">UC3</a>)</u>
       Use case resumes at step 1.
 * *a. At any time, user requests to <u>view help (<a href="#uc19-viewing-help">UC19</a>)</u>.
 
+<div style="page-break-after: always;"></div>
+
 #### Use cases of task commands
 
 ##### UC12: List tasks
@@ -1007,8 +1009,6 @@ Similar to <u>deleting an elderly (<a href="#uc3-delete-an-elderly">UC3</a>)</u>
 2. NurseyBook shows a list of tasks.
    
    Use case ends.
-
-<div style="page-break-after: always;"></div>
 
 **Extensions**
 * 1a. User requests to <u>find tasks with matching keywords(<a href="#uc17-find-a-task">UC17</a>)</u>.
@@ -1040,6 +1040,8 @@ Similar to <u>adding an elderly (<a href="#uc2-add-an-elderly">UC2</a>)</u> but 
       Use case resumes at step 1.
 * *a. At any time, user requests to <u>view help (<a href="#uc19-viewing-help">UC19</a>)</u>.
 
+<div style="page-break-after: always;"></div>
+
 ##### UC15: Edit a task's details
 
 **MSS**
@@ -1050,8 +1052,6 @@ Similar to <u>adding an elderly (<a href="#uc2-add-an-elderly">UC2</a>)</u> but 
 4. NurseyBook shows updated list of task and command success message.
 
    Use case ends.
-
-<div style="page-break-after: always;"></div>
 
 **Extensions**
 * 2a. The given parameter is invalid.
@@ -1088,6 +1088,8 @@ Similar to <u>deleting a task (<a href="#uc14-delete-a-task">UC14</a>)</u> but m
 
 Similar to <u>finding an elderly (<a href="#uc5-find-an-elderly">UC5</a>)</u> but finding a task instead. A task will be shown (as part of the filtered task list) if its description contains the entered keywords.
 
+<div style="page-break-after: always;"></div>
+
 ##### UC18: View the schedule on a day
 
 **MSS**
@@ -1096,8 +1098,6 @@ Similar to <u>finding an elderly (<a href="#uc5-find-an-elderly">UC5</a>)</u> bu
 2. NurseyBook shows the list of tasks scheduled to happen on the date.
 
    Use case ends.
-
-<div style="page-break-after: always;"></div>
 
 **Extensions**
 * 1a. The given date is in an invalid format.
@@ -1124,6 +1124,8 @@ Similar to <u>finding an elderly (<a href="#uc5-find-an-elderly">UC5</a>)</u> bu
 
    Use case ends.
 
+<div style="page-break-after: always;"></div>
+
 ##### UC20: Undo a previous command
 
 **MSS**
@@ -1131,15 +1133,13 @@ Similar to <u>finding an elderly (<a href="#uc5-find-an-elderly">UC5</a>)</u> bu
 2. NurseyBook undoes the command and display the command success message.
    
     Use case ends.
-
+<div style="page-break-after: always;"></div>
 **Extensions**
 * 1a. There are no previous commands to be undone.
   * 1a1. NurseyBook shows an error message.
 
     Use case ends.
 * *a. At any time, user requests to <u>view help (<a href="#uc19-viewing-help">UC19</a>)</u>.
-
-<div style="page-break-after: always;"></div>
 
 ##### UC21: Redo a previously undone command
 
@@ -1164,6 +1164,8 @@ Similar to <u>finding an elderly (<a href="#uc5-find-an-elderly">UC5</a>)</u> bu
 4.  Data should be stored locally and without any DBMS.
 5.  Should be for a single user, not multiple users.
 6.  The system should respond within 2 seconds per search query.
+
+<div style="page-break-after: always;"></div>
 
 ### Glossary
 
@@ -1418,6 +1420,7 @@ testers are expected to do more *exploratory* testing.
     4. Test case: `addTask en/Benny desc/Weekly Taiji date/2022-10-10 time/14:30` <br>
        Expected: No task is added. Error details shown in the status message. 
    <div style="page-break-after: always;"></div>
+    
     5. Invalid commands to try (Error details shown in the status message): <br>
        * Elderly does not exist in elderly database: `addTask 1 desc/Covid Shot en/Charlotte` (assuming Charlotte does not exist in the elderly database) <br>
        * Fields are the same as another task: `addTask 1 desc/Covid Shot date/2022-10-31 time/18:00 en/Bernice Yu` (assuming there is another task with the exact same description, date, time and elderly names) <br>
@@ -1450,6 +1453,7 @@ testers are expected to do more *exploratory* testing.
     4. Test case: `editTask 1 recur/day`<br>
        Expected: Task's recurrence type is changed from none to day. Details of the edited task is shown in the status message.
    <div style="page-break-after: always;"></div>
+    
     5. Invalid commands to try (Error details shown in the status message): <br>
        * Invalid index >= size of task list or <= 0: `editTask 5` or `editTask -1` <br>
        * Edited elderly does not exist in database: `editTask 1 en/Charlotte` <br>
@@ -1493,8 +1497,6 @@ testers are expected to do more *exploratory* testing.
     3. Test case: `remind desc/medicine` <br>
        Expected: Similar to previous.
 
-<div style="page-break-after: always;"></div>
-
 ### View Schedule
 
 1. Viewing task schedule on a specific date in NurseyBook. For illustration purposes, current date is assumed to be `2021-11-12`. You should use the actual current date, and the corresponding future or past dates during your testing.
@@ -1515,13 +1517,12 @@ testers are expected to do more *exploratory* testing.
 
     5. Test case - a week ahead:`viewSchedule 2021-11-19` <br>
        Expected: Task B should be displayed. Date of Task B in this display should be `2021-11-19`.
-<div style="page-break-after: always;"></div>
+    <div style="page-break-after: always;"></div>
+    
     6. Invalid commands to try (Error details shown in the status message):
         * Date input has already passed: `viewSchedule 2021-11-11`
         * Date input is beyond 12 weeks from today's date: `viewSchedule 2022-10-11`
         * Not formatting the date correctly in yyyy-mm-dd format: `viewSchedule 16-12-2021`
-
-<div style="page-break-after: always;"></div>
 
 ### Clear
 
