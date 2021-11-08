@@ -1579,9 +1579,9 @@ testers are expected to do more *exploratory* testing.
    4. Launch the app by running `java -jar NurseyBook.jar` in the console. <br>
       Expected: The GUI should pop up with no entries. The console should give warnings about incorrect data format (due to the removal of the `{` character at the start of the `nurseybook.json` file).
 
+--------------------------------------------------------------------------------------------------------------------
 
-
-## **Appendix: Effort**
+## **Appendix C: Effort**
 
 Assuming the effort taken to create AB3 is rated at 100, we would estimate our project to have taken an effort of 200. Numerically, we have over 19000 lines of code contributed for version 1.4 of NurseyBook, with over 550 test cases to achieve high code coverage. 
 Below, we have detailed the major time-consuming factors to justify our effort estimation.
