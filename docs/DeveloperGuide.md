@@ -241,7 +241,7 @@ The following sequence diagram shows how this operation works but leaves out the
 
 ![ViewDetailsSequenceDiagram](./images/ViewDetailsSequenceDiagram.png)
 
-Parsing works similar to [`doneTask`](#mark-a-task-as-done-feature) feature above: a `ViewDetailsCommandParser` parses the Index which is passed to the `ViewDetailsCommand`. The Index identifies the elderly whose full details should be shown.
+Parsing works similar to [`doneTask`](#mark-a-task-as-done-feature) feature below: a `ViewDetailsCommandParser` parses the Index which is passed to the `ViewDetailsCommand`. The Index identifies the elderly whose full details should be shown.
 
 #### Design considerations
 **Aspect: How to pass an elderly object to UI**
@@ -692,6 +692,8 @@ Reason: It no longer makes sense to redo the `addTag 1 t/diabetes` command. This
 
 ![UndoRedoState5](images/UndoRedoState5.png)
 
+<div style="page-break-after: always;"></div>
+
 The following activity diagram summarizes what happens when a user executes a new command:
 
 <img src="images/CommitActivityDiagram.png" width="300" />
@@ -1134,8 +1136,6 @@ Similar to <u>adding an elderly (<a href="#uc2-add-an-elderly">UC2</a>)</u> but 
 ##### UC16: Mark a task as complete
 
 Similar to <u>deleting a task (<a href="#uc14-delete-a-task">UC14</a>)</u> but marking a task as done instead. The `doneTask` command success message will appear instead.
-
-<div style="page-break-after: always;"></div>
 
 ##### UC17: Find a task
 
