@@ -123,7 +123,7 @@ How the parsing works:
 ### Model component
 **API** : [`Model.java`](https://github.com/AY2122S1-CS2103T-F13-2/tp/blob/master/src/main/java/nurseybook/model/Model.java)
 
-<img src="images/ModelClassDiagram.png" width="400" />
+<img src="images/ModelClassDiagram.png"/>
 
 
 The `Model` component,
@@ -162,7 +162,7 @@ Classes used by multiple components are in the `nurseybook.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
-### Filter command
+### Filter feature
 
 #### Implementation
 The implementation of the filter command is facilitated by the `FilterCommand` class and `ElderlyHasTagPredicate` class.
@@ -178,13 +178,6 @@ The following sequence diagrams show how the filter command works:
 This diagram shows how the FilterCommand object is created:
 
 ![FilterSequenceDiagram](images/FilterSequenceDiagram.png)
-
-<div markdown="span" class="alert alert-info">
-
-:information_source: **Note:** 
-The lifeline for `FilterCommand` and `ElderlyHasTagPredicate` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-</div>
 
 This diagram shows how the FilterCommand object is executed:
 
@@ -1211,6 +1204,19 @@ testers are expected to do more *exploratory* testing.
    2. Re-launch the app by double-clicking the jar file. <br>
        Expected: The most recent window size and location is retained.
 
+### View all elderly
+
+1. Viewing all the elderlies that has been added into NurseyBook
+
+    1. Test case: `viewElderly` <br>
+       Expected: All the elderlies that have been added into NurseyBook are shown. If user is previously viewing the task list, switches from task list to elderly list display.
+
+    2. Test case: `viewElderly 1` <br>.
+       Expected: Similar to previous. Additional invalid parameters are ignored.
+
+    3. Test case: `viewElderly desc/visit the dentist` <br>
+       Expected: Similar to previous.
+
 ### Add an elderly
 
 1. Adding an elderly to NurseyBook
@@ -1247,77 +1253,12 @@ testers are expected to do more *exploratory* testing.
 
    4. Invalid commands to try (Error details shown in the status message):
       * Invalid index >= size of elderly list or <= 0: `deleteElderly 5` or `deleteElderly -1`
-      
-### Adding tags to an elderly
-
-1. Add one or more tags to an elderly in NurseyBook
-
-    1. Prerequisites: List all elderlies using the `viewElderly` command. Multiple elderlies in the list. The first elderly in the list has one `diabetes` tag.
-
-    2. Test case: `addTag 1 t/hypertension`<br>
-       Expected: `hypertension` tag is added to the first elderly in the list.
-   
-    3. Test case: `addTag 1 t/vegetarian t/flu`<br>
-       Expected: `vegetarian` and `flu` tags are added to the first elderly in the list. 
-   
-    4. Test case: `addTag 1 t/flu t/Flu`<br>
-       Expected: The two tags are taken to be the same tag and only the `flu` tag is added to the first elderly in the list.
-   
-    5. Invalid commands to try (Error details shown in the status message):
-       * Invalid index >= size of elderly list or <= 0: `addTag 5 t/flu` or `addTag -1 t/flu`
-       * Adding an existing tag: `addTag 1 t/diabetes`
-       * Missing parameters: `addTag` or `addTag 1`
-       * Additional parameters: `addTag 1 en/Alex Yeoh`
-
-### Deleting tags from an elderly
-
-1. Deleting one or more tags from an elderly in NurseyBook
-
-    1. Prerequisites: List all elderlies using the `viewElderly` command. Multiple elderlies in the list. The second elderly in the list has `diabetes` and `fever` tags.
-
-    2. Test case: `deleteTag 2 t/diabetes`<br>
-       Expected: `diabetes` tag is deleted from the second elderly in the list.
-
-    3. Test case: `deleteTag 2 t/diabetes t/fever`<br>
-       Expected: `diabetes` and `fever` tags are deleted from the second elderly in the list.
-
-    4. Invalid commands to try (Error details shown in the status message):
-        * Invalid index >= size of elderly list or <= 0: `deleteTag 5 t/diabetes` or `deleteTag -1 t/diabetes`
-        * Deleting a tag that the elderly does not have: `deleteTag 2 t/hypertension`
-        * Missing parameters: `deleteTag` or `deleteTag 1`
-        * Additional parameters: `deleteTag 1 en/Alex Yeoh`
-        
-### Filter elderlies based on tags
-
-1. Filtering elderlies in NurseyBook based on their tags
-
-    1. Test case: `filter t/diabetes`<br>
-       Expected: list of elderlies with `diabetes` tag is displayed.
-
-    2. Test case: `filter t/diabetes t/fever`<br>
-        Expected: list of elderlies with both `diabetes` and `fever` tags is displayed.
-
-    3. Invalid commands to try (Error details shown in the status message):
-        * Missing parameters: `filter`
-        * Additional parameters: `filter en/Alex Yeoh`
-        
-### Delete all NoK details of an elderly.
-
-1. Deleting all NoK details of an elderly
-
-    1. Prerequisites: List all elderlies using the `viewElderly` command. Multiple elderlies in the list.
-
-    2. Test case: `deleteNok 1` <br>
-       Expected: All NoK details of the first elderly in the list are deleted. Updated details of the elderly whose NoK details were deleted are shown in the status message.
-
-    3. Invalid commands to try (Error details shown in the status message):
-         * Invalid index >= size of elderly list, or <= 0: `deleteNok 5` or `deleteNok -1`
 
 ### Edit an elderly
 
 1. Editing an elderly from NurseyBook
 
-    1. Prerequisites: List all elderlies using the `viewElderly` command. There is an elderly in NurseyBook with the name 'Bernice Yu' whose age is 42 at the second index and some tasks she is mentioned in. 
+    1. Prerequisites: List all elderlies using the `viewElderly` command. There is an elderly in NurseyBook with the name 'Bernice Yu' whose age is 42 at the second index and some tasks she is mentioned in.
 
     2. Test case: `editElderly 2 a/45`<br>
        Expected: Elderly's age is replaced with 45.
@@ -1358,6 +1299,101 @@ testers are expected to do more *exploratory* testing.
 
     4. Invalid commands to try (Error details shown in the status message):
         * Invalid index >= size of elderly list or <= 0: `viewDetails 5` or `viewDetails -1`
+
+### Delete all NoK details of an elderly.
+
+1. Deleting all NoK details of an elderly
+
+    1. Prerequisites: List all elderlies using the `viewElderly` command. Multiple elderlies in the list.
+
+    2. Test case: `deleteNok 1` <br>
+       Expected: All NoK details of the first elderly in the list are deleted. Updated details of the elderly whose NoK details were deleted are shown in the status message.
+
+    3. Invalid commands to try (Error details shown in the status message):
+        * Invalid index >= size of elderly list, or <= 0: `deleteNok 5` or `deleteNok -1`
+
+### Add tags to an elderly
+
+1. Add one or more tags to an elderly in NurseyBook
+
+    1. Prerequisites: List all elderlies using the `viewElderly` command. Multiple elderlies in the list. The first elderly in the list has one `diabetes` tag.
+
+    2. Test case: `addTag 1 t/hypertension`<br>
+       Expected: `hypertension` tag is added to the first elderly in the list.
+   
+    3. Test case: `addTag 1 t/vegetarian t/flu`<br>
+       Expected: `vegetarian` and `flu` tags are added to the first elderly in the list. 
+   
+    4. Test case: `addTag 1 t/flu t/Flu`<br>
+       Expected: The two tags are taken to be the same tag and only the `flu` tag is added to the first elderly in the list.
+   
+    5. Invalid commands to try (Error details shown in the status message):
+       * Invalid index >= size of elderly list or <= 0: `addTag 5 t/flu` or `addTag -1 t/flu`
+       * Adding an existing tag: `addTag 1 t/diabetes`
+       * Missing parameters: `addTag` or `addTag 1`
+       * Additional parameters: `addTag 1 en/Alex Yeoh`
+
+### Delete tags from an elderly
+
+1. Deleting one or more tags from an elderly in NurseyBook
+
+    1. Prerequisites: List all elderlies using the `viewElderly` command. Multiple elderlies in the list. The second elderly in the list has `diabetes` and `fever` tags.
+
+    2. Test case: `deleteTag 2 t/diabetes`<br>
+       Expected: `diabetes` tag is deleted from the second elderly in the list.
+
+    3. Test case: `deleteTag 2 t/diabetes t/fever`<br>
+       Expected: `diabetes` and `fever` tags are deleted from the second elderly in the list.
+
+    4. Invalid commands to try (Error details shown in the status message):
+        * Invalid index >= size of elderly list or <= 0: `deleteTag 5 t/diabetes` or `deleteTag -1 t/diabetes`
+        * Deleting a tag that the elderly does not have: `deleteTag 2 t/hypertension`
+        * Missing parameters: `deleteTag` or `deleteTag 1`
+        * Additional parameters: `deleteTag 1 en/Alex Yeoh`
+        
+### Filter elderlies based on tags
+
+1. Filtering elderlies in NurseyBook based on their tags
+
+    1. Test case: `filter t/diabetes`<br>
+       Expected: list of elderlies with `diabetes` tag is displayed.
+
+    2. Test case: `filter t/diabetes t/fever`<br>
+        Expected: list of elderlies with both `diabetes` and `fever` tags is displayed.
+
+    3. Invalid commands to try (Error details shown in the status message):
+        * Missing parameters: `filter`
+        * Additional parameters: `filter en/Alex Yeoh`
+
+### Add a remark
+
+1. Adding a remark to an elderly in NurseyBook
+
+    1. Prerequisites: List all elderly using the `viewElderly` command. Multiple elderlies in the list.
+
+    2. Test case: `remark 1 re/hates vegetables` <br>
+       Expected: Adds the remark "hates vegetables" to the first elderly in the elderly list. Details of the elderly after the addition of the remark is shown in the status message.
+
+    3. Test case: `remark 1 re/` <br>
+       Expected: Clears the previously added remark to the first elderly in the list. Details of the elderly after the removal of the remark is shown in the status message.
+
+    4. Invalid commands to try (Error details shown in the status message):
+        * `remark 1 re/` again after removing the remark of the first elderly in the list
+        * Invalid index >= size of elderly list or <= 0: `remark 0 re/loves eggs` or `remark -1 re/loves eggs`
+        * `remark 1 desc/hates vegetables` is an invalid command format.
+
+### View all tasks
+
+1. Viewing all the tasks that has been added into NurseyBook
+
+    1. Test case: `viewTasks` <br>
+       Expected: All the tasks that have been added into NurseyBook are shown. If user is previously viewing the elderly list, switches from elderly list to task list display.
+
+    2. Test case: `viewTasks 1` <br>.
+       Expected: Similar to previous. Additional invalid parameters are ignored.
+
+    3. Test case: `viewTasks r/30` <br>
+       Expected: Similar to previous.
 
 ### Add a task
 
@@ -1434,37 +1470,7 @@ testers are expected to do more *exploratory* testing.
    
     3. Invalid commands to try (Error details shown in the status message):
        * Invalid index >= size of task list or <= 0: `doneTask 5` or `doneTask -1`
-
-### Adding a remark
-
-1. Adding a remark to an elderly in NurseyBook
-
-    1. Prerequisites: List all elderly using the `viewElderly` command. Multiple elderlies in the list.
-
-    2. Test case: `remark 1 re/hates vegetables` <br>
-       Expected: Adds the remark "hates vegetables" to the first elderly in the elderly list. Details of the elderly after the addition of the remark is shown in the status message.
-   
-    3. Test case: `remark 1 re/` <br>
-       Expected: Clears the previously added remark to the first elderly in the list. Details of the elderly after the removal of the remark is shown in the status message.
-   
-    4. Invalid commands to try (Error details shown in the status message):
-       * `remark 1 re/` again after removing the remark of the first elderly in the list
-       * Invalid index >= size of elderly list or <= 0: `remark 0 re/loves eggs` or `remark -1 re/loves eggs`
-       * `remark 1 desc/hates vegetables` is an invalid command format.
-
-### View all tasks
-
-1. Viewing all the tasks that has been added into NurseyBook
-
-    1. Test case: `viewTasks` <br>
-       Expected: All the tasks that have been added into NurseyBook are shown. If user is previously viewing the elderly list, switches from elderly list to task list display.
-   
-    2. Test case: `viewTasks 1` <br>.
-       Expected: Similar to previous. Additional invalid parameters are ignored.
-
-    3. Test case: `viewTasks r/30` <br>
-       Expected: Similar to previous.
-    
+       
 ### Remind
 
 1. Viewing tasks that are coming up within the next three days. e.g. If today is 2021-11-12, tasks up to and including 2021-11-15 will be displayed.
@@ -1477,6 +1483,32 @@ testers are expected to do more *exploratory* testing.
    
     3. Test case: `remind desc/medicine` <br>
        Expected: Similar to previous.
+
+### View Schedule
+
+1. Viewing task schedule on a specific date in NurseyBook. For illustration purposes, current date is assumed to be `2021-11-12`. You should use the actual current date, and the corresponding future or past dates during your testing.
+
+    1. Prerequisites: User is currently viewing the task list page. Only the following 3 tasks are be added to NurseyBook. We shall call them Tasks A, B and C.
+        * Task A: A non-recurring task, the date of which is current date. <br> Assume this date is `2021-11-12` for illustration purposes.
+        * Task B: A daily recurring task, the initial date of which is current date + 2 days. <br> Assume this date is `2021-11-14` for illustration purposes.
+        * Task C: A non-recurring task, the date of which is current date + 4 days. <br> Assume this date is `2021-11-16` for illustration purposes.
+
+    2. Test case - today:`viewSchedule 2021-11-12` <br>
+       Expected: Task A should be displayed.
+
+    3. Test case - one day ahead:`viewSchedule 2021-11-13` <br>
+       Expected: No tasks should be displayed.
+
+    4. Test case - four days ahead:`viewSchedule 2021-11-16` <br>
+       Expected: Tasks B and C should be displayed. Date of Task B in this display should be `2021-11-16`.
+
+    5. Test case - a week ahead:`viewSchedule 2021-11-19` <br>
+       Expected: Task B should be displayed. Date of Task B in this display should be `2021-11-19`.
+
+    6. Invalid commands to try (Error details shown in the status message):
+        * Date input has already passed: `viewSchedule 2021-11-11`
+        * Date input is beyond 12 weeks from today's date: `viewSchedule 2022-10-11`
+        * Not formatting the date correctly in yyyy-mm-dd format: `viewSchedule 16-12-2021`
 
 ### Clear
 
@@ -1505,33 +1537,7 @@ testers are expected to do more *exploratory* testing.
 
     4. Test case: `help r/30` <br>
        Expected: Similar to previous.
-
-### View Schedule
-
-1. Viewing task schedule on a specific date in NurseyBook. For illustration purposes, current date is assumed to be `2021-11-12`. You should use the actual current date, and the corresponding future or past dates during your testing.
-
-    1. Prerequisites: User is currently viewing the task list page. Only the following 3 tasks are be added to NurseyBook. We shall call them Tasks A, B and C.
-        * Task A: A non-recurring task, the date of which is current date. <br> Assume this date is `2021-11-12` for illustration purposes.
-        * Task B: A daily recurring task, the initial date of which is current date + 2 days. <br> Assume this date is `2021-11-14` for illustration purposes.
-        * Task C: A non-recurring task, the date of which is current date + 4 days. <br> Assume this date is `2021-11-16` for illustration purposes.
-
-    2. Test case - today:`viewSchedule 2021-11-12` <br>
-       Expected: Task A should be displayed.
-
-    3. Test case - one day ahead:`viewSchedule 2021-11-13` <br>
-       Expected: No tasks should be displayed.
-
-    4. Test case - four days ahead:`viewSchedule 2021-11-16` <br>
-       Expected: Tasks B and C should be displayed. Date of Task B in this display should be `2021-11-16`.
-
-    5. Test case - a week ahead:`viewSchedule 2021-11-19` <br>
-       Expected: Task B should be displayed. Date of Task B in this display should be `2021-11-19`.
     
-    6. Invalid commands to try (Error details shown in the status message):
-        * Date input has already passed: `viewSchedule 2021-11-11`
-        * Date input is beyond 12 weeks from today's date: `viewSchedule 2022-10-11`
-        * Not formatting the date correctly in yyyy-mm-dd format: `viewSchedule 16-12-2021`
-
 ### Undo
 
 1. Undoing a previous command
@@ -1589,6 +1595,7 @@ Below, we have detailed the major time-consuming factors to justify our effort e
 ### Notable Changes
 
 #### 1. Refactoring of Person and Adding of Task models
+
 In order to support the `Elderly` and `Nok` classes, a refactoring of the `Person` class is needed to accommodate these two kinds of persons.
 
 Moreover, to support task management, our team had to add a model for `Task` objects. While some sections of the code could be adapted from AB3’s Person model, the majority had to be redesigned to accommodate complex task creation.
@@ -1600,6 +1607,7 @@ As a result, we had to integrate all these models with the existing code to save
 <br>
 
 #### 2. Redesigned GUI
+
 Compared to AB3, NurseyBook has nearly double the number of UI components.
 
 We had played around with multiple colour schemes, to find something that could strike a perfect balance between 1) healthcare related, 2) matching colours, 3) colours to stand out for our tags (e.g. tags added to each elderly, overdue tags for tasks).
@@ -1613,7 +1621,7 @@ Furthermore, to allow for a better user experience, we restricted the scrolling 
 <br>
 
 #### 3. Undo/Redo
+
 The implementation of the `undo` and `redo` features in NurseyBook was adapted from the [SE-EDU AddressBook Level 4](https://github.com/se-edu/addressbook-level4). However, we wanted our undo/redo feature to show users what command is being undone/redone. This meant that we had to modify the implementation such that the command result of the commands are also saved. The modification allows NurseyBook to display the command message of the command being undone or redone, giving users more information on what is the change in data. Furthermore, for commands that switch to display a particular list, we have implemented it such that undoing or redoing such commands will also change the list displayed. For example, undoing an `addTask` command will cause the task list to be displayed.
 
 In addition, as the undo/redo feature was implemented at a later stage, there were many changes to be made to existing commands and test cases. Methods to save the changes to the data of the NurseyBook had to be added to the execution of commands that change the data and their test cases.
-
