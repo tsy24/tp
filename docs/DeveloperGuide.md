@@ -502,11 +502,22 @@ RealTasks represent concrete tasks, which are either non-recurring tasks, or the
 GhostTasks are temporary tasks that exist for the purpose of allowing the user to preview future occurrences of recurring tasks.
 By default, `viewTasks` will only show RealTasks.
 
+<br>
 
-Since `UniqueTaskList` contains `Task` objects, it can be either `GhostTask` or `RealTask` objects. 
-Let us assume that two commands are executed, both of which create GhostTasks during their execution, and want to display GhostTasks created only during their execution.
-A natural implication of `UniqueTaskList` containing all `Task` type objects would be that the latter executed command would incorrectly display the GhostTasks created by the former command,
-since all GhostTasks persist in the main `UniqueTaskList`. 
+#### Handling persistence of `GhostTask` objects
+Since `UniqueTaskList` contains `Task` objects, it can be either `GhostTask` or `RealTask` objects. A natural implication of `UniqueTaskList` containing all `Task` type objects would be the persistence of
+GhostTasks between different command calls. This becomes a problem in certain situations, as detailed below.
+
+Let us assume that two commands, A and B, are executed, both of which create GhostTasks during their execution, and then display the task list to show the user the GhostTasks created during execution. The following will be observed.
+
+1. Command A is executed.
+2. Command A adds GhostTasks to `UniqueTaskList`.
+3. Tasks displayed contain GhostTasks created by Command A.
+4. Command B is executed.
+5. Command B adds GhostTasks to `UniqueTaskList`
+6. Tasks displayed contain GhostTasks created by Command B and Command A.
+
+In step 6, it is expected to observe only GhostTasks created during execution of Command B, but GhostTasks created during execution of Command A will also be displayed, since all GhostTasks persist in the main `UniqueTaskList`. 
 This necessitates a cleanup of `GhostTask` objects between execution of each command. Such deletion of old GhostTasks in the `Model` is achieved just prior to the execution of each new command in `LogicManager`, via the `deleteGhostTasks()` method.
 
 Code snippet of the `execute(String commandText)` method in `LogicManager`:
