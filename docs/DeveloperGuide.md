@@ -503,8 +503,10 @@ GhostTasks are temporary tasks that exist for the purpose of allowing the user t
 By default, `viewTasks` will only show RealTasks.
 
 
-Since `UniqueTaskList` contains `Task` objects, it can be either `GhostTask` or `RealTask` objects. Naturally, this implies that calling two commands that both create and display GhostTasks would cause the latter command to incorrectly display GhostTasks created by the first command as well,
-since all GhostTasks would still persist in the main `UniqueTaskList`. This necessitates a cleanup of `GhostTask` objects between execution of each command. Such deletion of old GhostTasks in the `Model` is achieved just prior to the execution of each new command in `LogicManager`, via the `deleteGhostTasks()` method.
+Since `UniqueTaskList` contains `Task` objects, it can be either `GhostTask` or `RealTask` objects. 
+Naturally, this implies that calling two `viewSchedule` commands which both create GhostTasks, one after another, would cause the latter `viewSchedule` command to incorrectly display the GhostTasks created by the former, since all GhostTasks would  persist in the main `UniqueTaskList`. 
+Such a problem can also be extended to any future new commands implemented, which create and display GhostTasks.
+This necessitates a cleanup of `GhostTask` objects between execution of each command. Such deletion of old GhostTasks in the `Model` is achieved just prior to the execution of each new command in `LogicManager`, via the `deleteGhostTasks()` method.
 
 Code snippet of the `execute(String commandText)` method in `LogicManager`:
 ```
@@ -528,8 +530,8 @@ public CommandResult execute(String commandText) throws CommandException, ParseE
 `ViewScheduleCommand` leverages on this ability to create GhostTasks. The other unique aspect in the implementation of this feature, is how the program figures out which GhostTasks to create and show to the user upon execution of this command.
 When a `ViewScheduleCommand` is executed with a given `keyDate`, where `keyDate` refers to the date on which the user wants to view schedule, `addPossibleGhostTasksWithMatchingDate(keyDate)` is responsible for this addition of relevant GhostTasks.
 
-Each task in the task list goes through a series of checks and actions before a GhostTask is created.
-Given below is an activity diagram that summarizes the sequence of  checks and actions taken for each task in the task list upon calling the above-mentioned method.
+Each task in the task list goes through a series of checks and actions before a GhostTask is created. 
+Given below is an activity diagram that summarizes the sequence of checks and actions taken for each task in the task list upon calling the above-mentioned method.
 
 ![AddPossibleGhostTasksWithMatchingDateActivityDiagram](./images/AddPossibleGhostTasksWithMatchingDateActivityDiagram.png)
 
@@ -554,9 +556,9 @@ This also keeps the data stored in the hard disk smaller, as there is no unneces
 <br>
 
 **Aspect: Searching of future occurrences of recurring tasks:**
-With recurring tasks, they can imply the existence of infinite potential future occurrences. Consequently, users could input dates well beyond reasonable amounts, such as centuries into
-the future. However, it is not sensible nor feasible to search for such extraneous lengths of time. Hence, the maximum number of time that a user can view schedule on a future date has been
-capped to 12 weeks, or 84 days, from the current date.
+With recurring tasks, they imply the existence of infinite potential future occurrences. Consequently, users could input dates well beyond reasonable amounts, such as centuries into
+the future. However, it is not sensible nor feasible to search for such extraneous lengths of time. Hence, the maximum amount of time that a user can view schedule on a future date has been
+capped at 12 weeks, or 84 days, from the current date. This number was derived based on our estimations on how many weeks nurses would most likely have to plan ahead for in nursing homes, along with some extra leeway.
 
 <br>
 
@@ -1239,7 +1241,7 @@ testers are expected to do more *exploratory* testing.
 
 ## **Appendix: Effort**
 
-Assuming the effort taken to create AB3 is rated at 100, we would estimate our project to have taken an effort of ___. Numerically, we have over 18000 lines of code contributed for version 1.4 of NurseyBook, with over 550 test cases to achieve high code coverage. 
+Assuming the effort taken to create AB3 is rated at 100, we would estimate our project to have taken an effort of 200. Numerically, we have over 18000 lines of code contributed for version 1.4 of NurseyBook, with over 550 test cases to achieve high code coverage. 
 Below, we have detailed the major time-consuming factors to justify our effort estimation.
 
 ### Notable Changes
