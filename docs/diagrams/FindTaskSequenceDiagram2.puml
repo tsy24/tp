@@ -1,0 +1,50 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant "f:FindTaskCommand" as FindTaskCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant "p:DescriptionContainsKeywordPredicate" as DescriptionContainsKeywordPredicate MODEL_COLOR
+end box
+LogicManager -> FindTaskCommand : execute()
+activate FindTaskCommand
+
+FindTaskCommand -> Model : updateFilteredTaskList(p)
+activate Model
+
+loop for every task
+Model -> DescriptionContainsKeywordPredicate : test(task)
+activate DescriptionContainsKeywordPredicate
+
+DescriptionContainsKeywordPredicate --> Model
+deactivate DescriptionContainsKeywordPredicate
+
+end loop
+
+Model --> FindTaskCommand
+deactivate Model
+
+DescriptionContainsKeywordPredicate -[hidden]-> Model
+destroy DescriptionContainsKeywordPredicate
+
+create CommandResult
+FindTaskCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> FindTaskCommand
+deactivate CommandResult
+
+FindTaskCommand --> LogicManager : result
+deactivate FindTaskCommand
+
+FindTaskCommand -[hidden]-> LogicManager
+destroy FindTaskCommand
+
+[<-- LogicManager
+
+@enduml
