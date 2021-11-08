@@ -64,6 +64,16 @@ public class UniqueElderlyList implements Iterable<Elderly> {
     }
 
     /**
+     * Case-sensitive version of
+     * @see UniqueElderlyList#hasElderly(Name)
+     */
+    public boolean hasElderlyCaseSensitive(Name name) {
+        requireNonNull(name);
+        return internalList.stream()
+                .anyMatch(p -> p.hasNameCaseSensitive(name));
+    }
+
+    /**
      * Adds a elderly to the list.
      * The elderly must not already exist in the list.
      */

@@ -213,6 +213,8 @@ Examples:
 
 </div>
 
+`addElderly en/Khong Guan a/80 g/M r/201 nn/Gong Kuan rs/Brother p/91234567 e/guanbro@gmail.com addr/London Street 11` used:
+
 ![](images/userGuide/add_elderly_0.png)
 ![](images/userGuide/add_elderly_1.png)
 
@@ -313,6 +315,8 @@ Examples:
 
 </div>
 
+`viewDetails 1` used:
+
 ![](images/userGuide/view_details.png)
 
 #### 4.1.7 Delete an elderly's NoK details : `deleteNok`
@@ -392,6 +396,8 @@ Examples:
 
 </div>
 
+`filter t/vegetarian` used:
+
 ![](images/userGuide/filter.png)
 
 #### 4.1.11 Add remark to elderly: `remark`
@@ -415,7 +421,7 @@ Examples:
 
 :bulb: **Tip:**  
 
-* You can remove a remark by leaving the remark input empty! e.g. [`viewElderly`](#411-view-all-elderly-viewelderly) followed by `remark 1 re/` removes the remark for the 1st elderly in NurseyBook.
+* You can remove a remark by leaving the remark input empty! e.g. [`viewElderly`](#411-view-all-elderly-viewelderly) followed by `remark 1 re/` or `remark 1` removes the remark for the 1st elderly in NurseyBook.
 
 </div>
 
@@ -453,7 +459,7 @@ Adds a task to the task list.
 Format: `addTask [en/ELDERLY_NAME]…​ desc/DESCRIPTION date/DATE time/TIME [recur/RECURRENCE_TYPE]`
 
 Examples:
-`addTask en/John desc/check insulin level date/2022-01-25 time/19:22 recur/week`
+`addTask en/Khong Guan desc/check insulin level date/2022-01-25 time/19:22 recur/week`
 
 <div markdown="block" class="alert alert-info">
 
@@ -482,6 +488,8 @@ Examples:
 * If you want to create a non-recurring task, you can exclude the `recur` field. NurseyBook will automatically assume that the task is non-recurring.
 
 </div>
+
+`addTask en/Khong Guan desc/check insulin level date/2022-01-25 time/19:22 recur/week` used :
 
 ![](images/userGuide/add_task_0.png)
 ![](images/userGuide/add_task_1.png)
@@ -555,6 +563,8 @@ Examples:
 
 </div>
 
+`findTask report` used:
+
 ![](images/userGuide/find_task.png)
 
 #### 4.2.6 Mark a task as completed: `doneTask`
@@ -580,9 +590,11 @@ Examples:
 #### 4.2.7 View reminders: `remind`
 
 Shows the list of upcoming tasks (that are coming up in the next three days), such as the required medical needs for
-those under your care.
+those under your care. e.g. If the current date is 2021-11-12, the tasks that are scheduled to happen up to and including 2021-11-15 will be shown. Tasks schduled for 2021-11-16 and onwards will not be shown.
 
 Format: `remind`
+
+Screenshot taken on 2021-11-04.
 
 ![](images/userGuide/remind.png)
 
@@ -605,6 +617,8 @@ Example:
 * For recurring tasks, this is simply a tool to preview its future occurrences. You cannot modify (e.g. delete/edit/mark as done/etc.) any such future occurrences of recurring tasks shown in the task list. These future occurrences will be deleted from your task view upon entering any next valid or invalid input.
 
 </div>
+
+`viewSchedule 2021-12-20` used:
 
 ![](images/userGuide/view_schedule.png)
 
@@ -693,7 +707,10 @@ are also welcome to update data directly by editing that data file.
 
 :exclamation: **Caution:**
 * If your changes to the data file makes its format invalid, NurseyBook will discard all data and start with an empty data file at the next run.
-
+* This includes:
+  * adding non-existent elderly names to tasks,
+  * adding elderly names in a different case to tasks (e.g. Elderly `Khong Guan` within elderlies but a task's elderly names contain `khong guan`),
+  * failing to remove/edit all instances of an elderly name you have deleted/edited within the tasks.
 </div>
 
 --------------------------------------------------------------------------------------------------------------------

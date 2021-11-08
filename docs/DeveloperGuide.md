@@ -28,6 +28,7 @@ Refer to the guide [_Setting up and getting started_](SettingUp.md).
 
 :bulb: **Tip:** The `.puml` files used to create diagrams in this document can be found in the [diagrams](https://github.com/AY2122S1-CS2103T-F13-2/tp/tree/master/docs/diagrams) folder. 
 Refer to the [_PlantUML Tutorial_ at se-edu/guides](https://se-education.org/guides/tutorials/plantUml.html) to learn how to create and edit diagrams.
+
 </div>
 
 ### Architecture
@@ -170,15 +171,28 @@ to test whether an Elderly has all the tags in the set.
 
 Given below is the class diagram of the `FilterCommand` and the `ElderlyHasTagPredicate`.
 
-![](images/FilterClassDiagram.png)
+![FilterClassDiagram](images/FilterClassDiagram.png)
 
-The following sequence diagram shows how the filter command works:
+The following sequence diagrams show how the filter command works:
+
+This diagram shows how the FilterCommand object is created:
 
 ![FilterSequenceDiagram](images/FilterSequenceDiagram.png)
 
 <div markdown="span" class="alert alert-info">
 
 :information_source: **Note:** 
+The lifeline for `FilterCommand` and `ElderlyHasTagPredicate` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
+
+This diagram shows how the FilterCommand object is executed:
+
+![FilterSequenceDiagramPart2](images/FilterSequenceDiagramPart2.png)
+
+<div markdown="span" class="alert alert-info">
+
+:information_source: **Note:**
 The lifeline for `FilterCommand` and `ElderlyHasTagPredicate` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 </div>
@@ -412,7 +426,7 @@ Reason: It no longer makes sense to redo the `addTag 1 t/diabetes` command. This
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
-<img src="images/CommitActivityDiagram.png" width="250" />
+<img src="images/CommitActivityDiagram.png" width="300" />
 
 #### Design considerations:
 
@@ -551,8 +565,7 @@ The following activity diagram summarizes what happens in the `MainWindow` class
 * **Alternative 2:** Display the list of elderly and list of tasks side by side in the same display window.
   * Pros: Implementation/Creation of new commands are not needed. The user is able to type less yet still view what he/she is interested in.
   * Cons: With two different lists (that contain different objects) displayed side by side, the display might seem cluttered and hard to read from. It negatively impacts the user experience.
-
-
+  
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
@@ -565,7 +578,7 @@ The following activity diagram summarizes what happens in the `MainWindow` class
 
 --------------------------------------------------------------------------------------------------------------------
 
-## **Appendix: Requirements**
+## **Appendix A: Requirements**
 
 ### Product scope
 
@@ -875,9 +888,6 @@ Similar to <u>deleting an elderly (<a href="#uc3-delete-an-elderly">UC3</a>)</u>
 
 **Extensions**
 * 1a. User requests to <u>find tasks with matching keywords(<a href="#uc17-find-a-task">UC17</a>)</u>.
-    * 1a1. NurseyBook shows a list of tasks that matches the user's query (by description)
-
-      Use case ends.
 
 * 2a. The list of tasks is empty.
 
@@ -966,6 +976,10 @@ Similar to <u>finding an elderly (<a href="#uc5-find-an-elderly">UC5</a>)</u> bu
     * 1a1. NurseyBook shows an error message.
 
       Use case resumes at step 1.
+* 1b. The given date is not within 12 weeks from today's date.
+    * 1b1. NurseyBook shows an error message.
+
+      Use case resumes at step 1.
 * 2a. There are no tasks scheduled on that date.
 
   Use case ends.
@@ -1031,7 +1045,7 @@ Similar to <u>finding an elderly (<a href="#uc5-find-an-elderly">UC5</a>)</u> bu
 
 --------------------------------------------------------------------------------------------------------------------
 
-## **Appendix: Instructions for manual testing**
+## **Appendix B: Instructions for manual testing**
 
 Given below are instructions to test the app manually.
 
@@ -1096,6 +1110,59 @@ testers are expected to do more *exploratory* testing.
    4. Invalid commands to try (Error details shown in the status message):
       * Invalid index >= size of elderly list or <= 0: `deleteElderly 5` or `deleteElderly -1`
       
+### Adding tags to an elderly
+
+1. Add one or more tags to an elderly in NurseyBook
+
+    1. Prerequisites: List all elderlies using the `viewElderly` command. Multiple elderlies in the list. The first elderly in the list has one `diabetes` tag.
+
+    2. Test case: `addTag 1 t/hypertension`<br>
+       Expected: `hypertension` tag is added to the first elderly in the list.
+   
+    3. Test case: `addTag 1 t/vegetarian t/flu`<br>
+       Expected: `vegetarian` and `flu` tags are added to the first elderly in the list. 
+   
+    4. Test case: `addTag 1 t/flu t/Flu`<br>
+       Expected: The two tags are taken to be the same tag and only the `flu` tag is added to the first elderly in the list.
+   
+    5. Invalid commands to try (Error details shown in the status message):
+       * Invalid index >= size of elderly list or <= 0: `addTag 5 t/flu` or `addTag -1 t/flu`
+       * Adding an existing tag: `addTag 1 t/diabetes`
+       * Missing parameters: `addTag` or `addTag 1`
+       * Additional parameters: `addTag 1 en/Alex Yeoh`
+
+### Deleting tags from an elderly
+
+1. Deleting one or more tags from an elderly in NurseyBook
+
+    1. Prerequisites: List all elderlies using the `viewElderly` command. Multiple elderlies in the list. The second elderly in the list has `diabetes` and `fever` tags.
+
+    2. Test case: `deleteTag 2 t/diabetes`<br>
+       Expected: `diabetes` tag is deleted from the second elderly in the list.
+
+    3. Test case: `deleteTag 2 t/diabetes t/fever`<br>
+       Expected: `diabetes` and `fever` tags are deleted from the second elderly in the list.
+
+    4. Invalid commands to try (Error details shown in the status message):
+        * Invalid index >= size of elderly list or <= 0: `deleteTag 5 t/diabetes` or `deleteTag -1 t/diabetes`
+        * Deleting a tag that the elderly does not have: `deleteTag 2 t/hypertension`
+        * Missing parameters: `deleteTag` or `deleteTag 1`
+        * Additional parameters: `deleteTag 1 en/Alex Yeoh`
+        
+### Filter elderlies based on tags
+
+1. Filtering elderlies in NurseyBook based on their tags
+
+    1. Test case: `filter t/diabetes`<br>
+       Expected: list of elderlies with `diabetes` tag is displayed.
+
+    2. Test case: `filter t/diabetes t/fever`<br>
+        Expected: list of elderlies with both `diabetes` and `fever` tags is displayed.
+
+    3. Invalid commands to try (Error details shown in the status message):
+        * Missing parameters: `filter`
+        * Additional parameters: `filter en/Alex Yeoh`
+        
 ### Delete all NoK details of an elderly.
 
 1. Deleting all NoK details of an elderly
@@ -1262,24 +1329,58 @@ testers are expected to do more *exploratory* testing.
     1. Prerequisites: User is currently viewing the task list page. Only the following 3 tasks are be added to NurseyBook. We shall call them Tasks A, B and C.
         * Task A: A non-recurring task, the date of which is current date. <br> Assume this date is `2021-11-12` for illustration purposes.
         * Task B: A daily recurring task, the initial date of which is current date + 2 days. <br> Assume this date is `2021-11-14` for illustration purposes.
-        * Task C: A non-recurring task, the date of which is current date + 4 days. <br> Assume this date is `2021-11-16` for illustration purposes. 
-       
+        * Task C: A non-recurring task, the date of which is current date + 4 days. <br> Assume this date is `2021-11-16` for illustration purposes.
+
     2. Test case - today:`viewSchedule 2021-11-12` <br>
        Expected: Task A should be displayed.
-   
+
     3. Test case - one day ahead:`viewSchedule 2021-11-13` <br>
        Expected: No tasks should be displayed.
-   
+
     4. Test case - four days ahead:`viewSchedule 2021-11-16` <br>
        Expected: Tasks B and C should be displayed. Date of Task B in this display should be `2021-11-16`.
-   
+
     5. Test case - a week ahead:`viewSchedule 2021-11-19` <br>
        Expected: Task B should be displayed. Date of Task B in this display should be `2021-11-19`.
-   
+    
     6. Invalid commands to try (Error details shown in the status message):
         * Date input has already passed: `viewSchedule 2021-11-11`
+        * Date input is beyond 12 weeks from today's date: `viewSchedule 2022-10-11`
         * Not formatting the date correctly in yyyy-mm-dd format: `viewSchedule 16-12-2021`
-        
+
+### Undo
+
+1. Undoing a previous command
+
+   1. Prerequisites: NurseyBook is just launched with no commands entered yet. 
+
+   2. Test case: enter `addElderly en/Khong Guan a/80 g/M r/10` and then `undo`<br>
+      Expected: Addition of elderly `Khong Guan` is undone. No elderly is added and list of elderly displayed does not contain `Khong Guan`.
+
+   3. Test case: enter `addElderly en/Khong Guan a/80 g/M r/10` then `addElderly en/Swee Choon a/70 g/M r/15`, `undo` and then `undo`<br>
+      Expected: Addition of both `Khong Guan` and `Swee Choon` is undone. No elderly is added and list of elderly displayed does not contain `Khong Guan` and `Swee Choon`.
+
+   4. Test case: `undo`<br>
+      Expected: No change in data of NurseyBook. Error details shown in the status message.
+
+   5. Test case: enter `remind` and then `undo`<br>
+      Expected: No change in data of NurseyBook as commands that do not change the data of NurseyBook cannot be undone. Error details shown in the status message.
+
+### Redo
+
+1. Redoing a previously undone command
+
+    1. Prerequisites: NurseyBook is just launched with no commands entered yet.
+
+    2. Test case: enter `addElderly en/Khong Guan a/80 g/M r/10` then `undo` and then `redo`<br>
+       Expected: Addition of elderly `Khong Guan` is executed again. List of elderly displayed contains `Khong Guan`.
+
+    3. Test case: `redo`<br>
+       Expected: No change in data of NurseyBook. Error details shown in the status message.
+
+    4. Test case: enter `addElderly en/Khong Guan a/80 g/M r/10` and then `redo`<br>
+       Expected: No change in data of NurseyBook as there are no previously undone commands. Error details shown in the status message.
+    
 ### Saving data
 
 1. Dealing with missing/corrupted data files
