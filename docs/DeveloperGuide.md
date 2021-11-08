@@ -504,8 +504,9 @@ By default, `viewTasks` will only show RealTasks.
 
 
 Since `UniqueTaskList` contains `Task` objects, it can be either `GhostTask` or `RealTask` objects. 
-Naturally, this implies that calling two `viewSchedule` commands which both create GhostTasks, one after another, would cause the latter `viewSchedule` command to incorrectly display the GhostTasks created by the former, since all GhostTasks would  persist in the main `UniqueTaskList`. 
-Such a problem can also be extended to any future new commands implemented, which create and display GhostTasks.
+Let us assume that two commands are called, both of which create GhostTasks and want to display GhostTasks created only during their execution.
+A natural implication of `UniqueTaskList` containing all `Task` type objects would be that the latter command would incorrectly display the GhostTasks created by the former command as well,
+since all GhostTasks persist in the main `UniqueTaskList`. 
 This necessitates a cleanup of `GhostTask` objects between execution of each command. Such deletion of old GhostTasks in the `Model` is achieved just prior to the execution of each new command in `LogicManager`, via the `deleteGhostTasks()` method.
 
 Code snippet of the `execute(String commandText)` method in `LogicManager`:
