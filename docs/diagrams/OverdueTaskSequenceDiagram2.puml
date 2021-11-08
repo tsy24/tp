@@ -1,0 +1,34 @@
+@startuml
+!include style.puml
+
+box Model MODEL_COLOR_T1
+participant "tasks:UniqueTaskList" as UniqueTaskList MODEL_COLOR
+participant ":Task" as Task MODEL_COLOR
+participant "<<class>>\n:DateTime" as DateTime MODEL_COLOR
+end box
+
+mainframe sd overdue tasks for-loop
+
+[-> UniqueTaskList : updateOverdueStatuses()
+
+loop for every task
+UniqueTaskList -> Task : isTaskOverdue()
+activate Task
+
+Task --> UniqueTaskList : status.isOverdue
+
+UniqueTaskList -> Task : shouldTaskBeOverdue()
+
+Task -> DateTime : isOverdue(this.dateTime)
+
+DateTime --> Task : isOverdue
+
+Task --> UniqueTaskList : isOverdue
+
+alt if task should be overdue
+UniqueTaskList -> UniqueTaskList : markTaskAsOverdue(t)
+end
+
+end
+
+@enduml
