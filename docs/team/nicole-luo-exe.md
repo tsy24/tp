@@ -20,7 +20,7 @@ Given below are my contributions to the project.
 * **New Feature**: Separated elderly's key details from their full details in UI
   * What it does: Display only an elderly's key details in regular view and provides users with a way to view elderly's full details.
   
-* **Code contributed**: [RepoSense link](https://nus-cs2103-ay2122s1.github.io/tp-dashboard/?search=&sort=totalCommits%20dsc&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code~other&since=2021-09-17&tabOpen=true&tabType=authorship&zFR=false&tabAuthor=nicole-luo-exe&tabRepo=AY2122S1-CS2103T-F13-2%2Ftp%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=docs~functional-code~test-code&authorshipIsBinaryFileTypeChecked=false)
+* **Code contributed**: Around 4kLoC contribution to the project [RepoSense link](https://nus-cs2103-ay2122s1.github.io/tp-dashboard/?search=&sort=totalCommits%20dsc&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code~other&since=2021-09-17&tabOpen=true&tabType=authorship&zFR=false&tabAuthor=nicole-luo-exe&tabRepo=AY2122S1-CS2103T-F13-2%2Ftp%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=docs~functional-code~test-code&authorshipIsBinaryFileTypeChecked=false)
 
 * **Enhancements to existing features**:
     * Revamped the entire GUI to match nurse theme and changed the color scheme to making more visually appealing (Pull requests [\#108](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/108), [\#110](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/110))
