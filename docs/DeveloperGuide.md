@@ -164,9 +164,8 @@ The `Storage` component,
 
 Classes used by multiple components are in the `nurseybook.commons` package.
 
-<div style="page-break-after: always;"></div>
-
 --------------------------------------------------------------------------------------------------------------------
+
 <div style="page-break-after: always;"></div>
 
 ## **Implementation**
@@ -394,7 +393,11 @@ Alternative 2 is chosen as `UI` class has the duty to listen to changes to `Mode
 
 The following sequence diagram shows how this operation works:
 
+Diagram 1:
+
 ![OverdueTasksSequenceDiagram1](images/OverdueTaskSequenceDiagram1.png)
+
+Diagram 2:
 
 ![OverdueTasksSequenceDiagram2](images/OverdueTaskSequenceDiagram2.png)
 
@@ -951,8 +954,6 @@ Similar to <u>deleting an elderly (<a href="#uc3-delete-an-elderly">UC3</a>)</u>
       Use case resumes at step 1.
 * *a. At any time, user requests to <u>view help (<a href="#uc19-viewing-help">UC19</a>)</u>.
 
-<div style="page-break-after: always;"></div>
-
 ##### UC9: Delete a tag from an elderly
 
 **MSS**
@@ -1114,6 +1115,8 @@ Similar to <u>adding an elderly (<a href="#uc2-add-an-elderly">UC2</a>)</u> but 
       Use case resumes at step 1.
 * *a. At any time, user requests to <u>view help (<a href="#uc19-viewing-help">UC19</a>)</u>.
 
+<div style="page-break-after: always;"></div>
+
 ##### UC16: Mark a task as complete
 
 Similar to <u>deleting a task (<a href="#uc14-delete-a-task">UC14</a>)</u> but marking a task as done instead. The `doneTask` command success message will appear instead.
@@ -1209,9 +1212,9 @@ Similar to <u>finding an elderly (<a href="#uc5-find-an-elderly">UC5</a>)</u> bu
 * **CLI**: Command line interface where users interact with the system by typing in commands.
 * **GUI driven application**: Graphical user interface where users interact with the system through visual representations such as buttons and icons.
 
-<div style="page-break-after: always;"></div>
-
 --------------------------------------------------------------------------------------------------------------------
+
+<div style="page-break-after: always;"></div>
 
 ## **Appendix B: Instructions for manual testing**
 
@@ -1599,6 +1602,8 @@ testers are expected to do more *exploratory* testing.
    5. Test case: enter `remind` and then `undo`<br>
       Expected: No change in data of NurseyBook as commands that do not change the data of NurseyBook cannot be undone. Error details shown in the status message.
 
+<div style="page-break-after: always;"></div>
+
 ### Redo
 
 1. Redoing a previously undone command
@@ -1628,9 +1633,9 @@ testers are expected to do more *exploratory* testing.
    4. Launch the app by running `java -jar NurseyBook.jar` in the console. <br>
       Expected: The GUI should pop up with no entries. The console should give warnings about incorrect data format (due to the removal of the `{` character at the start of the `nurseybook.json` file).
 
-<div style="page-break-after: always;"></div>
-
 --------------------------------------------------------------------------------------------------------------------
+
+<div style="page-break-after: always;"></div>
 
 ## **Appendix C: Effort**
 
