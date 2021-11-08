@@ -55,13 +55,15 @@ TaskListPanel --|> UiPart
 TaskCard --|> UiPart
 StatusBarFooter --|> UiPart
 HelpWindow --|> UiPart
-ElderlyDetailsPanel -left-|> UiPart
+ElderlyDetailsPanel --|> UiPart
 
 ElderlyCard ..> Model
 TaskCard ..> Model
+ElderlyDetailsPanel ..> Model
 UiManager -right-> Logic
 MainWindow -left-> Logic
 
+TaskCard -[hidden]left- ElderlyCard
 TaskListPanel -[hidden]left- ElderlyListPanel
 ElderlyListPanel -[hidden]left- HelpWindow
 HelpWindow -[hidden]left- CommandBox

@@ -1,0 +1,80 @@
+@startuml
+!include style.puml
+
+box Ui UI_COLOR_T1
+participant ":MainWindow" as MainWindow LOGIC_COLOR
+participant ":ElderlyDetailsPanel" as ElderlyDetailsPanel LOGIC_COLOR
+end box
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant "d:ViewDetailsCommand" as ViewDetailsCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> MainWindow : new ActionEvent()
+activate MainWindow
+
+MainWindow -> LogicManager : execute("viewDetails 1")
+activate LogicManager
+
+create ViewDetailsCommand
+LogicManager -> ViewDetailsCommand : parseCommand()
+activate ViewDetailsCommand
+
+ViewDetailsCommand --> LogicManager
+deactivate ViewDetailsCommand
+
+LogicManager -> ViewDetailsCommand : execute()
+activate ViewDetailsCommand
+
+ViewDetailsCommand -> Model : setElderlyOfInterest(elderly)
+activate Model
+
+Model --> ViewDetailsCommand
+deactivate Model
+
+create CommandResult
+ViewDetailsCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> ViewDetailsCommand : result
+deactivate CommandResult
+
+ViewDetailsCommand --> LogicManager : result
+deactivate ViewDetailsCommand
+destroy ViewDetailsCommand
+
+LogicManager --> MainWindow
+deactivate LogicManager
+
+MainWindow --> MainWindow : handleViewDetails()
+activate MainWindow
+
+MainWindow -> LogicManager : getElderlyOfInterest()
+activate LogicManager
+
+LogicManager -> Model : getElderlyOfInterest()
+activate Model
+
+Model --> LogicManager : elderly
+deactivate Model
+
+LogicManager -> MainWindow : elderly
+deactivate LogicManager
+
+create ElderlyDetailsPanel
+MainWindow --> ElderlyDetailsPanel : elderly
+activate ElderlyDetailsPanel
+
+ElderlyDetailsPanel --> MainWindow
+deactivate ElderlyDetailsPanel
+
+MainWindow --> MainWindow
+deactivate MainWindow
+[<- MainWindow
+@enduml
