@@ -49,9 +49,9 @@ Given below are my key contributions to the project.
   * User Guide:
     * Added documentation for the features `viewSchedule`, `deleteNok`, `addElderly`, and `deleteElderly`. (Pull Requests [\#117](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/117), [\#79](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/79), [\#48](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/48))
   * Developer Guide:
-    * Added implementation details for the features `viewSchedule`, `deleteNok`, `addElderly`, and `deleteElderly`. (Pull Requests [ADD](), [\#106](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/106), [\#47](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/47))
+    * Added implementation details for the features `viewSchedule`, `deleteNok`, `addElderly`, and `deleteElderly`. (Pull Requests [\#265](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/265), [\#106](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/106), [\#47](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/47))
     * Added class diagram for better representation of `Task` objects, sequence diagram to illustrate how `deleteNok` command is executed, 
-    activity diagram to visualize the addition of GhostTasks during `viewSchedule` command, and updated DetailedModelClassDiagram to reflect our implementation more accurately. (Pull Requests [ADD](), [\#106](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/106))
+    activity diagram to visualize the addition of GhostTasks during `viewSchedule` command, and updated DetailedModelClassDiagram to reflect our implementation more accurately. (Pull Requests [\#265](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/265), [\#106](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/106))
 * **Community**:
   * PRs reviewed (with non-trivial review comments): (Pull Requests [\#203](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/203), [\#93](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/93))
   * Reported bugs and suggestions for other teams in the class (examples: [1](https://github.com/AY2122S1-CS2103T-F12-3/tp/issues/147), [2](https://github.com/AY2122S1-CS2103T-F12-3/tp/issues/125), [3](https://github.com/AY2122S1-CS2103T-F12-3/tp/issues/120))
