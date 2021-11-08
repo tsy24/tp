@@ -326,10 +326,11 @@ public abstract class Task implements Comparable<Task> {
     }
 
     /**
-     * Returns true if related names are all of existing elderlies in NurseyBook.
+     * Returns true if related names are all of existing elderlies in NurseyBook and each name has the same case as the
+     * corresponding elderly's name.
      */
     public boolean isRelatedNamesValid(UniqueElderlyList elderlies) {
-        return relatedNames.stream().allMatch(name -> elderlies.hasElderly(name));
+        return relatedNames.stream().allMatch(name -> elderlies.hasElderlyCaseSensitive(name));
     }
 
     //@@ Superbestron
