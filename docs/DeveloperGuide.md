@@ -28,6 +28,7 @@ Refer to the guide [_Setting up and getting started_](SettingUp.md).
 
 :bulb: **Tip:** The `.puml` files used to create diagrams in this document can be found in the [diagrams](https://github.com/AY2122S1-CS2103T-F13-2/tp/tree/master/docs/diagrams) folder. 
 Refer to the [_PlantUML Tutorial_ at se-edu/guides](https://se-education.org/guides/tutorials/plantUml.html) to learn how to create and edit diagrams.
+
 </div>
 
 ### Architecture
@@ -84,7 +85,7 @@ The `UI` component,
 * executes user commands using the `Logic` component.
 * listens for changes to `Model` data so that the UI can be updated with the modified data.
 * keeps a reference to the `Logic` component, because the `UI` relies on the `Logic` to execute commands.
-* depends on some classes in the `Model` component, as it displays `Elderly` object residing in the `Model`.
+* depends on some classes in the `Model` component, as it displays `Elderly` and `Task` objects residing in the `Model`.
 
 ### Logic component
 
@@ -104,7 +105,11 @@ The Sequence Diagram below illustrates the interactions within the `Logic` compo
 
 ![Interactions Inside the Logic Component for the `deleteElderly 1` Command](images/DeleteSequenceDiagram.png)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+<div markdown="span" class="alert alert-info">
+
+:information_source: **Note:** 
+The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
 </div>
 
 Here are the other classes in `Logic` (omitted from the class diagram above) that are used for parsing a user command:
@@ -134,7 +139,7 @@ The `Model` component,
 
 <img src="images/DetailedModelClassDiagram.png" width="800" /> 
 
-More details regarding `Person`, `Elderly`, `Nok`(Next of kin) and `Task` objects.
+More details regarding `Person`, `Elderly`, `NoK`(Next of kin) and `Task` objects.
 
 ### Storage component
 
@@ -160,11 +165,11 @@ This section describes some noteworthy details on how certain features are imple
 ### Filter command
 
 #### Implementation
-The implementation of the filter command is facilitated by the FilterCommand class and ElderlyHasTagPredicate class.
-ElderlyHasTagPredicate contains a set of tags that was queried in the filter command and has a method `test`
+The implementation of the filter command is facilitated by the `FilterCommand` class and `ElderlyHasTagPredicate` class.
+`ElderlyHasTagPredicate` contains a set of tags that was queried in the filter command and has a method `test`
 to test whether an Elderly has all the tags in the set.
 
-Given below is the class diagram of the FilterCommand and the ElderlyHasTagPredicate.
+Given below is the class diagram of the `FilterCommand` and the `ElderlyHasTagPredicate`.
 
 ![FilterClassDiagram](images/FilterClassDiagram.png)
 
@@ -174,42 +179,52 @@ This diagram shows how the FilterCommand object is created:
 
 ![FilterSequenceDiagram](images/FilterSequenceDiagram.png)
 
+<div markdown="span" class="alert alert-info">
+
+:information_source: **Note:** 
+The lifeline for `FilterCommand` and `ElderlyHasTagPredicate` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
+
 This diagram shows how the FilterCommand object is executed:
 
 ![FilterSequenceDiagramPart2](images/FilterSequenceDiagramPart2.png)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `FilterCommand` and `ElderlyHasTagPredicate` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+<div markdown="span" class="alert alert-info">
+
+:information_source: **Note:**
+The lifeline for `FilterCommand` and `ElderlyHasTagPredicate` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 </div>
 
-As tags can only be alphanumeric, the `parse` method in FilterCommandParser checks that the all the tags queried are valid first before creating the FilterCommand and ElderlyHasTagPredicate objects.
+As tags can only be alphanumeric, the `parse` method in `FilterCommandParser` checks that the all the tags queried are valid first before creating the `FilterCommand` and `ElderlyHasTagPredicate` objects.
 If there is a tag that is invalid, an exception will be thrown.
 
-When executing the filter command, the `updateFilteredElderlyList` method of Model calls other methods that are omitted from the diagram.
-One of the methods then calls the `test` method of the ElderlyHasTagPredicate object with every Elderly saved in nursey book. The checking for the presence of tags is case-insensitive. 
-The list of Elderly that return true for `test` is then assigned to `filteredElderlies` in ModelManager and displayed in the GUI.
+When executing the filter command, the `updateFilteredElderlyList` method of `Model` calls other methods that are omitted from the diagram.
+One of the methods then calls the `test` method of the `ElderlyHasTagPredicate` object with every `Elderly` saved in nursey book. The checking for the presence of tags is case-insensitive. 
+The list of `Elderly` that return true for `test` is then assigned to `filteredElderlies` in `ModelManager` and displayed in the GUI.
 
 #### Design Considerations
 **Aspect: How to store tags:** 
-* **Alternative 1:** Create a new class TagSet to store tags
+* **Alternative 1:** Create a new class `TagSet` to store tags
     * Pros: Can add custom methods
     * Cons: More code needs to be written and more room for bugs
-* **Alternative 2:** Use Java Util Set to store tags
+* **Alternative 2 (current choice):** Use `java.util.Set` to store tags
     * Pros: Easy to import and use
-    * Cons: Methods that can be used are limited to the methods in Set
+    * Cons: Methods that can be used are limited to the methods in `Set`
 
-**Decision:** Alternative 2 was chosen as the tags are simply kept as a collection.
-Only the simple operations such as checking whether a Tag is in the Set and changing the Tags in the set are needed.
-Thus, the methods provided in Java Util Set are sufficient and there is no need to implement custom methods.
+Alternative 2 was chosen as the tags are simply kept as a collection.
+Only the simple operations such as checking whether a `Tag` is in the `Set` and changing the `Tag`s in the set are needed.
+Thus, the methods provided in `java.util.Set` are sufficient and there is no need to implement custom methods.
 
 ### Mark a task as done feature
 
 #### How task status is changed
 `Task` now contains `Status`, which stores the completion status of the task. `Task` now implements the following operations:
 
-* `Task#markAsDone()` — Sets the task status as done
+* `Task#markAsDone()` — Sets the task's completion status as done
 
-`TaskList` uses the method above to mark the specified task as done in `TaskList#markTaskAsDone(Task toMark)`. This operation is exposed in the `Model` interface as `Model#markTaskAsDone(Task target)`.
+`UniqueTaskList` uses the method above to mark the specified task as done in `UniqueTaskList#markTaskAsDone(Task toMark)`. This operation is exposed in the `Model` interface as `Model#markTaskAsDone(Task target)`.
 
 #### How the target task is identified
 First, the `DoneTaskCommandParser` parses the `Index` which is passed to the `DoneTaskCommand`.  The `Index` identifies the task to be marked as done.
@@ -222,36 +237,71 @@ The following activity diagram summarizes what happens when a user enters the co
 
 ![DoneTaskActivityDiagram](images/DoneTaskActivityDiagram.png)
 
-### Add Recurring Task feature
+### Overdue tasks
+
+#### How task status is changed
+`Status` under `Task` does not only store the completion status of the task, but the overdue status as well. A task is "overdue" if its scheduled date and time passes the current date and time.
+
+* `Task#markAsOverdue()` — Sets the task's overdue status as done
+
+`UniqueTaskList` uses the method above to mark the specified task as overdue in `UniqueTaskList#markTaskAsOverdue(Task toMark)`. This operation occurs in the `Model` interface under the `Model#updateTasksAccordingToTime()`, which is defined in `ModelManager#updateTasksAccordingToTime()`. The method in `ModelManager` then calls `NurseyBook#updateTasksOverdueStatus()`.
+
+#### How a task is identified as overdue
+The `DateTime` of a task is checked in the functions `Task#shouldTaskBeOverdue()` and `Task#isPastCurrentDateAndRecurringTask()`. Under the definition for both functions, the `DateTime` is passed into the static method `DateTime#isOverdue(DateTime dt)` to check if the scheduled date and time of the task is past th crrent date and time.
+
+More implementation details on the updating of a task's overdue status can be referred to under a later section, [handling of overdue and recurring tasks](#handling-of-overdue-and-recurring-tasks).
+
+#### Design considerations
+**Aspect: How to display the status of a task being overdue to users**
+
+Note: This section is relevant to one-off, overdue tasks. For more details on recurring tasks, refer to later sections, [add recurring task feature](#add-recurring-task-feature) and [handling of overdue and recurring tasks](#handling-of-overdue-and-recurring-tasks).
+
+When a task is overdue, its overdue status is `true`. In the user interface, it will have a red overdue tag attached to it. The red tag was implemented to be eye-catching, highlighting the task's incomplete status. However, the issue arises when the task is overdue (past curren date and time) and completed. The red tag no longer needs to be present to distract the user from other overdue yet incomplete tasks.
+
+* **Alternative 1:** When a task is marked as done, toggle the overdue status of the task to `false`. In this case, when the date and time of the task has passed, the completion and overdue status of a task will always be opposite. (When the date and time of a task has not yet passed, both completion and overdue statuses are `false`.)
+    * Pros: Marking a task as overdue, and displaying the results will not involve the `UI` component, keeping the implementation and changes within the `Model` component.
+    * Cons: This suggested implementation will overcomplicate the operation. Furthermore, if a task is marked as done, it is still considered as overdue by its date and time. It does not make sense to change the overdue status to `false`.
+
+* **Alternative 2 (current choice) :** When a task is marked as done, hide the display of the overdue tag in the `TaskListCard.java`.
+    * Pros: An easier implementation, by just checking if a task is both completed and overdue, we hide the overdue tag when displaying the task in the task list.
+
+Alternative 2 is chosen as `UI` class has the duty to listen to changes to `Model` data so the UI can be updated with the modified data. As the second implementation is easier and is more logical, it is chosen.
+
+The following sequence diagram shows how this operation works:
+
+![OverdueTasksSequenceDiagram1](images/OverdueTaskSequenceDiagram1.png)
+![OverdueTasksSequenceDiagram2](images/OverdueTaskSequenceDiagram2.png)
+
+### Add recurring task feature
 
 #### Implementation
 Task now contains `Recurrence`,  which encapsulates the recurrence type of the task. There are 4 recurrence types:
-1. `NONE` -> Non-recurring `Task`
-2. `DAY` -> Recurring `Task` that repeats daily
-3. `WEEKLY` -> Recurring `Task` that repeats weekly (every 7 days)
-4. `MONTHLY` -> Recurring `Task` that repeats every 4 weeks
+1. `NONE`: Non-recurring `Task`
+2. `DAY`: Recurring `Task` that repeats daily
+3. `WEEKLY`: Recurring `Task` that repeats weekly (every 7 days)
+4. `MONTHLY`: Recurring `Task` that repeats every 4 weeks
 
-If a user does not specify `Recurrence` when adding a new `Task`, it will default to a `NONE` `Recurrence` type.
+If a user does not specify the `Recurrence` when adding a new `Task`, it will default to a `NONE` `Recurrence` type.
 
 #### Design considerations
-##### Aspect: When should the task date be changed based on its `Recurrence` type
+**Aspect: When should the task date be changed based on its `Recurrence` type**
 
-* Alternative 1: Once a user has marked a recurring `Task` as done, the date of the `Task` will be automatically changed to the next date according to its `Recurrence` type, with its completion status reset to be undone.
-    * Pros: User Experience could be more intuitive in the sense that the user can focus on the next deadline rather than the current completed task
-    * Cons: There is an increase in coupling between the `Task`’s `Status`, `Recurrence` and `DateTime` because `DateTime` now needs to depend on `Status` and `Recurrence` to decide if its date and time needs to be changed. This can increase bugs and make testing harder, as more functions would have side effects (resetting task’s completion `Status` and updating `Task`’s `DateTime`).
+* **Alternative 1:** Once a user has marked a recurring `Task` as done, the date of the `Task` will be automatically changed to the next date according to its `Recurrence` type, with its completion status reset to be undone.
+    * Pros: User experience could be more intuitive, as the user can focus on the next deadline rather than the current completed task.
+    * Cons: There is an increase in coupling between the `Task`’s `Status`, `Recurrence` and `DateTime`. `DateTime` now needs to depend on `Status` and `Recurrence` to decide if its date and time needs to be changed. This can increase bugs and make testing harder, as more functions would have side effects (resetting task’s completion `Status` and updating `Task`’s `DateTime`).
 
-* Alternative 2: Once a `DateTime` of a `Task` has been passed, this will trigger nursey book to update the new `DateTime` of the `Task` according to its `Recurrence` type.
-    * Pros: Easier to implement because there is only one condition that needs to be checked (if the `Task`’s `DateTime` is before the current `DateTime`) for the `Task`’s `DateTime` to be updated.
+* **Alternative 2 (current choice):** Once a `DateTime` of a `Task` has been passed, it will trigger nursey book to update to the new `DateTime` of the `Task`, according to its `Recurrence` type.
+    * Pros: Easier to implement, because there is only one condition that needs to be checked (if the `Task`’s `DateTime` is before the current `DateTime`) for the `Task`’s `DateTime` to be updated.
     * Cons: Restricted choice for users who would prefer seeing upcoming tasks to seeing completed tasks.
 
-### Handling of Overdue and Recurring tasks
+### Handling of overdue and recurring tasks
 
 #### Implementation
 
 The logic for handling overdue and recurring tasks are handled in `ModelManager#updateTasksAccordingToTime()`.
 
 ```     java
-@Override
+    @Override
     public void updateTasksAccordingToTime() {
         versionedNurseyBook.updateRecurringTasksDate();
         versionedNurseyBook.updateTasksOverdueStatus();
@@ -259,33 +309,35 @@ The logic for handling overdue and recurring tasks are handled in `ModelManager#
     }
 ```
 
-The implementation of these individual functions `updateRecurringTasksDate()`, `updateTasksOverdueStatus()` and `reorderTasksChronologically()` are listed below.
+These individual functions, `updateRecurringTasksDate()`, `updateTasksOverdueStatus()` and `reorderTasksChronologically()` are defined in `NurseyBook.java` and their implementations are listed before.
 1. `updateRecurringTasksDate()`
-    *  This function checks whether a `Task` is overdue (`Task`'s `DateTime` is before the current `DateTime`) and if it is a recurring task (`Task#isRecurring` is `True`), before updating recurring tasks' DateTime as needed at the current time.
-2. `updateNotOverdueTaskList()`
+    *  This function checks whether a `Task` is overdue (`Task`'s `DateTime` is before the current `DateTime`) and if it is a recurring task (`Task#isRecurring` is `true`), before updating recurring tasks' `DateTime` as needed at the current time.
+2. `updateTasksOverdueStatus()`
     *  This function first checks for either of 2 cases:
-        * Whether it is overdue (`Status#isOverdue` is `True`) and should not be overdue
-        * Whether it is not overdue and should be overdue
-    *  Then updates overdue statuses accordingly
-        * For first case, it marks the task as overdue
-        * For second case, it marks the task as not overdue
+        * Whether a task is overdue (`Status#isOverdue` is `true`) and should not be overdue after the change of its `DateTime` under `updateRecurringTasksDate()`.
+        * Whether a task is not overdue and should be overdue.
+    *  Then updates overdue statuses accordingly:
+        * For first case, it marks the task as overdue.
+        * For second case, it marks the task as not overdue.
 3. `reorderTasksChronologically()`
-    * This function sorts the tasks according to chronological order, whose order might be disrupted due to changes in `DateTime` of tasks due to `updateRecurringTasksDate()`.
+    * This function sorts the tasks in chronological order, whose order might be disrupted due to changes in `DateTime` of tasks due to `updateRecurringTasksDate()`.
     
-Listed below are some situations and corresponding implementations where the overdue `Status`, and `DateTime` might be changed based on either a manual edit of the `Task`'s `DateTime` and/or `Recurrence` type, or simply the passing of time.
+Listed below are some situations and corresponding implementations where the overdue `Status` and `DateTime` might be changed, based on either a manual edit of the `Task`'s `DateTime` and/or `Recurrence` type, or simply the passing of time.
 
 1. `DateTime` of non-recurring `Task` has passed current `DateTime`
-  - Mark `Status#isOverdue` to `True`
+    * Mark `Status#isOverdue` to `true`.
 2. `DateTime` of recurring `Task` has passed current `DateTime`
-  - Update old `DateTime` to new `DateTime` according to its `Recurrence` type.
-  - Mark `Status#isDone` to `False`
-  - Status#isOverdue remains `False`
+    * Update the old `DateTime` to a new `DateTime` according to its `Recurrence` type.
+    * Mark `Status#isDone` to `false`.
+    * `Status#isOverdue` remains `false`.
 3. User edits non-recurring `Task` with a passed `DateTime` to a future `DateTime`
-  - Mark `Status#isOverdue` to `False`
+    * Mark `Status#isOverdue` to `false`.
 4. User edits non-recurring `Task` with a future `DateTime` to a passed `DateTime`
-  - Mark `Status#isOverdue` to `True`
+    * Mark `Status#isOverdue` to `true`.
 
-<img src="images/HandleOverdueAndRecurringTasksActivityDiagram.png" width="350"/>
+<p align="center">
+    <img src="images/HandleOverdueAndRecurringTasksActivityDiagram.png" width="450"/>
+</p>
 
 For each `Task` in NurseyBook, it will go through this cycle of checks to ensure their `DateTime` and `Status` are updated accordingly.
 
@@ -320,7 +372,10 @@ Step 3. The user executes `addTag 1 t/diabetes` to add a tag to the first elderl
 
 ![UndoRedoState2](images/UndoRedoState2.png)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If a command fails its execution, it will not call `Model#commitNurseyBook()`, so the nursey book state will not be saved into the `nurseyBookStateList`.
+<div markdown="span" class="alert alert-info">
+
+:information_source: **Note:** 
+If a command fails its execution, it will not call `Model#commitNurseyBook()`, so the nursey book state will not be saved into the `nurseyBookStateList`.
 
 </div>
 
@@ -329,7 +384,10 @@ The `undo` command will call `Model#undoNurseyBook()`, which will decrease the `
 
 ![UndoRedoState3](images/UndoRedoState3.png)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStateIndex` is 0, referring to the initial nursey book state, then there are no previous states to restore. 
+<div markdown="span" class="alert alert-info">
+
+:information_source: **Note:** 
+If the `currentStateIndex` is 0, referring to the initial nursey book state, then there are no previous states to restore. 
 The `undo` command uses `Model#canUndoNurseyBook()` to check if this is the case. If so, it will return an error to the user rather than attempt to perform the undo.
 
 </div>
@@ -338,13 +396,19 @@ The following sequence diagram shows how the undo operation works:
 
 ![UndoSequenceDiagram](images/UndoSequenceDiagram.png)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+<div markdown="span" class="alert alert-info">
+
+:information_source: **Note:** 
+The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 </div>
 
 The `redo` command does the opposite — it calls `Model#redoNurseyBook()`, which increases the `currentStateIndex` by one to refer to the previously undone state, and restores the nursey book to that state.
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStateIndex` is equal to `nurseyBookStateList.size() - 1`, it is referring to the latest nursey book state, then there are no undone nursey book states to restore. 
+<div markdown="span" class="alert alert-info">
+
+:information_source: **Note:** 
+If the `currentStateIndex` is equal to `nurseyBookStateList.size() - 1`, it is referring to the latest nursey book state, then there are no undone nursey book states to restore. 
 The `redo` command uses `Model#canRedoNurseyBook()` to check if this is the case. If so, it will return an error to the user rather than attempt to perform the redo.
 
 </div>
@@ -380,6 +444,7 @@ The following activity diagram summarizes what happens when a user executes a ne
 With alternative 1, all these commands will go through the same activity of saving the nursey book state instead of having different activity flow for undoing or redoing each command, making it easier to maintain.
 
 **Aspect: What to save:**
+
 * **Alternative 1:** Save only the nursey book.
     * Pros: Easy to implement.
     * Cons: No information on the commands that changed the data of the nursey book.
@@ -393,13 +458,13 @@ This way, when users execute the undo/redo command, information on the command t
 The relevant user interface is also displayed to the user as the `ListDisplayChange` is in the command result saved. 
 For example, when a user undoes an `addElderly` command, the user interface will toggle to the list of elderly based on the command result saved, showing the user the change.
 
-### Delete Nok feature
+### Delete NoK feature
 
 #### Implementation
 
 The implementation of `DeleteNokCommand` is highly similar to that of `DeleteCommand`. Major differences are in how the steps 5 and 6 below are handled.
 
-Given below is an example usage scenario and how the delete Nok mechanism behaves at each step. The example command is `deleteNok 1`.
+Given below is an example usage scenario and how the delete NoK mechanism behaves at each step. The example command is `deleteNok 1`.
 
 Step 1. The user and executes `deleteNok 1` command to delete the NoK details of the first elderly in the elderly list. This prompts the `LogicManager` to start its execution by calling its `execute()` command.
 
@@ -409,7 +474,7 @@ Step 3. The `NurseyBookParser` creates a new `DeleteNokCommandParser` object and
 
 Step 4. The `DeleteNokCommand` is executed by calling its `execute()` method. This calls the `Model#getFilteredElderlyList()` and retrieves the filtered elderly list, which should contain all elderlies.
 
-Step 5. A new updated Elderly object is created with all fields equivalent to the targeted Elderly object, apart from the Nok fields which are wiped. This process has been omitted from the sequence diagram below.
+Step 5. A new updated Elderly object is created with all fields equivalent to the targeted Elderly object, apart from the NoK fields which are wiped. This process has been omitted from the sequence diagram below.
 
 Step 6. The `Model#setElderly()` method is then called to replace the targeted Elderly with the updated Elderly object.
 
@@ -419,7 +484,10 @@ The following sequence diagram shows how the find task operation works:
 
 ![DeleteNokSequenceDiagram](images/DeleteNokSequenceDiagram.png)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `DeleteNokCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+<div markdown="span" class="alert alert-info">
+
+:information_source: **Note:** 
+The lifeline for `DeleteNokCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 </div>
 
@@ -445,7 +513,10 @@ The following sequence diagram shows how the find task operation works:
 
 ![FindTaskSequenceDiagram](images/FindTaskSequenceDiagram.png)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `FindTaskCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+<div markdown="span" class="alert alert-info">
+
+:information_source: **Note:** 
+The lifeline for `FindTaskCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 </div>
 
@@ -494,8 +565,7 @@ The following activity diagram summarizes what happens in the `MainWindow` class
 * **Alternative 2:** Display the list of elderly and list of tasks side by side in the same display window.
   * Pros: Implementation/Creation of new commands are not needed. The user is able to type less yet still view what he/she is interested in.
   * Cons: With two different lists (that contain different objects) displayed side by side, the display might seem cluttered and hard to read from. It negatively impacts the user experience.
-
-
+  
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
@@ -699,9 +769,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
       Use case resumes at step 1.
 * *a. At any time, user requests to <u>view help (<a href="#uc19-viewing-help">UC19</a>)</u>.
 
-##### UC7: Delete an elderly's Nok details
+##### UC7: Delete an elderly's NoK details
 
-Similar to <u>deleting an elderly (<a href="#uc3-delete-an-elderly">UC3</a>)</u> but only deleting an elderly's Nok details.
+Similar to <u>deleting an elderly (<a href="#uc3-delete-an-elderly">UC3</a>)</u> but only deleting an elderly's NoK details.
 
 ##### UC8: Add tags to an elderly
 
@@ -979,7 +1049,10 @@ Similar to <u>finding an elderly (<a href="#uc5-find-an-elderly">UC5</a>)</u> bu
 
 Given below are instructions to test the app manually.
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** These instructions only provide a starting point for testers to work on;
+<div markdown="span" class="alert alert-info">
+
+:information_source: **Note:** 
+These instructions only provide a starting point for testers to work on;
 testers are expected to do more *exploratory* testing.
 
 </div>
@@ -1089,10 +1162,10 @@ testers are expected to do more *exploratory* testing.
     3. Invalid commands to try (Error details shown in the status message):
         * Missing parameters: `filter`
         * Additional parameters: `filter en/Alex Yeoh`
-
+        
 ### Delete all NoK details of an elderly.
 
-1. Deleting all NoK details of an elderly.
+1. Deleting all NoK details of an elderly
 
     1. Prerequisites: List all elderlies using the `viewElderly` command. Multiple elderlies in the list.
 
@@ -1102,7 +1175,6 @@ testers are expected to do more *exploratory* testing.
     3. Invalid commands to try (Error details shown in the status message):
          * Invalid index >= size of elderly list, or <= 0: `deleteNok 5` or `deleteNok -1`
          
-
 ### Adding a task
 
 1. Adding a task to NurseyBook
@@ -1110,10 +1182,10 @@ testers are expected to do more *exploratory* testing.
     1. Prerequisites: Add an elderly with name 'Khong Guan' to NurseyBook.
     
     2. Test case: `addTask en/Khong Guan desc/Weekly Taiji date/2022-10-10 time/14:30 recur/week` <br>
-       Expected: New task with the parameters is created. It is a recurring task and recurrence is 'Week'.
+       Expected: New task with the parameters is created. Details of the added task is shown in the status message. It is a recurring task and recurrence is 'Week'.
    
     3. Test case: `addTask en/Khong Guan desc/Weekly Taiji date/2021-10-10 time/14:30` <br>
-       Expected: New task with the parameters is created. It is a one-off task and recurrence is 'None'. Task has an 'Overdue' tag. <br>
+       Expected: New task with the parameters is created. Details of the added task is shown in the status message. It is a one-off task and recurrence is 'None'. Task has an 'Overdue' tag. <br>
        Test case 2 has a different date and type of recurrence compared to that in test case 1, thus is added.
    
     4. Test case: `addTask en/Benny desc/Weekly Taiji date/2022-10-10 time/14:30` <br>
@@ -1131,7 +1203,7 @@ testers are expected to do more *exploratory* testing.
     1. Prerequisites: List all tasks using the `viewTasks` command. Multiple tasks in the list.
    
     2. Test case: `deleteTask 1`<br>
-       Expected: First task is deleted from the list. Details of the deleted task shown in the status message.
+       Expected: First task is deleted from the list. Details of the deleted task is shown in the status message.
    
     3. Invalid commands to try (Error details shown in the status message): <br>
        * Invalid index >= size of task list or <= 0: `deleteTask 5` or `deleteTask -1`
@@ -1143,13 +1215,13 @@ testers are expected to do more *exploratory* testing.
     1. Prerequisites: There is a task with description 'Covid Jab', date '2021-11-30', time '14:00' and elderly names 'Alex Yeoh' in the task database. There are elderlies named 'Alex Yeoh' and 'Bernice Yu' present in the elderly database.
    
     2. Test case: `editTask 1 desc/Covid Shot`<br>
-        Expected: Task's description is replaced with 'Covid Shot'.
+       Expected: Task's description is replaced with 'Covid Shot'. Details of the edited task is shown in the status message.
    
     3. Test case: `editTask 1 desc/Covid Shot en/Bernice Yu`<br>
-        Expected: Task's description and elderly names is replaced with 'Covid Shot' and 'Bernice Yu' respectively.
+       Expected: Task's description and elderly names is replaced with 'Covid Shot' and 'Bernice Yu' respectively. Details of the edited task is shown in the status message.
    
     4. Test case: `editTask 1 recur/day`<br>
-        Expected: Task's recurrence type is changed from none to day. 
+       Expected: Task's recurrence type is changed from none to day. Details of the edited task is shown in the status message.
    
     5. Invalid commands to try (Error details shown in the status message): <br>
        * Invalid index >= size of task list or <= 0: `editTask 5` or `editTask -1` <br>
@@ -1161,6 +1233,12 @@ testers are expected to do more *exploratory* testing.
 
 1. Finding a task in NurseyBook
 
+    1. Test case: `findTask dentist` <br>
+       Expected: Lists all tasks with the keyword "dentist" in its description. Number of tasks found is shown in the status message.
+   
+    2. Test case: `findTask dentist visit` <br>
+       Expected: Lists all tasks with the keywords "dentist", or "visit", or both words in its description. Number of tasks found is shown in the status message.
+
 ### Mark a task as complete
 
 1. Marking a task as complete in NurseyBook
@@ -1168,15 +1246,81 @@ testers are expected to do more *exploratory* testing.
     1. Prerequisites: List all tasks using the `viewTasks` command. Multiple tasks in the list.
    
     2. Test case: `doneTask 1` <br>
-        Expected: First task is mark as completed. Details of the deleted task shown in the status message. The to-do box on the right of the task will be ticked. 
+       Expected: First task is mark as completed. Details of the completed task shown in the status message. The to-do box on the right of the task will be ticked. 
    
     3. Invalid commands to try (Error details shown in the status message):
        * Invalid index >= size of task list or <= 0: `doneTask 5` or `doneTask -1`
+
+### Adding a remark
+
+1. Adding a remark to an elderly in NurseyBook
+
+    1. Prerequisites: List all elderly using the `viewElderly` command. Multiple elderlies in the list.
+
+    2. Test case: `remark 1 re/hates vegetables` <br>
+       Expected: Adds the remark "hates vegetables" to the first elderly in the elderly list. Details of the elderly after the addition of the remark is shown in the status message.
+   
+    3. Test case: `remark 1 re/` <br>
+       Expected: Clears the previously added remark to the first elderly in the list. Details of the elderly after the removal of the remark is shown in the status message.
+   
+    4. Invalid commands to try (Error details shown in the status message):
+       * `remark 1 re/` again after removing the remark of the first elderly in the list
+       * Invalid index >= size of elderly list or <= 0: `remark 0 re/loves eggs` or `remark -1 re/loves eggs`
+       * `remark 1 desc/hates vegetables` is an invalid command format.
+
+### View all tasks
+
+1. Viewing all the tasks that has been added into NurseyBook
+
+    1. Test case: `viewTasks` <br>
+       Expected: All the tasks that have been added into NurseyBook are shown. If user is previously viewing the elderly list, switches from elderly list to task list display.
+   
+    2. Test case: `viewTasks 1` <br>.
+       Expected: Similar to previous. Additional invalid parameters are ignored.
+
+    3. Test case: `viewTasks r/30` <br>
+       Expected: Similar to previous.
     
 ### Remind
 
+1. Viewing tasks that are coming up within the next three days. e.g. If today is 2021-11-12, tasks up to and including 2021-11-15 will be displayed.
 
+    1. Test case: `remind` <br>
+       Expected: Tasks that are coming up within the next three days are shown.
+   
+    2. Test case: `remind 1`
+       Expected: Tasks that are coming up within the next three days are shown. Additional invalid parameters are ignored.
+   
+    3. Test case: `remind desc/medicine` <br>
+       Expected: Similar to previous.
 
+### Clear
+
+1. Clearing all stored data in NurseyBook (elderlies and tasks)
+
+    1. Prerequisites: NurseyBook is populated with data (elderlies, tasks, or both).
+
+    2. Test case: `clear` <br>
+       Expected: Clears all stored data in NurseyBook.
+   
+    3. Test case: `clear 1` <br>
+       Expected: Clears all stored data in NurseyBook. Clear is successful even if NurseyBook is not populated with data. Additional invalid parameters are ignored.
+   
+    4. Test case: `clear r/30` <br>
+       Expected: Similar to previous.
+
+### Help
+
+1. Showing the help window that contains a summary of the commands (with the necessary command parameters)
+
+    1. Test case: `help` <br>
+       Expected: Shows the help window successfully.
+
+    3. Test case: `help 1` <br>
+       Expected: Shows the help window successfully. Additional invalid parameters are ignored.
+
+    4. Test case: `help r/30` <br>
+       Expected: Similar to previous.
 
 ### View Schedule
 
@@ -1186,6 +1330,7 @@ testers are expected to do more *exploratory* testing.
         * Task A: A non-recurring task, the date of which is current date. <br> Assume this date is `2021-11-12` for illustration purposes.
         * Task B: A daily recurring task, the initial date of which is current date + 2 days. <br> Assume this date is `2021-11-14` for illustration purposes.
         * Task C: A non-recurring task, the date of which is current date + 4 days. <br> Assume this date is `2021-11-16` for illustration purposes.
+
     2. Test case - today:`viewSchedule 2021-11-12` <br>
        Expected: Task A should be displayed.
 
@@ -1197,7 +1342,7 @@ testers are expected to do more *exploratory* testing.
 
     5. Test case - a week ahead:`viewSchedule 2021-11-19` <br>
        Expected: Task B should be displayed. Date of Task B in this display should be `2021-11-19`.
-
+    
     6. Invalid commands to try (Error details shown in the status message):
         * Date input has already passed: `viewSchedule 2021-11-11`
         * Date input is beyond 12 weeks from today's date: `viewSchedule 2022-10-11`
