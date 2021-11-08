@@ -1,5 +1,6 @@
 package nurseybook.logic.commands;
 
+import static java.util.Objects.requireNonNull;
 import static nurseybook.commons.util.CollectionUtil.requireAllNonNull;
 import static nurseybook.logic.parser.CliSyntax.PREFIX_TAG;
 
@@ -51,6 +52,7 @@ public class AddTagCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        requireNonNull(model);
         List<Elderly> lastShownList = model.getFilteredElderlyList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
@@ -64,7 +66,7 @@ public class AddTagCommand extends Command {
                 elderlyToAddTag.getName(), elderlyToAddTag.getAge(),
                 elderlyToAddTag.getGender(), elderlyToAddTag.getRoomNumber(),
                 elderlyToAddTag.getNok(), elderlyToAddTag.getRemark(),
-                addTagsToSet(currentTags, tags));
+                addTagsToSet(currentTags));
 
         model.setElderly(elderlyToAddTag, addedElderly);
 
@@ -91,7 +93,7 @@ public class AddTagCommand extends Command {
                 && tags.equals(e.tags);
     }
 
-    private Set<Tag> addTagsToSet(Set<Tag> currentTags, Set<Tag> newTags) throws CommandException {
+    private Set<Tag> addTagsToSet(Set<Tag> currentTags) throws CommandException {
         Set<Tag> addedSet = new HashSet<>();
         addedSet.addAll(currentTags);
         for (Tag tagToAdd: tags) {

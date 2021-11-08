@@ -5,13 +5,13 @@ box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":NurseyBookParser" as NurseyBookParser LOGIC_COLOR
 participant ":FindTaskCommandParser" as FindTaskCommandParser LOGIC_COLOR
-participant "p:DescriptionContainsKeywordPredicate" as DescriptionContainsKeywordPredicate LOGIC_COLOR
 participant "f:FindTaskCommand" as FindTaskCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
+participant "p:DescriptionContainsKeywordPredicate" as DescriptionContainsKeywordPredicate MODEL_COLOR
 end box
 
 [-> LogicManager : execute("findTask Pfizer")
@@ -31,7 +31,7 @@ NurseyBookParser -> FindTaskCommandParser : parse("Pfizer")
 activate FindTaskCommandParser
 
 create DescriptionContainsKeywordPredicate
-FindTaskCommandParser -> DescriptionContainsKeywordPredicate
+FindTaskCommandParser -> DescriptionContainsKeywordPredicate : DescriptionContainsKeywordPredicate({"Pfizer"})
 activate DescriptionContainsKeywordPredicate
 
 DescriptionContainsKeywordPredicate --> FindTaskCommandParser : p
@@ -46,6 +46,7 @@ deactivate FindTaskCommand
 
 FindTaskCommandParser --> NurseyBookParser : f
 deactivate FindTaskCommandParser
+
 FindTaskCommandParser -[hidden]-> NurseyBookParser
 destroy FindTaskCommandParser
 
@@ -57,6 +58,15 @@ activate FindTaskCommand
 
 FindTaskCommand -> Model : updateFilteredTaskList(p)
 activate Model
+
+loop for every task
+Model -> DescriptionContainsKeywordPredicate : test(task)
+activate DescriptionContainsKeywordPredicate
+
+DescriptionContainsKeywordPredicate --> Model
+deactivate DescriptionContainsKeywordPredicate
+
+end loop
 
 Model --> FindTaskCommand
 deactivate Model

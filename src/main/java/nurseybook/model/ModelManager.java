@@ -116,22 +116,12 @@ public class ModelManager implements Model {
 
     @Override
     public boolean areAllElderliesPresent(Set<Name> names) {
-        for (Name name: names) {
-            boolean hasElderly = filteredElderlies.stream().anyMatch(
-                elderly -> elderly.getName().caseInsensitiveEquals(name));
-            if (!hasElderly) {
-                return false;
-            }
-        }
-        return true;
+        return versionedNurseyBook.areAllElderliesPresent(names);
     }
 
     @Override
     public Elderly findElderlyWithName(Name name) {
-        return filteredElderlies.stream()
-                .filter(elderly -> elderly.getName().caseInsensitiveEquals(name))
-                .findFirst()
-                .orElse(null);
+        return versionedNurseyBook.findElderlyWithName(name);
     }
 
     @Override
