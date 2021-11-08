@@ -29,7 +29,7 @@ Given below are my key contributions to the project.
 * **New Feature**: Added the ability to delete Next-of-Kin (NoK) details
   * What it does: Allows the user to quickly wipe all Next-of-Kin details by using a shortcut command.
   * Justification: A good Quality-Of-Life feature for users to instantly get rid of outdated NoK details, without having to go through the hassle of editting field by field.
-  * Highlights: Instead of merely deleting NoK fields, the command sets all NoK fields to a default value. _This means_ in the future, developers can choose a different default value they would like to set each NoK field to, or even open this functionality to the user through a new command that allows enables users to set default values.  
+  * Highlights: Instead of merely deleting NoK fields, the command sets all NoK fields to a default value. _This means_ in the future, developers can choose a different default value they would like to set each NoK field to, or even open this functionality to the user through a new command that enables users to set default values.  
 
 <br>
 
@@ -37,9 +37,12 @@ Given below are my key contributions to the project.
 
 * **Project management**:
   * Managed releases `v1.1` - `v1.4c` (6 releases) on GitHub
+  * Setup GitHub Team Organisation and Repository.
+  * Setup Project Website: Set up GitHub pages, updated settings, changed names and links from AddressBook to NurseyBook
+  * Maintained issue tracker: Handled creation of new issues for milestones, managed milestones and assignees, cleaned up closed issues
 
 * **Enhancements to existing features**:
-  * Responsible for refactoring `Person` into an abstract class with concrete `Elderly` and `Nok` subclasses. (Pull requests [\#73](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/73), [\#76](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/76), [\#79](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/79))
+  * Involved in refactoring `Person` into an abstract class with concrete `Elderly` and `Nok` subclasses. (Pull requests [\#73](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/73), [\#76](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/76), [\#79](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/79))
   * Added the ability to store `RoomNumber` information in `Person` objects. (Pull request [\#63](https://github.com/AY2122S1-CS2103T-F13-2/tp/pull/63))
 
 * **Documentation**:
