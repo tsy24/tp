@@ -11,8 +11,8 @@ title: NurseyBook
 **NurseyBook is a desktop application made for nurses in nursing homes to aid them in managing elderly information and tasks in their busy lives.** 
 While it has a GUI, most of the user interactions happen using a CLI (Command Line Interface).
 
-* If you are interested in using NurseyBook, head over to the [_Quick Start_ section of the **User Guide**](UserGuide.html#quick-start).
-* If you are interested about developing NurseyBook, the [**Developer Guide**](DeveloperGuide.html) is a good place to start.
+* If you are interested in using NurseyBook, head over to the [_Quick Start_ section of the **User Guide**](https://ay2122s1-cs2103t-f13-2.github.io/tp/UserGuide.html#2-quick-start).
+* If you are interested about developing NurseyBook, the [**Developer Guide**](https://ay2122s1-cs2103t-f13-2.github.io/tp/DeveloperGuide.html) is a good place to start.
 
 
 **Acknowledgements**

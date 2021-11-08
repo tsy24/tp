@@ -141,9 +141,9 @@ The `Model` component,
 * depends on some classes in the `Logic` component because the `Model` component saves the result after the execution of commands that change the data of nursey book.
 * does not depend on the `Storage` and `Ui` components (as the `Model` represents data entities of the domain, it should make sense on its own without depending on `Storage` and `Ui`)
 
-<img src="images/DetailedModelClassDiagram.png" width="800" /> 
+The class diagram below shows more details regarding `Person`, `Elderly`, `NoK`(Next of kin) and `Task` classes in the `Model` component.
 
-More details regarding `Person`, `Elderly`, `NoK`(Next of kin) and `Task` objects.
+<img src="images/DetailedModelClassDiagram.png" width="800" />
 
 <div style="page-break-after: always;"></div>
 
@@ -305,13 +305,13 @@ Given below is the class diagram of the `FilterCommand` and the `ElderlyHasTagPr
 
 The following sequence diagrams show how the filter command works:
 
-This diagram shows how the FilterCommand object is created:
+The following sequence diagram shows how the FilterCommand object is created:
 
 ![FilterSequenceDiagram](images/FilterSequenceDiagram.png)
 
 <div style="page-break-after: always;"></div>
 
-This diagram shows how the FilterCommand object is executed:
+The sequence diagram below shows how the FilterCommand object is executed:
 
 ![FilterSequenceDiagramPart2](images/FilterSequenceDiagramPart2.png)
 
@@ -333,7 +333,7 @@ The list of `Elderly` that return true for `test` is then assigned to `filteredE
 **Aspect: How to store tags** 
 
 * **Alternative 1:** Create a new class `TagSet` to store tags
-    * Pros: Can add custom methods
+    * Pros: Allows addition of custom methods
     * Cons: More code needs to be written and more room for bugs
 * **Alternative 2 (current choice):** Use `java.util.Set` to store tags
     * Pros: Easy to import and use
