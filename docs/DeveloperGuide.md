@@ -233,13 +233,15 @@ Model now also has at most one `Elderly` object chosen to be displayed in full a
 
 * `ModelManager#elderlyOfInterest` — Specifies the elderly whose details are to be displayed in full
 
+<div style="page-break-after: always;"></div>
+
 #### Execution
 
 The following sequence diagram shows how this operation works but leaves out the details regarding parsing:
 
 ![ViewDetailsSequenceDiagram](./images/ViewDetailsSequenceDiagram.png)
 
-Parsing works similar to [`doneTask`](#mark-a-task-as-done-feature) feature above: a `ViewDetailsCommandParser` parses the Index which is passed to the `ViewDetailsCommand`. The Index identifies the elderly whose full details should be shown.
+Parsing works similar to [`doneTask`](#mark-a-task-as-done-feature) feature below: a `ViewDetailsCommandParser` parses the Index which is passed to the `ViewDetailsCommand`. The Index identifies the elderly whose full details should be shown.
 
 #### Design considerations
 **Aspect: How to pass an elderly object to UI**
@@ -275,6 +277,8 @@ Step 6. The `Model#setElderly()` method is then called to replace the targeted E
 
 Step 7. A new `CommandResult` is returned which contains the details of the new Elderly object. The result is returned to `LogicManager`.
 
+<div style="page-break-after: always;"></div>
+
 The following sequence diagram shows how the find task operation works:
 
 ![DeleteNokSequenceDiagram](images/DeleteNokSequenceDiagram.png)
@@ -304,6 +308,8 @@ The following sequence diagrams show how the filter command works:
 The following sequence diagram shows how the FilterCommand object is created:
 
 ![FilterSequenceDiagram](images/FilterSequenceDiagram.png)
+
+<div style="page-break-after: always;"></div>
 
 The sequence diagram below shows how the FilterCommand object is executed:
 
@@ -355,6 +361,8 @@ The following sequence diagram shows how this operation works:
 
 ![DoneTaskSequenceDiagram](images/DoneTaskSequenceDiagram.png)
 
+<div style="page-break-after: always;"></div>
+
 The following activity diagram summarizes what happens when a user enters the command for this feature:
 
 ![DoneTaskActivityDiagram](images/DoneTaskActivityDiagram.png)
@@ -396,6 +404,8 @@ The following sequence diagram shows how this operation works:
 Diagram 1:
 
 ![OverdueTasksSequenceDiagram1](images/OverdueTaskSequenceDiagram1.png)
+
+<div style="page-break-after: always;"></div>
 
 Diagram 2:
 
@@ -646,6 +656,8 @@ The `undo` command uses `Model#canUndoNurseyBook()` to check if this is the case
 
 </div>
 
+<div style="page-break-after: always;"></div>
+
 The following sequence diagram shows how the undo operation works:
 
 ![UndoSequenceDiagram](images/UndoSequenceDiagram.png)
@@ -667,6 +679,8 @@ The `redo` command uses `Model#canRedoNurseyBook()` to check if this is the case
 
 </div>
 
+<div style="page-break-after: always;"></div>
+
 Step 5. The user then decides to execute the command `viewElderly`. Commands that do not modify the data of the nursey book, such as `viewElderly`, will not call `Model#commitNurseyBook()`, `Model#undoNurseyBook()` or `Model#redoNurseyBook()`. 
 Thus, the `nurseyBookStateList` and `currentStateIndex` remains unchanged.
 
@@ -677,6 +691,8 @@ The new modified nursey book state is then saved into the `nurseyBookStateList`
 Reason: It no longer makes sense to redo the `addTag 1 t/diabetes` command. This is the behavior that most modern desktop applications follow.
 
 ![UndoRedoState5](images/UndoRedoState5.png)
+
+<div style="page-break-after: always;"></div>
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
@@ -711,9 +727,9 @@ This way, when users execute the undo/redo command, information on the command t
 The relevant user interface is also displayed to the user as the `ListDisplayChange` is in the command result saved. 
 For example, when a user undoes an `addElderly` command, the user interface will toggle to the list of elderly based on the command result saved, showing the user the change.
 
-<div style="page-break-after: always;"></div>
-
 --------------------------------------------------------------------------------------------------------------------
+
+<div style="page-break-after: always;"></div>
 
 ## **Documentation, logging, testing, configuration, dev-ops**
 
@@ -1120,8 +1136,6 @@ Similar to <u>adding an elderly (<a href="#uc2-add-an-elderly">UC2</a>)</u> but 
 ##### UC16: Mark a task as complete
 
 Similar to <u>deleting a task (<a href="#uc14-delete-a-task">UC14</a>)</u> but marking a task as done instead. The `doneTask` command success message will appear instead.
-
-<div style="page-break-after: always;"></div>
 
 ##### UC17: Find a task
 
@@ -1630,7 +1644,7 @@ testers are expected to do more *exploratory* testing.
    
    3. Remove the starting `{` character of the JSON file and save the file.
    
-   4. Launch the app by running `java -jar NurseyBook.jar` in the console. <br>
+   4. Launch the app by running `java -jar nurseybook.jar` in the console. <br>
       Expected: The GUI should pop up with no entries. The console should give warnings about incorrect data format (due to the removal of the `{` character at the start of the `nurseybook.json` file).
 
 --------------------------------------------------------------------------------------------------------------------
