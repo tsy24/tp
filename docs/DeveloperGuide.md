@@ -1630,7 +1630,7 @@ testers are expected to do more *exploratory* testing.
    
    3. Remove the starting `{` character of the JSON file and save the file.
    
-   4. Launch the app by running `java -jar NurseyBook.jar` in the console. <br>
+   4. Launch the app by running `java -jar nurseybook.jar` in the console. <br>
       Expected: The GUI should pop up with no entries. The console should give warnings about incorrect data format (due to the removal of the `{` character at the start of the `nurseybook.json` file).
 
 --------------------------------------------------------------------------------------------------------------------
