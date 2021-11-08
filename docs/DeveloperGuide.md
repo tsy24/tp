@@ -194,7 +194,7 @@ The following activity diagram summarizes what happens in the `MainWindow` class
 #### Design considerations
 **Aspect: How to display elderlies and tasks separately**
 
-* **Alternative 1 (current choice):** Using a commands `viewElderly` and `viewTasks`, switch the display in the main window between the elderly list and task list stored in `NurseyBook`.
+* **Alternative 1 (current choice):** Using commands `viewElderly` and `viewTasks`, switch the display in the main window between the elderly list and task list stored in `NurseyBook`.
     * Pros: Cleaner display, able to display the necessary information without cluttering the display window
     * Cons: The need to implement two new commands, `viewElderly` and `viewTask` for the user to view the two lists respectively. The code for the two commands might contain repetition due to the similarity in function.
     
@@ -211,14 +211,15 @@ UI lies within `CommandResult`, the following additions have been made to the `C
 * `CommandResult#isViewDetails` — Specifies the elderly list to be displayed after the current command execution
 
 #### How `MainWindow` processes `CommandResult`
-`MainWindow#handleViewDetails()` is a new method that handles the opening of the details panel and populating with the details of the specified elderly. It is called whenever a `viewDetails` command has been executed successfully.
-`MainWindow#handleNonViewDetails()` is a new method that handles the closing of the details panel. It is called whenever any command except `viewDetails` command has been executed successfully.
+* `MainWindow#handleViewDetails()` is a new method that handles the opening of the details panel and populating with the details of the specified elderly. It is called whenever a `viewDetails` command has been executed successfully.
+* `MainWindow#handleNonViewDetails()` is a new method that handles the closing of the details panel. It is called whenever any command except `viewDetails` command has been executed successfully.
 
 #### How `Model` is changed
-Model now also has at most one `Elderly` object chosen to be displayed in full.
+Model now also has at most one `Elderly` object chosen to be displayed in full at each point of time. Thus, the following additions have been made to the `ModelManager` class:
+
+* `ModelManager#elderlyOfInterest` — Specifies the elderly whose details are to be displayed in full
 
 #### Execution
-Given below is an example usage scenario and how the ViewDetails features work.
 
 The following sequence diagram shows how this operation works but leaves out the details regarding parsing:
 
@@ -227,7 +228,7 @@ The following sequence diagram shows how this operation works but leaves out the
 Parsing works similar to [`doneTask`](#mark-a-task-as-done-feature) feature above: a `ViewDetailsCommandParser` parses the Index which is passed to the `ViewDetailsCommand`. The Index identifies the elderly whose full details should be shown.
 
 #### Design considerations
-**Aspect: How to display pass an elderly object to UI**
+**Aspect: How to pass an elderly object to UI**
 
 * **Alternative 1 (current choice):** Using a new field in Model to indicate which elderly to be displayed
     * Pros: Better abstraction between each high-level component.
@@ -348,7 +349,7 @@ The following activity diagram summarizes what happens when a user enters the co
 `UniqueTaskList` uses the method above to mark the specified task as overdue in `UniqueTaskList#markTaskAsOverdue(Task toMark)`. This operation occurs in the `Model` interface under the `Model#updateTasksAccordingToTime()`, which is defined in `ModelManager#updateTasksAccordingToTime()`. The method in `ModelManager` then calls `NurseyBook#updateTasksOverdueStatus()`.
 
 #### How a task is identified as overdue
-The `DateTime` of a task is checked in the functions `Task#shouldTaskBeOverdue()` and `Task#isPastCurrentDateAndRecurringTask()`. Under the definition for both functions, the `DateTime` is passed into the static method `DateTime#isOverdue(DateTime dt)` to check if the scheduled date and time of the task is past th crrent date and time.
+The `DateTime` of a task is checked in the functions `Task#shouldTaskBeOverdue()` and `Task#isPastCurrentDateAndRecurringTask()`. Under the definition for both functions, the `DateTime` is passed into the static method `DateTime#isOverdue(DateTime dt)` to check if the scheduled date and time of the task is past the current date and time.
 
 More implementation details on the updating of a task's overdue status can be referred to under a later section, [handling of overdue and recurring tasks](#handling-of-overdue-and-recurring-tasks).
 
@@ -377,7 +378,7 @@ The following sequence diagram shows how this operation works:
 
 #### Implementation
 Task now contains `Recurrence`,  which encapsulates the recurrence type of the task. There are 4 recurrence types:
-1. `NONE`: Non-recurring `Task`
+1. `NONE`: Non-recurring (one-off) `Task`
 2. `DAY`: Recurring `Task` that repeats daily
 3. `WEEKLY`: Recurring `Task` that repeats weekly (every 7 days)
 4. `MONTHLY`: Recurring `Task` that repeats every 4 weeks
@@ -409,7 +410,7 @@ The logic for handling overdue and recurring tasks are handled in `ModelManager#
     }
 ```
 
-These individual functions, `updateRecurringTasksDate()`, `updateTasksOverdueStatus()` and `reorderTasksChronologically()` are defined in `NurseyBook.java` and their implementations are listed before.
+These individual functions, `updateRecurringTasksDate()`, `updateTasksOverdueStatus()` and `reorderTasksChronologically()` are defined in [`NurseyBook.java`](https://github.com/AY2122S1-CS2103T-F13-2/tp/blob/master/src/main/java/nurseybook/model/NurseyBook.java) and their implementations are listed before.
 1. `updateRecurringTasksDate()`
     *  This function checks whether a `Task` is overdue (`Task`'s `DateTime` is before the current `DateTime`) and if it is a recurring task (`Task#isRecurring` is `true`), before updating recurring tasks' `DateTime` as needed at the current time.
 2. `updateTasksOverdueStatus()`
@@ -447,7 +448,7 @@ For each `Task` in NurseyBook, it will go through this cycle of checks to ensure
 #### Implementation
 These operations are exposed in the `Model` interface as `Model#updateFilteredTaskList(predicate)`.
 
-Given below is an example usage scenario and how the find task mechanism behaves at each step. The example command is `findTask Pfizer`.
+Given below is an example usage scenario which demonstrates how the find task mechanism behaves at each step. The example command is `findTask Pfizer`.
 
 Step 1. The user launches the application and executes `findTask Pfizer` command to search for a list of tasks whose `Description` contains the keyword `Pfizer`. This prompts the `LogicManager` to start its execution by calling its `execute()` command.
 
