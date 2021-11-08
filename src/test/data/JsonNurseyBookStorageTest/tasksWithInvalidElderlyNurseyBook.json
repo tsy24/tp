@@ -1,0 +1,31 @@
+{
+  "elderlies": [ {
+    "name": "Valid Elderly",
+    "age": "40",
+    "gender": "M",
+    "roomNumber": "52",
+    "nokName": "Valid Nok",
+    "relationship": "Mother",
+    "phone": "9482424",
+    "email": "hans@example.com",
+    "address": "4th street"
+  }, {
+    "name": "Jeffrey",
+    "age": "40",
+    "gender": "M",
+    "roomNumber": "52",
+    "nokName": "Valid Nok",
+    "relationship": "Mother",
+    "phone": "948asdf2424",
+    "email": "hans@example.com",
+    "address": "4th street"
+  } ],
+  "tasks": [ {
+    "names" : [ "Bernard" ],
+    "description" : "i duno",
+    "date" : "2021-12-04",
+    "time" : "10:00:00",
+    "status" : [ "false", "false" ],
+    "recurrence" : "NONE"
+  } ]
+}

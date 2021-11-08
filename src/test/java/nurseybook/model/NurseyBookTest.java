@@ -132,6 +132,11 @@ public class NurseyBookTest {
             return tasks;
         }
 
+        @Override
+        public boolean doTasksContainValidNames() {
+            return true;
+        }
+
     }
 
 }
