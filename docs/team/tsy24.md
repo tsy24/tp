@@ -6,7 +6,7 @@ title: tsy24's Project Portfolio Page
 ### Project: NurseyBook
 
 NurseyBook is a desktop application made for nurses in nursing homes to aid them in managing contacts and tasks in their busy lives.
-It is part of a team project for CS2103T Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+It is part of a team project for CS2103T Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 19 kLoC.
 
 Given below are my contributions to the project.
 

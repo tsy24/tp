@@ -123,7 +123,7 @@ How the parsing works:
 ### Model component
 **API** : [`Model.java`](https://github.com/AY2122S1-CS2103T-F13-2/tp/blob/master/src/main/java/nurseybook/model/Model.java)
 
-<img src="images/ModelClassDiagram.png" width="400" />
+<img src="images/ModelClassDiagram.png"/>
 
 
 The `Model` component,
@@ -162,7 +162,7 @@ Classes used by multiple components are in the `nurseybook.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
-### Filter command
+### Filter feature
 
 #### Implementation
 The implementation of the filter command is facilitated by the `FilterCommand` class and `ElderlyHasTagPredicate` class.
@@ -178,13 +178,6 @@ The following sequence diagrams show how the filter command works:
 This diagram shows how the FilterCommand object is created:
 
 ![FilterSequenceDiagram](images/FilterSequenceDiagram.png)
-
-<div markdown="span" class="alert alert-info">
-
-:information_source: **Note:** 
-The lifeline for `FilterCommand` and `ElderlyHasTagPredicate` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-</div>
 
 This diagram shows how the FilterCommand object is executed:
 
@@ -538,7 +531,7 @@ The following class diagram shows the changes made to the `CommandResult` class.
 * `CommandResult#ListDisplayChange.TASK` — Specifies the task list to be displayed after the current command execution
 * `CommandResult#ListDisplayChange.NONE` — Specifies the type of displayed list should not change after the current command execution
 
-<img src="images/ViewElderlyClassDiagram.png" alt="View Elderly Class Diagram" width="280" />
+<img src="images/ViewElderlyClassDiagram.png" alt="View Elderly Class Diagram"/>
 
 #### How `MainWindow` processes `CommandResult`
 
@@ -1580,7 +1573,7 @@ testers are expected to do more *exploratory* testing.
 
 
 
-## **Appendix: Effort**
+## **Appendix C: Effort**
 
 Assuming the effort taken to create AB3 is rated at 100, we would estimate our project to have taken an effort of 200. Numerically, we have over 19000 lines of code contributed for version 1.4 of NurseyBook, with over 550 test cases to achieve high code coverage. 
 Below, we have detailed the major time-consuming factors to justify our effort estimation.

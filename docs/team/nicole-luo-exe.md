@@ -5,7 +5,7 @@ title: Siyi's Project Portfolio Page
 
 ### Project: NurseyBook Level 3
 
-NurseyBook is a desktop address book application designed to help nurses manage their contacts and tasks. Users primarily interact with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 17 kLoC.
+NurseyBook is a desktop address book application designed to help nurses manage their contacts and tasks. Users primarily interact with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 19 kLoC.
 
 Given below are my contributions to the project.
 
