@@ -162,6 +162,117 @@ Classes used by multiple components are in the `nurseybook.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
+### ViewElderly and ViewTasks feature
+
+#### How `CommandResult` is changed
+As nursey book has to support the display of two different lists (contacts vs task), each `CommandResult` object will now store the information which list should be displayed to the user.
+
+The following class diagram shows the changes made to the `CommandResult` class. Each `CommandResult` has an enum that specifies the type of display.
+
+* `CommandResult#ListDisplayChange.ELDERLY` — Specifies the elderly list to be displayed after the current command execution
+* `CommandResult#ListDisplayChange.TASK` — Specifies the task list to be displayed after the current command execution
+* `CommandResult#ListDisplayChange.NONE` — Specifies the type of displayed list should not change after the current command execution
+
+<img src="images/ViewElderlyClassDiagram.png" alt="View Elderly Class Diagram" width="200" />
+
+#### How `MainWindow` processes `CommandResult`
+`MainWindow#handleChange()` is a new method that handles the switching of the list display. It checks if a `CommandResult` object specifies the change of list display, and changes the UI accordingly.
+
+#### Execution
+Given below is an example usage scenario and how the display of elderly/task list mechanism behaves at each step. An example command is `viewElderly`, and the mechanism of `viewTasks` is similar.
+
+Step 1. The user launches the application for the first time. The default display of nursey book shows the list of all elderly that were added in.
+
+Step 2. The user runs a few other available commands, and wants to switch back to the default display with the elderly, thus executes the `viewElderly` command.
+
+Step 3. `MainWindow#executeCommand("viewElderly")` is called. Within the method body, it calls the `LogicManager#execute()` which returns a new `CommandResult`.
+
+Step 4. `MainWindow#executeCommand()` processes the `CommandResult`. It calls `MainWindow#handleChange()` to change the display of the list, to show all elderly.
+
+The following activity diagram summarizes what happens in the `MainWindow` class when the user enters either the `viewElderly` or `viewTasks` command.
+
+![ViewElderlyActivityDiagram](./images/ViewElderlyActivityDiagram.png)
+
+#### Design considerations
+**Aspect: How to display elderlies and tasks separately**
+* **Alternative 1 (current choice):** Using a commands `viewElderly` and `viewTasks`, switch the display in the main window between the elderly list and task list stored in `NurseyBook`.
+    * Pros: Cleaner display, able to display the necessary information without cluttering the display window
+    * Cons: The need to implement two new commands, `viewElderly` and `viewTask` for the user to view the two lists respectively. The code for the two commands might contain repetition due to the similarity in function.
+
+
+* **Alternative 2:** Display the list of elderly and list of tasks side by side in the same display window.
+    * Pros: Implementation/Creation of new commands are not needed. The user is able to type less yet still view what he/she is interested in.
+    * Cons: With two different lists (that contain different objects) displayed side by side, the display might seem cluttered and hard to read from. It negatively impacts the user experience.
+
+### ViewDetails feature
+
+#### How `CommandResult` is changed
+Similar to `help`, `viewElderly` and `viewTasks`, this features requires a UI-specific operation (i.e. opening/closing the details panel). As the main method of communication between logic and
+UI lies within `CommandResult`, the following additions have been made to the `CommandResult` class:
+
+* `CommandResult#isViewDetails` — Specifies the elderly list to be displayed after the current command execution
+
+#### How `MainWindow` processes `CommandResult`
+`MainWindow#handleViewDetails()` is a new method that handles the opening of the details panel and populating with the details of the specified elderly. It is called whenever a `viewDetails` command has been executed successfully.
+`MainWindow#handleNonViewDetails()` is a new method that handles the closing of the details panel. It is called whenever any command except `viewDetails` command has been executed successfully.
+
+#### How `Model` is changed
+Model now also has at most one `Elderly` object chosen to be displayed in full.
+
+#### Execution
+Given below is an example usage scenario and how the ViewDetails features work.
+
+The following sequence diagram shows how this operation works but leaves out the details regarding parsing:
+
+![ViewDetailsSequenceDiagram](./images/ViewDetailsSequenceDiagram.png)
+
+Parsing works similar to [`doneTask`](#mark-a-task-as-done-feature) feature above: a `ViewDetailsCommandParser` parses the Index which is passed to the `ViewDetailsCommand`. The Index identifies the elderly whose full details should be shown.
+
+#### Design considerations
+**Aspect: How to display pass an elderly object to UI**
+
+* **Alternative 1 (current choice):** Using a new field in Model to indicate which elderly to be displayed
+    * Pros: Better abstraction between each high-level component.
+    * Cons: There might not always be an elderly to display, thus the field may sometimes be null, which require extra checks to prevent errors.
+
+
+* **Alternative 2:**  CommandResult storing an elderly
+    * Pros: Simpler implementation, elderly can be passed to MainWindow through the CommandResult without auxiliary methods.
+    * Cons: Does not make logical sense for `CommandResult` to have an elderly field as not all commands (and by extension: command result) involve an elderly.
+
+### Delete NoK feature
+
+#### Implementation
+The implementation of `DeleteNokCommand` is highly similar to that of `DeleteCommand`. Major differences are in how the steps 5 and 6 below are handled.
+
+Given below is an example usage scenario and how the delete NoK mechanism behaves at each step. The example command is `deleteNok 1`.
+
+
+Step 1. The user lists all elderlies with `viewElderly` and executes `deleteNok 1` command to delete the NoK details of the first elderly in the elderly list. This prompts the `LogicManager` to start its execution by calling its `execute()` command.
+
+Step 2. `LogicManager` calls the `NurseyBookParser` to parse the command.
+
+Step 3. The `NurseyBookParser` creates a new `DeleteNokCommandParser` object and calls its `parse` method to parse the arguments. This creates and returns a new `DeleteNokCommand` which is ready to be executed, containing the index of the target elderly as one of its fields.
+
+Step 4. The `DeleteNokCommand` is executed by calling its `execute()` method. This calls the `Model#getFilteredElderlyList()` and retrieves the filtered elderly list, which should contain all elderlies.
+
+Step 5. A new updated Elderly object is created with all fields equivalent to the targeted Elderly object, apart from the NoK fields which are wiped. This process has been omitted from the sequence diagram below.
+
+Step 6. The `Model#setElderly()` method is then called to replace the targeted Elderly with the updated Elderly object.
+
+Step 7. A new `CommandResult` is returned which contains the details of the new Elderly object. The result is returned to `LogicManager`.
+
+The following sequence diagram shows how the find task operation works:
+
+![DeleteNokSequenceDiagram](images/DeleteNokSequenceDiagram.png)
+
+<div markdown="span" class="alert alert-info">
+
+:information_source: **Note:**
+The lifeline for `DeleteNokCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
+
 ### Filter feature
 
 #### Implementation
@@ -199,6 +310,7 @@ The list of `Elderly` that return true for `test` is then assigned to `filteredE
 
 #### Design Considerations
 **Aspect: How to store tags:** 
+
 * **Alternative 1:** Create a new class `TagSet` to store tags
     * Pros: Can add custom methods
     * Cons: More code needs to be written and more room for bugs
@@ -290,7 +402,6 @@ If a user does not specify the `Recurrence` when adding a new `Task`, it will de
 ### Handling of overdue and recurring tasks
 
 #### Implementation
-
 The logic for handling overdue and recurring tasks are handled in `ModelManager#updateTasksAccordingToTime()`.
 
 ```     java
@@ -335,10 +446,131 @@ Listed below are some situations and corresponding implementations where the ove
 
 For each `Task` in NurseyBook, it will go through this cycle of checks to ensure their `DateTime` and `Status` are updated accordingly.
 
+### Find task feature
+
+#### Implementation
+These operations are exposed in the `Model` interface as `Model#updateFilteredTaskList(predicate)`.
+
+Given below is an example usage scenario and how the find task mechanism behaves at each step. The example command is `findTask Pfizer`.
+
+Step 1. The user launches the application and executes `findTask Pfizer` command to search for a list of tasks whose `Description` contains the keyword `Pfizer`. This prompts the `LogicManager` to start its execution by calling its `execute()` command.
+
+Step 2. `LogicManager` calls the `NurseyBookParser` to parse the command.
+
+Step 3. The `NurseyBookParser` creates a new `FindCommandParser` which will `parse()` the arguments. This creates a new `DescriptionContainsKeywordPredicate` that checks if a `Task`'s `Description` contains the keyword(s) - `Pfizer` in this case. A new `FindTaskCommand` which is ready to be executed is returned, containing the predicate as one of its fields.
+
+Step 4. The `FindTaskCommand` is executed by calling its `execute()` method. This calls the `Model#updateFilteredTaskList()` and updates the filtered task list by checking the tasks with `DescriptionContainsKeywordPredicate`.
+
+Step 5. A new `CommandResult` is returned which switches the display to the filtered task list. The result is returned to `LogicManager`.
+
+The following sequence diagrams shows how the find task operation works:
+
+Diagram showing how the findTaskCommand object is created:
+![FindTaskSequenceDiagram1](images/FindTaskSequenceDiagram1.png)
+
+Diagram showing how the findTaskCommand object is executed:
+![FindTaskSequenceDiagram2](images/FindTaskSequenceDiagram2.png)
+
+<div markdown="span" class="alert alert-info">
+
+:information_source: **Note:**
+The lifeline for `FindTaskCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
+
+### ViewSchedule Feature
+
+#### Implications on representation of `Task` objects
+The `viewSchedule` command introduced a need for certain tasks, specifically future occurrences of recurring tasks, to be visible to the user only when this command is called. Such temporary tasks need to be not visible once the next command is entered.
+
+To achieve this functionality, `Task` objects had to be refactored into`RealTask` and `GhostTask` objects as shown in the diagram below.
+
+![DetailedTaskClassDiagram](./images/DetailedTaskClassDiagram.png)
+
+RealTasks represent concrete tasks, which are either non-recurring tasks, or the current occurrence of recurring tasks.
+GhostTasks are temporary tasks that exist for the purpose of allowing the user to preview future occurrences of recurring tasks.
+By default, `viewTasks` will only show RealTasks.
+
+<br>
+
+#### Handling persistence of `GhostTask` objects
+Since `UniqueTaskList` contains `Task` objects, it can be either `GhostTask` or `RealTask` objects. A natural implication of `UniqueTaskList` containing all `Task` type objects would be the persistence of
+GhostTasks between different command calls. This becomes a problem in certain situations, as detailed below.
+
+Let us assume that two commands, A and B, are executed, both of which create GhostTasks during their execution, and then display the task list to show the user the GhostTasks created during execution. The following will be observed.
+
+1. Command A is executed.
+2. Command A adds GhostTasks to `UniqueTaskList`.
+3. Tasks displayed contain GhostTasks created by Command A.
+4. Command B is executed.
+5. Command B adds GhostTasks to `UniqueTaskList`
+6. Tasks displayed contain GhostTasks created by Command B and Command A.
+
+In step 6, it is expected to observe only GhostTasks created during execution of Command B, but GhostTasks created during execution of Command A will also be displayed, since all GhostTasks persist in the main `UniqueTaskList`.
+This necessitates a cleanup of `GhostTask` objects between execution of each command. Such deletion of old GhostTasks in the `Model` is achieved just prior to the execution of each new command in `LogicManager`, via the `deleteGhostTasks()` method.
+
+Code snippet of the `execute(String commandText)` method in `LogicManager`:
+
+```
+@Override
+public CommandResult execute(String commandText) throws CommandException, ParseException {
+    logger.info("----------------[USER COMMAND][" + commandText + "]");
+    
+    //deletes all previous ghost tasks from the model as they are no longer relevant
+    model.deleteGhostTasks();
+    
+    //parsing and execution of command
+    CommandResult commandResult;
+    Command command = nurseyBookParser.parseCommand(commandText);
+    commandResult = command.execute(model);
+```
+
+#### Implementation
+`ViewScheduleCommand` leverages on this ability to create GhostTasks. The other unique aspect in the implementation of this feature, is how the program figures out which GhostTasks to create and show to the user upon execution of this command.
+When a `ViewScheduleCommand` is executed with a given `keyDate`, where `keyDate` refers to the date on which the user wants to view schedule, `addPossibleGhostTasksWithMatchingDate(keyDate)` is responsible for this addition of relevant GhostTasks.
+
+Each task in the task list goes through a series of checks and actions before a GhostTask is created.
+Given below is an activity diagram that summarizes the sequence of checks and actions taken for each task in the task list upon calling the above-mentioned method.
+
+![AddPossibleGhostTasksWithMatchingDateActivityDiagram](./images/AddPossibleGhostTasksWithMatchingDateActivityDiagram.png)
+
+Since the remaining general mechanisms by which the view schedule operation occurs, such as how the command is parsed and how the `ViewScheduleCommand` is created,  is similar to other previously elaborated commands, a step-by-step elaboration is not given for the overall execution.
+
+<br>
+
+#### Design Considerations
+**Aspect: Differentiating `RealTask` and `GhostTask` Objects:**
+
+* **Alternative 1:** Add a new field to `Task` objects that determine whether a task is a real task or not.
+    * Pros: Easier to implement and integrate with existing AB3 code
+    * Cons: Increased failure points, as an additional field has to be stored in the hard disk to determine if tasks are real or not. This field has to be kept track of in between different commands, but not exposed to the user.
+
+* **Alternative 2 (current choice):** Make `Task` abstract and add concrete `RealTask` and `GhostTask` subclasses to it.
+    * Pros: Clearer classification of Task types. Polymorphism can be used to handle `RealTask` and `GhostTask` objects respectively.
+    * Cons: All code for existing `Task` objects needs to be refactored. More code needs to be written, which could result in more room for bugs.
+
+Alternative 2 was chosen as although Alternative 1 is simpler to implement, Alternative 1 has poor encapsulation of real and temporary task objects. `GhostTasks` need to be handled differently
+from `RealTasks`, as we do not want to expose them to the user. Hence, it makes more sense to encapsulate it as a separate class, even though more code needs to be refactored, written and tested.
+This also keeps the data stored in the hard disk smaller, as there is no unnecessary field to keep track of whether a task is real or not.
+
+<br>
+
+**Aspect: Searching of future occurrences of recurring tasks:**
+
+With recurring tasks, they imply the existence of infinite potential future occurrences. Consequently, users could input dates well beyond reasonable amounts, such as centuries into
+the future. However, it is not sensible nor feasible to search for such extraneous lengths of time. Hence, the maximum amount of time that a user can view schedule on a future date has been
+capped at 12 weeks, or 84 days, from the current date. This number was derived based on our estimations on how many weeks nurses would most likely have to plan ahead for in nursing homes, along with some extra leeway.
+
+**Aspect: Viewing of schedule on dates that have passed already:**
+
+For viewing schedule on a date that has passed already, there is no issue if the tasks that fall on the date are only non-recurring. The complication arises when recurring tasks are involved.
+If we were to potentially implement checking of recurring tasks into the past, that would raise concerns such as whether the task should be marked as overdue or not, and whether it should be marked
+as done. Due to too much ambiguity involving the representation of recurring tasks in the past, we have decided to disable the option to view schedule of past dates entirely. In any case,
+it does not have much value for the context of NurseyBook's purposes as well.
+
 ### Undo/redo feature
 
 #### Implementation
-
 The undo and redo features are facilitated by `VersionedNurseyBook`. It extends `NurseyBook` with an undo/redo history, stored internally as a `nurseyBookStateList` and `currentStateIndex`. 
 The `VersionedNurseyBook` implements the following operations:
 
@@ -422,8 +654,7 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 <img src="images/CommitActivityDiagram.png" width="300" />
 
-#### Design considerations:
-
+#### Design considerations
 **Aspect: How undo & redo executes:**
 
 * **Alternative 1 (current choice):** Saves the entire nursey book.
@@ -452,251 +683,6 @@ This way, when users execute the undo/redo command, information on the command t
 The relevant user interface is also displayed to the user as the `ListDisplayChange` is in the command result saved. 
 For example, when a user undoes an `addElderly` command, the user interface will toggle to the list of elderly based on the command result saved, showing the user the change.
 
-### Delete NoK feature
-
-#### Implementation
-
-The implementation of `DeleteNokCommand` is highly similar to that of `DeleteCommand`. Major differences are in how the steps 5 and 6 below are handled.
-
-Given below is an example usage scenario and how the delete NoK mechanism behaves at each step. The example command is `deleteNok 1`.
-
-
-Step 1. The user lists all elderlies with `viewElderly` and executes `deleteNok 1` command to delete the NoK details of the first elderly in the elderly list. This prompts the `LogicManager` to start its execution by calling its `execute()` command.
-
-Step 2. `LogicManager` calls the `NurseyBookParser` to parse the command.
-
-Step 3. The `NurseyBookParser` creates a new `DeleteNokCommandParser` object and calls its `parse` method to parse the arguments. This creates and returns a new `DeleteNokCommand` which is ready to be executed, containing the index of the target elderly as one of its fields.
-
-Step 4. The `DeleteNokCommand` is executed by calling its `execute()` method. This calls the `Model#getFilteredElderlyList()` and retrieves the filtered elderly list, which should contain all elderlies.
-
-Step 5. A new updated Elderly object is created with all fields equivalent to the targeted Elderly object, apart from the NoK fields which are wiped. This process has been omitted from the sequence diagram below.
-
-Step 6. The `Model#setElderly()` method is then called to replace the targeted Elderly with the updated Elderly object.
-
-Step 7. A new `CommandResult` is returned which contains the details of the new Elderly object. The result is returned to `LogicManager`.
-
-The following sequence diagram shows how the find task operation works:
-
-![DeleteNokSequenceDiagram](images/DeleteNokSequenceDiagram.png)
-
-<div markdown="span" class="alert alert-info">
-
-:information_source: **Note:** 
-The lifeline for `DeleteNokCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-</div>
-
-### Find task feature
-
-#### Implementation
-
-These operations are exposed in the `Model` interface as `Model#updateFilteredTaskList(predicate)`.
-
-Given below is an example usage scenario and how the find task mechanism behaves at each step. The example command is `findTask Pfizer`.
-
-Step 1. The user launches the application and executes `findTask Pfizer` command to search for a list of tasks whose `Description` contains the keyword `Pfizer`. This prompts the `LogicManager` to start its execution by calling its `execute()` command.
-
-Step 2. `LogicManager` calls the `NurseyBookParser` to parse the command.
-
-Step 3. The `NurseyBookParser` creates a new `FindCommandParser` which will `parse()` the arguments. This creates a new `DescriptionContainsKeywordPredicate` that checks if a `Task`'s `Description` contains the keyword(s) - `Pfizer` in this case. A new `FindTaskCommand` which is ready to be executed is returned, containing the predicate as one of its fields.
-
-Step 4. The `FindTaskCommand` is executed by calling its `execute()` method. This calls the `Model#updateFilteredTaskList()` and updates the filtered task list by checking the tasks with `DescriptionContainsKeywordPredicate`.
-
-Step 5. A new `CommandResult` is returned which switches the display to the filtered task list. The result is returned to `LogicManager`.
-
-The following sequence diagrams shows how the find task operation works:
-
-Diagram showing how the findTaskCommand object is created:
-![FindTaskSequenceDiagram1](images/FindTaskSequenceDiagram1.png)
-
-Diagram showing how the findTaskCommand object is executed:
-![FindTaskSequenceDiagram2](images/FindTaskSequenceDiagram2.png)
-
-<div markdown="span" class="alert alert-info">
-
-:information_source: **Note:** 
-The lifeline for `FindTaskCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-</div>
-
-### ViewElderly and ViewTasks feature
-
-#### How `CommandResult` is changed
-
-As nursey book has to support the display of two different lists (contacts vs task), each `CommandResult` object will now store the information which list should be displayed to the user.
-
-The following class diagram shows the changes made to the `CommandResult` class. Each `CommandResult` has an enum that specifies the type of display.
-
-* `CommandResult#ListDisplayChange.ELDERLY` — Specifies the elderly list to be displayed after the current command execution
-* `CommandResult#ListDisplayChange.TASK` — Specifies the task list to be displayed after the current command execution
-* `CommandResult#ListDisplayChange.NONE` — Specifies the type of displayed list should not change after the current command execution
-
-<img src="images/ViewElderlyClassDiagram.png" alt="View Elderly Class Diagram" width="200" />
-
-#### How `MainWindow` processes `CommandResult`
-
-`MainWindow#handleChange()` is a new method that handles the switching of the list display. It checks if a `CommandResult` object specifies the change of list display, and changes the UI accordingly.
-
-#### Execution
-
-Given below is an example usage scenario and how the display of elderly/task list mechanism behaves at each step. An example command is `viewElderly`, and the mechanism of `viewTasks` is similar.
-
-Step 1. The user launches the application for the first time. The default display of nursey book shows the list of all elderly that were added in.
-
-Step 2. The user runs a few other available commands, and wants to switch back to the default display with the elderly, thus executes the `viewElderly` command.
-
-Step 3. `MainWindow#executeCommand("viewElderly")` is called. Within the method body, it calls the `LogicManager#execute()` which returns a new `CommandResult`.
-
-Step 4. `MainWindow#executeCommand()` processes the `CommandResult`. It calls `MainWindow#handleChange()` to change the display of the list, to show all elderly.
-
-The following activity diagram summarizes what happens in the `MainWindow` class when the user enters either the `viewElderly` or `viewTasks` command.
-
-![ViewElderlyActivityDiagram](./images/ViewElderlyActivityDiagram.png)
-
-#### Design considerations:
-
-**Aspect: How to display elderlies and tasks separately**
-* **Alternative 1 (current choice):** Using a commands `viewElderly` and `viewTasks`, switch the display in the main window between the elderly list and task list stored in `NurseyBook`.
-  * Pros: Cleaner display, able to display the necessary information without cluttering the display window
-  * Cons: The need to implement two new commands, `viewElderly` and `viewTask` for the user to view the two lists respectively. The code for the two commands might contain repetition due to the similarity in function.
-
-
-* **Alternative 2:** Display the list of elderly and list of tasks side by side in the same display window.
-  * Pros: Implementation/Creation of new commands are not needed. The user is able to type less yet still view what he/she is interested in.
-  * Cons: With two different lists (that contain different objects) displayed side by side, the display might seem cluttered and hard to read from. It negatively impacts the user experience.
-  
-
-### ViewSchedule Feature
-
-#### Implications on representation of `Task` objects
-The `viewSchedule` command introduced a need for certain tasks, specifically future occurrences of recurring tasks, to be visible to the user only when this command is called. Such temporary tasks need to be not visible once the next command is entered.
-
-To achieve this functionality, `Task` objects had to be refactored into`RealTask` and `GhostTask` objects as shown in the diagram below.
-
-![DetailedTaskClassDiagram](./images/DetailedTaskClassDiagram.png)
-
-RealTasks represent concrete tasks, which are either non-recurring tasks, or the current occurrence of recurring tasks.
-GhostTasks are temporary tasks that exist for the purpose of allowing the user to preview future occurrences of recurring tasks.
-By default, `viewTasks` will only show RealTasks.
-
-<br>
-
-#### Handling persistence of `GhostTask` objects
-Since `UniqueTaskList` contains `Task` objects, it can be either `GhostTask` or `RealTask` objects. A natural implication of `UniqueTaskList` containing all `Task` type objects would be the persistence of
-GhostTasks between different command calls. This becomes a problem in certain situations, as detailed below.
-
-Let us assume that two commands, A and B, are executed, both of which create GhostTasks during their execution, and then display the task list to show the user the GhostTasks created during execution. The following will be observed.
-
-1. Command A is executed.
-2. Command A adds GhostTasks to `UniqueTaskList`.
-3. Tasks displayed contain GhostTasks created by Command A.
-4. Command B is executed.
-5. Command B adds GhostTasks to `UniqueTaskList`
-6. Tasks displayed contain GhostTasks created by Command B and Command A.
-
-In step 6, it is expected to observe only GhostTasks created during execution of Command B, but GhostTasks created during execution of Command A will also be displayed, since all GhostTasks persist in the main `UniqueTaskList`. 
-This necessitates a cleanup of `GhostTask` objects between execution of each command. Such deletion of old GhostTasks in the `Model` is achieved just prior to the execution of each new command in `LogicManager`, via the `deleteGhostTasks()` method.
-
-Code snippet of the `execute(String commandText)` method in `LogicManager`:
-```
-@Override
-public CommandResult execute(String commandText) throws CommandException, ParseException {
-    logger.info("----------------[USER COMMAND][" + commandText + "]");
-    
-    //deletes all previous ghost tasks from the model as they are no longer relevant
-    model.deleteGhostTasks();
-    
-    //parsing and execution of command
-    CommandResult commandResult;
-    Command command = nurseyBookParser.parseCommand(commandText);
-    commandResult = command.execute(model);
-```
-
-
-
-#### Implementation of ViewSchedule
-
-`ViewScheduleCommand` leverages on this ability to create GhostTasks. The other unique aspect in the implementation of this feature, is how the program figures out which GhostTasks to create and show to the user upon execution of this command.
-When a `ViewScheduleCommand` is executed with a given `keyDate`, where `keyDate` refers to the date on which the user wants to view schedule, `addPossibleGhostTasksWithMatchingDate(keyDate)` is responsible for this addition of relevant GhostTasks.
-
-Each task in the task list goes through a series of checks and actions before a GhostTask is created. 
-Given below is an activity diagram that summarizes the sequence of checks and actions taken for each task in the task list upon calling the above-mentioned method.
-
-![AddPossibleGhostTasksWithMatchingDateActivityDiagram](./images/AddPossibleGhostTasksWithMatchingDateActivityDiagram.png)
-
-Since the remaining general mechanisms by which the view schedule operation occurs, such as how the command is parsed and how the `ViewScheduleCommand` is created,  is similar to other previously elaborated commands, a step-by-step elaboration is not given for the overall execution.
-
-<br>
-
-#### Design Considerations
-**Aspect: Differentiating `RealTask` and `GhostTask` Objects:**
-* **Alternative 1:** Add a new field to `Task` objects that determine whether a task is a real task or not.
-    * Pros: Easier to implement and integrate with existing AB3 code
-    * Cons: Increased failure points, as an additional field has to be stored in the hard disk to determine if tasks are real or not. This field has to be kept track of in between different commands, but not exposed to the user.
-* **Alternative 2:** Make `Task` abstract and add concrete `RealTask` and `GhostTask` subclasses to it.
-    * Pros: Clearer classification of Task types. Polymorphism can be used to handle `RealTask` and `GhostTask` objects respectively.
-    * Cons: All code for existing `Task` objects needs to be refactored. More code needs to be written, which could result in more room for bugs.
-
-**Decision:**
-Alternative 2 was chosen as although Alternative 1 is simpler to implement, Alternative 1 has poor encapsulation of real and temporary task objects. `GhostTasks` need to be handled differently
-from `RealTasks`, as we do not want to expose them to the user. Hence, it makes more sense to encapsulate it as a separate class, even though more code needs to be refactored, written and tested.
-This also keeps the data stored in the hard disk smaller, as there is no unnecessary field to keep track of whether a task is real or not.
-
-<br>
-
-**Aspect: Searching of future occurrences of recurring tasks:**
-With recurring tasks, they imply the existence of infinite potential future occurrences. Consequently, users could input dates well beyond reasonable amounts, such as centuries into
-the future. However, it is not sensible nor feasible to search for such extraneous lengths of time. Hence, the maximum amount of time that a user can view schedule on a future date has been
-capped at 12 weeks, or 84 days, from the current date. This number was derived based on our estimations on how many weeks nurses would most likely have to plan ahead for in nursing homes, along with some extra leeway.
-
-<br>
-
-**Aspect: Viewing of schedule on dates that have passed already:**
-For viewing schedule on a date that has passed already, there is no issue if the tasks that fall on the date are only non-recurring. The complication arises when recurring tasks are involved.
-If we were to potentially implement checking of recurring tasks into the past, that would raise concerns such as whether the task should be marked as overdue or not, and whether it should be marked
-as done. Due to too much ambiguity involving the representation of recurring tasks in the past, we have decided to disable the option to view schedule of past dates entirely. In any case,
-it does not have much value for the context of NurseyBook's purposes as well.
-
-### ViewDetails feature
-
-#### How `CommandResult` is changed
-
-Similar to `help`, `viewElderly` and `viewTasks`, this features requires a UI-specific operation (i.e. opening/closing the details panel). As the main method of communication between logic and
-UI lies within `CommandResult`, the following additions have been made to the `CommandResult` class:
-
-* `CommandResult#isViewDetails` — Specifies the elderly list to be displayed after the current command execution
-
-#### How `MainWindow` processes `CommandResult`
-
-`MainWindow#handleViewDetails()` is a new method that handles the opening of the details panel and populating with the details of the specified elderly. It is called whenever a `viewDetails` command has been executed successfully.
-`MainWindow#handleNonViewDetails()` is a new method that handles the closing of the details panel. It is called whenever any command except `viewDetails` command has been executed successfully.
-
-#### How `Model` is changed
-
-Model now also has at most one `Elderly` object chosen to be displayed in full.
-
-#### Execution
-
-Given below is an example usage scenario and how the ViewDetails features work.
-
-The following sequence diagram shows how this operation works but leaves out the details regarding parsing:
-
-![ViewDetailsSequenceDiagram](./images/ViewDetailsSequenceDiagram.png)
-
-Parsing works similar to [`doneTask`](#mark-a-task-as-done-feature) feature above: a `ViewDetailsCommandParser` parses the Index which is passed to the `ViewDetailsCommand`. The Index identifies the elderly whose full details should be shown.
-
-#### Design considerations:
-
-**Aspect: How to display pass an elderly object to UI**
-* **Alternative 1 (current choice):** Using a new field in Model to indicate which elderly to be displayed
-    * Pros: Better abstraction between each high-level component.
-    * Cons: There might not always be an elderly to display, thus the field may sometimes be null, which require extra checks to prevent errors.
-  
-
-* **Alternative 2:**  CommandResult storing an elderly
-    * Pros: Simpler implementation, elderly can be passed to MainWindow through the CommandResult without auxiliary methods.
-    * Cons: Does not make logical sense for `CommandResult` to have an elderly field as not all commands (and by extension: command result) involve an elderly.
-   
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
@@ -722,7 +708,6 @@ Parsing works similar to [`doneTask`](#mark-a-task-as-done-feature) feature abov
 * is reasonably comfortable using CLI apps
 
 **Value proposition**: manage elderly details and tasks faster than a typical mouse/GUI driven application
-
 
 ### User stories
 
@@ -765,7 +750,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* *`    | new nurse                   | easily understand how to view necessary information           | not feel overwhelmed and confused                                                                                                                |
 | `* `     | nurse                       | color-code my tasks                                           | differentiate between the tasks more easily                                                                                                      |
 | `* `     | user                        | alternate between light/dark mode                             | have an aesthetically pleasing UI                                                                                                                |
-
 
 ### Use cases
 
