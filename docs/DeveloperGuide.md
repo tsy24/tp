@@ -1049,7 +1049,10 @@ testers are expected to do more *exploratory* testing.
     3. Test case: `addTag 1 t/vegetarian t/flu`<br>
        Expected: `vegetarian` and `flu` tags are added to the first elderly in the list. 
    
-    4. Invalid commands to try (Error details shown in the status message):
+    4. Test case: `addTag 1 t/flu t/Flu`<br>
+       Expected: The two tags are taken to be the same tag and only the `flu` tag is added to the first elderly in the list.
+   
+    5. Invalid commands to try (Error details shown in the status message):
        * Invalid index >= size of elderly list or <= 0: `addTag 5 t/flu` or `addTag -1 t/flu`
        * Adding an existing tag: `addTag 1 t/diabetes`
        * Missing parameters: `addTag` or `addTag 1`
@@ -1197,6 +1200,7 @@ testers are expected to do more *exploratory* testing.
 
     6. Invalid commands to try (Error details shown in the status message):
         * Date input has already passed: `viewSchedule 2021-11-11`
+        * Date input is beyond 12 weeks from today's date: `viewSchedule 2022-10-11`
         * Not formatting the date correctly in yyyy-mm-dd format: `viewSchedule 16-12-2021`
 
 ### Undo
