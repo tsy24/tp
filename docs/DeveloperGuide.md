@@ -504,8 +504,8 @@ By default, `viewTasks` will only show RealTasks.
 
 
 Since `UniqueTaskList` contains `Task` objects, it can be either `GhostTask` or `RealTask` objects. 
-Let us assume that two commands are called, both of which create GhostTasks and want to display GhostTasks created only during their execution.
-A natural implication of `UniqueTaskList` containing all `Task` type objects would be that the latter command would incorrectly display the GhostTasks created by the former command as well,
+Let us assume that two commands are executed, both of which create GhostTasks during their execution, and want to display GhostTasks created only during their execution.
+A natural implication of `UniqueTaskList` containing all `Task` type objects would be that the latter executed command would incorrectly display the GhostTasks created by the former command as well,
 since all GhostTasks persist in the main `UniqueTaskList`. 
 This necessitates a cleanup of `GhostTask` objects between execution of each command. Such deletion of old GhostTasks in the `Model` is achieved just prior to the execution of each new command in `LogicManager`, via the `deleteGhostTasks()` method.
 
