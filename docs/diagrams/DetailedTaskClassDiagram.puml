@@ -6,7 +6,6 @@ skinparam classBackgroundColor MODEL_COLOR
 
 Package Model <<Rectangle>>{
 
-Abstract Class Task
 Class RealTask
 Class GhostTask
 
@@ -15,14 +14,15 @@ Class DateTime
 Class Status
 Class Recurrence
 Class Name
-}
 
-Task *-up-> Description
-Task *-up-> DateTime
-Task *-up-> Status
-Task *-up-> Recurrence
-Task *-up-> "*" Name
-RealTask -up-|> Task
-GhostTask -up-|> Task
+
+"{asbtract}\nTask" *-up-> Description
+"{asbtract}\nTask" *-up-> DateTime
+"{asbtract}\nTask" *-up-> Status
+"{asbtract}\nTask" *-up-> Recurrence
+"{asbtract}\nTask" *-up-> "*" Name
+RealTask -up-|> "{asbtract}\nTask"
+GhostTask -up-|> "{asbtract}\nTask"
+}
 
 @enduml
