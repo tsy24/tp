@@ -306,7 +306,7 @@ Examples:
 * The order of the keywords does not matter. e.g. `Elena Kro` will match `Kro Elena`
 * Only the name is searched.
 * Only full words will be matched. e.g. `Ele` will not match `Elena`
-* Elderlies matching at least one keyword will be returned (i.e. `OR` search). e.g. `Elena Kro` will return `Elena Grob`, `Kro Stanly`
+* Elderlies matching at least one keyword will be returned (i.e. _OR_ search). e.g. `Elena Kro` will return `Elena Grob`, `Kro Stanly`
 
 </div>
 
@@ -317,11 +317,12 @@ This command displays the full details of a specific elderly.
 Format: `viewDetails INDEX`
 
 Example:
+
 Let’s say that you would like to view the remark or Next-of-Kin (NoK) details of Khong Guan. However, these details are not shown in the elderly list. To view the full details of an elderly, you can use the `viewDetails` command.
 
 To view the full details of an elderly:
 1. Enter [`viewElderly`](#411-view-all-elderly-viewelderly) to view the list of elderly.
-2. As Khong Guan is the second elderly in the list, enter viewDetails 2 and you will be able to see the full details of Khong Guan in the details panel on the right side of the application screen.
+2. As Khong Guan is the second elderly in the list, enter `viewDetails 2` and you will be able to see the full details of Khong Guan in the details panel on the right side of the application screen.
 
 ![](images/userGuide/viewDetails.png)
 
@@ -344,7 +345,8 @@ This command allows you to delete an elderly's Next-of-Kin details from NurseyBo
 Format: `deleteNok INDEX`
 
 Example:
-Let’s say Khong Guan’s NoK information is no longer relevant and you want to delete the NoK details from Khong Guan. The deleteNok command can help you do so.
+
+Let’s say Khong Guan’s NoK information is no longer relevant and you want to delete the NoK details from Khong Guan. The `deleteNok` command can help you do so.
 
 To delete NoK details of an elderly:
 1. Enter [`viewElderly`](#411-view-all-elderly-viewelderly) to view the list of elderly.
@@ -371,7 +373,8 @@ This command allows you to add one or more tags to a specific elderly on top of 
 Format: `addTag INDEX t/TAG [t/TAG]…​`
 
 Example:
-Let’s say Khong Guan is down with a flu and you would like to add a tag to him to note it down. While editElderly allows you to edit the tags of an elderly, it clears all existing tags that the elderly has, which is not the desired behaviour as you want to keep the existing tags. To add one or more tags on top of existing tags, you can use the addTag command!
+
+Let’s say Khong Guan is down with a flu and you would like to add a tag to him to note it down. While editElderly allows you to edit the tags of an elderly, it clears all existing tags that the elderly has, which is not the desired behaviour as you want to keep the existing tags. To add one or more tags on top of existing tags, you can use the `addTag` command!
 
 To add one or more tags:
 1. Enter [`viewElderly`](#411-view-all-elderly-viewelderly) to view the list of elderly.
@@ -381,8 +384,6 @@ To add one or more tags:
 3. You can check that the `flu` tag is added to the elderly.
 
 ![](images/userGuide/addTag2.png)
-
-* [`viewElderly`](#411-view-all-elderly-viewelderly) followed by `addTag 1 t/covid` adds the tag `covid` to the 1st elderly in NurseyBook.
 
 <div markdown="block" class="alert alert-info">
 
@@ -401,6 +402,7 @@ This command allows you to delete one or more tags of a specific elderly.
 Format: `deleteTag INDEX t/TAG [t/TAG]…​`
 
 Example:
+
 Let’s say Khong Guan has recovered from his flu, and you want to remove the `flu` tag from his details. Instead of using the `editElderly` command that clears all the elderly’s tags, you can use the `deleteTag` command to specify which tag to delete.
 
 To delete one or more tags from an elderly:
@@ -433,6 +435,7 @@ This command allows you to view a list of elderly with all the tags queried.
 Format: `filter t/TAG [t/TAG]…​`
 
 Example:
+
 Let’s say you need to order food for the elderly you are taking care of. You need to know how many elderly require vegetarian meals. You have previously added the `vegetarian` tag to all elderly that are vegetarian. To get a list of elderly that are vegetarian, you can use the `filter` command!
 
 To filter elderly based on tags:
@@ -447,7 +450,7 @@ To filter elderly based on tags:
 * You must enter at least one tag.
 * Only complete tags will be matched. e.g. `diab` will not match `diabetes`
 * Multiple tags that are the same or have different casing are treated as one tag. e.g. If you enter `t/Diabetic t/diabetic`, they will be taken as one tag which is the first one entered: `t/Diabetic`
-* Elderlies matching all tags will be returned (i.e.`AND` search). e.g. For `filter t/covid t/diabetes`, if the elderly only has the 'diabetes' tag, he will not be returned.
+* Elderlies matching all tags will be returned (i.e._AND_ search). e.g. For `filter t/covid t/diabetes`, if the elderly only has the 'diabetes' tag, he will not be returned.
 * The matching of tags is case-insensitive. e.g. You can enter `t/Diabetic` and it will match `diabetic`, `DIABETIC`
 
 </div>
@@ -461,6 +464,7 @@ This command allows you to add a remark to a specific elderly.
 Format: `remark INDEX re/REMARK`
 
 Example:
+
 Let’s say that you want to add a comment to Khong Guan, saying that the medicine given to him seems to be ineffective. You can add this comment to Khong Guan using a remark.
 
 To add a remark to an elderly:
@@ -628,7 +632,7 @@ Examples:
 * The order of the keywords does not matter. e.g. `Day shift` will match `shift Day`
 * Only the description is searched.
 * Only full words will be matched. e.g. `Sh` will not match `Shift`
-* Task matching at least one keyword will be returned (i.e. `OR` search). e.g. `Day shift` will return `Day routine`, `Shift items`
+* Task matching at least one keyword will be returned (i.e. _OR_ search). e.g. `Day shift` will return `Day routine`, `Shift items`
 
 </div>
 
