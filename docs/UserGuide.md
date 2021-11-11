@@ -643,8 +643,6 @@ To add a task:
 
 </div>
 
-<div style="page-break-after: always;"></div>
-
 #### 4.2.3 Delete a task: `deleteTask`
 
 This command lets you delete a particular task from NurseyBook.
@@ -827,8 +825,6 @@ The `remind` command will only show you uncompleted tasks that are scheduled to 
 For example, if it is 01 January today, the command will show you tasks on days 01, 02, 03 and 04 January. Tasks scheduled for 05 January and onwards will not be shown.
 
 </div>
-
-<div style="page-break-after: always;"></div>
 
 #### 4.2.8 View task schedule: `viewSchedule`
 
