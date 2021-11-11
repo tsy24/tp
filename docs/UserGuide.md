@@ -508,8 +508,6 @@ To add a remark to an elderly:
 2. Enter `remark 2 re/Medicine seems to be ineffective`. 
 3. The remark “Medicine seems to be ineffective” will be added to Khong Guan. You can click on the elderly or use the [`viewDetails`](#416-view-full-details-of-an-elderly-viewdetails) command to see the remark.
 
-![](images/userGuide/remark.png)
-
 <div markdown="block" class="alert alert-info">
 
 :information_source: **Information:**
