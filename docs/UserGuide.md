@@ -131,10 +131,10 @@ e.g. `viewTasks`
 Commands in this guide follow such rules:
 
 * Words in _UPPER_CASE_ are the parameters to be supplied by you.<br>
-  e.g. in `addElderly en/ELDERLY_NAME`, `ELDERLY_NAME` is a parameter which can be used as `addElderly en/Swee Choon`.
+  e.g. in `addElderly en/ELDERLY_NAME`, `ELDERLY_NAME` is a parameter which can be used as `addElderly en/John`.
 
 * Items in square brackets are optional. You can choose to leave them out.<br>
-  e.g. `en/ELDERLY_NAME [t/TAG]` can be used as `en/Swee Choon t/vegan` or as `en/Swee Choon`.
+  e.g. `en/ELDERLY_NAME [t/TAG]` can be used as `en/John t/vegan` or as `en/John`.
 
 * Items with `…`​ after them can be used multiple times including zero times.<br>
   e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
@@ -214,7 +214,7 @@ Format: `viewElderly`
     Normal view:
   ![](images/userGuide/view_elderly_0.png)
     
-    <br>
+    <div style="page-break-after: always;"></div>
   
   Expanded view (click on the entry for ‘Charlotte Oliveiro’):
   ![](images/userGuide/view_elderly_1.png)
@@ -231,14 +231,14 @@ Format: `addElderly en/ELDERLY_NAME a/AGE g/GENDER r/ROOMNO [t/TAG]…​ [nn/NO
 
 Example:
 
-Let’s say you have a new elderly that has been placed under your charge. You can follow the steps below to add him to NurseyBook using the addElderly command.
+Let’s say you have a new elderly, Khong Guan, that has been placed under your charge. You can follow the steps below to add him to NurseyBook using the addElderly command.
 
 To add an elderly: 
-1. Type addElderly `en/Khong Guan a/80 g/M r/201` into the command box.
+1. Type `addElderly en/Khong Guan a/80 g/M r/201` into the command box.
 2. Press `Enter` to execute your command. You should see the following.
    ![](images/userGuide/add_elderly_0.png)
 
-If you would like to include his/her NoK details as well, you can use this longer command instead to add both his/her personal and NoK details at the same time.
+If you would like to include the elderly's NoK details as well, you can use this longer command instead to add both his/her personal and NoK details at the same time.
 * `addElderly en/Khong Guan a/80 g/M r/201 nn/Bing Gan rs/Brother p/91234567 e/guanbro@gmail.com addr/London Street 11`
 
  
@@ -280,7 +280,7 @@ To delete an elderly:
 1. Enter [`viewElderly`](#411-view-all-elderly-viewelderly) to view the list of elderly and locate the index number of Khong Guan. In the image below, Khong Guan is at index number 2.
     ![](images/userGuide/delete_elderly_0.png)
 
-2. Enter `deleteElderly 2` to delete the 2nd elderly in NurseyBook. Khong Guan should no longer be visible.
+2. Enter `deleteElderly 2` to delete the second elderly in NurseyBook. Khong Guan should no longer be visible.
     ![](images/userGuide/delete_elderly_1.png)
 
 
@@ -313,22 +313,20 @@ Let's say Khong Guan’s birthday has just passed and he has been reallocated to
 
 To edit an elderly:
 1. Enter [`viewElderly`](#411-view-all-elderly-viewelderly) to view the list of elderly and locate the index number of Khong Guan. In the image below, Khong Guan is at index number 2.
-      ![](images/userGuide/edit_elderly_0.png)
-
-<div style="page-break-after: always;"></div>
+    ![](images/userGuide/edit_elderly_0.png)
 
 2. Enter the command `editElderly 2 a/81 r/57`. You can specify any other fields that you would like to change as well.
    
     Before Editing:
     ![](images/userGuide/edit_elderly_1.png)
-   
+
+    <div style="page-break-after: always;"></div>
+
     After Editing:
     ![](images/userGuide/edit_elderly_2.png)
 
 
 For tags, if Khong Guan has a tag `diabetes`, to add an `overweight` tag to him, your command should be `editElderly 2 t/cancer t/overweight`.
-
-<div style="page-break-after: always;"></div>
 
 <div markdown="block" class="alert alert-info">
 
@@ -358,7 +356,7 @@ For tags, if Khong Guan has a tag `diabetes`, to add an `overweight` tag to him,
 
 #### 4.1.5 Find elderly: `findElderly`
 
-This command allows you to find all the elderlies whose names are related to any of the given keywords. This is especially useful when you have a lot of elderlies stored.
+This command allows you to find all the elderlies whose names contain any of the given keywords. This is especially useful when you have a lot of elderlies stored.
 
 Format: `findElderly KEYWORD [MORE_KEYWORDS]`
 
@@ -367,8 +365,8 @@ Example:
 Let’s say you are looking for a certain elderly with the surname ‘Lim’. It is a hassle to go through the full list of elderlies and search for that particular person one by one. To save time, simply use the `findElderly` command.
 
 To find elderly based on keywords:
-1. Enter `findElderly lim`
-2. This should return all elderlies with the word lim in any part of their name. If only ‘Emily Lim’ and ‘Madoo Lim’ have the word lim  in their name, you should observe the output below.
+1. Enter `findElderly lim`.
+2. This should return all elderlies with the word "lim" in any part of their name. If only ‘Emily Lim’ and ‘Madoo Lim’ have the word lim  in their name, you should observe the output below.
     ![](images/userGuide/find_elderly_0.png)
    You can use this filtered list to quickly identify that specific elderly you are searching for.
 
@@ -424,7 +422,7 @@ Let’s say Khong Guan’s NoK information is no longer relevant and you want to
 
 To delete NoK details of an elderly:
 1. Enter [`viewElderly`](#411-view-all-elderly-viewelderly) to view the list of elderly.
-2. Enter `deleteNok 2` to delete the NoK details of the 2nd elderly in NurseyBook, which is Khong Guan.
+2. Enter `deleteNok 2` to delete the NoK details of the second elderly in NurseyBook, which is Khong Guan.
 3. From the result message, you can see that the description of Khong Guan has empty NoK fields. Alternatively, you can also click on the elderly to see the full details. The NoK name is now `NIL`.
 
     ![](images/userGuide/deleteNok.png)
@@ -448,11 +446,11 @@ Format: `addTag INDEX t/TAG [t/TAG]…​`
 
 Example:
 
-Let’s say Khong Guan is down with a flu and you would like to add a tag to him to note it down. While editElderly allows you to edit the tags of an elderly, it clears all existing tags that the elderly has, which is not the desired behaviour as you want to keep the existing tags. To add one or more tags on top of existing tags, you can use the `addTag` command!
+Let’s say Khong Guan is down with a flu, and you would like to add a tag to him to note it down. While `editElderly` allows you to edit the tags of an elderly, it clears all existing tags that the elderly has, which is not the desired behaviour as you want to keep the existing tags. To add one or more tags on top of existing tags, you can use the `addTag` command!
 
 To add one or more tags:
 1. Enter [`viewElderly`](#411-view-all-elderly-viewelderly) to view the list of elderly.
-2. Enter `addTag 2 t/flu` to add the tag `flu` to Khong Guan.
+2. Enter `addTag 2 t/flu` to add the tag `flu` to Khong Guan. The index is 2 as Khong Guan is the second elderly in this list.
 
     ![](images/userGuide/addTag1.png)
 3. You can check that the `flu` tag is added to the elderly.
@@ -481,7 +479,7 @@ Let’s say Khong Guan has recovered from his flu, and you want to remove the `f
 
 To delete one or more tags from an elderly:
 1. Enter [`viewElderly`](#411-view-all-elderly-viewelderly) to view the list of elderly.
-2. Enter `deleteTag 2 t/flu` to delete the tag `flu` from Khong Guan.
+2. Enter `deleteTag 2 t/flu` to delete the tag `flu` from Khong Guan. The index is 2 as Khong Guan is the second elderly in this list.
 
     ![](images/userGuide/deleteTag1.png)
 3. You can check that the `flu` tag is removed from Khong Guan.
@@ -499,8 +497,6 @@ To delete one or more tags from an elderly:
 * The index that you enter **must be a positive integer** 1, 2, 3, …​
 
 </div>
-
-<div style="page-break-after: always;"></div>
 
 #### 4.1.10 Filter elderly: `filter`
 
@@ -543,7 +539,7 @@ Let’s say that you want to add a comment to Khong Guan, saying that the medici
 
 To add a remark to an elderly: 
 1. Enter [`viewElderly`](#411-view-all-elderly-viewelderly) to view the list of elderly. 
-2. Enter `remark 2 re/Medicine seems to be ineffective` to add the remark to Khong Guan. 
+2. Enter `remark 2 re/Medicine seems to be ineffective` to add the remark to Khong Guan. The index is 2 as Khong Guan is the second elderly in this list.
 3. The remark “Medicine seems to be ineffective” will be added to Khong Guan. You can click on the elderly or use the [`viewDetails`](#416-view-full-details-of-an-elderly-viewdetails) command to see the remark.
 
     ![](images/userGuide/remark.png)
@@ -555,8 +551,6 @@ To add a remark to an elderly:
 * The index that you enter **must be a positive integer** 1, 2, 3, …​
 
 </div>
-
-<div style="page-break-after: always;"></div>
 
 <div markdown="block" class="alert alert-primary">
 
@@ -597,18 +591,19 @@ Format: `viewTasks`
 
 #### 4.2.2 Add a task: `addTask`
 
-Adds a task to the task list.
+This command lets you add a task to NurseyBook.
 
 Format: `addTask [en/ELDERLY_NAME]…​ desc/DESCRIPTION date/DATE time/TIME [recur/RECURRENCE_TYPE]`
 
 Example:
 
-Let’s say you have a new weekly recurring task that starts on 25 January 2022. You have to check the insulin level of Khong Guan, an elderly you are in charge of, at 7.22pm. You can use the addTask command to add this task into NurseyBook.
+Let’s say you have a new weekly recurring task that starts on 25 January 2022. You have to check the insulin level of Khong Guan at 7.22pm. You can use the `addTask` command to add this task into NurseyBook.
 
 To add a task:
+
 1. Using the command `addTask`, enter the details accordingly:
    `addTask en/Khong Guan desc/check insulin level date/2022-01-25 time/19:22 recur/week`
-2. This task will be added on to the task list in NurseyBook which can be verified visually in the task list displayed.
+2. This task will be added on to the task list in NurseyBook, which can be verified visually in the task list displayed.
 
     ![](images/userGuide/add_task_0.png)
     ![](images/userGuide/add_task_1.png)
@@ -681,14 +676,14 @@ Format: `editTask INDEX [en/ELDERLY_NAME]... [desc/DESCRIPTION] [date/DATE] [tim
 
 Example:
 
-Let’s say that you have realised that you had entered the wrong date for the “check insulin level” task that you have added earlier.
+Let’s say that you have realised that you had entered the wrong date for the “Physiotherapy" task that you have added earlier.
 
 Instead of deleting the task and adding the task again with the updated date of 30 January 2022, you can easily edit that task's details by using the `editTask` command.
 
 <div style="page-break-after: always;"></div>
 
 To edit a task:
-1. Enter [`viewTasks`](#421-view-all-tasks-viewtasks) to display the current task list. Then, assuming the “Physiotherapy” task is the eleventh task that appears in the task list, enter `editTask 11 date/2022-01-30`.
+1. Enter [`viewTasks`](#421-view-all-tasks-viewtasks) to display the current task list. In this case, as the “Physiotherapy” task has the index 11 number in the task list displayed, enter `editTask 11 date/2022-01-30`.
 
     ![](images/userGuide/edit_task_0.png)
 
@@ -731,7 +726,26 @@ Let’s say you have forgotten when the meeting with the head nurse is going to 
 
 To find a task:
 
-1. Type `findTask` followed by the keyword you are searching for. For example, to look up the task with the description “Meeting with head nurse”, type in `findTask meeting`, and press `Enter` to execute it.
+1. Ty
+
+#### 4.2.5 Find a task: `findTask`
+
+This command allows you to find tasks in NurseyBook whose description contains any of the entered keywords.
+
+Format: `findTask KEYWORD [MORE_KEYWORDS]`
+
+Example:
+
+Let’s say you have forgotten when the meeting with the head nurse is going to be. Instead of manually scrolling past all of your tasks, you can find the task easily with the `findTask` command.
+
+To find a task:
+
+1. Enter `findTask` followed by the keyword you are searching for. For example, to look up the task with the description “Meeting with head nurse”, type in `findTask meeting`, and press `Enter` to execute it.
+2. The result box will display the message with the number of tasks found. In this case, there are 3 tasks that contain the keyword “meeting”, thus “3 tasks listed!” is shown. You can see that all tasks whose description contains the word “meeting” are listed.
+
+   ![find_task](images/userGuide/find_task_1.png)
+
+pe `findTask` followed by the keyword you are searching for. For example, to look up the task with the description “Meeting with head nurse”, type in `findTask meeting`, and press `Enter` to execute it.
 2. The result box will display the message with the number of tasks found. In this case, there are 3 tasks that contain the keyword “meeting”, thus “3 tasks listed!” is shown. You can see that all tasks whose description contains the word “meeting” are listed.
    
    ![find_task](images/userGuide/find_task_1.png)
@@ -767,7 +781,7 @@ To mark a task as completed:
 
 <div style="page-break-after: always;"></div>
 
-2. Type in `doneTask` into the command box, followed by the task’s index in the list displayed. In this case, as “Medical checkup with Dr Tan” with Khong Guan’s name has the index 1 in the list shown, the index should be 1. Press `Enter` to execute the command.
+2. Enter `doneTask` into the command box, followed by the task’s index in the list displayed. In this case, as “Medical checkup with Dr Tan” with Khong Guan’s name has the index 1 in the list shown, the index should be 1. Press `Enter` to execute the command.
    
    ![done_task_1](images/userGuide/done_task_1.png)
 3. The result box will show that you have marked the task as done, with the task’s description, date, time and name(s) of elderly involved.
@@ -884,10 +898,12 @@ To view your schedule on a date:
 
 This command lets you clear all entries from NurseyBook. This can be used to give you a brand new NurseyBook in place of the old one.
 
-Example: After you finish practicing commands on the sample data, you may want to clear the sample data with this command.
+Example: 
+
+After you finish practicing commands on the sample data, you may want to clear the sample data with this command.
 
 To clear:
-1. Type `clear` into the command box, and press `Enter` to execute it.
+1. Enter `clear` into the command box, and press `Enter` to execute it.
 2. You should see your NurseyBook now become empty:
 ![](images/userGuide/clear.png)
 
@@ -945,7 +961,7 @@ This command lets you reverse your previous `undo` command.
 
 Format: `redo`
 
-Example: Let’s say that after you undo the deleteElderly command on Khong Guan, you decide that you want to remove his details after all.
+Example: Let’s say that after you undo the `deleteElderly` command on Khong Guan, you decide that you want to remove his details after all.
 
 To redo:
 1. Enter `redo` in the command box and press `Enter` to execute it. 
