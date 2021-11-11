@@ -376,6 +376,7 @@ Let’s say Khong Guan is down with a flu and you would like to add a tag to him
 To add one or more tags:
 1. Enter [`viewElderly`](#411-view-all-elderly-viewelderly) to view the list of elderly.
 2. Enter `addTag 2 t/flu` to add the tag `flu` to Khong Guan.
+
 ![](images/userGuide/addTag1.png)
 3. You can check that the `flu` tag is added to the elderly.
 
@@ -405,6 +406,7 @@ Let’s say Khong Guan has recovered from his flu, and you want to remove the `f
 To delete one or more tags from an elderly:
 1. Enter [`viewElderly`](#411-view-all-elderly-viewelderly) to view the list of elderly.
 2. Enter `deleteTag 2 t/flu` to delete the tag `flu` from Khong Guan.
+
 ![](images/userGuide/deleteTag1.png)
 3. You can check that the `flu` tag is removed from Khong Guan.
 
