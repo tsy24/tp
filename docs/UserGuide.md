@@ -196,21 +196,50 @@ This section contains the documentation on NurseyBook's features and commands. I
 
 #### 4.1.1 View all elderly: `viewElderly`
 
-Shows the list of all added elderly.
+This command displays all the elderlies that you have added to NurseyBook.
 
 Format: `viewElderly`
+
+:bulb: **Tip:**
+* You can click on an elderly entry to view the full details for that elderly.
+
+    Normal view:
+  ![](images/userGuide/view_elderly_0.png)
+    
+    <br>
+  
+  Expanded view (click on the entry for ‘Charlotte Oliveiro’):
+  ![](images/userGuide/view_elderly_1.png)
+
+
+
 <br />
 
 #### 4.1.2 Add an elderly: `addElderly`
 
-Adds an elderly to NurseyBook.
+This command allows you to add an elderly and his/her details to NurseyBook.
 
 Format: `addElderly en/ELDERLY_NAME a/AGE g/GENDER r/ROOMNO [t/TAG]…​ [nn/NOK_NAME] [rs/NOK_RELATIONSHIP] [p/NOK_PHONE_NUMBER] [e/NOK_EMAIL] [addr/NOK_ADDRESS]`
 
-Examples:
-* `addElderly en/Khong Guan a/80 g/M r/201 nn/Gong Kuan rs/Brother p/91234567 e/guanbro@gmail.com addr/London Street 11`
-* `addElderly en/John a/77 g/M r/420 t/diabetes`
-* `addElderly en/John a/77 g/M r/420 t/diabetes nn/Timothy rs/Son`
+Example:
+Let’s say you have a new elderly that has been placed under your charge. You can follow the steps below to add him to NurseyBook using the addElderly command.
+
+To add an elderly: 
+1. Type addElderly `en/Khong Guan a/80 g/M r/201` into the command box.
+2. Press `Enter` to execute your command. You should see the following.
+   ![](images/UserGuide/add_elderly_0.png)
+
+If you would like to include his/her NoK details as well, you can use this longer command instead to add both his/her personal and NoK details at the same time.
+* `addElderly en/Khong Guan a/80 g/M r/201 nn/Bing Gan rs/Brother p/91234567 e/guanbro@gmail.com addr/London Street 11`
+
+ 
+You can also add any custom tags to the elderly as per your needs. Such tags will help you quickly identify key things or notes about each elderly. For instance, you can add a custom tag ‘diabetes’ to make a note that the elderly has diabetes.
+* `addElderly en/Khong Guan a/80 g/M r/201 t/diabetes`
+    ![](images/UserGuide/add_elderly_1.png)
+
+Here is a command that uses tags, and only specifies some NoK fields. It is not compulsory to specify all NoK fields.
+* `addElderly en/Khong Guan a/80 g/M r/201 t/diabetes nn/Bing Gan rs/Brother`
+
 
 <div style="page-break-after: always;"></div>
 
@@ -221,90 +250,123 @@ Examples:
 * An elderly can have any number of tags (including 0).
 * You can specify a Next-of-Kin's (NoK) details for each elderly, when adding an elderly.
 * NurseyBook does not support any two elderly with the same name, even if any other fields are different. The casing of the name does not matter either. A suggestion will be to save the full name of the elderly you are adding into NurseyBook.
-* Executing the command will automatically change the display view to your full elderly list, so that you can see the elderly you added.
-
+  Executing the command will automatically change the display to your full elderly list, so that you can see the elderly you added.
 </div>
 
-`addElderly en/Khong Guan a/80 g/M r/201 nn/Gong Kuan rs/Brother p/91234567 e/guanbro@gmail.com addr/London Street 11` used:
 
-![](images/userGuide/add_elderly_0.png)
-![](images/userGuide/add_elderly_1.png)
 
 #### 4.1.3 Delete an elderly : `deleteElderly`
 
-Deletes an elderly from NurseyBook.
+This command allows you to delete an elderly that you no longer want to include in NurseyBook.
 
 Format: `deleteElderly INDEX`   
 
-Examples:
-* [`viewElderly`](#411-view-all-elderly-viewelderly) followed by `deleteElderly 2` deletes the 2nd elderly in NurseyBook.
+
+Example:
+
+Let's say Khong Guan is no longer under your charge, or has been discharged from your nursing home. You can follow the steps below to remove his entry from NurseyBook using the deleteElderly command.
+
+To delete an elderly:
+1. Enter [`viewElderly`](#411-view-all-elderly-viewelderly) to view the list of elderly and locate the index number of Khong Guan. In the image below, Khong Guan is at index number 2.
+    ![](images/UserGuide/delete_elderly_0.png)
+
+2. Enter `deleteElderly 2` to delete the 2nd elderly in NurseyBook. Khong Guan should no longer be visible.
+    ![](images/UserGuide/delete_elderly_1.png)
+
 
 <div markdown="block" class="alert alert-info">
 
 :information_source: **Information:**
-* Deletes the elderly at the specified `INDEX`.
+* Deletes the elderly at the specified `INDEX`. 
 * The index refers to the index number shown in the displayed elderly list.
-* The index **must be a positive integer** 1, 2, 3, …​
+* The index that you enter **must be a positive integer** 1, 2, 3, …​
 
 </div>
 
 <div markdown="block" class="alert alert-warning">
 
 :exclamation: **Caution:**
-* Deleting an elderly's name will cause all occurrences of the elderly's name in tasks to be deleted.
-
+* If you delete an elderly's name, it will cause all occurrences of the elderly's name in tasks to be deleted.
 </div>
 
 #### 4.1.4 Edit an elderly's details: `editElderly`
 
-Edits the details of a specific elderly.
+This command allows you to fix any mistakes made in the information of elderlies added.
 
 Format: `editElderly INDEX [en/ELDERLY_NAME] [a/AGE] [g/GENDER] [r/ROOMNO] [t/TAG]…​ [nn/NOK_NAME] [rs/NOK_RELATIONSHIP] [p/NOK_PHONE_NUMBER] [e/NOK_EMAIL] [addr/NOK_ADDRESS]`
 
-Examples: See [`addElderly`](#412-add-an-elderly-addelderly) for examples.
+Example: 
+
+The command is highly similar to [`addElderly`](#412-add-an-elderly-addelderly). Simply enter the index of the elderly, followed by the parameter(s) you would like to change and their corresponding prefixes.
+
+Let's say Khong Guan’s birthday has just passed and he has been reallocated to a different room for a change in environment. You can change both fields at one go by with this command.
+
+To edit an elderly:
+1. Enter [`viewElderly`](#411-view-all-elderly-viewelderly) to view the list of elderly and locate the index number of Khong Guan. In the image below, Khong Guan is at index number 2.
+      ![](images/UserGuide/edit_elderly_0.png)
+
+2. Enter the command `editElderly 2 a/81 r/57`. You can specify any other fields that you would like to change as well.
+    
+    Before Editting:
+    ![](images/UserGuide/edit_elderly_1.png)
+
+    <br>
+  
+    After Editting:
+    ![](images/UserGuide/edit_elderly_2.png)
+
+
+For tags, if Khong Guan has a tag `diabetes`, to add an `overweight` tag to him, your command should be `editElderly 2 t/cancer t/overweight`.
 
 <div markdown="block" class="alert alert-info">
 
 :information_source: **Information:**
-* Any number of tags is acceptable (including 0).
+* You can enter any number of tags (including 0).
+* The index refers to the index number shown in the displayed elderly list.
+* The index that you enter must be a positive integer 1, 2, 3, …​
 
 </div>
 
 <div markdown="block" class="alert alert-warning">
 
 :exclamation: **Caution:**
-* By leaving the tag input empty, you will remove all the tags currently assigned to the elderly.
+* By leaving the tag input empty, e.g. `t/`, you will remove all the tags currently assigned to the elderly.
 * If you want to add a tag with `editElderly`, you have to include all the existing tags of the elderly in your command.
-* Editing an elderly's name will cause all occurrences of the elderly's name in tasks to be edited, but the order they appear in the tasks may be different.
-
-Example: John has an existing tag `cancer`, and he is at index 1 in the current list of elderly displayed. To add an `overweight` tag to John, your command should be `editElderly 1 t/cancer t/overweight`.
+* If you edit an elderly's name, it will cause all occurrences of the elderly's name in tasks to be edited, but the order they appear in the tasks may be different.
 
 </div>
 
 <div markdown="block" class="alert alert-primary">
 
 :bulb: **Tip:**
-* For more accessible tag related commands, do refer to the [`addTag`](#418-add-tags-to-elderly-addtag) and [`deleteTag`](#419-delete-tags-of-elderly-deletetag) commands.
+* For more accessible tag related commands, you can refer to the [`addTag`](#418-add-tags-to-elderly-addtag) and [`deleteTag`](#419-delete-tags-of-elderly-deletetag) commands.
 </div>
 
 <div style="page-break-after: always;"></div>
 
 #### 4.1.5 Find elderly: `findElderly`
 
-Finds elderlies whose names contain any of the given keywords.
+This command allows you to find all the elderlies whose names are related to any of the given keywords. This is especially useful when you have a lot of elderlies stored.
 
 Format: `findElderly KEYWORD [MORE_KEYWORDS]`
 
-Examples:
-* `findElderly Elena` returns `elena` and `Elena Kro`
-* `findElderly Elena Jav` returns `Elena Kro`, `Jav Marsh`
+Example:
+
+Let’s say you are looking for a certain elderly with the surname ‘Lim’. It is a hassle to go through the full list of elderlies and search for that particular person one by one. To save time, simply use the `findElderly` command.
+
+To find elderly based on keywords:
+1. Enter `findElderly lim`
+2. This should return all elderlies with the word lim in any part of their name. If only ‘Emily Lim’ and ‘Madoo Lim’ have the word lim  in their name, you should observe the output below.
+    ![](images/UserGuide/find_elderly_0.png)
+   You can use this filtered list to quickly identify that specific elderly you are searching for.
+
 
 <div markdown="block" class="alert alert-info">
 
 :information_source: **Information:**
 * The search is case-insensitive. e.g. `elena` will match `Elena`
 * The order of the keywords does not matter. e.g. `Elena Kro` will match `Kro Elena`
-* Only the name is searched.
+* Your keywords are only compared against the names of elderlies.
 * Only full words will be matched. e.g. `Ele` will not match `Elena`
 * Elderlies matching at least one keyword will be returned (i.e. `OR` search). e.g. `Elena Kro` will return `Elena Grob`, `Kro Stanly`
 
