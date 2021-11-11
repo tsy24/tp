@@ -11,7 +11,12 @@ title: User Guide
 
 ## 1. Introduction
 
-NurseyBook is a **desktop app made for nurses in nursing homes to aid them in managing contacts and tasks in their busy lives. It is optimized for use via a Command Line Interface** (CLI) while still **having the benefits of a Graphical User Interface** (GUI). If you can type fast, NurseyBook can help you manage your contacts & tasks faster than traditional GUI apps! :smile:
+NurseyBook is a **desktop app** made for nurses in nursing homes to aid them in **managing contacts and tasks** in their busy lives. NurseyBook helps you categorise your elderlies, efficiently record down important details about them as well as better prioritize your tasks and much more!
+
+
+This application uses a command line interface. This means that you operate the application by typing commands into a Command Box.
+Though this may seem daunting, this user guide will bring you through each feature step-by-step to make sure that you have an easy time using NurseyBook.
+
 
 --------------------------------------------------------------------------------------------------------------------
 <div style="page-break-after: always;"></div>
@@ -19,12 +24,16 @@ NurseyBook is a **desktop app made for nurses in nursing homes to aid them in ma
 ## 2. Quick start
 
 1. Ensure you have Java `11` or above installed in your Computer.
+   * Windows users: You can open Windows Powershell and enter the command `java -version`.
+   * Mac users: You can open Terminal and enter the command `java -version`.
+   * If you see `java version “11.0.x”` on your screen, you have Java 11 installed.
+   * If you do not, you can install it from [here](https://www.oracle.com/java/technologies/downloads/)
 
 2. Download the latest `nurseybook.jar` from [here](https://github.com/AY2122S1-CS2103T-F13-2/tp/releases).
 
 3. Copy the file to the folder you want to use as the _home folder_ for your NurseyBook.
 
-4. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
+4. Double-click the file to start the app. You should see an application window similar to the image below appear in a few seconds. The app should contain some sample data.<br>
    ![Ui](images/Ui.png)
 
 5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing `Enter` will open the help window.<br>
@@ -54,7 +63,7 @@ Refer to the [4. Features](#4-features) below for in-depth details of all availa
 This document is structured in a manner that lets you find what you need fast and easily. To jump to various sections, you can refer to the Table of Contents.
 
 In the following subsection, [3.2 Reading this document](#32-reading-this-document), you can find several tips that could be beneficial when reading this guide.
-The next section, documents the main features that **NurseyBook** offers and provides you with instructions on how to
+The next section, [4. Features section](#4-features), documents the main features that **NurseyBook** offers and provides you with instructions on how to
 use each one of them!
 ### 3.2 Reading this document
 
@@ -65,7 +74,7 @@ Being familiar with this subsection will definitely help you out when looking th
 
 **Additional Information**
 
-Text that appear in an information box indicates additional information that may be useful to know.
+Texts that appear in an information box indicate additional information that may be useful to know.
 
 <div markdown="block" class="alert alert-info">
 
@@ -76,7 +85,7 @@ Example additional information.
 
 **Caution**
 
-Text that appear in a caution box should be followed carefully, else unintended consequences might arise.
+Texts that appear in a caution box should be followed carefully, else unintended consequences might arise.
 
 <div markdown="block" class="alert alert-warning">
 
@@ -89,7 +98,7 @@ Example warnings.
 
 **Tip**
 
-Text that appear in a tip box are useful for improving your experience with NurseyBook.
+Texts that appear in a tip box are useful for improving your experience with NurseyBook.
 
 <div markdown="block" class="alert alert-primary">
 
@@ -100,14 +109,14 @@ Example tip.
 
 #### 3.2.2 Sections of the Application Window
 
-You can refer to the image below for the names of the different sections in NurseyBook's application window.
+You can refer to the image below for the functions of the different sections in NurseyBook's application window.
 
 ![nurseybook_application_window](images/userGuide/application_window.png)
 
 #### 3.2.3 Navigating in NurseyBook
 
-In NurseyBook, some buttons are clickable - such as the File and Help buttons at the top of the application window.
-However, the User Interface (UI) is designed primarily to be navigated using the Command Line Interface (CLI).
+In NurseyBook, there are some buttons that you can click on- such as the File and Help buttons at the top of the application window. However, most of your interactions with NurseyBook are done through the command box!
+
 
 You can enter commands into the command box and press `Enter` to execute them. The result box will then provide a response on whether the command was successfully executed.
 The display panel will similarly update itself, based on the command executed.
@@ -124,13 +133,13 @@ Commands in this guide follow such rules:
 * Words in `UPPER_CASE` are the parameters to be supplied by you.<br>
   e.g. in `addElderly en/ELDERLY_NAME`, `ELDERLY_NAME` is a parameter which can be used as `addElderly en/Swee Choon`.
 
-* Items in square brackets are optional.<br>
+* Items in square brackets are optional. You can choose to leave them out.<br>
   e.g. `en/ELDERLY_NAME [t/TAG]` can be used as `en/Swee Choon t/vegan` or as `en/Swee Choon`.
 
 * Items with `…`​ after them can be used multiple times including zero times.<br>
   e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 
-* Parameters can be in any order.<br>
+* You can enter parameters in any order.<br>
   e.g. if the command specifies `en/ELDERLY_NAME p/NOK_PHONE_NUMBER`, `p/NOK_PHONE_NUMBER en/ELDERLY_NAME` is also acceptable.
 
 <div markdown="block" class="alert alert-info">
@@ -149,9 +158,8 @@ Commands in this guide follow such rules:
 
 :bulb: **Tip:**
 
-* The _User Interface_ refers to the NurseyBook application window.
-* _Command Line Interface_ refers to where you interact with the system by typing in commands - in this case, the command box.
-* _Parameters_ refer to the information to be included as an input to a command.
+* _Parameters_ refer to the information you include as an input to a command.
+
 
 </div>
 
@@ -163,23 +171,23 @@ The table below provides a summary on the command parameters that are mentioned 
 
 Parameter | Description
 :---------|:-----------
-`AGE` | Age of an elderly. A valid age is between 21 to 145.
-`DATE` | Date that a task is scheduled to occur on. It should be in the format of yyyy-mm-dd.
-`DESCRIPTION` | Description of a task. A description should not be blank.
-`ELDERLY_NAME` | Name of an elderly. No two elderly should have the same name.
-`GENDER` | Gender of an elderly. Gender is either `M` for males or `F` for females.
-`INDEX` | Index is the number shown beside an elderly/task in the **currently displayed** elderly/task list.
-`KEYWORD` | Keyword used to search for elderlies (by name) or tasks (by description). `MORE_KEYWORDS` are similarly defined. A keyword should not be blank.
+`AGE` | Age of an elderly. You can only enter ages between 21 to 145.
+`DATE` | Date that a task is scheduled to occur on. You should enter dates in the yyyy-mm-dd format.
+`DESCRIPTION` | Description of a task. Your description should not be blank.
+`ELDERLY_NAME` | Name of an elderly. You cannot enter two elderly with the same name.
+`GENDER` | Gender of an elderly. You can only set gender to be either `M` for males or `F` for females.
+`INDEX` | Index is the number you see beside an elderly/task in the **currently displayed** elderly/task list.
+`KEYWORD` | Keyword used to search for elderlies (by name) or tasks (by description). `MORE_KEYWORDS` are similarly defined. Your keyword(s) should not be blank.
 `NOK_ADDRESS` | Address of an elderly's next-of-kin.
-`NOK_EMAIL` | Email of an elderly's next-of-kin. An email should be in the format of local-part@domain.
+`NOK_EMAIL` | Email of an elderly's next-of-kin. You should enter an email in the format of local-part@domain.
 `NOK_NAME` | Name of an elderly's next-of-kin.
-`NOK_PHONE_NUMBER` | Phone number of an elderly's next-of-kin. A phone number should either be blank, or at least 8 digits long.
+`NOK_PHONE_NUMBER` | Phone number of an elderly's next-of-kin. You can only set the phone number to be blank or an 8 digit number.
 `NOK_RELATIONSHIP` | Relationship between an elderly and his/her next-of-kin.
-`RECURRENCE_TYPE` | Indicates the recurrence period of a task. Can be either `NONE`, by `DAY`, `WEEK`, or `MONTH`.
-`REMARK` | Additional information that can be supplied to an elderly. It should only be used with elderlies, not tasks.
-`ROOMNO` | Room number that an elderly is staying in (the Nursing Home). It should be a non-negative integer.
-`TAG` | Tag associated with an elderly. It should only be used with elderlies, not tasks. It should be alphanumeric with no spacing.
-`TIME` | Time that a task is scheduled to occur from. It should be in the format of hh:mm in 24 hour clock.
+`RECURRENCE_TYPE` | Indicates the recurrence period of a task. You can enter either `NONE`, by `DAY`, `WEEK`, or `MONTH`.
+`REMARK` | Additional information that can be supplied to an elderly. You can only add a remark for elderlies, not tasks.
+`ROOMNO` | Room number that an elderly is staying in (the Nursing Home). You can only set non-negative numbers as the room number.
+`TAG` | Tag associated with an elderly. It should only be used with elderlies, not tasks. You can only enter numbers or letters. Spaces are not allowed.
+`TIME` | Time that a task is scheduled to occur from. You should enter time in the format of hh:mm in 24-hour clock.
 
 --------------------------------------------------------------------------------------------------------------------
 <div style="page-break-after: always;"></div>
@@ -662,20 +670,22 @@ Example:
 
 #### 4.3.1 Clearing all entries : `clear`
 
-Clears all entries from NurseyBook.
+This command lets you clear all entries from NurseyBook. This can be used to give you a brand new NurseyBook.
+
+Example: After you finish practicing commands on the sample data, you can clear the sample data with this command.
 
 Format: `clear`
 
 #### 4.3.2 Viewing help : `help`
 
-A new window that contains a summary of the commands (with the necessary command parameters) as well as a link to this user guide will appear. The link can be copied to the system's clipboard by clicking on the `Copy` button.
+This command shows you a summary of the commands (with the necessary command parameters) as well as a link to this user guide in a new window. You can copy the link by clicking the `Copy URL` button.
 
 Format: `help`
 
 <div markdown="block" class="alert alert-primary">
 
 :bulb: **Tip:**
-* The help window is more optimized for viewing if the command is entered when NurseyBook is not in full screen mode.
+* The help window is more optimized for viewing if you enter this command when NurseyBook is not in full screen mode.
 
 </div>
 
@@ -685,12 +695,17 @@ Format: `help`
 
 #### 4.3.3 Undo previous command : `undo`
 
-Undoes the previous undoable command executed on the NurseyBook.
+This command lets you undo your last command that modified NurseyBook’s data.
 
 Format: `undo`
 
 Example:
-* `deleteElderly 1` followed by `undo` causes the `deleteElderly 1` command to be undone and no elderly is deleted from the NurseyBook.
+Let’s say that you have been entering elderly information into NurseyBook, and you accidentally deleted a contact (Khong Guan) from your list with `deleteElderly`!  
+Instead of re-entering Khong Guan’s contact information all over again, you can easily restore all of his details by undo-ing the delete command you have just entered.
+
+To undo:
+1. Type `undo` into the command box, and press `Enter` to execute it. 
+2. You can see Khong Guan’s contact reappear in the elderly list again.
 
 <div markdown="block" class="alert alert-info">
 
@@ -698,27 +713,29 @@ Example:
 
 * Undoable commands (i.e. any command that modifies NurseyBook's data): `addElderly`, `editElderly`, `deleteElderly`, `deleteNok`, `addTag`, `deleteTag`, `remark`, `addTask`, `editTask`, `deleteTask`, `doneTask`, `clear`
 * Non-undoable commands: `findElderly`, `filter`, `viewDetails`, `viewElderly`, `findTask`, `remind`, `viewTasks`, `viewSchedule`, `help`
-* If there are no undoable commands executed previously, the undo command will fail and an error message will be shown.
-* Undo-ing a `deleteElderly` or an `editElderly` command would restore the elderly's name in relevant tasks but the order of names may be different.
+* If you did not execute any undoable commands previously, the undo command will fail and an error message will be shown.
+* If you undo a `deleteElderly` or an `editElderly` command, NurseyBook will restore the elderly's name in relevant tasks but the order of names may be different.
 
 </div>
 
 #### 4.3.4 Redo previously undone command : `redo`
 
-Reverses the previous `undo` command executed on the NurseyBook.
+This command lets you reverse your previous `undo` command.
 
 Format: `redo`
 
-Example:
-* `deleteElderly 1` followed by `undo` causes the `deleteElderly 1` command to be undone and no elderly is deleted from the NurseyBook.
-  Entering `redo` will reverse the previous undo command, causing the elderly to be deleted again.
+Example: Let’s say that after you undo the deleteElderly command on Khong Guan, you decide that you want to remove his details after all.
+
+To redo:
+1. Enter `redo` in the command box. 
+2. You can see Khong Guan’s details is deleted again.
 
 <div markdown="block" class="alert alert-info">
 
 :information_source: **Information:**
 
-* If there are no undo commands executed previously, the redo command will fail and an error message will be shown.
-* Redo-ing an `editElderly` command would restore the elderly's name in relevant tasks but the order of names may be different.
+* If you did not execute any `undo` commands previously, the `redo` command will fail and an error message will be shown.
+* If you redo an `editElderly` command, it would restore the elderly's name in relevant tasks but the order of names may be different.
 
 </div>
 
@@ -726,7 +743,7 @@ Example:
 
 #### 4.3.5 Exiting the program : `exit`
 
-Exits the program.
+This command allows you to exit the program.
 
 Format: `exit`
 
@@ -737,11 +754,11 @@ Format: `exit`
 
 ### 5.1 Saving the data
 
-NurseyBook's data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+NurseyBook's data is saved in the hard disk automatically after any command that changes the data. There is no need for you to save the data manually.
 
 ### 5.2 Editing the data file
 
-NurseyBook data are saved as a JSON file `[JAR file location]/data/nurseybook.json`. If you are technologically savvy, you
+NurseyBook data is saved as a JSON file at `[JAR file location]/data/nurseybook.json`. If you are technologically savvy, you
 are also welcome to update data directly by editing that data file.
 
 <div markdown="block" class="alert alert-warning">
@@ -760,12 +777,7 @@ are also welcome to update data directly by editing that data file.
 ## 6. FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file NurseyBook creates, with the file
-that contains the data of your previous NurseyBook home folder.
-
-**Q**: How do I save my data?<br>
-**A**: NurseyBook's data is saved in the hard disk automatically after any command that changes the data.
-There is no need to save manually.
+**A**: Install the app on the other computer and overwrite the empty data file NurseyBook creates, with the NurseyBook data file from your computer.
 
 --------------------------------------------------------------------------------------------------------------------
 <div style="page-break-after: always;"></div>
@@ -819,7 +831,8 @@ Action | Format, Examples
 Term | Definition
 --------|------------------
 **Command Line Interface (CLI)** | Command line interface where users interact with the system by typing in commands. <br> <br> e.g., Terminal
-**Graphical User Interface (GUI)** | Graphical user interface where users interact with the system through visual representations. <br> <br> e.g., Microsoft Windows Desktop
 **JAR** | A file format that contains all bundled Java files (relevant to NurseyBook).
 **Java 11** | The Java Platform, Standard Edition 11 Development Kit (JDK 11) is a feature release of the Java SE platform.
 **Javascript Object Notation (JSON)** | JSON is a lightweight text format for storing and transporting data.            
+**Case-insensitive** | Any letter case is acceptable (‘abc’ or ‘ABC’ are both acceptable).
+**Displayed elderly/task list** | The list of elderlies/tasks displayed in NurseyBook’s application window.
