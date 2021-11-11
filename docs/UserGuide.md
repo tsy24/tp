@@ -26,9 +26,9 @@ Though this may seem daunting, this user guide will bring you through each featu
 1. Ensure you have Java `11` or above installed in your Computer.
    * Windows users: You can open Windows Powershell and enter the command `java -version`.
    * Mac users: You can open Terminal and enter the command `java -version`.
-   * If you see `java version “11.0.x”` on your screen, you have Java 11 installed.
+   * If you see `java version “11.0.x”` on your screen, you have Java `11` installed.
    * If you do not, you can install it from [here](https://www.oracle.com/java/technologies/downloads/)
-
+   
 2. Download the latest `nurseybook.jar` from [here](https://github.com/AY2122S1-CS2103T-F13-2/tp/releases).
 
 3. Copy the file to the folder you want to use as the _home folder_ for your NurseyBook.
@@ -870,9 +870,14 @@ To view your schedule on a date:
 
 #### 4.3.1 Clearing all entries : `clear`
 
-This command lets you clear all entries from NurseyBook. This can be used to give you a brand new NurseyBook.
+This command lets you clear all entries from NurseyBook. This can be used to give you a brand new NurseyBook in place of the old one.
 
-Example: After you finish practicing commands on the sample data, you can clear the sample data with this command.
+Example: After you finish practicing commands on the sample data, you may want to clear the sample data with this command.
+
+To clear:
+1. Type `clear` into the command box, and press `Enter` to execute it.
+2. You should see your NurseyBook now become empty:
+![](images/userGuide/clear.png)
 
 Format: `clear`
 
@@ -895,7 +900,7 @@ Format: `help`
 
 #### 4.3.3 Undo previous command : `undo`
 
-This command lets you undo your last command that modified NurseyBook’s data.
+This command lets you undo your last command that modified NurseyBook’s data (i.e. adding/ editing/ deleting information to/from an elderly/task).
 
 Format: `undo`
 
@@ -927,7 +932,7 @@ Format: `redo`
 Example: Let’s say that after you undo the deleteElderly command on Khong Guan, you decide that you want to remove his details after all.
 
 To redo:
-1. Enter `redo` in the command box. 
+1. Enter `redo` in the command box and press `Enter` to execute it. 
 2. You can see Khong Guan’s details is deleted again.
 
 <div markdown="block" class="alert alert-info">
