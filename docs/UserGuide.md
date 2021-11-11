@@ -11,7 +11,12 @@ title: User Guide
 
 ## 1. Introduction
 
-NurseyBook is a **desktop app made for nurses in nursing homes to aid them in managing contacts and tasks in their busy lives. It is optimized for use via a Command Line Interface** (CLI) while still **having the benefits of a Graphical User Interface** (GUI). If you can type fast, NurseyBook can help you manage your contacts & tasks faster than traditional GUI apps! :smile:
+NurseyBook is a **desktop app** made for nurses in nursing homes to aid them in **managing contacts and tasks** in their busy lives. NurseyBook helps you categorise your elderlies, efficiently record down important details about them as well as better prioritize your tasks and much more!
+
+
+This application uses a command line interface. This means that you operate the application by typing commands into a Command Box.
+Though this may seem daunting, this user guide will bring you through each feature step-by-step to make sure that you have an easy time using NurseyBook.
+
 
 --------------------------------------------------------------------------------------------------------------------
 <div style="page-break-after: always;"></div>
@@ -19,12 +24,16 @@ NurseyBook is a **desktop app made for nurses in nursing homes to aid them in ma
 ## 2. Quick start
 
 1. Ensure you have Java `11` or above installed in your Computer.
+   * Windows users: You can open Windows Powershell and enter the command `java -version`.
+   * Mac users: You can open Terminal and enter the command `java -version`.
+   * If you see `java version “11.0.x”` on your screen, you have Java 11 installed.
+   * If you do not, you can install it from [here](https://www.oracle.com/java/technologies/downloads/)
 
 2. Download the latest `nurseybook.jar` from [here](https://github.com/AY2122S1-CS2103T-F13-2/tp/releases).
 
 3. Copy the file to the folder you want to use as the _home folder_ for your NurseyBook.
 
-4. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
+4. Double-click the file to start the app. You should see an application window similar to the image below appear in a few seconds. The app should contain some sample data.<br>
    ![Ui](images/Ui.png)
 
 5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing `Enter` will open the help window.<br>
@@ -54,7 +63,7 @@ Refer to the [4. Features](#4-features) below for in-depth details of all availa
 This document is structured in a manner that lets you find what you need fast and easily. To jump to various sections, you can refer to the Table of Contents.
 
 In the following subsection, [3.2 Reading this document](#32-reading-this-document), you can find several tips that could be beneficial when reading this guide.
-The next section, documents the main features that **NurseyBook** offers and provides you with instructions on how to
+The next section, [4. Features section](#4-features), documents the main features that **NurseyBook** offers and provides you with instructions on how to
 use each one of them!
 ### 3.2 Reading this document
 
@@ -65,7 +74,7 @@ Being familiar with this subsection will definitely help you out when looking th
 
 **Additional Information**
 
-Text that appear in an information box indicates additional information that may be useful to know.
+Texts that appear in an information box indicate additional information that may be useful to know.
 
 <div markdown="block" class="alert alert-info">
 
@@ -76,7 +85,7 @@ Example additional information.
 
 **Caution**
 
-Text that appear in a caution box should be followed carefully, else unintended consequences might arise.
+Texts that appear in a caution box should be followed carefully, else unintended consequences might arise.
 
 <div markdown="block" class="alert alert-warning">
 
@@ -89,7 +98,7 @@ Example warnings.
 
 **Tip**
 
-Text that appear in a tip box are useful for improving your experience with NurseyBook.
+Texts that appear in a tip box are useful for improving your experience with NurseyBook.
 
 <div markdown="block" class="alert alert-primary">
 
@@ -100,14 +109,14 @@ Example tip.
 
 #### 3.2.2 Sections of the Application Window
 
-You can refer to the image below for the names of the different sections in NurseyBook's application window.
+You can refer to the image below for the functions of the different sections in NurseyBook's application window.
 
 ![nurseybook_application_window](images/userGuide/application_window.png)
 
 #### 3.2.3 Navigating in NurseyBook
 
-In NurseyBook, some buttons are clickable - such as the File and Help buttons at the top of the application window.
-However, the User Interface (UI) is designed primarily to be navigated using the Command Line Interface (CLI).
+In NurseyBook, there are some buttons that you can click on- such as the File and Help buttons at the top of the application window. However, most of your interactions with NurseyBook are done through the command box!
+
 
 You can enter commands into the command box and press `Enter` to execute them. The result box will then provide a response on whether the command was successfully executed.
 The display panel will similarly update itself, based on the command executed.
@@ -124,13 +133,13 @@ Commands in this guide follow such rules:
 * Words in `UPPER_CASE` are the parameters to be supplied by you.<br>
   e.g. in `addElderly en/ELDERLY_NAME`, `ELDERLY_NAME` is a parameter which can be used as `addElderly en/Swee Choon`.
 
-* Items in square brackets are optional.<br>
+* Items in square brackets are optional. You can choose to leave them out.<br>
   e.g. `en/ELDERLY_NAME [t/TAG]` can be used as `en/Swee Choon t/vegan` or as `en/Swee Choon`.
 
 * Items with `…`​ after them can be used multiple times including zero times.<br>
   e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 
-* Parameters can be in any order.<br>
+* You can enter parameters in any order.<br>
   e.g. if the command specifies `en/ELDERLY_NAME p/NOK_PHONE_NUMBER`, `p/NOK_PHONE_NUMBER en/ELDERLY_NAME` is also acceptable.
 
 <div markdown="block" class="alert alert-info">
@@ -149,9 +158,8 @@ Commands in this guide follow such rules:
 
 :bulb: **Tip:**
 
-* The _User Interface_ refers to the NurseyBook application window.
-* _Command Line Interface_ refers to where you interact with the system by typing in commands - in this case, the command box.
-* _Parameters_ refer to the information to be included as an input to a command.
+* _Parameters_ refer to the information you include as an input to a command.
+
 
 </div>
 
@@ -163,23 +171,23 @@ The table below provides a summary on the command parameters that are mentioned 
 
 Parameter | Description
 :---------|:-----------
-`AGE` | Age of an elderly. A valid age is between 21 to 145.
-`DATE` | Date that a task is scheduled to occur on. It should be in the format of yyyy-mm-dd.
-`DESCRIPTION` | Description of a task. A description should not be blank.
-`ELDERLY_NAME` | Name of an elderly. No two elderly should have the same name.
-`GENDER` | Gender of an elderly. Gender is either `M` for males or `F` for females.
-`INDEX` | Index is the number shown beside an elderly/task in the **currently displayed** elderly/task list.
-`KEYWORD` | Keyword used to search for elderlies (by name) or tasks (by description). `MORE_KEYWORDS` are similarly defined. A keyword should not be blank.
+`AGE` | Age of an elderly. You can only enter ages between 21 to 145.
+`DATE` | Date that a task is scheduled to occur on. You should enter dates in the yyyy-mm-dd format.
+`DESCRIPTION` | Description of a task. Your description should not be blank.
+`ELDERLY_NAME` | Name of an elderly. You cannot enter two elderly with the same name.
+`GENDER` | Gender of an elderly. You can only set gender to be either `M` for males or `F` for females.
+`INDEX` | Index is the number you see beside an elderly/task in the **currently displayed** elderly/task list.
+`KEYWORD` | Keyword used to search for elderlies (by name) or tasks (by description). `MORE_KEYWORDS` are similarly defined. Your keyword(s) should not be blank.
 `NOK_ADDRESS` | Address of an elderly's next-of-kin.
-`NOK_EMAIL` | Email of an elderly's next-of-kin. An email should be in the format of local-part@domain.
+`NOK_EMAIL` | Email of an elderly's next-of-kin. You should enter an email in the format of local-part@domain.
 `NOK_NAME` | Name of an elderly's next-of-kin.
-`NOK_PHONE_NUMBER` | Phone number of an elderly's next-of-kin. A phone number should either be blank, or at least 8 digits long.
+`NOK_PHONE_NUMBER` | Phone number of an elderly's next-of-kin. You can only set the phone number to be blank or an 8 digit number.
 `NOK_RELATIONSHIP` | Relationship between an elderly and his/her next-of-kin.
-`RECURRENCE_TYPE` | Indicates the recurrence period of a task. Can be either `NONE`, by `DAY`, `WEEK`, or `MONTH`.
-`REMARK` | Additional information that can be supplied to an elderly. It should only be used with elderlies, not tasks.
-`ROOMNO` | Room number that an elderly is staying in (the Nursing Home). It should be a non-negative integer.
-`TAG` | Tag associated with an elderly. It should only be used with elderlies, not tasks. It should be alphanumeric with no spacing.
-`TIME` | Time that a task is scheduled to occur from. It should be in the format of hh:mm in 24 hour clock.
+`RECURRENCE_TYPE` | Indicates the recurrence period of a task. You can enter either `NONE`, by `DAY`, `WEEK`, or `MONTH`.
+`REMARK` | Additional information that can be supplied to an elderly. You can only add a remark for elderlies, not tasks.
+`ROOMNO` | Room number that an elderly is staying in (the Nursing Home). You can only set non-negative numbers as the room number.
+`TAG` | Tag associated with an elderly. It should only be used with elderlies, not tasks. You can only enter numbers or letters. Spaces are not allowed.
+`TIME` | Time that a task is scheduled to occur from. You should enter time in the format of hh:mm in 24-hour clock.
 
 --------------------------------------------------------------------------------------------------------------------
 <div style="page-break-after: always;"></div>
@@ -196,115 +204,178 @@ This section contains the documentation on NurseyBook's features and commands. I
 
 #### 4.1.1 View all elderly: `viewElderly`
 
-Shows the list of all added elderly.
+This command displays all the elderlies that you have added to NurseyBook.
 
 Format: `viewElderly`
+
+:bulb: **Tip:**
+* You can click on an elderly entry to view the full expanded details for that elderly.
+
+    Normal view:
+  ![](images/userGuide/view_elderly_0.png)
+    
+    <br>
+  
+  Expanded view (click on the entry for ‘Charlotte Oliveiro’):
+  ![](images/userGuide/view_elderly_1.png)
+
+
+
 <br />
 
 #### 4.1.2 Add an elderly: `addElderly`
 
-Adds an elderly to NurseyBook.
+This command allows you to add an elderly and his/her details to NurseyBook.
 
 Format: `addElderly en/ELDERLY_NAME a/AGE g/GENDER r/ROOMNO [t/TAG]…​ [nn/NOK_NAME] [rs/NOK_RELATIONSHIP] [p/NOK_PHONE_NUMBER] [e/NOK_EMAIL] [addr/NOK_ADDRESS]`
 
-Examples:
-* `addElderly en/Khong Guan a/80 g/M r/201 nn/Gong Kuan rs/Brother p/91234567 e/guanbro@gmail.com addr/London Street 11`
-* `addElderly en/John a/77 g/M r/420 t/diabetes`
-* `addElderly en/John a/77 g/M r/420 t/diabetes nn/Timothy rs/Son`
+Example:
+
+Let’s say you have a new elderly that has been placed under your charge. You can follow the steps below to add him to NurseyBook using the addElderly command.
+
+To add an elderly: 
+1. Type addElderly `en/Khong Guan a/80 g/M r/201` into the command box.
+2. Press `Enter` to execute your command. You should see the following.
+   ![](images/userGuide/add_elderly_0.png)
+
+If you would like to include his/her NoK details as well, you can use this longer command instead to add both his/her personal and NoK details at the same time.
+* `addElderly en/Khong Guan a/80 g/M r/201 nn/Bing Gan rs/Brother p/91234567 e/guanbro@gmail.com addr/London Street 11`
+
+ 
+You can also add any custom tags to the elderly as per your needs. Such tags will help you quickly identify key things or notes about each elderly. For instance, you can add a custom tag ‘diabetes’ to make a note that the elderly has diabetes.
+* `addElderly en/Khong Guan a/80 g/M r/201 t/diabetes`
+    ![](images/userGuide/add_elderly_1.png)
+
+Here is a command that uses tags, and only specifies some NoK fields. It is not compulsory to specify all NoK fields.
+* `addElderly en/Khong Guan a/80 g/M r/201 t/diabetes nn/Bing Gan rs/Brother`
+
 
 <div style="page-break-after: always;"></div>
 
 <div markdown="block" class="alert alert-info">
+
 
 :information_source: **Information:**
    
 * An elderly can have any number of tags (including 0).
 * You can specify a Next-of-Kin's (NoK) details for each elderly, when adding an elderly.
 * NurseyBook does not support any two elderly with the same name, even if any other fields are different. The casing of the name does not matter either. A suggestion will be to save the full name of the elderly you are adding into NurseyBook.
-* Executing the command will automatically change the display view to your full elderly list, so that you can see the elderly you added.
-
+  Executing the command will automatically change the display to your full elderly list, so that you can see the elderly you added.
 </div>
 
-`addElderly en/Khong Guan a/80 g/M r/201 nn/Gong Kuan rs/Brother p/91234567 e/guanbro@gmail.com addr/London Street 11` used:
 
-![](images/userGuide/add_elderly_0.png)
-![](images/userGuide/add_elderly_1.png)
 
 #### 4.1.3 Delete an elderly : `deleteElderly`
 
-Deletes an elderly from NurseyBook.
+This command allows you to delete an elderly that you no longer want to include in NurseyBook.
 
 Format: `deleteElderly INDEX`   
 
-Examples:
-* [`viewElderly`](#411-view-all-elderly-viewelderly) followed by `deleteElderly 2` deletes the 2nd elderly in NurseyBook.
+
+Example:
+
+Let's say Khong Guan is no longer under your charge, or has been discharged from your nursing home. You can follow the steps below to remove his entry from NurseyBook using the deleteElderly command.
+
+To delete an elderly:
+1. Enter [`viewElderly`](#411-view-all-elderly-viewelderly) to view the list of elderly and locate the index number of Khong Guan. In the image below, Khong Guan is at index number 2.
+    ![](images/userGuide/delete_elderly_0.png)
+
+2. Enter `deleteElderly 2` to delete the 2nd elderly in NurseyBook. Khong Guan should no longer be visible.
+    ![](images/userGuide/delete_elderly_1.png)
+
 
 <div markdown="block" class="alert alert-info">
 
 :information_source: **Information:**
-* Deletes the elderly at the specified `INDEX`.
+* Deletes the elderly at the specified `INDEX`. 
 * The index refers to the index number shown in the displayed elderly list.
-* The index **must be a positive integer** 1, 2, 3, …​
+* The index that you enter **must be a positive integer** 1, 2, 3, …​
 
 </div>
 
 <div markdown="block" class="alert alert-warning">
 
 :exclamation: **Caution:**
-* Deleting an elderly's name will cause all occurrences of the elderly's name in tasks to be deleted.
-
+* If you delete an elderly's name, it will cause all occurrences of the elderly's name in tasks to be deleted.
 </div>
 
 #### 4.1.4 Edit an elderly's details: `editElderly`
 
-Edits the details of a specific elderly.
+This command allows you to fix any mistakes made in the information of elderlies added.
 
 Format: `editElderly INDEX [en/ELDERLY_NAME] [a/AGE] [g/GENDER] [r/ROOMNO] [t/TAG]…​ [nn/NOK_NAME] [rs/NOK_RELATIONSHIP] [p/NOK_PHONE_NUMBER] [e/NOK_EMAIL] [addr/NOK_ADDRESS]`
 
-Examples: See [`addElderly`](#412-add-an-elderly-addelderly) for examples.
+Example: 
+
+The command is highly similar to [`addElderly`](#412-add-an-elderly-addelderly). Simply enter the index of the elderly, followed by the parameter(s) you would like to change and their corresponding prefixes.
+
+Let's say Khong Guan’s birthday has just passed and he has been reallocated to a different room for a change in environment. You can change both fields at one go by with this command.
+
+To edit an elderly:
+1. Enter [`viewElderly`](#411-view-all-elderly-viewelderly) to view the list of elderly and locate the index number of Khong Guan. In the image below, Khong Guan is at index number 2.
+      ![](images/userGuide/edit_elderly_0.png)
+
+2. Enter the command `editElderly 2 a/81 r/57`. You can specify any other fields that you would like to change as well.
+    
+    Before Editting:
+    ![](images/userGuide/edit_elderly_1.png)
+
+    After Editting:
+
+    ![](images/userGuide/edit_elderly_2.png)
+
+
+For tags, if Khong Guan has a tag `diabetes`, to add an `overweight` tag to him, your command should be `editElderly 2 t/cancer t/overweight`.
 
 <div markdown="block" class="alert alert-info">
 
 :information_source: **Information:**
-* Any number of tags is acceptable (including 0).
+* You can enter any number of tags (including 0).
+* The index refers to the index number shown in the displayed elderly list.
+* The index that you enter must be a positive integer 1, 2, 3, …​
 
 </div>
 
 <div markdown="block" class="alert alert-warning">
 
 :exclamation: **Caution:**
-* By leaving the tag input empty, you will remove all the tags currently assigned to the elderly.
+* By leaving the tag input empty, e.g. `t/`, you will remove all the tags currently assigned to the elderly.
 * If you want to add a tag with `editElderly`, you have to include all the existing tags of the elderly in your command.
-* Editing an elderly's name will cause all occurrences of the elderly's name in tasks to be edited, but the order they appear in the tasks may be different.
-
-Example: John has an existing tag `cancer`, and he is at index 1 in the current list of elderly displayed. To add an `overweight` tag to John, your command should be `editElderly 1 t/cancer t/overweight`.
+* If you edit an elderly's name, it will cause all occurrences of the elderly's name in tasks to be edited, but the order they appear in the tasks may be different.
 
 </div>
 
 <div markdown="block" class="alert alert-primary">
 
 :bulb: **Tip:**
-* For more accessible tag related commands, do refer to the [`addTag`](#418-add-tags-to-elderly-addtag) and [`deleteTag`](#419-delete-tags-of-elderly-deletetag) commands.
+* For more accessible tag related commands, you can refer to the [`addTag`](#418-add-tags-to-elderly-addtag) and [`deleteTag`](#419-delete-tags-of-elderly-deletetag) commands.
 </div>
 
 <div style="page-break-after: always;"></div>
 
 #### 4.1.5 Find elderly: `findElderly`
 
-Finds elderlies whose names contain any of the given keywords.
+This command allows you to find all the elderlies whose names are related to any of the given keywords. This is especially useful when you have a lot of elderlies stored.
 
 Format: `findElderly KEYWORD [MORE_KEYWORDS]`
 
-Examples:
-* `findElderly Elena` returns `elena` and `Elena Kro`
-* `findElderly Elena Jav` returns `Elena Kro`, `Jav Marsh`
+Example:
+
+Let’s say you are looking for a certain elderly with the surname ‘Lim’. It is a hassle to go through the full list of elderlies and search for that particular person one by one. To save time, simply use the `findElderly` command.
+
+To find elderly based on keywords:
+1. Enter `findElderly lim`
+2. This should return all elderlies with the word lim in any part of their name. If only ‘Emily Lim’ and ‘Madoo Lim’ have the word lim  in their name, you should observe the output below.
+    ![](images/userGuide/find_elderly_0.png)
+   You can use this filtered list to quickly identify that specific elderly you are searching for.
+
 
 <div markdown="block" class="alert alert-info">
 
 :information_source: **Information:**
 * The search is case-insensitive. e.g. `elena` will match `Elena`
 * The order of the keywords does not matter. e.g. `Elena Kro` will match `Kro Elena`
-* Only the name is searched.
+* Your keywords are only compared against the names of elderlies.
 * Only full words will be matched. e.g. `Ele` will not match `Elena`
 * Elderlies matching at least one keyword will be returned (i.e. _OR_ search). e.g. `Elena Kro` will return `Elena Grob`, `Kro Stanly`
 
@@ -616,88 +687,151 @@ e.g. Date of task is `2022-01-01` with `daily` recurrence. On `2022-01-03`, the 
 
 #### 4.2.5 Find a task: `findTask`
 
-Finds tasks whose description contain any of the given keywords.
+This command allows you to find tasks in NurseyBook whose description contains any of the entered keywords.
 
 Format: `findTask KEYWORD [MORE_KEYWORDS]`
 
-Examples:
-* `findTask Day` returns `day` and `Day routine`
-* `findTask Day shift` returns `Day routine`, `Shift items`
+Example:
+
+Let’s say you have forgotten when the meeting with the head nurse is going to be. Instead of manually scrolling past all of your tasks, you can find the task easily with the `findTask` command.
+
+To find a task:
+
+1. Type `findTask` followed by the keyword you are searching for. For example, to look up the task with the description “Meeting with head nurse”, type in `findTask meeting`, and press `Enter` to execute it.
+2. The result box will display the message with the number of tasks found. In this case, there are 3 tasks that contain the keyword “meeting”, thus “3 tasks listed!” is shown. You can see that all tasks whose description contains the word “meeting” are listed.
+   
+   ![find_task](images/userGuide/find_task_1.png)
 
 <div markdown="block" class="alert alert-info">
 
 :information_source: **Information:**
 
-* The search is case-insensitive. e.g. `shift` will match `Shift`
-* The order of the keywords does not matter. e.g. `Day shift` will match `shift Day`
-* Only the description is searched.
-* Only full words will be matched. e.g. `Sh` will not match `Shift`
-* Task matching at least one keyword will be returned (i.e. _OR_ search). e.g. `Day shift` will return `Day routine`, `Shift items`
+* The search is case-insensitive. e.g. `findTask meeting` returns the same tasks as `findTask Meeting`.
+* You can use the `findTask` command with multiple keywords, as tasks whose description has at least one matching keyword will be shown. e.g. `findTask meeting walk` will show the tasks “Meeting with head nurse” and “go on a walk”.
+* The order of the keywords you have entered does not matter. e.g. `findTask meeting walk` returns the same tasks as `findTask walk meeting`.
+* Only the description of the tasks is searched.
 
 </div>
 
-`findTask report` used:
-
-![](images/userGuide/find_task.png)
-
-<div style="page-break-after: always;"></div>
-
 #### 4.2.6 Mark a task as completed: `doneTask`
 
-Marks a particular task in the task list as completed.
+This command lets you mark an uncompleted task in NurseyBook’s task list as completed.
 
 Format: `doneTask INDEX`
 
-Examples:
-* [`viewTasks`](#421-view-all-tasks-viewtasks) followed by `doneTask 2` marks the 2nd task shown by NurseyBook as completed.
+Example:
+
+Let’s say Khong Guan’s medical check up with Dr Tan has just ended. To indicate this in NurseyBook to track your task completion progress, you can mark a task as completed with the `doneTask` command.
+
+To mark a task as completed:
+
+1. View your tasks either by entering the `viewTasks` or `findTask` command. For example, `findTask medical` is used in the image below to show all tasks in NurseyBook with the word “medical” in its description.
+   
+   ![done_task_0](images/userGuide/done_task_0.png)
+2. Type in `doneTask` into the command box, followed by the task’s index in the list displayed. In this case, as “Medical checkup with Dr Tan” with Khong Guan’s name has the index 1 in the list shown, the index should be 1. Press `Enter` to execute the command.
+   
+   ![done_task_1](images/userGuide/done_task_1.png)
+3. The result box will show that you have marked the task as done, with the task’s description, date, time and name(s) of elderly involved.
+
+   ![done_task_2](images/userGuide/done_task_2.png)
+4. You can see that there is now a tick in the checkbox for the completed task, to indicate its completion status.
+
+   ![done_task_3](images/userGuide/done_task_3.png)
 
 <div markdown="block" class="alert alert-info">
 
 :information_source: **Information:**
 
-* Marks the task at the specified `INDEX` as done.
-* The index refers to the index number shown in the displayed task list.
-* The index **must be a positive integer** 1, 2, 3, …​
-* After marking an overdue task as completed, the overdue tag will no longer be displayed.
+* The index entered must be a positive integer (i.e. the number needs to be larger than zero), and should not be larger than the number of tasks in the displayed task list. For example, after entering `findTask walk`, there are 2 tasks in the list. So, only the numbers 1 and 2 are valid indices for this command.
+* After you have marked an overdue task as completed, the overdue tag will no longer be displayed. For example, in the images above, you can see that the task “Medical checkup with Dr Tan” was originally overdue.
+  
+  After marking it as done, the task no longer has the overdue tag attached to it.
 
 </div>
 
 #### 4.2.7 View reminders: `remind`
 
-Shows the list of upcoming tasks (that are coming up in the next three days), such as the required medical needs for
-those under your care. e.g. If the current date is 2021-11-12, the tasks that are scheduled to happen up to and including 2021-11-15 will be shown. Tasks schduled for 2021-11-16 and onwards will not be shown.
+This command will show you the list of uncompleted tasks in NurseyBook that are coming up within the next 3 days.
 
 Format: `remind`
 
-Screenshot taken on 2021-11-04.
-
-![](images/userGuide/remind.png)
-
-<div style="page-break-after: always;"></div>
-
-#### 4.2.8 View task schedule: `viewSchedule`
-
-Displays a preview of the list of tasks set to occur on the specified current or future date.
-Future occurrences of recurring tasks that will take place on that date are also included.
-
-Format: `viewSchedule DATE`
-
 Example:
-`viewSchedule 2022-02-14`
+
+Let’s say your task list contains many: 
+* Completed but not yet deleted tasks, or
+* Overdue tasks 
+
+Such tasks might be of a lower priority to you, as you want to view your upcoming tasks in the next few days.
+
+Instead of scrolling past all the irrelevant tasks, you can use the `remind` command.
+
+To view your upcoming tasks in the next few days:
+
+1. Type `remind` in the command box, and press `Enter` to execute it.
+2. The result box will display the message “Showing the tasks coming up in the next three days!”.
+3. And you can see that tasks scheduled within the next 3 days will be shown.
+   
+   ![remind](images/userGuide/remind.png)
 
 <div markdown="block" class="alert alert-info">
 
 :information_source: **Information:**
-* Date must be in yyyy-mm-dd form.
-* You can view your schedule for up to 12 weeks, or 84 days, in advance from the current date. Viewing schedule beyond that is not supported.
-* You cannot view the schedule on a day that has already passed.
-* For recurring tasks, this is simply a tool to preview its future occurrences. You cannot modify (e.g. delete/edit/mark as done/etc.) any such future occurrences of recurring tasks shown in the task list. These future occurrences will be deleted from your task view upon entering any next valid or invalid input.
+
+The `remind` command will only show you uncompleted tasks that are scheduled to happen within the next three days. 
+
+For example, if it is 01 January today, the command will show you tasks on days 01, 02, 03 and 04 January. Tasks scheduled for 05 January and onwards will not be shown.
 
 </div>
 
-`viewSchedule 2021-12-20` used:
+#### 4.2.8 View task schedule: `viewSchedule`
 
-![](images/userGuide/view_schedule.png)
+This command shows you the list of tasks in NurseyBook that are scheduled to occur on a specific date.
+
+Format: `viewSchedule DATE`
+
+Example:
+Let’s say your colleague, Sally, wants to switch working shifts with you on 08 December. You usually work in the day shift, while she works in the afternoon shift. 
+
+Before agreeing to her request, you want to make sure that you do not have many tasks scheduled for that day.
+
+Instead of scrolling through your task list to locate the tasks occurring on the date, or checking manually if your recurring tasks will occur on the day too, you can use the `viewSchedule` command.
+
+To view your schedule on a date:
+
+1. Type in `viewSchedule` into the command box, followed by the date of enquiry. For example, you would like to find out your schedule on 08 December 2021. Your full command should be `viewSchedule 2021-12-08`. Press `Enter` to execute it.
+   
+   ![view_schedule_0](images/userGuide/view_schedule_0.png)
+2. The result box will display the message with the number of tasks occurring on the date. In this case, “5 tasks on indicated date!” is shown.
+   
+   ![view_schedule_1](images/userGuide/view_schedule_1.png)
+3. You can see that in the task list displayed, all tasks are scheduled to occur on 08 December 2021.
+   
+   ![view_schedule_2](images/userGuide/view_schedule_2.png)
+
+<div markdown="block" class="alert alert-info">
+
+:information_source: **Information:**
+* The date you enter must be in the form of yyyy-mm-dd.
+* You can view your schedule for up to 12 weeks, or 84 days in advance from the current date. NurseyBook does not support viewing the schedule of days beyond this time frame, or days that have already passed.
+* The `viewSchedule` command is simply a tool to preview future occurrences of recurring tasks. You cannot perform actions such as deleting, editing, marking such a task as completed.
+
+  For example, the task “Write up daily report” is scheduled to happen on 04 December originally, and it is a recurring task that happens every day.
+  
+  ![view_schedule_3](images/userGuide/view_schedule_3.png)
+
+  If you execute viewSchedule 2021-12-08, you can see the future occurrence of this task.
+  
+  ![view_schedule_4](images/userGuide/view_schedule_4.png)
+
+  If you try to delete this task, you will receive an error message.
+  
+  ![view_schedule_4](images/userGuide/view_schedule_5.png)
+
+  The future occurrences of the recurring tasks will be deleted from NurseyBook after you have entered any valid command into NurseyBook. For example, if you enter findTask report, the “Write up daily report” task on 08 December 2021 will not be shown.
+  
+  ![view_schedule_6](images/userGuide/view_schedule_6.png)
+
+</div>
 
 <div style="page-break-after: always;"></div>
 
@@ -705,20 +839,22 @@ Example:
 
 #### 4.3.1 Clearing all entries : `clear`
 
-Clears all entries from NurseyBook.
+This command lets you clear all entries from NurseyBook. This can be used to give you a brand new NurseyBook.
+
+Example: After you finish practicing commands on the sample data, you can clear the sample data with this command.
 
 Format: `clear`
 
 #### 4.3.2 Viewing help : `help`
 
-A new window that contains a summary of the commands (with the necessary command parameters) as well as a link to this user guide will appear. The link can be copied to the system's clipboard by clicking on the `Copy` button.
+This command shows you a summary of the commands (with the necessary command parameters) as well as a link to this user guide in a new window. You can copy the link by clicking the `Copy URL` button.
 
 Format: `help`
 
 <div markdown="block" class="alert alert-primary">
 
 :bulb: **Tip:**
-* The help window is more optimized for viewing if the command is entered when NurseyBook is not in full screen mode.
+* The help window is more optimized for viewing if you enter this command when NurseyBook is not in full screen mode.
 
 </div>
 
@@ -728,12 +864,17 @@ Format: `help`
 
 #### 4.3.3 Undo previous command : `undo`
 
-Undoes the previous undoable command executed on the NurseyBook.
+This command lets you undo your last command that modified NurseyBook’s data.
 
 Format: `undo`
 
 Example:
-* `deleteElderly 1` followed by `undo` causes the `deleteElderly 1` command to be undone and no elderly is deleted from the NurseyBook.
+Let’s say that you have been entering elderly information into NurseyBook, and you accidentally deleted a contact (Khong Guan) from your list with `deleteElderly`!  
+Instead of re-entering Khong Guan’s contact information all over again, you can easily restore all of his details by undo-ing the delete command you have just entered.
+
+To undo:
+1. Type `undo` into the command box, and press `Enter` to execute it. 
+2. You can see Khong Guan’s contact reappear in the elderly list again.
 
 <div markdown="block" class="alert alert-info">
 
@@ -741,27 +882,29 @@ Example:
 
 * Undoable commands (i.e. any command that modifies NurseyBook's data): `addElderly`, `editElderly`, `deleteElderly`, `deleteNok`, `addTag`, `deleteTag`, `remark`, `addTask`, `editTask`, `deleteTask`, `doneTask`, `clear`
 * Non-undoable commands: `findElderly`, `filter`, `viewDetails`, `viewElderly`, `findTask`, `remind`, `viewTasks`, `viewSchedule`, `help`
-* If there are no undoable commands executed previously, the undo command will fail and an error message will be shown.
-* Undo-ing a `deleteElderly` or an `editElderly` command would restore the elderly's name in relevant tasks but the order of names may be different.
+* If you did not execute any undoable commands previously, the undo command will fail and an error message will be shown.
+* If you undo a `deleteElderly` or an `editElderly` command, NurseyBook will restore the elderly's name in relevant tasks but the order of names may be different.
 
 </div>
 
 #### 4.3.4 Redo previously undone command : `redo`
 
-Reverses the previous `undo` command executed on the NurseyBook.
+This command lets you reverse your previous `undo` command.
 
 Format: `redo`
 
-Example:
-* `deleteElderly 1` followed by `undo` causes the `deleteElderly 1` command to be undone and no elderly is deleted from the NurseyBook.
-  Entering `redo` will reverse the previous undo command, causing the elderly to be deleted again.
+Example: Let’s say that after you undo the deleteElderly command on Khong Guan, you decide that you want to remove his details after all.
+
+To redo:
+1. Enter `redo` in the command box. 
+2. You can see Khong Guan’s details is deleted again.
 
 <div markdown="block" class="alert alert-info">
 
 :information_source: **Information:**
 
-* If there are no undo commands executed previously, the redo command will fail and an error message will be shown.
-* Redo-ing an `editElderly` command would restore the elderly's name in relevant tasks but the order of names may be different.
+* If you did not execute any `undo` commands previously, the `redo` command will fail and an error message will be shown.
+* If you redo an `editElderly` command, it would restore the elderly's name in relevant tasks but the order of names may be different.
 
 </div>
 
@@ -769,7 +912,7 @@ Example:
 
 #### 4.3.5 Exiting the program : `exit`
 
-Exits the program.
+This command allows you to exit the program.
 
 Format: `exit`
 
@@ -780,11 +923,11 @@ Format: `exit`
 
 ### 5.1 Saving the data
 
-NurseyBook's data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+NurseyBook's data is saved in the hard disk automatically after any command that changes the data. There is no need for you to save the data manually.
 
 ### 5.2 Editing the data file
 
-NurseyBook data are saved as a JSON file `[JAR file location]/data/nurseybook.json`. If you are technologically savvy, you
+NurseyBook data is saved as a JSON file at `[JAR file location]/data/nurseybook.json`. If you are technologically savvy, you
 are also welcome to update data directly by editing that data file.
 
 <div markdown="block" class="alert alert-warning">
@@ -803,12 +946,7 @@ are also welcome to update data directly by editing that data file.
 ## 6. FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file NurseyBook creates, with the file
-that contains the data of your previous NurseyBook home folder.
-
-**Q**: How do I save my data?<br>
-**A**: NurseyBook's data is saved in the hard disk automatically after any command that changes the data.
-There is no need to save manually.
+**A**: Install the app on the other computer and overwrite the empty data file NurseyBook creates, with the NurseyBook data file from your computer.
 
 --------------------------------------------------------------------------------------------------------------------
 <div style="page-break-after: always;"></div>
@@ -862,7 +1000,8 @@ Action | Format, Examples
 Term | Definition
 --------|------------------
 **Command Line Interface (CLI)** | Command line interface where users interact with the system by typing in commands. <br> <br> e.g., Terminal
-**Graphical User Interface (GUI)** | Graphical user interface where users interact with the system through visual representations. <br> <br> e.g., Microsoft Windows Desktop
 **JAR** | A file format that contains all bundled Java files (relevant to NurseyBook).
 **Java 11** | The Java Platform, Standard Edition 11 Development Kit (JDK 11) is a feature release of the Java SE platform.
 **Javascript Object Notation (JSON)** | JSON is a lightweight text format for storing and transporting data.            
+**Case-insensitive** | Any letter case is acceptable (‘abc’ or ‘ABC’ are both acceptable).
+**Displayed elderly/task list** | The list of elderlies/tasks displayed in NurseyBook’s application window.
