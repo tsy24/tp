@@ -201,7 +201,7 @@ This command displays all the elderlies that you have added to NurseyBook.
 Format: `viewElderly`
 
 :bulb: **Tip:**
-* You can click on an elderly entry to view the full details for that elderly.
+* You can click on an elderly entry to view the full expanded details for that elderly.
 
     Normal view:
   ![](images/userGuide/view_elderly_0.png)
@@ -222,6 +222,7 @@ This command allows you to add an elderly and his/her details to NurseyBook.
 Format: `addElderly en/ELDERLY_NAME a/AGE g/GENDER r/ROOMNO [t/TAG]…​ [nn/NOK_NAME] [rs/NOK_RELATIONSHIP] [p/NOK_PHONE_NUMBER] [e/NOK_EMAIL] [addr/NOK_ADDRESS]`
 
 Example:
+
 Let’s say you have a new elderly that has been placed under your charge. You can follow the steps below to add him to NurseyBook using the addElderly command.
 
 To add an elderly: 
