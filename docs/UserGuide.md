@@ -316,13 +316,14 @@ To edit an elderly:
       ![](images/userGuide/edit_elderly_0.png)
 
 2. Enter the command `editElderly 2 a/81 r/57`. You can specify any other fields that you would like to change as well.
-    
-    Before Editting:
-    ![](images/userGuide/edit_elderly_1.png)
+   
+Before Editing:
+![](images/userGuide/edit_elderly_1.png)
 
-    After Editting:
+<div style="page-break-after: always;"></div>
 
-    ![](images/userGuide/edit_elderly_2.png)
+After Editing:
+![](images/userGuide/edit_elderly_2.png)
 
 
 For tags, if Khong Guan has a tag `diabetes`, to add an `overweight` tag to him, your command should be `editElderly 2 t/cancer t/overweight`.
@@ -571,8 +572,6 @@ To add a task:
 ![](images/userGuide/add_task_0.png)
 ![](images/userGuide/add_task_1.png)
 
-<div style="page-break-after: always;"></div>
-
 <div markdown="block" class="alert alert-info">
 
 :information_source: **Information:**
@@ -590,6 +589,8 @@ To add a task:
 * If you want to add an elderly to the task, you need to first make sure that the elderly is already registered in your elderly database.
 
 </div>
+
+<div style="page-break-after: always;"></div>
 
 <div markdown="block" class="alert alert-primary">
 
@@ -668,8 +669,6 @@ e.g. Date of task is `2022-01-01` with `daily` recurrence. On `2022-01-03`, the 
 * Multiple of the same elderly name in same/different casing will be treated as one elderly.
 * The full name has to be entered so that the identity of the elderly is unambiguous.
 
-<div style="page-break-after: always;"></div>
-
 </div>
 
 <div markdown="block" class="alert alert-warning">
@@ -722,6 +721,9 @@ To mark a task as completed:
 1. View your tasks either by entering the `viewTasks` or `findTask` command. For example, `findTask medical` is used in the image below to show all tasks in NurseyBook with the word “medical” in its description.
    
    ![done_task_0](images/userGuide/done_task_0.png)
+
+<div style="page-break-after: always;"></div>
+
 2. Type in `doneTask` into the command box, followed by the task’s index in the list displayed. In this case, as “Medical checkup with Dr Tan” with Khong Guan’s name has the index 1 in the list shown, the index should be 1. Press `Enter` to execute the command.
    
    ![done_task_1](images/userGuide/done_task_1.png)
@@ -742,6 +744,8 @@ To mark a task as completed:
   After marking it as done, the task no longer has the overdue tag attached to it.
 
 </div>
+
+<div style="page-break-after: always;"></div>
 
 #### 4.2.7 View reminders: `remind`
 
@@ -776,6 +780,8 @@ The `remind` command will only show you uncompleted tasks that are scheduled to 
 For example, if it is 01 January today, the command will show you tasks on days 01, 02, 03 and 04 January. Tasks scheduled for 05 January and onwards will not be shown.
 
 </div>
+
+<div style="page-break-after: always;"></div>
 
 #### 4.2.8 View task schedule: `viewSchedule`
 
@@ -839,6 +845,8 @@ Example: After you finish practicing commands on the sample data, you can clear 
 
 Format: `clear`
 
+<div style="page-break-after: always;"></div>
+
 #### 4.3.2 Viewing help : `help`
 
 This command shows you a summary of the commands (with the necessary command parameters) as well as a link to this user guide in a new window. You can copy the link by clicking the `Copy URL` button.
@@ -881,6 +889,8 @@ To undo:
 
 </div>
 
+<div style="page-break-after: always;"></div>
+
 #### 4.3.4 Redo previously undone command : `redo`
 
 This command lets you reverse your previous `undo` command.
@@ -901,8 +911,6 @@ To redo:
 * If you redo an `editElderly` command, it would restore the elderly's name in relevant tasks but the order of names may be different.
 
 </div>
-
-<div style="page-break-after: always;"></div>
 
 #### 4.3.5 Exiting the program : `exit`
 
