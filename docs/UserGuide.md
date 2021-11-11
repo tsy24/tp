@@ -246,6 +246,7 @@ Here is a command that uses tags, and only specifies some NoK fields. It is not 
 
 <div markdown="block" class="alert alert-info">
 
+
 :information_source: **Information:**
    
 * An elderly can have any number of tags (including 0).
@@ -312,7 +313,7 @@ To edit an elderly:
     ![](images/userGuide/edit_elderly_1.png)
 
     <br>
-  
+   
     After Editting:
     ![](images/userGuide/edit_elderly_2.png)
 
