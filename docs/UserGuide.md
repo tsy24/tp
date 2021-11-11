@@ -315,15 +315,15 @@ To edit an elderly:
 1. Enter [`viewElderly`](#411-view-all-elderly-viewelderly) to view the list of elderly and locate the index number of Khong Guan. In the image below, Khong Guan is at index number 2.
       ![](images/userGuide/edit_elderly_0.png)
 
-2. Enter the command `editElderly 2 a/81 r/57`. You can specify any other fields that you would like to change as well.
-   
-Before Editing:
-![](images/userGuide/edit_elderly_1.png)
-
 <div style="page-break-after: always;"></div>
 
-After Editing:
-![](images/userGuide/edit_elderly_2.png)
+2. Enter the command `editElderly 2 a/81 r/57`. You can specify any other fields that you would like to change as well.
+   
+    Before Editing:
+    ![](images/userGuide/edit_elderly_1.png)
+   
+    After Editing:
+    ![](images/userGuide/edit_elderly_2.png)
 
 
 For tags, if Khong Guan has a tag `diabetes`, to add an `overweight` tag to him, your command should be `editElderly 2 t/cancer t/overweight`.
@@ -654,12 +654,12 @@ Let’s say you have completed the task “Nurses Meeting” and you do not want
 To delete a task:
 1. Enter [`viewTasks`](#421-view-all-tasks-viewtasks) to display the current task list.
 
-![](images/userGuide/delete_task_0.png)
+    ![](images/userGuide/delete_task_0.png)
 
 2. Assuming the task “Nurses Meeting” is the sixth task shown in the task list, enter `deleteTask 6`.
 3. This task will be deleted and will disappear from NurseyBook.
 
-![](images/userGuide/delete_task_1.png)
+    ![](images/userGuide/delete_task_1.png)
 
 <div markdown="block" class="alert alert-info">
 
@@ -686,15 +686,15 @@ Instead of deleting the task and adding the task again with the updated date of 
 To edit a task:
 1. Enter [`viewTasks`](#421-view-all-tasks-viewtasks) to display the current task list. Then, assuming the “Physiotherapy” task is the eleventh task that appears in the task list, enter `editTask 11 date/2022-01-30`.
 
-![](images/userGuide/edit_task_0.png)
+    ![](images/userGuide/edit_task_0.png)
 
 2. The result box will show the updated details of the task, with the task’s description, date, time and name(s) of elderly involved.
 
-![](images/userGuide/edit_task_1.png)
+    ![](images/userGuide/edit_task_1.png)
 
 3. You can see that the details of the task have been changed. In this case, the date of the task is updated to 30 January 2022. As the date of the task has been pushed back, and the tasks in NurseyBook are ordered chronologically, the index of the task has increased.
 
-![](images/userGuide/edit_task_2.png)
+    ![](images/userGuide/edit_task_2.png)
 
 <div markdown="block" class="alert alert-info">
 
