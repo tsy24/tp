@@ -311,7 +311,6 @@ To edit an elderly:
     
     Before Editting:
     ![](images/userGuide/edit_elderly_1.png)
-   
     After Editting:
     ![](images/userGuide/edit_elderly_2.png)
 
