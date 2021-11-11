@@ -26,9 +26,9 @@ Though this may seem daunting, this user guide will bring you through each featu
 1. Ensure you have Java `11` or above installed in your Computer.
    * Windows users: You can open Windows Powershell and enter the command `java -version`.
    * Mac users: You can open Terminal and enter the command `java -version`.
-   * If you see `java version “11.0.x”` on your screen, you have Java 11 installed.
+   * If you see `java version “11.0.x”` on your screen, you have Java `11` installed.
    * If you do not, you can install it from [here](https://www.oracle.com/java/technologies/downloads/)
-
+   
 2. Download the latest `nurseybook.jar` from [here](https://github.com/AY2122S1-CS2103T-F13-2/tp/releases).
 
 3. Copy the file to the folder you want to use as the _home folder_ for your NurseyBook.
@@ -378,50 +378,61 @@ To find elderly based on keywords:
 * The order of the keywords does not matter. e.g. `Elena Kro` will match `Kro Elena`
 * Your keywords are only compared against the names of elderlies.
 * Only full words will be matched. e.g. `Ele` will not match `Elena`
-* Elderlies matching at least one keyword will be returned (i.e. `OR` search). e.g. `Elena Kro` will return `Elena Grob`, `Kro Stanly`
+* Elderlies matching at least one keyword will be returned (i.e. _OR_ search). e.g. `Elena Kro` will return `Elena Grob`, `Kro Stanly`
 
 </div>
 
 #### 4.1.6 View full details of an elderly: `viewDetails`
 
-Displays full details of a specific elderly.
+This command displays the full details of a specific elderly.
 
 Format: `viewDetails INDEX`
 
-Examples:
-* [`viewElderly`](#411-view-all-elderly-viewelderly) followed by `viewDetails 1` displays the details of the 1st elderly in NurseyBook.
+Example:
+
+Let’s say that you would like to view the remark or Next-of-Kin (NoK) details of Khong Guan. However, these details are not shown in the elderly list. To view the full details of an elderly, you can use the `viewDetails` command.
+
+To view the full details of an elderly:
+1. Enter [`viewElderly`](#411-view-all-elderly-viewelderly) to view the list of elderly.
+2. As Khong Guan is the second elderly in the list, enter `viewDetails 2` and you will be able to see the full details of Khong Guan in the details panel on the right side of the application screen.
+
+![](images/userGuide/viewDetails.png)
 
 <div markdown="block" class="alert alert-info">
 
 :information_source: **Information:**
 * Shows the full details of the elderly at the specified `INDEX`.
 * The index refers to the index number shown in the displayed elderly list.
-* The index **must be a positive integer** 1, 2, 3, …​
-* After executing another command that is not a `viewDetails` command, the details panel will close.
+* The index that you enter **must be a positive integer** 1, 2, 3, …​
+* If you execute another type of command after a `viewDetails` command, the details panel will close.
 
 </div>
 
 <div style="page-break-after: always;"></div>
 
-`viewDetails 1` used:
-
-![](images/userGuide/view_details.png)
-
 #### 4.1.7 Delete an elderly's NoK details : `deleteNok`
 
-Deletes an elderly's Next-of-Kin details from NurseyBook.
+This command allows you to delete an elderly's Next-of-Kin details from NurseyBook.
 
 Format: `deleteNok INDEX`
 
-Examples:
-* [`viewElderly`](#411-view-all-elderly-viewelderly) followed by `deleteNok 2` deletes the NoK details of the 2nd elderly in NurseyBook.
+Example:
+
+Let’s say Khong Guan’s NoK information is no longer relevant and you want to delete the NoK details from Khong Guan. The `deleteNok` command can help you do so.
+
+To delete NoK details of an elderly:
+1. Enter [`viewElderly`](#411-view-all-elderly-viewelderly) to view the list of elderly.
+2. Enter `deleteNok 2` to delete the NoK details of the 2nd elderly in NurseyBook, which is Khong Guan.
+3. From the result message, you can see that the description of Khong Guan has empty NoK fields. Alternatively, you can also click on the elderly to see the full details. The NoK name is now `NIL`.
+
+![](images/userGuide/deleteNok.png)
 
 <div markdown="block" class="alert alert-info">
 
 :information_source: **Information:**
 * Deletes the NoK details of the elderly at the specified `INDEX`.
 * The index refers to the index number shown in the displayed elderly list.
-* The index **must be a positive integer** 1, 2, 3, …​
+* The index that you enter **must be a positive integer** 1, 2, 3, …​
 
 </div>
 
@@ -429,40 +440,61 @@ Examples:
 
 #### 4.1.8 Add tags to elderly: `addTag`
 
-Adds one or more tags to a specific elderly.
+This command allows you to add one or more tags to a specific elderly on top of the existing tags the elderly has.
 
 Format: `addTag INDEX t/TAG [t/TAG]…​`
 
-Examples:
-* [`viewElderly`](#411-view-all-elderly-viewelderly) followed by `addTag 1 t/covid` adds the tag `covid` to the 1st elderly in NurseyBook.
+Example:
+
+Let’s say Khong Guan is down with a flu and you would like to add a tag to him to note it down. While editElderly allows you to edit the tags of an elderly, it clears all existing tags that the elderly has, which is not the desired behaviour as you want to keep the existing tags. To add one or more tags on top of existing tags, you can use the `addTag` command!
+
+To add one or more tags:
+1. Enter [`viewElderly`](#411-view-all-elderly-viewelderly) to view the list of elderly.
+2. Enter `addTag 2 t/flu` to add the tag `flu` to Khong Guan.
+
+![](images/userGuide/addTag1.png)
+3. You can check that the `flu` tag is added to the elderly.
+
+![](images/userGuide/addTag2.png)
 
 <div markdown="block" class="alert alert-info">
 
 :information_source: **Information:**
-* There should be at least one tag.
-* Multiple tags that are the same or have different casing are treated as one tag.
+* You must enter at least one tag.
+* Multiple tags that are the same or have different casing are treated as one tag. e.g. If you enter `t/Diabetic t/diabetic`, they will be taken as one tag which is the first one entered: `t/Diabetic`
 * The index refers to the index number shown in the displayed elderly list.
-* The index **must be a positive integer** 1, 2, 3, …​
+* The index that you enter **must be a positive integer** 1, 2, 3, …​
 
 </div>
 
 #### 4.1.9 Delete tags of elderly: `deleteTag`
 
-Deletes one or more tags of a specific elderly.
+This command allows you to delete one or more tags of a specific elderly.
 
 Format: `deleteTag INDEX t/TAG [t/TAG]…​`
 
-Examples:
-* [`viewElderly`](#411-view-all-elderly-viewelderly) followed by `deleteTag 1 t/covid` deletes the tag `covid` from the 1st elderly in NurseyBook.
+Example:
+
+Let’s say Khong Guan has recovered from his flu, and you want to remove the `flu` tag from his details. Instead of using the `editElderly` command that clears all the elderly’s tags, you can use the `deleteTag` command to specify which tag to delete.
+
+To delete one or more tags from an elderly:
+1. Enter [`viewElderly`](#411-view-all-elderly-viewelderly) to view the list of elderly.
+2. Enter `deleteTag 2 t/flu` to delete the tag `flu` from Khong Guan.
+
+![](images/userGuide/deleteTag1.png)
+3. You can check that the `flu` tag is removed from Khong Guan.
+
+![](images/userGuide/deleteTag2.png)
+
 
 <div markdown="block" class="alert alert-info">
 
 :information_source: **Information:**
-* There should be at least one tag.
+* You must enter at least one tag.
 * The deletion of tags is case-insensitive.
-* Multiple tags that are the same or have different casing are treated as one tag.
+* Multiple tags that are the same or have different casing are treated as one tag. e.g. If you enter `t/Diabetic t/diabetic`, they will be taken as one tag which is the first one entered: `t/Diabetic`
 * The index refers to the index number shown in the displayed elderly list.
-* The index **must be a positive integer** 1, 2, 3, …​
+* The index that you enter **must be a positive integer** 1, 2, 3, …​
 
 </div>
 
@@ -470,33 +502,36 @@ Examples:
 
 #### 4.1.10 Filter elderly: `filter`
 
-Filters elderly based on one or more tags.
+This command allows you to view a list of elderly with all the tags queried.
 
 Format: `filter t/TAG [t/TAG]…​`
 
-Examples:
-* `filter t/covid t/diabetes`
+Example:
+
+Let’s say you need to order food for the elderly you are taking care of. You need to know how many elderly require vegetarian meals. You have previously added the `vegetarian` tag to all elderly that are vegetarian. To get a list of elderly that are vegetarian, you can use the `filter` command!
+
+To filter elderly based on tags:
+1. Enter `filter t/vegetarian`
+2. You can see a list of elderly with the `vegetarian` tag.
+
+![](images/userGuide/filter.png)
 
 <div markdown="block" class="alert alert-info">
 
 :information_source: **Information:**
-* There should be at least one tag.
+* You must enter at least one tag.
 * Only complete tags will be matched. e.g. `diab` will not match `diabetes`
-* Multiple tags that are the same or have different casing are treated as one tag.
-* Elderlies matching all tags will be returned (i.e.`AND` search). e.g. For `filter t/covid t/diabetes`, if the elderly only has the 'diabetes' tag, he will not be returned.
-* The matching of tags is case-insensitive. e.g. `t/Diabetic` will match `diabetic`, `DIABETIC`
+* Multiple tags that are the same or have different casing are treated as one tag. e.g. If you enter `t/Diabetic t/diabetic`, they will be taken as one tag which is the first one entered: `t/Diabetic`
+* Elderlies matching all tags will be returned (i.e._AND_ search). e.g. For `filter t/covid t/diabetes`, if the elderly only has the 'diabetes' tag, he will not be returned.
+* The matching of tags is case-insensitive. e.g. You can enter `t/Diabetic` and it will match `diabetic`, `DIABETIC`
 
 </div>
-
-`filter t/vegetarian` used:
-
-![](images/userGuide/filter.png)
 
 <div style="page-break-after: always;"></div>
 
 #### 4.1.11 Add remark to elderly: `remark`
 
-Adds a remark to a specific elderly.
+This command allows you to add a remark to a specific elderly.
 
 Format: `remark INDEX re/REMARK`
 
@@ -506,8 +541,10 @@ Let’s say that you want to add a comment to Khong Guan, saying that the medici
 
 To add a remark to an elderly: 
 1. Enter [`viewElderly`](#411-view-all-elderly-viewelderly) to view the list of elderly. 
-2. Enter `remark 2 re/Medicine seems to be ineffective`. 
+2. Enter `remark 2 re/Medicine seems to be ineffective` to add the remark to Khong Guan. 
 3. The remark “Medicine seems to be ineffective” will be added to Khong Guan. You can click on the elderly or use the [`viewDetails`](#416-view-full-details-of-an-elderly-viewdetails) command to see the remark.
+
+![](images/userGuide/remark.png)
 
 <div markdown="block" class="alert alert-info">
 
@@ -839,9 +876,14 @@ To view your schedule on a date:
 
 #### 4.3.1 Clearing all entries : `clear`
 
-This command lets you clear all entries from NurseyBook. This can be used to give you a brand new NurseyBook.
+This command lets you clear all entries from NurseyBook. This can be used to give you a brand new NurseyBook in place of the old one.
 
-Example: After you finish practicing commands on the sample data, you can clear the sample data with this command.
+Example: After you finish practicing commands on the sample data, you may want to clear the sample data with this command.
+
+To clear:
+1. Type `clear` into the command box, and press `Enter` to execute it.
+2. You should see your NurseyBook now become empty:
+![](images/userGuide/clear.png)
 
 Format: `clear`
 
@@ -866,7 +908,7 @@ Format: `help`
 
 #### 4.3.3 Undo previous command : `undo`
 
-This command lets you undo your last command that modified NurseyBook’s data.
+This command lets you undo your last command that modified NurseyBook’s data (i.e. adding/ editing/ deleting information to/from an elderly/task).
 
 Format: `undo`
 
@@ -900,7 +942,7 @@ Format: `redo`
 Example: Let’s say that after you undo the deleteElderly command on Khong Guan, you decide that you want to remove his details after all.
 
 To redo:
-1. Enter `redo` in the command box. 
+1. Enter `redo` in the command box and press `Enter` to execute it. 
 2. You can see Khong Guan’s details is deleted again.
 
 <div markdown="block" class="alert alert-info">
