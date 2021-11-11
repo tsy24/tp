@@ -52,8 +52,8 @@ Though this may seem daunting, this user guide will bring you through each featu
 
    * **`exit`** : Exits the app.
 
-Refer to the [4. Features](#4-features) below for in-depth details of all available commands.
-If you are able to launch Windows Powershell/Terminal on your own, feel free to skip the next two sections and proceed to the next section, [3. About](#3-about).
+Refer to the [4. Features](#4-features) below for in-depth details of all available commands. <br>
+If you are able to launch Windows Powershell/Terminal on your own, feel free to skip the launching instructions and proceed to the next section, [3. About](#3-about).
 ### Launching Windows Powershell
 
 1. Right-click on the Windows logo on the bottom left hand of your desktop.
