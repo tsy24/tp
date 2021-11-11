@@ -644,88 +644,151 @@ e.g. Date of task is `2022-01-01` with `daily` recurrence. On `2022-01-03`, the 
 
 #### 4.2.5 Find a task: `findTask`
 
-Finds tasks whose description contain any of the given keywords.
+This command allows you to find tasks in NurseyBook whose description contains any of the entered keywords.
 
 Format: `findTask KEYWORD [MORE_KEYWORDS]`
 
-Examples:
-* `findTask Day` returns `day` and `Day routine`
-* `findTask Day shift` returns `Day routine`, `Shift items`
+Example:
+
+Let’s say you have forgotten when the meeting with the head nurse is going to be. Instead of manually scrolling past all of your tasks, you can find the task easily with the `findTask` command.
+
+To find a task:
+
+1. Type `findTask` followed by the keyword you are searching for. For example, to look up the task with the description “Meeting with head nurse”, type in `findTask meeting`, and press `Enter` to execute it.
+2. The result box will display the message with the number of tasks found. In this case, there are 3 tasks that contain the keyword “meeting”, thus “3 tasks listed!” is shown. You can see that all tasks whose description contains the word “meeting” are listed.
+   
+   ![find_task](images/userGuide/find_task_1.png)
 
 <div markdown="block" class="alert alert-info">
 
 :information_source: **Information:**
 
-* The search is case-insensitive. e.g. `shift` will match `Shift`
-* The order of the keywords does not matter. e.g. `Day shift` will match `shift Day`
-* Only the description is searched.
-* Only full words will be matched. e.g. `Sh` will not match `Shift`
-* Task matching at least one keyword will be returned (i.e. `OR` search). e.g. `Day shift` will return `Day routine`, `Shift items`
+* The search is case-insensitive. e.g. `findTask meeting` returns the same tasks as `findTask Meeting`.
+* You can use the `findTask` command with multiple keywords, as tasks whose description has at least one matching keyword will be shown. e.g. `findTask meeting walk` will show the tasks “Meeting with head nurse” and “go on a walk”.
+* The order of the keywords you have entered does not matter. e.g. `findTask meeting walk` returns the same tasks as `findTask walk meeting`.
+* Only the description of the tasks is searched.
 
 </div>
 
-`findTask report` used:
-
-![](images/userGuide/find_task.png)
-
-<div style="page-break-after: always;"></div>
-
 #### 4.2.6 Mark a task as completed: `doneTask`
 
-Marks a particular task in the task list as completed.
+This command lets you mark an uncompleted task in NurseyBook’s task list as completed.
 
 Format: `doneTask INDEX`
 
-Examples:
-* [`viewTasks`](#421-view-all-tasks-viewtasks) followed by `doneTask 2` marks the 2nd task shown by NurseyBook as completed.
+Example:
+
+Let’s say Khong Guan’s medical check up with Dr Tan has just ended. To indicate this in NurseyBook to track your task completion progress, you can mark a task as completed with the `doneTask` command.
+
+To mark a task as completed:
+
+1. View your tasks either by entering the `viewTasks` or `findTask` command. For example, `findTask medical` is used in the image below to show all tasks in NurseyBook with the word “medical” in its description.
+   
+   ![done_task_0](images/userGuide/done_task_0.png)
+2. Type in `doneTask` into the command box, followed by the task’s index in the list displayed. In this case, as “Medical checkup with Dr Tan” with Khong Guan’s name has the index 1 in the list shown, the index should be 1. Press `Enter` to execute the command.
+   
+   ![done_task_1](images/userGuide/done_task_1.png)
+3. The result box will show that you have marked the task as done, with the task’s description, date, time and name(s) of elderly involved.
+
+   ![done_task_2](images/userGuide/done_task_2.png)
+4. You can see that there is now a tick in the checkbox for the completed task, to indicate its completion status.
+
+   ![done_task_3](images/userGuide/done_task_3.png)
 
 <div markdown="block" class="alert alert-info">
 
 :information_source: **Information:**
 
-* Marks the task at the specified `INDEX` as done.
-* The index refers to the index number shown in the displayed task list.
-* The index **must be a positive integer** 1, 2, 3, …​
-* After marking an overdue task as completed, the overdue tag will no longer be displayed.
+* The index entered must be a positive integer (i.e. the number needs to be larger than zero), and should not be larger than the number of tasks in the displayed task list. For example, after entering `findTask walk`, there are 2 tasks in the list. So, only the numbers 1 and 2 are valid indices for this command.
+* After you have marked an overdue task as completed, the overdue tag will no longer be displayed. For example, in the images above, you can see that the task “Medical checkup with Dr Tan” was originally overdue.
+  
+  After marking it as done, the task no longer has the overdue tag attached to it.
 
 </div>
 
 #### 4.2.7 View reminders: `remind`
 
-Shows the list of upcoming tasks (that are coming up in the next three days), such as the required medical needs for
-those under your care. e.g. If the current date is 2021-11-12, the tasks that are scheduled to happen up to and including 2021-11-15 will be shown. Tasks schduled for 2021-11-16 and onwards will not be shown.
+This command will show you the list of uncompleted tasks in NurseyBook that are coming up within the next 3 days.
 
 Format: `remind`
 
-Screenshot taken on 2021-11-04.
-
-![](images/userGuide/remind.png)
-
-<div style="page-break-after: always;"></div>
-
-#### 4.2.8 View task schedule: `viewSchedule`
-
-Displays a preview of the list of tasks set to occur on the specified current or future date.
-Future occurrences of recurring tasks that will take place on that date are also included.
-
-Format: `viewSchedule DATE`
-
 Example:
-`viewSchedule 2022-02-14`
+
+Let’s say your task list contains many: 
+* Completed but not yet deleted tasks, or
+* Overdue tasks 
+
+Such tasks might be of a lower priority to you, as you want to view your upcoming tasks in the next few days.
+
+Instead of scrolling past all the irrelevant tasks, you can use the `remind` command.
+
+To view your upcoming tasks in the next few days:
+
+1. Type `remind` in the command box, and press `Enter` to execute it.
+2. The result box will display the message “Showing the tasks coming up in the next three days!”.
+3. And you can see that tasks scheduled within the next 3 days will be shown.
+   
+   ![remind](images/userGuide/remind.png)
 
 <div markdown="block" class="alert alert-info">
 
 :information_source: **Information:**
-* Date must be in yyyy-mm-dd form.
-* You can view your schedule for up to 12 weeks, or 84 days, in advance from the current date. Viewing schedule beyond that is not supported.
-* You cannot view the schedule on a day that has already passed.
-* For recurring tasks, this is simply a tool to preview its future occurrences. You cannot modify (e.g. delete/edit/mark as done/etc.) any such future occurrences of recurring tasks shown in the task list. These future occurrences will be deleted from your task view upon entering any next valid or invalid input.
+
+The `remind` command will only show you uncompleted tasks that are scheduled to happen within the next three days. 
+
+For example, if it is 01 January today, the command will show you tasks on days 01, 02, 03 and 04 January. Tasks scheduled for 05 January and onwards will not be shown.
 
 </div>
 
-`viewSchedule 2021-12-20` used:
+#### 4.2.8 View task schedule: `viewSchedule`
 
-![](images/userGuide/view_schedule.png)
+This command shows you the list of tasks in NurseyBook that are scheduled to occur on a specific date.
+
+Format: `viewSchedule DATE`
+
+Example:
+Let’s say your colleague, Sally, wants to switch working shifts with you on 08 December. You usually work in the day shift, while she works in the afternoon shift. 
+
+Before agreeing to her request, you want to make sure that you do not have many tasks scheduled for that day.
+
+Instead of scrolling through your task list to locate the tasks occurring on the date, or checking manually if your recurring tasks will occur on the day too, you can use the `viewSchedule` command.
+
+To view your schedule on a date:
+
+1. Type in `viewSchedule` into the command box, followed by the date of enquiry. For example, you would like to find out your schedule on 08 December 2021. Your full command should be `viewSchedule 2021-12-08`. Press `Enter` to execute it.
+   
+   ![view_schedule_0](images/userGuide/view_schedule_0.png)
+2. The result box will display the message with the number of tasks occurring on the date. In this case, “5 tasks on indicated date!” is shown.
+   
+   ![view_schedule_1](images/userGuide/view_schedule_1.png)
+3. You can see that in the task list displayed, all tasks are scheduled to occur on 08 December 2021.
+   
+   ![view_schedule_2](images/userGuide/view_schedule_2.png)
+
+<div markdown="block" class="alert alert-info">
+
+:information_source: **Information:**
+* The date you enter must be in the form of yyyy-mm-dd.
+* You can view your schedule for up to 12 weeks, or 84 days in advance from the current date. NurseyBook does not support viewing the schedule of days beyond this time frame, or days that have already passed.
+* The `viewSchedule` command is simply a tool to preview future occurrences of recurring tasks. You cannot perform actions such as deleting, editing, marking such a task as completed.
+
+  For example, the task “Write up daily report” is scheduled to happen on 04 December originally, and it is a recurring task that happens every day.
+  
+  ![view_schedule_3](images/userGuide/view_schedule_3.png)
+
+  If you execute viewSchedule 2021-12-08, you can see the future occurrence of this task.
+  
+  ![view_schedule_4](images/userGuide/view_schedule_4.png)
+
+  If you try to delete this task, you will receive an error message.
+  
+  ![view_schedule_4](images/userGuide/view_schedule_5.png)
+
+  The future occurrences of the recurring tasks will be deleted from NurseyBook after you have entered any valid command into NurseyBook. For example, if you enter findTask report, the “Write up daily report” task on 08 December 2021 will not be shown.
+  
+  ![view_schedule_6](images/userGuide/view_schedule_6.png)
+
+</div>
 
 <div style="page-break-after: always;"></div>
 
