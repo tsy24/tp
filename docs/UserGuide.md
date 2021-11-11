@@ -24,8 +24,9 @@ Though this may seem daunting, this user guide will bring you through each featu
 ## 2. Quick start
 
 1. Ensure you have Java `11` or above installed in your Computer.
-   * Windows users: You can open Windows Powershell and enter the command `java -version`.
-   * Mac users: You can open Terminal and enter the command `java -version`.
+   * Windows users: You can click the Windows logo at the bottom of your screen to locate and launch Windows Powershell.
+   * Mac users: You can click on Launchpad at the bottom of your screen and search for Terminal in the search bar. After finding it, launch Terminal.
+   * In either Windows Powershell or Terminal, enter the command `java -version`.
    * If you see `java version “11.0.x”` on your screen, you have Java `11` installed.
    * If you do not, you can install it from [here](https://www.oracle.com/java/technologies/downloads/)
    
@@ -219,8 +220,7 @@ Format: `viewElderly`
   Expanded view (click on the entry for ‘Charlotte Oliveiro’):
   ![](images/userGuide/view_elderly_1.png)
 
-
-
+  
 <br />
 
 #### 4.1.2 Add an elderly: `addElderly`
@@ -298,6 +298,8 @@ To delete an elderly:
 :exclamation: **Caution:**
 * If you delete an elderly's name, it will cause all occurrences of the elderly's name in tasks to be deleted.
 </div>
+
+<div style="page-break-after: always;"></div>
 
 #### 4.1.4 Edit an elderly's details: `editElderly`
 
@@ -457,6 +459,8 @@ To add one or more tags:
 
     ![](images/userGuide/addTag2.png)
 
+<div style="page-break-after: always;"></div>
+
 <div markdown="block" class="alert alert-info">
 
 :information_source: **Information:**
@@ -498,6 +502,8 @@ To delete one or more tags from an elderly:
 
 </div>
 
+<div style="page-break-after: always;"></div>
+
 #### 4.1.10 Filter elderly: `filter`
 
 This command allows you to view a list of elderly with all the tags queried.
@@ -524,8 +530,6 @@ To filter elderly based on tags:
 * The matching of tags is case-insensitive. e.g. You can enter `t/Diabetic` and it will match `diabetic`, `DIABETIC`
 
 </div>
-
-<div style="page-break-after: always;"></div>
 
 #### 4.1.11 Add remark to elderly: `remark`
 
@@ -714,19 +718,6 @@ e.g. Date of task is `2022-01-01` with `daily` recurrence. On `2022-01-03`, the 
 
 </div>
 
-#### 4.2.5 Find a task: `findTask`
-
-This command allows you to find tasks in NurseyBook whose description contains any of the entered keywords.
-
-Format: `findTask KEYWORD [MORE_KEYWORDS]`
-
-Example:
-
-Let’s say you have forgotten when the meeting with the head nurse is going to be. Instead of manually scrolling past all of your tasks, you can find the task easily with the `findTask` command.
-
-To find a task:
-
-1. Ty
 
 #### 4.2.5 Find a task: `findTask`
 
@@ -745,11 +736,6 @@ To find a task:
 
    ![find_task](images/userGuide/find_task_1.png)
 
-pe `findTask` followed by the keyword you are searching for. For example, to look up the task with the description “Meeting with head nurse”, type in `findTask meeting`, and press `Enter` to execute it.
-2. The result box will display the message with the number of tasks found. In this case, there are 3 tasks that contain the keyword “meeting”, thus “3 tasks listed!” is shown. You can see that all tasks whose description contains the word “meeting” are listed.
-   
-   ![find_task](images/userGuide/find_task_1.png)
-
 <div style="page-break-after: always;"></div>
 
 <div markdown="block" class="alert alert-info">
@@ -762,6 +748,8 @@ pe `findTask` followed by the keyword you are searching for. For example, to loo
 * Only the description of the tasks is searched.
 
 </div>
+
+<div style="page-break-after: always;"></div>
 
 #### 4.2.6 Mark a task as completed: `doneTask`
 
@@ -1007,7 +995,6 @@ are also welcome to update data directly by editing that data file.
 </div>
 
 --------------------------------------------------------------------------------------------------------------------
-<div style="page-break-after: always;"></div>
 
 ## 6. FAQ
 
@@ -1050,7 +1037,7 @@ Action | Format, Examples
 
 ### 7.3 Miscellaneous
 
-Action | Format, Examples
+Action | Format
 --------|------------------
 **Clear** | `clear`
 **Help** | `help`
