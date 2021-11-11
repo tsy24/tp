@@ -228,7 +228,7 @@ Let’s say you have a new elderly that has been placed under your charge. You c
 To add an elderly: 
 1. Type addElderly `en/Khong Guan a/80 g/M r/201` into the command box.
 2. Press `Enter` to execute your command. You should see the following.
-   ![](images/UserGuide/add_elderly_0.png)
+   ![](images/userGuide/add_elderly_0.png)
 
 If you would like to include his/her NoK details as well, you can use this longer command instead to add both his/her personal and NoK details at the same time.
 * `addElderly en/Khong Guan a/80 g/M r/201 nn/Bing Gan rs/Brother p/91234567 e/guanbro@gmail.com addr/London Street 11`
@@ -236,7 +236,7 @@ If you would like to include his/her NoK details as well, you can use this longe
  
 You can also add any custom tags to the elderly as per your needs. Such tags will help you quickly identify key things or notes about each elderly. For instance, you can add a custom tag ‘diabetes’ to make a note that the elderly has diabetes.
 * `addElderly en/Khong Guan a/80 g/M r/201 t/diabetes`
-    ![](images/UserGuide/add_elderly_1.png)
+    ![](images/userGuide/add_elderly_1.png)
 
 Here is a command that uses tags, and only specifies some NoK fields. It is not compulsory to specify all NoK fields.
 * `addElderly en/Khong Guan a/80 g/M r/201 t/diabetes nn/Bing Gan rs/Brother`
@@ -269,10 +269,10 @@ Let's say Khong Guan is no longer under your charge, or has been discharged from
 
 To delete an elderly:
 1. Enter [`viewElderly`](#411-view-all-elderly-viewelderly) to view the list of elderly and locate the index number of Khong Guan. In the image below, Khong Guan is at index number 2.
-    ![](images/UserGuide/delete_elderly_0.png)
+    ![](images/userGuide/delete_elderly_0.png)
 
 2. Enter `deleteElderly 2` to delete the 2nd elderly in NurseyBook. Khong Guan should no longer be visible.
-    ![](images/UserGuide/delete_elderly_1.png)
+    ![](images/userGuide/delete_elderly_1.png)
 
 
 <div markdown="block" class="alert alert-info">
@@ -304,17 +304,17 @@ Let's say Khong Guan’s birthday has just passed and he has been reallocated to
 
 To edit an elderly:
 1. Enter [`viewElderly`](#411-view-all-elderly-viewelderly) to view the list of elderly and locate the index number of Khong Guan. In the image below, Khong Guan is at index number 2.
-      ![](images/UserGuide/edit_elderly_0.png)
+      ![](images/userGuide/edit_elderly_0.png)
 
 2. Enter the command `editElderly 2 a/81 r/57`. You can specify any other fields that you would like to change as well.
     
     Before Editting:
-    ![](images/UserGuide/edit_elderly_1.png)
+    ![](images/userGuide/edit_elderly_1.png)
 
     <br>
   
     After Editting:
-    ![](images/UserGuide/edit_elderly_2.png)
+    ![](images/userGuide/edit_elderly_2.png)
 
 
 For tags, if Khong Guan has a tag `diabetes`, to add an `overweight` tag to him, your command should be `editElderly 2 t/cancer t/overweight`.
@@ -358,7 +358,7 @@ Let’s say you are looking for a certain elderly with the surname ‘Lim’. It
 To find elderly based on keywords:
 1. Enter `findElderly lim`
 2. This should return all elderlies with the word lim in any part of their name. If only ‘Emily Lim’ and ‘Madoo Lim’ have the word lim  in their name, you should observe the output below.
-    ![](images/UserGuide/find_elderly_0.png)
+    ![](images/userGuide/find_elderly_0.png)
    You can use this filtered list to quickly identify that specific elderly you are searching for.
 
 
