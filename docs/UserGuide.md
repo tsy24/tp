@@ -749,8 +749,6 @@ To find a task:
 
 </div>
 
-<div style="page-break-after: always;"></div>
-
 #### 4.2.6 Mark a task as completed: `doneTask`
 
 This command lets you mark an uncompleted task in NurseyBook’s task list as completed.
