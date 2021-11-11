@@ -130,7 +130,7 @@ e.g. `viewTasks`
 
 Commands in this guide follow such rules:
 
-* Words in `UPPER_CASE` are the parameters to be supplied by you.<br>
+* Words in _UPPER_CASE_ are the parameters to be supplied by you.<br>
   e.g. in `addElderly en/ELDERLY_NAME`, `ELDERLY_NAME` is a parameter which can be used as `addElderly en/Swee Choon`.
 
 * Items in square brackets are optional. You can choose to leave them out.<br>
@@ -392,10 +392,10 @@ Example:
 Let’s say that you would like to view the remark or Next-of-Kin (NoK) details of Khong Guan. However, these details are not shown in the elderly list. To view the full details of an elderly, you can use the `viewDetails` command.
 
 To view the full details of an elderly:
-1. Enter [`viewElderly`](#411-view-all-elderly-viewelderly) to view the list of elderly.
+1. Enter [`viewElderly`](#411-view-all-elderly-viewelderly) to view the list of elderly. 
 2. As Khong Guan is the second elderly in the list, enter `viewDetails 2` and you will be able to see the full details of Khong Guan in the details panel on the right side of the application screen.
 
-![](images/userGuide/viewDetails.png)
+    ![](images/userGuide/viewDetails.png)
 
 <div markdown="block" class="alert alert-info">
 
@@ -424,7 +424,7 @@ To delete NoK details of an elderly:
 2. Enter `deleteNok 2` to delete the NoK details of the 2nd elderly in NurseyBook, which is Khong Guan.
 3. From the result message, you can see that the description of Khong Guan has empty NoK fields. Alternatively, you can also click on the elderly to see the full details. The NoK name is now `NIL`.
 
-![](images/userGuide/deleteNok.png)
+    ![](images/userGuide/deleteNok.png)
 
 <div markdown="block" class="alert alert-info">
 
@@ -451,10 +451,10 @@ To add one or more tags:
 1. Enter [`viewElderly`](#411-view-all-elderly-viewelderly) to view the list of elderly.
 2. Enter `addTag 2 t/flu` to add the tag `flu` to Khong Guan.
 
-![](images/userGuide/addTag1.png)
+    ![](images/userGuide/addTag1.png)
 3. You can check that the `flu` tag is added to the elderly.
 
-![](images/userGuide/addTag2.png)
+    ![](images/userGuide/addTag2.png)
 
 <div markdown="block" class="alert alert-info">
 
@@ -480,10 +480,10 @@ To delete one or more tags from an elderly:
 1. Enter [`viewElderly`](#411-view-all-elderly-viewelderly) to view the list of elderly.
 2. Enter `deleteTag 2 t/flu` to delete the tag `flu` from Khong Guan.
 
-![](images/userGuide/deleteTag1.png)
+    ![](images/userGuide/deleteTag1.png)
 3. You can check that the `flu` tag is removed from Khong Guan.
 
-![](images/userGuide/deleteTag2.png)
+    ![](images/userGuide/deleteTag2.png)
 
 
 <div markdown="block" class="alert alert-info">
@@ -513,7 +513,7 @@ To filter elderly based on tags:
 1. Enter `filter t/vegetarian`
 2. You can see a list of elderly with the `vegetarian` tag.
 
-![](images/userGuide/filter.png)
+    ![](images/userGuide/filter.png)
 
 <div markdown="block" class="alert alert-info">
 
@@ -543,7 +543,7 @@ To add a remark to an elderly:
 2. Enter `remark 2 re/Medicine seems to be ineffective` to add the remark to Khong Guan. 
 3. The remark “Medicine seems to be ineffective” will be added to Khong Guan. You can click on the elderly or use the [`viewDetails`](#416-view-full-details-of-an-elderly-viewdetails) command to see the remark.
 
-![](images/userGuide/remark.png)
+    ![](images/userGuide/remark.png)
 
 <div markdown="block" class="alert alert-info">
 
@@ -605,8 +605,8 @@ To add a task:
    `addTask en/Khong Guan desc/check insulin level date/2022-01-25 time/19:22 recur/week`
 2. This task will be added on to the task list in NurseyBook which can be verified visually in the task list displayed.
 
-![](images/userGuide/add_task_0.png)
-![](images/userGuide/add_task_1.png)
+    ![](images/userGuide/add_task_0.png)
+    ![](images/userGuide/add_task_1.png)
 
 <div style="page-break-after: always;"></div>
 
@@ -653,12 +653,12 @@ Let’s say you have completed the task “Nurses Meeting” and you do not want
 To delete a task:
 1. Enter [`viewTasks`](#421-view-all-tasks-viewtasks) to display the current task list.
 
-![](images/userGuide/delete_task_0.png)
+    ![](images/userGuide/delete_task_0.png)
 
 2. Assuming the task “Nurses Meeting” is the sixth task shown in the task list, enter `deleteTask 6`.
 3. This task will be deleted and will disappear from NurseyBook.
 
-![](images/userGuide/delete_task_1.png)
+    ![](images/userGuide/delete_task_1.png)
 
 <div markdown="block" class="alert alert-info">
 
@@ -685,15 +685,15 @@ Instead of deleting the task and adding the task again with the updated date of 
 To edit a task:
 1. Enter [`viewTasks`](#421-view-all-tasks-viewtasks) to display the current task list. Then, assuming the “Physiotherapy” task is the eleventh task that appears in the task list, enter `editTask 11 date/2022-01-30`.
 
-![](images/userGuide/edit_task_0.png)
+    ![](images/userGuide/edit_task_0.png)
 
 2. The result box will show the updated details of the task, with the task’s description, date, time and name(s) of elderly involved.
 
-![](images/userGuide/edit_task_1.png)
+    ![](images/userGuide/edit_task_1.png)
 
 3. You can see that the details of the task have been changed. In this case, the date of the task is updated to 30 January 2022. As the date of the task has been pushed back, and the tasks in NurseyBook are ordered chronologically, the index of the task has increased.
 
-![](images/userGuide/edit_task_2.png)
+    ![](images/userGuide/edit_task_2.png)
 
 <div markdown="block" class="alert alert-info">
 
