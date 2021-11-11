@@ -499,14 +499,22 @@ Adds a remark to a specific elderly.
 
 Format: `remark INDEX re/REMARK`
 
-Examples:
-* [`viewElderly`](#411-view-all-elderly-viewelderly) followed by `remark 1 re/Medicine seems to be ineffective` adds the remark to the 1st elderly in Nurseybook.
+Example: 
+
+Let’s say that you want to add a comment to Khong Guan, saying that the medicine given to him seems to be ineffective. You can add this comment to Khong Guan using a `Remark`. 
+
+To add a remark to an elderly: 
+1. Enter [`viewElderly`](#411-view-all-elderly-viewelderly) to view the list of elderly. 
+2. Enter `remark 2 re/Medicine seems to be ineffective`. 
+3. The remark “Medicine seems to be ineffective” will be added to Khong Guan. You can click on the elderly or use the [`viewDetails`](#416-view-full-details-of-an-elderly-viewdetails) command to see the remark.
+
+![](images/userGuide/remark.png)
 
 <div markdown="block" class="alert alert-info">
 
 :information_source: **Information:**
 * The index refers to the index number shown in the displayed elderly list.
-* The index **must be a positive integer** 1, 2, 3, …​
+* The index that you enter **must be a positive integer** 1, 2, 3, …​
 
 </div>
 
@@ -524,7 +532,7 @@ Examples:
 
 #### 4.2.1 View all tasks: `viewTasks`
 
-Shows a list of all your tasks in NurseyBook.
+This command displays a list of all your tasks that you have added to NurseyBook.
 
 Format: `viewTasks`
 
@@ -543,7 +551,7 @@ Format: `viewTasks`
 
 :information_source: **Information:**
 
-* The task list shown is always sorted chronologically with earliest tasks at the top.
+* The task list that you see is always sorted chronologically with the earliest tasks at the top.
 
 </div>
 
@@ -553,8 +561,17 @@ Adds a task to the task list.
 
 Format: `addTask [en/ELDERLY_NAME]…​ desc/DESCRIPTION date/DATE time/TIME [recur/RECURRENCE_TYPE]`
 
-Examples:
-`addTask en/Khong Guan desc/check insulin level date/2022-01-25 time/19:22 recur/week`
+Example:
+
+Let’s say you have a new weekly recurring task that starts on 25 January 2022. You have to check the insulin level of Khong Guan, an elderly you are in charge of, at 7.22pm. You can use the addTask command to add this task into NurseyBook.
+
+To add a task:
+1. Using the command `addTask`, enter the details accordingly:
+   `addTask en/Khong Guan desc/check insulin level date/2022-01-25 time/19:22 recur/week`
+2. This task will be added on to the task list in NurseyBook which can be verified visually in the task list displayed.
+
+![](images/userGuide/add_task_0.png)
+![](images/userGuide/add_task_1.png)
 
 <div style="page-break-after: always;"></div>
 
@@ -563,9 +580,9 @@ Examples:
 :information_source: **Information:**
 
 * Executing the command will automatically change the display view to your full task list, so that you can see the task you added.
-* The name entered can be different letter case as the name of the existing elderly. e.g. `en/herman lim` is accepted if `Herman Lim` is a registered elderly
-* Multiple of the same elderly name in same/different casing will be treated as one elderly.
-* The full name has to be entered so that the identity of the elderly is unambiguous.
+* You can enter the name using a different letter case as the name of the existing elderly. e.g. `en/herman lim` is accepted if Herman Lim is a registered elderly.
+* If you enter multiple of the same elderly name using the same/different casing, it will be treated as one elderly.
+* You must enter the full name of the elderly so that the identity of the elderly is unambiguous.
 
 </div>
 
@@ -586,21 +603,27 @@ Examples:
 
 </div>
 
-`addTask en/Khong Guan desc/check insulin level date/2022-01-25 time/19:22 recur/week` used :
-
-![](images/userGuide/add_task_0.png)
-![](images/userGuide/add_task_1.png)
-
 <div style="page-break-after: always;"></div>
 
 #### 4.2.3 Delete a task: `deleteTask`
 
-Deletes a particular task in the task list from NurseyBook.
+This command lets you delete a particular task from NurseyBook.
 
 Format: `deleteTask INDEX`
 
-Examples:
-* [`viewTasks`](#421-view-all-tasks-viewtasks) followed by `deleteTask 2` deletes the 2nd task shown by NurseyBook.
+Example:
+
+Let’s say you have completed the task “Nurses Meeting” and you do not want that task to appear in NurseyBook anymore.
+
+To delete a task:
+1. Enter [`viewTasks`](#421-view-all-tasks-viewtasks) to display the current task list.
+
+![](images/userGuide/delete_task_0.png)
+
+2. Assuming the task “Nurses Meeting” is the sixth task shown in the task list, enter `deleteTask 6`.
+3. This task will be deleted and will disappear from NurseyBook.
+
+![](images/userGuide/delete_task_1.png)
 
 <div markdown="block" class="alert alert-info">
 
@@ -608,28 +631,44 @@ Examples:
 
 * Deletes the task at the specified `INDEX`.
 * The index refers to the index number shown in the displayed task list.
-* The index **must be a positive integer** 1, 2, 3, …​
+* The index that you enter **must be a positive integer** 1, 2, 3, …​
 
 </div>
 
 #### 4.2.4 Edit a task: `editTask`
 
-Edits the details of a specific task.
+This command lets you edit the details of a specific task.
 
 Format: `editTask INDEX [en/ELDERLY_NAME]... [desc/DESCRIPTION] [date/DATE] [time/TIME] [recur/RECURRENCE_TYPE]`
 
-Examples:
-* [`viewTasks`](#421-view-all-tasks-viewtasks) followed by `editTask 1 date/2022-01-30` changes the date of the 1st task shown by NurseyBook to 30 January 2022.
+Example:
+
+Let’s say that you have realised that you had entered the wrong date for the “check insulin level” task that you have added earlier.
+
+Instead of deleting the task and adding the task again with the updated date of 30 January 2022, you can easily edit that task's details by using the `editTask` command.
+
+To edit a task:
+1. Enter [`viewTasks`](#421-view-all-tasks-viewtasks) to display the current task list. Then, assuming the “Physiotherapy” task is the eleventh task that appears in the task list, enter `editTask 11 date/2022-01-30`.
+
+![](images/userGuide/edit_task_0.png)
+
+2. The result box will show the updated details of the task, with the task’s description, date, time and name(s) of elderly involved.
+
+![](images/userGuide/edit_task_1.png)
+
+3. You can see that the details of the task have been changed. In this case, the date of the task is updated to 30 January 2022. As the date of the task has been pushed back, and the tasks in NurseyBook are ordered chronologically, the index of the task has increased.
+
+![](images/userGuide/edit_task_2.png)
 
 <div markdown="block" class="alert alert-info">
 
 :information_source: **Information:**
 
-* If the date/recurrence type of a recurring task is edited, the updated date generated will be based on the most recently edited date.
+* If you edit the date/recurrence type of a recurring task, the updated date generated will be based on the most recently edited date.
+  
+e.g. Date of task is `2022-01-01` with `daily` recurrence. On `2022-01-03`, the task is edited to be `weekly` recurring. When the next occurrence of the task is generated by NurseyBook, the date of the task will be `2022-01-10`.
 * Multiple of the same elderly name in same/different casing will be treated as one elderly.
 * The full name has to be entered so that the identity of the elderly is unambiguous.
-
-e.g. Date of task is `2022-01-01` with `daily` recurrence. On `2022-01-03`, the task is edited to be `weekly` recurring. When the next occurrence of the task is generated by NurseyBook, the date of the task will be `2022-01-10`.
 
 <div style="page-break-after: always;"></div>
 
