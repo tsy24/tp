@@ -24,8 +24,8 @@ Though this may seem daunting, this user guide will bring you through each featu
 ## 2. Quick start
 
 1. Ensure you have Java `11` or above installed in your Computer.
-   * Windows users: You can click the Windows logo at the bottom of your screen to locate and launch Windows Powershell.
-   * Mac users: You can click on Launchpad at the bottom of your screen and search for Terminal in the search bar. After finding it, launch Terminal.
+   * Windows users: Launch [Windows Powershell](#launching-windows-powershell)
+   * Mac users: Launch [Terminal](#launching-terminal)
    * In either Windows Powershell or Terminal, enter the command `java -version`.
    * If you see `java version “11.0.x”` on your screen, you have Java `11` installed.
    * If you do not, you can install it from [here](https://www.oracle.com/java/technologies/downloads/)
@@ -53,8 +53,27 @@ Though this may seem daunting, this user guide will bring you through each featu
    * **`exit`** : Exits the app.
 
 Refer to the [4. Features](#4-features) below for in-depth details of all available commands.
+If you are able to launch Windows Powershell/Terminal on your own, feel free to skip the next two sections and proceed to the next section, [3. About](#3-about).
+### Launching Windows Powershell
 
+1. Right-click on the Windows logo on the bottom left hand of your desktop.
 
+![](images/userGuide/windows_users0.png)
+
+2. Click on Windows Powershell.
+
+![](images/userGuide/windows_users1.png)
+<div style="page-break-after: always;"></div>
+
+### Launching Terminal
+
+1. Right-click on Launchpad at the bottom of your desktop.
+
+![](images/userGuide/mac_users0.png)
+
+2. Search for Terminal in the search bar and click on it.
+
+![](images/userGuide/mac_users1.png)
 --------------------------------------------------------------------------------------------------------------------
 <div style="page-break-after: always;"></div>
 
