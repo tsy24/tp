@@ -328,6 +328,8 @@ To edit an elderly:
 
 For tags, if Khong Guan has a tag `diabetes`, to add an `overweight` tag to him, your command should be `editElderly 2 t/cancer t/overweight`.
 
+<div style="page-break-after: always;"></div>
+
 <div markdown="block" class="alert alert-info">
 
 :information_source: **Information:**
@@ -554,6 +556,8 @@ To add a remark to an elderly:
 
 </div>
 
+<div style="page-break-after: always;"></div>
+
 <div markdown="block" class="alert alert-primary">
 
 :bulb: **Tip:**  
@@ -683,6 +687,8 @@ Let’s say that you have realised that you had entered the wrong date for the �
 
 Instead of deleting the task and adding the task again with the updated date of 30 January 2022, you can easily edit that task's details by using the `editTask` command.
 
+<div style="page-break-after: always;"></div>
+
 To edit a task:
 1. Enter [`viewTasks`](#421-view-all-tasks-viewtasks) to display the current task list. Then, assuming the “Physiotherapy” task is the eleventh task that appears in the task list, enter `editTask 11 date/2022-01-30`.
 
@@ -731,6 +737,8 @@ To find a task:
 2. The result box will display the message with the number of tasks found. In this case, there are 3 tasks that contain the keyword “meeting”, thus “3 tasks listed!” is shown. You can see that all tasks whose description contains the word “meeting” are listed.
    
    ![find_task](images/userGuide/find_task_1.png)
+
+<div style="page-break-after: always;"></div>
 
 <div markdown="block" class="alert alert-info">
 
@@ -807,6 +815,8 @@ To view your upcoming tasks in the next few days:
 3. And you can see that tasks scheduled within the next 3 days will be shown.
    
    ![remind](images/userGuide/remind.png)
+
+<div style="page-break-after: always;"></div>
 
 <div markdown="block" class="alert alert-info">
 
