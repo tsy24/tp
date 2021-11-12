@@ -75,7 +75,7 @@ If you are able to launch Windows Powershell/Terminal on your own, feel free to 
 2. Search for Terminal in the search bar and click on it.
 
     ![](images/userGuide/mac_users1.png)
---------------------------------------------------------------------------------------------------------------------
+
 --------------------------------------------------------------------------------------------------------------------
 <div style="page-break-after: always;"></div>
 
