@@ -24,8 +24,9 @@ Though this may seem daunting, this user guide will bring you through each featu
 ## 2. Quick start
 
 1. Ensure you have Java `11` or above installed in your Computer.
-   * Windows users: You can open Windows Powershell and enter the command `java -version`.
-   * Mac users: You can open Terminal and enter the command `java -version`.
+   * Windows users: Launch [Windows Powershell](#launching-windows-powershell)
+   * Mac users: Launch [Terminal](#launching-terminal)
+   * In either Windows Powershell or Terminal, enter the command `java -version`.
    * If you see `java version “11.0.x”` on your screen, you have Java `11` installed.
    * If you do not, you can install it from [here](https://www.oracle.com/java/technologies/downloads/)
    
@@ -51,9 +52,28 @@ Though this may seem daunting, this user guide will bring you through each featu
 
    * **`exit`** : Exits the app.
 
-Refer to the [4. Features](#4-features) below for in-depth details of all available commands.
+Refer to the [4. Features](#4-features) below for in-depth details of all available commands. <br>
+If you are able to launch Windows Powershell/Terminal on your own, feel free to skip the launching instructions and proceed to the next section, [3. About](#3-about).
+### Launching Windows Powershell
 
+1. Right-click on the Windows logo on the bottom left hand of your desktop.
 
+![](images/userGuide/windows_users0.png)
+
+2. Click on Windows Powershell.
+
+![](images/userGuide/windows_users1.png)
+<div style="page-break-after: always;"></div>
+
+### Launching Terminal
+
+1. Right-click on Launchpad at the bottom of your desktop.
+
+![](images/userGuide/mac_users0.png)
+
+2. Search for Terminal in the search bar and click on it.
+
+![](images/userGuide/mac_users1.png)
 --------------------------------------------------------------------------------------------------------------------
 <div style="page-break-after: always;"></div>
 
@@ -219,8 +239,7 @@ Format: `viewElderly`
   Expanded view (click on the entry for ‘Charlotte Oliveiro’):
   ![](images/userGuide/view_elderly_1.png)
 
-
-
+  
 <br />
 
 #### 4.1.2 Add an elderly: `addElderly`
@@ -298,6 +317,8 @@ To delete an elderly:
 :exclamation: **Caution:**
 * If you delete an elderly's name, it will cause all occurrences of the elderly's name in tasks to be deleted.
 </div>
+
+<div style="page-break-after: always;"></div>
 
 #### 4.1.4 Edit an elderly's details: `editElderly`
 
@@ -457,6 +478,8 @@ To add one or more tags:
 
     ![](images/userGuide/addTag2.png)
 
+<div style="page-break-after: always;"></div>
+
 <div markdown="block" class="alert alert-info">
 
 :information_source: **Information:**
@@ -498,6 +521,8 @@ To delete one or more tags from an elderly:
 
 </div>
 
+<div style="page-break-after: always;"></div>
+
 #### 4.1.10 Filter elderly: `filter`
 
 This command allows you to view a list of elderly with all the tags queried.
@@ -524,8 +549,6 @@ To filter elderly based on tags:
 * The matching of tags is case-insensitive. e.g. You can enter `t/Diabetic` and it will match `diabetic`, `DIABETIC`
 
 </div>
-
-<div style="page-break-after: always;"></div>
 
 #### 4.1.11 Add remark to elderly: `remark`
 
@@ -714,19 +737,6 @@ e.g. Date of task is `2022-01-01` with `daily` recurrence. On `2022-01-03`, the 
 
 </div>
 
-#### 4.2.5 Find a task: `findTask`
-
-This command allows you to find tasks in NurseyBook whose description contains any of the entered keywords.
-
-Format: `findTask KEYWORD [MORE_KEYWORDS]`
-
-Example:
-
-Let’s say you have forgotten when the meeting with the head nurse is going to be. Instead of manually scrolling past all of your tasks, you can find the task easily with the `findTask` command.
-
-To find a task:
-
-1. Ty
 
 #### 4.2.5 Find a task: `findTask`
 
@@ -743,11 +753,6 @@ To find a task:
 1. Enter `findTask` followed by the keyword you are searching for. For example, to look up the task with the description “Meeting with head nurse”, type in `findTask meeting`, and press `Enter` to execute it.
 2. The result box will display the message with the number of tasks found. In this case, there are 3 tasks that contain the keyword “meeting”, thus “3 tasks listed!” is shown. You can see that all tasks whose description contains the word “meeting” are listed.
 
-   ![find_task](images/userGuide/find_task_1.png)
-
-pe `findTask` followed by the keyword you are searching for. For example, to look up the task with the description “Meeting with head nurse”, type in `findTask meeting`, and press `Enter` to execute it.
-2. The result box will display the message with the number of tasks found. In this case, there are 3 tasks that contain the keyword “meeting”, thus “3 tasks listed!” is shown. You can see that all tasks whose description contains the word “meeting” are listed.
-   
    ![find_task](images/userGuide/find_task_1.png)
 
 <div style="page-break-after: always;"></div>
@@ -1007,7 +1012,6 @@ are also welcome to update data directly by editing that data file.
 </div>
 
 --------------------------------------------------------------------------------------------------------------------
-<div style="page-break-after: always;"></div>
 
 ## 6. FAQ
 
@@ -1050,7 +1054,7 @@ Action | Format, Examples
 
 ### 7.3 Miscellaneous
 
-Action | Format, Examples
+Action | Format
 --------|------------------
 **Clear** | `clear`
 **Help** | `help`
