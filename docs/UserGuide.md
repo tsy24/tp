@@ -58,22 +58,22 @@ If you are able to launch Windows Powershell/Terminal on your own, feel free to 
 
 1. Right-click on the Windows logo on the bottom left hand of your desktop.
 
-![](images/userGuide/windows_users0.png)
+    ![](images/userGuide/windows_users0.png)
 
 2. Click on Windows Powershell.
 
-![](images/userGuide/windows_users1.png)
+    ![](images/userGuide/windows_users1.png)
 <div style="page-break-after: always;"></div>
 
 ### Launching Terminal
 
 1. Right-click on Launchpad at the bottom of your desktop.
 
-![](images/userGuide/mac_users0.png)
+    ![](images/userGuide/mac_users0.png)
 
 2. Search for Terminal in the search bar and click on it.
 
-![](images/userGuide/mac_users1.png)
+    ![](images/userGuide/mac_users1.png)
 --------------------------------------------------------------------------------------------------------------------
 <div style="page-break-after: always;"></div>
 
@@ -341,8 +341,6 @@ To edit an elderly:
     Before Editing:
     ![](images/userGuide/edit_elderly_1.png)
 
-    <div style="page-break-after: always;"></div>
-
     After Editing:
     ![](images/userGuide/edit_elderly_2.png)
 
@@ -478,8 +476,6 @@ To add one or more tags:
 
     ![](images/userGuide/addTag2.png)
 
-<div style="page-break-after: always;"></div>
-
 <div markdown="block" class="alert alert-info">
 
 :information_source: **Information:**
@@ -550,6 +546,8 @@ To filter elderly based on tags:
 
 </div>
 
+<div style="page-break-after: always;"></div>
+
 #### 4.1.11 Add remark to elderly: `remark`
 
 This command allows you to add a remark to a specific elderly.
@@ -574,6 +572,8 @@ To add a remark to an elderly:
 * The index that you enter **must be a positive integer** 1, 2, 3, …​
 
 </div>
+
+<div style="page-break-after: always;"></div>
 
 <div markdown="block" class="alert alert-primary">
 
