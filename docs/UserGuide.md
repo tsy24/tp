@@ -63,6 +63,7 @@ If you are able to launch Windows Powershell/Terminal on your own, feel free to 
 2. Click on Windows Powershell.
 
     ![](images/userGuide/windows_users1.png)
+
 <div style="page-break-after: always;"></div>
 
 ### Launching Terminal
@@ -784,8 +785,6 @@ To mark a task as completed:
 1. View your tasks either by entering the [`viewTasks`](#421-view-all-tasks-viewtasks) or [`findTask`](#425-find-a-task-findtask) command. For example, `findTask medical` is used in the image below to show all tasks in NurseyBook with the word “medical” in its description.
    
    ![done_task_0](images/userGuide/done_task_0.png)
-
-<div style="page-break-after: always;"></div>
 
 2. As “Medical checkup with Dr Tan” with Khong Guan’s name is the first task in the list shown, enter `doneTask 1` into the command box. Press `Enter` to execute the command.
    
